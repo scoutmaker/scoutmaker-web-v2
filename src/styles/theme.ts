@@ -18,6 +18,7 @@ const fontFamily = [
 
 export const theme = createTheme(
   {
+    spacing: 8,
     typography: {
       fontFamily,
       h2: {
