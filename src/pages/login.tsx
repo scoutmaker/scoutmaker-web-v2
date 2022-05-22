@@ -1,11 +1,15 @@
+import { LoginForm } from '../components/login-form'
 import { SecondaryLayout } from '../layout/secondary-layout'
+import { LoginDto } from '../types/auth'
 
 const LoginPage = () => {
-  console.log('hello from login page')
+  const handleSubmit = (data: LoginDto) => {
+    console.log({ data })
+  }
 
   return (
     <SecondaryLayout title="Logowanie">
-      <div>Hello from Login Page</div>
+      <LoginForm onSubmit={handleSubmit} />
     </SecondaryLayout>
   )
 }

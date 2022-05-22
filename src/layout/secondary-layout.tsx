@@ -12,7 +12,7 @@ const StyledWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  margin: theme.spacing(8),
+  marginTop: theme.spacing(8),
 }))
 
 export const SecondaryLayout = ({ title, children }: ISecondaryLayoutProps) => (
