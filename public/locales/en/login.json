@@ -1,0 +1,9 @@
+{
+  "PAGE_TITLE": "Login",
+  "BUTTON_TEXT": "Login",
+  "FORGOT_PASSWORD": "Forgot password?",
+  "NO_ACCOUNT": "Don't have an account? Register here",
+  "INVALID_EMAIL_ERROR": "Invalid e-mail address",
+  "NO_EMAIL_ERROR": "Please provide e-mail address",
+  "NO_PASSWORD_ERROR": "Please provide password"
+}

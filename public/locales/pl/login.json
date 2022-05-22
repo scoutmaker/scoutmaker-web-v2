@@ -1,0 +1,9 @@
+{
+  "PAGE_TITLE": "Logowanie",
+  "BUTTON_TEXT": "Zaloguj się",
+  "FORGOT_PASSWORD": "Zapomniałeś hasła?",
+  "NO_ACCOUNT": "Nie masz konta? Zarejestruj się",
+  "INVALID_EMAIL_ERROR": "Niepoprawny adres e-mail",
+  "NO_EMAIL_ERROR": "Podaj adres e-mail",
+  "NO_PASSWORD_ERROR": "Podaj hasło"
+}

@@ -3,6 +3,7 @@ import { AppProps } from 'next/app'
 import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { CacheProvider, EmotionCache } from '@emotion/react'
+import { appWithTranslation } from 'next-i18next'
 import { createEmotionCache } from '../utils/create-emotion-cache'
 import { theme } from '../styles/theme'
 import { AuthState } from '../context/auth/AuthState'
@@ -33,4 +34,4 @@ const MyApp = ({
   </CacheProvider>
 )
 
-export default MyApp
+export default appWithTranslation(MyApp)
