@@ -21,9 +21,13 @@ interface IAuthStateProps {
 
 export const AuthState = ({ children }: IAuthStateProps) => {
   // const { setAlert } = useAlertsState()
+  let localStorageUser
+  let localStorageExpiresAt
 
-  const localStorageUser = localStorage.getItem('user')
-  const localStorageExpiresAt = localStorage.getItem('expiresAt')
+  if (typeof window !== 'undefined') {
+    localStorageUser = localStorage.getItem('user')
+    localStorageExpiresAt = localStorage.getItem('expiresAt')
+  }
 
   const initialState: State = {
     user: localStorageUser ? (JSON.parse(localStorageUser) as User) : null,
@@ -204,14 +208,14 @@ export const AuthState = ({ children }: IAuthStateProps) => {
     return new Date().getTime() / 1000 < state.expiresAt
   }
 
-  const { user, expiresAt, loading, error, message } = state
+  const { loading, error, message } = state
 
   return (
     <AuthContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
-        user,
-        expiresAt,
+        user: state.user,
+        expiresAt: state.expiresAt,
         loading,
         error,
         message,

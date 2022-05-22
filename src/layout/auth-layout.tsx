@@ -1,33 +1,25 @@
-import { Container, Avatar, Typography } from '@mui/material'
-import { styled } from '@mui/material/styles'
-import { ReactNode } from 'react'
-import logoColor from '../../public/logo-color.png'
+import { useRouter } from 'next/router'
+import React, { ReactNode, useEffect } from 'react'
+import { useAuthState } from '../context/auth/useAuthState'
 
 interface IAuthLayoutProps {
-  title: string
   children: ReactNode
 }
 
-const StyledWrapper = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  margin: theme.spacing(8),
-}))
+export const AuthLayout = ({ children }: IAuthLayoutProps) => {
+  const router = useRouter()
+  console.log('hello')
+  const { user, isAuthenticated } = useAuthState()
 
-export const AuthLayout = ({ title, children }: IAuthLayoutProps) => (
-  <Container component="main" maxWidth="xs">
-    <StyledWrapper>
-      <Avatar
-        variant="square"
-        src={logoColor.src}
-        alt="PlaymakerPro Logo"
-        sx={{ margin: 1, width: 92, height: 84 }}
-      />
-      <Typography component="h1" variant="h5" align="center">
-        {title}
-      </Typography>
-      {children}
-    </StyledWrapper>
-  </Container>
-)
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      router.push('/login')
+    }
+  }, [])
+
+  if (!user) {
+    return <h1>loading...</h1>
+  }
+
+  return <div>{children}</div>
+}

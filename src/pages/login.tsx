@@ -1,12 +1,12 @@
-import { AuthLayout } from '../layout/auth-layout'
+import { SecondaryLayout } from '../layout/secondary-layout'
 
 const LoginPage = () => {
   console.log('hello from login page')
 
   return (
-    <AuthLayout title="Logowanie">
+    <SecondaryLayout title="Logowanie">
       <div>Hello from Login Page</div>
-    </AuthLayout>
+    </SecondaryLayout>
   )
 }
 
