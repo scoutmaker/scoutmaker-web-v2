@@ -1,24 +1,51 @@
-import type { GetStaticProps, NextPage } from 'next'
+import { useEffect, useState } from 'react'
 import { Test } from '../components/Test'
-import { useAuthState } from '../context/auth/useAuthState'
-import { AuthLayout } from '../layout/auth-layout'
+import { api } from '../lib/api'
+import { withSessionSsr } from '../lib/session'
+import { User } from '../types/auth'
 
-export const getStaticProps: GetStaticProps = async () => ({
-  props: {
-    isProtected: true,
-  },
+export const getServerSideProps = withSessionSsr(async ({ req, res }) => {
+  const { user } = req.session
+
+  if (user === undefined) {
+    res.setHeader('location', '/login')
+    res.statusCode = 302
+    res.end()
+    return {
+      props: {
+        user: { id: 'test', email: 'asd' } as User,
+      },
+    }
+  }
+
+  return {
+    props: { user: req.session.user },
+  }
 })
 
-const Home: NextPage = () => {
-  const { user } = useAuthState()
+interface IHomepageProps {
+  user: any
+}
 
-  console.log({ user })
+const Home = ({ user }: IHomepageProps) => {
+  const [countries, setCountries] = useState<any[]>([])
+
+  useEffect(() => {
+    async function getCountries() {
+      const res = await api.get('/countries')
+      setCountries(res.data.data)
+    }
+
+    getCountries()
+  }, [])
 
   return (
-    <AuthLayout>
+    <>
       <h1>Hello</h1>
       <Test />
-    </AuthLayout>
+      <pre>{JSON.stringify(user, null, 2)}</pre>
+      <pre>{JSON.stringify(countries, null, 2)}</pre>
+    </>
   )
 }
 

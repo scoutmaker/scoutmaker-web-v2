@@ -98,7 +98,7 @@ export const LoginForm = ({ onSubmit }: ILoginFormProps) => {
         </Grid>
         <Grid item sm={12} md={6}>
           <Link href="/register" passHref>
-            <StyledLink href="/register">{t('login:NO_ACCOUNT')}</StyledLink>
+            <StyledLink>{t('login:NO_ACCOUNT')}</StyledLink>
           </Link>
         </Grid>
       </Grid>
