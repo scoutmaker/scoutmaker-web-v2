@@ -4,10 +4,12 @@ import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { CacheProvider, EmotionCache } from '@emotion/react'
 import { appWithTranslation } from 'next-i18next'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
+import { useState } from 'react'
 import { createEmotionCache } from '../utils/create-emotion-cache'
 import { theme } from '../styles/theme'
 
-// Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
 
 interface IMyAppProps extends AppProps {
@@ -18,17 +20,23 @@ const MyApp = ({
   Component,
   emotionCache = clientSideEmotionCache,
   pageProps,
-}: IMyAppProps) => (
-  <CacheProvider value={emotionCache}>
-    <Head>
-      <meta name="viewport" content="initial-scale=1, width=device-width" />
-    </Head>
-    <ThemeProvider theme={theme}>
-      {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-      <CssBaseline />
-      <Component {...pageProps} />
-    </ThemeProvider>
-  </CacheProvider>
-)
+}: IMyAppProps) => {
+  const [queryClient] = useState(() => new QueryClient())
+
+  return (
+    <CacheProvider value={emotionCache}>
+      <Head>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ThemeProvider>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </CacheProvider>
+  )
+}
 
 export default appWithTranslation(MyApp)
