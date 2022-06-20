@@ -1,38 +1,32 @@
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
-import axios from 'axios'
-import { useRouter } from 'next/router'
 import { SecondaryLayout } from '../layout/secondary-layout'
 import { LoginForm } from '../components/login-form/login-form'
-import { LoginDto } from '../types/auth'
+import { useLogin } from '../lib/auth'
+import { Loader } from '../components/loader/loader'
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale || 'pl', ['common', 'login'])),
-  },
-})
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const translations = await serverSideTranslations(locale || 'pl', [
+    'common',
+    'login',
+  ])
+
+  return {
+    props: {
+      ...translations,
+    },
+  }
+}
 
 const LoginPage = () => {
   const { t } = useTranslation('login')
 
-  const router = useRouter()
-
-  async function login(data: LoginDto) {
-    try {
-      const res = await axios.post('/api/login', data)
-      localStorage.setItem('token', res.data.token)
-      setTimeout(() => {
-        router.push('/')
-      }, 1000)
-    } catch (error) {
-      console.error({ error })
-    }
-  }
+  const { mutate: login, isLoading } = useLogin()
 
   return (
     <SecondaryLayout title={t('PAGE_TITLE')}>
-      {/* {loading ? <Loader /> : null} */}
+      {isLoading ? <Loader /> : null}
       <LoginForm onSubmit={login} />
     </SecondaryLayout>
   )

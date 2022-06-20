@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import { ApiError } from '../../types/common'
 import { api, setAuthToken } from '../../lib/api'
 import { withSessionRoute } from '../../lib/session'
 
@@ -13,13 +14,11 @@ async function loginHandler(req: NextApiRequest, res: NextApiResponse) {
     req.session.token = token
 
     await req.session.save()
-    res.send({
-      ok: true,
-      user,
-      token,
-    })
+    res.send(response.data)
   } catch (error) {
-    console.error({ error })
+    res
+      .status((error as ApiError).response.status || 500)
+      .json((error as ApiError).response.data)
   }
 }
 
