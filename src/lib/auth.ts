@@ -54,3 +54,25 @@ export function useRegister() {
     },
   })
 }
+
+export async function confirmAccount(code: string) {
+  const { data } = await api.get<ApiResponse<User>>(`/auth/verify/${code}`)
+  return data
+}
+
+export function useConfirmAccount() {
+  const router = useRouter()
+  const { setAlert } = useAlertsState()
+
+  return useMutation((code: string) => confirmAccount(code), {
+    onSuccess: data => {
+      setAlert({ msg: data.message, type: 'success' })
+      setTimeout(() => {
+        router.push('/login')
+      }, 1000)
+    },
+    onError: (err: ApiError) => {
+      setAlert({ msg: err.response.data.message, type: 'error' })
+    },
+  })
+}
