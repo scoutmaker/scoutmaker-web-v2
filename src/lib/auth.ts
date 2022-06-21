@@ -33,6 +33,21 @@ export function useLogin() {
   })
 }
 
+export async function logout() {
+  return axios.post('/api/logout')
+}
+
+export function useLogout() {
+  const router = useRouter()
+
+  return useMutation(logout, {
+    onSuccess: () => {
+      router.push('/login')
+      localStorage.removeItem('token')
+    },
+  })
+}
+
 export async function register(registerDto: RegisterDto) {
   const { data } = await api.post<ApiResponse<User>>(
     '/auth/register',
