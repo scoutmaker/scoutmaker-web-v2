@@ -12,5 +12,8 @@
   "NO_FIRST_NAME_ERROR": "Podaj imię",
   "NO_LAST_NAME_ERROR": "Podaj nazwisko",
   "PASSWORDS_DO_NOT_MATCH_ERROR": "Podane hasła muszą być takie same",
-  "NO_PASSWORD_CONFIRM_ERROR": "Potwierdź hasło"
+  "NO_PASSWORD_CONFIRM_ERROR": "Potwierdź hasło",
+  "WELCOME": "Witaj",
+  "ACCOUNT_CONFIRM": "Potwierdzenie rejestracji",
+  "LOGIN": "Zaloguj się"
 }

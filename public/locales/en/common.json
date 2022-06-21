@@ -12,5 +12,8 @@
   "NO_FIRST_NAME_ERROR": "Please provide first name",
   "NO_LAST_NAME_ERROR": "Please provide last name",
   "PASSWORDS_DO_NOT_MATCH_ERROR": "Provided passwords do not match",
-  "NO_PASSWORD_CONFIRM_ERROR": "Please confirm the password"
+  "NO_PASSWORD_CONFIRM_ERROR": "Please confirm the password",
+  "WELCOME": "Welcome",
+  "ACCOUNT_CONFIRM": "Registration confirmation",
+  "LOGIN": "Login"
 }
