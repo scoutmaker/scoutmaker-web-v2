@@ -1,7 +1,8 @@
 import { Button, Link } from '@mui/material'
 import { styled } from '@mui/material/styles'
+import { Form } from 'formik'
 
-export const StyledForm = styled('form')(({ theme }) => ({
+export const StyledForm = styled(Form)(({ theme }) => ({
   width: '100%',
   marginTop: theme.spacing(3),
 }))
