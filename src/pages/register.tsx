@@ -9,7 +9,7 @@ import { Loader } from '../components/loader/loader'
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const translations = await serverSideTranslations(locale || 'pl', [
     'common',
-    'login',
+    'register',
   ])
 
   return {
@@ -19,8 +19,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   }
 }
 
-const LoginPage = () => {
-  const { t } = useTranslation('login')
+const RegisterPage = () => {
+  const { t } = useTranslation('register')
 
   const { mutate: login, isLoading } = useLogin()
 
@@ -32,4 +32,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage
+export default RegisterPage
