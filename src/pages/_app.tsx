@@ -9,6 +9,7 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import { useState } from 'react'
 import { createEmotionCache } from '../utils/create-emotion-cache'
 import { theme } from '../styles/theme'
+import { AlertsState } from '../context/alerts/AlertsState'
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -29,10 +30,12 @@ const MyApp = ({
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
+        <AlertsState>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </AlertsState>
         <ReactQueryDevtools />
       </QueryClientProvider>
     </CacheProvider>

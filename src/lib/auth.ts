@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useMutation } from 'react-query'
+import { useAlertsState } from '../context/alerts/useAlertsState'
 import { LoginDto, User } from '../types/auth'
 import { ApiResponse, ApiError } from '../types/common'
 
@@ -9,26 +10,24 @@ export async function login(loginDto: LoginDto) {
     '/api/login',
     loginDto,
   )
-  //     localStorage.setItem('token', res.data.token)
-  //     setTimeout(() => {
-  //       router.push('/')
-  //     }, 1000)
+
   return data
 }
 
 export function useLogin() {
   const router = useRouter()
+  const { setAlert } = useAlertsState()
 
   return useMutation((values: LoginDto) => login(values), {
     onSuccess: data => {
-      console.log({ data })
       localStorage.setItem('token', data.data.token)
-      router.push('/')
-      // set alert
-      alert('Login successful')
+      setAlert({ msg: data.message, type: 'success' })
+      setTimeout(() => {
+        router.push('/')
+      }, 1000)
     },
     onError: (err: ApiError) => {
-      alert(err.response.data.message)
+      setAlert({ msg: err.response.data.message, type: 'error' })
     },
   })
 }

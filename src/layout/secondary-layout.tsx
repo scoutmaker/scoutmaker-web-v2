@@ -2,6 +2,7 @@ import { Container, Avatar, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { ReactNode } from 'react'
 import logoColor from '../../public/logo-color.png'
+import { Alerts } from '../components/alerts/Alerts'
 
 interface ISecondaryLayoutProps {
   title: string
@@ -29,5 +30,6 @@ export const SecondaryLayout = ({ title, children }: ISecondaryLayoutProps) => (
       </Typography>
       {children}
     </StyledWrapper>
+    <Alerts />
   </Container>
 )
