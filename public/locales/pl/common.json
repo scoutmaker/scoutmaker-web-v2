@@ -1,0 +1,19 @@
+{
+  "EMAIL": "E-mail",
+  "PASSWORD": "Hasło",
+  "FIRST_NAME": "Imię",
+  "LAST_NAME": "Nazwisko",
+  "CONFIRM_PASSWORD": "Potwierdź hasło",
+  "PASSWORD_TOO_SHORT_ERROR": "Hasło musi składać się co najmniej z 6 znaków",
+  "PASSWORD_REGEX_ERROR": "Hasło musi zawierać co najmniej jedną małą literę, wielką literę oraz cyfrę",
+  "NO_PASSWORD_ERROR": "Podaj hasło",
+  "NO_EMAIL_ERROR": "Podaj adres e-mail",
+  "INVALID_EMAIL_ERROR": "Niepoprawny adres e-mail",
+  "NO_FIRST_NAME_ERROR": "Podaj imię",
+  "NO_LAST_NAME_ERROR": "Podaj nazwisko",
+  "PASSWORDS_DO_NOT_MATCH_ERROR": "Podane hasła muszą być takie same",
+  "NO_PASSWORD_CONFIRM_ERROR": "Potwierdź hasło",
+  "WELCOME": "Witaj",
+  "ACCOUNT_CONFIRM": "Potwierdzenie rejestracji",
+  "LOGIN": "Zaloguj się"
+}

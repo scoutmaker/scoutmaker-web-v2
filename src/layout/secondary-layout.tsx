@@ -2,8 +2,9 @@ import { Container, Avatar, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { ReactNode } from 'react'
 import logoColor from '../../public/logo-color.png'
+import { Alerts } from '../components/alerts/Alerts'
 
-interface IAuthLayoutProps {
+interface ISecondaryLayoutProps {
   title: string
   children: ReactNode
 }
@@ -12,10 +13,10 @@ const StyledWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  margin: theme.spacing(8),
+  marginTop: theme.spacing(8),
 }))
 
-export const AuthLayout = ({ title, children }: IAuthLayoutProps) => (
+export const SecondaryLayout = ({ title, children }: ISecondaryLayoutProps) => (
   <Container component="main" maxWidth="xs">
     <StyledWrapper>
       <Avatar
@@ -29,5 +30,6 @@ export const AuthLayout = ({ title, children }: IAuthLayoutProps) => (
       </Typography>
       {children}
     </StyledWrapper>
+    <Alerts />
   </Container>
 )

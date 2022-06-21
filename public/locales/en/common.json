@@ -1,0 +1,19 @@
+{
+  "EMAIL": "E-mail",
+  "PASSWORD": "Password",
+  "FIRST_NAME": "First Name",
+  "LAST_NAME": "Last Name",
+  "CONFIRM_PASSWORD": "Confirm Password",
+  "PASSWORD_TOO_SHORT_ERROR": "Password must be at least 6 characters long",
+  "PASSWORD_REGEX_ERROR": "Password must contain at least 1 lowercase letter, 1 uppercase letter and 1 digit",
+  "NO_PASSWORD_ERROR": "Please provide password",
+  "NO_EMAIL_ERROR": "Please provide e-mail address",
+  "INVALID_EMAIL_ERROR": "Invalid e-mail address",
+  "NO_FIRST_NAME_ERROR": "Please provide first name",
+  "NO_LAST_NAME_ERROR": "Please provide last name",
+  "PASSWORDS_DO_NOT_MATCH_ERROR": "Provided passwords do not match",
+  "NO_PASSWORD_CONFIRM_ERROR": "Please confirm the password",
+  "WELCOME": "Welcome",
+  "ACCOUNT_CONFIRM": "Registration confirmation",
+  "LOGIN": "Login"
+}
