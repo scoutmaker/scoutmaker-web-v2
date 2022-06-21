@@ -5,7 +5,7 @@ import { SecondaryLayout } from '../layout/secondary-layout'
 // import { LoginForm } from '../components/auth-forms/login-form'
 // import { useLogin } from '../lib/auth'
 // import { Loader } from '../components/loader/loader'
-import { RegisterForm } from '../components/auth-forms/register-form'
+import { RegisterForm } from '../components/auth-forms/register'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const translations = await serverSideTranslations(locale || 'pl', [
