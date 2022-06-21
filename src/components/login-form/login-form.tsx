@@ -1,35 +1,10 @@
 import { useFormik } from 'formik'
 import Link from 'next/link'
-import {
-  TextField,
-  Button,
-  Grid,
-  Link as MUILink,
-  capitalize,
-} from '@mui/material'
-import { styled } from '@mui/material/styles'
+import { TextField, Grid, capitalize } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-import * as yup from 'yup'
 import { LoginDto } from '../../types/auth'
-
-const StyledForm = styled('form')(({ theme }) => ({
-  width: '100%',
-  marginTop: theme.spacing(3),
-}))
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  position: 'relative',
-  margin: theme.spacing(3, 0, 2),
-}))
-
-const StyledLink = styled(MUILink)(({ theme }) => ({
-  textDecoration: 'none',
-  color: theme.palette.primary.main,
-
-  '&:hover': {
-    textDecoration: 'underline',
-  },
-}))
+import { StyledForm, StyledButton, StyledLink } from './styles'
+import { generateValidationSchema, initialValues } from './utils'
 
 interface ILoginFormProps {
   onSubmit: (data: LoginDto) => void
@@ -38,22 +13,9 @@ interface ILoginFormProps {
 export const LoginForm = ({ onSubmit }: ILoginFormProps) => {
   const { t } = useTranslation(['common', 'login'])
 
-  const validationSchema: yup.SchemaOf<LoginDto> = yup
-    .object({
-      email: yup
-        .string()
-        .email(t('login:INVALID_EMAIL_ERROR'))
-        .required(t('login:NO_EMAIL_ERROR')),
-      password: yup.string().required(t('login:NO_PASSWORD_ERROR')),
-    })
-    .defined()
-
   const formik = useFormik<LoginDto>({
-    initialValues: {
-      email: '',
-      password: '',
-    },
-    validationSchema,
+    initialValues,
+    validationSchema: generateValidationSchema(t),
     onSubmit: values => {
       onSubmit(values)
     },
