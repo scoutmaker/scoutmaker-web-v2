@@ -694,7 +694,7 @@ declare namespace Components {
             password: string; // [object Object]
             passwordConfirm: string;
             activeRadius?: number;
-            regionId: string;
+            regionId?: string;
         }
         export interface ReportBackgroundImageDto {
             id: string;

@@ -6,9 +6,10 @@ import {
   generateRegisterFormValidationSchema,
   registerFormInitialValues,
 } from './utils'
+import { RegisterDto } from '../../types/auth'
 
 type Props = {
-  onSubmit: (data: any) => void
+  onSubmit: (data: RegisterDto) => void
 }
 
 export const RegisterForm = ({ onSubmit }: Props) => {

@@ -2,9 +2,8 @@ import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 import { SecondaryLayout } from '../layout/secondary-layout'
-// import { LoginForm } from '../components/auth-forms/login-form'
-// import { useLogin } from '../lib/auth'
-// import { Loader } from '../components/loader/loader'
+import { useRegister } from '../lib/auth'
+import { Loader } from '../components/loader/loader'
 import { RegisterForm } from '../components/auth-forms/register'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
@@ -23,12 +22,12 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 const RegisterPage = () => {
   const { t } = useTranslation('register')
 
-  // const { mutate: login, isLoading } = useLogin()
+  const { mutate: register, isLoading } = useRegister()
 
   return (
     <SecondaryLayout title={t('PAGE_TITLE')}>
-      {/* {isLoading ? <Loader /> : null} */}
-      <RegisterForm onSubmit={() => console.log('hello')} />
+      {isLoading ? <Loader /> : null}
+      <RegisterForm onSubmit={register} />
     </SecondaryLayout>
   )
 }
