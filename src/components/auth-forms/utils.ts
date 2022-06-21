@@ -10,9 +10,9 @@ export function generateLoginFormValidationSchema(
     .object({
       email: yup
         .string()
-        .email(t('login:INVALID_EMAIL_ERROR'))
-        .required(t('login:NO_EMAIL_ERROR')),
-      password: yup.string().required(t('login:NO_PASSWORD_ERROR')),
+        .email(t('INVALID_EMAIL_ERROR'))
+        .required(t('NO_EMAIL_ERROR')),
+      password: yup.string().required(t('NO_PASSWORD_ERROR')),
     })
     .defined()
 }
@@ -25,14 +25,17 @@ export const loginFormInitialValues: LoginDto = {
 export function generateRegisterFormValidationSchema(t: TFunction) {
   return yup
     .object({
-      firstName: yup.string().required('Podaj imię'),
-      lastName: yup.string().required('Podaj nazwisko'),
-      email: yup.string().email().required('Podaj adres e-mail'),
+      firstName: yup.string().required(t('NO_FIRST_NAME_ERROR')),
+      lastName: yup.string().required(t('NO_LAST_NAME_ERROR')),
+      email: yup
+        .string()
+        .email(t('INVALID_EMAIL_ERROR'))
+        .required(t('NO_EMAIL_ERROR')),
       password: generatePasswordValidationSchema(t),
       passwordConfirm: yup
         .string()
-        .oneOf([yup.ref('password')], 'Podane hasła muszą być takie same')
-        .required('Potwierdź hasło'),
+        .oneOf([yup.ref('password')], t('PASSWORDS_DO_NOT_MATCH_ERROR'))
+        .required(t('NO_PASSWORD_CONFIRM_ERROR')),
     })
     .defined()
 }

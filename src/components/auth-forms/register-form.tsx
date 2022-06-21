@@ -32,7 +32,7 @@ export const RegisterForm = ({ onSubmit }: Props) => {
                 variant="outlined"
                 autoComplete="fname"
                 fullWidth
-                label="Imię"
+                label={t('FIRST_NAME')}
                 error={touched.firstName && !!errors.firstName}
                 helperText={touched.firstName && errors.firstName}
               />
@@ -44,7 +44,7 @@ export const RegisterForm = ({ onSubmit }: Props) => {
                 variant="outlined"
                 autoComplete="fname"
                 fullWidth
-                label="Nazwisko"
+                label={t('LAST_NAME')}
                 error={touched.lastName && !!errors.lastName}
                 helperText={touched.lastName && errors.lastName}
               />
@@ -56,7 +56,7 @@ export const RegisterForm = ({ onSubmit }: Props) => {
                 variant="outlined"
                 autoComplete="email"
                 fullWidth
-                label="E-mail"
+                label={t('EMAIL')}
                 error={touched.email && !!errors.email}
                 helperText={touched.email && errors.email}
               />
@@ -68,7 +68,7 @@ export const RegisterForm = ({ onSubmit }: Props) => {
                 as={TextField}
                 variant="outlined"
                 fullWidth
-                label="Hasło"
+                label={t('PASSWORD')}
                 error={touched.password && !!errors.password}
                 helperText={touched.password && errors.password}
               />
@@ -80,7 +80,7 @@ export const RegisterForm = ({ onSubmit }: Props) => {
                 as={TextField}
                 variant="outlined"
                 fullWidth
-                label="Potwierdź hasło"
+                label={t('CONFIRM_PASSWORD')}
                 error={touched.passwordConfirm && !!errors.passwordConfirm}
                 helperText={touched.passwordConfirm && errors.passwordConfirm}
               />
@@ -92,12 +92,12 @@ export const RegisterForm = ({ onSubmit }: Props) => {
             variant="contained"
             color="primary"
           >
-            Zarejestruj się
+            {t('register:BUTTON_TEXT')}
           </StyledButton>
           <Grid container justifyContent="flex-end">
             <Grid item>
               <StyledLink href="/login">
-                Jesteś już zarejestrowany? Zaloguj się
+                {t('register:ALREADY_REGISTERED')}
               </StyledLink>
             </Grid>
           </Grid>
