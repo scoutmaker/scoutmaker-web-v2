@@ -1,10 +1,27 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import { useMutation } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 import { useAlertsState } from '../context/alerts/useAlertsState'
 import { LoginDto, RegisterDto, User } from '../types/auth'
 import { ApiResponse, ApiError } from '../types/common'
 import { api } from './api'
+
+export async function getUserData() {
+  const { data } = await api.get<ApiResponse<User>>('/auth/account')
+  return data.data
+}
+
+export function useUser() {
+  const { setAlert } = useAlertsState()
+
+  return useQuery(['user'], getUserData, {
+    onError: (err: ApiError) =>
+      setAlert({
+        msg: err.response.data.message,
+        type: 'error',
+      }),
+  })
+}
 
 export async function login(loginDto: LoginDto) {
   const { data } = await axios.post<ApiResponse<{ user: User; token: string }>>(

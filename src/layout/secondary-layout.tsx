@@ -4,17 +4,17 @@ import { ReactNode } from 'react'
 import logoColor from '../../public/logo-color.png'
 import { Alerts } from '../components/alerts/Alerts'
 
-interface ISecondaryLayoutProps {
-  title: string
-  children: ReactNode
-}
-
 const StyledWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   marginTop: theme.spacing(8),
 }))
+
+interface ISecondaryLayoutProps {
+  title: string
+  children: ReactNode
+}
 
 export const SecondaryLayout = ({ title, children }: ISecondaryLayoutProps) => (
   <Container component="main" maxWidth="xs">
