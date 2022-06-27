@@ -30,7 +30,7 @@ export const Topbar = () => {
   }, [router.asPath])
 
   return (
-    <AppBar position="fixed">
+    <AppBar position="fixed" sx={{ zIndex: 5000 }}>
       <StyledToolbar>
         <Link href="/" passHref>
           <StyledTitle>
