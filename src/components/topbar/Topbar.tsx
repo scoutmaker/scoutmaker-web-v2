@@ -1,11 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
-import { IconButton } from '@mui/material'
+import { AppBar, IconButton, Menu } from '@mui/material'
 import { Menu as MenuIcon } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 // import { Match } from '../../types/matches';
 import {
-  StyledAppBar,
   StyledButtonsContainer,
   StyledMatchIcon,
   StyledMenu,
@@ -31,7 +30,7 @@ export const Topbar = () => {
   }, [router.asPath])
 
   return (
-    <StyledAppBar position="fixed">
+    <AppBar position="fixed">
       <StyledToolbar>
         <Link href="/" passHref>
           <StyledTitle>
@@ -64,7 +63,6 @@ export const Topbar = () => {
               keepMounted
               open={isMenuOpen}
               onClose={() => setIsMenuOpen(false)}
-              // classes={{ paper: classes.menu }}
             >
               <NavList
               // handleMatchClick={handleMatchClick}
@@ -75,6 +73,6 @@ export const Topbar = () => {
           </div>
         </StyledButtonsContainer>
       </StyledToolbar>
-    </StyledAppBar>
+    </AppBar>
   )
 }

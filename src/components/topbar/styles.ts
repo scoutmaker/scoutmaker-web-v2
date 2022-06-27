@@ -1,17 +1,6 @@
-import { AppBar, Toolbar, Link, Menu } from '@mui/material'
+import { Toolbar, Link, Menu } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { Sports as MatchIcon } from '@mui/icons-material'
-
-export const StyledAppBar = styled(AppBar)(({ theme }) => ({
-  [theme.breakpoints.up('sm')]: {
-    width: 'calc(100% - 240px)',
-    marginLeft: 240,
-  },
-
-  [theme.breakpoints.down('sm')]: {
-    width: '100%',
-  },
-}))
 
 export const StyledToolbar = styled(Toolbar)(() => ({
   display: 'flex',
@@ -34,5 +23,7 @@ export const StyledMatchIcon = styled(MatchIcon)(({ theme }) => ({
 }))
 
 export const StyledMenu = styled(Menu)(({ theme }) => ({
-  background: theme.palette.primary.light,
+  '& .MuiPaper-root': {
+    background: theme.palette.primary.light,
+  },
 }))

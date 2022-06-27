@@ -12,12 +12,15 @@ const StyledContainer = styled('div')(() => ({
 const StyledImageContainer = styled('div')(({ theme }) => ({
   margin: theme.spacing(1, 1, 1, 0),
   width: '60px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 }))
 
 export const Logo = () => (
   <StyledContainer>
     <StyledImageContainer>
-      <Image src={logoWhite} alt="PlaymakerPro Logo" />
+      <Image src={logoWhite} alt="PlaymakerPro Logo" objectFit="cover" />
     </StyledImageContainer>
     <Typography variant="h5" noWrap component="h1">
       ScoutMaker Pro
