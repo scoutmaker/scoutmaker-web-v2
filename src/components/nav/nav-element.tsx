@@ -1,7 +1,6 @@
 import { ReactNode } from 'react'
-import { ListItemIcon, ListItemText } from '@mui/material'
+import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import Link from 'next/link'
-import { StyledListItem } from './styles'
 
 type Props = {
   icon: ReactNode
@@ -11,13 +10,21 @@ type Props = {
 }
 
 export const NavElement = ({ icon, text, to, onClick }: Props) => (
-  <Link href={to}>
-    <StyledListItem onClick={onClick}>
+  <Link href={to} passHref>
+    <ListItemButton
+      onClick={onClick}
+      component="a"
+      sx={{
+        '&:hover': {
+          backgroundColor: 'primary.light',
+        },
+      }}
+    >
       <ListItemIcon>{icon}</ListItemIcon>
       <ListItemText
         primary={text}
         primaryTypographyProps={{ variant: 'body2' }}
       />
-    </StyledListItem>
+    </ListItemButton>
   </Link>
 )

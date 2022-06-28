@@ -1,7 +1,11 @@
 import { ReactNode } from 'react'
-import { Collapse, ListItemIcon, ListItemText } from '@mui/material'
+import {
+  Collapse,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
-import { StyledListItem } from './styles'
 
 type IExpandeableNavElementProps = {
   children: ReactNode
@@ -19,14 +23,21 @@ export const ExpandeableNavElement = ({
   title,
 }: IExpandeableNavElementProps) => (
   <>
-    <StyledListItem onClick={handleClick}>
+    <ListItemButton
+      onClick={handleClick}
+      sx={{
+        '&:hover': {
+          backgroundColor: 'primary.light',
+        },
+      }}
+    >
       <ListItemIcon>{icon}</ListItemIcon>
       <ListItemText
         primary={title}
         primaryTypographyProps={{ variant: 'body2' }}
       />
       {open ? <ExpandLess /> : <ExpandMore />}
-    </StyledListItem>
+    </ListItemButton>
     <Collapse in={open} timeout="auto" unmountOnExit>
       <div style={{ paddingLeft: '16px' }}>{children}</div>
     </Collapse>
