@@ -2,7 +2,8 @@ import { Formik, Form, Field } from 'formik'
 import * as yup from 'yup'
 import { TextField, Button } from '@mui/material'
 import { styled } from '@mui/material/styles'
-// import { VoivodeshipSelect } from '../../components/selects/VoivodeshipSelect'
+import filter from 'just-filter-object'
+import { updatedDiff } from 'deep-object-diff'
 import { UpdateUserDto, User } from '../../types/auth'
 import { Container } from './container'
 import { ClubsCombo } from '../selects/clubs-combo'
@@ -74,7 +75,13 @@ export const EditAccountForm = ({
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={data => handleSubmit(data)}
+      onSubmit={data => {
+        const dataToSubmit = updatedDiff(
+          initialValues,
+          filter(data, (_, value) => value),
+        )
+        handleSubmit(dataToSubmit)
+      }}
       validationSchema={validationSchema}
     >
       {({ errors, touched, handleReset }) => (
