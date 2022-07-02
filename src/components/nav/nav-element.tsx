@@ -7,16 +7,14 @@ type Props = {
   icon: ReactNode
   text: string
   to: string
-  onClick?: () => void
 }
 
-export const NavElement = ({ icon, text, to, onClick }: Props) => {
+export const NavElement = ({ icon, text, to }: Props) => {
   const router = useRouter()
 
   return (
     <Link href={to} passHref>
       <ListItemButton
-        onClick={onClick}
         component="a"
         sx={[
           {

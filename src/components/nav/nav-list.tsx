@@ -17,12 +17,12 @@ import {
 } from '@mui/icons-material'
 // import { MatchButton } from './MatchButton'
 // import { QuickNoteButton } from './QuickNoteButton'
-// import { LogoutButton } from './LogoutButton'
 import { useUser } from '../../lib/auth'
 import { isAdmin, isPrivilegedUser } from '../../utils/user-roles'
 import { StyledDivider, StyledList } from './styles'
 import { ExpandeableNavElement } from './expandeable-nav-element'
 import { NavElement } from './nav-element'
+import { LogoutButton } from './logout-button'
 
 // interface NavListProps {
 //   handleQuickNoteClick: () => void
@@ -122,7 +122,7 @@ export const NavList = () => {
           text="Ustawienia"
         />
       </ExpandeableNavElement>
-      {/* <LogoutButton /> */}
+      <LogoutButton />
     </StyledList>
   )
 }
