@@ -11,10 +11,11 @@ export async function getUserData() {
   return data.data
 }
 
-export function useUser() {
+export function useUser(user?: User) {
   const { setAlert } = useAlertsState()
 
   return useQuery(['user'], getUserData, {
+    initialData: user,
     onError: (err: ApiError) =>
       setAlert({
         msg: err.response.data.message,

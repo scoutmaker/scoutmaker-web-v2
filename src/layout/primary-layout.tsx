@@ -13,6 +13,7 @@ const StyledContentContainer = styled('main')(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
   padding: theme.spacing(3),
   marginLeft: 240,
+  flexGrow: 1,
 
   [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(3, 1),
