@@ -1,4 +1,4 @@
-import { Container, Avatar, Typography } from '@mui/material'
+import { Container, Avatar } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { ReactNode } from 'react'
 import logoColor from '../../public/logo-color.png'
@@ -12,11 +12,10 @@ const StyledWrapper = styled('div')(({ theme }) => ({
 }))
 
 interface ISecondaryLayoutProps {
-  title: string
   children: ReactNode
 }
 
-export const SecondaryLayout = ({ title, children }: ISecondaryLayoutProps) => (
+export const SecondaryLayout = ({ children }: ISecondaryLayoutProps) => (
   <Container component="main" maxWidth="xs">
     <StyledWrapper>
       <Avatar
@@ -25,9 +24,6 @@ export const SecondaryLayout = ({ title, children }: ISecondaryLayoutProps) => (
         alt="PlaymakerPro Logo"
         sx={{ margin: 1, width: 92, height: 84 }}
       />
-      <Typography component="h1" variant="h5" align="center">
-        {title}
-      </Typography>
       {children}
     </StyledWrapper>
     <Alerts />

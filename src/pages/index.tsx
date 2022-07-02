@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { PrimaryLayout } from '../layout/primary-layout'
 import { api } from '../lib/api'
 import { useLogout } from '../lib/auth'
 import { withSessionSsr } from '../lib/session'
@@ -42,14 +41,14 @@ const Home = ({ user }: IHomepageProps) => {
   }, [])
 
   return (
-    <PrimaryLayout>
+    <>
       <h1>Hello</h1>
       <button onClick={logout} type="button">
         LOGOUT
       </button>
       <pre>{JSON.stringify(user, null, 2)}</pre>
       <pre>{JSON.stringify(countries, null, 2)}</pre>
-    </PrimaryLayout>
+    </>
   )
 }
 

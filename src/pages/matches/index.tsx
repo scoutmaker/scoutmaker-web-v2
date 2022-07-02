@@ -1,9 +1,3 @@
-import { PrimaryLayout } from '../../layout/primary-layout'
-
-const MatchesPage = () => (
-  <PrimaryLayout>
-    <h1>Matches</h1>
-  </PrimaryLayout>
-)
+const MatchesPage = () => <h1>Matches</h1>
 
 export default MatchesPage

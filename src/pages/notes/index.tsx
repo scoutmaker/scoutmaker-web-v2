@@ -1,9 +1,3 @@
-import { PrimaryLayout } from '../../layout/primary-layout'
-
-const NotesPage = () => (
-  <PrimaryLayout>
-    <h1>Notes</h1>
-  </PrimaryLayout>
-)
+const NotesPage = () => <h1>Notes</h1>
 
 export default NotesPage

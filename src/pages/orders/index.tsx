@@ -1,9 +1,3 @@
-import { PrimaryLayout } from '../../layout/primary-layout'
-
-const OrdersPage = () => (
-  <PrimaryLayout>
-    <h1>Orders</h1>
-  </PrimaryLayout>
-)
+const OrdersPage = () => <h1>Orders</h1>
 
 export default OrdersPage

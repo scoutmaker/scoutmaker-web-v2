@@ -1,9 +1,3 @@
-import { PrimaryLayout } from '../../layout/primary-layout'
-
-const ReportsPage = () => (
-  <PrimaryLayout>
-    <h1>Reports</h1>
-  </PrimaryLayout>
-)
+const ReportsPage = () => <h1>Reports</h1>
 
 export default ReportsPage

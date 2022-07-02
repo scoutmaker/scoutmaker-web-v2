@@ -1,9 +1,3 @@
-import { PrimaryLayout } from '../layout/primary-layout'
-
-const DashboardPage = () => (
-  <PrimaryLayout>
-    <h1>Dashboard</h1>
-  </PrimaryLayout>
-)
+const DashboardPage = () => <h1>Dashboard</h1>
 
 export default DashboardPage

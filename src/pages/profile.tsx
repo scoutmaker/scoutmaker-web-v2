@@ -1,9 +1,3 @@
-import { PrimaryLayout } from '../layout/primary-layout'
-
-const ProfilePage = () => (
-  <PrimaryLayout>
-    <h1>Profile</h1>
-  </PrimaryLayout>
-)
+const ProfilePage = () => <h1>Profile</h1>
 
 export default ProfilePage
