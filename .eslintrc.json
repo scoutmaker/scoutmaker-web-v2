@@ -40,7 +40,8 @@
     "react/jsx-props-no-spreading": "off",
     "@next/next/no-html-link-for-pages": "off",
     "import/prefer-default-export": "off",
-    "react/require-default-props": "off"
+    "react/require-default-props": "off",
+    "react/no-unstable-nested-components": "off"
   },
   "overrides": [
     {

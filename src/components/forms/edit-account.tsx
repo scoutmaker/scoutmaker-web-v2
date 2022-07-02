@@ -5,6 +5,8 @@ import { styled } from '@mui/material/styles'
 // import { VoivodeshipSelect } from '../../components/selects/VoivodeshipSelect'
 import { UpdateUserDto, User } from '../../types/auth'
 import { Container } from './container'
+import { ClubsCombo } from '../selects/clubs-combo'
+import { useClubsList } from '../../lib/clubs'
 
 const StyledForm = styled(Form)(() => ({
   width: '100%',
@@ -61,6 +63,8 @@ export const EditAccountForm = ({
     regionId: region?.id || '',
   }
 
+  const { data: clubs } = useClubsList()
+
   return (
     <Formik
       initialValues={initialValues}
@@ -88,6 +92,7 @@ export const EditAccountForm = ({
               error={touched.lastName && !!errors.lastName}
               helperText={touched.lastName && errors.lastName}
             />
+            <ClubsCombo clubsData={clubs || []} label="Klub" name="clubId" />
             <Field
               name="city"
               as={TextField}
