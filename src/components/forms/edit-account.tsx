@@ -7,6 +7,8 @@ import { UpdateUserDto, User } from '../../types/auth'
 import { Container } from './container'
 import { ClubsCombo } from '../selects/clubs-combo'
 import { useClubsList } from '../../lib/clubs'
+import { UserFootballRolesCombo } from '../selects/user-football-roles-combo'
+import { useUserFootballRolesList } from '../../lib/user-football-roles'
 
 const StyledForm = styled(Form)(() => ({
   width: '100%',
@@ -64,6 +66,7 @@ export const EditAccountForm = ({
   }
 
   const { data: clubs } = useClubsList()
+  const { data: userFootballRoles } = useUserFootballRolesList()
 
   return (
     <Formik
@@ -93,6 +96,11 @@ export const EditAccountForm = ({
               helperText={touched.lastName && errors.lastName}
             />
             <ClubsCombo clubsData={clubs || []} label="Klub" name="clubId" />
+            <UserFootballRolesCombo
+              userFootballRolesData={userFootballRoles || []}
+              label="Rola"
+              name="footballRoleId"
+            />
             <Field
               name="city"
               as={TextField}
