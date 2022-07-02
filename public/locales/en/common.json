@@ -15,5 +15,20 @@
   "NO_PASSWORD_CONFIRM_ERROR": "Please confirm the password",
   "WELCOME": "Welcome",
   "ACCOUNT_CONFIRM": "Registration confirmation",
-  "LOGIN": "Login"
+  "LOGIN": "Login",
+  "LOGOUT": "Logout",
+  "DASHBOARD": "Dashboard",
+  "DATABASES": "Databases",
+  "PLAYERS": "Players",
+  "CLUBS": "Clubs",
+  "MATCHES": "Matches",
+  "SCOUTING": "Scouting",
+  "REPORTS": "Reports",
+  "NOTES": "Notes",
+  "REPORT_TEMPLATES_CREATOR": "Templates creator",
+  "ORDERS": "Orders",
+  "ADMIN_PANEL": "Admin panel",
+  "PROFILE": "Profile",
+  "USER_DATA": "User data",
+  "SETTINGS": "Settings"
 }

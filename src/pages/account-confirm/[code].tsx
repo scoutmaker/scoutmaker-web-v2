@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 import { useEffect } from 'react'
-import { SecondaryLayout } from '../../layout/secondary-layout'
+import { Typography } from '@mui/material'
 import { StyledLink } from '../../components/auth-forms/styles'
 import { useConfirmAccount } from '../../lib/auth'
 import { Loader } from '../../components/loader/loader'
@@ -30,11 +30,14 @@ const AccountConfirmPage = () => {
   }, [])
 
   return (
-    <SecondaryLayout title={t('WELCOME')}>
+    <>
       {isLoading ? <Loader /> : null}
+      <Typography component="h1" variant="h5" align="center">
+        {t('WELCOME')}
+      </Typography>
       <p>{t('ACCOUNT_CONFIRM')}</p>
       <StyledLink href="/login">{t('LOGIN')}</StyledLink>
-    </SecondaryLayout>
+    </>
   )
 }
 

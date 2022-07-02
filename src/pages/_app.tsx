@@ -10,6 +10,8 @@ import { useState } from 'react'
 import { createEmotionCache } from '../utils/create-emotion-cache'
 import { theme } from '../styles/theme'
 import { AlertsState } from '../context/alerts/AlertsState'
+import { PrimaryLayout } from '../layout/primary-layout'
+import { SecondaryLayout } from '../layout/secondary-layout'
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -17,12 +19,19 @@ interface IMyAppProps extends AppProps {
   emotionCache?: EmotionCache
 }
 
+const secondaryLayoutRoutes = ['/login', '/register', '/account-confirm/[code]']
+
 const MyApp = ({
   Component,
   emotionCache = clientSideEmotionCache,
   pageProps,
+  ...appProps
 }: IMyAppProps) => {
   const [queryClient] = useState(() => new QueryClient())
+
+  const shouldUseSecondaryLayout = secondaryLayoutRoutes.includes(
+    appProps.router.route,
+  )
 
   return (
     <CacheProvider value={emotionCache}>
@@ -33,7 +42,15 @@ const MyApp = ({
         <AlertsState>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Component {...pageProps} />
+            {shouldUseSecondaryLayout ? (
+              <SecondaryLayout>
+                <Component {...pageProps} />
+              </SecondaryLayout>
+            ) : (
+              <PrimaryLayout>
+                <Component {...pageProps} />
+              </PrimaryLayout>
+            )}
           </ThemeProvider>
         </AlertsState>
         <ReactQueryDevtools />

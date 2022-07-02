@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
-import { SecondaryLayout } from '../layout/secondary-layout'
+import { Typography } from '@mui/material'
 import { LoginForm } from '../components/auth-forms/login'
 import { useLogin } from '../lib/auth'
 import { Loader } from '../components/loader/loader'
@@ -25,10 +25,13 @@ const LoginPage = () => {
   const { mutate: login, isLoading } = useLogin()
 
   return (
-    <SecondaryLayout title={t('PAGE_TITLE')}>
+    <>
       {isLoading ? <Loader /> : null}
+      <Typography component="h1" variant="h5" align="center">
+        {t('PAGE_TITLE')}
+      </Typography>
       <LoginForm onSubmit={login} />
-    </SecondaryLayout>
+    </>
   )
 }
 
