@@ -9,6 +9,8 @@ import { ClubsCombo } from '../selects/clubs-combo'
 import { useClubsList } from '../../lib/clubs'
 import { UserFootballRolesCombo } from '../selects/user-football-roles-combo'
 import { useUserFootballRolesList } from '../../lib/user-football-roles'
+import { RegionsCombo } from '../selects/regions-combo'
+import { useRegionsList } from '../../lib/regions'
 
 const StyledForm = styled(Form)(() => ({
   width: '100%',
@@ -67,6 +69,7 @@ export const EditAccountForm = ({
 
   const { data: clubs } = useClubsList()
   const { data: userFootballRoles } = useUserFootballRolesList()
+  const { data: regions } = useRegionsList()
 
   return (
     <Formik
@@ -95,12 +98,7 @@ export const EditAccountForm = ({
               error={touched.lastName && !!errors.lastName}
               helperText={touched.lastName && errors.lastName}
             />
-            <ClubsCombo clubsData={clubs || []} label="Klub" name="clubId" />
-            <UserFootballRolesCombo
-              userFootballRolesData={userFootballRoles || []}
-              label="Rola"
-              name="footballRoleId"
-            />
+            <RegionsCombo data={regions || []} label="Region" name="regionId" />
             <Field
               name="city"
               as={TextField}
@@ -110,7 +108,12 @@ export const EditAccountForm = ({
               error={touched.city && !!errors.city}
               helperText={touched.city && errors.city}
             />
-            {/* <VoivodeshipSelect name="voivodeship" /> */}
+            <ClubsCombo clubsData={clubs || []} label="Klub" name="clubId" />
+            <UserFootballRolesCombo
+              userFootballRolesData={userFootballRoles || []}
+              label="Rola"
+              name="footballRoleId"
+            />
             <Field
               name="phone"
               as={TextField}
