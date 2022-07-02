@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { api } from '../lib/api'
-import { useLogout } from '../lib/auth'
 import { withSessionSsr } from '../lib/session'
 import { User } from '../types/auth'
 
@@ -29,7 +28,6 @@ interface IHomepageProps {
 
 const Home = ({ user }: IHomepageProps) => {
   const [countries, setCountries] = useState<any[]>([])
-  const { mutate: logout } = useLogout()
 
   useEffect(() => {
     async function getCountries() {
@@ -43,9 +41,6 @@ const Home = ({ user }: IHomepageProps) => {
   return (
     <>
       <h1>Hello</h1>
-      <button onClick={logout} type="button">
-        LOGOUT
-      </button>
       <pre>{JSON.stringify(user, null, 2)}</pre>
       <pre>{JSON.stringify(countries, null, 2)}</pre>
     </>

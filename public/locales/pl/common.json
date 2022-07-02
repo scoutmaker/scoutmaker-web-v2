@@ -15,5 +15,20 @@
   "NO_PASSWORD_CONFIRM_ERROR": "Potwierdź hasło",
   "WELCOME": "Witaj",
   "ACCOUNT_CONFIRM": "Potwierdzenie rejestracji",
-  "LOGIN": "Zaloguj się"
+  "LOGIN": "Zaloguj się",
+  "LOGOUT": "Wyloguj",
+  "DASHBOARD": "Strona główna",
+  "DATABASES": "Bazy",
+  "PLAYERS": "Zawodnicy",
+  "CLUBS": "Kluby",
+  "MATCHES": "Mecze",
+  "SCOUTING": "Obserwacje",
+  "REPORTS": "Raporty",
+  "NOTES": "Notatki",
+  "REPORT_TEMPLATES_CREATOR": "Kreator szablonów",
+  "ORDERS": "Zlecenia",
+  "ADMIN_PANEL": "Panel administratora",
+  "PROFILE": "Mój profil",
+  "USER_DATA": "Dane użytkownika",
+  "SETTINGS": "Ustawienia"
 }

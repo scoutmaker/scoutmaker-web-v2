@@ -17,6 +17,7 @@ import {
 } from '@mui/icons-material'
 // import { MatchButton } from './MatchButton'
 // import { QuickNoteButton } from './QuickNoteButton'
+import { useTranslation } from 'next-i18next'
 import { useUser } from '../../lib/auth'
 import { isAdmin, isPrivilegedUser } from '../../utils/user-roles'
 import { StyledDivider, StyledList } from './styles'
@@ -31,6 +32,7 @@ import { LogoutButton } from './logout-button'
 // }
 
 export const NavList = () => {
+  const { t } = useTranslation()
   const { data: user } = useUser()
 
   const [isDatabaseListOpen, setDatabaseListOpen] = useState(false)
@@ -42,57 +44,57 @@ export const NavList = () => {
       <NavElement
         icon={<HomeIcon color="error" />}
         to="/dashboard"
-        text="Strona główna"
+        text={t('DASHBOARD')}
       />
       <ExpandeableNavElement
         icon={<DatabaseIcon color="error" />}
         handleClick={() => setDatabaseListOpen(!isDatabaseListOpen)}
         open={isDatabaseListOpen}
-        title="Bazy"
+        title={t('DATABASES')}
       >
         <NavElement
           icon={<PlayersIcon color="error" />}
           to="/players"
-          text="Zawodnicy"
+          text={t('PLAYERS')}
         />
         <NavElement
           icon={<ClubsIcon color="error" />}
           to="/clubs"
-          text="Kluby"
+          text={t('CLUBS')}
         />
         <NavElement
           icon={<MatchesIcon color="error" />}
           to="/matches"
-          text="Mecze"
+          text={t('MATCHES')}
         />
       </ExpandeableNavElement>
       <ExpandeableNavElement
         icon={<ObservationIcon color="error" />}
         handleClick={() => setObservationListOpen(!isObservationListOpen)}
         open={isObservationListOpen}
-        title="Obserwacje"
+        title={t('SCOUTING')}
       >
         <NavElement
           icon={<ReportsIcon color="error" />}
           to="/reports"
-          text="Raporty"
+          text={t('REPORTS')}
         />
         <NavElement
           icon={<NotesIcon color="error" />}
           to="/notes"
-          text="Notatki"
+          text={t('NOTES')}
         />
         <NavElement
           icon={<ReportTemplatesIcon color="error" />}
           to="/reporttemplates"
-          text="Kreator szablonów"
+          text={t('REPORT_TEMPLATES_CREATOR')}
         />
       </ExpandeableNavElement>
       {isPrivilegedUser(user) ? (
         <NavElement
           icon={<OrdersIcon color="error" />}
           to="/orders"
-          text="Zlecenia"
+          text={t('ORDERS')}
         />
       ) : null}
       {/* <MatchButton onClick={handleMatchClick} isAtTheMatch={isAtTheMatch} /> */}
@@ -101,7 +103,7 @@ export const NavList = () => {
         <NavElement
           icon={<AdminIcon color="error" />}
           to="/admin"
-          text="Panel administratora"
+          text={t('ADMIN_PANEL')}
         />
       ) : null}
       <StyledDivider />
@@ -109,17 +111,17 @@ export const NavList = () => {
         icon={<ProfileIcon color="error" />}
         handleClick={() => setProfileListOpen(!isProfileListOpen)}
         open={isProfileListOpen}
-        title="Mój profil"
+        title={t('PROFILE')}
       >
         <NavElement
           icon={<UserDataIcon color="error" />}
           to="/account"
-          text="Dane użytkownika"
+          text={t('USER_DATA')}
         />
         <NavElement
           icon={<SettingsIcon color="error" />}
           to="/settings"
-          text="Ustawienia"
+          text={t('SETTINGS')}
         />
       </ExpandeableNavElement>
       <LogoutButton />

@@ -1,8 +1,10 @@
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import { ExitToApp as LogoutIcon } from '@mui/icons-material'
+import { useTranslation } from 'next-i18next'
 import { useLogout } from '../../lib/auth'
 
 export const LogoutButton = () => {
+  const { t } = useTranslation()
   const { mutate: logout } = useLogout()
 
   return (
@@ -18,7 +20,7 @@ export const LogoutButton = () => {
         <LogoutIcon color="error" />
       </ListItemIcon>
       <ListItemText
-        primary="Wyloguj"
+        primary={t('LOGOUT')}
         primaryTypographyProps={{ variant: 'body2' }}
       />
     </ListItemButton>
