@@ -41,7 +41,7 @@ export function useLogin() {
       localStorage.setItem('token', data.data.token)
       setAlert({ msg: data.message, type: 'success' })
       setTimeout(() => {
-        router.push('/')
+        router.push('/dashboard')
       }, 1000)
     },
     onError: (err: ApiError) => {
