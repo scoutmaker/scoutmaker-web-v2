@@ -14,9 +14,10 @@ import { ExpandMore as AccordionIcon } from '@mui/icons-material'
 import { Loader } from '../components/loader/loader'
 import { withSessionSsr } from '../lib/session'
 import { redirectToLogin } from '../utils/redirect-to-login'
-import { User } from '../types/auth'
+import { UpdateUserDto, User } from '../types/auth'
 import { useUser } from '../lib/auth'
 import { PageHeading } from '../components/page-heading/page-heading'
+import { EditAccountForm } from '../components/forms/edit-account'
 
 export const getServerSideProps = withSessionSsr(
   async ({ req, res, locale }) => {
@@ -77,7 +78,10 @@ const AccountPage = ({ user }: IAccountPageProps) => {
               <Typography sx={{ fontWeight: 'bold' }}>Edytuj profil</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              {/* <EditAccountForm user={user} onSubmit={editDetails} /> */}
+              <EditAccountForm
+                user={user}
+                handleSubmit={(data: UpdateUserDto) => console.log(data)}
+              />
             </AccordionDetails>
           </Accordion>
           <Accordion>
