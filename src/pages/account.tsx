@@ -14,10 +14,11 @@ import { ExpandMore as AccordionIcon } from '@mui/icons-material'
 import { Loader } from '../components/loader/loader'
 import { withSessionSsr } from '../lib/session'
 import { redirectToLogin } from '../utils/redirect-to-login'
-import { UpdateUserDto, User } from '../types/auth'
+import { UpdatePasswordDto, UpdateUserDto, User } from '../types/auth'
 import { useUpdateUser, useUser } from '../lib/auth'
 import { PageHeading } from '../components/page-heading/page-heading'
 import { EditAccountForm } from '../components/forms/edit-account'
+import { UpdatePasswordForm } from '../components/forms/update-password'
 
 export const getServerSideProps = withSessionSsr(
   async ({ req, res, locale }) => {
@@ -95,7 +96,9 @@ const AccountPage = () => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              {/* <UpdatePasswordForm onSubmit={updatePassword} /> */}
+              <UpdatePasswordForm
+                onSubmit={(data: UpdatePasswordDto) => console.log({ data })}
+              />
             </AccordionDetails>
           </Accordion>
         </CardContent>
