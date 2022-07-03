@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 import { useEffect } from 'react'
 import { Typography } from '@mui/material'
-import { StyledLink } from '../../components/auth-forms/styles'
+import { StyledLink } from '../../components/forms/styles'
 import { useConfirmAccount } from '../../lib/auth'
 import { Loader } from '../../components/loader/loader'
 

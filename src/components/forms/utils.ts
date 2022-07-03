@@ -1,7 +1,14 @@
 import { TFunction } from 'next-i18next'
 import * as yup from 'yup'
 import { LoginDto } from '../../types/auth'
-import { generatePasswordValidationSchema } from '../../utils/common-validation-schemas'
+
+export function generatePasswordValidationSchema(t: TFunction) {
+  return yup
+    .string()
+    .min(6, t('PASSWORD_TOO_SHORT_ERROR'))
+    .matches(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/, t('PASSWORD_REGEX_ERROR'))
+    .required(t('NO_PASSWORD_ERROR'))
+}
 
 export function generateLoginFormValidationSchema(
   t: TFunction,

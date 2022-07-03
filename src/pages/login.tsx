@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 import { Typography } from '@mui/material'
-import { LoginForm } from '../components/auth-forms/login'
+import { LoginForm } from '../components/forms/login'
 import { useLogin } from '../lib/auth'
 import { Loader } from '../components/loader/loader'
 

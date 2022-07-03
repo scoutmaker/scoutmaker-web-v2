@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { Typography } from '@mui/material'
 import { useRegister } from '../lib/auth'
 import { Loader } from '../components/loader/loader'
-import { RegisterForm } from '../components/auth-forms/register'
+import { RegisterForm } from '../components/forms/register'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const translations = await serverSideTranslations(locale || 'pl', [

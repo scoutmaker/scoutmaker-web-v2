@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import { styled } from '@mui/material'
 import { Topbar } from '../components/topbar/Topbar'
 import { Sidebar } from '../components/sidebar/Sidebar'
+import { Alerts } from '../components/alerts/Alerts'
 
 const StyledWrapper = styled('div')(() => ({
   display: 'flex',
@@ -13,6 +14,7 @@ const StyledContentContainer = styled('main')(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
   padding: theme.spacing(3),
   marginLeft: 240,
+  flexGrow: 1,
 
   [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(3, 1),
@@ -32,5 +34,6 @@ export const PrimaryLayout = ({ children }: IPrimaryLayoutProps) => (
       <Offset />
       {children}
     </StyledContentContainer>
+    <Alerts />
   </StyledWrapper>
 )

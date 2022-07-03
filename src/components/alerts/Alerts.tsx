@@ -8,7 +8,7 @@ const StyledContainer = styled('div')(({ theme }) => ({
   left: '50%',
   width: '50%',
   transform: 'translateX(-50%)',
-  zIndex: 5000,
+  zIndex: 10000,
 }))
 
 const StyledAlert = styled(Alert)(({ theme }) => ({
