@@ -3,7 +3,9 @@ import { useRouter } from 'next/router'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useAlertsState } from '../context/alerts/useAlertsState'
 import {
+  ForgotPasswordDto,
   LoginDto,
+  PasswordResetDto,
   RegisterDto,
   UpdatePasswordDto,
   UpdateUserDto,
@@ -168,4 +170,58 @@ export function useUpdatePassword() {
         type: 'error',
       }),
   })
+}
+
+// Forgot password
+export async function forgotPassword(forgotPasswordDto: ForgotPasswordDto) {
+  const { data } = await api.post<ApiResponse<User>>(
+    '/auth/forgot-password',
+    forgotPasswordDto,
+  )
+  return data
+}
+
+export function useForgotPassword() {
+  const { setAlert } = useAlertsState()
+
+  return useMutation((values: ForgotPasswordDto) => forgotPassword(values), {
+    onSuccess: data => {
+      setAlert({ msg: data.message, type: 'success' })
+    },
+    onError: (err: ApiError) =>
+      setAlert({
+        msg: err.response.data.message,
+        type: 'error',
+      }),
+  })
+}
+
+// Reset password
+export async function resetPassword(
+  token: string,
+  passwordResetDto: PasswordResetDto,
+) {
+  const { data } = await api.patch<ApiResponse<User>>(
+    `/auth/password-reset/${token}`,
+    passwordResetDto,
+  )
+  return data
+}
+
+export function useResetPassword(token: string) {
+  const { setAlert } = useAlertsState()
+
+  return useMutation(
+    (values: PasswordResetDto) => resetPassword(token, values),
+    {
+      onSuccess: data => {
+        setAlert({ msg: data.message, type: 'success' })
+      },
+      onError: (err: ApiError) =>
+        setAlert({
+          msg: err.response.data.message,
+          type: 'error',
+        }),
+    },
+  )
 }
