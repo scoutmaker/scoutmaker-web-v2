@@ -14,8 +14,8 @@ import { ExpandMore as AccordionIcon } from '@mui/icons-material'
 import { Loader } from '../components/loader/loader'
 import { withSessionSsr } from '../lib/session'
 import { redirectToLogin } from '../utils/redirect-to-login'
-import { UpdatePasswordDto, UpdateUserDto, User } from '../types/auth'
-import { useUpdateUser, useUser } from '../lib/auth'
+import { UpdateUserDto, User } from '../types/auth'
+import { useUpdatePassword, useUpdateUser, useUser } from '../lib/auth'
 import { PageHeading } from '../components/page-heading/page-heading'
 import { EditAccountForm } from '../components/forms/edit-account'
 import { UpdatePasswordForm } from '../components/forms/update-password'
@@ -48,10 +48,13 @@ const AccountPage = () => {
 
   const { data: userData, isLoading: userDataLoading } = useUser()
   const { mutate: updateUser, isLoading: updateUserLoading } = useUpdateUser()
+  const { mutate: updatePassword, isLoading: updatePasswordLoading } =
+    useUpdatePassword()
 
   const { firstName, lastName, role, email } = userData || {}
 
-  const isLoading = userDataLoading || updateUserLoading
+  const isLoading =
+    userDataLoading || updateUserLoading || updatePasswordLoading
 
   return (
     <>
@@ -96,9 +99,7 @@ const AccountPage = () => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <UpdatePasswordForm
-                onSubmit={(data: UpdatePasswordDto) => console.log({ data })}
-              />
+              <UpdatePasswordForm onSubmit={updatePassword} />
             </AccordionDetails>
           </Accordion>
         </CardContent>

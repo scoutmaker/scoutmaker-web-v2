@@ -2,7 +2,13 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useAlertsState } from '../context/alerts/useAlertsState'
-import { LoginDto, RegisterDto, UpdateUserDto, User } from '../types/auth'
+import {
+  LoginDto,
+  RegisterDto,
+  UpdatePasswordDto,
+  UpdateUserDto,
+  User,
+} from '../types/auth'
 import { ApiResponse, ApiError } from '../types/common'
 import { api } from './api'
 
@@ -131,6 +137,30 @@ export function useUpdateUser() {
     onSuccess: data => {
       setAlert({ msg: data.message, type: 'success' })
       queryClient.invalidateQueries(['user'])
+    },
+    onError: (err: ApiError) =>
+      setAlert({
+        msg: err.response.data.message,
+        type: 'error',
+      }),
+  })
+}
+
+// Update password
+export async function updatePassword(updatePasswordDto: UpdatePasswordDto) {
+  const { data } = await api.patch<ApiResponse<User>>(
+    '/auth/update-password',
+    updatePasswordDto,
+  )
+  return data
+}
+
+export function useUpdatePassword() {
+  const { setAlert } = useAlertsState()
+
+  return useMutation((values: UpdatePasswordDto) => updatePassword(values), {
+    onSuccess: data => {
+      setAlert({ msg: data.message, type: 'success' })
     },
     onError: (err: ApiError) =>
       setAlert({
