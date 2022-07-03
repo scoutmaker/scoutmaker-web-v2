@@ -4,5 +4,11 @@
   "UPDATE_PASSWORD": "Zmień hasło",
   "PHONE_FIELD_HELPER_TEXT": "np. 123456789 (bez myślników)",
   "ACTIVE_RADIUS_HELPER_TEXT": "Podaj maksymalną odległość w km, jaką możesz pokonać w celu obserwacji zawodnika",
-  "ACTIVE_RADIUS_VALIDATION_ERROR": "Promień działania musi być większy lub równy 0"
+  "ACTIVE_RADIUS_VALIDATION_ERROR": "Promień działania musi być większy lub równy 0",
+  "NO_CURRENT_PASSWORD_ERROR": "Podaj aktualne hasło",
+  "NO_PASSWORD_CONFIRM_ERROR": "Potwierdź hasło",
+  "CURRENT_PASSWORD": "Bieżące hasło",
+  "NEW_PASSWORD": "Nowe hasło",
+  "CONFIRM_PASSWORD": "Potwierdź nowe hasło",
+  "CHANGE_PASSWORD": "Zmień hasło"
 }

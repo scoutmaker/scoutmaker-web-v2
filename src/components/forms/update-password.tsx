@@ -16,12 +16,14 @@ function generateValidationSchema(
 ): yup.SchemaOf<UpdatePasswordDto> {
   return yup
     .object({
-      oldPassword: yup.string().required('Podaj aktualne hasło'),
+      oldPassword: yup
+        .string()
+        .required(t('account:NO_CURRENT_PASSWORD_ERROR')),
       newPassword: generatePasswordValidationSchema(t),
       newPasswordConfirm: yup
         .string()
-        .oneOf([yup.ref('newPassword')], 'Podane hasła muszą być takie same')
-        .required('Potwierdź hasło'),
+        .oneOf([yup.ref('newPassword')], t('PASSWORDS_DO_NOT_MATCH_ERROR'))
+        .required(t('account:NO_PASSWORD_CONFIRM_ERROR')),
     })
     .defined()
 }
@@ -51,7 +53,7 @@ export const UpdatePasswordForm = ({ onSubmit }: IUpdatePasswordFormProps) => {
               as={TextField}
               variant="outlined"
               fullWidth
-              label="Bieżące hasło"
+              label={t('account:CURRENT_PASSWORD')}
               type="password"
               id="oldPassword"
               error={touched.oldPassword && !!errors.oldPassword}
@@ -62,7 +64,7 @@ export const UpdatePasswordForm = ({ onSubmit }: IUpdatePasswordFormProps) => {
               as={TextField}
               variant="outlined"
               fullWidth
-              label="Nowe hasło"
+              label={t('account:NEW_PASSWORD')}
               type="password"
               id="newPassword"
               error={touched.newPassword && !!errors.newPassword}
@@ -73,7 +75,7 @@ export const UpdatePasswordForm = ({ onSubmit }: IUpdatePasswordFormProps) => {
               as={TextField}
               variant="outlined"
               fullWidth
-              label="Potwierdź nowe hasło"
+              label={t('account:CONFIRM_PASSWORD')}
               type="password"
               id="newPasswordConfirm"
               error={touched.newPasswordConfirm && !!errors.newPasswordConfirm}
@@ -82,7 +84,7 @@ export const UpdatePasswordForm = ({ onSubmit }: IUpdatePasswordFormProps) => {
               }
             />
             <Button type="submit" fullWidth variant="contained" color="primary">
-              Zmień hasło
+              {t('account:CHANGE_PASSWORD')}
             </Button>
           </Container>
         </StyledForm>
