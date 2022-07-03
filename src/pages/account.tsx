@@ -15,7 +15,7 @@ import { Loader } from '../components/loader/loader'
 import { withSessionSsr } from '../lib/session'
 import { redirectToLogin } from '../utils/redirect-to-login'
 import { UpdateUserDto, User } from '../types/auth'
-import { useUser } from '../lib/auth'
+import { useUpdateUser, useUser } from '../lib/auth'
 import { PageHeading } from '../components/page-heading/page-heading'
 import { EditAccountForm } from '../components/forms/edit-account'
 
@@ -41,18 +41,15 @@ export const getServerSideProps = withSessionSsr(
   },
 )
 
-interface IAccountPageProps {
-  user: User
-}
-
-const AccountPage = ({ user }: IAccountPageProps) => {
+const AccountPage = () => {
   const { t } = useTranslation()
 
-  const { data: userData, isLoading: userDataLoading } = useUser(user)
+  const { data: userData, isLoading: userDataLoading } = useUser()
+  const { mutate: updateUser, isLoading: updateUserLoading } = useUpdateUser()
 
   const { firstName, lastName, role, email } = userData || {}
 
-  const isLoading = userDataLoading
+  const isLoading = userDataLoading || updateUserLoading
 
   return (
     <>
@@ -79,8 +76,8 @@ const AccountPage = ({ user }: IAccountPageProps) => {
             </AccordionSummary>
             <AccordionDetails>
               <EditAccountForm
-                user={user}
-                handleSubmit={(data: UpdateUserDto) => console.log(data)}
+                user={userData as User}
+                handleSubmit={(data: UpdateUserDto) => updateUser(data)}
               />
             </AccordionDetails>
           </Accordion>

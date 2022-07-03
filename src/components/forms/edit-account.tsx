@@ -55,14 +55,14 @@ export const EditAccountForm = ({
     activeRadius,
     region,
     phone,
-  } = user
+  } = user || {}
 
   const initialValues: UpdateUserDto = {
-    firstName,
-    lastName,
+    firstName: firstName || '',
+    lastName: lastName || '',
     city: city || '',
     phone: phone || '',
-    activeRadius,
+    activeRadius: activeRadius || 0,
     clubId: club?.id || '',
     footballRoleId: footballRole?.id || '',
     regionId: region?.id || '',
@@ -83,6 +83,7 @@ export const EditAccountForm = ({
         handleSubmit(dataToSubmit)
       }}
       validationSchema={validationSchema}
+      enableReinitialize
     >
       {({ errors, touched, handleReset }) => (
         <StyledForm>

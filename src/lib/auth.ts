@@ -1,21 +1,21 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import { useMutation, useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useAlertsState } from '../context/alerts/useAlertsState'
-import { LoginDto, RegisterDto, User } from '../types/auth'
+import { LoginDto, RegisterDto, UpdateUserDto, User } from '../types/auth'
 import { ApiResponse, ApiError } from '../types/common'
 import { api } from './api'
 
+// Get user data
 export async function getUserData() {
   const { data } = await api.get<ApiResponse<User>>('/auth/account')
   return data.data
 }
 
-export function useUser(user?: User) {
+export function useUser() {
   const { setAlert } = useAlertsState()
 
   return useQuery(['user'], getUserData, {
-    initialData: user,
     onError: (err: ApiError) =>
       setAlert({
         msg: err.response.data.message,
@@ -24,6 +24,7 @@ export function useUser(user?: User) {
   })
 }
 
+// Login
 export async function login(loginDto: LoginDto) {
   const { data } = await axios.post<ApiResponse<{ user: User; token: string }>>(
     '/api/login',
@@ -51,6 +52,7 @@ export function useLogin() {
   })
 }
 
+// Logout
 export async function logout() {
   return axios.post('/api/logout')
 }
@@ -66,6 +68,7 @@ export function useLogout() {
   })
 }
 
+// Register
 export async function register(registerDto: RegisterDto) {
   const { data } = await api.post<ApiResponse<User>>(
     '/auth/register',
@@ -88,6 +91,7 @@ export function useRegister() {
   })
 }
 
+// Confirm account
 export async function confirmAccount(code: string) {
   const { data } = await api.get<ApiResponse<User>>(`/auth/verify/${code}`)
   return data
@@ -107,5 +111,31 @@ export function useConfirmAccount() {
     onError: (err: ApiError) => {
       setAlert({ msg: err.response.data.message, type: 'error' })
     },
+  })
+}
+
+// Update account
+export async function updateUser(updateUserDto: UpdateUserDto) {
+  const { data } = await api.patch<ApiResponse<User>>(
+    '/auth/update-account',
+    updateUserDto,
+  )
+  return data
+}
+
+export function useUpdateUser() {
+  const queryClient = useQueryClient()
+  const { setAlert } = useAlertsState()
+
+  return useMutation((values: UpdateUserDto) => updateUser(values), {
+    onSuccess: data => {
+      setAlert({ msg: data.message, type: 'success' })
+      queryClient.invalidateQueries(['user'])
+    },
+    onError: (err: ApiError) =>
+      setAlert({
+        msg: err.response.data.message,
+        type: 'error',
+      }),
   })
 }

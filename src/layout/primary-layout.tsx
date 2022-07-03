@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import { styled } from '@mui/material'
 import { Topbar } from '../components/topbar/Topbar'
 import { Sidebar } from '../components/sidebar/Sidebar'
+import { Alerts } from '../components/alerts/Alerts'
 
 const StyledWrapper = styled('div')(() => ({
   display: 'flex',
@@ -33,5 +34,6 @@ export const PrimaryLayout = ({ children }: IPrimaryLayoutProps) => (
       <Offset />
       {children}
     </StyledContentContainer>
+    <Alerts />
   </StyledWrapper>
 )
