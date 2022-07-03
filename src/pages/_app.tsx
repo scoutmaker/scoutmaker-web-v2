@@ -19,7 +19,12 @@ interface IMyAppProps extends AppProps {
   emotionCache?: EmotionCache
 }
 
-const secondaryLayoutRoutes = ['/login', '/register', '/account-confirm/[code]']
+const secondaryLayoutRoutes = [
+  '/login',
+  '/register',
+  '/account-confirm/[code]',
+  '/forgot-password',
+]
 
 const MyApp = ({
   Component,
