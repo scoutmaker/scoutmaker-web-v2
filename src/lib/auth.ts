@@ -5,6 +5,7 @@ import { useAlertsState } from '../context/alerts/useAlertsState'
 import {
   ForgotPasswordDto,
   LoginDto,
+  PasswordResetDto,
   RegisterDto,
   UpdatePasswordDto,
   UpdateUserDto,
@@ -193,4 +194,34 @@ export function useForgotPassword() {
         type: 'error',
       }),
   })
+}
+
+// Reset password
+export async function resetPassword(
+  token: string,
+  passwordResetDto: PasswordResetDto,
+) {
+  const { data } = await api.patch<ApiResponse<User>>(
+    `/auth/password-reset/${token}`,
+    passwordResetDto,
+  )
+  return data
+}
+
+export function useResetPassword(token: string) {
+  const { setAlert } = useAlertsState()
+
+  return useMutation(
+    (values: PasswordResetDto) => resetPassword(token, values),
+    {
+      onSuccess: data => {
+        setAlert({ msg: data.message, type: 'success' })
+      },
+      onError: (err: ApiError) =>
+        setAlert({
+          msg: err.response.data.message,
+          type: 'error',
+        }),
+    },
+  )
 }

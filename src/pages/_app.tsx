@@ -23,7 +23,7 @@ const secondaryLayoutRoutes = [
   '/login',
   '/register',
   '/account-confirm/[code]',
-  '/password-reset/[code]',
+  '/password-reset/[token]',
   '/forgot-password',
 ]
 
