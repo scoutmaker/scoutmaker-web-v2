@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 import { Typography } from '@mui/material'
-import { useLogin } from '../lib/auth'
+import { useForgotPassword } from '../lib/auth'
 import { Loader } from '../components/loader/loader'
 import { ForgotPasswordForm } from '../components/forms/forgot-password'
 
@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 const LoginPage = () => {
   const { t } = useTranslation(['common', 'password-reset'])
 
-  const { mutate: login, isLoading } = useLogin()
+  const { mutate: forgotPassword, isLoading } = useForgotPassword()
 
   return (
     <>
@@ -30,7 +30,7 @@ const LoginPage = () => {
       <Typography component="h1" variant="h5" align="center">
         {t('password-reset:FORGOT_PASSWORD_PAGE_TITLE')}
       </Typography>
-      <ForgotPasswordForm onSubmit={data => console.log(data)} />
+      <ForgotPasswordForm onSubmit={forgotPassword} />
     </>
   )
 }

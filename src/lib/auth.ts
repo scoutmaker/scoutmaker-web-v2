@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useAlertsState } from '../context/alerts/useAlertsState'
 import {
+  ForgotPasswordDto,
   LoginDto,
   RegisterDto,
   UpdatePasswordDto,
@@ -159,6 +160,30 @@ export function useUpdatePassword() {
   const { setAlert } = useAlertsState()
 
   return useMutation((values: UpdatePasswordDto) => updatePassword(values), {
+    onSuccess: data => {
+      setAlert({ msg: data.message, type: 'success' })
+    },
+    onError: (err: ApiError) =>
+      setAlert({
+        msg: err.response.data.message,
+        type: 'error',
+      }),
+  })
+}
+
+// Forgot password
+export async function forgotPassword(forgotPasswordDto: ForgotPasswordDto) {
+  const { data } = await api.post<ApiResponse<User>>(
+    '/auth/forgot-password',
+    forgotPasswordDto,
+  )
+  return data
+}
+
+export function useForgotPassword() {
+  const { setAlert } = useAlertsState()
+
+  return useMutation((values: ForgotPasswordDto) => forgotPassword(values), {
     onSuccess: data => {
       setAlert({ msg: data.message, type: 'success' })
     },
