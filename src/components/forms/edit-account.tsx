@@ -4,6 +4,7 @@ import { TextField, Button } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import filter from 'just-filter-object'
 import { updatedDiff } from 'deep-object-diff'
+import { TFunction, useTranslation } from 'next-i18next'
 import { UpdateUserDto, User } from '../../types/auth'
 import { Container } from './container'
 import { ClubsCombo } from '../selects/clubs-combo'
@@ -22,20 +23,22 @@ const StyledButtonsContainer = styled('div')(({ theme }) => ({
   gap: theme.spacing(2),
 }))
 
-const validationSchema: yup.SchemaOf<UpdateUserDto> = yup
-  .object({
-    firstName: yup.string().required('Podaj imię'),
-    lastName: yup.string().required('Podaj nazwisko'),
-    clubId: yup.string(),
-    footballRoleId: yup.string(),
-    city: yup.string(),
-    phone: yup.string(),
-    activeRadius: yup
-      .number()
-      .min(0, 'Promień działania musi być większy lub równy 0 '),
-    regionId: yup.string(),
-  })
-  .defined()
+function generateValidationSchema(t: TFunction): yup.SchemaOf<UpdateUserDto> {
+  return yup
+    .object({
+      firstName: yup.string().required(t('NO_FIRST_NAME_ERROR')),
+      lastName: yup.string().required(t('NO_LAST_NAME_ERROR')),
+      clubId: yup.string(),
+      footballRoleId: yup.string(),
+      city: yup.string(),
+      phone: yup.string(),
+      activeRadius: yup
+        .number()
+        .min(0, t('account.ACTIVE_RADIUS_VALIDATION_ERROR')),
+      regionId: yup.string(),
+    })
+    .defined()
+}
 
 interface IEditAccountFormProps {
   user: User
@@ -46,6 +49,8 @@ export const EditAccountForm = ({
   user,
   handleSubmit,
 }: IEditAccountFormProps) => {
+  const { t } = useTranslation(['common', 'account'])
+
   const {
     firstName,
     lastName,
@@ -82,7 +87,7 @@ export const EditAccountForm = ({
         )
         handleSubmit(dataToSubmit)
       }}
-      validationSchema={validationSchema}
+      validationSchema={generateValidationSchema(t)}
       enableReinitialize
     >
       {({ errors, touched, handleReset }) => (
@@ -93,7 +98,7 @@ export const EditAccountForm = ({
               as={TextField}
               variant="outlined"
               fullWidth
-              label="Imię"
+              label={t('FIRST_NAME')}
               error={touched.firstName && !!errors.firstName}
               helperText={touched.firstName && errors.firstName}
             />
@@ -102,7 +107,7 @@ export const EditAccountForm = ({
               as={TextField}
               variant="outlined"
               fullWidth
-              label="Nazwisko"
+              label={t('LAST_NAME')}
               error={touched.lastName && !!errors.lastName}
               helperText={touched.lastName && errors.lastName}
             />
@@ -112,14 +117,18 @@ export const EditAccountForm = ({
               as={TextField}
               variant="outlined"
               fullWidth
-              label="Miasto"
+              label={t('CITY')}
               error={touched.city && !!errors.city}
               helperText={touched.city && errors.city}
             />
-            <ClubsCombo clubsData={clubs || []} label="Klub" name="clubId" />
+            <ClubsCombo
+              clubsData={clubs || []}
+              label={t('CLUB')}
+              name="clubId"
+            />
             <UserFootballRolesCombo
               userFootballRolesData={userFootballRoles || []}
-              label="Rola"
+              label={t('FOOTBALL_ROLE')}
               name="footballRoleId"
             />
             <Field
@@ -128,11 +137,11 @@ export const EditAccountForm = ({
               type="tel"
               variant="outlined"
               fullWidth
-              label="Nr telefonu"
+              label={t('PHONE_NUMBER')}
               error={touched.phone && !!errors.phone}
               helperText={
                 (touched.phone && errors.phone) ||
-                'np. 123456789 (bez myślników)'
+                t('account:PHONE_FIELD_HELPER_TEXT')
               }
             />
             <Field
@@ -145,7 +154,7 @@ export const EditAccountForm = ({
               error={touched.activeRadius && !!errors.activeRadius}
               helperText={
                 (touched.activeRadius && errors.activeRadius) ||
-                'Podaj maksymalną odległość w km, jaką możesz pokonać w celu obserwacji zawodnika'
+                t('account:ACTIVE_RADIUS_HELPER_TEXT')
               }
               inputProps={{
                 min: 0,
@@ -158,7 +167,7 @@ export const EditAccountForm = ({
                 variant="contained"
                 color="primary"
               >
-                Zapisz zmiany
+                {t('SAVE_CHANGES')}
               </Button>
               <Button
                 fullWidth
@@ -166,7 +175,7 @@ export const EditAccountForm = ({
                 color="secondary"
                 onClick={handleReset}
               >
-                Reset
+                {t('RESET')}
               </Button>
             </StyledButtonsContainer>
           </Container>

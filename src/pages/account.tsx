@@ -30,6 +30,7 @@ export const getServerSideProps = withSessionSsr(
 
     const translations = await serverSideTranslations(locale || 'pl', [
       'common',
+      'account',
     ])
 
     return {
@@ -42,7 +43,7 @@ export const getServerSideProps = withSessionSsr(
 )
 
 const AccountPage = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'account'])
 
   const { data: userData, isLoading: userDataLoading } = useUser()
   const { mutate: updateUser, isLoading: updateUserLoading } = useUpdateUser()
@@ -54,7 +55,7 @@ const AccountPage = () => {
   return (
     <>
       {isLoading && <Loader />}
-      <PageHeading title="Profil użytkownika" />
+      <PageHeading title={t('account:PAGE_TITLE')} />
       <Card sx={{ width: '100%' }}>
         <CardHeader
           avatar={
@@ -72,7 +73,9 @@ const AccountPage = () => {
               aria-controls="edit-profile-content"
               id="edit-profile-header"
             >
-              <Typography sx={{ fontWeight: 'bold' }}>Edytuj profil</Typography>
+              <Typography sx={{ fontWeight: 'bold' }}>
+                {t('account:EDIT_PROFILE')}
+              </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <EditAccountForm
@@ -87,7 +90,9 @@ const AccountPage = () => {
               aria-controls="update-password-content"
               id="update-password-header"
             >
-              <Typography sx={{ fontWeight: 'bold' }}>Zmień hasło</Typography>
+              <Typography sx={{ fontWeight: 'bold' }}>
+                {t('account:UPDATE_PASSWORD')}
+              </Typography>
             </AccordionSummary>
             <AccordionDetails>
               {/* <UpdatePasswordForm onSubmit={updatePassword} /> */}

@@ -1,0 +1,8 @@
+{
+  "PAGE_TITLE": "Profil użytkownika",
+  "EDIT_PROFILE": "Edytuj profil",
+  "UPDATE_PASSWORD": "Zmień hasło",
+  "PHONE_FIELD_HELPER_TEXT": "np. 123456789 (bez myślników)",
+  "ACTIVE_RADIUS_HELPER_TEXT": "Podaj maksymalną odległość w km, jaką możesz pokonać w celu obserwacji zawodnika",
+  "ACTIVE_RADIUS_VALIDATION_ERROR": "Promień działania musi być większy lub równy 0"
+}

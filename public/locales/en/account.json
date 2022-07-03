@@ -1,0 +1,8 @@
+{
+  "PAGE_TITLE": "User profile",
+  "EDIT_PROFILE": "Edit account details",
+  "UPDATE_PASSWORD": "Update password",
+  "PHONE_FIELD_HELPER_TEXT": "eg. 123456789 (no hyphens)",
+  "ACTIVE_RADIUS_HELPER_TEXT": "Please provide max distance in km you're able to cover for player scouting",
+  "ACTIVE_RADIUS_VALIDATION_ERROR": "Active radius must be greater than or equal to 0"
+}
