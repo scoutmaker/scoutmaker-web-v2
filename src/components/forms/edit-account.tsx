@@ -111,7 +111,7 @@ export const EditAccountForm = ({
               error={touched.lastName && !!errors.lastName}
               helperText={touched.lastName && errors.lastName}
             />
-            <RegionsCombo data={regions || []} label="Region" name="regionId" />
+            <RegionsCombo data={regions || []} name="regionId" />
             <Field
               name="city"
               as={TextField}
@@ -121,14 +121,9 @@ export const EditAccountForm = ({
               error={touched.city && !!errors.city}
               helperText={touched.city && errors.city}
             />
-            <ClubsCombo
-              clubsData={clubs || []}
-              label={t('CLUB')}
-              name="clubId"
-            />
+            <ClubsCombo clubsData={clubs || []} name="clubId" />
             <UserFootballRolesCombo
               userFootballRolesData={userFootballRoles || []}
-              label={t('FOOTBALL_ROLE')}
               name="footballRoleId"
             />
             <Field

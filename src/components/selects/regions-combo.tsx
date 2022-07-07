@@ -1,11 +1,12 @@
 import { useField } from 'formik'
 import { TextField, Autocomplete } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 import { RegionDto } from '../../types/regions'
 
 interface IRegionsComboProps {
   data: RegionDto[]
   name: string
-  label: string
+  label?: string
   size?: 'medium' | 'small'
 }
 
@@ -16,6 +17,7 @@ export const RegionsCombo = ({
   size,
 }: IRegionsComboProps) => {
   const [field, fieldMeta, fieldHelpers] = useField(name)
+  const { t } = useTranslation()
 
   const { value } = field
   const { error, touched } = fieldMeta
@@ -51,7 +53,7 @@ export const RegionsCombo = ({
       renderInput={params => (
         <TextField
           {...params}
-          label={label}
+          label={label || t('REGION')}
           variant="outlined"
           error={touched && !!error}
           helperText={touched && error}
