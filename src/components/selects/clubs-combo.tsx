@@ -75,13 +75,13 @@ export const ClubsCombo = ({
         if (club) {
           return club.name
         }
-        return 'brak'
+        return t('NONE')
       }}
       renderOption={(props, option) => {
         const club = clubsData.find(c => c.id === option)
         return (
           <li {...props} key={option.id}>
-            {club?.name || 'brak'}
+            {club?.name || t('NONE')}
           </li>
         )
       }}

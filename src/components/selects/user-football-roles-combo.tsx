@@ -38,13 +38,13 @@ export const UserFootballRolesCombo = ({
         if (selected) {
           return selected.name
         }
-        return 'brak'
+        return t('NONE')
       }}
       renderOption={(props, option) => {
         const selected = userFootballRolesData.find(role => role.id === option)
         return (
           <li {...props} key={option.id}>
-            {selected?.name || 'brak'}
+            {selected?.name || t('NONE')}
           </li>
         )
       }}

@@ -39,5 +39,9 @@
   "PROFILE": "Mój profil",
   "USER_DATA": "Dane użytkownika",
   "SETTINGS": "Ustawienia",
-  "SEND": "Wyślij"
+  "SEND": "Wyślij",
+  "COUNTRY": "Kraj",
+  "NONE": "Brak",
+  "APPLY_FILTERS": "Zastosuj Filtry",
+  "CLEAR_FILTERS": "Wyczyść"
 }

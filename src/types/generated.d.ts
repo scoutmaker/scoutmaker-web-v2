@@ -1957,6 +1957,15 @@ declare namespace Paths {
             }
         }
     }
+    namespace CountriesControllerGetList {
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.CountryDto;
+            }
+        }
+    }
     namespace CountriesControllerRemove {
         namespace Parameters {
             export type Id = string;
@@ -3637,11 +3646,37 @@ declare namespace Paths {
         }
     }
     namespace RegionsControllerFindAll {
+        namespace Parameters {
+            export type CountryId = string;
+            export type Limit = number;
+            export type Name = string;
+            export type Page = number;
+            export type SortBy = "id" | "name" | "countryId";
+            export type SortingOrder = "asc" | "desc";
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            countryId?: Parameters.CountryId;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
                 message: string;
-                data?: Components.Schemas.RegionDto[];
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.RegionDto[];
+                };
             }
         }
     }
@@ -3657,6 +3692,15 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.RegionDto;
+            }
+        }
+    }
+    namespace RegionsControllerGetList {
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.RegionDto[];
             }
         }
     }

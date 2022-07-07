@@ -4,10 +4,13 @@ import { ClubsFiltersDto } from '../../types/clubs'
 import { Container } from './container'
 import { RegionsCombo } from '../selects/regions-combo'
 import { RegionDto } from '../../types/regions'
+import { CountryDto } from '../../types/countries'
+import { CountriesCombo } from '../selects/countries-combo'
+import { FilterFormActions } from './filter-form-actions'
 
 type IClubsFilterFormProps = {
   regionsData: RegionDto[]
-  // countriesData: CountryDto[]
+  countriesData: CountryDto[]
   filters: ClubsFiltersDto
   onFilter: (data: ClubsFiltersDto) => void
   onClearFilters: () => void
@@ -15,6 +18,7 @@ type IClubsFilterFormProps = {
 
 export const ClubsFilterForm = ({
   regionsData,
+  countriesData,
   filters,
   onFilter,
   onClearFilters,
@@ -35,14 +39,9 @@ export const ClubsFilterForm = ({
             label="Nazwa"
             size="small"
           />
-          <RegionsCombo
-            name="regionId"
-            size="small"
-            label="region"
-            data={regionsData}
-          />
-          {/* <VoivodeshipSelect name="voivodeship" size="small" />
-          <FilterFormActions handleClearFilter={onClearFilters} /> */}
+          <RegionsCombo name="regionId" size="small" data={regionsData} />
+          <CountriesCombo name="countryId" size="small" data={countriesData} />
+          <FilterFormActions handleClearFilter={onClearFilters} />
         </Container>
       </Form>
     )}

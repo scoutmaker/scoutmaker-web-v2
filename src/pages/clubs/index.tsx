@@ -13,6 +13,8 @@ import { PageHeading } from '../../components/page-heading/page-heading'
 import { TabPanel } from '../../components/tab-panel/tab-panel'
 import { useClubs } from '../../lib/clubs'
 import { ClubsFilterForm } from '../../components/forms/clubs-filter-form'
+import { useCountriesList } from '../../lib/countries'
+import { useRegionsList } from '../../lib/regions'
 
 export const getServerSideProps = withSessionSsr(
   async ({ locale, req, res }) => {
@@ -59,9 +61,14 @@ const ClubsPage = () => {
   })
 
   function handleSetFilters(newFilters: ClubsFiltersDto) {
+    console.log('CLEARING FILRES', { newFilters })
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
+
+  const { data: countries, isLoading: countriesLoading } = useCountriesList()
+
+  const { data: regions, isLoading: regionsLoading } = useRegionsList()
 
   const [currentClub, setCurrentClub] = useState<ClubDto | null>(null)
 
@@ -79,26 +86,26 @@ const ClubsPage = () => {
   // )
   // const { mutate: deleteClub, isLoading: deleteClubLoading } = useDeleteClub()
 
-  const handleEditClick = (club: ClubDto) => {
-    setCurrentClub(club)
-    setActiveTab(1)
-  }
+  // const handleEditClick = (club: ClubDto) => {
+  //   setCurrentClub(club)
+  //   setActiveTab(1)
+  // }
 
-  const handleSubmit = (data: ClubDto) => {
-    if (currentClub) {
-      updateClub(data)
-      setActiveTab(0)
-      setCurrentClub(null)
-    } else {
-      createClub(data)
-      setActiveTab(0)
-    }
-  }
+  // const handleSubmit = (data: ClubDto) => {
+  //   if (currentClub) {
+  //     updateClub(data)
+  //     setActiveTab(0)
+  //     setCurrentClub(null)
+  //   } else {
+  //     createClub(data)
+  //     setActiveTab(0)
+  //   }
+  // }
 
-  const handleFormReset = () => {
-    setActiveTab(0)
-    setCurrentClub(null)
-  }
+  // const handleFormReset = () => {
+  //   setActiveTab(0)
+  //   setCurrentClub(null)
+  // }
 
   return (
     <>
@@ -116,10 +123,12 @@ const ClubsPage = () => {
         <PageHeading title="Baza klubów" />
         <ClubsFilterForm
           filters={filters}
+          countriesData={countries || []}
+          regionsData={regions || []}
           onFilter={handleSetFilters}
           onClearFilters={() => handleSetFilters(initialFilters)}
         />
-        <ClubsTable
+        {/* <ClubsTable
           page={page}
           rowsPerPage={rowsPerPage}
           sortBy={sortBy}
@@ -146,17 +155,17 @@ const ClubsPage = () => {
                 />
               ))
             : null}
-        </ClubsTable>
+        </ClubsTable> */}
       </TabPanel>
       <TabPanel value={activeTab} index={1} title="clubs">
         <PageHeading
           title={currentClub ? 'Edycja klubu' : 'Tworzenie nowego klubu'}
         />
-        <ClubsForm
+        {/* <ClubsForm
           current={currentClub}
           onSubmit={handleSubmit}
           onCancelClick={handleFormReset}
-        />
+        /> */}
       </TabPanel>
     </>
   )

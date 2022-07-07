@@ -1,19 +1,19 @@
 import { useQuery } from 'react-query'
 import { useAlertsState } from '../context/alerts/useAlertsState'
 import { ApiError, ApiResponse } from '../types/common'
-import { RegionDto } from '../types/regions'
+import { CountryDto } from '../types/countries'
 import { api } from './api'
 
-// Get regions list
-async function getRegionsList(): Promise<RegionDto[]> {
-  const { data } = await api.get<ApiResponse<RegionDto[]>>('/regions/list')
+// Get countries list
+async function getCountriesList(): Promise<CountryDto[]> {
+  const { data } = await api.get<ApiResponse<CountryDto[]>>('/countries/list')
   return data.data
 }
 
-export function useRegionsList() {
+export function useCountriesList() {
   const { setAlert } = useAlertsState()
 
-  return useQuery(['regions', 'list'], getRegionsList, {
+  return useQuery(['countries', 'list'], getCountriesList, {
     onError: (err: ApiError) =>
       setAlert({
         msg: err.response.data.message,
