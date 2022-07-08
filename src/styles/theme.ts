@@ -49,25 +49,30 @@ export const theme = createTheme(
         default: lightGray,
       },
     },
-    // overrides: {
-    //   MuiTableSortLabel: {
-    //     root: {
-    //       '&$active': {
-    //         color: yellow,
+    components: {
+      MuiTableSortLabel: {
+        styleOverrides: {
+          root: {
+            '&.Mui-active': {
+              color: yellow,
 
-    //         '&& $icon': {
-    //           color: yellow,
-    //         },
-    //       },
-    //       '&:hover': {
-    //         color: yellow,
-    //       },
-    //       '&:focus': {
-    //         color: yellow,
-    //       },
-    //     },
-    //   },
-    // },
+              // '&.MuiSvgIcon': {
+              //   color: yellow,
+              // },
+            },
+            '&:hover': {
+              color: yellow,
+            },
+            '&:focus': {
+              color: yellow,
+            },
+          },
+          icon: {
+            color: yellow,
+          },
+        },
+      },
+    },
   },
   plPL,
 )

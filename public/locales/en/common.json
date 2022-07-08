@@ -1,6 +1,7 @@
 {
   "EMAIL": "E-mail",
   "PASSWORD": "Password",
+  "NAME": "Name",
   "FIRST_NAME": "First Name",
   "LAST_NAME": "Last Name",
   "CITY": "City",

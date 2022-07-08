@@ -8,13 +8,14 @@ import { useTabs } from '../../lib/use-tabs'
 import { useTable } from '../../lib/use-table'
 import { useLocalStorage } from '../../lib/use-local-storage'
 import { ClubDto, ClubsFiltersDto, ClubsSortBy } from '../../types/clubs'
-import { Loader } from '../../components/loader/loader'
 import { PageHeading } from '../../components/page-heading/page-heading'
 import { TabPanel } from '../../components/tab-panel/tab-panel'
 import { useClubs } from '../../lib/clubs'
 import { ClubsFilterForm } from '../../components/forms/clubs-filter-form'
 import { useCountriesList } from '../../lib/countries'
 import { useRegionsList } from '../../lib/regions'
+import { ClubsTable } from '../../components/tables/clubs'
+import { ClubsTableRow } from '../../components/tables/rows/clubs-row'
 
 export const getServerSideProps = withSessionSsr(
   async ({ locale, req, res }) => {
@@ -128,7 +129,7 @@ const ClubsPage = () => {
           onFilter={handleSetFilters}
           onClearFilters={() => handleSetFilters(initialFilters)}
         />
-        {/* <ClubsTable
+        <ClubsTable
           page={page}
           rowsPerPage={rowsPerPage}
           sortBy={sortBy}
@@ -143,19 +144,15 @@ const ClubsPage = () => {
             ? clubs.docs.map(club => (
                 <ClubsTableRow
                   key={club.id}
-                  club={club}
-                  onEditClick={handleEditClick}
-                  onDeleteClick={deleteClub}
-                  isEditOptionEnabled={
-                    user.role === 'admin' || user.id === club.author
-                  }
-                  isDeleteOptionEnabled={
-                    user.role === 'admin' || user.id === club.author
-                  }
+                  data={club}
+                  onEditClick={() => console.log('hello')}
+                  onDeleteClick={() => console.log('hello')}
+                  isEditOptionEnabled={false}
+                  isDeleteOptionEnabled={false}
                 />
               ))
             : null}
-        </ClubsTable> */}
+        </ClubsTable>
       </TabPanel>
       <TabPanel value={activeTab} index={1} title="clubs">
         <PageHeading
