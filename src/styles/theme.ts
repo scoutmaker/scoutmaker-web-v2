@@ -49,30 +49,6 @@ export const theme = createTheme(
         default: lightGray,
       },
     },
-    components: {
-      MuiTableSortLabel: {
-        styleOverrides: {
-          root: {
-            '&.Mui-active': {
-              color: yellow,
-
-              // '&.MuiSvgIcon': {
-              //   color: yellow,
-              // },
-            },
-            '&:hover': {
-              color: yellow,
-            },
-            '&:focus': {
-              color: yellow,
-            },
-          },
-          icon: {
-            color: yellow,
-          },
-        },
-      },
-    },
   },
   plPL,
 )

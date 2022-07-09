@@ -32,6 +32,21 @@ export const TableHeader = ({
             active={sortBy === id}
             direction={sortBy === id ? order : 'asc'}
             onClick={() => handleSort(id)}
+            sx={{
+              '&.Mui-active': {
+                color: 'info.main',
+                '.MuiSvgIcon-root.MuiTableSortLabel-icon': {
+                  opacity: 0.5,
+                  color: 'info.main',
+                },
+              },
+              '&:hover': {
+                color: 'info.main',
+              },
+              '&:focus': {
+                color: 'info.main',
+              },
+            }}
           >
             {label}
           </TableSortLabel>

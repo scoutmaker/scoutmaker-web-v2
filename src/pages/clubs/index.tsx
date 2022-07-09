@@ -1,21 +1,19 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { AppBar, Tabs, Tab } from '@mui/material'
 import { useState } from 'react'
 import { useUser } from '../../lib/auth'
 import { withSessionSsr } from '../../lib/session'
 import { redirectToLogin } from '../../utils/redirect-to-login'
-import { useTabs } from '../../lib/use-tabs'
 import { useTable } from '../../lib/use-table'
 import { useLocalStorage } from '../../lib/use-local-storage'
 import { ClubDto, ClubsFiltersDto, ClubsSortBy } from '../../types/clubs'
 import { PageHeading } from '../../components/page-heading/page-heading'
-import { TabPanel } from '../../components/tab-panel/tab-panel'
 import { useClubs } from '../../lib/clubs'
 import { ClubsFilterForm } from '../../components/forms/clubs-filter-form'
 import { useCountriesList } from '../../lib/countries'
 import { useRegionsList } from '../../lib/regions'
 import { ClubsTable } from '../../components/tables/clubs'
 import { ClubsTableRow } from '../../components/tables/rows/clubs-row'
+import { Fab } from '../../components/fab/fab'
 
 export const getServerSideProps = withSessionSsr(
   async ({ locale, req, res }) => {
@@ -46,8 +44,6 @@ const initialFilters: ClubsFiltersDto = {
 
 const ClubsPage = () => {
   const user = useUser()
-
-  const { activeTab, handleTabChange, setActiveTab } = useTabs()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -114,56 +110,49 @@ const ClubsPage = () => {
         createClubLoading ||
         updateClubLoading ||
         deleteClubLoading) && <Loader />} */}
-      <AppBar position="static">
-        <Tabs value={activeTab} onChange={handleTabChange} aria-label="clubs">
-          <Tab label="Kluby" id="clubs-0" aria-controls="clubs-0" />
-          <Tab label="Dodaj/edytuj" id="clubs-1" aria-controls="clubs-1" />
-        </Tabs>
-      </AppBar>
-      <TabPanel value={activeTab} index={0} title="clubs">
-        <PageHeading title="Baza klubów" />
-        <ClubsFilterForm
-          filters={filters}
-          countriesData={countries || []}
-          regionsData={regions || []}
-          onFilter={handleSetFilters}
-          onClearFilters={() => handleSetFilters(initialFilters)}
-        />
-        <ClubsTable
-          page={page}
-          rowsPerPage={rowsPerPage}
-          sortBy={sortBy}
-          order={order}
-          handleChangePage={handleChangePage}
-          handleChangeRowsPerPage={handleChangeRowsPerPage}
-          handleSort={handleSort}
-          total={clubs?.totalDocs || 0}
-          actions
-        >
-          {clubs
-            ? clubs.docs.map(club => (
-                <ClubsTableRow
-                  key={club.id}
-                  data={club}
-                  onEditClick={() => console.log('hello')}
-                  onDeleteClick={() => console.log('hello')}
-                  isEditOptionEnabled={false}
-                  isDeleteOptionEnabled={false}
-                />
-              ))
-            : null}
-        </ClubsTable>
-      </TabPanel>
-      <TabPanel value={activeTab} index={1} title="clubs">
+      <PageHeading title="Baza klubów" />
+      <ClubsFilterForm
+        filters={filters}
+        countriesData={countries || []}
+        regionsData={regions || []}
+        onFilter={handleSetFilters}
+        onClearFilters={() => handleSetFilters(initialFilters)}
+      />
+      <ClubsTable
+        page={page}
+        rowsPerPage={rowsPerPage}
+        sortBy={sortBy}
+        order={order}
+        handleChangePage={handleChangePage}
+        handleChangeRowsPerPage={handleChangeRowsPerPage}
+        handleSort={handleSort}
+        total={clubs?.totalDocs || 0}
+        actions
+      >
+        {clubs
+          ? clubs.docs.map(club => (
+              <ClubsTableRow
+                key={club.id}
+                data={club}
+                onEditClick={() => console.log('hello')}
+                onDeleteClick={() => console.log('hello')}
+                isEditOptionEnabled={false}
+                isDeleteOptionEnabled={false}
+              />
+            ))
+          : null}
+      </ClubsTable>
+      <Fab href="/clubs/create" />
+      {/* <TabPanel value={activeTab} index={1} title="clubs">
         <PageHeading
           title={currentClub ? 'Edycja klubu' : 'Tworzenie nowego klubu'}
-        />
-        {/* <ClubsForm
+        /> */}
+      {/* <ClubsForm
           current={currentClub}
           onSubmit={handleSubmit}
           onCancelClick={handleFormReset}
         /> */}
-      </TabPanel>
+      {/* </TabPanel> */}
     </>
   )
 }
