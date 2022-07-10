@@ -136,9 +136,35 @@ export function useUpdateClub(id: string) {
       },
       onError: (err: ApiError) =>
         setAlert({
-          msg: err.response.data.error,
+          msg: err.response.data.message,
           type: 'error',
         }),
     },
   )
+}
+
+// Delete club
+async function deleteClub(id: string): Promise<ApiResponse<ClubDto>> {
+  const { data } = await api.delete<ApiResponse<ClubDto>>(`/clubs/${id}`)
+  return data
+}
+
+export function useDeleteClub() {
+  const queryClient = useQueryClient()
+  const { setAlert } = useAlertsState()
+
+  return useMutation((id: string) => deleteClub(id), {
+    onSuccess: data => {
+      setAlert({
+        msg: data.message,
+        type: 'success',
+      })
+      queryClient.invalidateQueries('clubs')
+    },
+    onError: (err: ApiError) =>
+      setAlert({
+        msg: err.response.data.message,
+        type: 'error',
+      }),
+  })
 }

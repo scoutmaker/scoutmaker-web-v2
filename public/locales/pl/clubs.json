@@ -2,5 +2,7 @@
   "NO_NAME_ERROR": "Podaj nazwę klubu",
   "NO_REGION_ERROR": "Wybierz region klubu",
   "NO_COUNTRY_ERROR": "Wybierz kraj klubu",
-  "CREATE_CLUB_PAGE_TITLE": "Utwórz nowy klub"
+  "CREATE_CLUB_PAGE_TITLE": "Utwórz nowy klub",
+  "EDIT_CLUB_PAGE_TITLE": "Edycja danych klubu {{name}}",
+  "DELETE_CLUB_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć klub {{name}}?"
 }

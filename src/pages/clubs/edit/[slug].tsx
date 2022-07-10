@@ -89,7 +89,9 @@ const EditClubPage = ({
         {(isRegionsLoading || isCountriesLoading || isUpdateClubLoading) && (
           <Loader />
         )}
-        <PageHeading title={t('clubs:EDIT_CLUB_PAGE_TITLE')} />
+        <PageHeading
+          title={t('clubs:EDIT_CLUB_PAGE_TITLE', { name: club.name })}
+        />
         <EditClubForm
           current={club}
           countriesData={countries || []}

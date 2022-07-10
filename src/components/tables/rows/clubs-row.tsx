@@ -10,8 +10,8 @@ import { StyledTableRow } from '../common/row'
 
 interface IClubsTableRowProps {
   data: ClubDto
-  onEditClick: (club: ClubDto) => void
-  onDeleteClick: (id: string) => void
+  onEditClick: () => void
+  onDeleteClick: () => void
   isEditOptionEnabled: boolean
   isDeleteOptionEnabled: boolean
 }
@@ -52,7 +52,7 @@ export const ClubsTableRow = ({
             icon={<EditIcon fontSize="small" />}
             text="Edytuj"
             onClick={() => {
-              handleMenuAction(() => onEditClick(data))
+              handleMenuAction(onEditClick)
             }}
             disabled={!isEditOptionEnabled}
           />
@@ -60,7 +60,7 @@ export const ClubsTableRow = ({
             icon={<DeleteIcon fontSize="small" />}
             text="Usuń"
             onClick={() => {
-              handleMenuAction(() => onDeleteClick(id))
+              handleMenuAction(onDeleteClick)
             }}
             disabled={!isDeleteOptionEnabled}
           />

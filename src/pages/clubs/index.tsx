@@ -1,6 +1,7 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { useUser } from '../../lib/auth'
 import { withSessionSsr } from '../../lib/session'
 import { redirectToLogin } from '../../utils/redirect-to-login'
@@ -8,13 +9,15 @@ import { useTable } from '../../lib/use-table'
 import { useLocalStorage } from '../../lib/use-local-storage'
 import { ClubDto, ClubsFiltersDto, ClubsSortBy } from '../../types/clubs'
 import { PageHeading } from '../../components/page-heading/page-heading'
-import { useClubs } from '../../lib/clubs'
+import { useClubs, useDeleteClub } from '../../lib/clubs'
 import { ClubsFilterForm } from '../../components/forms/club/clubs-filter-form'
 import { useCountriesList } from '../../lib/countries'
 import { useRegionsList } from '../../lib/regions'
 import { ClubsTable } from '../../components/tables/clubs'
 import { ClubsTableRow } from '../../components/tables/rows/clubs-row'
 import { Fab } from '../../components/fab/fab'
+import { ConfirmationModal } from '../../components/modals/confirmation-modal'
+import { Loader } from '../../components/loader/loader'
 
 export const getServerSideProps = withSessionSsr(
   async ({ locale, req, res }) => {
@@ -27,6 +30,7 @@ export const getServerSideProps = withSessionSsr(
 
     const translations = await serverSideTranslations(locale || 'pl', [
       'common',
+      'clubs',
     ])
 
     return {
@@ -43,9 +47,20 @@ const initialFilters: ClubsFiltersDto = {
   regionId: '',
 }
 
+interface IClubToDeleteData {
+  id: string
+  name: string
+}
+
 const ClubsPage = () => {
+  const { t } = useTranslation()
   const user = useUser()
   const router = useRouter()
+
+  const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
+    useState(false)
+  const [clubToDeleteData, setClubToDeleteData] =
+    useState<IClubToDeleteData | null>(null)
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -68,8 +83,6 @@ const ClubsPage = () => {
 
   const { data: regions, isLoading: regionsLoading } = useRegionsList()
 
-  const [currentClub, setCurrentClub] = useState<ClubDto | null>(null)
-
   const { data: clubs, isLoading: clubsLoading } = useClubs({
     page: page + 1,
     limit: rowsPerPage,
@@ -78,39 +91,14 @@ const ClubsPage = () => {
     ...filters,
   })
 
-  // const { mutate: createClub, isLoading: createClubLoading } = useCreateClub()
-  // const { mutate: updateClub, isLoading: updateClubLoading } = useUpdateClub(
-  //   currentClub?.id || '',
-  // )
-  // const { mutate: deleteClub, isLoading: deleteClubLoading } = useDeleteClub()
-
-  // const handleEditClick = (club: ClubDto) => {
-  //   setCurrentClub(club)
-  //   setActiveTab(1)
-  // }
-
-  // const handleSubmit = (data: ClubDto) => {
-  //   if (currentClub) {
-  //     updateClub(data)
-  //     setActiveTab(0)
-  //     setCurrentClub(null)
-  //   } else {
-  //     createClub(data)
-  //     setActiveTab(0)
-  //   }
-  // }
-
-  // const handleFormReset = () => {
-  //   setActiveTab(0)
-  //   setCurrentClub(null)
-  // }
+  const { mutate: deleteClub, isLoading: deleteClubLoading } = useDeleteClub()
 
   return (
     <>
-      {/* {(clubsLoading ||
-        createClubLoading ||
-        updateClubLoading ||
-        deleteClubLoading) && <Loader />} */}
+      {(clubsLoading ||
+        countriesLoading ||
+        regionsLoading ||
+        deleteClubLoading) && <Loader />}
       <PageHeading title="Baza klubów" />
       <ClubsFilterForm
         filters={filters}
@@ -138,7 +126,10 @@ const ClubsPage = () => {
                 onEditClick={() => {
                   router.push(`/clubs/edit/${club.slug}`)
                 }}
-                onDeleteClick={() => console.log('hello')}
+                onDeleteClick={() => {
+                  setClubToDeleteData({ id: club.id, name: club.name })
+                  setIsDeleteConfirmationModalOpen(true)
+                }}
                 isEditOptionEnabled
                 isDeleteOptionEnabled
               />
@@ -146,16 +137,20 @@ const ClubsPage = () => {
           : null}
       </ClubsTable>
       <Fab href="/clubs/create" />
-      {/* <TabPanel value={activeTab} index={1} title="clubs">
-        <PageHeading
-          title={currentClub ? 'Edycja klubu' : 'Tworzenie nowego klubu'}
-        /> */}
-      {/* <ClubsForm
-          current={currentClub}
-          onSubmit={handleSubmit}
-          onCancelClick={handleFormReset}
-        /> */}
-      {/* </TabPanel> */}
+      <ConfirmationModal
+        open={isDeleteConfirmationModalOpen}
+        message={t('clubs:DELETE_CLUB_CONFIRM_QUESTION', {
+          name: clubToDeleteData?.name,
+        })}
+        handleAccept={() => {
+          deleteClub(clubToDeleteData?.id || '')
+          setClubToDeleteData(null)
+        }}
+        handleClose={() => {
+          setIsDeleteConfirmationModalOpen(false)
+          setClubToDeleteData(null)
+        }}
+      />
     </>
   )
 }
