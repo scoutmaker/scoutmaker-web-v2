@@ -1,5 +1,6 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { useUser } from '../../lib/auth'
 import { withSessionSsr } from '../../lib/session'
 import { redirectToLogin } from '../../utils/redirect-to-login'
@@ -44,6 +45,7 @@ const initialFilters: ClubsFiltersDto = {
 
 const ClubsPage = () => {
   const user = useUser()
+  const router = useRouter()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -58,7 +60,6 @@ const ClubsPage = () => {
   })
 
   function handleSetFilters(newFilters: ClubsFiltersDto) {
-    console.log('CLEARING FILRES', { newFilters })
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -134,10 +135,12 @@ const ClubsPage = () => {
               <ClubsTableRow
                 key={club.id}
                 data={club}
-                onEditClick={() => console.log('hello')}
+                onEditClick={() => {
+                  router.push(`/clubs/edit/${club.slug}`)
+                }}
                 onDeleteClick={() => console.log('hello')}
-                isEditOptionEnabled={false}
-                isDeleteOptionEnabled={false}
+                isEditOptionEnabled
+                isDeleteOptionEnabled
               />
             ))
           : null}

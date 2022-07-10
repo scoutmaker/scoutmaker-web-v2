@@ -5,9 +5,21 @@ import {
   ClubDto,
   CreateClubDto,
   FindAllClubsParams,
+  UpdateClubDto,
 } from '../types/clubs'
 import { ApiError, ApiResponse, TPaginatedData } from '../types/common'
 import { api } from './api'
+
+// Get single club by slug
+export async function getClubBySlug(slug: string, token?: string) {
+  const config = token ? { headers: { 'x-auth-token': token } } : {}
+  const { data } = await api.get<ApiResponse<ClubDto>>(
+    `/clubs/by-slug/${slug}`,
+    config,
+  )
+
+  return data.data
+}
 
 // Get clubs list
 async function getClubsList(): Promise<ClubBasicDataDto[]> {
@@ -89,4 +101,44 @@ export function useCreateClub() {
         type: 'error',
       }),
   })
+}
+
+// Update club
+interface IUpdateClubArgs {
+  id: string
+  clubData: UpdateClubDto
+}
+
+async function updateClub({
+  id,
+  clubData,
+}: IUpdateClubArgs): Promise<ApiResponse<ClubDto>> {
+  const { data } = await api.patch<ApiResponse<ClubDto>>(
+    `/clubs/${id}`,
+    clubData,
+  )
+  return data
+}
+
+export function useUpdateClub(id: string) {
+  const queryClient = useQueryClient()
+  const { setAlert } = useAlertsState()
+
+  return useMutation(
+    (values: UpdateClubDto) => updateClub({ id, clubData: values }),
+    {
+      onSuccess: data => {
+        setAlert({
+          msg: data.message,
+          type: 'success',
+        })
+        queryClient.invalidateQueries('clubs')
+      },
+      onError: (err: ApiError) =>
+        setAlert({
+          msg: err.response.data.error,
+          type: 'error',
+        }),
+    },
+  )
 }

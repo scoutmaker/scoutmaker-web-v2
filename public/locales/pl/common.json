@@ -54,5 +54,6 @@
   "WEBSITE_URL": "Adres www",
   "TWITTER_URL": "Twitter URL",
   "FACEBOOK_URL": "Facebook URL",
-  "INSTAGRAM_URL": "Instagram URL"
+  "INSTAGRAM_URL": "Instagram URL",
+  "SOMETHING_WENT_WRONG": "Przepraszamy, coś poszło nie tak"
 }

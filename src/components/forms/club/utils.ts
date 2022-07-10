@@ -1,6 +1,7 @@
 import { TFunction } from 'next-i18next'
 import * as yup from 'yup'
-import { CreateClubDto } from '../../../types/clubs'
+import map from 'just-map-values'
+import { ClubDto, CreateClubDto, UpdateClubDto } from '../../../types/clubs'
 
 export const initialValues: CreateClubDto = {
   name: '',
@@ -47,4 +48,16 @@ export function generateUpdateClubValidationSchema() {
     countryId: yup.string().notRequired(),
     ...generateCommonClubFieldsValidationSchema(),
   })
+}
+
+export function getInitialStateFromCurrent(club: ClubDto): UpdateClubDto {
+  const { id, country, region, slug, ...rest } = club
+
+  const values = {
+    ...rest,
+    regionId: region.id,
+    countryId: country.id,
+  }
+
+  return map(values, value => value || '')
 }
