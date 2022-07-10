@@ -1,12 +1,12 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { ClubDetailsCard } from '../../components/details-cards/club'
-import { ErrorContent } from '../../components/error/error-content'
-import { PageHeading } from '../../components/page-heading/page-heading'
-import { getClubBySlug } from '../../lib/clubs'
-import { withSessionSsr } from '../../lib/session'
-import { ClubDto } from '../../types/clubs'
-import { ApiError } from '../../types/common'
-import { redirectToLogin } from '../../utils/redirect-to-login'
+import { ClubDetailsCard } from '@/components/details-cards/club'
+import { ErrorContent } from '@/components/error/error-content'
+import { PageHeading } from '@/components/page-heading/page-heading'
+import { getClubBySlug } from '@/lib/clubs'
+import { withSessionSsr } from '@/lib/session'
+import { ClubDto } from '@/types/clubs'
+import { ApiError } from '@/types/common'
+import { redirectToLogin } from '@/utils/redirect-to-login'
 
 type TClubPageProps = {
   errorStatus: number | null

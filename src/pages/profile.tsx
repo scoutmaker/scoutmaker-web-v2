@@ -1,6 +1,6 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { withSessionSsr } from '../lib/session'
-import { redirectToLogin } from '../utils/redirect-to-login'
+import { withSessionSsr } from '@/lib/session'
+import { redirectToLogin } from '@/utils/redirect-to-login'
 
 export const getServerSideProps = withSessionSsr(
   async ({ req, res, locale }) => {

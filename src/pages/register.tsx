@@ -2,9 +2,9 @@ import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 import { Typography } from '@mui/material'
-import { useRegister } from '../lib/auth'
-import { Loader } from '../components/loader/loader'
-import { RegisterForm } from '../components/forms/register'
+import { useRegister } from '@/lib/auth'
+import { Loader } from '@/components/loader/loader'
+import { RegisterForm } from '@/components/forms/register'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const translations = await serverSideTranslations(locale || 'pl', [
