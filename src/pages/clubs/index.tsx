@@ -2,12 +2,11 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { useUser } from '../../lib/auth'
 import { withSessionSsr } from '../../lib/session'
 import { redirectToLogin } from '../../utils/redirect-to-login'
 import { useTable } from '../../lib/use-table'
 import { useLocalStorage } from '../../lib/use-local-storage'
-import { ClubDto, ClubsFiltersDto, ClubsSortBy } from '../../types/clubs'
+import { ClubsFiltersDto, ClubsSortBy } from '../../types/clubs'
 import { PageHeading } from '../../components/page-heading/page-heading'
 import { useClubs, useDeleteClub } from '../../lib/clubs'
 import { ClubsFilterForm } from '../../components/forms/club/clubs-filter-form'
@@ -54,7 +53,6 @@ interface IClubToDeleteData {
 
 const ClubsPage = () => {
   const { t } = useTranslation()
-  const user = useUser()
   const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
@@ -99,7 +97,7 @@ const ClubsPage = () => {
         countriesLoading ||
         regionsLoading ||
         deleteClubLoading) && <Loader />}
-      <PageHeading title="Baza klubów" />
+      <PageHeading title={t('clubs:INDEX_PAGE_TITLE')} />
       <ClubsFilterForm
         filters={filters}
         countriesData={countries || []}
