@@ -46,7 +46,7 @@ export const Fields = ({ regionsData, countriesData }: IFieldsProps) => {
         fullWidth
         label={t('CITY')}
         error={touched.city && !!errors.city}
-        helperText={touched.city && errors.city}
+        helperText={(touched.city && errors.city) || t('OPTIONAL_FIELD')}
       />
       <Field
         name="postalCode"
@@ -55,7 +55,9 @@ export const Fields = ({ regionsData, countriesData }: IFieldsProps) => {
         fullWidth
         label={t('POSTAL_CODE')}
         error={touched.postalCode && !!errors.postalCode}
-        helperText={touched.postalCode && errors.postalCode}
+        helperText={
+          (touched.postalCode && errors.postalCode) || t('OPTIONAL_FIELD')
+        }
       />
       <Field
         name="street"
@@ -64,43 +66,47 @@ export const Fields = ({ regionsData, countriesData }: IFieldsProps) => {
         fullWidth
         label={t('STREET')}
         error={touched.street && !!errors.street}
-        helperText={touched.street && errors.street}
+        helperText={(touched.street && errors.street) || t('OPTIONAL_FIELD')}
       />
       <Field
         name="website"
         as={TextField}
         variant="outlined"
         fullWidth
-        label={t('WEBSITE')}
+        label={t('WEBSITE_URL')}
         error={touched.website && !!errors.website}
-        helperText={touched.website && errors.website}
+        helperText={(touched.website && errors.website) || t('OPTIONAL_FIELD')}
       />
       <Field
         name="twitter"
         as={TextField}
         variant="outlined"
         fullWidth
-        label={t('TWITTER')}
+        label={t('TWITTER_URL')}
         error={touched.twitter && !!errors.twitter}
-        helperText={touched.twitter && errors.twitter}
+        helperText={(touched.twitter && errors.twitter) || t('OPTIONAL_FIELD')}
       />
       <Field
         name="facebook"
         as={TextField}
         variant="outlined"
         fullWidth
-        label={t('FACEBOOK')}
+        label={t('FACEBOOK_URL')}
         error={touched.facebook && !!errors.facebook}
-        helperText={touched.facebook && errors.facebook}
+        helperText={
+          (touched.facebook && errors.facebook) || t('OPTIONAL_FIELD')
+        }
       />
       <Field
         name="instagram"
         as={TextField}
         variant="outlined"
         fullWidth
-        label={t('INSTAGRAM')}
+        label={t('INSTAGRAM_URL')}
         error={touched.instagram && !!errors.instagram}
-        helperText={touched.instagram && errors.instagram}
+        helperText={
+          (touched.instagram && errors.instagram) || t('OPTIONAL_FIELD')
+        }
       />
     </>
   )

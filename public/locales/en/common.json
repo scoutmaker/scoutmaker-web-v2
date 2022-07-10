@@ -48,5 +48,11 @@
   "LNP_ID": "Łączy Nas Piłka ID",
   "OPTIONAL_FIELD": "Optional field",
   "ADD": "Add",
-  "CANCEL": "Cancel"
+  "CANCEL": "Cancel",
+  "POSTAL_CODE": "Postal code",
+  "STREET": "Street",
+  "WEBSITE_URL": "Website URL",
+  "TWITTER_URL": "Twitter URL",
+  "FACEBOOK_URL": "Facebook URL",
+  "INSTAGRAM_URL": "Instagram URL"
 }

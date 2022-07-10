@@ -1,6 +1,11 @@
-import { useQuery, useQueryClient } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useAlertsState } from '../context/alerts/useAlertsState'
-import { ClubBasicDataDto, ClubDto, FindAllClubsParams } from '../types/clubs'
+import {
+  ClubBasicDataDto,
+  ClubDto,
+  CreateClubDto,
+  FindAllClubsParams,
+} from '../types/clubs'
 import { ApiError, ApiResponse, TPaginatedData } from '../types/common'
 import { api } from './api'
 
@@ -49,6 +54,34 @@ export function useClubs(params: FindAllClubsParams) {
     keepPreviousData: true,
     onSuccess: data => {
       queryClient.setQueryData('clubs', data.docs)
+    },
+    onError: (err: ApiError) =>
+      setAlert({
+        msg: err.response.data.message,
+        type: 'error',
+      }),
+  })
+}
+
+// Create new club
+async function createClub(
+  clubData: CreateClubDto,
+): Promise<ApiResponse<ClubDto>> {
+  const { data } = await api.post<ApiResponse<ClubDto>>('/clubs', clubData)
+  return data
+}
+
+export function useCreateClub() {
+  const queryClient = useQueryClient()
+  const { setAlert } = useAlertsState()
+
+  return useMutation((values: CreateClubDto) => createClub(values), {
+    onSuccess: data => {
+      setAlert({
+        msg: data.message,
+        type: 'success',
+      })
+      queryClient.invalidateQueries('clubs')
     },
     onError: (err: ApiError) =>
       setAlert({

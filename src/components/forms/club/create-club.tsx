@@ -1,5 +1,6 @@
 import { Formik, Form } from 'formik'
 import { useTranslation } from 'next-i18next'
+import filter from 'just-filter-object'
 import { useAlertsState } from '../../../context/alerts/useAlertsState'
 import { CreateClubDto } from '../../../types/clubs'
 import { generateCreateClubValidationSchema, initialValues } from './utils'
@@ -32,8 +33,9 @@ export const CreateClubForm = ({
       initialValues={initialValues}
       validationSchema={generateCreateClubValidationSchema(t)}
       enableReinitialize
-      onSubmit={(data, { resetForm }) => {
-        onSubmit(data)
+      onSubmit={async (data, { resetForm }) => {
+        const dataToSubmit = filter(data, (_, value) => value)
+        onSubmit(dataToSubmit as CreateClubDto)
         resetForm()
       }}
     >
