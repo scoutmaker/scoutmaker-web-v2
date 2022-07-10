@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { ApiError } from '../../types/common'
-import { api, setAuthToken } from '../../lib/api'
-import { withSessionRoute } from '../../lib/session'
+import { ApiError } from '@/types/common'
+import { api, setAuthToken } from '@/lib/api'
+import { withSessionRoute } from '@/lib/session'
 
 async function loginHandler(req: NextApiRequest, res: NextApiResponse) {
   try {

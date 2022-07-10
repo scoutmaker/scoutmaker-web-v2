@@ -6,7 +6,7 @@ import { api } from './api'
 
 // Get regions list
 async function getRegionsList(): Promise<RegionDto[]> {
-  const { data } = await api.get<ApiResponse<RegionDto[]>>('/regions')
+  const { data } = await api.get<ApiResponse<RegionDto[]>>('/regions/list')
   return data.data
 }
 

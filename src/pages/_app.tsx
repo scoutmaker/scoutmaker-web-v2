@@ -7,11 +7,11 @@ import { appWithTranslation } from 'next-i18next'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { useState } from 'react'
-import { createEmotionCache } from '../utils/create-emotion-cache'
-import { theme } from '../styles/theme'
-import { AlertsState } from '../context/alerts/AlertsState'
-import { PrimaryLayout } from '../layout/primary-layout'
-import { SecondaryLayout } from '../layout/secondary-layout'
+import { createEmotionCache } from '@/utils/create-emotion-cache'
+import { theme } from '@/styles/theme'
+import { AlertsState } from '@/context/alerts/AlertsState'
+import { PrimaryLayout } from '@/layout/primary-layout'
+import { SecondaryLayout } from '@/layout/secondary-layout'
 
 const clientSideEmotionCache = createEmotionCache()
 

@@ -1,11 +1,12 @@
 import { useField } from 'formik'
 import { TextField, Autocomplete } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 import { UserFootballRoleDto } from '../../types/user-football-roles'
 
 interface IUserFootballRolesComboProps {
   userFootballRolesData: UserFootballRoleDto[]
   name: string
-  label: string
+  label?: string
   size?: 'medium' | 'small'
 }
 
@@ -16,6 +17,7 @@ export const UserFootballRolesCombo = ({
   size,
 }: IUserFootballRolesComboProps) => {
   const [field, fieldMeta, fieldHelpers] = useField(name)
+  const { t } = useTranslation()
 
   const { value } = field
   const { error, touched } = fieldMeta
@@ -36,20 +38,20 @@ export const UserFootballRolesCombo = ({
         if (selected) {
           return selected.name
         }
-        return 'brak'
+        return t('NONE')
       }}
       renderOption={(props, option) => {
         const selected = userFootballRolesData.find(role => role.id === option)
         return (
           <li {...props} key={option.id}>
-            {selected?.name || 'brak'}
+            {selected?.name || t('NONE')}
           </li>
         )
       }}
       renderInput={params => (
         <TextField
           {...params}
-          label={label}
+          label={label || t('FOOTBALL_ROLE')}
           variant="outlined"
           error={touched && !!error}
           helperText={touched && error}

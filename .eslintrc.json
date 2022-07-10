@@ -41,7 +41,9 @@
     "@next/next/no-html-link-for-pages": "off",
     "import/prefer-default-export": "off",
     "react/require-default-props": "off",
-    "react/no-unstable-nested-components": "off"
+    "react/no-unstable-nested-components": "off",
+    "react/jsx-no-bind": "off",
+    "@typescript-eslint/no-use-before-define": "off"
   },
   "overrides": [
     {

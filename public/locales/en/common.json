@@ -1,6 +1,7 @@
 {
   "EMAIL": "E-mail",
   "PASSWORD": "Password",
+  "NAME": "Name",
   "FIRST_NAME": "First Name",
   "LAST_NAME": "Last Name",
   "CITY": "City",
@@ -26,6 +27,7 @@
   "DASHBOARD": "Dashboard",
   "DATABASES": "Databases",
   "PLAYERS": "Players",
+  "REGION": "Region",
   "CLUB": "Club",
   "CLUBS": "Clubs",
   "MATCHES": "Matches",
@@ -38,5 +40,20 @@
   "PROFILE": "Profile",
   "USER_DATA": "User data",
   "SETTINGS": "Settings",
-  "SEND": "Send"
+  "SEND": "Send",
+  "COUNTRY": "Country",
+  "NONE": "None",
+  "APPLY_FILTERS": "Apply Filters",
+  "CLEAR_FILTERS": "Clear",
+  "LNP_ID": "Łączy Nas Piłka ID",
+  "OPTIONAL_FIELD": "Optional field",
+  "ADD": "Add",
+  "CANCEL": "Cancel",
+  "POSTAL_CODE": "Postal code",
+  "STREET": "Street",
+  "WEBSITE_URL": "Website URL",
+  "TWITTER_URL": "Twitter URL",
+  "FACEBOOK_URL": "Facebook URL",
+  "INSTAGRAM_URL": "Instagram URL",
+  "SOMETHING_WENT_WRONG": "Sorry, something went wrong"
 }

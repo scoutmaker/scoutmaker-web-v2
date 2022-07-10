@@ -1,0 +1,9 @@
+{
+  "INDEX_PAGE_TITLE": "Clubs database",
+  "NO_NAME_ERROR": "Please provide clubs name",
+  "NO_REGION_ERROR": "Please choose clubs region",
+  "NO_COUNTRY_ERROR": "Please choose clubs country",
+  "CREATE_CLUB_PAGE_TITLE": "Create new club",
+  "EDIT_CLUB_PAGE_TITLE": "Edit club {{name}} data",
+  "DELETE_CLUB_CONFIRM_QUESTION": "Are you sure you want to delete club {{name}}?"
+}

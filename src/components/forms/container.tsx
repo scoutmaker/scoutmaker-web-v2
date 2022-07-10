@@ -1,11 +1,11 @@
 import { styled } from '@mui/material/styles'
 
 interface IContainerProps {
-  fullWidth?: boolean
+  fullwidth?: boolean
 }
 
 export const Container = styled('div')<IContainerProps>(
-  ({ theme, fullWidth }) => ({
+  ({ theme, fullwidth }) => ({
     display: 'flex',
     flexDirection: 'column',
     margin: theme.spacing(0, 'auto', 2),
@@ -15,6 +15,6 @@ export const Container = styled('div')<IContainerProps>(
       width: '50%',
     },
 
-    width: fullWidth ? '100%' : 'auto',
+    width: fullwidth ? '100%' : 'auto',
   }),
 )

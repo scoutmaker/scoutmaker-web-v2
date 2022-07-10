@@ -9,6 +9,7 @@ import {
   Autocomplete,
 } from '@mui/material'
 import { AddOutlined } from '@mui/icons-material'
+import { useTranslation } from 'next-i18next'
 import { ClubBasicDataDto } from '../../types/clubs'
 
 interface ICustomPaperProps extends PaperProps {
@@ -38,7 +39,7 @@ const CustomPaper = (props: ICustomPaperProps) => {
 interface IClubsComboProps {
   clubsData: ClubBasicDataDto[]
   name: string
-  label: string
+  label?: string
   size?: 'medium' | 'small'
   addClubOption?: boolean
   onAddClubClick?: () => void
@@ -52,6 +53,7 @@ export const ClubsCombo = ({
   addClubOption,
   onAddClubClick,
 }: IClubsComboProps) => {
+  const { t } = useTranslation()
   const [field, fieldMeta, fieldHelpers] = useField(name)
 
   const { value } = field
@@ -73,20 +75,20 @@ export const ClubsCombo = ({
         if (club) {
           return club.name
         }
-        return 'brak'
+        return t('NONE')
       }}
       renderOption={(props, option) => {
         const club = clubsData.find(c => c.id === option)
         return (
           <li {...props} key={option.id}>
-            {club?.name || 'brak'}
+            {club?.name || t('NONE')}
           </li>
         )
       }}
       renderInput={params => (
         <TextField
           {...params}
-          label={label}
+          label={label || t('CLUB')}
           variant="outlined"
           error={touched && !!error}
           helperText={touched && error}

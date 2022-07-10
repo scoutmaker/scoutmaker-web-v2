@@ -4,9 +4,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 import { useEffect } from 'react'
 import { Typography } from '@mui/material'
-import { StyledLink } from '../../components/forms/styles'
-import { useConfirmAccount } from '../../lib/auth'
-import { Loader } from '../../components/loader/loader'
+import { StyledLink } from '@/components/forms/styles'
+import { useConfirmAccount } from '@/lib/auth'
+import { Loader } from '@/components/loader/loader'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const translations = await serverSideTranslations(locale || 'pl', ['common'])

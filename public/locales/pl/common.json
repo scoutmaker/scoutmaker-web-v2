@@ -1,6 +1,7 @@
 {
   "EMAIL": "E-mail",
   "PASSWORD": "Hasło",
+  "NAME": "Nazwa",
   "FIRST_NAME": "Imię",
   "LAST_NAME": "Nazwisko",
   "CITY": "Miasto",
@@ -26,6 +27,7 @@
   "DASHBOARD": "Strona główna",
   "DATABASES": "Bazy",
   "PLAYERS": "Zawodnicy",
+  "REGION": "Region",
   "CLUB": "Klub",
   "CLUBS": "Kluby",
   "MATCHES": "Mecze",
@@ -38,5 +40,20 @@
   "PROFILE": "Mój profil",
   "USER_DATA": "Dane użytkownika",
   "SETTINGS": "Ustawienia",
-  "SEND": "Wyślij"
+  "SEND": "Wyślij",
+  "COUNTRY": "Kraj",
+  "NONE": "Brak",
+  "APPLY_FILTERS": "Zastosuj Filtry",
+  "CLEAR_FILTERS": "Wyczyść",
+  "LNP_ID": "ID Łączy Nas Piłka",
+  "OPTIONAL_FIELD": "Pole opcjonalne",
+  "ADD": "Dodaj",
+  "CANCEL": "Anuluj",
+  "POSTAL_CODE": "Kod pocztowy",
+  "STREET": "Ulica",
+  "WEBSITE_URL": "Strona www",
+  "TWITTER_URL": "Twitter URL",
+  "FACEBOOK_URL": "Facebook URL",
+  "INSTAGRAM_URL": "Instagram URL",
+  "SOMETHING_WENT_WRONG": "Przepraszamy, coś poszło nie tak"
 }
