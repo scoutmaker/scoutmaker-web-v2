@@ -44,5 +44,9 @@
   "COUNTRY": "Kraj",
   "NONE": "Brak",
   "APPLY_FILTERS": "Zastosuj Filtry",
-  "CLEAR_FILTERS": "Wyczyść"
+  "CLEAR_FILTERS": "Wyczyść",
+  "LNP_ID": "ID Łączy Nas Piłka",
+  "OPTIONAL_FIELD": "Pole opcjonalne",
+  "ADD": "Dodaj",
+  "CANCEL": "Anuluj"
 }

@@ -6,3 +6,5 @@ export type ClubsFiltersDto = Pick<
 >
 export type ClubsSortBy = Paths.ClubsControllerFindAll.Parameters.SortBy
 export type ClubDto = Components.Schemas.ClubDto
+export type CreateClubDto = Components.Schemas.CreateClubDto
+export type UpdateClubDto = Components.Schemas.UpdateClubDto

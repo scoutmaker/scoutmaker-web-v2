@@ -44,5 +44,9 @@
   "COUNTRY": "Country",
   "NONE": "None",
   "APPLY_FILTERS": "Apply Filters",
-  "CLEAR_FILTERS": "Clear"
+  "CLEAR_FILTERS": "Clear",
+  "LNP_ID": "Łączy Nas Piłka ID",
+  "OPTIONAL_FIELD": "Optional field",
+  "ADD": "Add",
+  "CANCEL": "Cancel"
 }
