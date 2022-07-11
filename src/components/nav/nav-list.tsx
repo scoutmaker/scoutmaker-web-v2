@@ -14,12 +14,13 @@ import {
   Note as NotesIcon,
   Storage as DatabaseIcon,
   Visibility as ObservationIcon,
+  GroupWork as TeamsIcon,
 } from '@mui/icons-material'
 // import { MatchButton } from './MatchButton'
 // import { QuickNoteButton } from './QuickNoteButton'
 import { useTranslation } from 'next-i18next'
-import { useUser } from '../../lib/auth'
-import { isAdmin, isPrivilegedUser } from '../../utils/user-roles'
+import { useUser } from '@/lib/auth'
+import { isAdmin, isPrivilegedUser } from '@/utils/user-roles'
 import { StyledDivider, StyledList } from './styles'
 import { ExpandeableNavElement } from './expandeable-nav-element'
 import { NavElement } from './nav-element'
@@ -61,6 +62,11 @@ export const NavList = () => {
           icon={<ClubsIcon color="error" />}
           to="/clubs"
           text={t('CLUBS')}
+        />
+        <NavElement
+          icon={<TeamsIcon color="error" />}
+          to="/teams"
+          text={t('TEAMS')}
         />
         <NavElement
           icon={<MatchesIcon color="error" />}
