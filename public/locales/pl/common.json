@@ -28,6 +28,7 @@
   "DATABASES": "Bazy",
   "PLAYERS": "Zawodnicy",
   "REGION": "Region",
+  "REGIONS": "Regiony",
   "CLUB": "Klub",
   "CLUBS": "Kluby",
   "TEAMS": "Zespoły",
@@ -43,6 +44,7 @@
   "SETTINGS": "Ustawienia",
   "SEND": "Wyślij",
   "COUNTRY": "Kraj",
+  "COUNTRIES": "Kraje",
   "NONE": "Brak",
   "APPLY_FILTERS": "Zastosuj Filtry",
   "CLEAR_FILTERS": "Wyczyść",
@@ -56,5 +58,10 @@
   "TWITTER_URL": "Twitter URL",
   "FACEBOOK_URL": "Facebook URL",
   "INSTAGRAM_URL": "Instagram URL",
-  "SOMETHING_WENT_WRONG": "Przepraszamy, coś poszło nie tak"
+  "SOMETHING_WENT_WRONG": "Przepraszamy, coś poszło nie tak",
+  "COMPETITION": "Rozgrywki",
+  "COMPETITIONS": "Rozgrywki",
+  "COMPETITION_GROUP": "Grupa rozgrywkowa",
+  "COMPETITION_GROUPS": "Grupy rozgrywkowe",
+  "ONLY_LIKED": "Tylko polubione"
 }

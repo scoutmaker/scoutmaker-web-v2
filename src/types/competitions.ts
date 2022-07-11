@@ -1,0 +1,1 @@
+export type CompetitionBasicDataDto = Components.Schemas.CompetitionBasicDataDto

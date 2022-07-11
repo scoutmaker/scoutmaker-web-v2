@@ -1,0 +1,6 @@
+{
+  "INDEX_PAGE_TITLE": "Baza zespołów",
+  "CREATE_TEAM_PAGE_TITLE": "Utwórz nowy zespół",
+  "EDIT_TEAM_PAGE_TITLE": "Edycja danych zespołu {{name}}",
+  "DELETE_TEAM_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć zespół {{name}}?"
+}
