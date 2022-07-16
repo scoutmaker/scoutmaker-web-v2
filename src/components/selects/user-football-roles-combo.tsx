@@ -1,63 +1,49 @@
-import { useField } from 'formik'
-import { TextField, Autocomplete } from '@mui/material'
+import { Field } from 'formik'
+import { AutocompleteRenderInputParams, TextField } from '@mui/material'
+import { Autocomplete } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 import { UserFootballRoleDto } from '../../types/user-football-roles'
+import { IComboProps } from './types'
 
-interface IUserFootballRolesComboProps {
-  userFootballRolesData: UserFootballRoleDto[]
-  name: string
-  label?: string
-  size?: 'medium' | 'small'
-}
+interface IUserFootballRolesComboProps
+  extends IComboProps<UserFootballRoleDto> {}
 
 export const UserFootballRolesCombo = ({
-  userFootballRolesData,
+  data,
   name,
   label,
   size,
+  multiple,
+  error,
+  helperText,
 }: IUserFootballRolesComboProps) => {
-  const [field, fieldMeta, fieldHelpers] = useField(name)
   const { t } = useTranslation()
 
-  const { value } = field
-  const { error, touched } = fieldMeta
-  const { setValue } = fieldHelpers
-
   return (
-    <Autocomplete
+    <Field
+      name={name}
+      component={Autocomplete}
+      multiple={multiple}
       id={name}
-      {...field}
-      onChange={(_, newValue: string | null) => {
-        setValue(newValue)
-      }}
-      value={value}
-      options={['', ...userFootballRolesData.map(role => role.id)]}
-      disableClearable
-      getOptionLabel={option => {
-        const selected = userFootballRolesData.find(role => role.id === option)
-        if (selected) {
-          return selected.name
+      size={size}
+      options={data.map(role => role.id)}
+      getOptionLabel={(option: string) => {
+        const role = data.find(r => r.id === option)
+        if (role) {
+          return role.name
         }
         return t('NONE')
       }}
-      renderOption={(props, option) => {
-        const selected = userFootballRolesData.find(role => role.id === option)
-        return (
-          <li {...props} key={option.id}>
-            {selected?.name || t('NONE')}
-          </li>
-        )
-      }}
-      renderInput={params => (
+      filterSelectedOptions
+      renderInput={(params: AutocompleteRenderInputParams) => (
         <TextField
           {...params}
+          error={error}
+          helperText={helperText}
           label={label || t('FOOTBALL_ROLE')}
-          variant="outlined"
-          error={touched && !!error}
-          helperText={touched && error}
+          placeholder={label || t('FOOTBALL_ROLE')}
         />
       )}
-      size={size}
     />
   )
 }

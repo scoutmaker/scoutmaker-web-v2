@@ -3,13 +3,13 @@ import { TextField } from '@mui/material'
 import { ClubBasicDataDto, ClubsFiltersDto } from '@/types/clubs'
 import { RegionDto } from '@/types/regions'
 import { CountryDto } from '@/types/countries'
-import { CountriesMultipleSelect } from '@/components/selects/countries-multiple-select'
+import { CountriesCombo } from '@/components/selects/countries-combo'
 import { useTranslation } from 'next-i18next'
-import { RegionsMultipleSelect } from '@/components/selects/regions-multiple-select'
+import { RegionsCombo } from '@/components/selects/regions-combo'
 import { ClubsCombo } from '@/components/selects/clubs-combo'
 import { CompetitionBasicDataDto } from '@/types/competitions'
-import { CompetitionsMultipleSelect } from '@/components/selects/competitions-multiple-select'
-import { CompetitionGroupsMultipleSelect } from '@/components/selects/competition-groups-multiple-select'
+import { CompetitionsCombo } from '@/components/selects/competitions-combo'
+import { CompetitionGroupsCombo } from '@/components/selects/competition-groups-combo'
 import { CompetitionGroupBasicDataDto } from '@/types/competition-groups'
 import { CheckboxWithLabel } from 'formik-mui'
 import { styled } from '@mui/material/styles'
@@ -61,31 +61,35 @@ export const TeamsFilterForm = ({
               label={t('NAME')}
               size="small"
             />
-            <CountriesMultipleSelect
+            <CountriesCombo
               name="countryIds"
               data={countriesData}
               label={t('COUNTRIES')}
+              multiple
             />
-            <RegionsMultipleSelect
+            <RegionsCombo
               name="regionIds"
               data={regionsData}
               label={t('REGIONS')}
+              multiple
             />
             <ClubsCombo
-              clubsData={clubsData}
+              data={clubsData}
               name="clubId"
               label={t('CLUB')}
               size="small"
             />
-            <CompetitionsMultipleSelect
+            <CompetitionsCombo
               name="competitionIds"
               data={competitionsData}
               label={t('COMPETITIONS')}
+              multiple
             />
-            <CompetitionGroupsMultipleSelect
+            <CompetitionGroupsCombo
               name="competitionGroupIds"
               data={competitionGroupsData}
               label={t('COMPETITION_GROUPS')}
+              multiple
             />
             <StyledCheckboxContainer>
               <Field

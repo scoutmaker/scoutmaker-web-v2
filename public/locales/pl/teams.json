@@ -2,5 +2,8 @@
   "INDEX_PAGE_TITLE": "Baza zespołów",
   "CREATE_TEAM_PAGE_TITLE": "Utwórz nowy zespół",
   "EDIT_TEAM_PAGE_TITLE": "Edycja danych zespołu {{name}}",
-  "DELETE_TEAM_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć zespół {{name}}?"
+  "DELETE_TEAM_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć zespół {{name}}?",
+  "NO_NAME_ERROR": "Podaj nazwę zespołu",
+  "NO_CLUB_ERROR": "Wybierz klub zespołu",
+  "NO_COMPETITION_ERROR": "Wybierz aktualne rozgrywki zespołu"
 }

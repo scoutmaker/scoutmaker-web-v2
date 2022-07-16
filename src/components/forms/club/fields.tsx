@@ -28,8 +28,20 @@ export const Fields = ({ regionsData, countriesData }: IFieldsProps) => {
         error={touched.name && !!errors.name}
         helperText={touched.name && errors.name}
       />
-      <CountriesCombo data={countriesData} name="countryId" />
-      <RegionsCombo data={regionsData} name="regionId" />
+      <CountriesCombo
+        data={countriesData}
+        name="countryId"
+        label={t('COUNTRY')}
+        error={touched.countryId && !!errors.countryId}
+        helperText={touched.countryId ? errors.countryId : undefined}
+      />
+      <RegionsCombo
+        data={regionsData}
+        name="regionId"
+        label={t('REGION')}
+        error={touched.regionId && !!errors.regionId}
+        helperText={touched.regionId ? errors.regionId : undefined}
+      />
       <Field
         name="lnpID"
         as={TextField}

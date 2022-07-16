@@ -1,63 +1,48 @@
-import { useField } from 'formik'
-import { TextField, Autocomplete } from '@mui/material'
+import { Field } from 'formik'
+import { AutocompleteRenderInputParams, TextField } from '@mui/material'
+import { Autocomplete } from 'formik-mui'
+import { CountryDto } from '@/types/countries'
 import { useTranslation } from 'next-i18next'
-import { CountryDto } from '../../types/countries'
+import { IComboProps } from './types'
 
-interface ICountriesComboProps {
-  data: CountryDto[]
-  name: string
-  label?: string
-  size?: 'medium' | 'small'
-}
+interface ICountriesComboProps extends IComboProps<CountryDto> {}
 
 export const CountriesCombo = ({
   data,
   name,
   label,
+  multiple,
   size,
+  error,
+  helperText,
 }: ICountriesComboProps) => {
-  const [field, fieldMeta, fieldHelpers] = useField(name)
   const { t } = useTranslation()
 
-  const { value } = field
-  const { error, touched } = fieldMeta
-  const { setValue } = fieldHelpers
-
   return (
-    <Autocomplete
+    <Field
+      name={name}
+      component={Autocomplete}
+      multiple={multiple}
       id={name}
-      {...field}
-      onChange={(_, newValue: string | null) => {
-        setValue(newValue)
-      }}
-      value={value}
-      options={['', ...data.map(country => country.id)]}
-      disableClearable
-      getOptionLabel={option => {
-        const selected = data.find(country => country.id === option)
-        if (selected) {
-          return selected.name
+      size={size}
+      options={data.map(country => country.id)}
+      getOptionLabel={(option: string) => {
+        const country = data.find(c => c.id === option)
+        if (country) {
+          return country.name
         }
         return t('NONE')
       }}
-      renderOption={(props, option) => {
-        const selected = data.find(country => country.id === option)
-        return (
-          <li {...props} key={option.id}>
-            {selected ? selected.name : t('NONE')}
-          </li>
-        )
-      }}
-      renderInput={params => (
+      filterSelectedOptions
+      renderInput={(params: AutocompleteRenderInputParams) => (
         <TextField
           {...params}
-          label={label || t('COUNTRY')}
-          variant="outlined"
-          error={touched && !!error}
-          helperText={touched && error}
+          error={error}
+          helperText={helperText}
+          label={label || t('COUNTRIES')}
+          placeholder={label || t('COUNTRIES')}
         />
       )}
-      size={size}
     />
   )
 }

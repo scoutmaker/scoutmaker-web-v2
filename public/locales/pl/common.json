@@ -69,5 +69,8 @@
   "ADD_TO_FAVOURITES": "Dodaj do ulubionych",
   "REMOVE_FROM_FAVOURITES": "Usuń z ulubionych",
   "EDIT": "Edytuj",
-  "DELETE": "Usuń"
+  "DELETE": "Usuń",
+  "CHANGES_CANCELLED": "Zmiany zostały anulowane",
+  "90_MINUT_URL": "90minut.pl URL",
+  "TRANSFERMARKT_URL": "Transfermarkt URL"
 }
