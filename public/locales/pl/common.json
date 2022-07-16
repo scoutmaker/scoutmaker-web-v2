@@ -1,4 +1,6 @@
 {
+  "YES": "Tak",
+  "NO": "Nie",
   "EMAIL": "E-mail",
   "PASSWORD": "Hasło",
   "NAME": "Nazwa",
@@ -63,5 +65,9 @@
   "COMPETITIONS": "Rozgrywki",
   "COMPETITION_GROUP": "Grupa rozgrywkowa",
   "COMPETITION_GROUPS": "Grupy rozgrywkowe",
-  "ONLY_LIKED": "Tylko polubione"
+  "ONLY_LIKED": "Tylko polubione",
+  "ADD_TO_FAVOURITES": "Dodaj do ulubionych",
+  "REMOVE_FROM_FAVOURITES": "Usuń z ulubionych",
+  "EDIT": "Edytuj",
+  "DELETE": "Usuń"
 }

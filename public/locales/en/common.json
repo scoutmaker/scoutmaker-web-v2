@@ -1,4 +1,6 @@
 {
+  "YES": "Yes",
+  "NO": "No",
   "EMAIL": "E-mail",
   "PASSWORD": "Password",
   "NAME": "Name",
@@ -63,5 +65,9 @@
   "COMPETITIONS": "Competitions",
   "COMPETITION_GROUP": "Competition group",
   "COMPETITION_GROUPS": "Competition groups",
-  "ONLY_LIKED": "Only liked"
+  "ONLY_LIKED": "Only liked",
+  "ADD_TO_FAVOURITES": "Add to favourites",
+  "REMOVE_FROM_FAVOURITES": "Remove from favourites",
+  "EDIT": "Edit",
+  "DELETE": "Delete"
 }
