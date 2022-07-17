@@ -1,5 +1,5 @@
-import { Link, Typography } from '@mui/material'
-import React from 'react'
+import { Link as MUILink, Typography } from '@mui/material'
+import Link from 'next/link'
 
 interface ICrumbProps {
   text: string
@@ -13,8 +13,10 @@ export const Crumb = ({ text, href, last }: ICrumbProps) => {
   }
 
   return (
-    <Link underline="hover" color="inherit" href={href}>
-      {text}
+    <Link href={href} passHref>
+      <MUILink underline="hover" color="inherit">
+        {text}
+      </MUILink>
     </Link>
   )
 }
