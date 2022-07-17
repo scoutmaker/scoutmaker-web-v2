@@ -7,6 +7,13 @@ import { redirectToLogin } from '@/utils/redirect-to-login'
 import { TeamDto } from '@/types/teams'
 import { getTeamBySlug } from '@/lib/teams'
 import { TeamDetailsCard } from '@/components/details-cards/team'
+import { useTable } from '@/lib/use-table'
+import { useCompetitionParticipations } from '@/lib/competition-participations'
+import { CompetitionParticipationsSortBy } from '@/types/competition-participations'
+import { Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
+import { CompetitionParticipationsTableRow } from '@/components/tables/rows/competition-participations-row'
+import { CompetitionParticipationsTable } from '@/components/tables/competition-participations'
 
 type TTeamPageProps = {
   errorStatus: number | null
@@ -67,16 +74,57 @@ export const getServerSideProps = withSessionSsr<TTeamPageProps>(
 )
 
 const TeamPage = ({ team, errorMessage, errorStatus }: TTeamPageProps) => {
-  if (team) {
-    return (
-      <>
-        <PageHeading title={team.name} />
-        <TeamDetailsCard team={team} />
-      </>
-    )
+  const { t } = useTranslation(['teams'])
+
+  const {
+    tableSettings: { page, rowsPerPage, sortBy, order },
+    handleChangePage,
+    handleChangeRowsPerPage,
+    handleSort,
+  } = useTable(`competition-participations-table-team:${team?.id}`, 'seasonId')
+
+  const { data: participations } = useCompetitionParticipations({
+    page: page + 1,
+    limit: rowsPerPage,
+    sortBy: sortBy as CompetitionParticipationsSortBy,
+    sortingOrder: order,
+    teamId: team?.id,
+  })
+
+  if (!team) {
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   }
 
-  return <ErrorContent message={errorMessage} status={errorStatus} />
+  return (
+    <>
+      <PageHeading title={team.name} />
+      <TeamDetailsCard team={team} />
+      <section>
+        <Typography variant="h3" align="center" sx={{ margin: 3 }}>
+          {t('teams:COMPETITION_PARTICIPATIONS_HEADING')}
+        </Typography>
+        <CompetitionParticipationsTable
+          page={page}
+          rowsPerPage={rowsPerPage}
+          sortBy={sortBy}
+          order={order}
+          handleChangePage={handleChangePage}
+          handleChangeRowsPerPage={handleChangeRowsPerPage}
+          handleSort={handleSort}
+          total={participations?.totalDocs || 0}
+        >
+          {participations
+            ? participations.docs.map(participation => (
+                <CompetitionParticipationsTableRow
+                  key={team.id}
+                  data={participation}
+                />
+              ))
+            : null}
+        </CompetitionParticipationsTable>
+      </section>
+    </>
+  )
 }
 
 export default TeamPage

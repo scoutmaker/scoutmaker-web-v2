@@ -1395,6 +1395,21 @@ declare namespace Paths {
             }
         }
     }
+    namespace ClubsControllerFindOneBySlug {
+        namespace Parameters {
+            export type Slug = string;
+        }
+        export interface PathParameters {
+            slug: Parameters.Slug;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.ClubDto;
+            }
+        }
+    }
     namespace ClubsControllerGetList {
         namespace Responses {
             export interface $200 {
@@ -1515,7 +1530,7 @@ declare namespace Paths {
             export interface $200 {
                 success: boolean;
                 message: string;
-                data?: Components.Schemas.CompetitionGroupDto[];
+                data?: Components.Schemas.CompetitionGroupBasicDataDto[];
             }
         }
     }
@@ -1658,11 +1673,41 @@ declare namespace Paths {
         }
     }
     namespace CompetitionParticipationsControllerFindAll {
+        namespace Parameters {
+            export type CompetitionId = string;
+            export type GroupId = string;
+            export type Limit = number;
+            export type Page = number;
+            export type SeasonId = string;
+            export type SortBy = "id" | "teamId" | "seasonId" | "competitionId" | "groupId";
+            export type SortingOrder = "asc" | "desc";
+            export type TeamId = string;
+        }
+        export interface QueryParameters {
+            seasonId?: Parameters.SeasonId;
+            teamId?: Parameters.TeamId;
+            competitionId?: Parameters.CompetitionId;
+            groupId?: Parameters.GroupId;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
                 message: string;
-                data?: Components.Schemas.CompetitionParticipationDto;
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.CompetitionParticipationDto[];
+                };
             }
         }
     }
@@ -1677,6 +1722,15 @@ declare namespace Paths {
             competitionId: Parameters.CompetitionId;
             seasonId: Parameters.SeasonId;
         }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.CompetitionParticipationDto;
+            }
+        }
+    }
+    namespace CompetitionParticipationsControllerGetList {
         namespace Responses {
             export interface $200 {
                 success: boolean;
@@ -3595,6 +3649,21 @@ declare namespace Paths {
             }
         }
     }
+    namespace PlayersControllerFindOneBySlug {
+        namespace Parameters {
+            export type Slug = string;
+        }
+        export interface PathParameters {
+            slug: Parameters.Slug;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerDto;
+            }
+        }
+    }
     namespace PlayersControllerGetList {
         namespace Responses {
             export interface $200 {
@@ -4348,6 +4417,21 @@ declare namespace Paths {
         }
         export interface PathParameters {
             id: Parameters.Id;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.TeamDto;
+            }
+        }
+    }
+    namespace TeamsControllerFindOneBySlug {
+        namespace Parameters {
+            export type Slug = string;
+        }
+        export interface PathParameters {
+            slug: Parameters.Slug;
         }
         namespace Responses {
             export interface $200 {

@@ -5,5 +5,6 @@
   "DELETE_TEAM_CONFIRM_QUESTION": "Are you sure you want to delete team {{name}}?",
   "NO_NAME_ERROR": "Please provide teams name",
   "NO_CLUB_ERROR": "Please choose teams club",
-  "NO_COMPETITION_ERROR": "Please choose teams current competition"
+  "NO_COMPETITION_ERROR": "Please choose teams current competition",
+  "COMPETITION_PARTICIPATIONS_HEADING": "Competition participations history"
 }
