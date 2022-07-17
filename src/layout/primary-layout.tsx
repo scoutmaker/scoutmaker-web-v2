@@ -31,8 +31,6 @@ export interface IPrimaryLayoutProps {
 export const PrimaryLayout = ({ children }: IPrimaryLayoutProps) => {
   const router = useRouter()
 
-  console.log({ router })
-
   return (
     <StyledWrapper>
       <Topbar />
