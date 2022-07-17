@@ -13,25 +13,13 @@ export const initialValues: CreateTeamDto = {
   lnpId: '',
 }
 
-function generateCommonClubFieldsValidationSchema() {
-  return {
-    lnpId: yup.string().notRequired(),
-    city: yup.string().notRequired(),
-    postalCode: yup.string().notRequired(),
-    street: yup.string().notRequired(),
-    website: yup.string().url().notRequired(),
-    twitter: yup.string().url().notRequired(),
-    facebook: yup.string().url().notRequired(),
-    instagram: yup.string().url().notRequired(),
-  }
-}
-
 export function generateCreateTeamValidationSchema(t: TFunction) {
   return yup
     .object({
       name: yup.string().required(t('teams:NO_NAME_ERROR')),
       clubId: yup.string().required(t('teams:NO_CLUB_ERROR')),
       competitionId: yup.string().required(t('teams:NO_COMPETITION_ERROR')),
+      groupId: yup.string().notRequired(),
       minut90url: yup.string().url().notRequired(),
       transfermarktUrl: yup.string().url().notRequired(),
       lnpId: yup.string().notRequired(),
@@ -39,12 +27,13 @@ export function generateCreateTeamValidationSchema(t: TFunction) {
     .defined()
 }
 
-export function generateUpdateClubValidationSchema() {
+export function generateUpdateTeamValidationSchema() {
   return yup.object({
     name: yup.string().notRequired(),
-    regionId: yup.string().notRequired(),
-    countryId: yup.string().notRequired(),
-    ...generateCommonClubFieldsValidationSchema(),
+    clubId: yup.string().notRequired(),
+    minut90url: yup.string().url().notRequired(),
+    transfermarktUrl: yup.string().url().notRequired(),
+    lnpId: yup.string().notRequired(),
   })
 }
 

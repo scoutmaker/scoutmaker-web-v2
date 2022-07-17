@@ -2,47 +2,49 @@ import { Formik, Form, Field } from 'formik'
 import { useTranslation } from 'next-i18next'
 import filter from 'just-filter-object'
 import { TextField } from '@mui/material'
-import { CompetitionBasicDataDto } from '@/types/competitions'
-import { CompetitionGroupBasicDataDto } from '@/types/competition-groups'
-import { CreateTeamDto } from '@/types/teams'
+import { TeamDto, UpdateTeamDto } from '@/types/teams'
 import { ClubBasicDataDto } from '@/types/clubs'
-import { CompetitionsCombo } from '@/components/selects/competitions-combo'
-import { CompetitionGroupsCombo } from '@/components/selects/competition-groups-combo'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { generateCreateTeamValidationSchema, initialValues } from './utils'
+import { updatedDiff } from 'deep-object-diff'
+import {
+  generateUpdateTeamValidationSchema,
+  getInitialStateFromCurrent,
+} from './utils'
 import { Container } from '../container'
 import { MainFormActions } from '../main-form-actions'
 import { ClubsCombo } from '../../selects/clubs-combo'
 
-interface ICreateTeamFormProps {
+interface IEditTeamFormProps {
+  current: TeamDto
   clubsData: ClubBasicDataDto[]
-  competitionsData: CompetitionBasicDataDto[]
-  competitionGroupsData: CompetitionGroupBasicDataDto[]
-  onSubmit: (data: CreateTeamDto) => void
+  onSubmit: (data: UpdateTeamDto) => void
   onCancelClick?: () => void
   fullwidth?: boolean
 }
 
-export const CreateTeamForm = ({
+export const EditTeamForm = ({
+  current,
   onSubmit,
   onCancelClick,
   fullwidth,
   clubsData,
-  competitionGroupsData,
-  competitionsData,
-}: ICreateTeamFormProps) => {
+}: IEditTeamFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
+
+  const initialValues = getInitialStateFromCurrent(current)
 
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={generateCreateTeamValidationSchema(t)}
+      validationSchema={() => generateUpdateTeamValidationSchema()}
       enableReinitialize
-      onSubmit={(data, { resetForm }) => {
-        const dataToSubmit = filter(data, (_, value) => value)
-        onSubmit(dataToSubmit as CreateTeamDto)
-        resetForm()
+      onSubmit={data => {
+        const dataToSubmit = updatedDiff(
+          initialValues,
+          filter(data, (_, value) => value),
+        )
+        onSubmit(dataToSubmit)
       }}
     >
       {({ handleReset, touched, errors }) => (
@@ -63,22 +65,6 @@ export const CreateTeamForm = ({
               label={t('CLUB')}
               error={touched.clubId && !!errors.clubId}
               helperText={touched.clubId ? errors.clubId : undefined}
-            />
-            <CompetitionsCombo
-              data={competitionsData}
-              name="competitionId"
-              label={t('COMPETITION')}
-              error={touched.competitionId && !!errors.competitionId}
-              helperText={
-                touched.competitionId ? errors.competitionId : undefined
-              }
-            />
-            <CompetitionGroupsCombo
-              data={competitionGroupsData}
-              name="groupId"
-              label={t('COMPETITION_GROUP')}
-              error={touched.groupId && !!errors.groupId}
-              helperText={touched.groupId ? errors.groupId : undefined}
             />
             <Field
               name="minut90url"
@@ -109,6 +95,7 @@ export const CreateTeamForm = ({
             />
             <MainFormActions
               label={t('TEAM')}
+              isEditState
               onCancelClick={() => {
                 if (onCancelClick) {
                   onCancelClick()
