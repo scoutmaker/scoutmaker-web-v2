@@ -1,107 +1,48 @@
-import { useField } from 'formik'
-import {
-  TextField,
-  Paper,
-  MenuItem,
-  Button,
-  Divider,
-  PaperProps,
-  Autocomplete,
-} from '@mui/material'
-import { AddOutlined } from '@mui/icons-material'
+import { Field } from 'formik'
+import { TextField, AutocompleteRenderInputParams } from '@mui/material'
+import { Autocomplete } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 import { ClubBasicDataDto } from '../../types/clubs'
+import { IComboProps } from './types'
 
-interface ICustomPaperProps extends PaperProps {
-  onAddClubClick: () => void
-}
-
-const CustomPaper = (props: ICustomPaperProps) => {
-  const { onAddClubClick, children } = props
-  return (
-    <Paper {...props}>
-      <MenuItem>
-        <Button
-          color="primary"
-          startIcon={<AddOutlined />}
-          onClick={onAddClubClick}
-          onMouseDown={e => e.preventDefault()}
-        >
-          Dodaj nowy klub
-        </Button>
-      </MenuItem>
-      <Divider />
-      {children}
-    </Paper>
-  )
-}
-
-interface IClubsComboProps {
-  clubsData: ClubBasicDataDto[]
-  name: string
-  label?: string
-  size?: 'medium' | 'small'
-  addClubOption?: boolean
-  onAddClubClick?: () => void
-}
+interface IClubsComboProps extends IComboProps<ClubBasicDataDto> {}
 
 export const ClubsCombo = ({
-  clubsData,
+  data,
   name,
   label,
+  multiple,
   size,
-  addClubOption,
-  onAddClubClick,
+  error,
+  helperText,
 }: IClubsComboProps) => {
   const { t } = useTranslation()
-  const [field, fieldMeta, fieldHelpers] = useField(name)
-
-  const { value } = field
-  const { error, touched } = fieldMeta
-  const { setValue } = fieldHelpers
 
   return (
-    <Autocomplete
+    <Field
+      name={name}
+      component={Autocomplete}
+      multiple={multiple}
       id={name}
-      {...field}
-      onChange={(_, newValue: string | null) => {
-        setValue(newValue)
-      }}
-      value={value}
-      options={['', ...clubsData.map(club => club.id)]}
-      disableClearable
-      getOptionLabel={option => {
-        const club = clubsData.find(c => c.id === option)
+      size={size}
+      options={data.map(club => club.id)}
+      getOptionLabel={(option: string) => {
+        const club = data.find(c => c.id === option)
         if (club) {
           return club.name
         }
         return t('NONE')
       }}
-      renderOption={(props, option) => {
-        const club = clubsData.find(c => c.id === option)
-        return (
-          <li {...props} key={option.id}>
-            {club?.name || t('NONE')}
-          </li>
-        )
-      }}
-      renderInput={params => (
+      filterSelectedOptions
+      renderInput={(params: AutocompleteRenderInputParams) => (
         <TextField
           {...params}
+          error={error}
+          helperText={helperText}
           label={label || t('CLUB')}
-          variant="outlined"
-          error={touched && !!error}
-          helperText={touched && error}
+          placeholder={label || t('CLUB')}
         />
       )}
-      size={size}
-      PaperComponent={
-        addClubOption && onAddClubClick
-          ? (props: PaperProps) => (
-              <CustomPaper {...props} onAddClubClick={onAddClubClick} />
-            )
-          : Paper
-      }
     />
   )
 }

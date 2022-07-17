@@ -61,7 +61,7 @@ export const EditClubForm = ({
                   onCancelClick()
                 }
                 handleReset()
-                setAlert({ msg: 'Zmiany zostały anulowane', type: 'warning' })
+                setAlert({ msg: t('CHANGES_CANCELLED'), type: 'warning' })
               }}
             />
           </Container>

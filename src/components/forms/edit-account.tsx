@@ -121,9 +121,9 @@ export const EditAccountForm = ({
               error={touched.city && !!errors.city}
               helperText={touched.city && errors.city}
             />
-            <ClubsCombo clubsData={clubs || []} name="clubId" />
+            <ClubsCombo data={clubs || []} name="clubId" />
             <UserFootballRolesCombo
-              userFootballRolesData={userFootballRoles || []}
+              data={userFootballRoles || []}
               name="footballRoleId"
             />
             <Field

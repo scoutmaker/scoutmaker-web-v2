@@ -1,0 +1,3 @@
+export type CompetitionBasicDataDto = Components.Schemas.CompetitionBasicDataDto
+export type CompetitionParticipationWithoutTeamDto =
+  Components.Schemas.CompetitionParticipationWithoutTeamDto

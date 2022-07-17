@@ -8,13 +8,13 @@ interface ITableSettings {
   order: SortingOrder
 }
 
-export function useTable(key: string) {
+export function useTable(key: string, initialSortBy?: string) {
   const [tableSettings, setTableSettings] = useLocalStorage<ITableSettings>({
     key,
     initialValue: {
       page: 0,
       rowsPerPage: 20,
-      sortBy: 'id',
+      sortBy: initialSortBy || 'id',
       order: 'desc',
     },
   })

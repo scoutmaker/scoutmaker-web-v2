@@ -1,3 +1,4 @@
+import { ICommonTableProps, IHeadCell } from '@/types/tables'
 import {
   Table as MUITable,
   TableBody,
@@ -8,7 +9,6 @@ import {
   TableRow,
 } from '@mui/material'
 import { ReactNode } from 'react'
-import { ICommonTableProps, IHeadCell } from '../../../types/tables'
 import { TableHeader } from './header'
 import { TablePaginationActions } from './pagination-actions'
 

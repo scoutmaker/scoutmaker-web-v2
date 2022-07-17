@@ -44,13 +44,13 @@ export const CreateClubForm = ({
           <Container fullwidth={fullwidth}>
             <Fields countriesData={countriesData} regionsData={regionsData} />
             <MainFormActions
-              label="klub"
+              label={t('CLUB')}
               onCancelClick={() => {
                 if (onCancelClick) {
                   onCancelClick()
                 }
                 handleReset()
-                setAlert({ msg: 'Zmiany zostały anulowane', type: 'warning' })
+                setAlert({ msg: t('CHANGES_CANCELLED'), type: 'warning' })
               }}
             />
           </Container>
