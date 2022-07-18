@@ -1,31 +1,31 @@
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { withSessionSsr } from '@/lib/session'
-import { redirectToLogin } from '@/utils/redirect-to-login'
-import { useTable } from '@/lib/use-table'
-import { useLocalStorage } from '@/lib/use-local-storage'
-import { ClubsFiltersDto, ClubsSortBy } from '@/types/clubs'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useState } from 'react'
+
+import { Fab } from '@/components/fab/fab'
+import { TeamsFilterForm } from '@/components/forms/team/teams-filter-form'
+import { Loader } from '@/components/loader/loader'
+import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
+import { TeamsTableRow } from '@/components/tables/rows/teams-row'
+import { TeamsTable } from '@/components/tables/teams'
 import { useClubsList } from '@/lib/clubs'
+import { useCompetitionGroupsList } from '@/lib/competition-groups'
+import { useCompetitionsList } from '@/lib/competitions'
 import { useCountriesList } from '@/lib/countries'
 import { useRegionsList } from '@/lib/regions'
-import { Fab } from '@/components/fab/fab'
-import { ConfirmationModal } from '@/components/modals/confirmation-modal'
-import { Loader } from '@/components/loader/loader'
-import { TeamsFiltersDto } from '@/types/teams'
-import { TeamsFilterForm } from '@/components/forms/team/teams-filter-form'
-import { useCompetitionsList } from '@/lib/competitions'
-import { useCompetitionGroupsList } from '@/lib/competition-groups'
+import { withSessionSsr } from '@/lib/session'
 import {
   useDeleteTeam,
   useLikeTeam,
   useTeams,
   useUnlikeTeam,
 } from '@/lib/teams'
-import { TeamsTableRow } from '@/components/tables/rows/teams-row'
-import { TeamsTable } from '@/components/tables/teams'
+import { useLocalStorage } from '@/lib/use-local-storage'
+import { useTable } from '@/lib/use-table'
+import { TeamsFiltersDto, TeamsSortBy } from '@/types/teams'
+import { redirectToLogin } from '@/utils/redirect-to-login'
 
 export const getServerSideProps = withSessionSsr(
   async ({ locale, req, res }) => {
@@ -80,12 +80,12 @@ const TeamsPage = () => {
     handleSort,
   } = useTable('teams-table')
 
-  const [filters, setFilters] = useLocalStorage<ClubsFiltersDto>({
+  const [filters, setFilters] = useLocalStorage<TeamsFiltersDto>({
     key: 'teams-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: ClubsFiltersDto) {
+  function handleSetFilters(newFilters: TeamsFiltersDto) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -101,7 +101,7 @@ const TeamsPage = () => {
   const { data: teams, isLoading: teamsLoading } = useTeams({
     page: page + 1,
     limit: rowsPerPage,
-    sortBy: sortBy as ClubsSortBy,
+    sortBy: sortBy as TeamsSortBy,
     sortingOrder: order,
     ...filters,
   })

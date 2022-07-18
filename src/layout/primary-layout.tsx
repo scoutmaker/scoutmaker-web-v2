@@ -1,14 +1,12 @@
-import { ReactNode } from 'react'
 import { styled } from '@mui/material'
-import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs'
 import { useRouter } from 'next/router'
-import { Topbar } from '../components/topbar/Topbar'
-import { Sidebar } from '../components/sidebar/Sidebar'
-import { Alerts } from '../components/alerts/Alerts'
+import { ReactNode } from 'react'
 
-const StyledWrapper = styled('div')(() => ({
-  display: 'flex',
-}))
+import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs'
+
+import { Alerts } from '../components/alerts/Alerts'
+import { Sidebar } from '../components/sidebar/Sidebar'
+import { Topbar } from '../components/topbar/Topbar'
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar)
 
@@ -32,15 +30,15 @@ export const PrimaryLayout = ({ children }: IPrimaryLayoutProps) => {
   const router = useRouter()
 
   return (
-    <StyledWrapper>
+    <div>
       <Topbar />
       <Sidebar />
       <StyledContentContainer>
         <Offset />
         {router.route !== '/dashboard' ? <Breadcrumbs /> : null}
-        {children}
+        <main>{children}</main>
       </StyledContentContainer>
       <Alerts />
-    </StyledWrapper>
+    </div>
   )
 }

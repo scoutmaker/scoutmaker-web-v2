@@ -15,6 +15,8 @@ export type PlayersFiltersDto = Pick<
   | 'teamIds'
 >
 export type PlayersSortBy = Paths.PlayersControllerFindAll.Parameters.SortBy
-export type PlayerDto = Components.Schemas.PlayerDto
+export type PlayerDto = Omit<Components.Schemas.PlayerDto, '_count'> & {
+  _count: { reports: number; notes: number }
+}
 export type CreatePlayerDto = Components.Schemas.CreatePlayerDto
 export type UpdatePlayerDto = Components.Schemas.UpdatePlayerDto

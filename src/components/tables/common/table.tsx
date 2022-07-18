@@ -1,14 +1,16 @@
-import { ICommonTableProps, IHeadCell } from '@/types/tables'
 import {
+  Paper,
   Table as MUITable,
   TableBody,
   TableContainer,
-  Paper,
-  TablePagination,
   TableFooter,
+  TablePagination,
   TableRow,
 } from '@mui/material'
 import { ReactNode } from 'react'
+
+import { ICommonTableProps, IHeadCell } from '@/types/tables'
+
 import { TableHeader } from './header'
 import { TablePaginationActions } from './pagination-actions'
 
@@ -31,10 +33,7 @@ export const Table = ({
   actions,
   collapsible,
 }: ITableProps) => (
-  <TableContainer
-    component={Paper}
-    sx={{ overflowX: 'auto', margin: '0 auto' }}
-  >
+  <TableContainer component={Paper}>
     <MUITable sx={{ minWidth: 700 }}>
       <TableHeader
         headCells={headCells}

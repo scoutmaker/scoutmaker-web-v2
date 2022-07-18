@@ -1,6 +1,7 @@
-import { Container, Avatar } from '@mui/material'
+import { Avatar, Container } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { ReactNode } from 'react'
+
 import logoColor from '../../public/logo-color.png'
 import { Alerts } from '../components/alerts/Alerts'
 

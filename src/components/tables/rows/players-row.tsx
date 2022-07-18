@@ -1,24 +1,27 @@
 import {
+  Assessment as ReportsIcon,
   Delete as DeleteIcon,
   Edit as EditIcon,
   Favorite as UnlikeIcon,
   FavoriteBorder as LikeIcon,
+  Note as NotesIcon,
 } from '@mui/icons-material'
-import { Link as MUILink } from '@mui/material'
+import { Badge, Link as MUILink } from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { useTableMenu } from '@/lib/use-table-menu'
-import { TeamDto } from '@/types/teams'
+import { PlayerDto } from '@/types/players'
+import { getFlagEmoji } from '@/utils/get-flag-emoji'
 
 import { StyledTableCell } from '../common/cell'
 import { TableMenu } from '../common/menu'
 import { TableMenuItem } from '../common/menu-item'
 import { StyledTableRow } from '../common/row'
 
-interface ITeamsTableRowProps {
-  data: TeamDto
+interface IPlayersTableRowProps {
+  data: PlayerDto
   onEditClick: () => void
   onDeleteClick: () => void
   onLikeClick: (id: string) => void
@@ -27,7 +30,7 @@ interface ITeamsTableRowProps {
   isDeleteOptionEnabled: boolean
 }
 
-export const TeamsTableRow = ({
+export const PlayersTableRow = ({
   data,
   onEditClick,
   onDeleteClick,
@@ -35,7 +38,7 @@ export const TeamsTableRow = ({
   onUnlikeClick,
   isEditOptionEnabled,
   isDeleteOptionEnabled,
-}: ITeamsTableRowProps) => {
+}: IPlayersTableRowProps) => {
   const { t } = useTranslation()
   const router = useRouter()
 
@@ -47,13 +50,27 @@ export const TeamsTableRow = ({
     handleMenuAction,
   } = useTableMenu()
 
-  const { id, name, slug, club, competitions, likes } = data
+  const {
+    id,
+    slug,
+    likes,
+    firstName,
+    lastName,
+    primaryPosition,
+    teams,
+    footed,
+    height,
+    weight,
+    country,
+    yearOfBirth,
+    _count: count,
+  } = data
 
   return (
     <StyledTableRow
       hover
       key={id}
-      onClick={isMenuOpen ? undefined : () => router.push(`/teams/${slug}`)}
+      onClick={isMenuOpen ? undefined : () => router.push(`/players/${slug}`)}
     >
       <StyledTableCell padding="checkbox">
         <TableMenu
@@ -97,14 +114,33 @@ export const TeamsTableRow = ({
           )}
         </TableMenu>
       </StyledTableCell>
-      <StyledTableCell>{name}</StyledTableCell>
-      <StyledTableCell>
-        <Link href={`/clubs/${club.slug}`} passHref>
-          <MUILink onClick={e => e.stopPropagation()}>{club.name}</MUILink>
+      <StyledTableCell>{lastName}</StyledTableCell>
+      <StyledTableCell>{firstName}</StyledTableCell>
+      <StyledTableCell sx={{ minWidth: 100 }}>{`${getFlagEmoji(country.code)} ${
+        country.name
+      }`}</StyledTableCell>
+      <StyledTableCell sx={{ minWidth: 150 }}>
+        <Link href={`/teams/${teams[0]?.team?.slug}`} passHref>
+          <MUILink onClick={e => e.stopPropagation()}>
+            {teams[0]?.team?.name}
+          </MUILink>
         </Link>
       </StyledTableCell>
-      <StyledTableCell>{competitions[0]?.competition?.name}</StyledTableCell>
-      <StyledTableCell>{competitions[0]?.group?.name}</StyledTableCell>
+      <StyledTableCell>{primaryPosition.name}</StyledTableCell>
+      <StyledTableCell>{yearOfBirth}</StyledTableCell>
+      <StyledTableCell>{height}</StyledTableCell>
+      <StyledTableCell>{weight}</StyledTableCell>
+      <StyledTableCell>{t(footed)}</StyledTableCell>
+      <StyledTableCell align="center">
+        <Badge badgeContent={count.reports || '0'} color="secondary">
+          <NotesIcon />
+        </Badge>
+      </StyledTableCell>
+      <StyledTableCell align="center">
+        <Badge badgeContent={count.notes || '0'} color="secondary">
+          <ReportsIcon />
+        </Badge>
+      </StyledTableCell>
     </StyledTableRow>
   )
 }

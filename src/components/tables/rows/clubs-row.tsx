@@ -1,5 +1,6 @@
-import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material'
+import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material'
 import { useRouter } from 'next/router'
+
 import { useTableMenu } from '../../../lib/use-table-menu'
 import { ClubDto } from '../../../types/clubs'
 import { getFlagEmoji } from '../../../utils/get-flag-emoji'

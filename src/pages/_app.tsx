@@ -1,17 +1,18 @@
-import Head from 'next/head'
-import { AppProps } from 'next/app'
-import { ThemeProvider } from '@mui/material/styles'
-import CssBaseline from '@mui/material/CssBaseline'
 import { CacheProvider, EmotionCache } from '@emotion/react'
+import CssBaseline from '@mui/material/CssBaseline'
+import { ThemeProvider } from '@mui/material/styles'
+import { AppProps } from 'next/app'
+import Head from 'next/head'
 import { appWithTranslation } from 'next-i18next'
+import { useState } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import { useState } from 'react'
-import { createEmotionCache } from '@/utils/create-emotion-cache'
-import { theme } from '@/styles/theme'
+
 import { AlertsState } from '@/context/alerts/AlertsState'
 import { PrimaryLayout } from '@/layout/primary-layout'
 import { SecondaryLayout } from '@/layout/secondary-layout'
+import { theme } from '@/styles/theme'
+import { createEmotionCache } from '@/utils/create-emotion-cache'
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -25,6 +26,7 @@ const secondaryLayoutRoutes = [
   '/account-confirm/[code]',
   '/password-reset/[token]',
   '/forgot-password',
+  '/test',
 ]
 
 const MyApp = ({
