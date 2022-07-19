@@ -1,8 +1,10 @@
+import { AutocompleteRenderInputParams, TextField } from '@mui/material'
 import { Field } from 'formik'
-import { TextField, AutocompleteRenderInputParams } from '@mui/material'
 import { Autocomplete } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
-import { ClubBasicDataDto } from '../../types/clubs'
+
+import { ClubBasicDataDto } from '@/types/clubs'
+
 import { IComboProps } from './types'
 
 interface IClubsComboProps extends IComboProps<ClubBasicDataDto> {}
@@ -25,8 +27,11 @@ export const ClubsCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={data.map(club => club.id)}
+      options={['', ...data.map(club => club.id)]}
       getOptionLabel={(option: string) => {
+        if (option === '') {
+          return ''
+        }
         const club = data.find(c => c.id === option)
         if (club) {
           return club.name

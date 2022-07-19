@@ -1,30 +1,32 @@
-import { useState } from 'react'
 import {
   AccountCircle as ProfileIcon,
-  Person as UserDataIcon,
-  DirectionsRun as PlayersIcon,
-  Security as ClubsIcon,
-  Assignment as OrdersIcon,
   Assessment as ReportsIcon,
-  Settings as SettingsIcon,
-  Home as HomeIcon,
+  Assignment as OrdersIcon,
   Create as ReportTemplatesIcon,
-  PermContactCalendar as AdminIcon,
-  Sports as MatchesIcon,
+  DirectionsRun as PlayersIcon,
+  GroupWork as TeamsIcon,
+  Home as HomeIcon,
   Note as NotesIcon,
+  PermContactCalendar as AdminIcon,
+  Person as UserDataIcon,
+  Security as ClubsIcon,
+  Settings as SettingsIcon,
+  Sports as MatchesIcon,
   Storage as DatabaseIcon,
   Visibility as ObservationIcon,
-  GroupWork as TeamsIcon,
 } from '@mui/icons-material'
 // import { MatchButton } from './MatchButton'
 // import { QuickNoteButton } from './QuickNoteButton'
 import { useTranslation } from 'next-i18next'
+import { useState } from 'react'
+
 import { useUser } from '@/lib/auth'
 import { isAdmin, isPrivilegedUser } from '@/utils/user-roles'
-import { StyledDivider, StyledList } from './styles'
+
 import { ExpandeableNavElement } from './expandeable-nav-element'
-import { NavElement } from './nav-element'
 import { LogoutButton } from './logout-button'
+import { NavElement } from './nav-element'
+import { StyledDivider, StyledList } from './styles'
 
 // interface NavListProps {
 //   handleQuickNoteClick: () => void

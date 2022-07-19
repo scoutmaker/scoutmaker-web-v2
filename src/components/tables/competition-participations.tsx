@@ -1,8 +1,9 @@
-import { ReactNode } from 'react'
 import { TFunction, useTranslation } from 'next-i18next'
-import { ICommonTableProps } from '@/types/tables'
-import { CompetitionParticipationsSortBy } from '@/types/competition-participations'
+import { ReactNode } from 'react'
+
 import { Table } from '@/components/tables/common/table'
+import { CompetitionParticipationsSortBy } from '@/types/competition-participations'
+import { ICommonTableProps } from '@/types/tables'
 
 interface ICompetitionParticipationsTableProps extends ICommonTableProps {
   children: ReactNode

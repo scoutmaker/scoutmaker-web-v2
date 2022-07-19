@@ -1,8 +1,10 @@
-import { Field } from 'formik'
 import { AutocompleteRenderInputParams, TextField } from '@mui/material'
+import { Field } from 'formik'
 import { Autocomplete } from 'formik-mui'
-import { CompetitionGroupBasicDataDto } from '@/types/competition-groups'
 import { useTranslation } from 'next-i18next'
+
+import { CompetitionGroupBasicDataDto } from '@/types/competition-groups'
+
 import { IComboProps } from './types'
 
 interface ICompetitionGroupsComboProps
@@ -26,8 +28,11 @@ export const CompetitionGroupsCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={data.map(competition => competition.id)}
+      options={['', ...data.map(competition => competition.id)]}
       getOptionLabel={(option: string) => {
+        if (option === '') {
+          return ''
+        }
         const group = data.find(g => g.id === option)
         if (group) {
           return `${group.competition.name}, ${group.name} (${group.competition.country.code})`

@@ -1,15 +1,17 @@
-import { TeamDto } from '@/types/teams'
 import {
-  Edit as EditIcon,
   Delete as DeleteIcon,
-  FavoriteBorder as LikeIcon,
+  Edit as EditIcon,
   Favorite as UnlikeIcon,
+  FavoriteBorder as LikeIcon,
 } from '@mui/icons-material'
-import { useRouter } from 'next/router'
-import { useTableMenu } from '@/lib/use-table-menu'
-import Link from 'next/link'
 import { Link as MUILink } from '@mui/material'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+
+import { useTableMenu } from '@/lib/use-table-menu'
+import { TeamDto } from '@/types/teams'
+
 import { StyledTableCell } from '../common/cell'
 import { TableMenu } from '../common/menu'
 import { TableMenuItem } from '../common/menu-item'

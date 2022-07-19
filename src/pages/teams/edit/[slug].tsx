@@ -1,15 +1,16 @@
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import { ErrorContent } from '@/components/error/error-content'
+import { EditTeamForm } from '@/components/forms/team/edit-team'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { useClubsList } from '@/lib/clubs'
 import { withSessionSsr } from '@/lib/session'
-import { ApiError } from '@/types/common'
-import { redirectToLogin } from '@/utils/redirect-to-login'
-import { TeamDto } from '@/types/teams'
 import { getTeamBySlug, useUpdateTeam } from '@/lib/teams'
-import { EditTeamForm } from '@/components/forms/team/edit-team'
+import { ApiError } from '@/types/common'
+import { TeamDto } from '@/types/teams'
+import { redirectToLogin } from '@/utils/redirect-to-login'
 
 type TEditTeamPageProps = {
   errorStatus: number | null

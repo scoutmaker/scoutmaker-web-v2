@@ -1,0 +1,16 @@
+{
+  "INDEX_PAGE_TITLE": "Baza zawodników",
+  "CREATE_PLAYER_PAGE_TITLE": "Utwórz nowego zawodnika",
+  "EDIT_PLAYER_PAGE_TITLE": "Edycja danych zawodnika {{name}}",
+  "DELETE_PLAYER_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć zawodnika {{name}}?",
+  "LIKED_ONLY": "Tylko polubieni",
+  "CURRENT_TEAM": "Aktualny zespół",
+  "NO_FIRST_NAME_ERROR": "Podaj imię zawodnika",
+  "NO_LAST_NAME_ERROR": "Podaj nazwisko zawodnika",
+  "NO_COUNTRY_ERROR": "Wybierz kraj pochodzenia zawodnika",
+  "WRONG_FOOTED_VALUE": "Wybierz poprawną nogę dominującą",
+  "NO_FOOTED_VALUE": "Wybierz nogę dominującą zawodnika",
+  "NO_TEAM_ERROR": "Wybierz aktualny zespół zawodnika",
+  "NO_PRIMARY_POSITION_ERROR": "Wybierz pozycję wiodącą zawodnika",
+  "TEAM_AFFILIATIONS_HEADING": "Historia przynalezności klubowej"
+}

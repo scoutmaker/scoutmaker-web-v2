@@ -2,9 +2,11 @@ import { TextField } from '@mui/material'
 import { Field, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { CreateClubDto, UpdateClubDto } from '../../../types/clubs'
-import { CountryDto } from '../../../types/countries'
-import { RegionDto } from '../../../types/regions'
+
+import { CreateClubDto, UpdateClubDto } from '@/types/clubs'
+import { CountryDto } from '@/types/countries'
+import { RegionDto } from '@/types/regions'
+
 import { CountriesCombo } from '../../selects/countries-combo'
 import { RegionsCombo } from '../../selects/regions-combo'
 

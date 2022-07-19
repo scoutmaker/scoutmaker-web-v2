@@ -1,11 +1,12 @@
+import { useQuery, useQueryClient } from 'react-query'
+
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { api } from '@/lib/api'
-import { TPaginatedData, ApiResponse, ApiError } from '@/types/common'
+import { ApiError, ApiResponse, TPaginatedData } from '@/types/common'
 import {
   CompetitionParticipationDto,
   FindAllCompetitionParticipationsParams,
 } from '@/types/competition-participations'
-import { useQueryClient, useQuery } from 'react-query'
 
 // Get paginated competition participations
 type TPaginatedCompetitionParticipations =

@@ -1,6 +1,8 @@
-import { ReactNode } from 'react'
 import { TFunction, useTranslation } from 'next-i18next'
+import { ReactNode } from 'react'
+
 import { ICommonTableProps, IHeadCell } from '@/types/tables'
+
 import { Table } from './common/table'
 
 interface ITeamsTableProps extends ICommonTableProps {

@@ -14,7 +14,7 @@
     "plugin:import/typescript",
     "prettier"
   ],
-  "plugins": ["@typescript-eslint", "import"],
+  "plugins": ["@typescript-eslint", "import", "simple-import-sort"],
   "settings": {
     "next": {
       "rootDir": ["apps/*/", "packages/*/"]
@@ -30,6 +30,8 @@
     }
   },
   "rules": {
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
     "react/function-component-definition": [
       2,
       {

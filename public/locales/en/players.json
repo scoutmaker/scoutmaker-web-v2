@@ -1,0 +1,16 @@
+{
+  "INDEX_PAGE_TITLE": "Players database",
+  "CREATE_PLAYER_PAGE_TITLE": "Create new player",
+  "EDIT_PLAYER_PAGE_TITLE": "Edit player {{name}} data",
+  "DELETE_PLAYER_CONFIRM_QUESTION": "Are you sure you want to delete player {{name}}?",
+  "LIKED_ONLY": "Liked only",
+  "CURRENT_TEAM": "Current team",
+  "NO_FIRST_NAME_ERROR": "Please provide players first name",
+  "NO_LAST_NAME_ERROR": "Please provide players last name",
+  "NO_COUNTRY_ERROR": "Please choose players nationality",
+  "WRONG_FOOTED_VALUE": "Please choose valid footed value",
+  "NO_FOOTED_VALUE": "Please choose players dominant leg",
+  "NO_TEAM_ERROR": "Please choose current players team",
+  "NO_PRIMARY_POSITION_ERROR": "Please choose players primary position",
+  "TEAM_AFFILIATIONS_HEADING": "Team affiliations history"
+}

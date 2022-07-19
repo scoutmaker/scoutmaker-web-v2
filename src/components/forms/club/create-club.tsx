@@ -1,14 +1,16 @@
-import { Formik, Form } from 'formik'
-import { useTranslation } from 'next-i18next'
+import { Form, Formik } from 'formik'
 import filter from 'just-filter-object'
-import { useAlertsState } from '../../../context/alerts/useAlertsState'
-import { CreateClubDto } from '../../../types/clubs'
-import { generateCreateClubValidationSchema, initialValues } from './utils'
+import { useTranslation } from 'next-i18next'
+
+import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { CreateClubDto } from '@/types/clubs'
+import { CountryDto } from '@/types/countries'
+import { RegionDto } from '@/types/regions'
+
 import { Container } from '../container'
-import { Fields } from './fields'
-import { CountryDto } from '../../../types/countries'
-import { RegionDto } from '../../../types/regions'
 import { MainFormActions } from '../main-form-actions'
+import { Fields } from './fields'
+import { generateCreateClubValidationSchema, initialValues } from './utils'
 
 interface ICreateClubFormProps {
   regionsData: RegionDto[]
