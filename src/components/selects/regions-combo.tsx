@@ -1,8 +1,10 @@
-import { Field } from 'formik'
 import { AutocompleteRenderInputParams, TextField } from '@mui/material'
+import { Field } from 'formik'
 import { Autocomplete } from 'formik-mui'
-import { RegionDto } from '@/types/regions'
 import { useTranslation } from 'next-i18next'
+
+import { RegionDto } from '@/types/regions'
+
 import { IComboProps } from './types'
 
 interface IRegionsComboProps extends IComboProps<RegionDto> {}
@@ -25,8 +27,11 @@ export const RegionsCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={data.map(country => country.id)}
+      options={['', ...data.map(country => country.id)]}
       getOptionLabel={(option: string) => {
+        if (option === '') {
+          return ''
+        }
         const region = data.find(r => r.id === option)
         if (region) {
           return region.name

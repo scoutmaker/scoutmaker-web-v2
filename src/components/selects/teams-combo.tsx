@@ -27,8 +27,11 @@ export const TeamsCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={data.map(team => team.id)}
+      options={['', ...data.map(team => team.id)]}
       getOptionLabel={(option: string) => {
+        if (option === '') {
+          return ''
+        }
         const team = data.find(c => c.id === option)
         if (team) {
           return team.name
