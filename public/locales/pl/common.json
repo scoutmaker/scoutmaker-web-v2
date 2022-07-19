@@ -90,5 +90,10 @@
   "NAME_OR_SURNAME": "Imię lub nazwisko",
   "BORN_AFTER": "Urodzony po",
   "BORN_BEFORE": "Urodzony przed",
-  "POSITIONS": "Pozycje"
+  "PLAYER": "Zawodnik",
+  "POSITIONS": "Pozycje",
+  "SECONDARY_POSITIONS": "Pozycje drugorzędne",
+  "LNP_URL": "Łączy Nas Piłka URL",
+  "90_MINUT_ID": "90minut.pl ID",
+  "TRANSFERMARKT_ID": "Transfermarkt ID"
 }

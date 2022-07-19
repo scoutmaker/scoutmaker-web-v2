@@ -102,7 +102,7 @@ export const Fields = ({
         <TeamsCombo
           data={teamsData}
           name="teamId"
-          label={t('CURRENT_TEAM')}
+          label={t('players:CURRENT_TEAM')}
           error={
             (touched as FormikTouched<CreatePlayerDto>).teamId &&
             !!(errors as FormikErrors<CreatePlayerDto>).teamId
