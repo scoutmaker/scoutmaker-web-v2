@@ -1,6 +1,6 @@
 export type FindAllCompetitionParticipationsParams =
   Paths.CompetitionParticipationsControllerFindAll.QueryParameters
-export type TeamsFiltersDto = Pick<
+export type CompetitionParticipationsFilterDto = Pick<
   FindAllCompetitionParticipationsParams,
   'competitionId' | 'groupId' | 'seasonId' | 'teamId'
 >

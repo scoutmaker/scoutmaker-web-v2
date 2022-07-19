@@ -11,11 +11,13 @@ import { CompetitionParticipationsTableRow } from '@/components/tables/rows/comp
 import { useCompetitionParticipations } from '@/lib/competition-participations'
 import { getPlayerBySlug } from '@/lib/players'
 import { withSessionSsr } from '@/lib/session'
+import { useTeamAffiliations } from '@/lib/team-affiliations'
 import { getTeamBySlug } from '@/lib/teams'
 import { useTable } from '@/lib/use-table'
 import { ApiError } from '@/types/common'
 import { CompetitionParticipationsSortBy } from '@/types/competition-participations'
 import { PlayerDto } from '@/types/players'
+import { TeamAffiliationsSortBy } from '@/types/team-affiliations'
 import { TeamDto } from '@/types/teams'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
@@ -84,20 +86,20 @@ const PlayerPage = ({
 }: TPlayerPageProps) => {
   const { t } = useTranslation(['players'])
 
-  // const {
-  //   tableSettings: { page, rowsPerPage, sortBy, order },
-  //   handleChangePage,
-  //   handleChangeRowsPerPage,
-  //   handleSort,
-  // } = useTable(`competition-participations-table-team:${team?.id}`, 'seasonId')
+  const {
+    tableSettings: { page, rowsPerPage, sortBy, order },
+    handleChangePage,
+    handleChangeRowsPerPage,
+    handleSort,
+  } = useTable(`team-affiliations-table-player:${player?.id}`, 'endDate')
 
-  // const { data: participations } = useCompetitionParticipations({
-  //   page: page + 1,
-  //   limit: rowsPerPage,
-  //   sortBy: sortBy as CompetitionParticipationsSortBy,
-  //   sortingOrder: order,
-  //   teamId: team?.id,
-  // })
+  const { data: affiliations } = useTeamAffiliations({
+    page: page + 1,
+    limit: rowsPerPage,
+    sortBy: sortBy as TeamAffiliationsSortBy,
+    sortingOrder: order,
+    playerId: player?.id,
+  })
 
   if (!player) {
     return <ErrorContent message={errorMessage} status={errorStatus} />
@@ -108,10 +110,11 @@ const PlayerPage = ({
       <PageHeading title={`${player.firstName} ${player.lastName}`} />
       <PlayerDetialsCard player={player} />
       <section>
-        {/* <Typography variant="h3" align="center" sx={{ margin: 3 }}>
-          {t('teams:COMPETITION_PARTICIPATIONS_HEADING')}
+        <Typography variant="h3" align="center" sx={{ margin: 3 }}>
+          {t('players:TEAM_AFFILIATIONS_HEADING')}
         </Typography>
-        <CompetitionParticipationsTable
+        <pre>{JSON.stringify(affiliations, null, 2)}</pre>
+        {/* <CompetitionParticipationsTable
           page={page}
           rowsPerPage={rowsPerPage}
           sortBy={sortBy}

@@ -802,7 +802,7 @@ declare namespace Components {
         }
         export interface TeamAffiliationDto {
             id: string;
-            player: PlayerBasicDataWithoutTeamsDto;
+            player: PlayerSuperBasicDataDto;
             team: TeamBasicDataDto;
             startDate: string; // date-time
             endDate?: string; // date-time
@@ -4302,11 +4302,37 @@ declare namespace Paths {
         }
     }
     namespace TeamAffiliationsControllerFindAll {
+        namespace Parameters {
+            export type Limit = number;
+            export type Page = number;
+            export type PlayerId = string;
+            export type SortBy = "id" | "teamId" | "playerId" | "startDate" | "endDate";
+            export type SortingOrder = "asc" | "desc";
+            export type TeamId = string;
+        }
+        export interface QueryParameters {
+            playerId?: Parameters.PlayerId;
+            teamId?: Parameters.TeamId;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
                 message: string;
-                data?: Components.Schemas.TeamAffiliationDto;
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.TeamAffiliationDto[];
+                };
             }
         }
     }
@@ -4317,6 +4343,15 @@ declare namespace Paths {
         export interface PathParameters {
             id: Parameters.Id;
         }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.TeamAffiliationDto;
+            }
+        }
+    }
+    namespace TeamAffiliationsControllerGetList {
         namespace Responses {
             export interface $200 {
                 success: boolean;
