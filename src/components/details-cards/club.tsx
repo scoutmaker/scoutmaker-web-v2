@@ -1,3 +1,4 @@
+import { Security as ClubsIcon } from '@mui/icons-material'
 import {
   Avatar,
   Card,
@@ -7,8 +8,8 @@ import {
   Link,
   Typography,
 } from '@mui/material'
-import { Security as ClubsIcon } from '@mui/icons-material'
 import { useTranslation } from 'next-i18next'
+
 import { ClubDto } from '../../types/clubs'
 import { getFlagEmoji } from '../../utils/get-flag-emoji'
 

@@ -2,27 +2,30 @@ import { Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import { PlayerDetialsCard } from '@/components/details-cards/player'
 import { TeamDetailsCard } from '@/components/details-cards/team'
 import { ErrorContent } from '@/components/error/error-content'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { CompetitionParticipationsTable } from '@/components/tables/competition-participations'
 import { CompetitionParticipationsTableRow } from '@/components/tables/rows/competition-participations-row'
 import { useCompetitionParticipations } from '@/lib/competition-participations'
+import { getPlayerBySlug } from '@/lib/players'
 import { withSessionSsr } from '@/lib/session'
 import { getTeamBySlug } from '@/lib/teams'
 import { useTable } from '@/lib/use-table'
 import { ApiError } from '@/types/common'
 import { CompetitionParticipationsSortBy } from '@/types/competition-participations'
+import { PlayerDto } from '@/types/players'
 import { TeamDto } from '@/types/teams'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
-type TTeamPageProps = {
+type TPlayerPageProps = {
   errorStatus: number | null
   errorMessage: string | null
-  team: TeamDto | null
+  player: PlayerDto | null
 }
 
-export const getServerSideProps = withSessionSsr<TTeamPageProps>(
+export const getServerSideProps = withSessionSsr<TPlayerPageProps>(
   async ({ req, res, locale, params }) => {
     const { user } = req.session
 
@@ -32,24 +35,24 @@ export const getServerSideProps = withSessionSsr<TTeamPageProps>(
         props: {
           errorStatus: null,
           errorMessage: null,
-          team: null,
+          player: null,
         },
       }
     }
 
     const translations = await serverSideTranslations(locale || 'pl', [
       'common',
-      'teams',
+      'players',
     ])
 
-    let team: TeamDto
+    let player: PlayerDto
 
     try {
-      const teamData = await getTeamBySlug(
+      const teamData = await getPlayerBySlug(
         params?.slug as string,
         req.session.token,
       )
-      team = teamData
+      player = teamData
     } catch (error) {
       const { response } = error as ApiError
 
@@ -58,7 +61,7 @@ export const getServerSideProps = withSessionSsr<TTeamPageProps>(
           ...translations,
           errorStatus: response.status,
           errorMessage: response.data.message,
-          team: null,
+          player: null,
         },
       }
     }
@@ -68,40 +71,44 @@ export const getServerSideProps = withSessionSsr<TTeamPageProps>(
         ...translations,
         errorStatus: null,
         errorMessage: null,
-        team,
+        player,
       },
     }
   },
 )
 
-const TeamPage = ({ team, errorMessage, errorStatus }: TTeamPageProps) => {
-  const { t } = useTranslation(['teams'])
+const PlayerPage = ({
+  player,
+  errorMessage,
+  errorStatus,
+}: TPlayerPageProps) => {
+  const { t } = useTranslation(['players'])
 
-  const {
-    tableSettings: { page, rowsPerPage, sortBy, order },
-    handleChangePage,
-    handleChangeRowsPerPage,
-    handleSort,
-  } = useTable(`competition-participations-table-team:${team?.id}`, 'seasonId')
+  // const {
+  //   tableSettings: { page, rowsPerPage, sortBy, order },
+  //   handleChangePage,
+  //   handleChangeRowsPerPage,
+  //   handleSort,
+  // } = useTable(`competition-participations-table-team:${team?.id}`, 'seasonId')
 
-  const { data: participations } = useCompetitionParticipations({
-    page: page + 1,
-    limit: rowsPerPage,
-    sortBy: sortBy as CompetitionParticipationsSortBy,
-    sortingOrder: order,
-    teamId: team?.id,
-  })
+  // const { data: participations } = useCompetitionParticipations({
+  //   page: page + 1,
+  //   limit: rowsPerPage,
+  //   sortBy: sortBy as CompetitionParticipationsSortBy,
+  //   sortingOrder: order,
+  //   teamId: team?.id,
+  // })
 
-  if (!team) {
+  if (!player) {
     return <ErrorContent message={errorMessage} status={errorStatus} />
   }
 
   return (
     <>
-      <PageHeading title={team.name} />
-      <TeamDetailsCard team={team} />
+      <PageHeading title={`${player.firstName} ${player.lastName}`} />
+      <PlayerDetialsCard player={player} />
       <section>
-        <Typography variant="h3" align="center" sx={{ margin: 3 }}>
+        {/* <Typography variant="h3" align="center" sx={{ margin: 3 }}>
           {t('teams:COMPETITION_PARTICIPATIONS_HEADING')}
         </Typography>
         <CompetitionParticipationsTable
@@ -122,10 +129,10 @@ const TeamPage = ({ team, errorMessage, errorStatus }: TTeamPageProps) => {
                 />
               ))
             : null}
-        </CompetitionParticipationsTable>
+        </CompetitionParticipationsTable> */}
       </section>
     </>
   )
 }
 
-export default TeamPage
+export default PlayerPage

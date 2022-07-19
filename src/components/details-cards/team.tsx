@@ -1,3 +1,4 @@
+import { GroupWork as TeamsIcon } from '@mui/icons-material'
 import {
   Avatar,
   Card,
@@ -8,10 +9,10 @@ import {
   Typography,
 } from '@mui/material'
 import Link from 'next/link'
-import { GroupWork as TeamsIcon } from '@mui/icons-material'
 import { useTranslation } from 'next-i18next'
-import { TeamDto } from '@/types/teams'
+
 import { CompetitionParticipationWithoutTeamDto } from '@/types/competitions'
+import { TeamDto } from '@/types/teams'
 
 function getCompetitionDisplayName(
   participation?: CompetitionParticipationWithoutTeamDto,
