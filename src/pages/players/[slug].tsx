@@ -3,22 +3,17 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { PlayerDetialsCard } from '@/components/details-cards/player'
-import { TeamDetailsCard } from '@/components/details-cards/team'
 import { ErrorContent } from '@/components/error/error-content'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { CompetitionParticipationsTable } from '@/components/tables/competition-participations'
-import { CompetitionParticipationsTableRow } from '@/components/tables/rows/competition-participations-row'
-import { useCompetitionParticipations } from '@/lib/competition-participations'
+import { TeamAffiliationsTableRow } from '@/components/tables/rows/team-affiliations-row'
+import { TeamAffiliationsTable } from '@/components/tables/team-affiliations'
 import { getPlayerBySlug } from '@/lib/players'
 import { withSessionSsr } from '@/lib/session'
 import { useTeamAffiliations } from '@/lib/team-affiliations'
-import { getTeamBySlug } from '@/lib/teams'
 import { useTable } from '@/lib/use-table'
 import { ApiError } from '@/types/common'
-import { CompetitionParticipationsSortBy } from '@/types/competition-participations'
 import { PlayerDto } from '@/types/players'
 import { TeamAffiliationsSortBy } from '@/types/team-affiliations'
-import { TeamDto } from '@/types/teams'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 type TPlayerPageProps = {
@@ -113,8 +108,7 @@ const PlayerPage = ({
         <Typography variant="h3" align="center" sx={{ margin: 3 }}>
           {t('players:TEAM_AFFILIATIONS_HEADING')}
         </Typography>
-        <pre>{JSON.stringify(affiliations, null, 2)}</pre>
-        {/* <CompetitionParticipationsTable
+        <TeamAffiliationsTable
           page={page}
           rowsPerPage={rowsPerPage}
           sortBy={sortBy}
@@ -122,17 +116,17 @@ const PlayerPage = ({
           handleChangePage={handleChangePage}
           handleChangeRowsPerPage={handleChangeRowsPerPage}
           handleSort={handleSort}
-          total={participations?.totalDocs || 0}
+          total={affiliations?.totalDocs || 0}
         >
-          {participations
-            ? participations.docs.map(participation => (
-                <CompetitionParticipationsTableRow
-                  key={team.id}
-                  data={participation}
+          {affiliations
+            ? affiliations.docs.map(affiliation => (
+                <TeamAffiliationsTableRow
+                  key={affiliation.id}
+                  data={affiliation}
                 />
               ))
             : null}
-        </CompetitionParticipationsTable> */}
+        </TeamAffiliationsTable>
       </section>
     </>
   )

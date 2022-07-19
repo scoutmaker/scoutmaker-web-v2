@@ -95,5 +95,7 @@
   "SECONDARY_POSITIONS": "Pozycje drugorzędne",
   "LNP_URL": "Łączy Nas Piłka URL",
   "90_MINUT_ID": "90minut.pl ID",
-  "TRANSFERMARKT_ID": "Transfermarkt ID"
+  "TRANSFERMARKT_ID": "Transfermarkt ID",
+  "START_DATE": "Data początkowa",
+  "END_DATE": "Data końcowa"
 }

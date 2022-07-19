@@ -2,42 +2,42 @@ import { TFunction, useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
 
 import { Table } from '@/components/tables/common/table'
-import { CompetitionParticipationsSortBy } from '@/types/competition-participations'
 import { ICommonTableProps } from '@/types/tables'
+import { TeamAffiliationsSortBy } from '@/types/team-affiliations'
 
-interface ICompetitionParticipationsTableProps extends ICommonTableProps {
+interface ITeamAffiliationsTableProps extends ICommonTableProps {
   children: ReactNode
-  shouldDisplayTeamName?: boolean
+  shouldDisplayPlayerName?: boolean
 }
 
 interface IHeadCell {
-  id: CompetitionParticipationsSortBy
+  id: TeamAffiliationsSortBy
   label: string
 }
 
 interface IGenerateHeadCellsArgs {
   t: TFunction
-  shouldDisplayTeamName?: boolean
+  shouldDisplayPlayerName?: boolean
 }
 
 function generateHeadCells({
   t,
-  shouldDisplayTeamName,
+  shouldDisplayPlayerName,
 }: IGenerateHeadCellsArgs): IHeadCell[] {
   const commonHeadCells: IHeadCell[] = [
-    { id: 'seasonId', label: t('SEASON') },
-    { id: 'competitionId', label: t('COMPETITION') },
-    { id: 'groupId', label: t('COMPETITION_GROUP') },
+    { id: 'teamId', label: t('TEAM') },
+    { id: 'startDate', label: t('START_DATE') },
+    { id: 'endDate', label: t('END_DATE') },
   ]
 
-  if (shouldDisplayTeamName) {
-    return [{ id: 'teamId', label: t('TEAM') }, ...commonHeadCells]
+  if (shouldDisplayPlayerName) {
+    return [{ id: 'playerId', label: t('PLAYER') }, ...commonHeadCells]
   }
 
   return commonHeadCells
 }
 
-export const CompetitionParticipationsTable = ({
+export const TeamAffiliationsTable = ({
   page,
   rowsPerPage,
   sortBy,
@@ -48,8 +48,8 @@ export const CompetitionParticipationsTable = ({
   total,
   actions,
   children,
-  shouldDisplayTeamName,
-}: ICompetitionParticipationsTableProps) => {
+  shouldDisplayPlayerName,
+}: ITeamAffiliationsTableProps) => {
   const { t } = useTranslation()
 
   return (
@@ -62,7 +62,7 @@ export const CompetitionParticipationsTable = ({
       handleChangeRowsPerPage={handleChangeRowsPerPage}
       handleSort={handleSort}
       total={total}
-      headCells={generateHeadCells({ t, shouldDisplayTeamName })}
+      headCells={generateHeadCells({ t, shouldDisplayPlayerName })}
       actions={actions}
     >
       {children}

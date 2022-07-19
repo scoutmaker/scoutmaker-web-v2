@@ -11,5 +11,6 @@
   "WRONG_FOOTED_VALUE": "Please choose valid footed value",
   "NO_FOOTED_VALUE": "Please choose players dominant leg",
   "NO_TEAM_ERROR": "Please choose current players team",
-  "NO_PRIMARY_POSITION_ERROR": "Please choose players primary position"
+  "NO_PRIMARY_POSITION_ERROR": "Please choose players primary position",
+  "TEAM_AFFILIATIONS_HEADING": "Team affiliations history"
 }
