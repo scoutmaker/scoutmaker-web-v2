@@ -1,7 +1,8 @@
+import map from 'just-map-values'
 import { TFunction } from 'next-i18next'
 import * as yup from 'yup'
-import map from 'just-map-values'
-import { ClubDto, CreateClubDto, UpdateClubDto } from '../../../types/clubs'
+
+import { ClubDto, CreateClubDto, UpdateClubDto } from '@/types/clubs'
 
 export const initialValues: CreateClubDto = {
   name: '',

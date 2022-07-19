@@ -1,18 +1,20 @@
-import { Formik, Form, Field } from 'formik'
-import { useTranslation } from 'next-i18next'
-import filter from 'just-filter-object'
 import { TextField } from '@mui/material'
-import { TeamDto, UpdateTeamDto } from '@/types/teams'
-import { ClubBasicDataDto } from '@/types/clubs'
-import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { updatedDiff } from 'deep-object-diff'
+import { Field, Form, Formik } from 'formik'
+import filter from 'just-filter-object'
+import { useTranslation } from 'next-i18next'
+
+import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { ClubBasicDataDto } from '@/types/clubs'
+import { TeamDto, UpdateTeamDto } from '@/types/teams'
+
+import { ClubsCombo } from '../../selects/clubs-combo'
+import { Container } from '../container'
+import { MainFormActions } from '../main-form-actions'
 import {
   generateUpdateTeamValidationSchema,
   getInitialStateFromCurrent,
 } from './utils'
-import { Container } from '../container'
-import { MainFormActions } from '../main-form-actions'
-import { ClubsCombo } from '../../selects/clubs-combo'
 
 interface IEditTeamFormProps {
   current: TeamDto

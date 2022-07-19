@@ -1,14 +1,15 @@
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import { CreateTeamForm } from '@/components/forms/team/create-team'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { useClubsList } from '@/lib/clubs'
-import { withSessionSsr } from '@/lib/session'
-import { redirectToLogin } from '@/utils/redirect-to-login'
-import { useCreateTeam } from '@/lib/teams'
-import { CreateTeamForm } from '@/components/forms/team/create-team'
-import { useCompetitionsList } from '@/lib/competitions'
 import { useCompetitionGroupsList } from '@/lib/competition-groups'
+import { useCompetitionsList } from '@/lib/competitions'
+import { withSessionSsr } from '@/lib/session'
+import { useCreateTeam } from '@/lib/teams'
+import { redirectToLogin } from '@/utils/redirect-to-login'
 
 export const getServerSideProps = withSessionSsr(
   async ({ req, res, locale }) => {
