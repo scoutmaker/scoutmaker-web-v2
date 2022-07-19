@@ -1,6 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query'
+
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { ApiResponse, TPaginatedData, ApiError } from '@/types/common'
+import { mapObjectToQueryParams } from '@/lib/helpers'
+import { ApiError, ApiResponse, TPaginatedData } from '@/types/common'
 import {
   CreatePlayerDto,
   FindAllPlayersParams,
@@ -8,6 +10,7 @@ import {
   PlayerDto,
   UpdatePlayerDto,
 } from '@/types/players'
+
 import { api } from './api'
 
 // Get single player by slug
@@ -46,20 +49,7 @@ type TPaginatedPlayers = TPaginatedData<PlayerDto>
 type TGetPlayersResponse = ApiResponse<TPaginatedPlayers>
 
 async function getPlayers(params: FindAllPlayersParams) {
-  const query = Object.entries(params)
-    .map(([key, value]) => {
-      if (!value || value?.length === 0) {
-        return null
-      }
-
-      if (typeof value === 'object') {
-        return value?.map((val: string) => `${key}=${val}`).join('&')
-      }
-
-      return `${key}=${value}`
-    })
-    .filter(item => item)
-    .join('&')
+  const query = mapObjectToQueryParams(params)
 
   const { data } = await api.get<TGetPlayersResponse>(`/players?${query}`)
   return data.data

@@ -2,5 +2,6 @@
   "INDEX_PAGE_TITLE": "Players database",
   "CREATE_PLAYER_PAGE_TITLE": "Create new player",
   "EDIT_PLAYER_PAGE_TITLE": "Edit player {{name}} data",
-  "DELETE_PLAYER_CONFIRM_QUESTION": "Are you sure you want to delete player {{name}}?"
+  "DELETE_PLAYER_CONFIRM_QUESTION": "Are you sure you want to delete player {{name}}?",
+  "LIKED_ONLY": "Liked only"
 }

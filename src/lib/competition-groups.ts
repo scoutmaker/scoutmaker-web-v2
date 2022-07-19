@@ -1,5 +1,7 @@
-import { CompetitionGroupBasicDataDto } from '@/types/competition-groups'
 import { useQuery } from 'react-query'
+
+import { CompetitionGroupBasicDataDto } from '@/types/competition-groups'
+
 import { useAlertsState } from '../context/alerts/useAlertsState'
 import { ApiError, ApiResponse } from '../types/common'
 import { api } from './api'

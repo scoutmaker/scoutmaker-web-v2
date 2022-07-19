@@ -2,5 +2,6 @@
   "INDEX_PAGE_TITLE": "Baza zawodników",
   "CREATE_PLAYER_PAGE_TITLE": "Utwórz nowego zawodnika",
   "EDIT_PLAYER_PAGE_TITLE": "Edycja danych zawodnika {{name}}",
-  "DELETE_PLAYER_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć zawodnika {{name}}?"
+  "DELETE_PLAYER_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć zawodnika {{name}}?",
+  "LIKED_ONLY": "Tylko polubieni"
 }

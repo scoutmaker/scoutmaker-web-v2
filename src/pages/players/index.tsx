@@ -1,38 +1,27 @@
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from '@mui/material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
 
 import { Fab } from '@/components/fab/fab'
-import { TeamsFilterForm } from '@/components/forms/team/teams-filter-form'
+import { PlayersFilterForm } from '@/components/forms/player/players-filter-form'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { PlayersTable } from '@/components/tables/players'
 import { PlayersTableRow } from '@/components/tables/rows/players-row'
-import { TeamsTableRow } from '@/components/tables/rows/teams-row'
-import { TeamsTable } from '@/components/tables/teams'
-import { useClubsList } from '@/lib/clubs'
 import { useCompetitionGroupsList } from '@/lib/competition-groups'
 import { useCompetitionsList } from '@/lib/competitions'
 import { useCountriesList } from '@/lib/countries'
+import { usePlayerPositionsList } from '@/lib/player-positions'
 import {
   useDeletePlayer,
   useLikePlayer,
   usePlayers,
   useUnlikePlayer,
 } from '@/lib/players'
-import { useRegionsList } from '@/lib/regions'
 import { withSessionSsr } from '@/lib/session'
+import { useTeamsList } from '@/lib/teams'
 import { useLocalStorage } from '@/lib/use-local-storage'
 import { useTable } from '@/lib/use-table'
 import { PlayersFiltersDto, PlayersSortBy } from '@/types/players'
@@ -62,11 +51,15 @@ export const getServerSideProps = withSessionSsr(
 
 const initialFilters: PlayersFiltersDto = {
   name: '',
+  bornAfter: 1980,
+  bornBefore: 2005,
+  footed: '',
   competitionGroupIds: [],
   competitionIds: [],
   countryIds: [],
   positionIds: [],
   teamIds: [],
+  isLiked: false,
 }
 
 interface IPlayerToDeleteData {
@@ -101,12 +94,13 @@ const PlayersPage = () => {
   }
 
   const { data: countries, isLoading: countriesLoading } = useCountriesList()
-  const { data: regions, isLoading: regionsLoading } = useRegionsList()
-  const { data: clubs, isLoading: clubsLoading } = useClubsList()
+  const { data: teams, isLoading: teamsLoading } = useTeamsList()
   const { data: competitions, isLoading: competitionsLoading } =
     useCompetitionsList()
   const { data: competitionGroups, isLoading: competitionGroupsLoading } =
     useCompetitionGroupsList()
+  const { data: positions, isLoading: positionsLoading } =
+    usePlayerPositionsList()
 
   const { data: players, isLoading: playersLoading } = usePlayers({
     page: page + 1,
@@ -123,30 +117,30 @@ const PlayersPage = () => {
     useUnlikePlayer()
 
   const isLoading =
-    clubsLoading ||
     countriesLoading ||
-    regionsLoading ||
+    teamsLoading ||
     deletePlayerLoading ||
     competitionsLoading ||
     competitionGroupsLoading ||
     playersLoading ||
     likePlayerLoading ||
-    unlikePlayerLoading
+    unlikePlayerLoading ||
+    positionsLoading
 
   return (
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('players:INDEX_PAGE_TITLE')} />
-      {/* <TeamsFilterForm
+      <PlayersFilterForm
         filters={filters}
         countriesData={countries || []}
-        regionsData={regions || []}
+        positionsData={positions || []}
         competitionsData={competitions || []}
         competitionGroupsData={competitionGroups || []}
-        clubsData={clubs || []}
+        teamsData={teams || []}
         onFilter={handleSetFilters}
         onClearFilters={() => handleSetFilters(initialFilters)}
-      /> */}
+      />
       <PlayersTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -181,7 +175,6 @@ const PlayersPage = () => {
             ))
           : null}
       </PlayersTable>
-
       <Fab href="/players/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

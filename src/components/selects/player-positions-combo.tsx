@@ -3,13 +3,13 @@ import { Field } from 'formik'
 import { Autocomplete } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { ClubBasicDataDto } from '@/types/clubs'
+import { PlayerPositionDto } from '@/types/player-positions'
 
 import { IComboProps } from './types'
 
-interface IClubsComboProps extends IComboProps<ClubBasicDataDto> {}
+interface IPlayersPositionComboProps extends IComboProps<PlayerPositionDto> {}
 
-export const ClubsCombo = ({
+export const PlayersPositionCombo = ({
   data,
   name,
   label,
@@ -17,7 +17,7 @@ export const ClubsCombo = ({
   size,
   error,
   helperText,
-}: IClubsComboProps) => {
+}: IPlayersPositionComboProps) => {
   const { t } = useTranslation()
 
   return (
@@ -27,11 +27,11 @@ export const ClubsCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={data.map(club => club.id)}
+      options={data.map(position => position.id)}
       getOptionLabel={(option: string) => {
-        const club = data.find(c => c.id === option)
-        if (club) {
-          return club.name
+        const position = data.find(p => p.id === option)
+        if (position) {
+          return position.name
         }
         return t('NONE')
       }}
@@ -41,8 +41,8 @@ export const ClubsCombo = ({
           {...params}
           error={error}
           helperText={helperText}
-          label={label || t('CLUB')}
-          placeholder={label || t('CLUB')}
+          label={label || t('PRIMARY_POSITION')}
+          placeholder={label || t('PRIMARY_POSITION')}
         />
       )}
     />
