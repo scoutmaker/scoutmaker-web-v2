@@ -27,9 +27,9 @@ export const PlayersPositionCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={['', ...data.map(position => position.id)]}
-      getOptionLabel={(option: string) => {
-        if (option === '') {
+      options={[0, ...data.map(position => position.id)]}
+      getOptionLabel={(option: number) => {
+        if (option === 0) {
           return ''
         }
         const position = data.find(p => p.id === option)
