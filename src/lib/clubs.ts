@@ -1,13 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { useAlertsState } from '../context/alerts/useAlertsState'
+
+import { useAlertsState } from '@/context/alerts/useAlertsState'
 import {
   ClubBasicDataDto,
   ClubDto,
   CreateClubDto,
   FindAllClubsParams,
   UpdateClubDto,
-} from '../types/clubs'
-import { ApiError, ApiResponse, TPaginatedData } from '../types/common'
+} from '@/types/clubs'
+import { ApiError, ApiResponse, TPaginatedData } from '@/types/common'
+
 import { api } from './api'
 
 // Get single club by slug
@@ -105,7 +107,7 @@ export function useCreateClub() {
 
 // Update club
 interface IUpdateClubArgs {
-  id: string
+  id: number
   clubData: UpdateClubDto
 }
 
@@ -120,7 +122,7 @@ async function updateClub({
   return data
 }
 
-export function useUpdateClub(id: string) {
+export function useUpdateClub(id: number) {
   const queryClient = useQueryClient()
   const { setAlert } = useAlertsState()
 
@@ -144,7 +146,7 @@ export function useUpdateClub(id: string) {
 }
 
 // Delete club
-async function deleteClub(id: string): Promise<ApiResponse<ClubDto>> {
+async function deleteClub(id: number): Promise<ApiResponse<ClubDto>> {
   const { data } = await api.delete<ApiResponse<ClubDto>>(`/clubs/${id}`)
   return data
 }
@@ -153,7 +155,7 @@ export function useDeleteClub() {
   const queryClient = useQueryClient()
   const { setAlert } = useAlertsState()
 
-  return useMutation((id: string) => deleteClub(id), {
+  return useMutation((id: number) => deleteClub(id), {
     onSuccess: data => {
       setAlert({
         msg: data.message,

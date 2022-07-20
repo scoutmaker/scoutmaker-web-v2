@@ -1,4 +1,4 @@
-type TValue = string | string[] | number | boolean
+type TValue = string | string[] | number | boolean | number[]
 
 export function mapObjectToQueryParams(params: Record<string, TValue>) {
   const query = Object.entries(params)
@@ -16,7 +16,7 @@ export function mapObjectToQueryParams(params: Record<string, TValue>) {
       }
 
       if (typeof value === 'object') {
-        return value?.map((val: string) => `${key}=${val}`).join('&')
+        return value?.map(val => `${key}=${val}`).join('&')
       }
 
       return `${key}=${value}`
