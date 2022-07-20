@@ -1,10 +1,12 @@
-import { Formik, Form, Field } from 'formik'
-import * as yup from 'yup'
-import { TextField, Button } from '@mui/material'
-import { TFunction, useTranslation } from 'next-i18next'
+import { Button, TextField } from '@mui/material'
 import { styled } from '@mui/material/styles'
+import { Field, Form, Formik } from 'formik'
+import { TFunction, useTranslation } from 'next-i18next'
+import * as yup from 'yup'
+
+import { UpdatePasswordDto } from '@/types/auth'
+
 import { Container } from './container'
-import { UpdatePasswordDto } from '../../types/auth'
 import { generatePasswordValidationSchema } from './utils'
 
 const StyledForm = styled(Form)(() => ({

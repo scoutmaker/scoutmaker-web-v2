@@ -1,24 +1,25 @@
+import { ExpandMore as AccordionIcon } from '@mui/icons-material'
 import {
-  Card,
-  CardHeader,
-  Avatar,
-  CardContent,
   Accordion,
-  AccordionSummary,
-  Typography,
   AccordionDetails,
+  AccordionSummary,
+  Avatar,
+  Card,
+  CardContent,
+  CardHeader,
+  Typography,
 } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { ExpandMore as AccordionIcon } from '@mui/icons-material'
-import { Loader } from '@/components/loader/loader'
-import { withSessionSsr } from '@/lib/session'
-import { redirectToLogin } from '@/utils/redirect-to-login'
-import { UpdateUserDto, User } from '@/types/auth'
-import { useUpdatePassword, useUpdateUser, useUser } from '@/lib/auth'
-import { PageHeading } from '@/components/page-heading/page-heading'
+
 import { EditAccountForm } from '@/components/forms/edit-account'
 import { UpdatePasswordForm } from '@/components/forms/update-password'
+import { Loader } from '@/components/loader/loader'
+import { PageHeading } from '@/components/page-heading/page-heading'
+import { useUpdatePassword, useUpdateUser, useUser } from '@/lib/auth'
+import { withSessionSsr } from '@/lib/session'
+import { UpdateUserDto, User } from '@/types/auth'
+import { redirectToLogin } from '@/utils/redirect-to-login'
 
 export const getServerSideProps = withSessionSsr(
   async ({ req, res, locale }) => {

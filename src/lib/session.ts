@@ -2,11 +2,12 @@
 import type { IronSessionOptions } from 'iron-session'
 import { withIronSessionApiRoute, withIronSessionSsr } from 'iron-session/next'
 import {
-  NextApiHandler,
   GetServerSidePropsContext,
   GetServerSidePropsResult,
+  NextApiHandler,
 } from 'next'
-import { User } from '../types/auth'
+
+import { User } from '@/types/auth'
 
 export const sessionOptions: IronSessionOptions = {
   password: process.env.SECRET_COOKIE_PASSWORD as string,

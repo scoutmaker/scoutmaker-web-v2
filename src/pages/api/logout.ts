@@ -1,4 +1,5 @@
 import { withIronSessionApiRoute } from 'iron-session/next'
+
 import { sessionOptions } from '@/lib/session'
 
 export default withIronSessionApiRoute((req, res) => {

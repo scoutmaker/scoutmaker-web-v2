@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import Image from 'next/image'
+
 import logoWhite from '../../../public/logo-white.png'
 
 const StyledContainer = styled('div')(() => ({

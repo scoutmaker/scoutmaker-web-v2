@@ -1,6 +1,6 @@
-import { Toolbar, Link, Menu } from '@mui/material'
-import { styled } from '@mui/material/styles'
 import { Sports as MatchIcon } from '@mui/icons-material'
+import { Link, Menu, Toolbar } from '@mui/material'
+import { styled } from '@mui/material/styles'
 
 export const StyledToolbar = styled(Toolbar)(() => ({
   display: 'flex',

@@ -1,18 +1,18 @@
-import { useState, useRef, useEffect } from 'react'
-import { AppBar, IconButton, Menu } from '@mui/material'
 import { Menu as MenuIcon } from '@mui/icons-material'
-import { useRouter } from 'next/router'
+import { AppBar, IconButton } from '@mui/material'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useEffect, useRef, useState } from 'react'
+
+import { Logo } from '../logo/Logo'
+import { NavList } from '../nav/nav-list'
 // import { Match } from '../../types/matches';
 import {
   StyledButtonsContainer,
-  StyledMatchIcon,
   StyledMenu,
   StyledTitle,
   StyledToolbar,
 } from './styles'
-import { Logo } from '../logo/Logo'
-import { NavList } from '../nav/nav-list'
 
 // interface ITopbarProps {
 //   handleQuickNoteClick: () => void

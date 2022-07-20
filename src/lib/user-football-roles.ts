@@ -1,7 +1,9 @@
 import { useQuery } from 'react-query'
-import { useAlertsState } from '../context/alerts/useAlertsState'
-import { ApiError, ApiResponse } from '../types/common'
-import { UserFootballRoleDto } from '../types/user-football-roles'
+
+import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { ApiError, ApiResponse } from '@/types/common'
+import { UserFootballRoleDto } from '@/types/user-football-roles'
+
 import { api } from './api'
 
 // Get user football roles list

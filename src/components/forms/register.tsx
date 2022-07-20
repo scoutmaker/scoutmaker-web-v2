@@ -1,12 +1,14 @@
-import { Formik, Field } from 'formik'
 import { Grid, TextField } from '@mui/material'
+import { Field, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
+
+import { RegisterDto } from '@/types/auth'
+
 import { StyledButton, StyledForm, StyledLink } from './styles'
 import {
   generateRegisterFormValidationSchema,
   registerFormInitialValues,
 } from './utils'
-import { RegisterDto } from '../../types/auth'
 
 type Props = {
   onSubmit: (data: RegisterDto) => void

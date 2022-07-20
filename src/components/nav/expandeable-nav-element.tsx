@@ -1,11 +1,11 @@
-import { ReactNode } from 'react'
+import { ExpandLess, ExpandMore } from '@mui/icons-material'
 import {
   Collapse,
   ListItemButton,
   ListItemIcon,
   ListItemText,
 } from '@mui/material'
-import { ExpandLess, ExpandMore } from '@mui/icons-material'
+import { ReactNode } from 'react'
 
 type IExpandeableNavElementProps = {
   children: ReactNode

@@ -1,5 +1,6 @@
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import { ErrorContent } from '@/components/error/error-content'
 import { EditClubForm } from '@/components/forms/club/edit-club'
 import { Loader } from '@/components/loader/loader'
@@ -80,7 +81,7 @@ const EditClubPage = ({
   const { data: regions, isLoading: isRegionsLoading } = useRegionsList()
   const { data: countries, isLoading: isCountriesLoading } = useCountriesList()
   const { mutate: updateClub, isLoading: isUpdateClubLoading } = useUpdateClub(
-    club?.id || '',
+    club?.id || 0,
   )
 
   if (club) {

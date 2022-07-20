@@ -1,10 +1,12 @@
+import { capitalize, Grid, TextField } from '@mui/material'
 import { Field, Formik } from 'formik'
 import Link from 'next/link'
-import { TextField, Grid, capitalize } from '@mui/material'
 import { TFunction, useTranslation } from 'next-i18next'
 import * as yup from 'yup'
-import { ForgotPasswordDto } from '../../types/auth'
-import { StyledForm, StyledButton, StyledLink } from './styles'
+
+import { ForgotPasswordDto } from '@/types/auth'
+
+import { StyledButton, StyledForm, StyledLink } from './styles'
 
 function generateValidationSchema(
   t: TFunction,

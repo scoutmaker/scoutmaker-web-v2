@@ -1,7 +1,8 @@
 import { Breadcrumbs as MUIBreadcrumbs } from '@mui/material'
-import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
+
 import { Crumb } from './crumb'
 import { generateBreadcrumbs } from './utils'
 

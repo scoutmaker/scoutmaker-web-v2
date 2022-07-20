@@ -1,6 +1,6 @@
-import { MouseEvent, ReactNode } from 'react'
-import { IconButton, Menu, MenuList, Tooltip } from '@mui/material'
 import { MoreVert as MenuIcon } from '@mui/icons-material'
+import { IconButton, Menu, MenuList, Tooltip } from '@mui/material'
+import { MouseEvent, ReactNode } from 'react'
 
 interface ITableMenuProps {
   children: ReactNode

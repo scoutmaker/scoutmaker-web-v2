@@ -1,7 +1,9 @@
-import { CompetitionBasicDataDto } from '@/types/competitions'
 import { useQuery } from 'react-query'
-import { useAlertsState } from '../context/alerts/useAlertsState'
-import { ApiError, ApiResponse } from '../types/common'
+
+import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { ApiError, ApiResponse } from '@/types/common'
+import { CompetitionBasicDataDto } from '@/types/competitions'
+
 import { api } from './api'
 
 // Get competitions list

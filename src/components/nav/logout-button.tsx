@@ -1,7 +1,8 @@
-import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import { ExitToApp as LogoutIcon } from '@mui/icons-material'
+import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-import { useLogout } from '../../lib/auth'
+
+import { useLogout } from '@/lib/auth'
 
 export const LogoutButton = () => {
   const { t } = useTranslation()
