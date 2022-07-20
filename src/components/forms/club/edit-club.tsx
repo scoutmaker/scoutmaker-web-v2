@@ -1,18 +1,20 @@
-import { Formik, Form } from 'formik'
-import { useTranslation } from 'next-i18next'
-import filter from 'just-filter-object'
 import { updatedDiff } from 'deep-object-diff'
-import { useAlertsState } from '../../../context/alerts/useAlertsState'
-import { ClubDto, UpdateClubDto } from '../../../types/clubs'
+import { Form, Formik } from 'formik'
+import filter from 'just-filter-object'
+import { useTranslation } from 'next-i18next'
+
+import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { ClubDto, UpdateClubDto } from '@/types/clubs'
+import { CountryDto } from '@/types/countries'
+import { RegionDto } from '@/types/regions'
+
+import { Container } from '../container'
+import { MainFormActions } from '../main-form-actions'
+import { Fields } from './fields'
 import {
   generateUpdateClubValidationSchema,
   getInitialStateFromCurrent,
 } from './utils'
-import { Container } from '../container'
-import { Fields } from './fields'
-import { CountryDto } from '../../../types/countries'
-import { RegionDto } from '../../../types/regions'
-import { MainFormActions } from '../main-form-actions'
 
 interface IEditClubFormProps {
   current: ClubDto

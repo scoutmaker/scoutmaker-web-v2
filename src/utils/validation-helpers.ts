@@ -14,3 +14,7 @@ export function validateId(args?: IValidateIdArgs) {
 
   return yup.number().notOneOf([0], message)
 }
+
+export function validateIdsArray() {
+  return yup.array().of(yup.number())
+}

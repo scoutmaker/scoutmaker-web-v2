@@ -8,17 +8,18 @@ import {
   PlayerDto,
   UpdatePlayerDto,
 } from '@/types/players'
+import { validateId, validateIdsArray } from '@/utils/validation-helpers'
 
 export const initialValues: CreatePlayerDto = {
   firstName: '',
   lastName: '',
-  countryId: '',
+  countryId: 0,
   yearOfBirth: 2000,
   height: 180,
   weight: 70,
   footed: 'RIGHT',
-  teamId: '',
-  primaryPositionId: '',
+  teamId: 0,
+  primaryPositionId: 0,
   secondaryPositionIds: [],
   lnpId: '',
   lnpUrl: '',
@@ -33,7 +34,7 @@ function generateCommonPlayerFieldsValidationSchema() {
     height: yup.number().notRequired(),
     weight: yup.number().notRequired(),
     street: yup.string().notRequired(),
-    secondaryPositionIds: yup.array().of(yup.string()).notRequired(),
+    secondaryPositionIds: validateIdsArray(),
     lnpId: yup.string().notRequired(),
     lnpUrl: yup.string().url().notRequired(),
     minut90id: yup.string().notRequired(),
@@ -48,7 +49,10 @@ export function generateCreatePlayerValidationSchema(t: TFunction) {
     .object({
       firstName: yup.string().required(t('players:NO_FIRST_NAME_ERROR')),
       lastName: yup.string().required(t('players:NO_LAST_NAME_ERROR')),
-      countryId: yup.string().required(t('players:NO_COUNTRY_ERROR')),
+      countryId: validateId({
+        required: true,
+        message: t('players:NO_COUNTRY_ERROR'),
+      }),
       footed: yup
         .string()
         .oneOf<Footed>(
@@ -56,10 +60,14 @@ export function generateCreatePlayerValidationSchema(t: TFunction) {
           t('players:WRONG_FOOTED_VALUE'),
         )
         .required(t('players:NO_FOOTED_ERROR')),
-      teamId: yup.string().required(t('players:NO_TEAM_ERROR')),
-      primaryPositionId: yup
-        .string()
-        .required(t('players:NO_PRIMARY_POSITION_ERROR')),
+      teamId: validateId({
+        required: true,
+        message: t('players:NO_TEAM_ERROR'),
+      }),
+      primaryPositionId: validateId({
+        required: true,
+        message: t('players:NO_PRIMARY_POSITION_ERROR'),
+      }),
       ...generateCommonPlayerFieldsValidationSchema(),
     })
     .defined()
@@ -69,13 +77,13 @@ export function generateUpdatePlayerValidationSchema(t: TFunction) {
   return yup.object({
     firstName: yup.string().notRequired(),
     lastName: yup.string().notRequired(),
-    countryId: yup.string().notRequired(),
+    countryId: validateId(),
     footed: yup
       .string()
       .oneOf<Footed>(['BOTH', 'LEFT', 'RIGHT'], t('players:WRONG_FOOTED_VALUE'))
       .notRequired(),
-    teamId: yup.string().notRequired(),
-    primaryPositionId: yup.string().notRequired(),
+    teamId: validateId(),
+    primaryPositionId: validateId(),
     ...generateCommonPlayerFieldsValidationSchema(),
   })
 }
@@ -93,12 +101,12 @@ export function getInitialStateFromCurrent(player: PlayerDto): UpdatePlayerDto {
     ...rest
   } = player
 
-  const values = {
-    ...rest,
+  const mappedRest = map({ ...rest }, value => value || '')
+
+  return {
+    ...mappedRest,
     countryId: country.id,
     primaryPositionId: primaryPosition.id,
     secondaryPositionIds: secondaryPositions.map(pos => pos.id),
   }
-
-  return map(values, value => value || '')
 }
