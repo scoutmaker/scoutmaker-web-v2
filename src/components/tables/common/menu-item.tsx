@@ -1,5 +1,5 @@
+import { ListItemIcon, MenuItem, Typography } from '@mui/material'
 import { ReactElement } from 'react'
-import { MenuItem, ListItemIcon, Typography } from '@mui/material'
 
 interface ITableMenuItemProps {
   icon: ReactElement

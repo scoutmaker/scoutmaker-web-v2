@@ -105,7 +105,7 @@ export function useCreatePlayer() {
 
 // Update player
 interface IUpdatePlayerArgs {
-  id: string
+  id: number
   playerData: UpdatePlayerDto
 }
 
@@ -120,7 +120,7 @@ async function updatePlayer({
   return data
 }
 
-export function useUpdatePlayer(id: string) {
+export function useUpdatePlayer(id: number) {
   const queryClient = useQueryClient()
   const { setAlert } = useAlertsState()
 
@@ -144,7 +144,7 @@ export function useUpdatePlayer(id: string) {
 }
 
 // Delete player
-async function deletePlayer(id: string): Promise<ApiResponse<PlayerDto>> {
+async function deletePlayer(id: number): Promise<ApiResponse<PlayerDto>> {
   const { data } = await api.delete<ApiResponse<PlayerDto>>(`/players/${id}`)
   return data
 }
@@ -153,7 +153,7 @@ export function useDeletePlayer() {
   const queryClient = useQueryClient()
   const { setAlert } = useAlertsState()
 
-  return useMutation((id: string) => deletePlayer(id), {
+  return useMutation((id: number) => deletePlayer(id), {
     onSuccess: data => {
       setAlert({
         msg: data.message,
@@ -170,7 +170,7 @@ export function useDeletePlayer() {
 }
 
 // Like player
-async function likePlayer(id: string): Promise<ApiResponse<PlayerDto>> {
+async function likePlayer(id: number): Promise<ApiResponse<PlayerDto>> {
   const { data } = await api.post<ApiResponse<PlayerDto>>(`/like-players/${id}`)
   return data
 }
@@ -179,7 +179,7 @@ export function useLikePlayer() {
   const queryClient = useQueryClient()
   const { setAlert } = useAlertsState()
 
-  return useMutation((id: string) => likePlayer(id), {
+  return useMutation((id: number) => likePlayer(id), {
     onSuccess: data => {
       setAlert({
         msg: data.message,
@@ -196,7 +196,7 @@ export function useLikePlayer() {
 }
 
 // Unlike player
-async function unlikePlayer(id: string): Promise<ApiResponse<PlayerDto>> {
+async function unlikePlayer(id: number): Promise<ApiResponse<PlayerDto>> {
   const { data } = await api.delete<ApiResponse<PlayerDto>>(
     `/like-players/${id}`,
   )
@@ -207,7 +207,7 @@ export function useUnlikePlayer() {
   const queryClient = useQueryClient()
   const { setAlert } = useAlertsState()
 
-  return useMutation((id: string) => unlikePlayer(id), {
+  return useMutation((id: number) => unlikePlayer(id), {
     onSuccess: data => {
       setAlert({
         msg: data.message,

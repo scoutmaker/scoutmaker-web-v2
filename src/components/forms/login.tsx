@@ -1,9 +1,11 @@
+import { capitalize, Grid, TextField } from '@mui/material'
 import { Field, Formik } from 'formik'
 import Link from 'next/link'
-import { TextField, Grid, capitalize } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-import { LoginDto } from '../../types/auth'
-import { StyledForm, StyledButton, StyledLink } from './styles'
+
+import { LoginDto } from '@/types/auth'
+
+import { StyledButton, StyledForm, StyledLink } from './styles'
 import {
   generateLoginFormValidationSchema,
   loginFormInitialValues,

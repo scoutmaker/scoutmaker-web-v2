@@ -1,11 +1,12 @@
-import { useRouter } from 'next/router'
-import { GetServerSideProps } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useTranslation } from 'next-i18next'
 import { Typography } from '@mui/material'
-import { useResetPassword } from '../../lib/auth'
-import { Loader } from '../../components/loader/loader'
-import { ResetPasswordForm } from '../../components/forms/reset-password'
+import { GetServerSideProps } from 'next'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import { ResetPasswordForm } from '@/components/forms/reset-password'
+import { Loader } from '@/components/loader/loader'
+import { useResetPassword } from '@/lib/auth'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const translations = await serverSideTranslations(locale || 'pl', [

@@ -28,9 +28,9 @@ export const CompetitionsCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={['', ...data.map(competition => competition.id)]}
-      getOptionLabel={(option: string) => {
-        if (option === '') {
+      options={[0, ...data.map(competition => competition.id)]}
+      getOptionLabel={(option: number) => {
+        if (option === 0) {
           return ''
         }
         const competition = data.find(c => c.id === option)

@@ -1,6 +1,7 @@
 import { TFunction } from 'next-i18next'
 import * as yup from 'yup'
-import { LoginDto } from '../../types/auth'
+
+import { LoginDto } from '@/types/auth'
 
 export function generatePasswordValidationSchema(t: TFunction) {
   return yup

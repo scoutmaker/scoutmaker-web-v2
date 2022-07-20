@@ -1,6 +1,7 @@
-import { Slide, Alert } from '@mui/material'
+import { Alert, Slide } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import { useAlertsState } from '../../context/alerts/useAlertsState'
+
+import { useAlertsState } from '@/context/alerts/useAlertsState'
 
 const StyledContainer = styled('div')(({ theme }) => ({
   position: 'fixed',

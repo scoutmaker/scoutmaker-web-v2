@@ -1,6 +1,5 @@
 import { Button } from '@mui/material'
 import { styled } from '@mui/material/styles'
-
 import { useTranslation } from 'next-i18next'
 
 export const StyledContainer = styled('div')(({ theme }) => ({

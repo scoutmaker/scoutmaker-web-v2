@@ -1,7 +1,7 @@
-import { ReactNode } from 'react'
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { ReactNode } from 'react'
 
 type Props = {
   icon: ReactNode

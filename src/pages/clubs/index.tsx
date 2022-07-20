@@ -1,22 +1,23 @@
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { withSessionSsr } from '@/lib/session'
-import { redirectToLogin } from '@/utils/redirect-to-login'
-import { useTable } from '@/lib/use-table'
-import { useLocalStorage } from '@/lib/use-local-storage'
-import { ClubsFiltersDto, ClubsSortBy } from '@/types/clubs'
-import { PageHeading } from '@/components/page-heading/page-heading'
-import { useClubs, useDeleteClub } from '@/lib/clubs'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useState } from 'react'
+
+import { Fab } from '@/components/fab/fab'
 import { ClubsFilterForm } from '@/components/forms/club/clubs-filter-form'
-import { useCountriesList } from '@/lib/countries'
-import { useRegionsList } from '@/lib/regions'
+import { Loader } from '@/components/loader/loader'
+import { ConfirmationModal } from '@/components/modals/confirmation-modal'
+import { PageHeading } from '@/components/page-heading/page-heading'
 import { ClubsTable } from '@/components/tables/clubs'
 import { ClubsTableRow } from '@/components/tables/rows/clubs-row'
-import { Fab } from '@/components/fab/fab'
-import { ConfirmationModal } from '@/components/modals/confirmation-modal'
-import { Loader } from '@/components/loader/loader'
+import { useClubs, useDeleteClub } from '@/lib/clubs'
+import { useCountriesList } from '@/lib/countries'
+import { useRegionsList } from '@/lib/regions'
+import { withSessionSsr } from '@/lib/session'
+import { useLocalStorage } from '@/lib/use-local-storage'
+import { useTable } from '@/lib/use-table'
+import { ClubsFiltersDto, ClubsSortBy } from '@/types/clubs'
+import { redirectToLogin } from '@/utils/redirect-to-login'
 
 export const getServerSideProps = withSessionSsr(
   async ({ locale, req, res }) => {
@@ -42,12 +43,12 @@ export const getServerSideProps = withSessionSsr(
 
 const initialFilters: ClubsFiltersDto = {
   name: '',
-  countryId: '',
-  regionId: '',
+  countryId: 0,
+  regionId: 0,
 }
 
 interface IClubToDeleteData {
-  id: string
+  id: number
   name: string
 }
 
@@ -141,7 +142,9 @@ const ClubsPage = () => {
           name: clubToDeleteData?.name,
         })}
         handleAccept={() => {
-          deleteClub(clubToDeleteData?.id || '')
+          if (clubToDeleteData) {
+            deleteClub(clubToDeleteData.id)
+          }
           setClubToDeleteData(null)
         }}
         handleClose={() => {

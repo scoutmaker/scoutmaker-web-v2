@@ -1,18 +1,21 @@
-import { Formik, Form, Field } from 'formik'
-import * as yup from 'yup'
-import { TextField, Button } from '@mui/material'
+import { Button, TextField } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import filter from 'just-filter-object'
 import { updatedDiff } from 'deep-object-diff'
+import { Field, Form, Formik } from 'formik'
+import filter from 'just-filter-object'
 import { TFunction, useTranslation } from 'next-i18next'
-import { UpdateUserDto, User } from '../../types/auth'
-import { Container } from './container'
+import * as yup from 'yup'
+
+import { useClubsList } from '@/lib/clubs'
+import { useRegionsList } from '@/lib/regions'
+import { useUserFootballRolesList } from '@/lib/user-football-roles'
+import { UpdateUserDto, User } from '@/types/auth'
+import { validateId } from '@/utils/validation-helpers'
+
 import { ClubsCombo } from '../selects/clubs-combo'
-import { useClubsList } from '../../lib/clubs'
-import { UserFootballRolesCombo } from '../selects/user-football-roles-combo'
-import { useUserFootballRolesList } from '../../lib/user-football-roles'
 import { RegionsCombo } from '../selects/regions-combo'
-import { useRegionsList } from '../../lib/regions'
+import { UserFootballRolesCombo } from '../selects/user-football-roles-combo'
+import { Container } from './container'
 
 const StyledForm = styled(Form)(() => ({
   width: '100%',
@@ -28,14 +31,14 @@ function generateValidationSchema(t: TFunction): yup.SchemaOf<UpdateUserDto> {
     .object({
       firstName: yup.string().required(t('NO_FIRST_NAME_ERROR')),
       lastName: yup.string().required(t('NO_LAST_NAME_ERROR')),
-      clubId: yup.string(),
-      footballRoleId: yup.string(),
+      clubId: validateId(),
+      footballRoleId: validateId(),
       city: yup.string(),
       phone: yup.string(),
       activeRadius: yup
         .number()
         .min(0, t('account.ACTIVE_RADIUS_VALIDATION_ERROR')),
-      regionId: yup.string(),
+      regionId: validateId(),
     })
     .defined()
 }
@@ -68,9 +71,9 @@ export const EditAccountForm = ({
     city: city || '',
     phone: phone || '',
     activeRadius: activeRadius || 0,
-    clubId: club?.id || '',
-    footballRoleId: footballRole?.id || '',
-    regionId: region?.id || '',
+    clubId: club?.id || 0,
+    footballRoleId: footballRole?.id || 0,
+    regionId: region?.id || 0,
   }
 
   const { data: clubs } = useClubsList()

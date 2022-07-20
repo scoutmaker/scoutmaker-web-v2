@@ -1,12 +1,13 @@
-import { useRouter } from 'next/router'
-import { GetServerSideProps } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useTranslation } from 'next-i18next'
-import { useEffect } from 'react'
 import { Typography } from '@mui/material'
+import { GetServerSideProps } from 'next'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useEffect } from 'react'
+
 import { StyledLink } from '@/components/forms/styles'
-import { useConfirmAccount } from '@/lib/auth'
 import { Loader } from '@/components/loader/loader'
+import { useConfirmAccount } from '@/lib/auth'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const translations = await serverSideTranslations(locale || 'pl', ['common'])

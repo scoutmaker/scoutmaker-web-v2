@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { useAlertsState } from '../context/alerts/useAlertsState'
+
+import { useAlertsState } from '@/context/alerts/useAlertsState'
 import {
   ForgotPasswordDto,
   LoginDto,
@@ -10,8 +11,9 @@ import {
   UpdatePasswordDto,
   UpdateUserDto,
   User,
-} from '../types/auth'
-import { ApiResponse, ApiError } from '../types/common'
+} from '@/types/auth'
+import { ApiError, ApiResponse } from '@/types/common'
+
 import { api } from './api'
 
 // Get user data

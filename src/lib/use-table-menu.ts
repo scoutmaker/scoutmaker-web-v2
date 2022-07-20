@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from 'react'
+import { MouseEvent, useState } from 'react'
 
 export function useTableMenu() {
   const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null)

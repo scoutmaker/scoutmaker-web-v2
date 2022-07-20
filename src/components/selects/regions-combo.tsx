@@ -27,9 +27,9 @@ export const RegionsCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={['', ...data.map(country => country.id)]}
-      getOptionLabel={(option: string) => {
-        if (option === '') {
+      options={[0, ...data.map(country => country.id)]}
+      getOptionLabel={(option: number) => {
+        if (option === 0) {
           return ''
         }
         const region = data.find(r => r.id === option)

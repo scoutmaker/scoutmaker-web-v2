@@ -1,5 +1,7 @@
+import { useMutation, useQuery, useQueryClient } from 'react-query'
+
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { ApiResponse, TPaginatedData, ApiError } from '@/types/common'
+import { ApiError, ApiResponse, TPaginatedData } from '@/types/common'
 import {
   CreateTeamDto,
   FindAllTeamsParams,
@@ -7,7 +9,7 @@ import {
   TeamDto,
   UpdateTeamDto,
 } from '@/types/teams'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
+
 import { api } from './api'
 
 // Get single team by slug
@@ -110,7 +112,7 @@ export function useCreateTeam() {
 
 // Update team
 interface IUpdateTeamArgs {
-  id: string
+  id: number
   teamData: UpdateTeamDto
 }
 
@@ -125,7 +127,7 @@ async function updateTeam({
   return data
 }
 
-export function useUpdateTeam(id: string) {
+export function useUpdateTeam(id: number) {
   const queryClient = useQueryClient()
   const { setAlert } = useAlertsState()
 
@@ -149,7 +151,7 @@ export function useUpdateTeam(id: string) {
 }
 
 // Delete team
-async function deleteTeam(id: string): Promise<ApiResponse<TeamDto>> {
+async function deleteTeam(id: number): Promise<ApiResponse<TeamDto>> {
   const { data } = await api.delete<ApiResponse<TeamDto>>(`/teams/${id}`)
   return data
 }
@@ -158,7 +160,7 @@ export function useDeleteTeam() {
   const queryClient = useQueryClient()
   const { setAlert } = useAlertsState()
 
-  return useMutation((id: string) => deleteTeam(id), {
+  return useMutation((id: number) => deleteTeam(id), {
     onSuccess: data => {
       setAlert({
         msg: data.message,
@@ -175,7 +177,7 @@ export function useDeleteTeam() {
 }
 
 // Like team
-async function likeTeam(id: string): Promise<ApiResponse<TeamDto>> {
+async function likeTeam(id: number): Promise<ApiResponse<TeamDto>> {
   const { data } = await api.post<ApiResponse<TeamDto>>(`/like-teams/${id}`)
   return data
 }
@@ -184,7 +186,7 @@ export function useLikeTeam() {
   const queryClient = useQueryClient()
   const { setAlert } = useAlertsState()
 
-  return useMutation((id: string) => likeTeam(id), {
+  return useMutation((id: number) => likeTeam(id), {
     onSuccess: data => {
       setAlert({
         msg: data.message,
@@ -201,7 +203,7 @@ export function useLikeTeam() {
 }
 
 // Unlike team
-async function unlikeTeam(id: string): Promise<ApiResponse<TeamDto>> {
+async function unlikeTeam(id: number): Promise<ApiResponse<TeamDto>> {
   const { data } = await api.delete<ApiResponse<TeamDto>>(`/like-teams/${id}`)
   return data
 }
@@ -210,7 +212,7 @@ export function useUnlikeTeam() {
   const queryClient = useQueryClient()
   const { setAlert } = useAlertsState()
 
-  return useMutation((id: string) => unlikeTeam(id), {
+  return useMutation((id: number) => unlikeTeam(id), {
     onSuccess: data => {
       setAlert({
         msg: data.message,

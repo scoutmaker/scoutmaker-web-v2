@@ -1,5 +1,6 @@
 import { Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
+
 import { PageHeading } from '../page-heading/page-heading'
 
 interface IErrorContentProps {

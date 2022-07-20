@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+
 import { api } from '@/lib/api'
 import { withSessionSsr } from '@/lib/session'
 import { User } from '@/types/auth'
@@ -11,7 +12,7 @@ export const getServerSideProps = withSessionSsr(async ({ req, res }) => {
     redirectToLogin(res)
     return {
       props: {
-        user: { id: 'test', email: 'asd' } as User,
+        user: { id: 0, email: 'asd' } as User,
       },
     }
   }

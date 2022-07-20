@@ -1,7 +1,9 @@
 import { useQuery } from 'react-query'
-import { useAlertsState } from '../context/alerts/useAlertsState'
-import { ApiError, ApiResponse } from '../types/common'
-import { CountryDto } from '../types/countries'
+
+import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { ApiError, ApiResponse } from '@/types/common'
+import { CountryDto } from '@/types/countries'
+
 import { api } from './api'
 
 // Get countries list

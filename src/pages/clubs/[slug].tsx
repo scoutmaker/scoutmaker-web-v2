@@ -1,4 +1,5 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import { ClubDetailsCard } from '@/components/details-cards/club'
 import { ErrorContent } from '@/components/error/error-content'
 import { PageHeading } from '@/components/page-heading/page-heading'

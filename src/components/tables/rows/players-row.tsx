@@ -24,8 +24,8 @@ interface IPlayersTableRowProps {
   data: PlayerDto
   onEditClick: () => void
   onDeleteClick: () => void
-  onLikeClick: (id: string) => void
-  onUnlikeClick: (id: string) => void
+  onLikeClick: (id: number) => void
+  onUnlikeClick: (id: number) => void
   isEditOptionEnabled: boolean
   isDeleteOptionEnabled: boolean
 }

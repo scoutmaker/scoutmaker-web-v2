@@ -1,9 +1,9 @@
 import {
+  Button,
   Dialog,
+  DialogActions,
   DialogContent,
   DialogContentText,
-  DialogActions,
-  Button,
   DialogProps,
 } from '@mui/material'
 import { useTranslation } from 'next-i18next'

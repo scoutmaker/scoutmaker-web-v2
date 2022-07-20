@@ -1,11 +1,13 @@
-import { Formik, Field } from 'formik'
-import * as yup from 'yup'
-import { TextField, Grid } from '@mui/material'
-import { TFunction, useTranslation } from 'next-i18next'
+import { Grid, TextField } from '@mui/material'
+import { Field, Formik } from 'formik'
 import Link from 'next/link'
-import { PasswordResetDto } from '../../types/auth'
+import { TFunction, useTranslation } from 'next-i18next'
+import * as yup from 'yup'
+
+import { PasswordResetDto } from '@/types/auth'
+
+import { StyledButton, StyledForm, StyledLink } from './styles'
 import { generatePasswordValidationSchema } from './utils'
-import { StyledLink, StyledForm, StyledButton } from './styles'
 
 function generateValidationSchema(
   t: TFunction,
