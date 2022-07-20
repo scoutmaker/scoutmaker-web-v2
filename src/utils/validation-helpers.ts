@@ -12,7 +12,7 @@ export function validateId(args?: IValidateIdArgs) {
     return yup.number().notOneOf([0], message).required(message)
   }
 
-  return yup.number().notOneOf([0], message)
+  return yup.number()
 }
 
 export function validateIdsArray() {

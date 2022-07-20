@@ -1,18 +1,20 @@
-import { Formik, Form, Field } from 'formik'
-import { useTranslation } from 'next-i18next'
-import filter from 'just-filter-object'
 import { TextField } from '@mui/material'
-import { CompetitionBasicDataDto } from '@/types/competitions'
-import { CompetitionGroupBasicDataDto } from '@/types/competition-groups'
-import { CreateTeamDto } from '@/types/teams'
-import { ClubBasicDataDto } from '@/types/clubs'
-import { CompetitionsCombo } from '@/components/selects/competitions-combo'
+import { Field, Form, Formik } from 'formik'
+import filter from 'just-filter-object'
+import { useTranslation } from 'next-i18next'
+
 import { CompetitionGroupsCombo } from '@/components/selects/competition-groups-combo'
+import { CompetitionsCombo } from '@/components/selects/competitions-combo'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { generateCreateTeamValidationSchema, initialValues } from './utils'
+import { ClubBasicDataDto } from '@/types/clubs'
+import { CompetitionGroupBasicDataDto } from '@/types/competition-groups'
+import { CompetitionBasicDataDto } from '@/types/competitions'
+import { CreateTeamDto } from '@/types/teams'
+
+import { ClubsCombo } from '../../selects/clubs-combo'
 import { Container } from '../container'
 import { MainFormActions } from '../main-form-actions'
-import { ClubsCombo } from '../../selects/clubs-combo'
+import { generateCreateTeamValidationSchema, initialValues } from './utils'
 
 interface ICreateTeamFormProps {
   clubsData: ClubBasicDataDto[]
