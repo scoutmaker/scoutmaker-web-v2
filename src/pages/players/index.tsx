@@ -22,9 +22,9 @@ import {
 } from '@/lib/players'
 import { withSessionSsr } from '@/lib/session'
 import { useTeamsList } from '@/lib/teams'
-import { useLocalStorage } from '@/lib/use-local-storage'
-import { useTable } from '@/lib/use-table'
 import { PlayersFiltersDto, PlayersSortBy } from '@/types/players'
+import { useLocalStorage } from '@/utils/hooks/use-local-storage'
+import { useTable } from '@/utils/hooks/use-table'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 export const getServerSideProps = withSessionSsr(

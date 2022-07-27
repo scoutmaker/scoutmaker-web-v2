@@ -10,10 +10,10 @@ import { TeamAffiliationsTable } from '@/components/tables/team-affiliations'
 import { getPlayerBySlug } from '@/lib/players'
 import { withSessionSsr } from '@/lib/session'
 import { useTeamAffiliations } from '@/lib/team-affiliations'
-import { useTable } from '@/lib/use-table'
 import { ApiError } from '@/types/common'
 import { PlayerDto } from '@/types/players'
 import { TeamAffiliationsSortBy } from '@/types/team-affiliations'
+import { useTable } from '@/utils/hooks/use-table'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 type TPlayerPageProps = {

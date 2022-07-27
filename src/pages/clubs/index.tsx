@@ -14,9 +14,9 @@ import { useClubs, useDeleteClub } from '@/lib/clubs'
 import { useCountriesList } from '@/lib/countries'
 import { useRegionsList } from '@/lib/regions'
 import { withSessionSsr } from '@/lib/session'
-import { useLocalStorage } from '@/lib/use-local-storage'
 import { useTable } from '@/lib/use-table'
 import { ClubsFiltersDto, ClubsSortBy } from '@/types/clubs'
+import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 export const getServerSideProps = withSessionSsr(

@@ -22,9 +22,9 @@ import {
   useTeams,
   useUnlikeTeam,
 } from '@/lib/teams'
-import { useLocalStorage } from '@/lib/use-local-storage'
 import { useTable } from '@/lib/use-table'
 import { TeamsFiltersDto, TeamsSortBy } from '@/types/teams'
+import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 export const getServerSideProps = withSessionSsr(

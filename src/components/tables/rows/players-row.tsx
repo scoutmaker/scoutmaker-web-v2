@@ -11,9 +11,9 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { useTableMenu } from '@/lib/use-table-menu'
 import { PlayerDto } from '@/types/players'
 import { getFlagEmoji } from '@/utils/get-flag-emoji'
+import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
 import { StyledTableCell } from '../common/cell'
 import { TableMenu } from '../common/menu'
