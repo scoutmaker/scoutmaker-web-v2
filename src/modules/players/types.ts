@@ -21,10 +21,6 @@ export type PlayersFiltersDto = Pick<
   | 'teamIds'
 >
 
-// export type PlayersFilterFormValues = Omit<PlayersFiltersDto, 'footed'> & {
-//   footed: Footed | ''
-// }
-
 export type PlayersSortBy = Paths.PlayersControllerFindAll.Parameters.SortBy
 
 export type PlayerDto = Omit<Components.Schemas.PlayerDto, '_count'> & {

@@ -14,15 +14,15 @@ import { useCompetitionGroupsList } from '@/lib/competition-groups'
 import { useCompetitionsList } from '@/lib/competitions'
 import { useCountriesList } from '@/lib/countries'
 import { usePlayerPositionsList } from '@/lib/player-positions'
+import { withSessionSsr } from '@/lib/session'
+import { useTeamsList } from '@/lib/teams'
 import {
   useDeletePlayer,
   useLikePlayer,
   usePlayers,
   useUnlikePlayer,
-} from '@/lib/players'
-import { withSessionSsr } from '@/lib/session'
-import { useTeamsList } from '@/lib/teams'
-import { PlayersFiltersDto, PlayersSortBy } from '@/types/players'
+} from '@/modules/players/hooks'
+import { PlayersFiltersDto, PlayersSortBy } from '@/modules/players/types'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { redirectToLogin } from '@/utils/redirect-to-login'

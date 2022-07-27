@@ -3,9 +3,9 @@ import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { CreatePlayerDto } from '@/modules/players/types'
 import { CountryDto } from '@/types/countries'
 import { PlayerPositionDto } from '@/types/player-positions'
-import { CreatePlayerDto } from '@/types/players'
 import { TeamBasicDataDto } from '@/types/teams'
 
 import { Container } from '../container'

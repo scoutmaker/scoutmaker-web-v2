@@ -7,7 +7,7 @@ import {
   Footed,
   PlayerDto,
   UpdatePlayerDto,
-} from '@/types/players'
+} from '@/modules/players/types'
 import { validateId, validateIdsArray } from '@/utils/validation-helpers'
 
 export const initialValues: CreatePlayerDto = {

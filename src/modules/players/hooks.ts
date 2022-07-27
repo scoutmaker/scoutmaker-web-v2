@@ -1,20 +1,19 @@
 import {
+  CreatePlayerDto,
+  FindAllPlayersParams,
+  PlayerBasicDataDto,
+  PlayerDto,
+  UpdatePlayerDto,
+} from '@/modules/players/types'
+import {
   createDocument,
   deleteDocument,
-  getAssetBySlug,
   getDataList,
   getPaginatedData,
   likeDocument,
   unlikeDocument,
   updateDocument,
 } from '@/services/api/methods/helpers'
-import {
-  CreatePlayerDto,
-  FindAllPlayersParams,
-  PlayerBasicDataDto,
-  PlayerDto,
-  UpdatePlayerDto,
-} from '@/types/players'
 import { useCreateDocument } from '@/utils/hooks/api/use-create-document'
 import { useDeleteDocument } from '@/utils/hooks/api/use-delete-document'
 import { useLikeDocument } from '@/utils/hooks/api/use-like-document'
@@ -23,14 +22,13 @@ import { usePaginatedData } from '@/utils/hooks/api/use-paginated-data'
 import { useUnlikeDocument } from '@/utils/hooks/api/use-unlike-document'
 import { useUpdateDocument } from '@/utils/hooks/api/use-update-document'
 
-export const getPlayerBySlug = (slug: string, token?: string) =>
-  getAssetBySlug<PlayerDto>({ moduleName: 'players', slug, token })
-
+// Get list
 export const getPlayersList = () => getDataList<PlayerBasicDataDto>('players')
 
 export const usePlayersList = () =>
   useList<PlayerBasicDataDto>('players', getPlayersList)
 
+// Get paginated data
 export const getPlayers = (params: FindAllPlayersParams) =>
   getPaginatedData<FindAllPlayersParams, PlayerDto>(params, 'players')
 
@@ -41,6 +39,7 @@ export const usePlayers = (params: FindAllPlayersParams) =>
     getPlayers,
   )
 
+// Create player
 const createPlayer = (data: CreatePlayerDto) =>
   createDocument<CreatePlayerDto, PlayerDto>(data, 'players')
 
@@ -58,16 +57,19 @@ const updatePlayer = ({ id, data }: IUpdatePlayerArgs) =>
 export const useUpdatePlayer = (id: number) =>
   useUpdateDocument<UpdatePlayerDto, PlayerDto>('players', id, updatePlayer)
 
+// Delete player
 const deletePlayer = (id: number) => deleteDocument<PlayerDto>(id, 'players')
 
 export const useDeletePlayer = () =>
   useDeleteDocument<PlayerDto>('players', deletePlayer)
 
+// Like player
 const likePlayer = (id: number) => likeDocument<PlayerDto>(id, 'players')
 
 export const useLikePlayer = () =>
   useLikeDocument<PlayerDto>('players', likePlayer)
 
+// Unlike player
 const unlikePlayer = (id: number) => unlikeDocument<PlayerDto>(id, 'players')
 
 export const useUnlikePlayer = () =>
