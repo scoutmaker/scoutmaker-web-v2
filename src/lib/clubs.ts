@@ -10,12 +10,12 @@ import {
 } from '@/types/clubs'
 import { ApiError, ApiResponse, TPaginatedData } from '@/types/common'
 
-import { api } from './api'
+import { client } from '../services/api/api'
 
 // Get single club by slug
 export async function getClubBySlug(slug: string, token?: string) {
   const config = token ? { headers: { 'x-auth-token': token } } : {}
-  const { data } = await api.get<ApiResponse<ClubDto>>(
+  const { data } = await client.get<ApiResponse<ClubDto>>(
     `/clubs/by-slug/${slug}`,
     config,
   )
@@ -25,7 +25,9 @@ export async function getClubBySlug(slug: string, token?: string) {
 
 // Get clubs list
 async function getClubsList(): Promise<ClubBasicDataDto[]> {
-  const { data } = await api.get<ApiResponse<ClubBasicDataDto[]>>('/clubs/list')
+  const { data } = await client.get<ApiResponse<ClubBasicDataDto[]>>(
+    '/clubs/list',
+  )
   return data.data
 }
 
@@ -56,7 +58,7 @@ async function getClubs(params: FindAllClubsParams) {
     .filter(item => item)
     .join('&')
 
-  const { data } = await api.get<TGetClubsResponse>(`/clubs?${query}`)
+  const { data } = await client.get<TGetClubsResponse>(`/clubs?${query}`)
   return data.data
 }
 
@@ -81,7 +83,7 @@ export function useClubs(params: FindAllClubsParams) {
 async function createClub(
   clubData: CreateClubDto,
 ): Promise<ApiResponse<ClubDto>> {
-  const { data } = await api.post<ApiResponse<ClubDto>>('/clubs', clubData)
+  const { data } = await client.post<ApiResponse<ClubDto>>('/clubs', clubData)
   return data
 }
 
@@ -115,7 +117,7 @@ async function updateClub({
   id,
   clubData,
 }: IUpdateClubArgs): Promise<ApiResponse<ClubDto>> {
-  const { data } = await api.patch<ApiResponse<ClubDto>>(
+  const { data } = await client.patch<ApiResponse<ClubDto>>(
     `/clubs/${id}`,
     clubData,
   )
@@ -147,7 +149,7 @@ export function useUpdateClub(id: number) {
 
 // Delete club
 async function deleteClub(id: number): Promise<ApiResponse<ClubDto>> {
-  const { data } = await api.delete<ApiResponse<ClubDto>>(`/clubs/${id}`)
+  const { data } = await client.delete<ApiResponse<ClubDto>>(`/clubs/${id}`)
   return data
 }
 

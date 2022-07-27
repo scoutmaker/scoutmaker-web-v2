@@ -14,11 +14,11 @@ import {
 } from '@/types/auth'
 import { ApiError, ApiResponse } from '@/types/common'
 
-import { api } from './api'
+import { client } from '../services/api/api'
 
 // Get user data
 export async function getUserData() {
-  const { data } = await api.get<ApiResponse<User>>('/auth/account')
+  const { data } = await client.get<ApiResponse<User>>('/auth/account')
   return data.data
 }
 
@@ -80,7 +80,7 @@ export function useLogout() {
 
 // Register
 export async function register(registerDto: RegisterDto) {
-  const { data } = await api.post<ApiResponse<User>>(
+  const { data } = await client.post<ApiResponse<User>>(
     '/auth/register',
     registerDto,
   )
@@ -103,7 +103,7 @@ export function useRegister() {
 
 // Confirm account
 export async function confirmAccount(code: string) {
-  const { data } = await api.get<ApiResponse<User>>(`/auth/verify/${code}`)
+  const { data } = await client.get<ApiResponse<User>>(`/auth/verify/${code}`)
   return data
 }
 
@@ -126,7 +126,7 @@ export function useConfirmAccount() {
 
 // Update account
 export async function updateUser(updateUserDto: UpdateUserDto) {
-  const { data } = await api.patch<ApiResponse<User>>(
+  const { data } = await client.patch<ApiResponse<User>>(
     '/auth/update-account',
     updateUserDto,
   )
@@ -152,7 +152,7 @@ export function useUpdateUser() {
 
 // Update password
 export async function updatePassword(updatePasswordDto: UpdatePasswordDto) {
-  const { data } = await api.patch<ApiResponse<User>>(
+  const { data } = await client.patch<ApiResponse<User>>(
     '/auth/update-password',
     updatePasswordDto,
   )
@@ -176,7 +176,7 @@ export function useUpdatePassword() {
 
 // Forgot password
 export async function forgotPassword(forgotPasswordDto: ForgotPasswordDto) {
-  const { data } = await api.post<ApiResponse<User>>(
+  const { data } = await client.post<ApiResponse<User>>(
     '/auth/forgot-password',
     forgotPasswordDto,
   )
@@ -203,7 +203,7 @@ export async function resetPassword(
   token: string,
   passwordResetDto: PasswordResetDto,
 ) {
-  const { data } = await api.patch<ApiResponse<User>>(
+  const { data } = await client.patch<ApiResponse<User>>(
     `/auth/password-reset/${token}`,
     passwordResetDto,
   )

@@ -1,14 +1,13 @@
 import { useQuery } from 'react-query'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { client } from '@/services/api/api'
 import { ApiError, ApiResponse } from '@/types/common'
 import { CompetitionBasicDataDto } from '@/types/competitions'
 
-import { api } from './api'
-
 // Get competitions list
 async function getCompetitionsList(): Promise<CompetitionBasicDataDto[]> {
-  const { data } = await api.get<ApiResponse<CompetitionBasicDataDto[]>>(
+  const { data } = await client.get<ApiResponse<CompetitionBasicDataDto[]>>(
     '/competitions/list',
   )
   return data.data

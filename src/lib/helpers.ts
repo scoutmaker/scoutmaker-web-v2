@@ -1,4 +1,4 @@
-type TValue = string | string[] | number | boolean | number[]
+export type TValue = string | string[] | number | boolean | number[]
 
 export function mapObjectToQueryParams(params: Record<string, TValue>) {
   const query = Object.entries(params)

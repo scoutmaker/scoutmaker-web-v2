@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from 'react-query'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { api } from '@/lib/api'
+import { client } from '@/services/api/api'
 import { ApiError, ApiResponse, TPaginatedData } from '@/types/common'
 import {
   FindAllTeamAffiliationsParams,
@@ -18,7 +18,7 @@ type TGetTeamAffiliationsResponse = ApiResponse<TPaginatedTeamAffiliations>
 async function getTeamAffiliations(params: FindAllTeamAffiliationsParams) {
   const query = mapObjectToQueryParams({ ...params })
 
-  const { data } = await api.get<TGetTeamAffiliationsResponse>(
+  const { data } = await client.get<TGetTeamAffiliationsResponse>(
     `/team-affiliations?${query}`,
   )
   return data.data

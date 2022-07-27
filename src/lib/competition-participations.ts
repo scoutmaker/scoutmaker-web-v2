@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from 'react-query'
+import { client } from 'services/api/api'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { api } from '@/lib/api'
 import { ApiError, ApiResponse, TPaginatedData } from '@/types/common'
 import {
   CompetitionParticipationDto,
@@ -27,7 +27,7 @@ async function getCompetitionParticipations(
     .filter(item => item)
     .join('&')
 
-  const { data } = await api.get<TGetCompetitionParticipationsResponse>(
+  const { data } = await client.get<TGetCompetitionParticipationsResponse>(
     `/competition-participations?${query}`,
   )
   return data.data

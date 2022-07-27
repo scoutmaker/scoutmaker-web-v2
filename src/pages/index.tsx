@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
-import { api } from '@/lib/api'
 import { withSessionSsr } from '@/lib/session'
+import { client } from '@/services/api/api'
 import { User } from '@/types/auth'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
@@ -31,7 +31,7 @@ const Home = ({ user }: IHomepageProps) => {
 
   useEffect(() => {
     async function getCountries() {
-      const res = await api.get('/countries')
+      const res = await client.get('/countries')
       setCountries(res.data.data)
     }
 

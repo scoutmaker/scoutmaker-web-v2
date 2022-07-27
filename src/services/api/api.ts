@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-export const api = axios.create({
+export const client = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
 })
 
-api.interceptors.request.use(config => {
+client.interceptors.request.use(config => {
   const isBrowser = typeof window !== 'undefined'
   if (isBrowser) {
     const modifiedConfig = { ...config }
@@ -18,5 +18,5 @@ api.interceptors.request.use(config => {
 })
 
 export function setAuthToken(token: string) {
-  api.defaults.headers.common['x-auth-token'] = token
+  client.defaults.headers.common['x-auth-token'] = token
 }

@@ -1,14 +1,13 @@
 import { useQuery } from 'react-query'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { client } from '@/services/api/api'
 import { ApiError, ApiResponse } from '@/types/common'
 import { RegionDto } from '@/types/regions'
 
-import { api } from './api'
-
 // Get regions list
 async function getRegionsList(): Promise<RegionDto[]> {
-  const { data } = await api.get<ApiResponse<RegionDto[]>>('/regions/list')
+  const { data } = await client.get<ApiResponse<RegionDto[]>>('/regions/list')
   return data.data
 }
 

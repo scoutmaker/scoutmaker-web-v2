@@ -1,18 +1,17 @@
 import { useQuery } from 'react-query'
 
+import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { client } from '@/services/api/api'
+import { ApiError, ApiResponse } from '@/types/common'
 import { CompetitionGroupBasicDataDto } from '@/types/competition-groups'
-
-import { useAlertsState } from '../context/alerts/useAlertsState'
-import { ApiError, ApiResponse } from '../types/common'
-import { api } from './api'
 
 // Get competition groups list
 async function getCompetitionGroupsList(): Promise<
   CompetitionGroupBasicDataDto[]
 > {
-  const { data } = await api.get<ApiResponse<CompetitionGroupBasicDataDto[]>>(
-    '/competition-groups/list',
-  )
+  const { data } = await client.get<
+    ApiResponse<CompetitionGroupBasicDataDto[]>
+  >('/competition-groups/list')
   return data.data
 }
 

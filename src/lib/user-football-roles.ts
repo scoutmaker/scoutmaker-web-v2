@@ -1,14 +1,13 @@
 import { useQuery } from 'react-query'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { client } from '@/services/api/api'
 import { ApiError, ApiResponse } from '@/types/common'
 import { UserFootballRoleDto } from '@/types/user-football-roles'
 
-import { api } from './api'
-
 // Get user football roles list
 async function getUserFootballRolesList(): Promise<UserFootballRoleDto[]> {
-  const { data } = await api.get<ApiResponse<UserFootballRoleDto[]>>(
+  const { data } = await client.get<ApiResponse<UserFootballRoleDto[]>>(
     '/user-football-roles',
   )
   return data.data

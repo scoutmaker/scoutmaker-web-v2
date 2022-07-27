@@ -1,14 +1,13 @@
 import { useQuery } from 'react-query'
 
+import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { client } from '@/services/api/api'
+import { ApiError, ApiResponse } from '@/types/common'
 import { PlayerPositionDto } from '@/types/player-positions'
-
-import { useAlertsState } from '../context/alerts/useAlertsState'
-import { ApiError, ApiResponse } from '../types/common'
-import { api } from './api'
 
 // Get player positions list
 async function getPlayerPositionsList(): Promise<PlayerPositionDto[]> {
-  const { data } = await api.get<ApiResponse<PlayerPositionDto[]>>(
+  const { data } = await client.get<ApiResponse<PlayerPositionDto[]>>(
     '/player-positions/list',
   )
   return data.data

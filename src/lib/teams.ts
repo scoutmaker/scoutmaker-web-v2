@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { client } from '@/services/api/api'
 import { ApiError, ApiResponse, TPaginatedData } from '@/types/common'
 import {
   CreateTeamDto,
@@ -10,12 +11,10 @@ import {
   UpdateTeamDto,
 } from '@/types/teams'
 
-import { api } from './api'
-
 // Get single team by slug
 export async function getTeamBySlug(slug: string, token?: string) {
   const config = token ? { headers: { 'x-auth-token': token } } : {}
-  const { data } = await api.get<ApiResponse<TeamDto>>(
+  const { data } = await client.get<ApiResponse<TeamDto>>(
     `/teams/by-slug/${slug}`,
     config,
   )
@@ -25,7 +24,9 @@ export async function getTeamBySlug(slug: string, token?: string) {
 
 // Get teams list
 async function getTeamsList(): Promise<TeamBasicDataDto[]> {
-  const { data } = await api.get<ApiResponse<TeamBasicDataDto[]>>('/teams/list')
+  const { data } = await client.get<ApiResponse<TeamBasicDataDto[]>>(
+    '/teams/list',
+  )
   return data.data
 }
 
@@ -61,7 +62,7 @@ async function getTeams(params: FindAllTeamsParams) {
     .filter(item => item)
     .join('&')
 
-  const { data } = await api.get<TGetTeamsResponse>(`/teams?${query}`)
+  const { data } = await client.get<TGetTeamsResponse>(`/teams?${query}`)
   return data.data
 }
 
@@ -86,7 +87,7 @@ export function useTeams(params: FindAllTeamsParams) {
 async function createTeam(
   teamData: CreateTeamDto,
 ): Promise<ApiResponse<TeamDto>> {
-  const { data } = await api.post<ApiResponse<TeamDto>>('/teams', teamData)
+  const { data } = await client.post<ApiResponse<TeamDto>>('/teams', teamData)
   return data
 }
 
@@ -120,7 +121,7 @@ async function updateTeam({
   id,
   teamData,
 }: IUpdateTeamArgs): Promise<ApiResponse<TeamDto>> {
-  const { data } = await api.patch<ApiResponse<TeamDto>>(
+  const { data } = await client.patch<ApiResponse<TeamDto>>(
     `/teams/${id}`,
     teamData,
   )
@@ -152,7 +153,7 @@ export function useUpdateTeam(id: number) {
 
 // Delete team
 async function deleteTeam(id: number): Promise<ApiResponse<TeamDto>> {
-  const { data } = await api.delete<ApiResponse<TeamDto>>(`/teams/${id}`)
+  const { data } = await client.delete<ApiResponse<TeamDto>>(`/teams/${id}`)
   return data
 }
 
@@ -178,7 +179,7 @@ export function useDeleteTeam() {
 
 // Like team
 async function likeTeam(id: number): Promise<ApiResponse<TeamDto>> {
-  const { data } = await api.post<ApiResponse<TeamDto>>(`/like-teams/${id}`)
+  const { data } = await client.post<ApiResponse<TeamDto>>(`/like-teams/${id}`)
   return data
 }
 
@@ -204,7 +205,9 @@ export function useLikeTeam() {
 
 // Unlike team
 async function unlikeTeam(id: number): Promise<ApiResponse<TeamDto>> {
-  const { data } = await api.delete<ApiResponse<TeamDto>>(`/like-teams/${id}`)
+  const { data } = await client.delete<ApiResponse<TeamDto>>(
+    `/like-teams/${id}`,
+  )
   return data
 }
 

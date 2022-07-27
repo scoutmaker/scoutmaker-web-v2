@@ -1,14 +1,15 @@
 import { useQuery } from 'react-query'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { client } from '@/services/api/api'
 import { ApiError, ApiResponse } from '@/types/common'
 import { CountryDto } from '@/types/countries'
 
-import { api } from './api'
-
 // Get countries list
 async function getCountriesList(): Promise<CountryDto[]> {
-  const { data } = await api.get<ApiResponse<CountryDto[]>>('/countries/list')
+  const { data } = await client.get<ApiResponse<CountryDto[]>>(
+    '/countries/list',
+  )
   return data.data
 }
 
