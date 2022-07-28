@@ -2,7 +2,7 @@ import { TFunction, useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
 
 import { Table } from '@/components/tables/common/table'
-import { CompetitionParticipationsSortBy } from '@/types/competition-participations'
+import { CompetitionParticipationsSortBy } from '@/modules/competition-participations/types'
 import { ICommonTableProps } from '@/types/tables'
 
 interface ICompetitionParticipationsTableProps extends ICommonTableProps {
