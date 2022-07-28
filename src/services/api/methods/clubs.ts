@@ -5,6 +5,7 @@ import {
   FindAllClubsParams,
   UpdateClubDto,
 } from '@/modules/clubs/types'
+import { TModuleName } from '@/services/api/modules'
 
 import {
   createDocument,
@@ -15,16 +16,18 @@ import {
   updateDocument,
 } from './helpers'
 
-export const getClubBySlug = (slug: string, token?: string) =>
-  getAssetBySlug<ClubDto>({ moduleName: 'clubs', slug, token })
+const moduleName: TModuleName = 'clubs'
 
-export const getClubsList = () => getDataList<ClubBasicDataDto>('clubs')
+export const getClubBySlug = (slug: string, token?: string) =>
+  getAssetBySlug<ClubDto>({ moduleName, slug, token })
+
+export const getClubsList = () => getDataList<ClubBasicDataDto>(moduleName)
 
 export const getClubs = (params: FindAllClubsParams) =>
-  getPaginatedData<FindAllClubsParams, ClubDto>(params, 'clubs')
+  getPaginatedData<FindAllClubsParams, ClubDto>(params, moduleName)
 
 export const createClub = (data: CreateClubDto) =>
-  createDocument<CreateClubDto, ClubDto>(data, 'clubs')
+  createDocument<CreateClubDto, ClubDto>(data, moduleName)
 
 interface IUpdateClubArgs {
   id: number
@@ -32,6 +35,7 @@ interface IUpdateClubArgs {
 }
 
 export const updateClub = ({ id, data }: IUpdateClubArgs) =>
-  updateDocument<UpdateClubDto, ClubDto>(id, data, 'clubs')
+  updateDocument<UpdateClubDto, ClubDto>(id, data, moduleName)
 
-export const deleteClub = (id: number) => deleteDocument<ClubDto>(id, 'clubs')
+export const deleteClub = (id: number) =>
+  deleteDocument<ClubDto>(id, moduleName)

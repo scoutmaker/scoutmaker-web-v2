@@ -12,23 +12,26 @@ import {
   getClubsList,
   updateClub,
 } from '@/services/api/methods/clubs'
+import { TModuleName } from '@/services/api/modules'
 import { useCreateDocument } from '@/utils/hooks/api/use-create-document'
 import { useDeleteDocument } from '@/utils/hooks/api/use-delete-document'
 import { useList } from '@/utils/hooks/api/use-list'
 import { usePaginatedData } from '@/utils/hooks/api/use-paginated-data'
 import { useUpdateDocument } from '@/utils/hooks/api/use-update-document'
 
+const moduleName: TModuleName = 'clubs'
+
 export const useClubsList = () =>
-  useList<ClubBasicDataDto>('clubs', getClubsList)
+  useList<ClubBasicDataDto>(moduleName, getClubsList)
 
 export const useClubs = (params: FindAllClubsParams) =>
-  usePaginatedData<FindAllClubsParams, ClubDto>('clubs', params, getClubs)
+  usePaginatedData<FindAllClubsParams, ClubDto>(moduleName, params, getClubs)
 
 export const useCreateClub = () =>
-  useCreateDocument<CreateClubDto, ClubDto>('clubs', createClub)
+  useCreateDocument<CreateClubDto, ClubDto>(moduleName, createClub)
 
 export const useUpdateClub = (id: number) =>
-  useUpdateDocument<UpdateClubDto, ClubDto>('clubs', id, updateClub)
+  useUpdateDocument<UpdateClubDto, ClubDto>(moduleName, id, updateClub)
 
 export const useDeleteClub = () =>
-  useDeleteDocument<ClubDto>('clubs', deleteClub)
+  useDeleteDocument<ClubDto>(moduleName, deleteClub)
