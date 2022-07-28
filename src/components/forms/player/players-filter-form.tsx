@@ -13,7 +13,7 @@ import { TeamsCombo } from '@/components/selects/teams-combo'
 import { PlayersFiltersDto } from '@/modules/players/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionBasicDataDto } from '@/types/competitions'
+import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { CountryDto } from '@/types/countries'
 import { PlayerPositionDto } from '@/types/player-positions'
 

@@ -11,7 +11,7 @@ import { CountriesCombo } from '@/components/selects/countries-combo'
 import { RegionsCombo } from '@/components/selects/regions-combo'
 import { ClubBasicDataDto, ClubsFiltersDto } from '@/modules/clubs/types'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionBasicDataDto } from '@/types/competitions'
+import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { CountryDto } from '@/types/countries'
 import { RegionDto } from '@/types/regions'
 

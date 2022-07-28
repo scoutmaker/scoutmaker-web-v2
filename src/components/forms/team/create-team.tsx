@@ -9,7 +9,7 @@ import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { ClubBasicDataDto } from '@/modules/clubs/types'
 import { CreateTeamDto } from '@/modules/teams/types'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionBasicDataDto } from '@/types/competitions'
+import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 
 import { ClubsCombo } from '../../selects/clubs-combo'
 import { Container } from '../container'

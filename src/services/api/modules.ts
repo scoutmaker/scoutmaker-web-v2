@@ -4,3 +4,4 @@ export type TModuleName =
   | 'teams'
   | 'competition-groups'
   | 'competition-participations'
+  | 'competitions'
