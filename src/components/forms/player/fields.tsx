@@ -9,7 +9,7 @@ import { TeamsCombo } from '@/components/selects/teams-combo'
 import { CreatePlayerDto, UpdatePlayerDto } from '@/modules/players/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 import { CountryDto } from '@/modules/countries/types'
-import { PlayerPositionDto } from '@/types/player-positions'
+import { PlayerPositionDto } from '@/modules/player-positions/types'
 
 import { CountriesCombo } from '../../selects/countries-combo'
 

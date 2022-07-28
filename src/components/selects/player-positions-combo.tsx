@@ -3,7 +3,7 @@ import { Field } from 'formik'
 import { Autocomplete } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { PlayerPositionDto } from '@/types/player-positions'
+import { PlayerPositionDto } from '@/modules/player-positions/types'
 
 import { IComboProps } from './types'
 

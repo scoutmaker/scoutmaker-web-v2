@@ -10,11 +10,11 @@ import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { PlayersTable } from '@/components/tables/players'
 import { PlayersTableRow } from '@/components/tables/rows/players-row'
-import { usePlayerPositionsList } from '@/lib/player-positions'
 import { withSessionSsr } from '@/lib/session'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { useCountriesList } from '@/modules/countries/hooks'
+import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import {
   useDeletePlayer,
   useLikePlayer,

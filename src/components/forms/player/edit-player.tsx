@@ -7,7 +7,7 @@ import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { PlayerDto, UpdatePlayerDto } from '@/modules/players/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 import { CountryDto } from '@/modules/countries/types'
-import { PlayerPositionDto } from '@/types/player-positions'
+import { PlayerPositionDto } from '@/modules/player-positions/types'
 
 import { Container } from '../container'
 import { MainFormActions } from '../main-form-actions'
