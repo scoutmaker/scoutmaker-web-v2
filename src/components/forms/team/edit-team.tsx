@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { ClubBasicDataDto } from '@/modules/clubs/types'
-import { TeamDto, UpdateTeamDto } from '@/types/teams'
+import { TeamDto, UpdateTeamDto } from '@/modules/teams/types'
 
 import { ClubsCombo } from '../../selects/clubs-combo'
 import { Container } from '../container'

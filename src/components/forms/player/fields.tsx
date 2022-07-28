@@ -7,9 +7,9 @@ import { FootedSelect } from '@/components/selects/footed-select'
 import { PlayersPositionCombo } from '@/components/selects/player-positions-combo'
 import { TeamsCombo } from '@/components/selects/teams-combo'
 import { CreatePlayerDto, UpdatePlayerDto } from '@/modules/players/types'
+import { TeamBasicDataDto } from '@/modules/teams/types'
 import { CountryDto } from '@/types/countries'
 import { PlayerPositionDto } from '@/types/player-positions'
-import { TeamBasicDataDto } from '@/types/teams'
 
 import { CountriesCombo } from '../../selects/countries-combo'
 

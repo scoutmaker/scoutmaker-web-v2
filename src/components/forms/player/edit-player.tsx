@@ -5,9 +5,9 @@ import { useTranslation } from 'next-i18next'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { PlayerDto, UpdatePlayerDto } from '@/modules/players/types'
+import { TeamBasicDataDto } from '@/modules/teams/types'
 import { CountryDto } from '@/types/countries'
 import { PlayerPositionDto } from '@/types/player-positions'
-import { TeamBasicDataDto } from '@/types/teams'
 
 import { Container } from '../container'
 import { MainFormActions } from '../main-form-actions'

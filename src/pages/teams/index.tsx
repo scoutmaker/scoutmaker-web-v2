@@ -15,17 +15,17 @@ import { useCompetitionsList } from '@/lib/competitions'
 import { useCountriesList } from '@/lib/countries'
 import { useRegionsList } from '@/lib/regions'
 import { withSessionSsr } from '@/lib/session'
+import { useClubsList } from '@/modules/clubs/hooks'
 import {
   useDeleteTeam,
   useLikeTeam,
   useTeams,
   useUnlikeTeam,
-} from '@/lib/teams'
-import { useClubsList } from '@/modules/clubs/hooks'
-import { TeamsFiltersDto, TeamsSortBy } from '@/types/teams'
+} from '@/modules/teams/hooks'
+import { TeamsFiltersDto, TeamsSortBy } from '@/modules/teams/types'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
+import { useTable } from '@/utils/hooks/use-table'
 import { redirectToLogin } from '@/utils/redirect-to-login'
-import { useTable } from '@/lib/use-table'
 
 export const getServerSideProps = withSessionSsr(
   async ({ locale, req, res }) => {

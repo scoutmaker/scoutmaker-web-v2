@@ -1,5 +1,18 @@
 export type TeamBasicDataDto = Components.Schemas.TeamBasicDataDto
-export type FindAllTeamsParams = Paths.TeamsControllerFindAll.QueryParameters
+export type FindAllTeamsParams = Pick<
+  Paths.TeamsControllerFindAll.QueryParameters,
+  | 'clubId'
+  | 'competitionGroupIds'
+  | 'competitionIds'
+  | 'countryIds'
+  | 'isLiked'
+  | 'limit'
+  | 'name'
+  | 'page'
+  | 'regionIds'
+  | 'sortBy'
+  | 'sortingOrder'
+>
 export type TeamsFiltersDto = Pick<
   FindAllTeamsParams,
   | 'clubId'

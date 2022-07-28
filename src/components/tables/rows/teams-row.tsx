@@ -9,8 +9,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { useTableMenu } from '@/lib/use-table-menu'
-import { TeamDto } from '@/types/teams'
+import { TeamDto } from '@/modules/teams/types'
+import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
 import { StyledTableCell } from '../common/cell'
 import { TableMenu } from '../common/menu'

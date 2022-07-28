@@ -9,11 +9,11 @@ import { CompetitionParticipationsTable } from '@/components/tables/competition-
 import { CompetitionParticipationsTableRow } from '@/components/tables/rows/competition-participations-row'
 import { useCompetitionParticipations } from '@/lib/competition-participations'
 import { withSessionSsr } from '@/lib/session'
-import { getTeamBySlug } from '@/lib/teams'
-import { useTable } from '@/lib/use-table'
+import { TeamDto } from '@/modules/teams/types'
+import { getTeamBySlug } from '@/services/api/methods/teams'
 import { ApiError } from '@/types/common'
 import { CompetitionParticipationsSortBy } from '@/types/competition-participations'
-import { TeamDto } from '@/types/teams'
+import { useTable } from '@/utils/hooks/use-table'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 type TTeamPageProps = {

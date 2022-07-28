@@ -6,10 +6,11 @@ import { EditTeamForm } from '@/components/forms/team/edit-team'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { withSessionSsr } from '@/lib/session'
-import { getTeamBySlug, useUpdateTeam } from '@/lib/teams'
 import { useClubsList } from '@/modules/clubs/hooks'
+import { useUpdateTeam } from '@/modules/teams/hooks'
+import { TeamDto } from '@/modules/teams/types'
+import { getTeamBySlug } from '@/services/api/methods/teams'
 import { ApiError } from '@/types/common'
-import { TeamDto } from '@/types/teams'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 type TEditTeamPageProps = {

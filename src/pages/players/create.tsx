@@ -7,8 +7,8 @@ import { PageHeading } from '@/components/page-heading/page-heading'
 import { useCountriesList } from '@/lib/countries'
 import { usePlayerPositionsList } from '@/lib/player-positions'
 import { withSessionSsr } from '@/lib/session'
-import { useTeamsList } from '@/lib/teams'
 import { useCreatePlayer } from '@/modules/players/hooks'
+import { useTeamsList } from '@/modules/teams/hooks'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 export const getServerSideProps = withSessionSsr(

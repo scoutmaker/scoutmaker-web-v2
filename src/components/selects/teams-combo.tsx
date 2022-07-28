@@ -3,7 +3,7 @@ import { Field } from 'formik'
 import { Autocomplete } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { TeamBasicDataDto } from '@/types/teams'
+import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { IComboProps } from './types'
 

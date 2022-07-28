@@ -2,7 +2,7 @@ import map from 'just-map-values'
 import { TFunction } from 'next-i18next'
 import * as yup from 'yup'
 
-import { CreateTeamDto, TeamDto, UpdateTeamDto } from '@/types/teams'
+import { CreateTeamDto, TeamDto, UpdateTeamDto } from '@/modules/teams/types'
 import { validateId } from '@/utils/validation-helpers'
 
 export const initialValues: CreateTeamDto = {
