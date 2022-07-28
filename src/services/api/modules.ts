@@ -1,1 +1,1 @@
-export type TModuleName = 'players' | 'clubs' | 'teams'
+export type TModuleName = 'players' | 'clubs' | 'teams' | 'competition-groups'

@@ -3,7 +3,7 @@ import { Field } from 'formik'
 import { Autocomplete } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { CompetitionGroupBasicDataDto } from '@/types/competition-groups'
+import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 
 import { IComboProps } from './types'
 
