@@ -5,7 +5,7 @@ import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { ClubBasicDataDto } from '@/types/clubs'
+import { ClubBasicDataDto } from '@/modules/clubs/types'
 import { TeamDto, UpdateTeamDto } from '@/types/teams'
 
 import { ClubsCombo } from '../../selects/clubs-combo'

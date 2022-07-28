@@ -4,7 +4,7 @@ import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { ClubDto, UpdateClubDto } from '@/types/clubs'
+import { ClubDto, UpdateClubDto } from '@/modules/clubs/types'
 import { CountryDto } from '@/types/countries'
 import { RegionDto } from '@/types/regions'
 

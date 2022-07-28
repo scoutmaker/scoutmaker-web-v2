@@ -10,7 +10,6 @@ import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { TeamsTableRow } from '@/components/tables/rows/teams-row'
 import { TeamsTable } from '@/components/tables/teams'
-import { useClubsList } from '@/lib/clubs'
 import { useCompetitionGroupsList } from '@/lib/competition-groups'
 import { useCompetitionsList } from '@/lib/competitions'
 import { useCountriesList } from '@/lib/countries'
@@ -22,10 +21,11 @@ import {
   useTeams,
   useUnlikeTeam,
 } from '@/lib/teams'
-import { useTable } from '@/lib/use-table'
+import { useClubsList } from '@/modules/clubs/hooks'
 import { TeamsFiltersDto, TeamsSortBy } from '@/types/teams'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { redirectToLogin } from '@/utils/redirect-to-login'
+import { useTable } from '@/lib/use-table'
 
 export const getServerSideProps = withSessionSsr(
   async ({ locale, req, res }) => {

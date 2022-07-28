@@ -1,13 +1,13 @@
 import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 
-import { useTableMenu } from '../../../lib/use-table-menu'
-import { ClubDto } from '../../../types/clubs'
-import { getFlagEmoji } from '../../../utils/get-flag-emoji'
-import { StyledTableCell } from '../common/cell'
-import { TableMenu } from '../common/menu'
-import { TableMenuItem } from '../common/menu-item'
-import { StyledTableRow } from '../common/row'
+import { StyledTableCell } from '@/components/tables/common/cell'
+import { TableMenu } from '@/components/tables/common/menu'
+import { TableMenuItem } from '@/components/tables/common/menu-item'
+import { StyledTableRow } from '@/components/tables/common/row'
+import { ClubDto } from '@/modules/clubs/types'
+import { getFlagEmoji } from '@/utils/get-flag-emoji'
+import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
 interface IClubsTableRowProps {
   data: ClubDto

@@ -3,7 +3,7 @@ import { Field, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
-import { CreateClubDto, UpdateClubDto } from '@/types/clubs'
+import { CreateClubDto, UpdateClubDto } from '@/modules/clubs/types'
 import { CountryDto } from '@/types/countries'
 import { RegionDto } from '@/types/regions'
 

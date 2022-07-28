@@ -9,7 +9,7 @@ import { CompetitionGroupsCombo } from '@/components/selects/competition-groups-
 import { CompetitionsCombo } from '@/components/selects/competitions-combo'
 import { CountriesCombo } from '@/components/selects/countries-combo'
 import { RegionsCombo } from '@/components/selects/regions-combo'
-import { ClubBasicDataDto, ClubsFiltersDto } from '@/types/clubs'
+import { ClubBasicDataDto, ClubsFiltersDto } from '@/modules/clubs/types'
 import { CompetitionGroupBasicDataDto } from '@/types/competition-groups'
 import { CompetitionBasicDataDto } from '@/types/competitions'
 import { CountryDto } from '@/types/countries'

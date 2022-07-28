@@ -2,7 +2,7 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
-import { ClubsFiltersDto } from '@/types/clubs'
+import { ClubsFiltersDto } from '@/modules/clubs/types'
 import { CountryDto } from '@/types/countries'
 import { RegionDto } from '@/types/regions'
 

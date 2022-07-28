@@ -1,5 +1,14 @@
 export type ClubBasicDataDto = Components.Schemas.ClubBasicDataDto
-export type FindAllClubsParams = Paths.ClubsControllerFindAll.QueryParameters
+export type FindAllClubsParams = Pick<
+  Paths.ClubsControllerFindAll.QueryParameters,
+  | 'name'
+  | 'countryId'
+  | 'limit'
+  | 'page'
+  | 'regionId'
+  | 'sortBy'
+  | 'sortingOrder'
+>
 export type ClubsFiltersDto = Pick<
   FindAllClubsParams,
   'name' | 'countryId' | 'regionId'
