@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { PlayerDto, UpdatePlayerDto } from '@/modules/players/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
-import { CountryDto } from '@/types/countries'
+import { CountryDto } from '@/modules/countries/types'
 import { PlayerPositionDto } from '@/types/player-positions'
 
 import { Container } from '../container'

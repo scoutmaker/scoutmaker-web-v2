@@ -10,12 +10,12 @@ import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { TeamsTableRow } from '@/components/tables/rows/teams-row'
 import { TeamsTable } from '@/components/tables/teams'
-import { useCountriesList } from '@/lib/countries'
 import { useRegionsList } from '@/lib/regions'
 import { withSessionSsr } from '@/lib/session'
 import { useClubsList } from '@/modules/clubs/hooks'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
+import { useCountriesList } from '@/modules/countries/hooks'
 import {
   useDeleteTeam,
   useLikeTeam,

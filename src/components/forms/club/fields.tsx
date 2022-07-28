@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import { CreateClubDto, UpdateClubDto } from '@/modules/clubs/types'
-import { CountryDto } from '@/types/countries'
+import { CountryDto } from '@/modules/countries/types'
 import { RegionDto } from '@/types/regions'
 
 import { CountriesCombo } from '../../selects/countries-combo'

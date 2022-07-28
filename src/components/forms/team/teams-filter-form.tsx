@@ -12,7 +12,7 @@ import { RegionsCombo } from '@/components/selects/regions-combo'
 import { ClubBasicDataDto, ClubsFiltersDto } from '@/modules/clubs/types'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { CountryDto } from '@/types/countries'
+import { CountryDto } from '@/modules/countries/types'
 import { RegionDto } from '@/types/regions'
 
 import { Container } from '../container'

@@ -14,7 +14,7 @@ import { PlayersFiltersDto } from '@/modules/players/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { CountryDto } from '@/types/countries'
+import { CountryDto } from '@/modules/countries/types'
 import { PlayerPositionDto } from '@/types/player-positions'
 
 import { Container } from '../container'
