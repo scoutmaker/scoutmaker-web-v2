@@ -5,7 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ForgotPasswordForm } from '@/components/forms/forgot-password'
 import { Loader } from '@/components/loader/loader'
-import { useForgotPassword } from '@/lib/auth'
+import { useForgotPassword } from '@/modules/auth/hooks'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const translations = await serverSideTranslations(locale || 'pl', [

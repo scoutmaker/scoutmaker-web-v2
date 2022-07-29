@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
-import { withSessionSsr } from '@/lib/session'
+import { User } from '@/modules/auth/auth'
+import { withSessionSsr } from '@/modules/auth/session'
 import { client } from '@/services/api/api'
-import { User } from '@/types/auth'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 export const getServerSideProps = withSessionSsr(async ({ req, res }) => {

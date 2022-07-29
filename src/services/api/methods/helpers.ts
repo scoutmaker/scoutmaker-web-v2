@@ -1,7 +1,10 @@
 import { AxiosRequestConfig } from 'axios'
 
-import { mapObjectToQueryParams, TValue } from '@/lib/helpers'
 import { ApiResponse, TPaginatedData } from '@/types/common'
+import {
+  mapObjectToQueryParams,
+  TValue,
+} from '@/utils/map-object-to-query-params'
 
 import { client } from '../api'
 import { TModuleName } from '../modules'

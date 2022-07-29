@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import { withSessionRoute } from '@/lib/session'
+import { withSessionRoute } from '@/modules/auth/session'
 import { client, setAuthToken } from '@/services/api/api'
 import { ApiError } from '@/types/common'
 

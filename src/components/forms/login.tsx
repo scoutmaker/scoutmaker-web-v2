@@ -3,7 +3,7 @@ import { Field, Formik } from 'formik'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 
-import { LoginDto } from '@/types/auth'
+import { LoginDto } from '@/modules/auth/auth'
 
 import { StyledButton, StyledForm, StyledLink } from './styles'
 import {

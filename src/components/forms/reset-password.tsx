@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { TFunction, useTranslation } from 'next-i18next'
 import * as yup from 'yup'
 
-import { PasswordResetDto } from '@/types/auth'
+import { PasswordResetDto } from '@/modules/auth/auth'
 
 import { StyledButton, StyledForm, StyledLink } from './styles'
 import { generatePasswordValidationSchema } from './utils'

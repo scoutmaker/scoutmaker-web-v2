@@ -20,7 +20,7 @@ import {
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
-import { useUser } from '@/lib/auth'
+import { useUser } from '@/modules/auth/hooks'
 import { isAdmin, isPrivilegedUser } from '@/utils/user-roles'
 
 import { ExpandeableNavElement } from './expandeable-nav-element'

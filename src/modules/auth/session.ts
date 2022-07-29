@@ -7,7 +7,7 @@ import {
   NextApiHandler,
 } from 'next'
 
-import { User } from '@/types/auth'
+import { User } from '@/modules/auth/auth'
 
 export const sessionOptions: IronSessionOptions = {
   password: process.env.SECRET_COOKIE_PASSWORD as string,

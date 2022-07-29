@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 
@@ -10,17 +9,19 @@ import {
   RegisterDto,
   UpdatePasswordDto,
   UpdateUserDto,
-  User,
-} from '@/types/auth'
-import { ApiError, ApiResponse } from '@/types/common'
-
-import { client } from '../services/api/api'
-
-// Get user data
-export async function getUserData() {
-  const { data } = await client.get<ApiResponse<User>>('/auth/account')
-  return data.data
-}
+} from '@/modules/auth/auth'
+import {
+  confirmAccount,
+  forgotPassword,
+  getUserData,
+  login,
+  logout,
+  register,
+  resetPassword,
+  updatePassword,
+  updateUser,
+} from '@/services/api/methods/auth'
+import { ApiError } from '@/types/common'
 
 export function useUser() {
   const { setAlert } = useAlertsState()
@@ -32,16 +33,6 @@ export function useUser() {
         type: 'error',
       }),
   })
-}
-
-// Login
-export async function login(loginDto: LoginDto) {
-  const { data } = await axios.post<ApiResponse<{ user: User; token: string }>>(
-    '/api/login',
-    loginDto,
-  )
-
-  return data
 }
 
 export function useLogin() {
@@ -62,11 +53,6 @@ export function useLogin() {
   })
 }
 
-// Logout
-export async function logout() {
-  return axios.post('/api/logout')
-}
-
 export function useLogout() {
   const router = useRouter()
 
@@ -76,16 +62,6 @@ export function useLogout() {
       localStorage.removeItem('token')
     },
   })
-}
-
-// Register
-export async function register(registerDto: RegisterDto) {
-  const { data } = await client.post<ApiResponse<User>>(
-    '/auth/register',
-    registerDto,
-  )
-
-  return data
 }
 
 export function useRegister() {
@@ -99,12 +75,6 @@ export function useRegister() {
       setAlert({ msg: err.response.data.message, type: 'error' })
     },
   })
-}
-
-// Confirm account
-export async function confirmAccount(code: string) {
-  const { data } = await client.get<ApiResponse<User>>(`/auth/verify/${code}`)
-  return data
 }
 
 export function useConfirmAccount() {
@@ -124,15 +94,6 @@ export function useConfirmAccount() {
   })
 }
 
-// Update account
-export async function updateUser(updateUserDto: UpdateUserDto) {
-  const { data } = await client.patch<ApiResponse<User>>(
-    '/auth/update-account',
-    updateUserDto,
-  )
-  return data
-}
-
 export function useUpdateUser() {
   const queryClient = useQueryClient()
   const { setAlert } = useAlertsState()
@@ -150,15 +111,6 @@ export function useUpdateUser() {
   })
 }
 
-// Update password
-export async function updatePassword(updatePasswordDto: UpdatePasswordDto) {
-  const { data } = await client.patch<ApiResponse<User>>(
-    '/auth/update-password',
-    updatePasswordDto,
-  )
-  return data
-}
-
 export function useUpdatePassword() {
   const { setAlert } = useAlertsState()
 
@@ -174,15 +126,6 @@ export function useUpdatePassword() {
   })
 }
 
-// Forgot password
-export async function forgotPassword(forgotPasswordDto: ForgotPasswordDto) {
-  const { data } = await client.post<ApiResponse<User>>(
-    '/auth/forgot-password',
-    forgotPasswordDto,
-  )
-  return data
-}
-
 export function useForgotPassword() {
   const { setAlert } = useAlertsState()
 
@@ -196,18 +139,6 @@ export function useForgotPassword() {
         type: 'error',
       }),
   })
-}
-
-// Reset password
-export async function resetPassword(
-  token: string,
-  passwordResetDto: PasswordResetDto,
-) {
-  const { data } = await client.patch<ApiResponse<User>>(
-    `/auth/password-reset/${token}`,
-    passwordResetDto,
-  )
-  return data
 }
 
 export function useResetPassword(token: string) {

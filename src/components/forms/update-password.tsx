@@ -4,7 +4,7 @@ import { Field, Form, Formik } from 'formik'
 import { TFunction, useTranslation } from 'next-i18next'
 import * as yup from 'yup'
 
-import { UpdatePasswordDto } from '@/types/auth'
+import { UpdatePasswordDto } from '@/modules/auth/auth'
 
 import { Container } from './container'
 import { generatePasswordValidationSchema } from './utils'

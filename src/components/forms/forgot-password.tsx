@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { TFunction, useTranslation } from 'next-i18next'
 import * as yup from 'yup'
 
-import { ForgotPasswordDto } from '@/types/auth'
+import { ForgotPasswordDto } from '@/modules/auth/auth'
 
 import { StyledButton, StyledForm, StyledLink } from './styles'
 

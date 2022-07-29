@@ -6,7 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ResetPasswordForm } from '@/components/forms/reset-password'
 import { Loader } from '@/components/loader/loader'
-import { useResetPassword } from '@/lib/auth'
+import { useResetPassword } from '@/modules/auth/hooks'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const translations = await serverSideTranslations(locale || 'pl', [
