@@ -10,7 +10,7 @@ import { client } from '../api'
 import { TModuleName } from '../modules'
 
 // Get single asset by slug
-interface IGetAssetBySlugArgs {
+interface IGetAssetBySlug {
   moduleName: TModuleName
   slug: string
   token?: string
@@ -20,13 +20,37 @@ export async function getAssetBySlug<DataType>({
   moduleName,
   slug,
   token,
-}: IGetAssetBySlugArgs) {
+}: IGetAssetBySlug) {
   const config: AxiosRequestConfig = token
     ? { headers: { 'x-auth-token': token } }
     : {}
 
   const { data } = await client.get<ApiResponse<DataType>>(
     `/${moduleName}/by-slug/${slug}`,
+    config,
+  )
+
+  return data.data
+}
+
+// Get single asset by id
+interface IGetAssetByIdArgs {
+  moduleName: TModuleName
+  id: number
+  token?: string
+}
+
+export async function getAssetById<DataType>({
+  moduleName,
+  id,
+  token,
+}: IGetAssetByIdArgs) {
+  const config: AxiosRequestConfig = token
+    ? { headers: { 'x-auth-token': token } }
+    : {}
+
+  const { data } = await client.get<ApiResponse<DataType>>(
+    `/${moduleName}/${id}`,
     config,
   )
 
