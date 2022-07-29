@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { StyledTableCell } from '@/components/tables/common/cell'
 import { StyledTableRow } from '@/components/tables/common/row'
-import { TeamAffiliationDto } from '@/types/team-affiliations'
+import { TeamAffiliationDto } from '@/modules/team-affiliations.ts/types'
 import { formatDate } from '@/utils/format-date'
 
 interface ITeamAffiliationsTableRowProps {

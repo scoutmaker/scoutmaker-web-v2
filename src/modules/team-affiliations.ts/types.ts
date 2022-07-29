@@ -1,5 +1,7 @@
-export type FindAllTeamAffiliationsParams =
-  Paths.TeamAffiliationsControllerFindAll.QueryParameters
+export type FindAllTeamAffiliationsParams = Pick<
+  Paths.TeamAffiliationsControllerFindAll.QueryParameters,
+  'limit' | 'page' | 'playerId' | 'sortBy' | 'sortingOrder' | 'teamId'
+>
 
 export type TeamAffiliationsFilterDto = Pick<
   FindAllTeamAffiliationsParams,

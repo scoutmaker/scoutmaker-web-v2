@@ -8,3 +8,4 @@ export type TModuleName =
   | 'countries'
   | 'player-positions'
   | 'regions'
+  | 'team-affiliations'
