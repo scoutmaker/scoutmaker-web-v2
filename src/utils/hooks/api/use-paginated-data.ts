@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from 'react-query'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { ApiError, TPaginatedData } from '@/types/common'
+import { ApiError, TPaginatedData } from '@/services/api/types'
 import { TValue } from '@/utils/map-object-to-query-params'
 
 export function usePaginatedData<

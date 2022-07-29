@@ -11,7 +11,7 @@ import { ClubDto } from '@/modules/clubs/types'
 import { useCountriesList } from '@/modules/countries/hooks'
 import { useRegionsList } from '@/modules/regions/hooks'
 import { getClubBySlug } from '@/services/api/methods/clubs'
-import { ApiError } from '@/types/common'
+import { ApiError } from '@/services/api/types'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 type TEditClubPageProps = {

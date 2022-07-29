@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { ApiError } from '@/types/common'
+import { ApiError } from '@/services/api/types'
 
 export function useList<DataType>(
   key: string,

@@ -12,7 +12,7 @@ import { useUpdatePlayer } from '@/modules/players/hooks'
 import { PlayerDto } from '@/modules/players/types'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { getPlayerBySlug } from '@/services/api/methods/players'
-import { ApiError } from '@/types/common'
+import { ApiError } from '@/services/api/types'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 type TEditPlayerPageProps = {

@@ -9,7 +9,7 @@ import {
   UpdateUserDto,
   User,
 } from '@/modules/auth/auth'
-import { ApiResponse } from '@/types/common'
+import { ApiResponse } from '@/services/api/types'
 
 import { client } from '../api'
 

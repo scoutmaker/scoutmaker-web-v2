@@ -21,7 +21,7 @@ import {
   updatePassword,
   updateUser,
 } from '@/services/api/methods/auth'
-import { ApiError } from '@/types/common'
+import { ApiError } from '@/services/api/types'
 
 export function useUser() {
   const { setAlert } = useAlertsState()

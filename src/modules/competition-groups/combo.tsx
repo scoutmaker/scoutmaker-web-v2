@@ -3,22 +3,22 @@ import { Field } from 'formik'
 import { Autocomplete } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { CompetitionBasicDataDto } from '@/modules/competitions/types'
+import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 
-import { IComboProps } from './types'
+import { IComboProps } from '../../types/combo'
 
-interface ICompetitionsComboProps
-  extends IComboProps<CompetitionBasicDataDto> {}
+interface ICompetitionGroupsComboProps
+  extends IComboProps<CompetitionGroupBasicDataDto> {}
 
-export const CompetitionsCombo = ({
+export const CompetitionGroupsCombo = ({
   data,
   name,
   label,
   multiple,
+  size,
   error,
   helperText,
-  size,
-}: ICompetitionsComboProps) => {
+}: ICompetitionGroupsComboProps) => {
   const { t } = useTranslation()
 
   return (
@@ -33,9 +33,9 @@ export const CompetitionsCombo = ({
         if (option === 0) {
           return ''
         }
-        const competition = data.find(c => c.id === option)
-        if (competition) {
-          return `${competition.name} (${competition.country.code})`
+        const group = data.find(g => g.id === option)
+        if (group) {
+          return `${group.competition.name}, ${group.name} (${group.competition.country.code})`
         }
         return t('NONE')
       }}
@@ -45,8 +45,8 @@ export const CompetitionsCombo = ({
           {...params}
           error={error}
           helperText={helperText}
-          label={label || t('COMPETITIONS')}
-          placeholder={label || t('COMPETITIONS')}
+          label={label || t('COMPETITION_GROUPS')}
+          placeholder={label || t('COMPETITION_GROUPS')}
         />
       )}
     />

@@ -1,6 +1,6 @@
 import { TableHead, TableSortLabel } from '@mui/material'
 
-import { SortingOrder } from '@/types/common'
+import { SortingOrder } from '@/services/api/types'
 import { IHeadCell } from '@/types/tables'
 
 import { StyledTableCell } from './cell'

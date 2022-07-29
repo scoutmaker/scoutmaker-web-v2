@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { ApiError, ApiResponse } from '@/types/common'
+import { ApiError, ApiResponse } from '@/services/api/types'
 
 export function useCreateDocument<CreateDto, ReturnType>(
   key: string,

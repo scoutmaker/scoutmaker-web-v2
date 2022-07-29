@@ -12,7 +12,7 @@ import { PlayerDto } from '@/modules/players/types'
 import { useTeamAffiliations } from '@/modules/team-affiliations.ts/hooks'
 import { TeamAffiliationsSortBy } from '@/modules/team-affiliations.ts/types'
 import { getPlayerBySlug } from '@/services/api/methods/players'
-import { ApiError } from '@/types/common'
+import { ApiError } from '@/services/api/types'
 import { useTable } from '@/utils/hooks/use-table'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 

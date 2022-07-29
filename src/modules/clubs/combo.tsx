@@ -3,21 +3,21 @@ import { Field } from 'formik'
 import { Autocomplete } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { UserFootballRoleDto } from '../../modules/user-football-roles/types'
-import { IComboProps } from './types'
+import { IComboProps } from '@/types/combo'
 
-interface IUserFootballRolesComboProps
-  extends IComboProps<UserFootballRoleDto> {}
+import { ClubBasicDataDto } from './types'
 
-export const UserFootballRolesCombo = ({
+interface IClubsComboProps extends IComboProps<ClubBasicDataDto> {}
+
+export const ClubsCombo = ({
   data,
   name,
   label,
-  size,
   multiple,
+  size,
   error,
   helperText,
-}: IUserFootballRolesComboProps) => {
+}: IClubsComboProps) => {
   const { t } = useTranslation()
 
   return (
@@ -27,14 +27,14 @@ export const UserFootballRolesCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={[0, ...data.map(role => role.id)]}
+      options={[0, ...data.map(club => club.id)]}
       getOptionLabel={(option: number) => {
         if (option === 0) {
           return ''
         }
-        const role = data.find(r => r.id === option)
-        if (role) {
-          return role.name
+        const club = data.find(c => c.id === option)
+        if (club) {
+          return club.name
         }
         return t('NONE')
       }}
@@ -44,8 +44,8 @@ export const UserFootballRolesCombo = ({
           {...params}
           error={error}
           helperText={helperText}
-          label={label || t('FOOTBALL_ROLE')}
-          placeholder={label || t('FOOTBALL_ROLE')}
+          label={label || t('CLUB')}
+          placeholder={label || t('CLUB')}
         />
       )}
     />

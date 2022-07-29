@@ -3,10 +3,10 @@ import { Field, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
-import { CountriesCombo } from '@/components/selects/countries-combo'
-import { RegionsCombo } from '@/components/selects/regions-combo'
 import { CreateClubDto, UpdateClubDto } from '@/modules/clubs/types'
+import { CountriesCombo } from '@/modules/countries/combo'
 import { CountryDto } from '@/modules/countries/types'
+import { RegionsCombo } from '@/modules/regions/combo'
 import { RegionDto } from '@/modules/regions/types'
 
 interface IFieldsProps {

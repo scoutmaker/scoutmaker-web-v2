@@ -3,21 +3,22 @@ import { Field } from 'formik'
 import { Autocomplete } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { RegionDto } from '@/modules/regions/types'
+import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 
-import { IComboProps } from './types'
+import { IComboProps } from '../../types/combo'
 
-interface IRegionsComboProps extends IComboProps<RegionDto> {}
+interface ICompetitionsComboProps
+  extends IComboProps<CompetitionBasicDataDto> {}
 
-export const RegionsCombo = ({
+export const CompetitionsCombo = ({
   data,
   name,
   label,
   multiple,
-  size,
   error,
   helperText,
-}: IRegionsComboProps) => {
+  size,
+}: ICompetitionsComboProps) => {
   const { t } = useTranslation()
 
   return (
@@ -27,14 +28,14 @@ export const RegionsCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={[0, ...data.map(country => country.id)]}
+      options={[0, ...data.map(competition => competition.id)]}
       getOptionLabel={(option: number) => {
         if (option === 0) {
           return ''
         }
-        const region = data.find(r => r.id === option)
-        if (region) {
-          return region.name
+        const competition = data.find(c => c.id === option)
+        if (competition) {
+          return `${competition.name} (${competition.country.code})`
         }
         return t('NONE')
       }}
@@ -44,8 +45,8 @@ export const RegionsCombo = ({
           {...params}
           error={error}
           helperText={helperText}
-          label={label || t('REGIONS')}
-          placeholder={label || t('REGIONS')}
+          label={label || t('COMPETITIONS')}
+          placeholder={label || t('COMPETITIONS')}
         />
       )}
     />

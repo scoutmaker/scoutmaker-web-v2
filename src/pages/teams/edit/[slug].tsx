@@ -10,7 +10,7 @@ import { EditTeamForm } from '@/modules/teams/forms/edit'
 import { useUpdateTeam } from '@/modules/teams/hooks'
 import { TeamDto } from '@/modules/teams/types'
 import { getTeamBySlug } from '@/services/api/methods/teams'
-import { ApiError } from '@/types/common'
+import { ApiError } from '@/services/api/types'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 type TEditTeamPageProps = {

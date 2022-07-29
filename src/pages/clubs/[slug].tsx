@@ -6,7 +6,7 @@ import { withSessionSsr } from '@/modules/auth/session'
 import { ClubDetailsCard } from '@/modules/clubs/details-card'
 import { ClubDto } from '@/modules/clubs/types'
 import { getClubBySlug } from '@/services/api/methods/clubs'
-import { ApiError } from '@/types/common'
+import { ApiError } from '@/services/api/types'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 type TClubPageProps = {

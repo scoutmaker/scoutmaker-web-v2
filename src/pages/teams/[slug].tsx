@@ -12,7 +12,7 @@ import { CompetitionParticipationsSortBy } from '@/modules/competition-participa
 import { TeamDetailsCard } from '@/modules/teams/details-card'
 import { TeamDto } from '@/modules/teams/types'
 import { getTeamBySlug } from '@/services/api/methods/teams'
-import { ApiError } from '@/types/common'
+import { ApiError } from '@/services/api/types'
 import { useTable } from '@/utils/hooks/use-table'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 

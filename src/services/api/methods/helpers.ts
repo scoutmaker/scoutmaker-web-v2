@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from 'axios'
 
-import { ApiResponse, TPaginatedData } from '@/types/common'
+import { ApiResponse, TPaginatedData } from '@/services/api/types'
 import {
   mapObjectToQueryParams,
   TValue,

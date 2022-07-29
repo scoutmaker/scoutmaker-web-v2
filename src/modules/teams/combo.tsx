@@ -3,13 +3,13 @@ import { Field } from 'formik'
 import { Autocomplete } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { CountryDto } from '@/modules/countries/types'
+import { IComboProps } from '@/types/combo'
 
-import { IComboProps } from './types'
+import { TeamBasicDataDto } from './types'
 
-interface ICountriesComboProps extends IComboProps<CountryDto> {}
+interface ITeamsComboProps extends IComboProps<TeamBasicDataDto> {}
 
-export const CountriesCombo = ({
+export const TeamsCombo = ({
   data,
   name,
   label,
@@ -17,7 +17,7 @@ export const CountriesCombo = ({
   size,
   error,
   helperText,
-}: ICountriesComboProps) => {
+}: ITeamsComboProps) => {
   const { t } = useTranslation()
 
   return (
@@ -27,14 +27,14 @@ export const CountriesCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={[0, ...data.map(country => country.id)]}
+      options={[0, ...data.map(team => team.id)]}
       getOptionLabel={(option: number) => {
         if (option === 0) {
           return ''
         }
-        const country = data.find(c => c.id === option)
-        if (country) {
-          return country.name
+        const team = data.find(c => c.id === option)
+        if (team) {
+          return team.name
         }
         return t('NONE')
       }}
@@ -44,8 +44,8 @@ export const CountriesCombo = ({
           {...params}
           error={error}
           helperText={helperText}
-          label={label || t('COUNTRIES')}
-          placeholder={label || t('COUNTRIES')}
+          label={label || t('TEAM')}
+          placeholder={label || t('TEAM')}
         />
       )}
     />

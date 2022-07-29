@@ -1,4 +1,4 @@
-import { SortingOrder } from '@/types/common'
+import { SortingOrder } from '@/services/api/types'
 
 import { useLocalStorage } from './use-local-storage'
 

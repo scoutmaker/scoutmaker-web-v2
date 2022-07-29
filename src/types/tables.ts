@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react'
-import { SortingOrder } from './common'
+
+import { SortingOrder } from '../services/api/types'
 
 export interface ICommonTableProps {
   page: number

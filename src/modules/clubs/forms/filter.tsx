@@ -4,10 +4,10 @@ import { useTranslation } from 'next-i18next'
 
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
-import { CountriesCombo } from '@/components/selects/countries-combo'
-import { RegionsCombo } from '@/components/selects/regions-combo'
 import { ClubsFiltersDto } from '@/modules/clubs/types'
+import { CountriesCombo } from '@/modules/countries/combo'
 import { CountryDto } from '@/modules/countries/types'
+import { RegionsCombo } from '@/modules/regions/combo'
 import { RegionDto } from '@/modules/regions/types'
 
 type IClubsFilterFormProps = {

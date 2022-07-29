@@ -6,8 +6,8 @@ import { useTranslation } from 'next-i18next'
 
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
-import { ClubsCombo } from '@/components/selects/clubs-combo'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { ClubsCombo } from '@/modules/clubs/combo'
 import { ClubBasicDataDto } from '@/modules/clubs/types'
 import { TeamDto, UpdateTeamDto } from '@/modules/teams/types'
 

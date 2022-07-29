@@ -3,13 +3,13 @@ import { Field, FormikErrors, FormikTouched, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
-import { CountriesCombo } from '@/components/selects/countries-combo'
-import { FootedSelect } from '@/components/selects/footed-select'
-import { PlayersPositionCombo } from '@/components/selects/player-positions-combo'
-import { TeamsCombo } from '@/components/selects/teams-combo'
+import { CountriesCombo } from '@/modules/countries/combo'
 import { CountryDto } from '@/modules/countries/types'
+import { PlayersPositionCombo } from '@/modules/player-positions/combo'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
+import { FootedSelect } from '@/modules/players/footed-select'
 import { CreatePlayerDto, UpdatePlayerDto } from '@/modules/players/types'
+import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 interface IFieldsProps {
