@@ -4,27 +4,27 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
 
 import { Fab } from '@/components/fab/fab'
-import { TeamsFilterForm } from '@/components/forms/team/teams-filter-form'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { TeamsTableRow } from '@/components/tables/rows/teams-row'
-import { TeamsTable } from '@/components/tables/teams'
-import { useClubsList } from '@/lib/clubs'
-import { useCompetitionGroupsList } from '@/lib/competition-groups'
-import { useCompetitionsList } from '@/lib/competitions'
-import { useCountriesList } from '@/lib/countries'
-import { useRegionsList } from '@/lib/regions'
-import { withSessionSsr } from '@/lib/session'
+import { withSessionSsr } from '@/modules/auth/session'
+import { useClubsList } from '@/modules/clubs/hooks'
+import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
+import { useCompetitionsList } from '@/modules/competitions/hooks'
+import { useCountriesList } from '@/modules/countries/hooks'
+import { useRegionsList } from '@/modules/regions/hooks'
+import { TeamsFilterForm } from '@/modules/teams/forms/filter'
 import {
   useDeleteTeam,
   useLikeTeam,
   useTeams,
   useUnlikeTeam,
-} from '@/lib/teams'
-import { useLocalStorage } from '@/lib/use-local-storage'
-import { useTable } from '@/lib/use-table'
-import { TeamsFiltersDto, TeamsSortBy } from '@/types/teams'
+} from '@/modules/teams/hooks'
+import { TeamsTable } from '@/modules/teams/table/teams'
+import { TeamsTableRow } from '@/modules/teams/table/teams-row'
+import { TeamsFiltersDto, TeamsSortBy } from '@/modules/teams/types'
+import { useLocalStorage } from '@/utils/hooks/use-local-storage'
+import { useTable } from '@/utils/hooks/use-table'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 export const getServerSideProps = withSessionSsr(

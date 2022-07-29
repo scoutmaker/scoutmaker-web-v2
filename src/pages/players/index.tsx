@@ -4,27 +4,27 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
 
 import { Fab } from '@/components/fab/fab'
-import { PlayersFilterForm } from '@/components/forms/player/players-filter-form'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { PlayersTable } from '@/components/tables/players'
-import { PlayersTableRow } from '@/components/tables/rows/players-row'
-import { useCompetitionGroupsList } from '@/lib/competition-groups'
-import { useCompetitionsList } from '@/lib/competitions'
-import { useCountriesList } from '@/lib/countries'
-import { usePlayerPositionsList } from '@/lib/player-positions'
+import { withSessionSsr } from '@/modules/auth/session'
+import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
+import { useCompetitionsList } from '@/modules/competitions/hooks'
+import { useCountriesList } from '@/modules/countries/hooks'
+import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
+import { PlayersFilterForm } from '@/modules/players/forms/filter'
 import {
   useDeletePlayer,
   useLikePlayer,
   usePlayers,
   useUnlikePlayer,
-} from '@/lib/players'
-import { withSessionSsr } from '@/lib/session'
-import { useTeamsList } from '@/lib/teams'
-import { useLocalStorage } from '@/lib/use-local-storage'
-import { useTable } from '@/lib/use-table'
-import { PlayersFiltersDto, PlayersSortBy } from '@/types/players'
+} from '@/modules/players/hooks'
+import { PlayersTableRow } from '@/modules/players/table/row'
+import { PlayersTable } from '@/modules/players/table/table'
+import { PlayersFiltersDto, PlayersSortBy } from '@/modules/players/types'
+import { useTeamsList } from '@/modules/teams/hooks'
+import { useLocalStorage } from '@/utils/hooks/use-local-storage'
+import { useTable } from '@/utils/hooks/use-table'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 export const getServerSideProps = withSessionSsr(

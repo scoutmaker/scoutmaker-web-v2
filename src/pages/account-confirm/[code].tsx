@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 
 import { StyledLink } from '@/components/forms/styles'
 import { Loader } from '@/components/loader/loader'
-import { useConfirmAccount } from '@/lib/auth'
+import { useConfirmAccount } from '@/modules/auth/hooks'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const translations = await serverSideTranslations(locale || 'pl', ['common'])

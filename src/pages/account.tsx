@@ -12,13 +12,13 @@ import {
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { EditAccountForm } from '@/components/forms/edit-account'
-import { UpdatePasswordForm } from '@/components/forms/update-password'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { useUpdatePassword, useUpdateUser, useUser } from '@/lib/auth'
-import { withSessionSsr } from '@/lib/session'
-import { UpdateUserDto, User } from '@/types/auth'
+import { UpdateUserDto, User } from '@/modules/auth/auth'
+import { EditAccountForm } from '@/modules/auth/forms/edit-account'
+import { UpdatePasswordForm } from '@/modules/auth/forms/update-password'
+import { useUpdatePassword, useUpdateUser, useUser } from '@/modules/auth/hooks'
+import { withSessionSsr } from '@/modules/auth/session'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 export const getServerSideProps = withSessionSsr(

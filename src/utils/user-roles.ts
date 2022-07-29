@@ -1,4 +1,4 @@
-import { User } from '../types/auth'
+import { User } from '../modules/auth/auth'
 
 export function isAdmin(user?: User) {
   return user?.role === 'ADMIN'

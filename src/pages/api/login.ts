@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import { api, setAuthToken } from '@/lib/api'
-import { withSessionRoute } from '@/lib/session'
-import { ApiError } from '@/types/common'
+import { withSessionRoute } from '@/modules/auth/session'
+import { client, setAuthToken } from '@/services/api/api'
+import { ApiError } from '@/services/api/types'
 
 async function loginHandler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const response = await api.post('auth/login', req.body)
+    const response = await client.post('auth/login', req.body)
     setAuthToken(response.data.data.token)
 
     const { user, token } = response.data.data

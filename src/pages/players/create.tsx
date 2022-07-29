@@ -1,14 +1,14 @@
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { CreatePlayerForm } from '@/components/forms/player/create-player'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { useCountriesList } from '@/lib/countries'
-import { usePlayerPositionsList } from '@/lib/player-positions'
-import { useCreatePlayer } from '@/lib/players'
-import { withSessionSsr } from '@/lib/session'
-import { useTeamsList } from '@/lib/teams'
+import { withSessionSsr } from '@/modules/auth/session'
+import { useCountriesList } from '@/modules/countries/hooks'
+import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
+import { CreatePlayerForm } from '@/modules/players/forms/create'
+import { useCreatePlayer } from '@/modules/players/hooks'
+import { useTeamsList } from '@/modules/teams/hooks'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 export const getServerSideProps = withSessionSsr(

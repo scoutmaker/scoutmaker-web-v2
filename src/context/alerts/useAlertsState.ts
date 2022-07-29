@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+
 import alertsContext from './alertsContext'
 import { State } from './types'
 

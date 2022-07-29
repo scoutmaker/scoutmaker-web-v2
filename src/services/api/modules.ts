@@ -1,0 +1,12 @@
+export type TModuleName =
+  | 'players'
+  | 'clubs'
+  | 'teams'
+  | 'competition-groups'
+  | 'competition-participations'
+  | 'competitions'
+  | 'countries'
+  | 'player-positions'
+  | 'regions'
+  | 'team-affiliations'
+  | 'user-football-roles'

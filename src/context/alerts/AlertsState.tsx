@@ -1,8 +1,9 @@
-import { useReducer, useMemo, ReactNode } from 'react'
+import { ReactNode, useMemo, useReducer } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+
 import AlertsContext from './alertsContext'
 import alertsReducer from './alertsReducer'
-import { State, SetAlertParams } from './types'
+import { SetAlertParams, State } from './types'
 
 interface IAlertsStateProps {
   children: ReactNode
