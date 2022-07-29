@@ -7,3 +7,4 @@ export type TModuleName =
   | 'competitions'
   | 'countries'
   | 'player-positions'
+  | 'regions'

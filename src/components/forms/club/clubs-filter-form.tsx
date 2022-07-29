@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 
 import { ClubsFiltersDto } from '@/modules/clubs/types'
 import { CountryDto } from '@/modules/countries/types'
-import { RegionDto } from '@/types/regions'
+import { RegionDto } from '@/modules/regions/types'
 
 import { CountriesCombo } from '../../selects/countries-combo'
 import { RegionsCombo } from '../../selects/regions-combo'

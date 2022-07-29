@@ -13,7 +13,7 @@ import { ClubBasicDataDto, ClubsFiltersDto } from '@/modules/clubs/types'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { CountryDto } from '@/modules/countries/types'
-import { RegionDto } from '@/types/regions'
+import { RegionDto } from '@/modules/regions/types'
 
 import { Container } from '../container'
 import { FilterFormActions } from '../filter-form-actions'

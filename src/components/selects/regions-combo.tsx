@@ -3,7 +3,7 @@ import { Field } from 'formik'
 import { Autocomplete } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { RegionDto } from '@/types/regions'
+import { RegionDto } from '@/modules/regions/types'
 
 import { IComboProps } from './types'
 

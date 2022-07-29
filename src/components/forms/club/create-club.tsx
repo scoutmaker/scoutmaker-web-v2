@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { CreateClubDto } from '@/modules/clubs/types'
 import { CountryDto } from '@/modules/countries/types'
-import { RegionDto } from '@/types/regions'
+import { RegionDto } from '@/modules/regions/types'
 
 import { Container } from '../container'
 import { MainFormActions } from '../main-form-actions'
