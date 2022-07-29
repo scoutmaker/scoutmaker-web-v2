@@ -1,4 +1,5 @@
-import { SortingOrder } from '../types/common'
+import { SortingOrder } from '@/types/common'
+
 import { useLocalStorage } from './use-local-storage'
 
 interface ITableSettings {

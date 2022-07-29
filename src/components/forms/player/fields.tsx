@@ -6,10 +6,10 @@ import React from 'react'
 import { FootedSelect } from '@/components/selects/footed-select'
 import { PlayersPositionCombo } from '@/components/selects/player-positions-combo'
 import { TeamsCombo } from '@/components/selects/teams-combo'
-import { CreatePlayerDto, UpdatePlayerDto } from '@/modules/players/types'
-import { TeamBasicDataDto } from '@/modules/teams/types'
 import { CountryDto } from '@/modules/countries/types'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
+import { CreatePlayerDto, UpdatePlayerDto } from '@/modules/players/types'
+import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { CountriesCombo } from '../../selects/countries-combo'
 

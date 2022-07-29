@@ -3,10 +3,10 @@ import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { CreatePlayerDto } from '@/modules/players/types'
-import { TeamBasicDataDto } from '@/modules/teams/types'
 import { CountryDto } from '@/modules/countries/types'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
+import { CreatePlayerDto } from '@/modules/players/types'
+import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { Container } from '../container'
 import { MainFormActions } from '../main-form-actions'
