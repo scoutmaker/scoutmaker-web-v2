@@ -1,28 +1,27 @@
 import { TFunction, useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
 
-import { ClubsSortBy } from '../../modules/clubs/types'
-import { ICommonTableProps } from '../../types/tables'
-import { Table } from './common/table'
+import { Table } from '@/components/tables/table'
+import { ICommonTableProps, IHeadCell } from '@/types/tables'
 
-interface IClubsTableProps extends ICommonTableProps {
+interface ITeamsTableProps extends ICommonTableProps {
   children: ReactNode
-}
-
-interface IHeadCell {
-  id: ClubsSortBy
-  label: string
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
     { id: 'name', label: t('NAME') },
-    { id: 'countryId', label: t('COUNTRY') },
-    { id: 'regionId', label: t('REGION') },
+    { id: 'clubId', label: t('CLUB') },
+    { id: 'competition', label: t('COMPETITION'), isSortingDisabled: true },
+    {
+      id: 'competitionGroup',
+      label: t('COMPETITION_GROUP'),
+      isSortingDisabled: true,
+    },
   ]
 }
 
-export const ClubsTable = ({
+export const TeamsTable = ({
   page,
   rowsPerPage,
   sortBy,
@@ -33,7 +32,7 @@ export const ClubsTable = ({
   total,
   actions,
   children,
-}: IClubsTableProps) => {
+}: ITeamsTableProps) => {
   const { t } = useTranslation()
 
   return (

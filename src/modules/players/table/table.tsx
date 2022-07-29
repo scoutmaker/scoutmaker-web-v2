@@ -1,28 +1,30 @@
 import { TFunction, useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
 
+import { Table } from '@/components/tables/table'
 import { ICommonTableProps, IHeadCell } from '@/types/tables'
 
-import { Table } from './common/table'
-
-interface ITeamsTableProps extends ICommonTableProps {
+interface IPlayersTableProps extends ICommonTableProps {
   children: ReactNode
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
-    { id: 'name', label: t('NAME') },
-    { id: 'clubId', label: t('CLUB') },
-    { id: 'competition', label: t('COMPETITION'), isSortingDisabled: true },
-    {
-      id: 'competitionGroup',
-      label: t('COMPETITION_GROUP'),
-      isSortingDisabled: true,
-    },
+    { id: 'lastName', label: t('LAST_NAME') },
+    { id: 'firstName', label: t('FIRST_NAME') },
+    { id: 'country', label: t('COUNTRY') },
+    { id: 'team', label: t('TEAM') },
+    { id: 'primaryPosition', label: t('PRIMARY_POSITION') },
+    { id: 'yearOfBirth', label: t('YEAR_OF_BIRTH') },
+    { id: 'height', label: t('HEIGHT') },
+    { id: 'weight', label: t('WEIGHT') },
+    { id: 'footed', label: t('FOOTED') },
+    { id: 'reportsCount', label: t('REPORTS_COUNT') },
+    { id: 'notesCount', label: t('NOTES_COUNT') },
   ]
 }
 
-export const TeamsTable = ({
+export const PlayersTable = ({
   page,
   rowsPerPage,
   sortBy,
@@ -33,7 +35,7 @@ export const TeamsTable = ({
   total,
   actions,
   children,
-}: ITeamsTableProps) => {
+}: IPlayersTableProps) => {
   const { t } = useTranslation()
 
   return (

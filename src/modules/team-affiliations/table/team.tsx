@@ -1,9 +1,10 @@
 import { TFunction, useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
 
-import { Table } from '@/components/tables/common/table'
-import { TeamAffiliationsSortBy } from '@/modules/team-affiliations.ts/types'
+import { Table } from '@/components/tables/table'
 import { ICommonTableProps } from '@/types/tables'
+
+import { TeamAffiliationsSortBy } from '../types'
 
 interface ITeamAffiliationsTableProps extends ICommonTableProps {
   children: ReactNode

@@ -7,8 +7,6 @@ import { Fab } from '@/components/fab/fab'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { PlayersTable } from '@/components/tables/players'
-import { PlayersTableRow } from '@/components/tables/rows/players-row'
 import { withSessionSsr } from '@/modules/auth/session'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
@@ -21,6 +19,8 @@ import {
   usePlayers,
   useUnlikePlayer,
 } from '@/modules/players/hooks'
+import { PlayersTableRow } from '@/modules/players/table/row'
+import { PlayersTable } from '@/modules/players/table/table'
 import { PlayersFiltersDto, PlayersSortBy } from '@/modules/players/types'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'

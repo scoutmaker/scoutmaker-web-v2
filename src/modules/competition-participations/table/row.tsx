@@ -1,6 +1,7 @@
-import { StyledTableCell } from '@/components/tables/common/cell'
-import { StyledTableRow } from '@/components/tables/common/row'
-import { CompetitionParticipationDto } from '@/modules/competition-participations/types'
+import { StyledTableCell } from '@/components/tables/cell'
+import { StyledTableRow } from '@/components/tables/row'
+
+import { CompetitionParticipationDto } from '../types'
 
 interface ICompetitionParticipationsTableRowProps {
   data: CompetitionParticipationDto

@@ -1,7 +1,7 @@
 import {
   FindAllTeamAffiliationsParams,
   TeamAffiliationDto,
-} from '@/modules/team-affiliations.ts/types'
+} from '@/modules/team-affiliations/types'
 import { TModuleName } from '@/services/api/modules'
 import { usePaginatedData } from '@/utils/hooks/api/use-paginated-data'
 

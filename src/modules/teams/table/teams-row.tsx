@@ -9,13 +9,12 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
+import { StyledTableCell } from '@/components/tables/cell'
+import { TableMenu } from '@/components/tables/menu'
+import { TableMenuItem } from '@/components/tables/menu-item'
+import { StyledTableRow } from '@/components/tables/row'
 import { TeamDto } from '@/modules/teams/types'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
-
-import { StyledTableCell } from '../common/cell'
-import { TableMenu } from '../common/menu'
-import { TableMenuItem } from '../common/menu-item'
-import { StyledTableRow } from '../common/row'
 
 interface ITeamsTableRowProps {
   data: TeamDto

@@ -1,10 +1,11 @@
 import { Link as MUILink } from '@mui/material'
 import Link from 'next/link'
 
-import { StyledTableCell } from '@/components/tables/common/cell'
-import { StyledTableRow } from '@/components/tables/common/row'
-import { TeamAffiliationDto } from '@/modules/team-affiliations.ts/types'
+import { StyledTableCell } from '@/components/tables/cell'
+import { StyledTableRow } from '@/components/tables/row'
 import { formatDate } from '@/utils/format-date'
+
+import { TeamAffiliationDto } from '../types'
 
 interface ITeamAffiliationsTableRowProps {
   data: TeamAffiliationDto
