@@ -8,11 +8,10 @@ import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { withSessionSsr } from '@/modules/auth/session'
-import { useDeleteClub } from '@/modules/clubs/hooks'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { MatchesFilterForm } from '@/modules/matches/forms/filter'
-import { useMatches } from '@/modules/matches/hooks'
+import { useDeleteMatch, useMatches } from '@/modules/matches/hooks'
 import { MatchesTableRow } from '@/modules/matches/table/row'
 import { MatchesTable } from '@/modules/matches/table/table'
 import { MatchesFiltersDto, MatchesSortBy } from '@/modules/matches/types'
@@ -98,14 +97,16 @@ const MatchesPage = () => {
     ...filters,
   })
 
-  const { mutate: deleteClub, isLoading: deleteClubLoading } = useDeleteClub()
+  const { mutate: deleteMatch, isLoading: deleteMatchLoading } =
+    useDeleteMatch()
 
   const isLoading =
     teamsLoading ||
     competitionsLoading ||
     competitionGroupsLoading ||
     matchesLoading ||
-    seasonsLoading
+    seasonsLoading ||
+    deleteMatchLoading
 
   return (
     <>
@@ -155,12 +156,12 @@ const MatchesPage = () => {
       <Fab href="/matches/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}
-        message={t('matches:DELETE_CLUB_CONFIRM_QUESTION', {
+        message={t('matches:DELETE_MATCH_CONFIRM_QUESTION', {
           name: matchToDeleteData?.name,
         })}
         handleAccept={() => {
           if (matchToDeleteData) {
-            deleteClub(matchToDeleteData.id)
+            deleteMatch(matchToDeleteData.id)
           }
           setMatchToDeleteData(null)
         }}
