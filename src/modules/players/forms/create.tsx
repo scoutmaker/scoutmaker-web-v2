@@ -2,51 +2,58 @@ import { Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
+import { Container } from '@/components/forms/container'
+import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { CreateClubDto } from '@/modules/clubs/types'
 import { CountryDto } from '@/modules/countries/types'
-import { RegionDto } from '@/modules/regions/types'
+import { PlayerPositionDto } from '@/modules/player-positions/types'
+import { CreatePlayerDto } from '@/modules/players/types'
+import { TeamBasicDataDto } from '@/modules/teams/types'
 
-import { Container } from '../container'
-import { MainFormActions } from '../main-form-actions'
 import { Fields } from './fields'
-import { generateCreateClubValidationSchema, initialValues } from './utils'
+import { generateCreatePlayerValidationSchema, initialValues } from './utils'
 
-interface ICreateClubFormProps {
-  regionsData: RegionDto[]
+interface ICreatePlayerFormProps {
+  positionsData: PlayerPositionDto[]
   countriesData: CountryDto[]
-  onSubmit: (data: CreateClubDto) => void
+  teamsData: TeamBasicDataDto[]
+  onSubmit: (data: CreatePlayerDto) => void
   onCancelClick?: () => void
   fullwidth?: boolean
 }
 
-export const CreateClubForm = ({
+export const CreatePlayerForm = ({
   onSubmit,
   onCancelClick,
   fullwidth,
-  regionsData,
+  positionsData,
+  teamsData,
   countriesData,
-}: ICreateClubFormProps) => {
+}: ICreatePlayerFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
 
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={generateCreateClubValidationSchema(t)}
+      validationSchema={generateCreatePlayerValidationSchema(t)}
       enableReinitialize
       onSubmit={async (data, { resetForm }) => {
         const dataToSubmit = filter(data, (_, value) => value)
-        onSubmit(dataToSubmit as CreateClubDto)
+        onSubmit(dataToSubmit as CreatePlayerDto)
         resetForm()
       }}
     >
       {({ handleReset }) => (
         <Form>
           <Container fullwidth={fullwidth}>
-            <Fields countriesData={countriesData} regionsData={regionsData} />
+            <Fields
+              countriesData={countriesData}
+              positionsData={positionsData}
+              teamsData={teamsData}
+            />
             <MainFormActions
-              label={t('CLUB')}
+              label={t('PLAYER')}
               onCancelClick={() => {
                 if (onCancelClick) {
                   onCancelClick()

@@ -1,13 +1,13 @@
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { CreateTeamForm } from '@/components/forms/team/create-team'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { withSessionSsr } from '@/modules/auth/session'
 import { useClubsList } from '@/modules/clubs/hooks'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
+import { CreateTeamForm } from '@/modules/teams/forms/create'
 import { useCreateTeam } from '@/modules/teams/hooks'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 

@@ -4,7 +4,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
 
 import { Fab } from '@/components/fab/fab'
-import { PlayersFilterForm } from '@/components/forms/player/players-filter-form'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -15,6 +14,7 @@ import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { useCountriesList } from '@/modules/countries/hooks'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
+import { PlayersFilterForm } from '@/modules/players/forms/filter'
 import {
   useDeletePlayer,
   useLikePlayer,

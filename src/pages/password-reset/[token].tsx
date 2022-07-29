@@ -4,8 +4,8 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { ResetPasswordForm } from '@/components/forms/reset-password'
 import { Loader } from '@/components/loader/loader'
+import { ResetPasswordForm } from '@/modules/auth/forms/reset-password'
 import { useResetPassword } from '@/modules/auth/hooks'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {

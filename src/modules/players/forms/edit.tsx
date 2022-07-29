@@ -1,47 +1,57 @@
+import { updatedDiff } from 'deep-object-diff'
 import { Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
+import { Container } from '@/components/forms/container'
+import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { CountryDto } from '@/modules/countries/types'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
-import { CreatePlayerDto } from '@/modules/players/types'
+import { PlayerDto, UpdatePlayerDto } from '@/modules/players/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
-import { Container } from '../container'
-import { MainFormActions } from '../main-form-actions'
 import { Fields } from './fields'
-import { generateCreatePlayerValidationSchema, initialValues } from './utils'
+import {
+  generateUpdatePlayerValidationSchema,
+  getInitialStateFromCurrent,
+} from './utils'
 
-interface ICreatePlayerFormProps {
+interface EditPlayerFormProps {
+  current: PlayerDto
   positionsData: PlayerPositionDto[]
   countriesData: CountryDto[]
   teamsData: TeamBasicDataDto[]
-  onSubmit: (data: CreatePlayerDto) => void
+  onSubmit: (data: UpdatePlayerDto) => void
   onCancelClick?: () => void
   fullwidth?: boolean
 }
 
-export const CreatePlayerForm = ({
+export const EditPlayerForm = ({
+  current,
   onSubmit,
   onCancelClick,
   fullwidth,
   positionsData,
   teamsData,
   countriesData,
-}: ICreatePlayerFormProps) => {
+}: EditPlayerFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
+
+  const initialValues = getInitialStateFromCurrent(current)
 
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={generateCreatePlayerValidationSchema(t)}
+      validationSchema={generateUpdatePlayerValidationSchema(t)}
       enableReinitialize
-      onSubmit={async (data, { resetForm }) => {
-        const dataToSubmit = filter(data, (_, value) => value)
-        onSubmit(dataToSubmit as CreatePlayerDto)
-        resetForm()
+      onSubmit={data => {
+        const dataToSubmit = updatedDiff(
+          initialValues,
+          filter(data, (_, value) => value),
+        )
+        onSubmit(dataToSubmit)
       }}
     >
       {({ handleReset }) => (
@@ -51,9 +61,11 @@ export const CreatePlayerForm = ({
               countriesData={countriesData}
               positionsData={positionsData}
               teamsData={teamsData}
+              editForm
             />
             <MainFormActions
               label={t('PLAYER')}
+              isEditState
               onCancelClick={() => {
                 if (onCancelClick) {
                   onCancelClick()

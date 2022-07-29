@@ -4,13 +4,13 @@ import { Field, Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
+import { Container } from '@/components/forms/container'
+import { MainFormActions } from '@/components/forms/main-form-actions'
+import { ClubsCombo } from '@/components/selects/clubs-combo'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { ClubBasicDataDto } from '@/modules/clubs/types'
 import { TeamDto, UpdateTeamDto } from '@/modules/teams/types'
 
-import { ClubsCombo } from '../../selects/clubs-combo'
-import { Container } from '../container'
-import { MainFormActions } from '../main-form-actions'
 import {
   generateUpdateTeamValidationSchema,
   getInitialStateFromCurrent,

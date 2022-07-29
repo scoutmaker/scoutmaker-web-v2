@@ -3,39 +3,36 @@ import { Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
+import { Container } from '@/components/forms/container'
+import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { ClubDto, UpdateClubDto } from '@/modules/clubs/types'
 import { CountryDto } from '@/modules/countries/types'
-import { PlayerPositionDto } from '@/modules/player-positions/types'
-import { PlayerDto, UpdatePlayerDto } from '@/modules/players/types'
-import { TeamBasicDataDto } from '@/modules/teams/types'
+import { RegionDto } from '@/modules/regions/types'
 
-import { Container } from '../container'
-import { MainFormActions } from '../main-form-actions'
 import { Fields } from './fields'
 import {
-  generateUpdatePlayerValidationSchema,
+  generateUpdateClubValidationSchema,
   getInitialStateFromCurrent,
 } from './utils'
 
-interface EditPlayerFormProps {
-  current: PlayerDto
-  positionsData: PlayerPositionDto[]
+interface IEditClubFormProps {
+  current: ClubDto
+  regionsData: RegionDto[]
   countriesData: CountryDto[]
-  teamsData: TeamBasicDataDto[]
-  onSubmit: (data: UpdatePlayerDto) => void
+  onSubmit: (data: UpdateClubDto) => void
   onCancelClick?: () => void
   fullwidth?: boolean
 }
 
-export const EditPlayerForm = ({
+export const EditClubForm = ({
   current,
   onSubmit,
   onCancelClick,
   fullwidth,
-  positionsData,
-  teamsData,
+  regionsData,
   countriesData,
-}: EditPlayerFormProps) => {
+}: IEditClubFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
 
@@ -44,7 +41,7 @@ export const EditPlayerForm = ({
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={generateUpdatePlayerValidationSchema(t)}
+      validationSchema={() => generateUpdateClubValidationSchema()}
       enableReinitialize
       onSubmit={data => {
         const dataToSubmit = updatedDiff(
@@ -57,14 +54,9 @@ export const EditPlayerForm = ({
       {({ handleReset }) => (
         <Form>
           <Container fullwidth={fullwidth}>
-            <Fields
-              countriesData={countriesData}
-              positionsData={positionsData}
-              teamsData={teamsData}
-              editForm
-            />
+            <Fields countriesData={countriesData} regionsData={regionsData} />
             <MainFormActions
-              label={t('PLAYER')}
+              label={t('CLUB')}
               isEditState
               onCancelClick={() => {
                 if (onCancelClick) {

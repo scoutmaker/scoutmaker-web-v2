@@ -4,9 +4,9 @@ import { Field, Form, Formik } from 'formik'
 import { TFunction, useTranslation } from 'next-i18next'
 import * as yup from 'yup'
 
+import { Container } from '@/components/forms/container'
 import { UpdatePasswordDto } from '@/modules/auth/auth'
 
-import { Container } from './container'
 import { generatePasswordValidationSchema } from './utils'
 
 const StyledForm = styled(Form)(() => ({

@@ -6,16 +6,15 @@ import filter from 'just-filter-object'
 import { TFunction, useTranslation } from 'next-i18next'
 import * as yup from 'yup'
 
+import { Container } from '@/components/forms/container'
+import { ClubsCombo } from '@/components/selects/clubs-combo'
+import { RegionsCombo } from '@/components/selects/regions-combo'
+import { UserFootballRolesCombo } from '@/components/selects/user-football-roles-combo'
 import { UpdateUserDto, User } from '@/modules/auth/auth'
 import { useClubsList } from '@/modules/clubs/hooks'
 import { useRegionsList } from '@/modules/regions/hooks'
 import { useUserFootballRolesList } from '@/modules/user-football-roles/hooks'
 import { validateId } from '@/utils/validation-helpers'
-
-import { ClubsCombo } from '../selects/clubs-combo'
-import { RegionsCombo } from '../selects/regions-combo'
-import { UserFootballRolesCombo } from '../selects/user-football-roles-combo'
-import { Container } from './container'
 
 const StyledForm = styled(Form)(() => ({
   width: '100%',

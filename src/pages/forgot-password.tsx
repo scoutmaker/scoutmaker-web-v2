@@ -3,8 +3,8 @@ import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { ForgotPasswordForm } from '@/components/forms/forgot-password'
 import { Loader } from '@/components/loader/loader'
+import { ForgotPasswordForm } from '@/modules/auth/forms/forgot-password'
 import { useForgotPassword } from '@/modules/auth/hooks'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {

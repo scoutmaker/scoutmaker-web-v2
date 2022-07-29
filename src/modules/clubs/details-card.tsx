@@ -10,8 +10,8 @@ import {
 } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { ClubDto } from '../../modules/clubs/types'
 import { getFlagEmoji } from '../../utils/get-flag-emoji'
+import { ClubDto } from './types'
 
 type IClubDetailsCard = {
   club: ClubDto

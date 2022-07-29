@@ -1,10 +1,10 @@
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { CreateClubForm } from '@/components/forms/club/create-club'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { withSessionSsr } from '@/modules/auth/session'
+import { CreateClubForm } from '@/modules/clubs/forms/create'
 import { useCreateClub } from '@/modules/clubs/hooks'
 import { useCountriesList } from '@/modules/countries/hooks'
 import { useRegionsList } from '@/modules/regions/hooks'

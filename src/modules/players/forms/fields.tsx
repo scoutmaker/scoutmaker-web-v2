@@ -3,6 +3,7 @@ import { Field, FormikErrors, FormikTouched, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
+import { CountriesCombo } from '@/components/selects/countries-combo'
 import { FootedSelect } from '@/components/selects/footed-select'
 import { PlayersPositionCombo } from '@/components/selects/player-positions-combo'
 import { TeamsCombo } from '@/components/selects/teams-combo'
@@ -10,8 +11,6 @@ import { CountryDto } from '@/modules/countries/types'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { CreatePlayerDto, UpdatePlayerDto } from '@/modules/players/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
-
-import { CountriesCombo } from '../../selects/countries-combo'
 
 interface IFieldsProps {
   positionsData: PlayerPositionDto[]

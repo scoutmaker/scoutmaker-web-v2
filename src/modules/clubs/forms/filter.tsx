@@ -2,14 +2,13 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
+import { Container } from '@/components/forms/container'
+import { FilterFormActions } from '@/components/forms/filter-form-actions'
+import { CountriesCombo } from '@/components/selects/countries-combo'
+import { RegionsCombo } from '@/components/selects/regions-combo'
 import { ClubsFiltersDto } from '@/modules/clubs/types'
 import { CountryDto } from '@/modules/countries/types'
 import { RegionDto } from '@/modules/regions/types'
-
-import { CountriesCombo } from '../../selects/countries-combo'
-import { RegionsCombo } from '../../selects/regions-combo'
-import { Container } from '../container'
-import { FilterFormActions } from '../filter-form-actions'
 
 type IClubsFilterFormProps = {
   regionsData: RegionDto[]

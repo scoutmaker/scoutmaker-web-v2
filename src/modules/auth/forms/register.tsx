@@ -2,9 +2,9 @@ import { Grid, TextField } from '@mui/material'
 import { Field, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
+import { StyledButton, StyledForm, StyledLink } from '@/components/forms/styles'
 import { RegisterDto } from '@/modules/auth/auth'
 
-import { StyledButton, StyledForm, StyledLink } from './styles'
 import {
   generateRegisterFormValidationSchema,
   registerFormInitialValues,

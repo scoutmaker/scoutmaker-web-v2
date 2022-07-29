@@ -1,9 +1,9 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { ClubDetailsCard } from '@/components/details-cards/club'
 import { ErrorContent } from '@/components/error/error-content'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { withSessionSsr } from '@/modules/auth/session'
+import { ClubDetailsCard } from '@/modules/clubs/details-card'
 import { ClubDto } from '@/modules/clubs/types'
 import { getClubBySlug } from '@/services/api/methods/clubs'
 import { ApiError } from '@/types/common'

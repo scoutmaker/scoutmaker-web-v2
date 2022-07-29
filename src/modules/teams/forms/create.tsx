@@ -3,6 +3,9 @@ import { Field, Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
+import { Container } from '@/components/forms/container'
+import { MainFormActions } from '@/components/forms/main-form-actions'
+import { ClubsCombo } from '@/components/selects/clubs-combo'
 import { CompetitionGroupsCombo } from '@/components/selects/competition-groups-combo'
 import { CompetitionsCombo } from '@/components/selects/competitions-combo'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
@@ -11,9 +14,6 @@ import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { CreateTeamDto } from '@/modules/teams/types'
 
-import { ClubsCombo } from '../../selects/clubs-combo'
-import { Container } from '../container'
-import { MainFormActions } from '../main-form-actions'
 import { generateCreateTeamValidationSchema, initialValues } from './utils'
 
 interface ICreateTeamFormProps {

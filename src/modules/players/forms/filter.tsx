@@ -1,50 +1,51 @@
-import { TextField } from '@mui/material'
+import { Grid, TextField } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { ClubsCombo } from '@/components/selects/clubs-combo'
+import { Container } from '@/components/forms/container'
+import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { CompetitionGroupsCombo } from '@/components/selects/competition-groups-combo'
 import { CompetitionsCombo } from '@/components/selects/competitions-combo'
 import { CountriesCombo } from '@/components/selects/countries-combo'
-import { RegionsCombo } from '@/components/selects/regions-combo'
-import { ClubBasicDataDto, ClubsFiltersDto } from '@/modules/clubs/types'
+import { FootedSelect } from '@/components/selects/footed-select'
+import { PlayersPositionCombo } from '@/components/selects/player-positions-combo'
+import { TeamsCombo } from '@/components/selects/teams-combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { CountryDto } from '@/modules/countries/types'
-import { RegionDto } from '@/modules/regions/types'
-
-import { Container } from '../container'
-import { FilterFormActions } from '../filter-form-actions'
+import { PlayerPositionDto } from '@/modules/player-positions/types'
+import { PlayersFiltersDto } from '@/modules/players/types'
+import { TeamBasicDataDto } from '@/modules/teams/types'
 
 const StyledCheckboxContainer = styled('div')(() => ({
   display: 'flex',
   justifyContent: 'center',
 }))
 
-type ITeamsFilterFormProps = {
-  regionsData: RegionDto[]
+interface IPlayersFilterFormProps {
   countriesData: CountryDto[]
-  clubsData: ClubBasicDataDto[]
+  positionsData: PlayerPositionDto[]
+  teamsData: TeamBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
-  filters: ClubsFiltersDto
-  onFilter: (data: ClubsFiltersDto) => void
+  filters: PlayersFiltersDto
+  onFilter: (data: PlayersFiltersDto) => void
   onClearFilters: () => void
 }
 
-export const TeamsFilterForm = ({
-  regionsData,
+export const PlayersFilterForm = ({
   countriesData,
-  clubsData,
+  teamsData,
+  positionsData,
   competitionsData,
   competitionGroupsData,
   filters,
   onFilter,
   onClearFilters,
-}: ITeamsFilterFormProps) => {
-  const { t } = useTranslation()
+}: IPlayersFilterFormProps) => {
+  const { t } = useTranslation(['common', 'players'])
 
   return (
     <Formik
@@ -60,26 +61,53 @@ export const TeamsFilterForm = ({
               as={TextField}
               variant="outlined"
               fullWidth
-              label={t('NAME')}
+              label={t('NAME_OR_SURNAME')}
               size="small"
             />
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <Field
+                  name="bornAfter"
+                  as={TextField}
+                  type="number"
+                  variant="outlined"
+                  fullWidth
+                  label={t('BORN_AFTER')}
+                  size="small"
+                  inputProps={{ min: 1980, max: 2020 }}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Field
+                  name="bornBefore"
+                  as={TextField}
+                  type="number"
+                  variant="outlined"
+                  fullWidth
+                  label={t('BORN_BEFORE')}
+                  size="small"
+                  inputProps={{ min: 1980, max: 2020 }}
+                />
+              </Grid>
+            </Grid>
+            <FootedSelect name="footed" label={t('FOOTED')} size="small" />
             <CountriesCombo
               name="countryIds"
               data={countriesData}
               label={t('COUNTRIES')}
               multiple
             />
-            <RegionsCombo
-              name="regionIds"
-              data={regionsData}
-              label={t('REGIONS')}
+            <PlayersPositionCombo
+              name="positionIds"
+              data={positionsData}
+              label={t('POSITIONS')}
               multiple
             />
-            <ClubsCombo
-              data={clubsData}
-              name="clubId"
-              label={t('CLUB')}
-              size="small"
+            <TeamsCombo
+              data={teamsData}
+              name="teamIds"
+              label={t('TEAM')}
+              multiple
             />
             <CompetitionsCombo
               name="competitionIds"
@@ -98,7 +126,7 @@ export const TeamsFilterForm = ({
                 component={CheckboxWithLabel}
                 type="checkbox"
                 name="isLiked"
-                Label={{ label: 'Tylko polubione' }}
+                Label={{ label: t('players:LIKED_ONLY') }}
               />
             </StyledCheckboxContainer>
             <FilterFormActions handleClearFilter={onClearFilters} />

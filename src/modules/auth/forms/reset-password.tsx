@@ -4,9 +4,9 @@ import Link from 'next/link'
 import { TFunction, useTranslation } from 'next-i18next'
 import * as yup from 'yup'
 
+import { StyledButton, StyledForm, StyledLink } from '@/components/forms/styles'
 import { PasswordResetDto } from '@/modules/auth/auth'
 
-import { StyledButton, StyledForm, StyledLink } from './styles'
 import { generatePasswordValidationSchema } from './utils'
 
 function generateValidationSchema(

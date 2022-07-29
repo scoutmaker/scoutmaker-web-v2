@@ -3,8 +3,8 @@ import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { RegisterForm } from '@/components/forms/register'
 import { Loader } from '@/components/loader/loader'
+import { RegisterForm } from '@/modules/auth/forms/register'
 import { useRegister } from '@/modules/auth/hooks'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {

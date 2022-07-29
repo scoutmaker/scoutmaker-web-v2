@@ -1,54 +1,44 @@
-import { updatedDiff } from 'deep-object-diff'
 import { Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
+import { Container } from '@/components/forms/container'
+import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { ClubDto, UpdateClubDto } from '@/modules/clubs/types'
+import { CreateClubDto } from '@/modules/clubs/types'
 import { CountryDto } from '@/modules/countries/types'
 import { RegionDto } from '@/modules/regions/types'
 
-import { Container } from '../container'
-import { MainFormActions } from '../main-form-actions'
 import { Fields } from './fields'
-import {
-  generateUpdateClubValidationSchema,
-  getInitialStateFromCurrent,
-} from './utils'
+import { generateCreateClubValidationSchema, initialValues } from './utils'
 
-interface IEditClubFormProps {
-  current: ClubDto
+interface ICreateClubFormProps {
   regionsData: RegionDto[]
   countriesData: CountryDto[]
-  onSubmit: (data: UpdateClubDto) => void
+  onSubmit: (data: CreateClubDto) => void
   onCancelClick?: () => void
   fullwidth?: boolean
 }
 
-export const EditClubForm = ({
-  current,
+export const CreateClubForm = ({
   onSubmit,
   onCancelClick,
   fullwidth,
   regionsData,
   countriesData,
-}: IEditClubFormProps) => {
+}: ICreateClubFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
-
-  const initialValues = getInitialStateFromCurrent(current)
 
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={() => generateUpdateClubValidationSchema()}
+      validationSchema={generateCreateClubValidationSchema(t)}
       enableReinitialize
-      onSubmit={data => {
-        const dataToSubmit = updatedDiff(
-          initialValues,
-          filter(data, (_, value) => value),
-        )
-        onSubmit(dataToSubmit)
+      onSubmit={async (data, { resetForm }) => {
+        const dataToSubmit = filter(data, (_, value) => value)
+        onSubmit(dataToSubmit as CreateClubDto)
+        resetForm()
       }}
     >
       {({ handleReset }) => (
@@ -57,7 +47,6 @@ export const EditClubForm = ({
             <Fields countriesData={countriesData} regionsData={regionsData} />
             <MainFormActions
               label={t('CLUB')}
-              isEditState
               onCancelClick={() => {
                 if (onCancelClick) {
                   onCancelClick()

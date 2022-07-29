@@ -3,13 +3,12 @@ import { Field, Formik } from 'formik'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 
+import { StyledButton, StyledForm, StyledLink } from '@/components/forms/styles'
 import { LoginDto } from '@/modules/auth/auth'
-
-import { StyledButton, StyledForm, StyledLink } from './styles'
 import {
   generateLoginFormValidationSchema,
   loginFormInitialValues,
-} from './utils'
+} from '@/modules/auth/forms/utils'
 
 interface ILoginFormProps {
   onSubmit: (data: LoginDto) => void
