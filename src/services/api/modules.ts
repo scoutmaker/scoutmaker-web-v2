@@ -9,3 +9,4 @@ export type TModuleName =
   | 'player-positions'
   | 'regions'
   | 'team-affiliations'
+  | 'user-football-roles'

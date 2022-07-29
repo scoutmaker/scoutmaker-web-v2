@@ -3,7 +3,7 @@ import { Field } from 'formik'
 import { Autocomplete } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { UserFootballRoleDto } from '../../types/user-football-roles'
+import { UserFootballRoleDto } from '../../modules/user-football-roles/types'
 import { IComboProps } from './types'
 
 interface IUserFootballRolesComboProps

@@ -6,9 +6,9 @@ import filter from 'just-filter-object'
 import { TFunction, useTranslation } from 'next-i18next'
 import * as yup from 'yup'
 
-import { useUserFootballRolesList } from '@/lib/user-football-roles'
 import { useClubsList } from '@/modules/clubs/hooks'
 import { useRegionsList } from '@/modules/regions/hooks'
+import { useUserFootballRolesList } from '@/modules/user-football-roles/hooks'
 import { UpdateUserDto, User } from '@/types/auth'
 import { validateId } from '@/utils/validation-helpers'
 
