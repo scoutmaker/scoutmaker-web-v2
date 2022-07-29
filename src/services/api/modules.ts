@@ -11,3 +11,4 @@ export type TModuleName =
   | 'team-affiliations'
   | 'user-football-roles'
   | 'matches'
+  | 'seasons'

@@ -9,12 +9,15 @@ import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { withSessionSsr } from '@/modules/auth/session'
 import { useDeleteClub } from '@/modules/clubs/hooks'
-import { useCountriesList } from '@/modules/countries/hooks'
+import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
+import { useCompetitionsList } from '@/modules/competitions/hooks'
+import { MatchesFilterForm } from '@/modules/matches/forms/filter'
 import { useMatches } from '@/modules/matches/hooks'
 import { MatchesTableRow } from '@/modules/matches/table/row'
 import { MatchesTable } from '@/modules/matches/table/table'
 import { MatchesFiltersDto, MatchesSortBy } from '@/modules/matches/types'
-import { useRegionsList } from '@/modules/regions/hooks'
+import { useSeasonsList } from '@/modules/seasons/hooks'
+import { useTeamsList } from '@/modules/teams/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { redirectToLogin } from '@/utils/redirect-to-login'
@@ -80,9 +83,12 @@ const MatchesPage = () => {
     handleChangePage(null, 0)
   }
 
-  const { data: countries, isLoading: countriesLoading } = useCountriesList()
-
-  const { data: regions, isLoading: regionsLoading } = useRegionsList()
+  const { data: teams, isLoading: teamsLoading } = useTeamsList()
+  const { data: competitions, isLoading: competitionsLoading } =
+    useCompetitionsList()
+  const { data: competitionGroups, isLoading: competitionGroupsLoading } =
+    useCompetitionGroupsList()
+  const { data: seasons, isLoading: seasonsLoading } = useSeasonsList()
 
   const { data: matches, isLoading: matchesLoading } = useMatches({
     page: page + 1,
@@ -94,20 +100,26 @@ const MatchesPage = () => {
 
   const { mutate: deleteClub, isLoading: deleteClubLoading } = useDeleteClub()
 
+  const isLoading =
+    teamsLoading ||
+    competitionsLoading ||
+    competitionGroupsLoading ||
+    matchesLoading ||
+    seasonsLoading
+
   return (
     <>
-      {(matchesLoading ||
-        countriesLoading ||
-        regionsLoading ||
-        deleteClubLoading) && <Loader />}
+      {isLoading && <Loader />}
       <PageHeading title={t('matches:INDEX_PAGE_TITLE')} />
-      {/* <ClubsFilterForm
+      <MatchesFilterForm
         filters={filters}
-        countriesData={countries || []}
-        regionsData={regions || []}
+        teamsData={teams || []}
+        competitionsData={competitions || []}
+        competitionGroupsData={competitionGroups || []}
+        seasonsData={seasons || []}
         onFilter={handleSetFilters}
         onClearFilters={() => handleSetFilters(initialFilters)}
-      /> */}
+      />
       <MatchesTable
         page={page}
         rowsPerPage={rowsPerPage}
