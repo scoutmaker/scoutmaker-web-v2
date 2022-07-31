@@ -12,3 +12,4 @@ export type TModuleName =
   | 'user-football-roles'
   | 'matches'
   | 'seasons'
+  | 'notes'
