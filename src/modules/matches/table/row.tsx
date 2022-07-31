@@ -14,10 +14,11 @@ import { CellWithLink } from '@/components/tables/cell-with-link'
 import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
 import { StyledTableRow } from '@/components/tables/row'
-import { getMatchResult } from '@/modules/matches/table/utils'
 import { MatchDto } from '@/modules/matches/types'
 import { formatDate } from '@/utils/format-date'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
+
+import { getResult } from '../utils'
 
 interface IMatchesTableRowProps {
   data: MatchDto
@@ -98,7 +99,7 @@ export const MatchesTableRow = ({
       <StyledTableCell>{competition.name}</StyledTableCell>
       <StyledTableCell>{group?.name}</StyledTableCell>
       <StyledTableCell>{season.name}</StyledTableCell>
-      <StyledTableCell>{getMatchResult(homeGoals, awayGoals)}</StyledTableCell>
+      <StyledTableCell>{getResult(homeGoals, awayGoals)}</StyledTableCell>
       <StyledTableCell align="center">
         {videoUrl ? (
           <Link
