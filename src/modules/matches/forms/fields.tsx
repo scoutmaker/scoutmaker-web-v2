@@ -25,7 +25,7 @@ export const Fields = ({
   competitionGroupsData,
   seasonsData,
 }: IFieldsProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'matches'])
 
   const { touched, errors } = useFormikContext<
     CreateMatchDto | UpdateMatchDto
@@ -36,14 +36,14 @@ export const Fields = ({
       <TeamsCombo
         data={teamsData}
         name="homeTeamId"
-        label={t('matches:HOME_TEAM')}
+        label={t('HOME_TEAM')}
         error={touched.homeTeamId && !!errors.homeTeamId}
         helperText={touched.homeTeamId ? errors.homeTeamId : undefined}
       />
       <TeamsCombo
         data={teamsData}
         name="awayTeamId"
-        label={t('matches:AWAY_TEAM')}
+        label={t('AWAY_TEAM')}
         error={touched.awayTeamId && !!errors.awayTeamId}
         helperText={touched.awayTeamId ? errors.awayTeamId : undefined}
       />

@@ -39,7 +39,7 @@ export function generateMatchFormValidationSchema(t: TFunction) {
       }),
       seasonId: validateId({
         required: true,
-        message: t('players:NO_TEAM_ERROR'),
+        message: t('players:NO_SEASON_ERROR'),
       }),
       homeGoals: yup.number().min(0).max(20),
       awayGoals: yup.number().min(0).max(20),
