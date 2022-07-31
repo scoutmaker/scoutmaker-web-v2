@@ -1,20 +1,3 @@
-import {
-  AccountCircle as ProfileIcon,
-  Assessment as ReportsIcon,
-  Assignment as OrdersIcon,
-  Create as ReportTemplatesIcon,
-  DirectionsRun as PlayersIcon,
-  GroupWork as TeamsIcon,
-  Home as HomeIcon,
-  Note as NotesIcon,
-  PermContactCalendar as AdminIcon,
-  Person as UserDataIcon,
-  Security as ClubsIcon,
-  Settings as SettingsIcon,
-  Sports as MatchesIcon,
-  Storage as DatabaseIcon,
-  Visibility as ObservationIcon,
-} from '@mui/icons-material'
 // import { MatchButton } from './MatchButton'
 // import { QuickNoteButton } from './QuickNoteButton'
 import { useTranslation } from 'next-i18next'
@@ -23,6 +6,23 @@ import { useState } from 'react'
 import { useUser } from '@/modules/auth/hooks'
 import { isAdmin, isPrivilegedUser } from '@/utils/user-roles'
 
+import {
+  AdminIcon,
+  ClubsIcon,
+  DatabaseIcon,
+  HomeIcon,
+  MatchesIcon,
+  NotesIcon,
+  ObservationIcon,
+  OrdersIcon,
+  PlayersIcon,
+  ProfileIcon,
+  ReportsIcon,
+  ReportTemplatesIcon,
+  SettingsIcon,
+  TeamsIcon,
+  UserDataIcon,
+} from '../icons'
 import { ExpandeableNavElement } from './expandeable-nav-element'
 import { LogoutButton } from './logout-button'
 import { NavElement } from './nav-element'

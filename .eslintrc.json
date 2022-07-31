@@ -45,7 +45,8 @@
     "react/require-default-props": "off",
     "react/no-unstable-nested-components": "off",
     "react/jsx-no-bind": "off",
-    "@typescript-eslint/no-use-before-define": "off"
+    "@typescript-eslint/no-use-before-define": "off",
+    "radix": "off"
   },
   "overrides": [
     {

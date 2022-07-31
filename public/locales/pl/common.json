@@ -48,6 +48,7 @@
   "REPORTS_COUNT": "Liczba raportów",
   "NOTES_COUNT": "Liczba notatek",
   "TEAMS": "Zespoły",
+  "MATCH": "Mecz",
   "MATCHES": "Mecze",
   "SCOUTING": "Obserwacje",
   "REPORTS": "Raporty",
@@ -97,5 +98,11 @@
   "90_MINUT_ID": "90minut.pl ID",
   "TRANSFERMARKT_ID": "Transfermarkt ID",
   "START_DATE": "Data początkowa",
-  "END_DATE": "Data końcowa"
+  "END_DATE": "Data końcowa",
+  "HOME_TEAM": "Gospodarz",
+  "AWAY_TEAM": "Gość",
+  "DATE": "Data",
+  "RESULT": "Wynik",
+  "VIDEO": "Video",
+  "VIDEO_URL": "Video URL"
 }

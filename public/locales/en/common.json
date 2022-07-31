@@ -48,6 +48,7 @@
   "REPORTS_COUNT": "Reports Count",
   "NOTES_COUNT": "Notes Count",
   "TEAMS": "Teams",
+  "MATCH": "Match",
   "MATCHES": "Matches",
   "SCOUTING": "Scouting",
   "REPORTS": "Reports",
@@ -97,5 +98,11 @@
   "90_MINUT_ID": "90minut.pl ID",
   "TRANSFERMARKT_ID": "Transfermarkt ID",
   "START_DATE": "Start date",
-  "END_DATE": "End date"
+  "END_DATE": "End date",
+  "HOME_TEAM": "Home team",
+  "AWAY_TEAM": "Away team",
+  "DATE": "Date",
+  "RESULT": "Result",
+  "VIDEO": "Video",
+  "VIDEO_URL": "Video URL"
 }
