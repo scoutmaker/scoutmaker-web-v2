@@ -21,7 +21,7 @@ interface ICreateCountryFormProps {
   fullwidth?: boolean
 }
 
-export const CreateTeamForm = ({
+export const CreateCountryForm = ({
   onSubmit,
   onCancelClick,
   fullwidth
