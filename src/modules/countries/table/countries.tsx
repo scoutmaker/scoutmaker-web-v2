@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 import { Table } from '@/components/tables/table'
 import { ICommonTableProps, IHeadCell } from '@/types/tables'
 
-interface ITeamsTableProps extends ICommonTableProps {
+interface ICountriesTableProps extends ICommonTableProps {
   children: ReactNode
 }
 
@@ -27,7 +27,7 @@ export const CountriesTable = ({
   total,
   actions,
   children,
-}: ITeamsTableProps) => {
+}: ICountriesTableProps) => {
   const { t } = useTranslation()
 
   return (
