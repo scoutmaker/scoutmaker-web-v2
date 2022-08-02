@@ -11,8 +11,8 @@ interface ITeamsTableProps extends ICommonTableProps {
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
     { id: 'name', label: t('NAME') },
-    { id: 'code', label: 'Code' /* t('') NO-TRANSLATION */ },
-    { id: 'isEuMember', label: 'IsEuMember' /* t('') NO-TRANSLATION */},
+    { id: 'code', label: t('countries:CODE') },
+    { id: 'isEuMember', label: t('countries:IS_EU_MEMBER') },
   ]
 }
 
