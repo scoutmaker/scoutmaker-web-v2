@@ -1,12 +1,7 @@
 import {
   Delete as DeleteIcon,
   Edit as EditIcon,
-  Favorite as UnlikeIcon,
-  FavoriteBorder as LikeIcon,
 } from '@mui/icons-material'
-import { Link as MUILink } from '@mui/material'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { StyledTableCell } from '@/components/tables/cell'
