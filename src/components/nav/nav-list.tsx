@@ -9,6 +9,7 @@ import { isAdmin, isPrivilegedUser } from '@/utils/user-roles'
 import {
   AdminIcon,
   ClubsIcon,
+  CountryIcon,
   DatabaseIcon,
   HomeIcon,
   MatchesIcon,
@@ -116,7 +117,11 @@ export const NavList = () => {
           open={isAdminListOpen}
           title={t('ADMIN_PANEL')}
         >
-          {/*  */}
+          <NavElement
+            icon={<CountryIcon color="error" />}
+            to="/countries"
+            text={t('COUNTRIES')}
+          />
         </ExpandeableNavElement>
       )}
       <StyledDivider />
