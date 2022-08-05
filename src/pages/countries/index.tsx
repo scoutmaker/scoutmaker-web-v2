@@ -1,9 +1,9 @@
-import { Fab } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react'
 
+import { Fab } from '@/components/fab/fab';
 import { Loader } from '@/components/loader/loader';
 import { PageHeading } from '@/components/page-heading/page-heading';
 import { withSessionSsr } from '@/modules/auth/session';
