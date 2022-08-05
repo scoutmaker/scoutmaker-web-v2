@@ -2,5 +2,6 @@
   "NO_NAME_ERROR": "Podaj nazwę kraju",
   "NO_CODE_ERROR": "Podaj kod kraju",
   "CODE": "Kod",
-  "IS_EU_MEMBER": "Czy należy do UE"
+  "IS_EU_MEMBER": "Czy należy do UE",
+  "INDEX_PAGE_TITLE": "Baza krajów"
 }
