@@ -9,6 +9,7 @@ import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
 import { StyledTableRow } from '@/components/tables/row'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
+
 import { CountryDto } from '../types'
 
 interface ICountriesTableRowProps {
@@ -70,7 +71,7 @@ export const CountriesTableRow = ({
       </StyledTableCell>
       <StyledTableCell>{name}</StyledTableCell>
       <StyledTableCell>{code}</StyledTableCell>
-      <StyledTableCell>{isEuMember}</StyledTableCell>
+      <StyledTableCell>{isEuMember ? t('YES') : t('NO')}</StyledTableCell>
     </StyledTableRow>
   )
 }

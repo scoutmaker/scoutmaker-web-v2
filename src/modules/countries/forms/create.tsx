@@ -1,14 +1,16 @@
 import { TextField } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { Field, Form, Formik } from 'formik'
+import { CheckboxWithLabel } from 'formik-mui'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
-import { CheckboxWithLabel } from 'formik-mui'
+
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { generateCreateCountryValidationSchema, initialValues } from './utils'
+
 import { CreateCountryDto } from '../types'
+import { generateCreateCountryValidationSchema, initialValues } from './utils'
 
 const StyledCheckboxContainer = styled('div')(() => ({
   display: 'flex',
@@ -66,7 +68,7 @@ export const CreateCountryForm = ({
                 component={CheckboxWithLabel}
                 type="checkbox"
                 name="isEuMember"
-                Label={t('countries:IS_EU_MEMBER')}
+                Label={{ label: t('countries:IS_EU_MEMBER') }}
               />
             </StyledCheckboxContainer>
             <MainFormActions

@@ -1,18 +1,20 @@
 import { TextField } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import { updatedDiff } from 'deep-object-diff'
 import { Field, Form, Formik } from 'formik'
+import { CheckboxWithLabel } from 'formik-mui'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
-import { styled } from '@mui/material/styles'
+
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
+
+import { CountryDto, UpdateCountryDto } from '../types'
 import {
   generateUpdateCountryValidationSchema,
   getInitialStateFromCurrent,
 } from './utils'
-import { CountryDto, UpdateCountryDto } from '../types'
-import { CheckboxWithLabel } from 'formik-mui'
 
 const StyledCheckboxContainer = styled('div')(() => ({
   display: 'flex',
@@ -76,7 +78,7 @@ export const EditCountryForm = ({
                 component={CheckboxWithLabel}
                 type="checkbox"
                 name="isEuMember"
-                Label={t('countries:IS_EU_MEMBER')}
+                Label={{ label: t('countries:IS_EU_MEMBER') }}
               />
             </StyledCheckboxContainer>
             <MainFormActions

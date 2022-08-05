@@ -39,7 +39,7 @@ export const CountriesFilterForm = ({
                 component={CheckboxWithLabel}
                 type="checkbox"
                 name="isEuMember"
-                Label={t('countries:IS_EU_MEMBER')}
+                Label={{ label: t('countries:IS_EU_MEMBER') }}
               />
             </StyledCheckboxContainer>
             <FilterFormActions handleClearFilter={onClearFilters} />
