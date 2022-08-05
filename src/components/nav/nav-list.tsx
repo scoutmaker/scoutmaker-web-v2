@@ -41,6 +41,7 @@ export const NavList = () => {
   const [isDatabaseListOpen, setDatabaseListOpen] = useState(false)
   const [isObservationListOpen, setObservationListOpen] = useState(false)
   const [isProfileListOpen, setProfileListOpen] = useState(false)
+  const [isAdminListOpen, setAdminListOpen] = useState(false)
 
   return (
     <StyledList>
@@ -107,13 +108,17 @@ export const NavList = () => {
       ) : null}
       {/* <MatchButton onClick={handleMatchClick} isAtTheMatch={isAtTheMatch} /> */}
       {/* <QuickNoteButton onClick={handleQuickNoteClick} /> */}
-      {isAdmin(user) ? (
-        <NavElement
+      {isAdmin(user) && (
+
+        <ExpandeableNavElement
           icon={<AdminIcon color="error" />}
-          to="/admin"
-          text={t('ADMIN_PANEL')}
-        />
-      ) : null}
+          handleClick={() => setAdminListOpen(!isAdminListOpen)}
+          open={isAdminListOpen}
+          title={t('ADMIN_PANEL')}
+        >
+          {/*  */}
+        </ExpandeableNavElement>
+      )}
       <StyledDivider />
       <ExpandeableNavElement
         icon={<ProfileIcon color="error" />}
