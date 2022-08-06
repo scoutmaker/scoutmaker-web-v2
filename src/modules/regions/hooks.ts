@@ -1,15 +1,18 @@
 import {
+  CreateRegionDto,
   FindAllRegionsParams,
   RegionDto,
   UpdateRegionDto,
 } from '@/modules/regions/types'
 import {
+  createRegion,
   deleteRegion,
   getRegions,
   getRegionsList,
   updateRegion,
 } from '@/services/api/methods/regions'
 import { TModuleName } from '@/services/api/modules'
+import { useCreateDocument } from '@/utils/hooks/api/use-create-document'
 import { useDeleteDocument } from '@/utils/hooks/api/use-delete-document'
 import { useList } from '@/utils/hooks/api/use-list'
 import { usePaginatedData } from '@/utils/hooks/api/use-paginated-data'
@@ -32,3 +35,6 @@ export const useUpdateRegion = (id: number) =>
 
 export const useDeleteRegion = () =>
   useDeleteDocument<RegionDto>(moduleName, deleteRegion)
+
+export const useCreateRegion = () =>
+  useCreateDocument<CreateRegionDto, RegionDto>(moduleName, createRegion)

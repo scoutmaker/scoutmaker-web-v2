@@ -1,9 +1,11 @@
 import {
+  CreateRegionDto,
   FindAllRegionsParams,
   RegionDto,
   UpdateRegionDto,
 } from '@/modules/regions/types'
 import {
+  createDocument,
   deleteDocument,
   getDataList,
   getPaginatedData,
@@ -28,3 +30,6 @@ export const updateRegion = ({ id, data }: IUpdateRegionArgs) =>
 
 export const deleteRegion = (id: number) =>
   deleteDocument<RegionDto>(id, moduleName)
+
+export const createRegion = (data: CreateRegionDto) =>
+  createDocument<CreateRegionDto, RegionDto>(data, moduleName)
