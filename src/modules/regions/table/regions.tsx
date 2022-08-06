@@ -11,13 +11,7 @@ interface IRegionsTableProps extends ICommonTableProps {
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
     { id: 'name', label: t('NAME') },
-    { id: 'countryId', label: t('COUNTRY') },
-    { id: 'countryCode', label: t('countries:CODE'), isSortingDisabled: true },
-    {
-      id: 'isEuMember',
-      label: t('countries:IS_EU_MEMBER'),
-      isSortingDisabled: true,
-    },
+    { id: 'countryId', label: t('COUNTRY') }
   ]
 }
 

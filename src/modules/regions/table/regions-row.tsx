@@ -3,11 +3,13 @@ import {
   Edit as EditIcon,
 } from '@mui/icons-material'
 import { useTranslation } from 'next-i18next'
+
 import { StyledTableCell } from '@/components/tables/cell'
 import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
 import { StyledTableRow } from '@/components/tables/row'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
+
 import { RegionDto } from '../types'
 
 interface IRegionsTableRowProps {
@@ -69,8 +71,6 @@ export const RegionsTableRow = ({
       </StyledTableCell>
       <StyledTableCell>{name}</StyledTableCell>
       <StyledTableCell>{country.name}</StyledTableCell>
-      <StyledTableCell>{country.code}</StyledTableCell>
-      <StyledTableCell>{country.isEuMember}</StyledTableCell>
     </StyledTableRow>
   )
 }
