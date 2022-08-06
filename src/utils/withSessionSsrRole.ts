@@ -8,10 +8,11 @@ export type ISsrRole = {
   errorStatus: number | null
   errorMessage: string | null
 }
+type TRole = Components.Schemas.UserDto['role']
 
 export const withSessionSsrRole = (
   _translations: string[],
-  requiredRoles: string[],
+  requiredRoles: TRole[],
 ) =>
   withSessionSsr<ISsrRole>(async ({ locale, req, res }) => {
     const { user } = req.session
