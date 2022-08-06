@@ -1,4 +1,8 @@
 {
   "NO_NAME_ERROR": "Please provide region name",
-  "NO_COUNTRY_ERROR": "Please choose region country"
+  "NO_COUNTRY_ERROR": "Please choose region country",
+  "INDEX_PAGE_TITLE": "Regions database",
+  "CREATE_PAGE_TITLE": "Create new region",
+  "EDIT_PAGE_TITLE": "Edit region data",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete region {{name}}?"
 }
