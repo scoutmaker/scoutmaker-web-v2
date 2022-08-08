@@ -104,5 +104,6 @@
   "DATE": "Data",
   "RESULT": "Wynik",
   "VIDEO": "Video",
-  "VIDEO_URL": "Video URL"
+  "VIDEO_URL": "Video URL",
+  "NO_PERMISSIONS": "Nie posiadasz wymaganych uprawnień"
 }

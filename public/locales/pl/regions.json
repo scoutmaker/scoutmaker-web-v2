@@ -1,0 +1,8 @@
+{
+  "NO_NAME_ERROR": "Podaj nazwę regionu",
+  "NO_COUNTRY_ERROR": "Wybierz kraj regionu",
+  "INDEX_PAGE_TITLE": "Baza regionów",
+  "CREATE_PAGE_TITLE": "Utwórz nowy region",
+  "EDIT_PAGE_TITLE": "Edytuj dane regionu",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć region {{name}}?"
+}

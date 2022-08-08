@@ -10,6 +10,7 @@ export {
   Assignment as OrdersIcon,
   DirectionsRun as PlayersIcon,
   AccountCircle as ProfileIcon,
+  SouthAmerica as RegionIcon,
   Assessment as ReportsIcon,
   Create as ReportTemplatesIcon,
   Settings as SettingsIcon,
