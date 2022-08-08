@@ -2,6 +2,7 @@ import {
   Delete as DeleteIcon,
   Edit as EditIcon,
 } from '@mui/icons-material'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { StyledTableCell } from '@/components/tables/cell'
@@ -27,6 +28,7 @@ export const RegionsTableRow = ({
   isEditOptionEnabled,
   isDeleteOptionEnabled,
 }: IRegionsTableRowProps) => {
+  const router = useRouter()
   const { t } = useTranslation()
 
   const {
@@ -43,6 +45,7 @@ export const RegionsTableRow = ({
     <StyledTableRow
       hover
       key={id}
+      onClick={isMenuOpen ? undefined : () => router.push(`/regions/${id}`)}
     >
       <StyledTableCell padding="checkbox">
         <TableMenu
