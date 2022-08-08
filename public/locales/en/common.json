@@ -104,5 +104,6 @@
   "DATE": "Date",
   "RESULT": "Result",
   "VIDEO": "Video",
-  "VIDEO_URL": "Video URL"
+  "VIDEO_URL": "Video URL",
+  "NO_PERMISSIONS": "Insufficient Permissions"
 }

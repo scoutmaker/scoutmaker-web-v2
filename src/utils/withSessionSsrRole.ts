@@ -1,3 +1,4 @@
+import { i18n } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 
@@ -35,6 +36,9 @@ export function withSessionSsrRole<T>(
       }
     }
 
+    // for error message
+    if (!_translations.includes('common')) _translations.push('common')
+
     const translations = await serverSideTranslations(
       locale || 'pl',
       _translations,
@@ -45,7 +49,7 @@ export function withSessionSsrRole<T>(
         props: {
           ...translations,
           errorStatus: 401,
-          errorMessage: 'Insufficient Permissions',
+          errorMessage: i18n?.t('NO_PERMISSIONS') || 'Insufficient Permissions',
           data: null,
         },
       }
