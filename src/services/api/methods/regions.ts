@@ -7,6 +7,7 @@ import {
 import {
   createDocument,
   deleteDocument,
+  getAssetById,
   getDataList,
   getPaginatedData,
   updateDocument,
@@ -33,3 +34,6 @@ export const deleteRegion = (id: number) =>
 
 export const createRegion = (data: CreateRegionDto) =>
   createDocument<CreateRegionDto, RegionDto>(data, moduleName)
+
+export const getRegionById = (id: number, token?: string) =>
+  getAssetById<RegionDto>({ moduleName, id, token })
