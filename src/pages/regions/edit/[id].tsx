@@ -9,7 +9,7 @@ import { useUpdateRegion } from '@/modules/regions/hooks'
 import { RegionDto } from '@/modules/regions/types'
 import { getRegionById } from '@/services/api/methods/regions'
 import { ApiError } from '@/services/api/types'
-import { ISsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole<RegionDto>(['common', 'regions'], ['ADMIN'],
   async (token, params) => {
@@ -31,7 +31,7 @@ const EditTeamPage = ({
   data,
   errorMessage,
   errorStatus,
-}: ISsrRole<RegionDto>) => {
+}: TSsrRole<RegionDto>) => {
   const { t } = useTranslation()
 
   const { data: countries, isLoading: countriesLoading } = useCountriesList()

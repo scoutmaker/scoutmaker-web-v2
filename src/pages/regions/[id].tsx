@@ -6,7 +6,7 @@ import { RegionDetailsCard } from '@/modules/regions/details-card'
 import { RegionDto } from '@/modules/regions/types'
 import { getRegionById } from '@/services/api/methods/regions'
 import { ApiError } from '@/services/api/types'
-import { ISsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole<RegionDto>(['common', 'regions'], ['ADMIN'],
   async (token, params) => {
@@ -24,7 +24,7 @@ export const getServerSideProps = withSessionSsrRole<RegionDto>(['common', 'regi
     }
   });
 
-const MatchPage = ({ data, errorMessage, errorStatus }: ISsrRole<RegionDto>) => {
+const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<RegionDto>) => {
   const { t } = useTranslation()
 
   if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />

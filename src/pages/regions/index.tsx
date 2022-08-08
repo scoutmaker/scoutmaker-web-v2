@@ -18,7 +18,7 @@ import { RegionsTableRow } from '@/modules/regions/table/regions-row'
 import { RegionsFilterDto, RegionsSortBy } from '@/modules/regions/types'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
-import { ISsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(['common', 'regions'], ['ADMIN'])
 
@@ -32,7 +32,7 @@ interface IRegionToDeleteData {
   name: string
 }
 
-const RegionsPage = ({ errorStatus, errorMessage }: ISsrRole) => {
+const RegionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
   const { t } = useTranslation()
   const router = useRouter()
 
