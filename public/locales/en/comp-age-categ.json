@@ -1,0 +1,7 @@
+{
+  "NO_NAME_ERROR": "Please provide age category name",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to age category {{name}}?",
+  "INDEX_PAGE_TITLE": "Competition age categories database",
+  "CREATE_PAGE_TITLE": "Create new age category",
+  "EDIT_PAGE_TITLE": "Edit age category"
+}
