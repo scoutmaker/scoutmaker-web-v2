@@ -1,5 +1,6 @@
 export {
   PermContactCalendar as AdminIcon,
+  Category,
   Security as ClubsIcon,
   Storage as DatabaseIcon,
   Home as HomeIcon,
@@ -13,5 +14,4 @@ export {
   Create as ReportTemplatesIcon,
   Settings as SettingsIcon,
   GroupWork as TeamsIcon,
-  Person as UserDataIcon,
-} from '@mui/icons-material'
+  Person as UserDataIcon} from '@mui/icons-material'
