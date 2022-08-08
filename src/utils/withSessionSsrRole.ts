@@ -15,7 +15,7 @@ type TRole = Components.Schemas.UserDto['role']
 
 export function withSessionSsrRole<T>(
   _translations: string[],
-  requiredRoles: TRole[],
+  allowedRoles: TRole[],
   getData?: (
     token: string,
     params: ParsedUrlQuery,
@@ -40,7 +40,7 @@ export function withSessionSsrRole<T>(
       _translations,
     )
 
-    if (!requiredRoles.includes(user.role)) {
+    if (!allowedRoles.includes(user.role)) {
       return {
         props: {
           ...translations,
