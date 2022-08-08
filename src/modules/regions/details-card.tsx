@@ -12,6 +12,7 @@ import { RegionIcon } from '@/components/icons'
 
 import { RegionDto } from './types'
 
+// TO_CHANGE
 const CardItem = ({ categ, value }: IitemProps) =>
 (<Grid item xs={12}>
   <Typography>
