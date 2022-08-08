@@ -79,7 +79,7 @@ export const getServerSideProps = withSessionSsr<TCountryPageProps>(
   },
 )
 
-const MatchPage = ({ country, errorMessage, errorStatus }: TCountryPageProps) => {
+const CountryPage = ({ country, errorMessage, errorStatus }: TCountryPageProps) => {
   const { t } = useTranslation()
   if (!country) return <ErrorContent message={errorMessage} status={errorStatus} />
 
@@ -91,4 +91,4 @@ const MatchPage = ({ country, errorMessage, errorStatus }: TCountryPageProps) =>
     </>
   )
 }
-export default MatchPage
+export default CountryPage
