@@ -2,13 +2,15 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
+
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { CountriesCombo } from '@/modules/countries/combo'
-import { generateCreateRegionValidationSchema, initialValues } from './utils'
-import { CreateRegionDto } from '../types'
 import { CountryDto } from '@/modules/countries/types'
+
+import { CreateRegionDto } from '../types'
+import { generateCreateRegionValidationSchema, initialValues } from './utils'
 
 interface ICreateRegionFormProps {
   countriesData: CountryDto[]
@@ -57,7 +59,7 @@ export const CreateRegionForm = ({
               helperText={touched.countryId ? errors.countryId : undefined}
             />
             <MainFormActions
-              label={t('COUNTRY')}
+              label={t('REGION')}
               onCancelClick={() => {
                 if (onCancelClick) {
                   onCancelClick()
