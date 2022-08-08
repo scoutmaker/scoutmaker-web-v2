@@ -16,6 +16,7 @@ type TCountryPageProps = {
   country: CountryDto | null
 }
 
+// TO_CHANGE
 export const getServerSideProps = withSessionSsr<TCountryPageProps>(
   async ({ req, res, locale, params }) => {
     const { user } = req.session

@@ -23,6 +23,7 @@ type ICountryPageProps = {
   errorMessage: string | null
 }
 
+// TO_CHANGE
 export const getServerSideProps = withSessionSsr<ICountryPageProps>(
   async ({ locale, req, res }) => {
     const { user } = req.session
