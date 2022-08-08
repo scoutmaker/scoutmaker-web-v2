@@ -6,7 +6,7 @@ import { ApiError } from '@/services/api/types'
 
 import { redirectToLogin } from './redirect-to-login'
 
-export type ISsrRole<T = null> = {
+export type TSsrRole<T = null> = {
   errorStatus: number | null
   errorMessage: string | null
   data: T | null
@@ -21,7 +21,7 @@ export function withSessionSsrRole<T>(
     params: ParsedUrlQuery,
   ) => Promise<{ data: T | null; error?: ApiError }>,
 ) {
-  return withSessionSsr<ISsrRole<T>>(async ({ locale, req, res, params }) => {
+  return withSessionSsr<TSsrRole<T>>(async ({ locale, req, res, params }) => {
     const { user } = req.session
 
     if (!user) {
@@ -51,6 +51,7 @@ export function withSessionSsrRole<T>(
       }
     }
 
+    let data = null
     if (getData) {
       const resd = await getData(
         req.session.token as string,
@@ -58,7 +59,6 @@ export function withSessionSsrRole<T>(
       )
       if (resd.error) {
         const { response } = resd.error
-
         return {
           props: {
             ...translations,
@@ -68,14 +68,7 @@ export function withSessionSsrRole<T>(
           },
         }
       }
-      return {
-        props: {
-          ...translations,
-          errorStatus: null,
-          errorMessage: null,
-          data: resd.data,
-        },
-      }
+      data = resd.data
     }
 
     return {
@@ -83,7 +76,7 @@ export function withSessionSsrRole<T>(
         ...translations,
         errorStatus: null,
         errorMessage: null,
-        data: null,
+        data,
       },
     }
   })
