@@ -1,41 +1,19 @@
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { withSessionSsr } from '@/modules/auth/session'
 import { CreateCompetitionAgeCategoryForm } from '@/modules/competition-age-categories/forms/create'
 import { useCreateCompetitionAgeCategory } from '@/modules/competition-age-categories/hooks'
-import { redirectToLogin } from '@/utils/redirect-to-login'
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-// TO_CHANGE
-export const getServerSideProps = withSessionSsr(
-  async ({ req, res, locale }) => {
-    const { user } = req.session
+export const getServerSideProps = withSessionSsrRole(['common', 'comp-age-categ'], ['ADMIN'])
 
-    if (!user) {
-      redirectToLogin(res)
-      return { props: {} }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'comp-age-categ',
-    ])
-
-    return {
-      props: {
-        ...translations,
-      },
-    }
-  },
-)
-
-const CreateCompetitionAgeCategoryPage = () => {
+const CreateCompetitionAgeCategoryPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
 
   const { mutate: createCompAgeCateg, isLoading } = useCreateCompetitionAgeCategory()
-
+  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
