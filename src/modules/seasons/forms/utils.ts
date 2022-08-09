@@ -2,12 +2,14 @@ import map from 'just-map-values'
 import { TFunction } from 'next-i18next'
 import * as yup from 'yup'
 
+import { formatDate } from '@/utils/format-date'
+
 import { CreateSeasonDto, SeasonDto, UpdateSeasonDto } from '../types'
 
 export const initialValues: CreateSeasonDto = {
   name: '',
-  endDate: '',
-  startDate: '',
+  endDate: formatDate(),
+  startDate: formatDate(),
 }
 
 export function generateCreateValidationSchema(t: TFunction) {
@@ -33,9 +35,13 @@ export function getInitialStateFromCurrent(season: SeasonDto): UpdateSeasonDto {
 
   const values = {
     name,
-    endDate,
-    startDate,
   }
 
-  return map(values, value => value || '')
+  const mapped = map(values, value => value || '')
+
+  return {
+    endDate: formatDate(endDate),
+    startDate: formatDate(startDate),
+    ...mapped,
+  }
 }

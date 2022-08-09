@@ -60,6 +60,7 @@ export const EditSeasonForm = ({
             <Field
               name="startDate"
               as={TextField}
+              type='date'
               variant="outlined"
               fullWidth
               label={t('seasons:START_DATE')}
@@ -69,6 +70,7 @@ export const EditSeasonForm = ({
             <Field
               name="endDate"
               as={TextField}
+              type='date'
               variant="outlined"
               fullWidth
               label={t('seasons:END_DATE')}
