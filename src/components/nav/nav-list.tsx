@@ -20,6 +20,7 @@ import {
   ProfileIcon,
   ReportsIcon,
   ReportTemplatesIcon,
+  SeasonIcon,
   SettingsIcon,
   TeamsIcon,
   UserDataIcon,
@@ -121,6 +122,11 @@ export const NavList = () => {
             icon={<CountryIcon color="error" />}
             to="/countries"
             text={t('COUNTRIES')}
+          />
+          <NavElement
+            icon={<SeasonIcon color="error" />}
+            to="/seasons"
+            text={t('SEASONS')}
           />
         </ExpandeableNavElement>
       )}
