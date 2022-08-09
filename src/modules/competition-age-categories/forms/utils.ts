@@ -2,27 +2,20 @@ import map from 'just-map-values'
 import { TFunction } from 'next-i18next'
 import * as yup from 'yup'
 
-import { CreateTeamDto } from '@/modules/teams/types'
-
 import {
   CompetitionAgeCategortyDto,
+  CreateCompetitionAgeCategoryDto,
   UpdateCompetitionAgeCategoryDto,
 } from '../types'
 
-export const initialValues: CreateTeamDto = {
+export const initialValues: CreateCompetitionAgeCategoryDto = {
   name: '',
-  clubId: 0,
-  competitionId: 0,
-  groupId: 0,
-  minut90url: '',
-  transfermarktUrl: '',
-  lnpId: '',
 }
 
 export function generateCreateValidationSchema(t: TFunction) {
   return yup
     .object({
-      name: yup.string().required(t('teams:NO_NAME_ERROR')),
+      name: yup.string().required(t('comp-age-categ:NO_NAME_ERROR')),
     })
     .defined()
 }

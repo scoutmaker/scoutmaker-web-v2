@@ -8,7 +8,7 @@ import {
 import { useTranslation } from 'next-i18next'
 
 import { CardItemBasic } from '@/components/details-card-item'
-import { Category } from '@/components/icons'
+import { AgeCategoryIcon } from '@/components/icons'
 import { CompetitionAgeCategortyDto } from '@/modules/competition-age-categories/types'
 
 export const CompetitionAgeCategoryDetailsCard = ({ data }: IDetailsCard) => {
@@ -26,7 +26,7 @@ export const CompetitionAgeCategoryDetailsCard = ({ data }: IDetailsCard) => {
             aria-label="category icon"
             sx={{ backgroundColor: 'secondary.main', width: 50, height: 50 }}
           >
-            <Category />
+            <AgeCategoryIcon />
           </Avatar>
         }
         title={name}
