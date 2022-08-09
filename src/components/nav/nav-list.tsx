@@ -19,6 +19,7 @@ import {
   OrdersIcon,
   PlayersIcon,
   ProfileIcon,
+  RegionIcon,
   ReportsIcon,
   ReportTemplatesIcon,
   SettingsIcon,
@@ -127,6 +128,11 @@ export const NavList = () => {
             icon={<Category color="error" />}
             to="/competition-age-categories"
             text={t('COMPETITION_AGE_CATEGORIES')}
+          />
+          <NavElement
+            icon={<RegionIcon color="error" />}
+            to="/regions"
+            text={t('REGIONS')}
           />
         </ExpandeableNavElement>
       )}

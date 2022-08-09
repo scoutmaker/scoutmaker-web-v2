@@ -4,22 +4,13 @@ import {
   CardContent,
   CardHeader,
   Grid,
-  Typography,
 } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
+import { CardItemBasic } from '@/components/details-card-item'
 import { RegionIcon } from '@/components/icons'
 
 import { RegionDto } from './types'
-
-// TO_CHANGE
-const CardItem = ({ categ, value }: IitemProps) =>
-(<Grid item xs={12}>
-  <Typography>
-    <strong>{categ}: </strong>
-    {value}
-  </Typography>
-</Grid>)
 
 export const RegionDetailsCard = ({ region }: IRegionDetailsCard) => {
   const { t } = useTranslation()
@@ -45,11 +36,11 @@ export const RegionDetailsCard = ({ region }: IRegionDetailsCard) => {
       />
       <CardContent>
         <Grid container spacing={1}>
-          <CardItem
+          <CardItemBasic
             categ={t('NAME')}
             value={name}
           />
-          <CardItem
+          <CardItemBasic
             categ={t('COUNTRY')}
             value={country.name}
           />
@@ -62,8 +53,3 @@ export const RegionDetailsCard = ({ region }: IRegionDetailsCard) => {
 interface IRegionDetailsCard {
   region: RegionDto
 }
-
-interface IitemProps {
-  categ: string
-  value: string
-} 
