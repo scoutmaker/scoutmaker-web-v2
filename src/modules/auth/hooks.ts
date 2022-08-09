@@ -55,11 +55,13 @@ export function useLogin() {
 
 export function useLogout() {
   const router = useRouter()
+  const queryClient = useQueryClient()
 
   return useMutation(logout, {
     onSuccess: () => {
       router.push('/login')
       localStorage.removeItem('token')
+      queryClient.clear()
     },
   })
 }
