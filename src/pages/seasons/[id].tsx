@@ -24,7 +24,7 @@ export const getServerSideProps = withSessionSsrRole<SeasonDto>(['common', 'seas
     }
   });
 
-const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<SeasonDto>) => {
+const SeasonPage = ({ data, errorMessage, errorStatus }: TSsrRole<SeasonDto>) => {
   const { t } = useTranslation()
 
   if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />
@@ -36,4 +36,4 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<SeasonDto>) => 
   )
 }
 
-export default MatchPage
+export default SeasonPage
