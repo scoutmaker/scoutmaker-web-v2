@@ -3,22 +3,13 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Grid,
-  Typography,
+  Grid
 } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
+import { CardItemBasic } from '@/components/details-card-item'
 import { Category } from '@/components/icons'
 import { CompetitionAgeCategortyDto } from '@/modules/competition-age-categories/types'
-
-// TO_CHANGE
-const CardItem = ({ categ, value }: IitemProps) =>
-(<Grid item xs={12}>
-  <Typography>
-    <strong>{categ}: </strong>
-    {value}
-  </Typography>
-</Grid>)
 
 export const CompetitionAgeCategoryDetailsCard = ({ data }: IDetailsCard) => {
   const { t } = useTranslation()
@@ -43,7 +34,7 @@ export const CompetitionAgeCategoryDetailsCard = ({ data }: IDetailsCard) => {
       />
       <CardContent>
         <Grid container spacing={1}>
-          <CardItem
+          <CardItemBasic
             categ={t('NAME')}
             value={name}
           />
@@ -56,8 +47,3 @@ export const CompetitionAgeCategoryDetailsCard = ({ data }: IDetailsCard) => {
 interface IDetailsCard {
   data: CompetitionAgeCategortyDto
 }
-
-interface IitemProps {
-  categ: string
-  value: string
-} 
