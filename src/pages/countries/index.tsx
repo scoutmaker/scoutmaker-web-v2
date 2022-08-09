@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React, { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content';
@@ -8,7 +7,6 @@ import { Fab } from '@/components/fab/fab';
 import { Loader } from '@/components/loader/loader';
 import { ConfirmationModal } from '@/components/modals/confirmation-modal';
 import { PageHeading } from '@/components/page-heading/page-heading';
-import { withSessionSsr } from '@/modules/auth/session';
 import { CountriesFilterForm } from '@/modules/countries/forms/filter';
 import { useCountries, useDeleteCountry } from '@/modules/countries/hooks';
 import { CountriesTable } from '@/modules/countries/table/countries';
@@ -16,58 +14,15 @@ import { CountriesTableRow } from '@/modules/countries/table/countries-row';
 import { CountriesFiltersDto, CountriesSortBy } from '@/modules/countries/types';
 import { useLocalStorage } from '@/utils/hooks/use-local-storage';
 import { useTable } from '@/utils/hooks/use-table';
-import { redirectToLogin } from '@/utils/redirect-to-login';
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole';
 
-type ICountryPageProps = {
-  errorStatus: number | null
-  errorMessage: string | null
-}
-
-// TO_CHANGE
-export const getServerSideProps = withSessionSsr<ICountryPageProps>(
-  async ({ locale, req, res }) => {
-    const { user } = req.session
-
-    if (!user) {
-      redirectToLogin(res)
-      return {
-        props: {
-          errorStatus: null,
-          errorMessage: null,
-        }
-      }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'countries',
-    ])
-
-    if (user.role !== 'ADMIN') {
-      return {
-        props: {
-          ...translations,
-          errorStatus: 401,
-          errorMessage: "Insufficient Permissions",
-        },
-      }
-    }
-
-    return {
-      props: {
-        ...translations,
-        errorStatus: null,
-        errorMessage: null,
-      },
-    }
-  },
-)
+export const getServerSideProps = withSessionSsrRole(['common', 'countries'], ['ADMIN']);
 
 const initialFilters: CountriesFiltersDto = {
   isEuMember: false
 }
 
-const CountriesPage = ({ errorStatus, errorMessage }: ICountryPageProps) => {
+const CountriesPage = ({ errorStatus, errorMessage }: TSsrRole) => {
   const { t } = useTranslation();
   const router = useRouter();
 
