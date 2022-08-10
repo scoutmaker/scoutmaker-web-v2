@@ -3,32 +3,30 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Grid,
+  Grid
 } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { CardItemBasic } from '@/components/details-card-item'
-import { RegionIcon } from '@/components/icons'
+import { AgeCategoryIcon } from '@/components/icons'
+import { CompetitionAgeCategortyDto } from '@/modules/competition-age-categories/types'
 
-import { RegionDto } from './types'
-
-export const RegionDetailsCard = ({ region }: IRegionDetailsCard) => {
+export const CompetitionAgeCategoryDetailsCard = ({ data }: IDetailsCard) => {
   const { t } = useTranslation()
 
   const {
-    name,
-    country
-  } = region
+    name
+  } = data
 
   return (
     <Card sx={{ maxWidth: 700, margin: '0 auto' }}>
       <CardHeader
         avatar={
           <Avatar
-            aria-label="region icon"
+            aria-label="category icon"
             sx={{ backgroundColor: 'secondary.main', width: 50, height: 50 }}
           >
-            <RegionIcon />
+            <AgeCategoryIcon />
           </Avatar>
         }
         title={name}
@@ -40,16 +38,12 @@ export const RegionDetailsCard = ({ region }: IRegionDetailsCard) => {
             categ={t('NAME')}
             value={name}
           />
-          <CardItemBasic
-            categ={t('COUNTRY')}
-            value={country.name}
-          />
         </Grid>
       </CardContent>
     </Card>
   )
 }
 
-interface IRegionDetailsCard {
-  region: RegionDto
+interface IDetailsCard {
+  data: CompetitionAgeCategortyDto
 }

@@ -8,6 +8,7 @@ import { isAdmin, isPrivilegedUser } from '@/utils/user-roles'
 
 import {
   AdminIcon,
+  AgeCategoryIcon,
   ClubsIcon,
   CountryIcon,
   DatabaseIcon,
@@ -18,6 +19,7 @@ import {
   OrdersIcon,
   PlayersIcon,
   ProfileIcon,
+  RegionIcon,
   ReportsIcon,
   ReportTemplatesIcon,
   SeasonIcon,
@@ -127,6 +129,16 @@ export const NavList = () => {
             icon={<SeasonIcon color="error" />}
             to="/seasons"
             text={t('SEASONS')}
+          />
+          <NavElement
+            icon={<AgeCategoryIcon color="error" />}
+            to="/competition-age-categories"
+            text={t('COMPETITION_AGE_CATEGORIES')}
+          />
+          <NavElement
+            icon={<RegionIcon color="error" />}
+            to="/regions"
+            text={t('REGIONS')}
           />
         </ExpandeableNavElement>
       )}
