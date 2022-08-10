@@ -136,27 +136,3 @@ export async function unlikeDocument<ReturnType>(
   )
   return data
 }
-
-// set active document
-export async function setActiveDocument<ReturnType>(
-  id: number,
-  moduleName: TModuleName,
-): Promise<ApiResponse<ReturnType>> {
-  const { data } = await client.patch<ApiResponse<ReturnType>>(
-    `/${moduleName}/${id}/toggle-active`,
-    { isActive: true },
-  )
-  return data
-}
-
-// unset active document
-export async function unSetActiveDocument<ReturnType>(
-  id: number,
-  moduleName: TModuleName,
-): Promise<ApiResponse<ReturnType>> {
-  const { data } = await client.patch<ApiResponse<ReturnType>>(
-    `/${moduleName}/${id}/toggle-active`,
-    { isActive: false },
-  )
-  return data
-}

@@ -8,11 +8,12 @@ import {
   deleteDocument,
   getAssetById,
   getDataList,
-  setActiveDocument,
-  unSetActiveDocument,
   updateDocument,
 } from '@/services/api/methods/helpers'
 import { TModuleName } from '@/services/api/modules'
+
+import { client } from '../api'
+import { ApiResponse } from '../types'
 
 const moduleName: TModuleName = 'seasons'
 
@@ -35,7 +36,18 @@ export const getSeasonById = (id: number, token?: string) =>
   getAssetById<SeasonDto>({ moduleName, id, token })
 
 export const setActiveSeason = (id: number) =>
-  setActiveDocument<SeasonDto>(id, moduleName)
+  toggleActiveDocument<SeasonDto>(id, true)
 
 export const unSetActiveSeason = (id: number) =>
-  unSetActiveDocument<SeasonDto>(id, moduleName)
+  toggleActiveDocument<SeasonDto>(id, false)
+
+async function toggleActiveDocument<ReturnType>(
+  id: number,
+  activeState: boolean,
+): Promise<ApiResponse<ReturnType>> {
+  const { data } = await client.patch<ApiResponse<ReturnType>>(
+    `/${moduleName}/${id}/toggle-active`,
+    { isActive: activeState },
+  )
+  return data
+}
