@@ -18,6 +18,7 @@ import {
   LikeIcon,
   UnlikeIcon,
 } from '@/components/icons'
+import { RatingChip } from '@/components/rating-chip/rating-chip'
 import { StyledTableCell } from '@/components/tables/cell'
 import { CellWithLink } from '@/components/tables/cell-with-link'
 import { TableMenu } from '@/components/tables/menu'
@@ -150,7 +151,13 @@ export const NotesTableRow = ({
           <StyledTableCell>-</StyledTableCell>
         )}
         <StyledTableCell>{meta?.position?.name || '-'}</StyledTableCell>
-        <StyledTableCell>{percentageRating}%</StyledTableCell>
+        <StyledTableCell>
+          {percentageRating ? (
+            <RatingChip
+              rating={parseInt(((percentageRating * 4) / 100).toFixed())}
+            />
+          ) : null}
+        </StyledTableCell>
         {match ? (
           <CellWithLink
             href={`/matches/${match.id}`}
