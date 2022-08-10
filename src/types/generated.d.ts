@@ -516,6 +516,12 @@ declare namespace Components {
             match?: MatchBasicDataDto;
             author: UserBasicDataDto;
             likes: LikeNoteBasicDataDto[];
+            meta?: NoteMetaDto;
+        }
+        export interface NoteMetaDto {
+            id: number;
+            team: TeamBasicDataDto;
+            position: PlayerPositionDto;
         }
         export interface NotePaginatedDataDto {
             player?: PlayerSuperBasicDataDto;
@@ -530,6 +536,7 @@ declare namespace Components {
             match?: MatchBasicDataDto;
             author: UserBasicDataDto;
             likes: LikeNoteBasicDataDto[];
+            meta?: NoteMetaDto;
         }
         export interface NoteSuperBasicDataDto {
             id: number;

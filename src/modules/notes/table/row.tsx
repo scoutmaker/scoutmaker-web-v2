@@ -72,6 +72,7 @@ export const NotesTableRow = ({
     player,
     rating,
     shirtNo,
+    meta,
   } = data
 
   // sort by - player, position played, percentage rating, match, author, created at
@@ -148,7 +149,7 @@ export const NotesTableRow = ({
         ) : (
           <StyledTableCell>-</StyledTableCell>
         )}
-        <StyledTableCell>position (TODO)</StyledTableCell>
+        <StyledTableCell>{meta?.position?.name || '-'}</StyledTableCell>
         <StyledTableCell>{percentageRating}%</StyledTableCell>
         {match ? (
           <CellWithLink
@@ -171,8 +172,8 @@ export const NotesTableRow = ({
             <Box margin={1}>
               <Typography variant="h6" gutterBottom>
                 {`Nr ${shirtNo || 'N/A'}, ${
-                  player ? 'TODO: Position' : 'N/A'
-                } (${'TODO: klub' ? 'TODO: klub' : 'N/A'})`}
+                  meta?.position && meta.position.name
+                } (${meta?.team && meta.team.name})`}
               </Typography>
               <Typography gutterBottom variant="body2">
                 {description}
