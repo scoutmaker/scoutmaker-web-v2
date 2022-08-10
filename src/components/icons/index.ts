@@ -14,6 +14,7 @@ export {
   SouthAmerica as RegionIcon,
   Assessment as ReportsIcon,
   Create as ReportTemplatesIcon,
+  AccessTime as SeasonIcon,
   Settings as SettingsIcon,
   GroupWork as TeamsIcon,
   Person as UserDataIcon} from '@mui/icons-material'
