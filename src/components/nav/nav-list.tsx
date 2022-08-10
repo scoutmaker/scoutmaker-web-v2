@@ -8,6 +8,7 @@ import { isAdmin, isPrivilegedUser } from '@/utils/user-roles'
 
 import {
   AdminIcon,
+  AgeCategoryIcon,
   ClubsIcon,
   CountryIcon,
   DatabaseIcon,
@@ -122,6 +123,11 @@ export const NavList = () => {
             icon={<CountryIcon color="error" />}
             to="/countries"
             text={t('COUNTRIES')}
+          />
+          <NavElement
+            icon={<AgeCategoryIcon color="error" />}
+            to="/competition-age-categories"
+            text={t('COMPETITION_AGE_CATEGORIES')}
           />
           <NavElement
             icon={<RegionIcon color="error" />}
