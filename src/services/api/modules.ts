@@ -13,3 +13,5 @@ export type TModuleName =
   | 'matches'
   | 'seasons'
   | 'competition-age-categories'
+  | 'competition-junior-levels'
+  | 'competition-types'
