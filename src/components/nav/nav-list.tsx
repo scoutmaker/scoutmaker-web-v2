@@ -8,7 +8,9 @@ import { isAdmin, isPrivilegedUser } from '@/utils/user-roles'
 
 import {
   AdminIcon,
+  AgeCategoryIcon,
   ClubsIcon,
+  CountryIcon,
   DatabaseIcon,
   HomeIcon,
   MatchesIcon,
@@ -17,8 +19,10 @@ import {
   OrdersIcon,
   PlayersIcon,
   ProfileIcon,
+  RegionIcon,
   ReportsIcon,
   ReportTemplatesIcon,
+  SeasonIcon,
   SettingsIcon,
   TeamsIcon,
   UserDataIcon,
@@ -41,6 +45,7 @@ export const NavList = () => {
   const [isDatabaseListOpen, setDatabaseListOpen] = useState(false)
   const [isObservationListOpen, setObservationListOpen] = useState(false)
   const [isProfileListOpen, setProfileListOpen] = useState(false)
+  const [isAdminListOpen, setAdminListOpen] = useState(false)
 
   return (
     <StyledList>
@@ -107,13 +112,36 @@ export const NavList = () => {
       ) : null}
       {/* <MatchButton onClick={handleMatchClick} isAtTheMatch={isAtTheMatch} /> */}
       {/* <QuickNoteButton onClick={handleQuickNoteClick} /> */}
-      {isAdmin(user) ? (
-        <NavElement
+      {isAdmin(user) && (
+
+        <ExpandeableNavElement
           icon={<AdminIcon color="error" />}
-          to="/admin"
-          text={t('ADMIN_PANEL')}
-        />
-      ) : null}
+          handleClick={() => setAdminListOpen(!isAdminListOpen)}
+          open={isAdminListOpen}
+          title={t('ADMIN_PANEL')}
+        >
+          <NavElement
+            icon={<CountryIcon color="error" />}
+            to="/countries"
+            text={t('COUNTRIES')}
+          />
+          <NavElement
+            icon={<SeasonIcon color="error" />}
+            to="/seasons"
+            text={t('SEASONS')}
+          />
+          <NavElement
+            icon={<AgeCategoryIcon color="error" />}
+            to="/competition-age-categories"
+            text={t('COMPETITION_AGE_CATEGORIES')}
+          />
+          <NavElement
+            icon={<RegionIcon color="error" />}
+            to="/regions"
+            text={t('REGIONS')}
+          />
+        </ExpandeableNavElement>
+      )}
       <StyledDivider />
       <ExpandeableNavElement
         icon={<ProfileIcon color="error" />}

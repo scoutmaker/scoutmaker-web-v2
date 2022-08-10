@@ -80,6 +80,8 @@
   "COMPETITIONS": "Rozgrywki",
   "COMPETITION_GROUP": "Grupa rozgrywkowa",
   "COMPETITION_GROUPS": "Grupy rozgrywkowe",
+  "COMPETITION_AGE_CATEGORY": "Kategoria wiekowa rozgrywek",
+  "COMPETITION_AGE_CATEGORIES": "Kategorie wiekowe rozgrywek",
   "ONLY_LIKED": "Tylko polubione",
   "ADD_TO_FAVOURITES": "Dodaj do ulubionych",
   "REMOVE_FROM_FAVOURITES": "Usuń z ulubionych",
@@ -104,5 +106,6 @@
   "DATE": "Data",
   "RESULT": "Wynik",
   "VIDEO": "Video",
-  "VIDEO_URL": "Video URL"
+  "VIDEO_URL": "Video URL",
+  "NO_PERMISSIONS": "Nie posiadasz wymaganych uprawnień"
 }

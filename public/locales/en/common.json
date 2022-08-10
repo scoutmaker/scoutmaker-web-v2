@@ -34,7 +34,7 @@
   "REGIONS": "Regions",
   "CLUB": "Club",
   "CLUBS": "Clubs",
-  "SEASON": "Seasom",
+  "SEASON": "Season",
   "SEASONS": "Seasons",
   "TEAM": "Team",
   "PRIMARY_POSITION": "Primary position",
@@ -80,6 +80,8 @@
   "COMPETITIONS": "Competitions",
   "COMPETITION_GROUP": "Competition group",
   "COMPETITION_GROUPS": "Competition groups",
+  "COMPETITION_AGE_CATEGORY": "Competition age category",
+  "COMPETITION_AGE_CATEGORIES": "Competition age categories",
   "ONLY_LIKED": "Only liked",
   "ADD_TO_FAVOURITES": "Add to favourites",
   "REMOVE_FROM_FAVOURITES": "Remove from favourites",
@@ -104,5 +106,6 @@
   "DATE": "Date",
   "RESULT": "Result",
   "VIDEO": "Video",
-  "VIDEO_URL": "Video URL"
+  "VIDEO_URL": "Video URL",
+  "NO_PERMISSIONS": "Insufficient Permissions"
 }
