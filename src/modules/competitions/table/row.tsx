@@ -73,7 +73,7 @@ export const CompetitionsTableRow = ({
         </TableMenu>
       </StyledTableCell>
       <StyledTableCell>{name}</StyledTableCell>
-      <StyledTableCell>{gender}</StyledTableCell>
+      <StyledTableCell>{t(gender)}</StyledTableCell>
       <StyledTableCell>{type.name}</StyledTableCell>
       <StyledTableCell>{country.name}</StyledTableCell>
       <StyledTableCell>{level}</StyledTableCell>
