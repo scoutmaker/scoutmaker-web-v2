@@ -17,16 +17,15 @@ import { CompetitionsFiltersDto, CompetitionsSortBy } from '@/modules/competitio
 import { useCountriesList } from '@/modules/countries/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
-import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-// ADD EDIT DELETE ROLE VALIDATION
-export const getServerSideProps = withSessionSsrRole(['common', 'competitions'], false)
+export const getServerSideProps = withSessionSsrRole(['common', 'competitions'], ['ADMIN'])
 
 const initialFilters: CompetitionsFiltersDto = {
   name: '',
   ageCategoryId: 0,
   countryId: 0,
-  gender: 'MALE',
+  gender: undefined,
   juniorLevelId: 0,
   level: 0,
   typeId: 0
@@ -37,7 +36,7 @@ interface IToDeleteData {
   name: string
 }
 
-const CompetitionsPage = () => {
+const CompetitionsPage = ({ errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
   const router = useRouter()
 
@@ -96,7 +95,7 @@ const CompetitionsPage = () => {
   return (
     <>
       {isLoading && <Loader />}
-      <PageHeading title={t('competitions:INDEX_PAGE_TITLE')} // ADD_TRANS
+      <PageHeading title={t('competitions:INDEX_PAGE_TITLE')}
       />
       <CompetitionsFilterForm
         filters={filters}
@@ -133,15 +132,15 @@ const CompetitionsPage = () => {
                 setToDeleteData({ id: comp.id, name: comp.name })
                 setIsDeleteConfirmationModalOpen(true)
               }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
+              isEditOptionEnabled={!errorStatus}
+              isDeleteOptionEnabled={!errorStatus}
             />
           ))}
       </CompetitionsTable>
       <Fab href="/competitions/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}
-        message={t('competitions:DELETE_CONFIRM_QUESTION', { // ADD_TRANS
+        message={t('competitions:DELETE_CONFIRM_QUESTION', {
           name: toDeleteData?.name,
         })}
         handleAccept={() => {
