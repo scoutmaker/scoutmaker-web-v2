@@ -94,27 +94,27 @@ export const EditCompetitionForm = ({
               as={TextField}
               variant="outlined"
               fullWidth
-              label={t('LEVEL')} // ADD_TRANS
+              label={t('LEVEL')}
               error={touched.level && !!errors.level}
               helperText={touched.level && errors.level}
             />
             <CompetitionTypesCombo
               data={competitionTypesData}
               name='typeId'
-              label={t('COMPETITION_TYPE')} // ADD_TRANS
+              label={t('COMPETITION_TYPE')}
               error={touched.typeId && !!errors.typeId}
               helperText={touched.typeId ? errors.typeId : undefined}
             />
             <GendersCombo
               name='gender'
-              label={t('GENDER')} // ADD_TRANS
+              label={t('GENDER')}
               error={touched.gender && !!errors.gender}
               helperText={touched.gender ? errors.gender : undefined}
             />
             <CompetitionJuniorLevelsCombo
               name='juniorLevelId'
               data={competitionJuniorLevelsData}
-              label={t('COMPETITION_JUNIOR_LEVEL')} // ADD_TRANS
+              label={t('COMPETITION_JUNIOR_LEVEL')}
               error={touched.juniorLevelId && !!errors.juniorLevelId}
               helperText={touched.juniorLevelId ? errors.juniorLevelId : undefined}
             />

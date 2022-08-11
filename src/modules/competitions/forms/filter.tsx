@@ -61,12 +61,12 @@ export const CompetitionsFilterForm = ({
               as={TextField}
               variant="outlined"
               fullWidth
-              label={t('LEVEL')} // ADD_TRANS
+              label={t('LEVEL')}
               size="small"
             />
             <GendersCombo
               name='gender'
-              label={t('GENDER')} // ADD_TRANS
+              label={t('GENDER')}
             />
             <CountriesCombo
               name="countryId"
@@ -76,17 +76,17 @@ export const CompetitionsFilterForm = ({
             <CompetitionAgeCategoriesCombo
               name='ageCategoryId'
               data={competitionAgeCategoriesData}
-              label={t('COMPETITION_AGE_CATEGORY')} // ADD_TRANS
+              label={t('COMPETITION_AGE_CATEGORY')}
             />
             <CompetitionTypesCombo
               name='typeId'
               data={competitionTypesData}
-              label={t('COMPETITION_TYPE')} // ADD_TRANS
+              label={t('COMPETITION_TYPE')}
             />
             <CompetitionJuniorLevelsCombo
               name='juniorLevelId'
               data={competitionJuniorLevelsData}
-              label={t('COMPETITION_JUNIOR_LEVEL')} // ADD_TRANS
+              label={t('COMPETITION_JUNIOR_LEVEL')}
             />
             <FilterFormActions handleClearFilter={onClearFilters} />
           </Container>

@@ -43,8 +43,8 @@ export const CompetitionJuniorLevelsCombo = ({
           {...params}
           error={error}
           helperText={helperText}
-          label={label || t('COMPETITION_JUNIOR_LEVELS')} // ADD_TRANS
-          placeholder={label || t('COMPETITION_JUNIOR_LEVELS')} // ADD_TRANS
+          label={label || t('COMPETITION_JUNIOR_LEVELS')}
+          placeholder={label || t('COMPETITION_JUNIOR_LEVELS')}
         />
       )}
     />

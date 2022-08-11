@@ -24,8 +24,8 @@ export const GendersCombo = ({
       size={size}
       options={['MALE', 'FEMALE']}
       getOptionLabel={(option: string) => {
-        if (option === 'MALE') return t('MALE')// ADD_TRANS
-        return t('FEMALE')// ADD_TRANS
+        if (option === 'MALE') return t('MALE')
+        return t('FEMALE')
       }}
       filterSelectedOptions
       renderInput={(params: AutocompleteRenderInputParams) => (
@@ -34,7 +34,7 @@ export const GendersCombo = ({
           error={error}
           helperText={helperText}
           label={label || t('GENDERS')}
-          placeholder={label || t('GENDERS')} // ADD_TRANS
+          placeholder={label || t('GENDERS')}
         />
       )}
     />

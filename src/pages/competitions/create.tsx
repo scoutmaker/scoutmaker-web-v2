@@ -40,7 +40,7 @@ const CreateCompetitionPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   return (
     <>
       {isLoading && <Loader />}
-      <PageHeading title={t('competitions:CREATE_PAGE_TITLE')} // ADD_TRANS
+      <PageHeading title={t('competitions:CREATE_PAGE_TITLE')}
       />
       <CreateCompetitionForm
         onSubmit={createCompetition}

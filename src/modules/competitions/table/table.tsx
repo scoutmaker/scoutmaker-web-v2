@@ -11,12 +11,12 @@ interface ITableProps extends ICommonTableProps {
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
     { id: 'name', label: t('NAME') },
-    { id: 'gender', label: t('GENDER') },// ADD_TRANS
-    { id: 'type', label: t('COMPETITION_TYPE') },// ADD_TRANS
+    { id: 'gender', label: t('GENDER') },
+    { id: 'type', label: t('COMPETITION_TYPE') },
     { id: 'country', label: t('COUNTRY') },
-    { id: 'level', label: t('LEVEL') },// ADD_TRANS
+    { id: 'level', label: t('LEVEL') },
     { id: 'ageCategory', label: t('COMPETITION_AGE_CATEGORY') },
-    { id: 'juniorLevel', label: t('COMPETITION_JUNIOR_LEVEL') },// ADD_TRANS
+    { id: 'juniorLevel', label: t('COMPETITION_JUNIOR_LEVEL') },
   ]
 }
 

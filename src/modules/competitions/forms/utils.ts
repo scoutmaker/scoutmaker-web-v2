@@ -23,27 +23,28 @@ export const initialValues: CreateCompetitonDto = {
 export function generateCreateValidationSchema(t: TFunction) {
   return yup
     .object({
-      name: yup.string().required(t('competitions:NO_NAME_ERROR')), // ADD_TRANS
+      name: yup.string().required(t('competitions:NO_NAME_ERROR')),
       ageCategoryId: validateId({
         required: true,
-        message: t('competitions:NO_AGE_CATEGORY_ERROR'), // ADD_TRANS
+        message: t('competitions:NO_AGE_CATEGORY_ERROR'),
       }),
       countryId: validateId({
         required: true,
-        message: t('competitions:NO_COUNTRY_ERROR'), // ADD_TRANS
+        message: t('competitions:NO_COUNTRY_ERROR'),
       }),
-      level: yup.number().required(t('competitions:NO_LEVEL_ERROR')), // ADD_TRANS
+      level: yup.number().required(t('competitions:NO_LEVEL_ERROR')),
       typeId: validateId({
         required: true,
-        message: t('competitions:NO_TYPE_ERROR'), // ADD_TRANS
+        message: t('competitions:NO_TYPE_ERROR'),
       }),
       gender: yup
         .string()
         .oneOf(['MALE', 'FEMALE'])
-        .required(t('competitions:NO_GENDER_ERROR')), // ADD_TRANS
+        .nullable()
+        .required(t('competitions:NO_GENDER_ERROR')),
       juniorLevelId: validateId({
         required: true,
-        message: t('competitions:NO_JUNIOR_LEVEL_ERROR'), // ADD_TRANS
+        message: t('competitions:NO_JUNIOR_LEVEL_ERROR'),
       }),
     })
     .defined()

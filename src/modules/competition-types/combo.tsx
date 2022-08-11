@@ -43,7 +43,7 @@ export const CompetitionTypesCombo = ({
           {...params}
           error={error}
           helperText={helperText}
-          label={label || t('COMPETITON_TYPES')} // ADD_TRANS
+          label={label || t('COMPETITON_TYPES')}
           placeholder={label || t('COMPETITON_TYPES')}
         />
       )}
