@@ -23,10 +23,7 @@ export const GendersCombo = ({
       id={name}
       size={size}
       options={['MALE', 'FEMALE']}
-      getOptionLabel={(option: string) => {
-        if (option === 'MALE') return t('MALE')
-        return t('FEMALE')
-      }}
+      getOptionLabel={(option: string) => t(`${option}S`)}
       filterSelectedOptions
       renderInput={(params: AutocompleteRenderInputParams) => (
         <TextField
