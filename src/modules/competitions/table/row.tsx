@@ -45,7 +45,7 @@ export const CompetitionsTableRow = ({
     <StyledTableRow
       hover
       key={id}
-      onClick={isMenuOpen ? undefined : () => router.push(`/competitons/${id}`)}
+      onClick={isMenuOpen ? undefined : () => router.push(`/competitions/${id}`)}
     >
       <StyledTableCell padding="checkbox">
         <TableMenu
