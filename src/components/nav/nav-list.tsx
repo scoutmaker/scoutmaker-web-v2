@@ -10,6 +10,7 @@ import {
   AdminIcon,
   AgeCategoryIcon,
   ClubsIcon,
+  CompetitionIcon,
   CountryIcon,
   DatabaseIcon,
   HomeIcon,
@@ -78,6 +79,11 @@ export const NavList = () => {
           icon={<MatchesIcon color="error" />}
           to="/matches"
           text={t('MATCHES')}
+        />
+        <NavElement
+          icon={<CompetitionIcon color="error" />}
+          to="/competitions"
+          text={t('COMPETITIONS')}
         />
       </ExpandeableNavElement>
       <ExpandeableNavElement
