@@ -5,7 +5,7 @@ import { getCompetitionById } from '@/services/api/methods/competitions'
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-import { CompetitionDetailsCard } from './details-card'
+import { CompetitionDetailsCard } from '../../modules/competitions/details-card'
 
 export const getServerSideProps = withSessionSsrRole<CompetitionDto>(['common', 'competitions'], false,
   async (token, params) => {
