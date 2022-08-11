@@ -2,6 +2,7 @@ export {
   PermContactCalendar as AdminIcon,
   Category as AgeCategoryIcon,
   Security as ClubsIcon,
+  SportsMma as CompetitionIcon,
   Flag as CountryIcon,
   Storage as DatabaseIcon,
   Home as HomeIcon,
@@ -16,4 +17,5 @@ export {
   Create as ReportTemplatesIcon,
   Settings as SettingsIcon,
   GroupWork as TeamsIcon,
-  Person as UserDataIcon} from '@mui/icons-material'
+  Person as UserDataIcon,
+} from '@mui/icons-material'
