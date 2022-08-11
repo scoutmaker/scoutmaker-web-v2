@@ -82,6 +82,10 @@
   "COMPETITION_GROUPS": "Competition groups",
   "COMPETITION_AGE_CATEGORY": "Competition age category",
   "COMPETITION_AGE_CATEGORIES": "Competition age categories",
+  "COMPETITION_TYPE": "Competition type",
+  "COMPETITION_TYPES": "Competition types",
+  "COMPETITION_JUNIOR_LEVEL": "Junior level competition",
+  "COMPETITION_JUNIOR_LEVESL": "Junior level competitions",
   "ONLY_LIKED": "Only liked",
   "ADD_TO_FAVOURITES": "Add to favourites",
   "REMOVE_FROM_FAVOURITES": "Remove from favourites",
@@ -107,5 +111,10 @@
   "RESULT": "Result",
   "VIDEO": "Video",
   "VIDEO_URL": "Video URL",
-  "NO_PERMISSIONS": "Insufficient Permissions"
+  "NO_PERMISSIONS": "Insufficient Permissions",
+  "GENDER": "Gender",
+  "GENDERS": "Genders",
+  "MALE": "Male",
+  "FEMALE": "Female",
+  "LEVEL": "Level"
 }
