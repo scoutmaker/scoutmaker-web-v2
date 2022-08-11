@@ -116,5 +116,7 @@
   "GENDERS": "Genders",
   "MALE": "Male",
   "FEMALE": "Female",
+  "MALES": "Males",
+  "FEMALES": "Females",
   "LEVEL": "Level"
 }
