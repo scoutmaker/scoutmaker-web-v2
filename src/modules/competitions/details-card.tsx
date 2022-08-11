@@ -39,7 +39,7 @@ export const CompetitionDetailsCard = ({ comp }: IDetailsCard) => {
           <CardItemBasic categ={t('NAME')} value={name} />
           <CardItemBasic categ={t('COMPETITION_AGE_CATEGORY')} value={ageCategory.name} />
           <CardItemBasic categ={t('COUNTRY')} value={country.name} />
-          <CardItemBasic categ={t('GENDER')} value={gender} />
+          <CardItemBasic categ={t('GENDER')} value={t(`${gender}S`)} />
           <CardItemBasic categ={t('LEVEL')} value={level.toString()} />
           <CardItemBasic categ={t('COMPETITION_TYPE')} value={type.name} />
           <CardItemBasic categ={t('COMPETITION_JUNIOR_LEVEL')} value={juniorLevel?.name || ''} />
