@@ -17,6 +17,7 @@ import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { CreateNoteDto, UpdateNoteDto } from '../types'
+import { RatingInput } from './rating-input'
 
 interface IFieldsProps {
   playersData: PlayerBasicDataDto[]
@@ -39,7 +40,9 @@ export const Fields = ({
 }: IFieldsProps) => {
   const { t } = useTranslation()
 
-  const { touched, errors } = useFormikContext<CreateNoteDto | UpdateNoteDto>()
+  const { touched, errors, values } = useFormikContext<
+    CreateNoteDto | UpdateNoteDto
+  >()
 
   return (
     <>
@@ -79,7 +82,7 @@ export const Fields = ({
         error={touched.maxRatingScore && !!errors.maxRatingScore}
         helperText={touched.maxRatingScore && errors.maxRatingScore}
       />
-      {/* TODO: add rating */}
+      <RatingInput max={values.maxRatingScore || 4} value={values.rating} />
       <Field
         name="description"
         as={TextField}

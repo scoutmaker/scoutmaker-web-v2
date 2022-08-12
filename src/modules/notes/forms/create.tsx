@@ -47,7 +47,13 @@ export const CreateNoteForm = ({
       validationSchema={() => generateNoteFormValidationSchema()}
       enableReinitialize
       onSubmit={async (data, { resetForm }) => {
-        const dataToSubmit = filter(data, (_, value) => value)
+        const { rating, ...rest } = data
+        const parsedRating =
+          typeof rating === 'string' ? parseInt(rating) : rating
+        const dataToSubmit = filter(
+          { ...rest, rating: parsedRating },
+          (_, value) => value,
+        )
         onSubmit(dataToSubmit as CreatePlayerDto)
         resetForm()
       }}
