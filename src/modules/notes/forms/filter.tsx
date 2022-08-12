@@ -10,13 +10,12 @@ import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { CompetitionsCombo } from '@/modules/competitions/combo'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { CountriesCombo } from '@/modules/countries/combo'
-import { CountryDto } from '@/modules/countries/types'
+import { MatchesCombo } from '@/modules/matches/combo'
 import { MatchBasicDataDto } from '@/modules/matches/types'
 import { PlayersPositionCombo } from '@/modules/player-positions/combo'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
-import { FootedSelect } from '@/modules/players/footed-select'
-import { PlayerBasicDataDto, PlayersFiltersDto } from '@/modules/players/types'
+import { PlayersCombo } from '@/modules/players/combo'
+import { PlayerBasicDataDto } from '@/modules/players/types'
 import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
@@ -61,7 +60,12 @@ export const NotesFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <Container>
-            {/* player combo */}
+            <PlayersCombo
+              name="playerIds"
+              data={playersData}
+              label={t('PLAYERS')}
+              multiple
+            />
             <PlayersPositionCombo
               name="positionIds"
               data={positionsData}
@@ -74,7 +78,12 @@ export const NotesFilterForm = ({
               label={t('TEAMS')}
               multiple
             />
-            {/* match combo */}
+            <MatchesCombo
+              data={matchesData}
+              name="matchIds"
+              label={t('MATCHES')}
+              multiple
+            />
             <CompetitionsCombo
               name="competitionIds"
               data={competitionsData}
