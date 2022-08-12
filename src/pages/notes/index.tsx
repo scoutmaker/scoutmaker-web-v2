@@ -11,10 +11,15 @@ import { withSessionSsr } from '@/modules/auth/session'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { MatchesFilterForm } from '@/modules/matches/forms/filter'
-import { useDeleteMatch, useMatches } from '@/modules/matches/hooks'
+import {
+  useDeleteMatch,
+  useMatches,
+  useMatchesList,
+} from '@/modules/matches/hooks'
 import { MatchesTableRow } from '@/modules/matches/table/row'
 import { MatchesTable } from '@/modules/matches/table/table'
 import { MatchesFiltersDto, MatchesSortBy } from '@/modules/matches/types'
+import { NotesFilterForm } from '@/modules/notes/forms/filter'
 import {
   useDeleteNote,
   useLikeNote,
@@ -24,6 +29,8 @@ import {
 import { NotesTableRow } from '@/modules/notes/table/row'
 import { NotesTable } from '@/modules/notes/table/table'
 import { NotesFiltersDto, NotesSortBy } from '@/modules/notes/types'
+import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
+import { usePlayersList } from '@/modules/players/hooks'
 import { useSeasonsList } from '@/modules/seasons/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
@@ -96,12 +103,15 @@ const NotesPage = () => {
     handleChangePage(null, 0)
   }
 
-  // const { data: teams, isLoading: teamsLoading } = useTeamsList()
-  // const { data: competitions, isLoading: competitionsLoading } =
-  //   useCompetitionsList()
-  // const { data: competitionGroups, isLoading: competitionGroupsLoading } =
-  //   useCompetitionGroupsList()
-  // const { data: seasons, isLoading: seasonsLoading } = useSeasonsList()
+  const { data: teams, isLoading: teamsLoading } = useTeamsList()
+  const { data: competitions, isLoading: competitionsLoading } =
+    useCompetitionsList()
+  const { data: competitionGroups, isLoading: competitionGroupsLoading } =
+    useCompetitionGroupsList()
+  const { data: matches, isLoading: matchesLoading } = useMatchesList()
+  const { data: players, isLoading: playersLoading } = usePlayersList()
+  const { data: positions, isLoading: positionsLoading } =
+    usePlayerPositionsList()
 
   const { data: notes, isLoading: notesLoading } = useNotes({
     page: page + 1,
@@ -116,26 +126,32 @@ const NotesPage = () => {
   const { mutate: unlikeNote, isLoading: unlikeNoteLoading } = useUnlikeNote()
 
   const isLoading =
-    // teamsLoading ||
-    // competitionsLoading ||
-    // competitionGroupsLoading ||
+    teamsLoading ||
+    competitionsLoading ||
+    competitionGroupsLoading ||
     notesLoading ||
-    // seasonsLoading ||
-    deleteNoteLoading
+    deleteNoteLoading ||
+    matchesLoading ||
+    playersLoading ||
+    positionsLoading ||
+    likeNoteLoading ||
+    unlikeNoteLoading
 
   return (
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('notes:INDEX_PAGE_TITLE')} />
-      {/* <MatchesFilterForm
+      <NotesFilterForm
         filters={filters}
+        matchesData={matches || []}
+        playersData={players || []}
+        positionsData={positions || []}
         teamsData={teams || []}
         competitionsData={competitions || []}
         competitionGroupsData={competitionGroups || []}
-        seasonsData={seasons || []}
         onFilter={handleSetFilters}
         onClearFilters={() => handleSetFilters(initialFilters)}
-      /> */}
+      />
       <NotesTable
         page={page}
         rowsPerPage={rowsPerPage}
