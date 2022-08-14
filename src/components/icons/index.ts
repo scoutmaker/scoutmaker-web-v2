@@ -1,6 +1,7 @@
 export {
   PermContactCalendar as AdminIcon,
   Category as AgeCategoryIcon,
+  SportsSoccer as BallIcon,
   Security as ClubsIcon,
   Flag as CountryIcon,
   Storage as DatabaseIcon,

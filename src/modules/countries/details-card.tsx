@@ -1,13 +1,7 @@
-import {
-  Avatar,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid
-} from '@mui/material'
+import { Avatar, Card, CardContent, CardHeader, Grid } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { CardItemBasic } from '@/components/details-card-item'
+import { CardItemBasic } from '@/components/details-card/details-card-item'
 import { CountryIcon } from '@/components/icons'
 
 import { CountryDto } from './types'
@@ -15,11 +9,7 @@ import { CountryDto } from './types'
 export const CountryDetailsCard = ({ country }: ICountryDetailsCard) => {
   const { t } = useTranslation()
 
-  const {
-    name,
-    code,
-    isEuMember
-  } = country
+  const { name, code, isEuMember } = country
 
   return (
     <Card sx={{ maxWidth: 700, margin: '0 auto' }}>
@@ -37,16 +27,10 @@ export const CountryDetailsCard = ({ country }: ICountryDetailsCard) => {
       />
       <CardContent>
         <Grid container spacing={1}>
+          <CardItemBasic title={t('NAME')} value={name} />
+          <CardItemBasic title={t('countries:CODE')} value={code} />
           <CardItemBasic
-            categ={t('NAME')}
-            value={name}
-          />
-          <CardItemBasic
-            categ={t('countries:CODE')}
-            value={code}
-          />
-          <CardItemBasic
-            categ={t('countries:IS_EU_MEMBER')}
+            title={t('countries:IS_EU_MEMBER')}
             value={isEuMember ? t('YES') : t('NO')}
           />
         </Grid>
@@ -58,4 +42,3 @@ export const CountryDetailsCard = ({ country }: ICountryDetailsCard) => {
 interface ICountryDetailsCard {
   country: CountryDto
 }
-

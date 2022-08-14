@@ -14,7 +14,7 @@ import { MatchesIcon } from '@/components/icons'
 import { formatDate } from '@/utils/format-date'
 
 import { MatchDto } from './types'
-import { getResult } from './utils'
+import { getMatchResult } from './utils'
 
 type IMatchDetailsCard = {
   match: MatchDto
@@ -77,7 +77,7 @@ export const MatchDetailsCard = ({ match }: IMatchDetailsCard) => {
           <Grid item xs={12}>
             <Typography>
               <strong>{t('RESULT')}: </strong>
-              {getResult(homeGoals, awayGoals)}
+              {getMatchResult(homeGoals, awayGoals)}
             </Typography>
           </Grid>
           <Grid item xs={12}>

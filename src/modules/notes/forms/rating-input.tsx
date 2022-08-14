@@ -1,8 +1,9 @@
-import { SportsSoccer as BallIcon } from '@mui/icons-material'
 import { Rating, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { useField } from 'formik'
 import { useTranslation } from 'next-i18next'
+
+import { BallIcon } from '@/components/icons'
 
 const StyledContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -39,14 +40,3 @@ export const RatingInput = ({ max, value }: IRatingInputProps) => {
     </StyledContainer>
   )
 }
-
-// const useStyles = makeStyles((theme: Theme) => ({
-//   container: {
-//     display: 'flex',
-//     alignItems: 'center',
-//     gap: `${theme.spacing(1)}px`,
-//   },
-//   title: {
-//     fontWeight: 'bold',
-//   },
-// }));

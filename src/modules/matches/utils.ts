@@ -1,16 +1,29 @@
-import { TeamBasicDataDto } from '../teams/types'
+import { Routes } from '@/utils/routes'
 
-export function getDisplayName(
-  homeTeam: TeamBasicDataDto,
-  awayTeam: TeamBasicDataDto,
-) {
-  return `${homeTeam.name} vs. ${awayTeam.name}`
+interface IGetMatchDisplayNameArgs {
+  homeTeamName: string
+  awayTeamName: string
+  competitionName?: string
 }
 
-export function getResult(homeGoals?: number, awayGoals?: number) {
+export function getMatchDisplayName({
+  homeTeamName,
+  awayTeamName,
+  competitionName,
+}: IGetMatchDisplayNameArgs) {
+  return `${homeTeamName} vs. ${awayTeamName}${
+    competitionName ? ` (${competitionName})` : ''
+  }`
+}
+
+export function getMatchResult(homeGoals?: number, awayGoals?: number) {
   if (!homeGoals || !awayGoals) {
     return ''
   }
 
   return `${homeGoals}:${awayGoals}`
+}
+
+export function getSingleMatchRoute(id: number) {
+  return `${Routes.MATCHES}/${id}`
 }

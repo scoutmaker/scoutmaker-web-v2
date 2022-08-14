@@ -10,7 +10,7 @@ import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { EditMatchForm } from '@/modules/matches/forms/edit'
 import { useUpdateMatch } from '@/modules/matches/hooks'
 import { MatchDto } from '@/modules/matches/types'
-import { getDisplayName } from '@/modules/matches/utils'
+import { getMatchDisplayName } from '@/modules/matches/utils'
 import { useSeasonsList } from '@/modules/seasons/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { getMatchById } from '@/services/api/methods/matches'
@@ -106,7 +106,7 @@ const EditMatchPage = ({
         {isLoading && <Loader />}
         <PageHeading
           title={t('players:EDIT_PLAYER_PAGE_TITLE', {
-            name: getDisplayName(match.homeTeam, match.awayTeam),
+            name: getMatchDisplayName(match.homeTeam, match.awayTeam),
           })}
         />
         <EditMatchForm

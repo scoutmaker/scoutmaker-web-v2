@@ -24,7 +24,7 @@ import { CellWithLink } from '@/components/tables/cell-with-link'
 import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
 import { StyledTableRow } from '@/components/tables/row'
-import { getDisplayName } from '@/modules/matches/utils'
+import { getMatchDisplayName } from '@/modules/matches/utils'
 import { formatDate } from '@/utils/format-date'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
@@ -157,7 +157,7 @@ export const NotesTableRow = ({
         {match ? (
           <CellWithLink
             href={`/matches/${match.id}`}
-            label={getDisplayName(match.homeTeam, match.awayTeam)}
+            label={getMatchDisplayName(match.homeTeam, match.awayTeam)}
           />
         ) : (
           <StyledTableCell>-</StyledTableCell>
