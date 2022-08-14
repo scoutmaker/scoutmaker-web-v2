@@ -6,6 +6,7 @@ export {
   Storage as DatabaseIcon,
   Delete as DeleteIcon,
   Edit as EditIcon,
+  ExpandMore as ExpandMoreIcon,
   Home as HomeIcon,
   KeyboardArrowDown as KeyboardArrowDownIcon,
   KeyboardArrowUp as KeyboardArrowUpIcon,

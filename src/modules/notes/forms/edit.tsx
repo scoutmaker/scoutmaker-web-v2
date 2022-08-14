@@ -64,7 +64,6 @@ export const EditNoteForm = ({
           initialValues,
           filter({ ...rest, rating: parsedRating }, (_, value) => value),
         )
-        console.log({ dataToSubmit })
         onSubmit(dataToSubmit)
       }}
     >

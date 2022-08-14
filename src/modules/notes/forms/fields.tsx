@@ -1,8 +1,16 @@
-import { TextField, Typography } from '@mui/material'
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  TextField,
+  Typography,
+} from '@mui/material'
+import { styled } from '@mui/material/styles'
 import { Field, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
+import { ExpandMoreIcon } from '@/components/icons'
 import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { CompetitionsCombo } from '@/modules/competitions/combo'
@@ -18,6 +26,13 @@ import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { CreateNoteDto, UpdateNoteDto } from '../types'
 import { RatingInput } from './rating-input'
+
+export const AccordionInnerContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  margin: theme.spacing(0, 'auto', 2),
+  gap: theme.spacing(2),
+}))
 
 interface IFieldsProps {
   playersData: PlayerBasicDataDto[]
@@ -91,40 +106,56 @@ export const Fields = ({
         error={touched.description && !!errors.description}
         helperText={touched.description && errors.description}
       />
-      <Typography variant="h3">{t('META_DATA')}</Typography>
-      <Typography>{t('notes:META_DATA_DISCLAIMER')}</Typography>
-      <PlayersPositionCombo
-        data={positionsData}
-        name="positionPlayedId"
-        label={t('PLAYER_POSITION')}
-        error={touched.positionPlayedId && !!errors.positionPlayedId}
-        helperText={
-          touched.positionPlayedId ? errors.positionPlayedId : undefined
-        }
-      />
-      <TeamsCombo
-        data={teamsData}
-        name="teamId"
-        label={t('TEAM')}
-        error={touched.teamId && !!errors.teamId}
-        helperText={touched.teamId ? errors.teamId : undefined}
-      />
-      <CompetitionsCombo
-        data={competitionsData}
-        name="competitionId"
-        label={t('COMPETITION')}
-        error={touched.competitionId && !!errors.competitionId}
-        helperText={touched.competitionId ? errors.competitionId : undefined}
-      />
-      <CompetitionGroupsCombo
-        data={competitionGroupsData}
-        name="competitionGroupId"
-        label={t('COMPETITION_GROUP')}
-        error={touched.competitionGroupId && !!errors.competitionGroupId}
-        helperText={
-          touched.competitionGroupId ? errors.competitionGroupId : undefined
-        }
-      />
+      <Accordion sx={{ background: 'none' }}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="meta-data-fields-content"
+          id="meta-data-fields-header"
+        >
+          <Typography sx={{ fontWeight: 'bold' }}>{t('META_DATA')}</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <AccordionInnerContainer>
+            <Typography>{t('notes:META_DATA_DISCLAIMER')}</Typography>
+            <PlayersPositionCombo
+              data={positionsData}
+              name="positionPlayedId"
+              label={t('PLAYER_POSITION')}
+              error={touched.positionPlayedId && !!errors.positionPlayedId}
+              helperText={
+                touched.positionPlayedId ? errors.positionPlayedId : undefined
+              }
+            />
+            <TeamsCombo
+              data={teamsData}
+              name="teamId"
+              label={t('TEAM')}
+              error={touched.teamId && !!errors.teamId}
+              helperText={touched.teamId ? errors.teamId : undefined}
+            />
+            <CompetitionsCombo
+              data={competitionsData}
+              name="competitionId"
+              label={t('COMPETITION')}
+              error={touched.competitionId && !!errors.competitionId}
+              helperText={
+                touched.competitionId ? errors.competitionId : undefined
+              }
+            />
+            <CompetitionGroupsCombo
+              data={competitionGroupsData}
+              name="competitionGroupId"
+              label={t('COMPETITION_GROUP')}
+              error={touched.competitionGroupId && !!errors.competitionGroupId}
+              helperText={
+                touched.competitionGroupId
+                  ? errors.competitionGroupId
+                  : undefined
+              }
+            />
+          </AccordionInnerContainer>
+        </AccordionDetails>
+      </Accordion>
     </>
   )
 }
