@@ -1,5 +1,5 @@
 import { TextField, Typography } from '@mui/material'
-import { Field, FormikErrors, FormikTouched, useFormikContext } from 'formik'
+import { Field, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
@@ -26,7 +26,6 @@ interface IFieldsProps {
   teamsData: TeamBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
-  editForm?: boolean
 }
 
 export const Fields = ({
@@ -36,7 +35,6 @@ export const Fields = ({
   competitionsData,
   competitionGroupsData,
   teamsData,
-  editForm,
 }: IFieldsProps) => {
   const { t } = useTranslation()
 

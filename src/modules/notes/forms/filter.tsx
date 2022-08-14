@@ -106,7 +106,7 @@ export const NotesFilterForm = ({
                   fullWidth
                   label={t('PERCENTAGE_RATING_RANGE_START')}
                   size="small"
-                  inputProps={{ min: 0, max: 100 }}
+                  inputProps={{ min: 0, max: 100, pattern: '/d+', step: 1 }}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -118,7 +118,7 @@ export const NotesFilterForm = ({
                   fullWidth
                   label={t('PERCENTAGE_RATING_RANGE_END')}
                   size="small"
-                  inputProps={{ min: 0, max: 100 }}
+                  inputProps={{ min: 0, max: 100, pattern: '/d+', step: 1 }}
                 />
               </Grid>
             </Grid>
@@ -132,7 +132,7 @@ export const NotesFilterForm = ({
                   fullWidth
                   label={t('BORN_AFTER')}
                   size="small"
-                  inputProps={{ min: 1980, max: 2020 }}
+                  inputProps={{ min: 1980, max: 2020, pattern: '/d+', step: 1 }}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -144,7 +144,7 @@ export const NotesFilterForm = ({
                   fullWidth
                   label={t('BORN_BEFORE')}
                   size="small"
-                  inputProps={{ min: 1980, max: 2020 }}
+                  inputProps={{ min: 1980, max: 2020, pattern: '/d+', step: 1 }}
                 />
               </Grid>
             </Grid>

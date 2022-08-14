@@ -68,15 +68,11 @@ export const NotesTableRow = ({
     likes,
     description,
     match,
-    maxRatingScore,
     percentageRating,
     player,
-    rating,
     shirtNo,
     meta,
   } = data
-
-  // sort by - player, position played, percentage rating, match, author, created at
 
   return (
     <>

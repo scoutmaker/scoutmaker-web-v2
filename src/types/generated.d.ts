@@ -501,11 +501,9 @@ declare namespace Components {
             rating?: number;
             createdAt: string; // date-time
             shirtNo?: number;
-            docNumber: number;
         }
         export interface NoteDto {
             id: number;
-            docNumber: number;
             shirtNo?: number;
             description?: string;
             maxRatingScore?: number;
@@ -518,15 +516,22 @@ declare namespace Components {
             likes: LikeNoteBasicDataDto[];
             meta?: NoteMetaDto;
         }
-        export interface NoteMetaDto {
+        export interface NoteMetaBasicDataDto {
             id: number;
             team: TeamBasicDataDto;
             position: PlayerPositionDto;
         }
+        export interface NoteMetaDto {
+            id: number;
+            team: TeamBasicDataDto;
+            position: PlayerPositionDto;
+            competition: CompetitionBasicDataDto;
+            competitionGroup: CompetitionGroupBasicDataDto;
+        }
         export interface NotePaginatedDataDto {
             player?: PlayerSuperBasicDataDto;
+            meta?: NoteMetaBasicDataDto;
             id: number;
-            docNumber: number;
             shirtNo?: number;
             description?: string;
             maxRatingScore?: number;
@@ -536,11 +541,9 @@ declare namespace Components {
             match?: MatchBasicDataDto;
             author: UserBasicDataDto;
             likes: LikeNoteBasicDataDto[];
-            meta?: NoteMetaDto;
         }
         export interface NoteSuperBasicDataDto {
             id: number;
-            docNumber: number;
             createdAt: string; // date-time
         }
         export interface OrderBasicDataDto {
@@ -548,6 +551,9 @@ declare namespace Components {
             id: number;
             docNumber: number;
             match?: MatchBasicDataDto;
+        }
+        export interface OrderCount {
+            reports: number;
         }
         export interface OrderDto {
             id: number;
@@ -559,8 +565,9 @@ declare namespace Components {
             createdAt: string; // date-time
             author: UserBasicDataDto;
             scout?: UserBasicDataDto;
-            player?: PlayerBasicDataWithoutTeamsDto;
+            player?: PlayerBasicDataDto;
             match?: MatchBasicDataDto;
+            _count: OrderCount;
         }
         export interface OrganizationBasicDataDto {
             id: number;

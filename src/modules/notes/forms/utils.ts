@@ -38,7 +38,6 @@ export function getInitialStateFromCurrent(note: NoteDto): UpdateNoteDto {
     id,
     author,
     createdAt,
-    docNumber,
     likes,
     match,
     meta,
@@ -51,11 +50,10 @@ export function getInitialStateFromCurrent(note: NoteDto): UpdateNoteDto {
 
   return {
     ...mappedRest,
-    // TODO: adjust response
-    // competitionGroupId: meta.
-    // competitionId: meta.
-    // positionPlayedId: meta.
-    // teamId: meta.
+    competitionGroupId: meta?.competitionGroup?.id,
+    competitionId: meta?.competition?.id,
+    positionPlayedId: meta?.position?.id,
+    teamId: meta?.team?.id,
     matchId: match?.id,
     playerId: player?.id,
   }
