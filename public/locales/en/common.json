@@ -118,5 +118,7 @@
   "FEMALE": "Female",
   "MALES": "Males",
   "FEMALES": "Females",
-  "LEVEL": "Level"
+  "LEVEL": "Level",
+  "MALESHORT": "M",
+  "FEMALESHORT": "F"
 }

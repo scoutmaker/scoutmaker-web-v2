@@ -118,5 +118,7 @@
   "FEMALE": "Kobieta",
   "MALES": "Mężczyźni",
   "FEMALES": "Kobiety",
-  "LEVEL": "Poziom"
+  "LEVEL": "Poziom",
+  "MALESHORT": "M",
+  "FEMALESHORT": "K"
 }
