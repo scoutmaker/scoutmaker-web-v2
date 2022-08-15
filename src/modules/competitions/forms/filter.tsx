@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
-import { CompetitionAgeCategoriesCombo } from '@/modules/competition-age-categories/combot'
+import { CompetitionAgeCategoriesCombo } from '@/modules/competition-age-categories/combo'
 import { CompetitionAgeCategortyDto } from '@/modules/competition-age-categories/types'
 import { CompetitionJuniorLevelsCombo } from '@/modules/competition-junior-levels/combo'
 import { CompetitionJuniorLevelDto } from '@/modules/competition-junior-levels/types'
