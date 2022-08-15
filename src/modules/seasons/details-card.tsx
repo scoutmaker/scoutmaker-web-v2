@@ -2,23 +2,25 @@ import { Avatar, Card, CardContent, CardHeader, Grid } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { CardItemBasic } from '@/components/details-card/details-card-item'
-import { AgeCategoryIcon } from '@/components/icons'
-import { CompetitionAgeCategortyDto } from '@/modules/competition-age-categories/types'
+import { SeasonIcon } from '@/components/icons'
+import { formatDate } from '@/utils/format-date'
 
-export const CompetitionAgeCategoryDetailsCard = ({ data }: IDetailsCard) => {
+import { SeasonDto } from './types'
+
+export const SeasonDetailsCard = ({ season }: IDetailsCard) => {
   const { t } = useTranslation()
 
-  const { name } = data
+  const { name, endDate, startDate, isActive } = season
 
   return (
     <Card sx={{ maxWidth: 700, margin: '0 auto' }}>
       <CardHeader
         avatar={
           <Avatar
-            aria-label="category icon"
+            aria-label="season icon"
             sx={{ backgroundColor: 'secondary.main', width: 50, height: 50 }}
           >
-            <AgeCategoryIcon />
+            <SeasonIcon />
           </Avatar>
         }
         title={name}
@@ -27,6 +29,18 @@ export const CompetitionAgeCategoryDetailsCard = ({ data }: IDetailsCard) => {
       <CardContent>
         <Grid container spacing={1}>
           <CardItemBasic title={t('NAME')} value={name} />
+          <CardItemBasic
+            title={t('seasons:START_DATE')}
+            value={formatDate(startDate)}
+          />
+          <CardItemBasic
+            title={t('seasons:END_DATE')}
+            value={formatDate(endDate)}
+          />
+          <CardItemBasic
+            title={t('seasons:IS_ACTIVE')}
+            value={isActive ? t('YES') : t('NO')}
+          />
         </Grid>
       </CardContent>
     </Card>
@@ -34,5 +48,5 @@ export const CompetitionAgeCategoryDetailsCard = ({ data }: IDetailsCard) => {
 }
 
 interface IDetailsCard {
-  data: CompetitionAgeCategortyDto
+  season: SeasonDto
 }

@@ -15,3 +15,4 @@ export type TModuleName =
   | 'competition-age-categories'
   | 'competition-junior-levels'
   | 'competition-types'
+  | 'notes'
