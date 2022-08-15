@@ -32,7 +32,11 @@ export function generateCreateValidationSchema(t: TFunction) {
         required: true,
         message: t('competitions:NO_COUNTRY_ERROR'),
       }),
-      level: yup.number().required(t('competitions:NO_LEVEL_ERROR')),
+      level: yup
+        .number()
+        .min(1)
+        .max(15)
+        .required(t('competitions:NO_LEVEL_ERROR')),
       typeId: validateId({
         required: true,
         message: t('competitions:NO_TYPE_ERROR'),
@@ -43,7 +47,6 @@ export function generateCreateValidationSchema(t: TFunction) {
         .nullable()
         .required(t('competitions:NO_GENDER_ERROR')),
       juniorLevelId: validateId({
-        required: true,
         message: t('competitions:NO_JUNIOR_LEVEL_ERROR'),
       }),
     })
@@ -55,7 +58,7 @@ export function generateUpdateValidationSchema() {
     name: yup.string().notRequired(),
     ageCategoryId: validateId(),
     countryId: validateId(),
-    level: yup.number().notRequired(),
+    level: yup.number().min(1).max(15).notRequired(),
     typeId: validateId(),
     gender: yup.string().oneOf(['MALE', 'FEMALE']).notRequired(),
     juniorLevelId: validateId(),
