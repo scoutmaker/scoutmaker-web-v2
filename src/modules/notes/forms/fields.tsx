@@ -73,7 +73,7 @@ export const Fields = ({
         inputProps={{ min: 1, max: 99 }}
         variant="outlined"
         fullWidth
-        label={t('SHIRT_NUMBER')}
+        label={t('SHIRT_NO')}
         error={touched.shirtNo && !!errors.shirtNo}
         helperText={touched.shirtNo && errors.shirtNo}
       />
@@ -102,7 +102,7 @@ export const Fields = ({
         variant="outlined"
         fullWidth
         multiline
-        label={t('DESCRIPTION')}
+        label={t('TEXT')}
         error={touched.description && !!errors.description}
         helperText={touched.description && errors.description}
       />

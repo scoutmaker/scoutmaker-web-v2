@@ -153,7 +153,7 @@ export const NotesFilterForm = ({
                 component={CheckboxWithLabel}
                 type="checkbox"
                 name="isLiked"
-                Label={{ label: t('players:LIKED_ONLY') }}
+                Label={{ label: t('notes:LIKED_ONLY') }}
               />
             </StyledCheckboxContainer>
             <FilterFormActions handleClearFilter={onClearFilters} />

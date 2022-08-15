@@ -24,7 +24,11 @@ import { CellWithLink } from '@/components/tables/cell-with-link'
 import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
 import { StyledTableRow } from '@/components/tables/row'
-import { getMatchDisplayName } from '@/modules/matches/utils'
+import {
+  getMatchDisplayName,
+  getSingleMatchRoute,
+} from '@/modules/matches/utils'
+import { getSinglePlayerRoute } from '@/modules/players/utils'
 import { formatDate } from '@/utils/format-date'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
@@ -140,7 +144,7 @@ export const NotesTableRow = ({
         </StyledTableCell>
         {player ? (
           <CellWithLink
-            href={`/players/${player.slug}`}
+            href={getSinglePlayerRoute(player.slug)}
             label={`${player.firstName} ${player.lastName}`}
           />
         ) : (
@@ -156,8 +160,11 @@ export const NotesTableRow = ({
         </StyledTableCell>
         {match ? (
           <CellWithLink
-            href={`/matches/${match.id}`}
-            label={getMatchDisplayName(match.homeTeam, match.awayTeam)}
+            href={getSingleMatchRoute(match.id)}
+            label={getMatchDisplayName({
+              homeTeamName: match.homeTeam.name,
+              awayTeamName: match.awayTeam.name,
+            })}
           />
         ) : (
           <StyledTableCell>-</StyledTableCell>

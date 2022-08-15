@@ -74,7 +74,7 @@ const NotePage = ({ note, errorMessage, errorStatus }: TNotePageProps) => {
   if (note) {
     return (
       <>
-        <PageHeading title={t('NOTE_DETAILS')} />
+        <PageHeading title={t('notes:NOTE_DETAILS')} />
         <NoteDetailsCard note={note} />
       </>
     )

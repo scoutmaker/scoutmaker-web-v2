@@ -11,6 +11,7 @@ import { useMatchesList } from '@/modules/matches/hooks'
 import { EditNoteForm } from '@/modules/notes/forms/edit'
 import { useUpdateNote } from '@/modules/notes/hooks'
 import { NoteDto } from '@/modules/notes/types'
+import { getNoteNumber } from '@/modules/notes/utils'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
@@ -112,7 +113,7 @@ const EditNotePage = ({
         {isLoading && <Loader />}
         <PageHeading
           title={t('notes:EDIT_NOTE_PAGE_TITLE', {
-            name: note.id,
+            number: getNoteNumber({ id: note.id, createdAt: note.createdAt }),
           })}
         />
         <EditNoteForm

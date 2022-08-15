@@ -16,13 +16,14 @@ import { getMatchDisplayName, getSingleMatchRoute } from '../matches/utils'
 import { getPlayerFullName, getSinglePlayerRoute } from '../players/utils'
 import { getSingleTeamRoute } from '../teams/utils'
 import { NoteDto } from './types'
+import { getNoteNumber } from './utils'
 
 interface INoteDetailsCard {
   note: NoteDto
 }
 
 export const NoteDetailsCard = ({ note }: INoteDetailsCard) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'notes'])
 
   const {
     id,
@@ -49,8 +50,8 @@ export const NoteDetailsCard = ({ note }: INoteDetailsCard) => {
             <NotesIcon />
           </Avatar>
         }
-        title={t('NOTE_DETAILS_TITLE', {
-          number: `${id}/${new Date(createdAt).getFullYear}`,
+        title={t('notes:NOTE_DETAILS_TITLE', {
+          number: getNoteNumber({ id, createdAt }),
         })}
         subheader={`${t('AUTHOR')}: ${author.firstName} ${author.lastName}`}
         titleTypographyProps={{ variant: 'h3' }}
@@ -63,7 +64,7 @@ export const NoteDetailsCard = ({ note }: INoteDetailsCard) => {
             href={player ? getSinglePlayerRoute(player.slug) : undefined}
           />
           <CardItemBasic
-            title={t('notes:TEAM')}
+            title={t('TEAM')}
             value={meta?.team?.name || '-'}
             href={meta?.team ? getSingleTeamRoute(meta.team.slug) : undefined}
           />
@@ -81,17 +82,14 @@ export const NoteDetailsCard = ({ note }: INoteDetailsCard) => {
             href={match ? getSingleMatchRoute(match.id) : undefined}
           />
           <CardItemBasic
-            title={t('notes:MATCH_DATE')}
+            title={t('MATCH_DATE')}
             value={match ? formatDate(match.date) : '-'}
           />
           <CardItemBasic
             title={t('notes:POSITION_PLAYED')}
             value={meta?.position.name}
           />
-          <CardItemBasic
-            title={t('notes:SHIRT_NO')}
-            value={shirtNo?.toString()}
-          />
+          <CardItemBasic title={t('SHIRT_NO')} value={shirtNo?.toString()} />
           <CardItemBasic
             title={t('RATING')}
             value={
@@ -113,7 +111,7 @@ export const NoteDetailsCard = ({ note }: INoteDetailsCard) => {
             title={t('PERCENTAGE_RATING')}
             value={percentageRating ? `${percentageRating.toFixed(1)}%` : '-'}
           />
-          <CardItemBasic title={t('notes:DESCRIPTION')} value={description} />
+          <CardItemBasic title={t('TEXT')} value={description} />
         </Grid>
       </CardContent>
     </Card>

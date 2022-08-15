@@ -10,15 +10,7 @@ import { PageHeading } from '@/components/page-heading/page-heading'
 import { withSessionSsr } from '@/modules/auth/session'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
-import { MatchesFilterForm } from '@/modules/matches/forms/filter'
-import {
-  useDeleteMatch,
-  useMatches,
-  useMatchesList,
-} from '@/modules/matches/hooks'
-import { MatchesTableRow } from '@/modules/matches/table/row'
-import { MatchesTable } from '@/modules/matches/table/table'
-import { MatchesFiltersDto, MatchesSortBy } from '@/modules/matches/types'
+import { useMatchesList } from '@/modules/matches/hooks'
 import { NotesFilterForm } from '@/modules/notes/forms/filter'
 import {
   useDeleteNote,
@@ -29,9 +21,9 @@ import {
 import { NotesTableRow } from '@/modules/notes/table/row'
 import { NotesTable } from '@/modules/notes/table/table'
 import { NotesFiltersDto, NotesSortBy } from '@/modules/notes/types'
+import { getNoteNumber } from '@/modules/notes/utils'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
-import { useSeasonsList } from '@/modules/seasons/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
@@ -48,7 +40,7 @@ export const getServerSideProps = withSessionSsr(
 
     const translations = await serverSideTranslations(locale || 'pl', [
       'common',
-      'matches',
+      'notes',
     ])
 
     return {
@@ -75,6 +67,7 @@ const initialFilters: NotesFiltersDto = {
 
 interface INoteToDeleteData {
   id: number
+  createdAt: string
 }
 
 const NotesPage = () => {
@@ -172,7 +165,10 @@ const NotesPage = () => {
                   router.push(`/notes/edit/${note.id}`)
                 }}
                 onDeleteClick={() => {
-                  setNoteToDeleteData({ id: note.id })
+                  setNoteToDeleteData({
+                    id: note.id,
+                    createdAt: note.createdAt,
+                  })
                   setIsDeleteConfirmationModalOpen(true)
                 }}
                 onLikeClick={(id: number) => likeNote(id)}
@@ -186,8 +182,13 @@ const NotesPage = () => {
       <Fab href="/notes/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}
-        message={t('matches:DELETE_NOTE_CONFIRM_QUESTION', {
-          name: noteToDeleteData?.id,
+        message={t('notes:DELETE_NOTE_CONFIRM_QUESTION', {
+          number: noteToDeleteData
+            ? getNoteNumber({
+                id: noteToDeleteData.id,
+                createdAt: noteToDeleteData.createdAt,
+              })
+            : null,
         })}
         handleAccept={() => {
           if (noteToDeleteData) {
