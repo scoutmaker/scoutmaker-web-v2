@@ -3,28 +3,119 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { withSessionSsr } from '@/modules/auth/session'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 import { isPrivilegedUser } from '@/utils/user-roles'
+import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsr(
-  async ({ req, res, locale }) => {
-    const { user } = req.session
+export const getServerSideProps = withSessionSsrRole(['common', 'orders'], ['ADMIN', 'PLAYMAKER_SCOUT'])
 
-    if (!user || !isPrivilegedUser(user)) {
-      redirectToLogin(res)
-      return { props: {} }
-    }
+const initialFilters: RegionsFilterDto = {
+  name: '',
+  countryId: 0,
+}
 
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-    ])
+interface IRegionToDeleteData {
+  id: number
+  name: string
+}
 
-    return {
-      props: {
-        ...translations,
-      },
-    }
-  },
-)
+const RegionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
+  const { t } = useTranslation()
+  const router = useRouter()
 
-const OrdersPage = () => <h1>Orders</h1>
+  const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
+    useState(false)
+  const [regionToDeleteData, setRegionToDeleteData] =
+    useState<IRegionToDeleteData>()
 
-export default OrdersPage
+  const {
+    tableSettings: { page, rowsPerPage, sortBy, order },
+    handleChangePage,
+    handleChangeRowsPerPage,
+    handleSort,
+  } = useTable('regions-table')
+
+  const [filters, setFilters] = useLocalStorage<RegionsFilterDto>({
+    key: 'regions-filters',
+    initialValue: initialFilters,
+  })
+
+  function handleSetFilters(newFilters: RegionsFilterDto) {
+    setFilters(newFilters)
+    handleChangePage(null, 0)
+  }
+
+  const { data: countries, isLoading: countriesLoading } = useCountriesList()
+
+  const { data: regions, isLoading: regionsLoading } = useRegions({
+    page: page + 1,
+    limit: rowsPerPage,
+    sortBy: sortBy as RegionsSortBy,
+    sortingOrder: order,
+    ...filters,
+  })
+
+  const { mutate: deleteRegion, isLoading: deleteRegionLoading } =
+    useDeleteRegion()
+
+  const isLoading = countriesLoading || regionsLoading || deleteRegionLoading
+
+  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  return (
+    <>
+      {isLoading && <Loader />}
+      <PageHeading title={t('regions:INDEX_PAGE_TITLE')} />
+      <RegionsFilterForm
+        filters={filters}
+        countriesData={countries || []}
+        onFilter={handleSetFilters}
+        onClearFilters={() => handleSetFilters(initialFilters)}
+      />
+      <RegionsTable
+        page={page}
+        rowsPerPage={rowsPerPage}
+        sortBy={sortBy}
+        order={order}
+        handleChangePage={handleChangePage}
+        handleChangeRowsPerPage={handleChangeRowsPerPage}
+        handleSort={handleSort}
+        total={regions?.totalDocs || 0}
+        actions
+      >
+        {!!regions &&
+          regions.docs.map(region => (
+            <RegionsTableRow
+              key={region.id}
+              data={region}
+              onEditClick={() => {
+                router.push(`/regions/edit/${region.id}`)
+              }}
+              onDeleteClick={() => {
+                setRegionToDeleteData({ id: region.id, name: region.name })
+                setIsDeleteConfirmationModalOpen(true)
+              }}
+              isEditOptionEnabled
+              isDeleteOptionEnabled
+            />
+          ))}
+      </RegionsTable>
+      <Fab href="/regions/create" />
+      <ConfirmationModal
+        open={isDeleteConfirmationModalOpen}
+        message={t('regions:DELETE_CONFIRM_QUESTION', {
+          name: regionToDeleteData?.name,
+        })}
+        handleAccept={() => {
+          if (regionToDeleteData)
+            deleteRegion(regionToDeleteData.id)
+
+          setRegionToDeleteData(undefined)
+        }}
+        handleClose={() => {
+          setIsDeleteConfirmationModalOpen(false)
+          setRegionToDeleteData(undefined)
+        }}
+      />
+    </>
+  )
+}
+
+export default RegionsPage
