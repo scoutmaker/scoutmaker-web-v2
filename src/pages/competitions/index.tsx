@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
+import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
@@ -36,7 +37,7 @@ interface IToDeleteData {
   name: string
 }
 
-const CompetitionsPage = ({ errorStatus }: TSsrRole) => {
+const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
   const { t } = useTranslation()
   const router = useRouter()
 
@@ -92,6 +93,7 @@ const CompetitionsPage = ({ errorStatus }: TSsrRole) => {
     countriesLoading ||
     competitionsLoading
 
+  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
@@ -132,8 +134,8 @@ const CompetitionsPage = ({ errorStatus }: TSsrRole) => {
                 setToDeleteData({ id: comp.id, name: comp.name })
                 setIsDeleteConfirmationModalOpen(true)
               }}
-              isEditOptionEnabled={!errorStatus}
-              isDeleteOptionEnabled={!errorStatus}
+              isEditOptionEnabled
+              isDeleteOptionEnabled
             />
           ))}
       </CompetitionsTable>

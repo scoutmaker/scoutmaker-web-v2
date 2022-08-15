@@ -7,7 +7,7 @@ import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 import { CompetitionDetailsCard } from '../../modules/competitions/details-card'
 
-export const getServerSideProps = withSessionSsrRole<CompetitionDto>(['common', 'competitions'], false,
+export const getServerSideProps = withSessionSsrRole<CompetitionDto>(['common', 'competitions'], ['ADMIN'],
   async (token, params) => {
     try {
       const data = await getCompetitionById(+(params?.id as string), token)
