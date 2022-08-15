@@ -1,22 +1,14 @@
-import {
-  Avatar,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid
-} from '@mui/material'
+import { Avatar, Card, CardContent, CardHeader, Grid } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { CardItemBasic } from '@/components/details-card-item'
+import { CardItemBasic } from '@/components/details-card/details-card-item'
 import { AgeCategoryIcon } from '@/components/icons'
 import { CompetitionAgeCategortyDto } from '@/modules/competition-age-categories/types'
 
 export const CompetitionAgeCategoryDetailsCard = ({ data }: IDetailsCard) => {
   const { t } = useTranslation()
 
-  const {
-    name
-  } = data
+  const { name } = data
 
   return (
     <Card sx={{ maxWidth: 700, margin: '0 auto' }}>
@@ -34,10 +26,7 @@ export const CompetitionAgeCategoryDetailsCard = ({ data }: IDetailsCard) => {
       />
       <CardContent>
         <Grid container spacing={1}>
-          <CardItemBasic
-            categ={t('NAME')}
-            value={name}
-          />
+          <CardItemBasic title={t('NAME')} value={name} />
         </Grid>
       </CardContent>
     </Card>

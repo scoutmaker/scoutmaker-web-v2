@@ -18,7 +18,7 @@ import { MatchDto } from '@/modules/matches/types'
 import { formatDate } from '@/utils/format-date'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
-import { getResult } from '../utils'
+import { getMatchResult } from '../utils'
 
 interface IMatchesTableRowProps {
   data: MatchDto
@@ -99,7 +99,7 @@ export const MatchesTableRow = ({
       <StyledTableCell>{competition.name}</StyledTableCell>
       <StyledTableCell>{group?.name}</StyledTableCell>
       <StyledTableCell>{season.name}</StyledTableCell>
-      <StyledTableCell>{getResult(homeGoals, awayGoals)}</StyledTableCell>
+      <StyledTableCell>{getMatchResult(homeGoals, awayGoals)}</StyledTableCell>
       <StyledTableCell align="center">
         {videoUrl ? (
           <Link

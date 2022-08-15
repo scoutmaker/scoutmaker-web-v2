@@ -1,22 +1,22 @@
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { withSessionSsr } from '@/modules/auth/session'
-import { MatchDetailsCard } from '@/modules/matches/details-card'
-import { MatchDto } from '@/modules/matches/types'
-import { getMatchDisplayName } from '@/modules/matches/utils'
-import { getMatchById } from '@/services/api/methods/matches'
+import { NoteDetailsCard } from '@/modules/notes/details-card'
+import { NoteDto } from '@/modules/notes/types'
+import { getNoteById } from '@/services/api/methods/notes'
 import { ApiError } from '@/services/api/types'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
-type TMatchPageProps = {
+type TNotePageProps = {
   errorStatus: number | null
   errorMessage: string | null
-  match: MatchDto | null
+  note: NoteDto | null
 }
 
-export const getServerSideProps = withSessionSsr<TMatchPageProps>(
+export const getServerSideProps = withSessionSsr<TNotePageProps>(
   async ({ req, res, locale, params }) => {
     const { user } = req.session
 
@@ -26,24 +26,24 @@ export const getServerSideProps = withSessionSsr<TMatchPageProps>(
         props: {
           errorStatus: null,
           errorMessage: null,
-          match: null,
+          note: null,
         },
       }
     }
 
     const translations = await serverSideTranslations(locale || 'pl', [
       'common',
-      'matches',
+      'notes',
     ])
 
-    let match: MatchDto
+    let note: NoteDto
 
     try {
-      const matchData = await getMatchById(
+      const noteData = await getNoteById(
         parseInt(params?.id as string),
         req.session.token,
       )
-      match = matchData
+      note = noteData
     } catch (error) {
       const { response } = error as ApiError
 
@@ -52,7 +52,7 @@ export const getServerSideProps = withSessionSsr<TMatchPageProps>(
           ...translations,
           errorStatus: response.status,
           errorMessage: response.data.message,
-          match: null,
+          note: null,
         },
       }
     }
@@ -62,23 +62,20 @@ export const getServerSideProps = withSessionSsr<TMatchPageProps>(
         ...translations,
         errorStatus: null,
         errorMessage: null,
-        match,
+        note,
       },
     }
   },
 )
 
-const MatchPage = ({ match, errorMessage, errorStatus }: TMatchPageProps) => {
-  if (match) {
+const NotePage = ({ note, errorMessage, errorStatus }: TNotePageProps) => {
+  const { t } = useTranslation(['common', 'notes'])
+
+  if (note) {
     return (
       <>
-        <PageHeading
-          title={getMatchDisplayName({
-            homeTeamName: match.homeTeam.name,
-            awayTeamName: match.awayTeam.name,
-          })}
-        />
-        <MatchDetailsCard match={match} />
+        <PageHeading title={t('notes:NOTE_DETAILS')} />
+        <NoteDetailsCard note={note} />
       </>
     )
   }
@@ -86,4 +83,4 @@ const MatchPage = ({ match, errorMessage, errorStatus }: TMatchPageProps) => {
   return <ErrorContent message={errorMessage} status={errorStatus} />
 }
 
-export default MatchPage
+export default NotePage

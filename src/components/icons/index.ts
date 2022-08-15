@@ -1,10 +1,17 @@
 export {
   PermContactCalendar as AdminIcon,
   Category as AgeCategoryIcon,
+  SportsSoccer as BallIcon,
   Security as ClubsIcon,
   Flag as CountryIcon,
   Storage as DatabaseIcon,
+  Delete as DeleteIcon,
+  Edit as EditIcon,
+  ExpandMore as ExpandMoreIcon,
   Home as HomeIcon,
+  KeyboardArrowDown as KeyboardArrowDownIcon,
+  KeyboardArrowUp as KeyboardArrowUpIcon,
+  FavoriteBorder as LikeIcon,
   Sports as MatchesIcon,
   Note as NotesIcon,
   Visibility as ObservationIcon,
@@ -17,4 +24,6 @@ export {
   AccessTime as SeasonIcon,
   Settings as SettingsIcon,
   GroupWork as TeamsIcon,
-  Person as UserDataIcon} from '@mui/icons-material'
+  Favorite as UnlikeIcon,
+  Person as UserDataIcon,
+} from '@mui/icons-material'
