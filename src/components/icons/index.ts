@@ -6,6 +6,7 @@ export {
   Storage as DatabaseIcon,
   Home as HomeIcon,
   Sports as MatchesIcon,
+  AssignmentLate as NoteIcon,
   Note as NotesIcon,
   Visibility as ObservationIcon,
   Assignment as OrdersIcon,
@@ -17,4 +18,5 @@ export {
   AccessTime as SeasonIcon,
   Settings as SettingsIcon,
   GroupWork as TeamsIcon,
-  Person as UserDataIcon} from '@mui/icons-material'
+  Person as UserDataIcon,
+} from '@mui/icons-material'
