@@ -11,11 +11,11 @@ import { CardItemBasic } from '@/components/details-card-item'
 import { CompetitionIcon } from '@/components/icons'
 import { CompetitionDto } from '@/modules/competitions/types'
 
-type TDetailsCard = {
+type TCompetitionDetailsCard = {
   comp: CompetitionDto
 }
 
-export const CompetitionDetailsCard = ({ comp }: TDetailsCard) => {
+export const CompetitionDetailsCard = ({ comp }: TCompetitionDetailsCard) => {
   const { t } = useTranslation()
 
   const { ageCategory, country, gender, level, name, type, juniorLevel } = comp
