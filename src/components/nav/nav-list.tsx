@@ -80,11 +80,6 @@ export const NavList = () => {
           to="/matches"
           text={t('MATCHES')}
         />
-        <NavElement
-          icon={<CompetitionIcon color="error" />}
-          to="/competitions"
-          text={t('COMPETITIONS')}
-        />
       </ExpandeableNavElement>
       <ExpandeableNavElement
         icon={<ObservationIcon color="error" />}
@@ -139,6 +134,11 @@ export const NavList = () => {
             icon={<RegionIcon color="error" />}
             to="/regions"
             text={t('REGIONS')}
+          />
+          <NavElement
+            icon={<CompetitionIcon color="error" />}
+            to="/competitions"
+            text={t('COMPETITIONS')}
           />
         </ExpandeableNavElement>
       )}
