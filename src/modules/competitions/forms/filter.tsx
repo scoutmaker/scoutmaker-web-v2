@@ -14,7 +14,7 @@ import { CompetitionsFiltersDto } from '@/modules/competitions/types'
 import { CountriesCombo } from '@/modules/countries/combo'
 import { CountryDto } from '@/modules/countries/types'
 
-import { GendersCombo } from '../genders-combo'
+import { GendersSelect } from '../genders-select'
 
 type IFilterFormProps = {
 
@@ -64,7 +64,7 @@ export const CompetitionsFilterForm = ({
               label={t('LEVEL')}
               size="small"
             />
-            <GendersCombo
+            <GendersSelect
               name='gender'
               label={t('GENDER')}
             />

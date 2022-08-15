@@ -15,7 +15,7 @@ import { CompetitionTypeDto } from '@/modules/competition-types/types'
 import { CountriesCombo } from '@/modules/countries/combo'
 import { CountryDto } from '@/modules/countries/types'
 
-import { GendersCombo } from '../genders-combo'
+import { GendersSelect } from '../genders-select'
 import { CreateCompetitonDto } from '../types'
 import { generateCreateValidationSchema, initialValues } from './utils'
 
@@ -95,7 +95,7 @@ export const CreateCompetitionForm = ({
               error={touched.typeId && !!errors.typeId}
               helperText={touched.typeId ? errors.typeId : undefined}
             />
-            <GendersCombo
+            <GendersSelect
               name='gender'
               label={t('GENDER')}
               error={touched.gender && !!errors.gender}
