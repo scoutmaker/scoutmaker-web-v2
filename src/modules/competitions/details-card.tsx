@@ -7,7 +7,7 @@ import {
 } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { CardItemBasic } from '@/components/details-card-item'
+import { CardItemBasic } from '@/components/details-card/details-card-item'
 import { CompetitionIcon } from '@/components/icons'
 import { CompetitionDto } from '@/modules/competitions/types'
 
@@ -36,13 +36,13 @@ export const CompetitionDetailsCard = ({ comp }: TCompetitionDetailsCard) => {
       />
       <CardContent>
         <Grid container spacing={1}>
-          <CardItemBasic categ={t('NAME')} value={name} />
-          <CardItemBasic categ={t('COMPETITION_AGE_CATEGORY')} value={ageCategory.name} />
-          <CardItemBasic categ={t('COUNTRY')} value={country.name} />
-          <CardItemBasic categ={t('GENDER')} value={t(`${gender}S`)} />
-          <CardItemBasic categ={t('LEVEL')} value={level.toString()} />
-          <CardItemBasic categ={t('COMPETITION_TYPE')} value={type.name} />
-          <CardItemBasic categ={t('COMPETITION_JUNIOR_LEVEL')} value={juniorLevel?.name || ''} />
+          <CardItemBasic title={t('NAME')} value={name} />
+          <CardItemBasic title={t('COMPETITION_AGE_CATEGORY')} value={ageCategory.name} />
+          <CardItemBasic title={t('COUNTRY')} value={country.name} />
+          <CardItemBasic title={t('GENDER')} value={t(`${gender}S`)} />
+          <CardItemBasic title={t('LEVEL')} value={level.toString()} />
+          <CardItemBasic title={t('COMPETITION_TYPE')} value={type.name} />
+          <CardItemBasic title={t('COMPETITION_JUNIOR_LEVEL')} value={juniorLevel?.name || ''} />
         </Grid>
       </CardContent>
     </Card>
