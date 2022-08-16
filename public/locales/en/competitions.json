@@ -1,0 +1,13 @@
+{
+  "NO_NAME_ERROR": "Please provide competition name",
+  "NO_COUNTRY_ERROR": "Please choose competition country",
+  "INDEX_PAGE_TITLE": "Competitions database",
+  "CREATE_PAGE_TITLE": "Create new competition",
+  "EDIT_PAGE_TITLE": "Edit competition data",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete competition {{name}}?",
+  "NO_AGE_CATEGORY_ERROR": "Please choose competition age category",
+  "NO_LEVEL_ERROR": "Please choose competition level",
+  "NO_TYPE_ERROR": "Please choose competition type",
+  "NO_GENDER_ERROR": "Please choose competition gender",
+  "NO_JUNIOR_LEVEL_ERROR": "Please choose competition junior level"
+}

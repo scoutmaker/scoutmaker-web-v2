@@ -3,6 +3,7 @@ export {
   Category as AgeCategoryIcon,
   SportsSoccer as BallIcon,
   Security as ClubsIcon,
+  SportsMma as CompetitionIcon,
   Flag as CountryIcon,
   Storage as DatabaseIcon,
   Delete as DeleteIcon,

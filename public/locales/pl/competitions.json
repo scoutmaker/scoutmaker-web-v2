@@ -1,0 +1,13 @@
+{
+  "NO_NAME_ERROR": "Podaj nazwę rozgrywek",
+  "NO_COUNTRY_ERROR": "Wybierz kraj rozgrywek",
+  "INDEX_PAGE_TITLE": "Baza rozgrywek",
+  "CREATE_PAGE_TITLE": "Utwórz nowe rozgrywki",
+  "EDIT_PAGE_TITLE": "Edytuj dane rozgrywek",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć rozgrywki {{name}}?",
+  "NO_AGE_CATEGORY_ERROR": "Wybierz kategorię wiekową rozgrywek",
+  "NO_LEVEL_ERROR": "Podaj poziom rozgrywek",
+  "NO_TYPE_ERROR": "Wybierz typ rozgrywek",
+  "NO_GENDER_ERROR": "Wybierz płeć rozgrywek",
+  "NO_JUNIOR_LEVEL_ERROR": "Wybierz juniorski poziom rozgrywek"
+}
