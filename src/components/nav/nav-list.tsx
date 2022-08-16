@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { useUser } from '@/modules/auth/hooks'
+import { Routes } from '@/utils/routes'
 import { isAdmin, isPrivilegedUser } from '@/utils/user-roles'
 
 import {
@@ -117,7 +118,7 @@ export const NavList = () => {
       >
         <NavElement
           icon={<ReportSkillAssessmentCategoriesIcon color="error" />}
-          to="/report-skill-assessment-categories"
+          to={Routes.REPORT_SKILL_ASSESSMENT_CATEGORIES}
           text={t('REPORT_SKILL_ASSESSMENT_CATEGORIES')}
         />
         <NavElement
