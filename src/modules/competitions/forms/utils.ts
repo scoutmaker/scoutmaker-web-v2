@@ -14,7 +14,7 @@ export const initialValues: CreateCompetitonDto = {
   name: '',
   ageCategoryId: 0,
   countryId: 0,
-  level: 0,
+  level: 1,
   typeId: 0,
   gender: 'MALE',
   juniorLevelId: 0,
