@@ -1,121 +1,156 @@
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next'
+import { useState } from 'react'
 
-import { withSessionSsr } from '@/modules/auth/session'
-import { redirectToLogin } from '@/utils/redirect-to-login'
-import { isPrivilegedUser } from '@/utils/user-roles'
-import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
+import { ErrorContent } from '@/components/error/error-content'
+import { Fab } from '@/components/fab/fab'
+import { Loader } from '@/components/loader/loader'
+import { ConfirmationModal } from '@/components/modals/confirmation-modal'
+import { PageHeading } from '@/components/page-heading/page-heading'
+import { useMatchesList } from '@/modules/matches/hooks'
+import { OrdersFilterForm } from '@/modules/orders/forms/filter'
+import { useAcceptOrder, useCloseOrder, useDeleteOrder, useOrders, useRejectOrder } from '@/modules/orders/hooks'
+import { OrdersTableRow } from '@/modules/orders/table/row'
+import { OrdersTable } from '@/modules/orders/table/table'
+import { OrdersFiltersDto, OrdersSortBy } from '@/modules/orders/types'
+import { usePlayersList } from '@/modules/players/hooks'
+import { useTeamsList } from '@/modules/teams/hooks'
+import { formatDate } from '@/utils/format-date'
+import { useLocalStorage } from '@/utils/hooks/use-local-storage'
+import { useTable } from '@/utils/hooks/use-table'
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'orders'], ['ADMIN', 'PLAYMAKER_SCOUT'])
-
-const initialFilters: RegionsFilterDto = {
-  name: '',
-  countryId: 0,
+interface IData {
+  userId: number
 }
 
-interface IRegionToDeleteData {
+export const getServerSideProps = withSessionSsrRole<IData>(['common', 'orders'], ['ADMIN', 'PLAYMAKER_SCOUT'],
+  async (token, params, user) => ({ data: { userId: user?.id as number } }));
+
+const date = new Date()
+date.setFullYear(date.getFullYear() + 1)
+
+const initialFilters: OrdersFiltersDto = {
+  createdAfter: formatDate('01-01-1999'),
+  createdBefore: formatDate(date.toString()),
+  matchIds: [],
+  playerIds: [],
+  status: 'OPEN',
+  teamIds: [],
+  // @ts-ignore - so 'ALL' radio is selected by default filters
+  userId: ''
+}
+
+interface ItoDeleteData {
   id: number
-  name: string
 }
 
-const RegionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
+const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [regionToDeleteData, setRegionToDeleteData] =
-    useState<IRegionToDeleteData>()
+  const [toDeleteData, setToDeleteData] =
+    useState<ItoDeleteData>()
 
   const {
-    tableSettings: { page, rowsPerPage, sortBy, order },
+    tableSettings: { page, rowsPerPage, sortBy, order: tableOrder },
     handleChangePage,
     handleChangeRowsPerPage,
     handleSort,
-  } = useTable('regions-table')
+  } = useTable('orders-table')
 
-  const [filters, setFilters] = useLocalStorage<RegionsFilterDto>({
-    key: 'regions-filters',
+  const [filters, setFilters] = useLocalStorage<OrdersFiltersDto>({
+    key: 'orders-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: RegionsFilterDto) {
+  function handleSetFilters(newFilters: OrdersFiltersDto) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
 
-  const { data: countries, isLoading: countriesLoading } = useCountriesList()
+  const { data: matchesData, isLoading: matchesLoading } = useMatchesList()
 
-  const { data: regions, isLoading: regionsLoading } = useRegions({
+  const { data: playersData, isLoading: playersLoading } = usePlayersList()
+
+  const { data: teamsData, isLoading: teamsLoading } = useTeamsList()
+
+  const { data: orders, isLoading: ordersLoading } = useOrders({
     page: page + 1,
     limit: rowsPerPage,
-    sortBy: sortBy as RegionsSortBy,
-    sortingOrder: order,
+    sortBy: sortBy as OrdersSortBy,
+    sortingOrder: tableOrder,
     ...filters,
   })
 
-  const { mutate: deleteRegion, isLoading: deleteRegionLoading } =
-    useDeleteRegion()
+  const { mutate: deleteOrder, isLoading: deleteLoading } =
+    useDeleteOrder()
 
-  const isLoading = countriesLoading || regionsLoading || deleteRegionLoading
+  const { mutate: acceptOrder, isLoading: acceptLoading } = useAcceptOrder()
+  const { mutate: rejectOrder, isLoading: rejectLoading } = useRejectOrder()
+  const { mutate: closeOrder, isLoading: closeLoading } = useCloseOrder()
+
+  const isLoading = deleteLoading || ordersLoading || matchesLoading || playersLoading || teamsLoading || acceptLoading || rejectLoading || closeLoading
 
   if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
-      <PageHeading title={t('regions:INDEX_PAGE_TITLE')} />
-      <RegionsFilterForm
+      <PageHeading title={t('orders:INDEX_PAGE_TITLE')} // ADD_TRANS
+      />
+      <OrdersFilterForm
+        matchesData={matchesData || []}
+        playersData={playersData || []}
+        teamsData={teamsData || []}
+        userId={data?.userId || 1}
         filters={filters}
-        countriesData={countries || []}
         onFilter={handleSetFilters}
         onClearFilters={() => handleSetFilters(initialFilters)}
       />
-      <RegionsTable
+      <OrdersTable
         page={page}
         rowsPerPage={rowsPerPage}
         sortBy={sortBy}
-        order={order}
+        order={tableOrder}
         handleChangePage={handleChangePage}
         handleChangeRowsPerPage={handleChangeRowsPerPage}
         handleSort={handleSort}
-        total={regions?.totalDocs || 0}
+        total={orders?.totalDocs || 0}
         actions
       >
-        {!!regions &&
-          regions.docs.map(region => (
-            <RegionsTableRow
-              key={region.id}
-              data={region}
-              onEditClick={() => {
-                router.push(`/regions/edit/${region.id}`)
-              }}
+        {!!orders &&
+          orders.docs.map(order => (
+            <OrdersTableRow
+              onAcceptOrderClick={acceptOrder}
+              onCloseOrderClick={closeOrder}
+              onRejectOrderClick={rejectOrder}
+              key={order.id}
+              data={order}
               onDeleteClick={() => {
-                setRegionToDeleteData({ id: region.id, name: region.name })
+                setToDeleteData({ id: order.id })
                 setIsDeleteConfirmationModalOpen(true)
               }}
-              isEditOptionEnabled
               isDeleteOptionEnabled
             />
           ))}
-      </RegionsTable>
-      <Fab href="/regions/create" />
+      </OrdersTable>
+      <Fab href="/orders/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}
-        message={t('regions:DELETE_CONFIRM_QUESTION', {
-          name: regionToDeleteData?.name,
-        })}
+        message={t('orders:DELETE_CONFIRM_QUESTION')} // ADD_TRANS
         handleAccept={() => {
-          if (regionToDeleteData)
-            deleteRegion(regionToDeleteData.id)
+          if (toDeleteData)
+            deleteOrder(toDeleteData.id)
 
-          setRegionToDeleteData(undefined)
+          setToDeleteData(undefined)
         }}
         handleClose={() => {
           setIsDeleteConfirmationModalOpen(false)
-          setRegionToDeleteData(undefined)
+          setToDeleteData(undefined)
         }}
       />
     </>
   )
 }
 
-export default RegionsPage
+export default OrdersPage
