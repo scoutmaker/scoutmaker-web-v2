@@ -20,6 +20,7 @@ export function withSessionSsrRole<T>(
   getData?: (
     token: string,
     params: ParsedUrlQuery,
+    user?: Components.Schemas.UserDto,
   ) => Promise<{ data: T | null; error?: ApiError }>,
 ) {
   return withSessionSsr<TSsrRole<T>>(async ({ locale, req, res, params }) => {
@@ -60,6 +61,7 @@ export function withSessionSsrRole<T>(
       const resd = await getData(
         req.session.token as string,
         params as ParsedUrlQuery,
+        user,
       )
       if (resd.error) {
         const { response } = resd.error
