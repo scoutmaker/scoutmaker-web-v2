@@ -61,8 +61,9 @@ export const CompetitionsFilterForm = ({
               as={TextField}
               variant="outlined"
               fullWidth
-              label={t('LEVEL')}
+              label={`${t('LEVEL')} 1-15`}
               size="small"
+              inputProps={{ min: 1, max: 15, step: 1, pattern: "[1-9]|1[0-5]" }}
             />
             <GendersSelect
               name='gender'
