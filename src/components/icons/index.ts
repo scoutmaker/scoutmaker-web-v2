@@ -21,10 +21,12 @@ export {
   AccountCircle as ProfileIcon,
   SouthAmerica as RegionIcon,
   Assessment as ReportsIcon,
+  FitnessCenter as ReportSkillAssessmentCategoriesIcon,
   Create as ReportTemplatesIcon,
   AccessTime as SeasonIcon,
   Settings as SettingsIcon,
   GroupWork as TeamsIcon,
+  Dashboard as TemplatesIcon,
   Favorite as UnlikeIcon,
   Person as UserDataIcon,
 } from '@mui/icons-material'
