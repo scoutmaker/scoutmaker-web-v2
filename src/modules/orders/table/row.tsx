@@ -1,12 +1,11 @@
 import {
   Delete as DeleteIcon,
-  Edit as EditIcon,
 } from '@mui/icons-material'
 import { Badge, Tooltip } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { NoteIcon, ReportsIcon } from '@/components/icons'
+import { AcceptIcon, CloseIcon, NoteIcon, RejectIcon, ReportsIcon } from '@/components/icons'
 import { StyledTableCell } from '@/components/tables/cell'
 import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
@@ -18,20 +17,16 @@ import { OrderDto } from '../types'
 
 interface ITableRowProps {
   data: OrderDto
-  onEditClick: () => void
   onDeleteClick: () => void
-  isEditOptionEnabled: boolean
   isDeleteOptionEnabled: boolean
   onAcceptOrderClick: (id: number) => void
   onRejectOrderClick: (id: number) => void
   onCloseOrderClick: (id: number) => void
 }
 
-export const SeasonsTableRow = ({
+export const OrdersTableRow = ({
   data,
-  onEditClick,
   onDeleteClick,
-  isEditOptionEnabled,
   isDeleteOptionEnabled,
   onAcceptOrderClick,
   onRejectOrderClick,
@@ -48,7 +43,8 @@ export const SeasonsTableRow = ({
     handleMenuAction,
   } = useTableMenu()
 
-  const { id, player, status, scout, createdAt, description } = data
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  const { id, player, status, scout, createdAt, description, _count, } = data
 
   return (
     <StyledTableRow
@@ -63,14 +59,39 @@ export const SeasonsTableRow = ({
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
         >
-          <TableMenuItem
+          {status === 'OPEN' ?
+            <TableMenuItem
+              icon={<AcceptIcon fontSize="small" />}
+              text={t('orders:ACCEPT')} // ADD_TRANS
+              onClick={() => {
+                handleMenuAction(() => onAcceptOrderClick(id))
+              }}
+            />
+            :
+            <>
+              <TableMenuItem
+                icon={<RejectIcon fontSize="small" />}
+                text={t('REJECT')} // ADD_TRANS
+                onClick={() => {
+                  handleMenuAction(() => onRejectOrderClick(id))
+                }}
+              />
+              <TableMenuItem
+                icon={<CloseIcon fontSize="small" />}
+                text={t('CLOSE')} // ADD_TRANS
+                onClick={() => {
+                  handleMenuAction(() => onCloseOrderClick(id))
+                }}
+              />
+            </>}
+          {/* <TableMenuItem
             icon={<EditIcon fontSize="small" />}
             text={t('EDIT')}
             onClick={() => {
               handleMenuAction(onEditClick)
             }}
             disabled={!isEditOptionEnabled}
-          />
+          /> */}
           <TableMenuItem
             icon={<DeleteIcon fontSize="small" />}
             text={t('DELETE')}
@@ -79,12 +100,11 @@ export const SeasonsTableRow = ({
             }}
             disabled={!isDeleteOptionEnabled}
           />
-          {/* add accept/reject/close */}
         </TableMenu>
       </StyledTableCell>
       <StyledTableCell>{`${player?.firstName} ${player?.lastName}`}</StyledTableCell>
       <StyledTableCell>{player?.primaryPosition.name}</StyledTableCell>
-      <StyledTableCell>to add club</StyledTableCell>
+      <StyledTableCell>{player?.teams[0].team.name}</StyledTableCell>
       <StyledTableCell>{status}</StyledTableCell>
       <StyledTableCell>{scout ? `${scout.firstName} ${scout.lastName}` : ''}</StyledTableCell>
       <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
@@ -96,7 +116,7 @@ export const SeasonsTableRow = ({
         )}
       </StyledTableCell>
       <StyledTableCell align="center">
-        <Badge badgeContent={0} color="secondary">
+        <Badge badgeContent={_count.reports} color="secondary">
           <ReportsIcon />
         </Badge>
       </StyledTableCell>

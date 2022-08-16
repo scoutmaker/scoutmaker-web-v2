@@ -10,14 +10,14 @@ interface ITableProps extends ICommonTableProps {
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
-    { id: 'player', label: t('NAME') },
-    { id: 'position', label: t('seasons:START_DATE') },
-    { id: 'club', label: t('seasons:END_DATE'), isSortingDisabled: true },
-    { id: 'status', label: t('seasons:IS_ACTIVE') },
-    { id: 'scout', label: t('seasons:IS_ACTIVE') },
-    { id: 'createdAt', label: t('seasons:IS_ACTIVE') },
-    { id: 'description', label: t('seasons:IS_ACTIVE') },
-    { id: 'reportsCount', label: t('seasons:IS_ACTIVE'), isSortingDisabled: true },
+    { id: 'player', label: t('PLAYER') },
+    { id: 'position', label: t('PRIMARY_POSITION') },
+    { id: 'club', label: t('CLUB'), isSortingDisabled: true },
+    { id: 'status', label: t('STATUS') },
+    { id: 'scout', label: t('SCOUT') },
+    { id: 'createdAt', label: t('CREATED_AT') },
+    { id: 'description', label: t('DESCRIPTION') },
+    { id: 'reportsCount', label: t('orders:REPORTS_COUNT'), isSortingDisabled: true },
   ]
 }
 
