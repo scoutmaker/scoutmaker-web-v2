@@ -7,23 +7,25 @@ import { PageHeading } from '@/components/page-heading/page-heading'
 import { withSessionSsr } from '@/modules/auth/session'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
-import { EditMatchForm } from '@/modules/matches/forms/edit'
-import { useUpdateMatch } from '@/modules/matches/hooks'
-import { MatchDto } from '@/modules/matches/types'
-import { getMatchDisplayName } from '@/modules/matches/utils'
-import { useSeasonsList } from '@/modules/seasons/hooks'
+import { useMatchesList } from '@/modules/matches/hooks'
+import { EditNoteForm } from '@/modules/notes/forms/edit'
+import { useUpdateNote } from '@/modules/notes/hooks'
+import { NoteDto } from '@/modules/notes/types'
+import { getNoteNumber } from '@/modules/notes/utils'
+import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
+import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
-import { getMatchById } from '@/services/api/methods/matches'
+import { getNoteById } from '@/services/api/methods/notes'
 import { ApiError } from '@/services/api/types'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
-type TEditMatchPageProps = {
+type TEditNotePageProps = {
   errorStatus: number | null
   errorMessage: string | null
-  match: MatchDto | null
+  note: NoteDto | null
 }
 
-export const getServerSideProps = withSessionSsr<TEditMatchPageProps>(
+export const getServerSideProps = withSessionSsr<TEditNotePageProps>(
   async ({ req, res, locale, params }) => {
     const { user } = req.session
 
@@ -33,24 +35,24 @@ export const getServerSideProps = withSessionSsr<TEditMatchPageProps>(
         props: {
           errorStatus: null,
           errorMessage: null,
-          match: null,
+          note: null,
         },
       }
     }
 
     const translations = await serverSideTranslations(locale || 'pl', [
       'common',
-      'matches',
+      'notes',
     ])
 
-    let match: MatchDto
+    let note: NoteDto
 
     try {
-      const matchData = await getMatchById(
+      const noteData = await getNoteById(
         parseInt(params?.id as string),
         req.session.token,
       )
-      match = matchData
+      note = noteData
     } catch (error) {
       const { response } = error as ApiError
 
@@ -59,7 +61,7 @@ export const getServerSideProps = withSessionSsr<TEditMatchPageProps>(
           ...translations,
           errorStatus: response.status,
           errorMessage: response.data.message,
-          match: null,
+          note: null,
         },
       }
     }
@@ -69,53 +71,60 @@ export const getServerSideProps = withSessionSsr<TEditMatchPageProps>(
         ...translations,
         errorStatus: null,
         errorMessage: null,
-        match,
+        note,
       },
     }
   },
 )
 
-const EditMatchPage = ({
-  match,
+const EditNotePage = ({
+  note,
   errorMessage,
   errorStatus,
-}: TEditMatchPageProps) => {
+}: TEditNotePageProps) => {
   const { t } = useTranslation()
 
-  const { data: competitionGroups, isLoading: competitionGroupsLoading } =
-    useCompetitionGroupsList()
+  const { data: positions, isLoading: positionsLoading } =
+    usePlayerPositionsList()
+  const { data: teams, isLoading: teamsLoading } = useTeamsList()
   const { data: competitions, isLoading: competitionsLoading } =
     useCompetitionsList()
-  const { data: seasons, isLoading: seasonsLoading } = useSeasonsList()
-  const { data: teams, isLoading: teamsLoading } = useTeamsList()
+  const { data: competitionGroups, isLoading: competitionGroupsLoading } =
+    useCompetitionGroupsList()
+  const { data: matches, isLoading: matchesLoading } = useMatchesList()
+  const { data: players, isLoading: playersLoading } = usePlayersList()
 
-  const { mutate: updateMatch, isLoading: updateMatchLoading } = useUpdateMatch(
-    match?.id || 0,
+  const { mutate: updateNote, isLoading: updateNoteLoading } = useUpdateNote(
+    note?.id || 0,
   )
 
   const isLoading =
-    updateMatchLoading ||
-    competitionGroupsLoading ||
+    positionsLoading ||
+    teamsLoading ||
     competitionsLoading ||
-    seasonsLoading ||
-    teamsLoading
+    competitionGroupsLoading ||
+    matchesLoading ||
+    playersLoading ||
+    updateNoteLoading
 
-  if (match) {
+  if (note) {
     return (
       <>
         {isLoading && <Loader />}
         <PageHeading
-          title={t('players:EDIT_PLAYER_PAGE_TITLE', {
-            name: getMatchDisplayName(match.homeTeam, match.awayTeam),
+          title={t('notes:EDIT_NOTE_PAGE_TITLE', {
+            number: getNoteNumber({ id: note.id, createdAt: note.createdAt }),
           })}
         />
-        <EditMatchForm
-          current={match}
+        <EditNoteForm
+          current={note}
+          positionsData={positions || []}
+          teamsData={teams || []}
           competitionGroupsData={competitionGroups || []}
           competitionsData={competitions || []}
-          seasonsData={seasons || []}
-          teamsData={teams || []}
-          onSubmit={updateMatch}
+          matchesData={matches || []}
+          playersData={players || []}
+          onSubmit={updateNote}
         />
       </>
     )
@@ -124,4 +133,4 @@ const EditMatchPage = ({
   return <ErrorContent message={errorMessage} status={errorStatus} />
 }
 
-export default EditMatchPage
+export default EditNotePage

@@ -7,14 +7,14 @@ import { IComboProps } from '@/types/combo'
 
 import { PlayerBasicDataDto } from './types'
 
-interface IPlayersComboProps extends IComboProps<PlayerBasicDataDto> { }
+interface IPlayersComboProps extends IComboProps<PlayerBasicDataDto> {}
 
 export const PlayersCombo = ({
   data,
   name,
   label,
-  size,
   multiple,
+  size,
   error,
   helperText,
 }: IPlayersComboProps) => {
@@ -27,15 +27,15 @@ export const PlayersCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={[0, ...data.map(item => item.id)]}
+      options={[0, ...data.map(player => player.id)]}
       getOptionLabel={(option: number) => {
         if (option === 0) {
           return ''
         }
-        const player = data.find(s => s.id === option)
-        if (player)
-          return `${player.firstName} ${player.lastName}, ${player.primaryPosition.name} (${player.teams[0].team.name})`
-
+        const player = data.find(c => c.id === option)
+        if (player) {
+          return `${player.firstName} ${player.lastName}, ${player.primaryPosition.name} (${player.teams[0]?.team.name})`
+        }
         return t('NONE')
       }}
       filterSelectedOptions

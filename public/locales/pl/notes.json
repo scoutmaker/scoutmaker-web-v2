@@ -1,0 +1,11 @@
+{
+  "INDEX_PAGE_TITLE": "Baza notatek",
+  "LIKED_ONLY": "Tylko polubione",
+  "NOTE_DETAILS": "Szczegóły notatki",
+  "NOTE_DETAILS_TITLE": "Notatka nr {{number}}",
+  "POSITION_PLAYED": "Pozycja w meczu",
+  "META_DATA_DISCLAIMER": "Ponizsze pola to relacje do pozycji boiskowej, zespołu, rozgrywek oraz grup rozgrywkowych, jakie Twoja notatka będzie posiadać. Pola te są opcjonalne. Jeśli ich nie wypełnisz, powiązania zostaną utworzone automatycznie na podstawie aktualnych danych zawodnika.",
+  "CREATE_NOTE_PAGE_TITLE": "Utwórz nową notatkę",
+  "EDIT_NOTE_PAGE_TITLE": "Edycja notatki nr {{number}}",
+  "DELETE_NOTE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć notatkę nr {{number}}?"
+}

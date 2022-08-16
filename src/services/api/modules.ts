@@ -13,4 +13,5 @@ export type TModuleName =
   | 'matches'
   | 'seasons'
   | 'competition-age-categories'
+  | 'notes'
   | 'orders'

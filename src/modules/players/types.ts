@@ -1,4 +1,5 @@
 export type PlayerBasicDataDto = Components.Schemas.PlayerBasicDataDto
+export type PlayerSuperBasicDataDto = Components.Schemas.PlayerSuperBasicDataDto
 
 export type FindAllPlayersParams = Omit<
   Paths.PlayersControllerFindAll.QueryParameters,
