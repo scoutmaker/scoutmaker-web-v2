@@ -1,4 +1,6 @@
 export type CompetitionTypeDto = Components.Schemas.CompetitionTypeDto
 
-// UPDATE IN FUTURE
-export type CompetitionTypesFindAllParams = {}
+export type CompetitionTypesFindAllParams = Pick<
+  Paths.CompetitionTypesControllerFindAll.QueryParameters,
+  'limit' | 'name' | 'page' | 'sortBy' | 'sortingOrder'
+>

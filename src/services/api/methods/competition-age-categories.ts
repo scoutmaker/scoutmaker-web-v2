@@ -10,6 +10,7 @@ import {
   createDocument,
   deleteDocument,
   getAssetById,
+  getDataList,
   getPaginatedData,
   updateDocument,
 } from './helpers'
@@ -48,3 +49,6 @@ export const updateCompetitionAgeCategory = ({ id, data }: IUpdateArgs) =>
     data,
     moduleName,
   )
+
+export const getCompetitionAgeCategoriesList = () =>
+  getDataList<CompetitionAgeCategortyDto>(moduleName)

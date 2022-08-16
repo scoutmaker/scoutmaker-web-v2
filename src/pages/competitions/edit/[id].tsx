@@ -3,9 +3,9 @@ import { useTranslation } from 'next-i18next'
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { useCompetitionAgeCategories } from '@/modules/competition-age-categories/hooks'
-import { useCompetitionJuniorLevels } from '@/modules/competition-junior-levels/hooks'
-import { useCompetitionTypes } from '@/modules/competition-types/hooks'
+import { useCompetitionAgeCategoriesList } from '@/modules/competition-age-categories/hooks'
+import { useCompetitionJuniorLevelsList } from '@/modules/competition-junior-levels/hooks'
+import { useCompetitionTypesList } from '@/modules/competition-types/hooks'
 import { EditCompetitionForm } from '@/modules/competitions/forms/edit'
 import { useUpdateCompetition } from '@/modules/competitions/hooks'
 import { CompetitionDto } from '@/modules/competitions/types'
@@ -31,14 +31,11 @@ const EditCompetitionPage = ({
 }: TSsrRole<CompetitionDto>) => {
   const { t } = useTranslation()
 
-  // UPDATE IN FUTURE
-  const { data: ageCategoriesData, isLoading: ageCategLoading } = useCompetitionAgeCategories({})
+  const { data: ageCategoriesData, isLoading: ageCategLoading } = useCompetitionAgeCategoriesList()
 
-  // UPDATE IN FUTURE
-  const { data: juniorLevelsData, isLoading: juniorLevelsLoading } = useCompetitionJuniorLevels({})
+  const { data: juniorLevelsData, isLoading: juniorLevelsLoading } = useCompetitionJuniorLevelsList()
 
-  // UPDATE IN FUTURE
-  const { data: competitionTypesData, isLoading: compTypesLoading } = useCompetitionTypes({})
+  const { data: competitionTypesData, isLoading: compTypesLoading } = useCompetitionTypesList()
 
   const { data: countriesData, isLoading: countriesLoading } = useCountriesList()
 
@@ -57,11 +54,8 @@ const EditCompetitionPage = ({
       <EditCompetitionForm
         current={data}
         onSubmit={updateCompetition}
-        // @ts-ignore UPDATE IN FUTURE 
         competitionAgeCategoriesData={ageCategoriesData || []}
-        // @ts-ignore UPDATE IN FUTURE 
         competitionJuniorLevelsData={juniorLevelsData || []}
-        // @ts-ignore UPDATE IN FUTURE 
         competitionTypesData={competitionTypesData || []}
         countriesData={countriesData || []}
       />

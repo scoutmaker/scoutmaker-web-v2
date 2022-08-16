@@ -3,9 +3,9 @@ import { useTranslation } from 'next-i18next'
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { useCompetitionAgeCategories } from '@/modules/competition-age-categories/hooks'
-import { useCompetitionJuniorLevels } from '@/modules/competition-junior-levels/hooks'
-import { useCompetitionTypes } from '@/modules/competition-types/hooks'
+import { useCompetitionAgeCategoriesList } from '@/modules/competition-age-categories/hooks'
+import { useCompetitionJuniorLevelsList } from '@/modules/competition-junior-levels/hooks'
+import { useCompetitionTypesList } from '@/modules/competition-types/hooks'
 import { CreateCompetitionForm } from '@/modules/competitions/forms/create'
 import { useCreateCompetition } from '@/modules/competitions/hooks'
 import { useCountriesList } from '@/modules/countries/hooks'
@@ -16,14 +16,11 @@ export const getServerSideProps = withSessionSsrRole(['common', 'competitions'],
 const CreateCompetitionPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
 
-  // UPDATE IN FUTURE
-  const { data: ageCategoriesData, isLoading: ageCategLoading } = useCompetitionAgeCategories({})
+  const { data: ageCategoriesData, isLoading: ageCategLoading } = useCompetitionAgeCategoriesList()
 
-  // UPDATE IN FUTURE
-  const { data: juniorLevelsData, isLoading: juniorLevelsLoading } = useCompetitionJuniorLevels({})
+  const { data: juniorLevelsData, isLoading: juniorLevelsLoading } = useCompetitionJuniorLevelsList()
 
-  // UPDATE IN FUTURE
-  const { data: competitionTypesData, isLoading: compTypesLoading } = useCompetitionTypes({})
+  const { data: competitionTypesData, isLoading: compTypesLoading } = useCompetitionTypesList()
 
   const { data: countriesData, isLoading: countriesLoading } = useCountriesList()
 
@@ -44,11 +41,8 @@ const CreateCompetitionPage = ({ errorMessage, errorStatus }: TSsrRole) => {
       />
       <CreateCompetitionForm
         onSubmit={createCompetition}
-        // @ts-ignore UPDATE IN FUTURE 
         competitionAgeCategoriesData={ageCategoriesData || []}
-        // @ts-ignore UPDATE IN FUTURE
         competitionJuniorLevelsData={juniorLevelsData || []}
-        // @ts-ignore UPDATE IN FUTURE
         competitionTypesData={competitionTypesData || []}
         countriesData={countriesData || []}
       />

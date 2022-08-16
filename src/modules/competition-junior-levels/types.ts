@@ -1,5 +1,7 @@
 export type CompetitionJuniorLevelDto =
   Components.Schemas.CompetitionJuniorLevelDto
 
-// UPDATE IN FUTURE
-export type FindAllCompetitionJuniorLevelsParams = {}
+export type FindAllCompetitionJuniorLevelsParams = Pick<
+  Paths.CompetitionJuniorLevelsControllerFindAll.QueryParameters,
+  'level' | 'limit' | 'name' | 'page' | 'sortBy' | 'sortingOrder'
+>

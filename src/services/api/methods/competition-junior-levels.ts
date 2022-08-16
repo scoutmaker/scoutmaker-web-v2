@@ -4,7 +4,7 @@ import {
 } from '@/modules/competition-junior-levels/types'
 
 import { TModuleName } from '../modules'
-import { getPaginatedData } from './helpers'
+import { getDataList, getPaginatedData } from './helpers'
 
 const moduleName: TModuleName = 'competition-junior-levels'
 
@@ -15,3 +15,6 @@ export const getCompetitionJuniorLevels = (
     FindAllCompetitionJuniorLevelsParams,
     CompetitionJuniorLevelDto
   >(params, moduleName)
+
+export const getCompetitionJuniorLevelsList = () =>
+  getDataList<CompetitionJuniorLevelDto>(moduleName)

@@ -4,7 +4,7 @@ import {
 } from '@/modules/competition-types/types'
 
 import { TModuleName } from '../modules'
-import { getPaginatedData } from './helpers'
+import { getDataList, getPaginatedData } from './helpers'
 
 const moduleName: TModuleName = 'competition-types'
 
@@ -13,3 +13,6 @@ export const getCompetitionTypes = (params: CompetitionTypesFindAllParams) =>
     params,
     moduleName,
   )
+
+export const getCompetitionTypesList = () =>
+  getDataList<CompetitionTypeDto>(moduleName)

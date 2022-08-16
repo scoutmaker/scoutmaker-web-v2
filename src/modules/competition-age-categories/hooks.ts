@@ -2,11 +2,13 @@ import {
   createCompetitionAgeCategory,
   deleteCompetitionAgeCategory,
   getCompetitionAgeCategories,
+  getCompetitionAgeCategoriesList,
   updateCompetitionAgeCategory,
 } from '@/services/api/methods/competition-age-categories'
 import { TModuleName } from '@/services/api/modules'
 import { useCreateDocument } from '@/utils/hooks/api/use-create-document'
 import { useDeleteDocument } from '@/utils/hooks/api/use-delete-document'
+import { useList } from '@/utils/hooks/api/use-list'
 import { usePaginatedData } from '@/utils/hooks/api/use-paginated-data'
 import { useUpdateDocument } from '@/utils/hooks/api/use-update-document'
 
@@ -44,3 +46,9 @@ export const useUpdateCompetitionAgeCategory = (id: number) =>
     UpdateCompetitionAgeCategoryDto,
     CompetitionAgeCategortyDto
   >(moduleName, id, updateCompetitionAgeCategory)
+
+export const useCompetitionAgeCategoriesList = () =>
+  useList<CompetitionAgeCategortyDto>(
+    moduleName,
+    getCompetitionAgeCategoriesList,
+  )
