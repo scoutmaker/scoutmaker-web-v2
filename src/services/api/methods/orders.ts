@@ -4,7 +4,9 @@ import {
   OrderDto,
 } from '@/modules/orders/types'
 
+import { client } from '../api'
 import { TModuleName } from '../modules'
+import { ApiResponse } from '../types'
 import {
   createDocument,
   deleteDocument,
@@ -25,3 +27,22 @@ export const createOrder = (data: CreateOrderDto) =>
 
 export const deleteOrder = (id: number) =>
   deleteDocument<OrderDto>(id, moduleName)
+
+export const acceptOrder = (id: number) =>
+  toggleOrderState<OrderDto>(id, 'accept')
+
+export const rejectOrder = (id: number) =>
+  toggleOrderState<OrderDto>(id, 'reject')
+
+export const closeOrder = (id: number) =>
+  toggleOrderState<OrderDto>(id, 'close')
+
+async function toggleOrderState<ReturnType>(
+  id: number,
+  setState: 'accept' | 'reject' | 'close',
+): Promise<ApiResponse<ReturnType>> {
+  const { data } = await client.patch<ApiResponse<ReturnType>>(
+    `/${moduleName}/${id}/${setState}`,
+  )
+  return data
+}
