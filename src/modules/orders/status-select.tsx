@@ -24,6 +24,7 @@ export const StatusSelect = ({
       error={error}
       helperText={helperText}
     >
+      <MenuItem value="" />
       <MenuItem value="OPEN">{t('OPEN')}</MenuItem>
       <MenuItem value="ACCEPTED">{t('ACCEPTED')}</MenuItem>
       <MenuItem value="CLOSED">{t('CLOSED')}</MenuItem>
