@@ -1,7 +1,9 @@
 export {
+  AssignmentTurnedIn as AcceptIcon,
   PermContactCalendar as AdminIcon,
   Category as AgeCategoryIcon,
   SportsSoccer as BallIcon,
+  Lock as CloseIcon,
   Security as ClubsIcon,
   Flag as CountryIcon,
   Storage as DatabaseIcon,
@@ -20,6 +22,7 @@ export {
   DirectionsRun as PlayersIcon,
   AccountCircle as ProfileIcon,
   SouthAmerica as RegionIcon,
+  CancelOutlined as RejectIcon,
   Assessment as ReportsIcon,
   Create as ReportTemplatesIcon,
   AccessTime as SeasonIcon,
