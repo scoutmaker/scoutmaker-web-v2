@@ -27,7 +27,7 @@ const OrderPage = ({ data, errorMessage, errorStatus }: TSsrRole<OrderDto>) => {
   if (!data || errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
-      <PageHeading title={t('ORDER')} // ADD_TRANS
+      <PageHeading title={t('orders:SINGLE_PAGE', { nr: `${data.id}/${new Date(data.createdAt).getFullYear()}` })} // ADD_TRANS
       />
       <OrderDetailsCard order={data} />
     </>
