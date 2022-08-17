@@ -13,6 +13,7 @@ import { StyledTableRow } from '@/components/tables/row'
 import { formatDate } from '@/utils/format-date'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
+import { OrderStatusChip } from '../StatusChip'
 import { OrderDto } from '../types'
 
 interface ITableRowProps {
@@ -62,7 +63,7 @@ export const OrdersTableRow = ({
           {status === 'OPEN' ?
             <TableMenuItem
               icon={<AcceptIcon fontSize="small" />}
-              text={t('orders:ACCEPT')} // ADD_TRANS
+              text={t('orders:ACCEPT')}
               onClick={() => {
                 handleMenuAction(() => onAcceptOrderClick(id))
               }}
@@ -71,14 +72,14 @@ export const OrdersTableRow = ({
             <>
               <TableMenuItem
                 icon={<RejectIcon fontSize="small" />}
-                text={t('REJECT')} // ADD_TRANS
+                text={t('REJECT')}
                 onClick={() => {
                   handleMenuAction(() => onRejectOrderClick(id))
                 }}
               />
               <TableMenuItem
                 icon={<CloseIcon fontSize="small" />}
-                text={t('CLOSE')} // ADD_TRANS
+                text={t('CLOSE')}
                 onClick={() => {
                   handleMenuAction(() => onCloseOrderClick(id))
                 }}
@@ -105,7 +106,7 @@ export const OrdersTableRow = ({
       <StyledTableCell>{`${player?.firstName} ${player?.lastName}`}</StyledTableCell>
       <StyledTableCell>{player?.primaryPosition.name}</StyledTableCell>
       <StyledTableCell>{player?.teams[0].team.name}</StyledTableCell>
-      <StyledTableCell>{status}</StyledTableCell>
+      <StyledTableCell><OrderStatusChip status={status} /></StyledTableCell>
       <StyledTableCell>{scout ? `${scout.firstName} ${scout.lastName}` : ''}</StyledTableCell>
       <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
       <StyledTableCell padding="checkbox" align="center">

@@ -7,6 +7,7 @@ import { Loader } from '@/components/loader/loader'
 import { formatDate } from '@/utils/format-date'
 
 import { useAcceptOrder, useCloseOrder, useRejectOrder } from './hooks'
+import { OrderStatusChip } from './StatusChip'
 import { OrderDto } from './types'
 
 export const OrderDetailsCard = ({ order }: IDetailsCard) => {
@@ -31,33 +32,33 @@ export const OrderDetailsCard = ({ order }: IDetailsCard) => {
             <OrdersIcon />
           </Avatar>
         }
-        title={t('orders:CARD_TITLE')} // ADD_TRANS
+        title={t('orders:CARD_TITLE')}
         titleTypographyProps={{ variant: 'h3' }}
       />
       <CardContent>
         <Grid container spacing={1}>
           <CardItemBasic
-            title={t('STATUS')} // ADD_TRANS
-            value={t(status)}
+            title={t('STATUS')}
+            value={<OrderStatusChip status={status} />}
           />
           <CardItemBasic
             title={t('PLAYER')}
             value={player ? `${player?.firstName} ${player?.lastName}, ${player?.primaryPosition.name} (${player?.teams[0].team.name})` : ''}
           />
           <CardItemBasic
-            title={t('CREATED_DATE')} // ADD_TRANS
+            title={t('CREATED_DATE')}
             value={formatDate(createdAt)}
           />
           <CardItemBasic
-            title={t('DESCRIPTION')} // ADD_TRANS
+            title={t('DESCRIPTION')}
             value={description || ''}
           />
           <CardItemBasic
-            title={t('MATCH')} // ADD_TRANS
+            title={t('MATCH')}
             value={match ? `${match.homeTeam.name} vs. ${match.awayTeam.name} (${match.competition.name})` : ''}
           />
           <CardItemBasic
-            title={t('SCOUT')} // ADD_TRANS
+            title={t('SCOUT')}
             value={scout ? `${scout.firstName} ${scout.lastName}` : ''}
           />
           <Grid container justifyContent='center'>
