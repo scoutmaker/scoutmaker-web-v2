@@ -26,7 +26,7 @@ const CreateOrderPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   return (
     <>
       {isLoading && <Loader />}
-      <PageHeading title={t("orders:CREATE_PAGE_TITLE")} // ADD_TRANS
+      <PageHeading title={t("orders:CREATE_PAGE_TITLE")}
       />
       <CreateOrderForm
         matchesData={matchesData || []}

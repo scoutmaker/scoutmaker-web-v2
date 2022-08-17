@@ -55,12 +55,12 @@ export const OrdersFilterForm = ({
                 <FormControlLabel
                   value=''
                   control={<Radio />}
-                  label={t('ALL')} // ADD_TRANS
+                  label={t('ALL')}
                 />
                 <FormControlLabel
                   value={userId} // ADD
                   control={<Radio />}
-                  label={t('MINE')} // ADD_TRANS
+                  label={t('MINE')}
                 />
               </FlexContainer>
             </Field>
@@ -84,21 +84,21 @@ export const OrdersFilterForm = ({
             />
             <StatusSelect
               name='status'
-              label={t('STATUS')} // ADD_TRANS
+              label={t('STATUS')}
             />
             <Field
               name="createdAfter"
               as={TextField}
               type='date'
               variant="outlined"
-              label={t('orders:CREATED_AFTER')} // ADD_TRANS
+              label={t('orders:CREATED_AFTER')}
             />
             <Field
               name="createdBefore"
               as={TextField}
               type='date'
               variant="outlined"
-              label={t('orders:CREATED_BEFORE')} // ADD_TRANS
+              label={t('orders:CREATED_BEFORE')}
 
             />
             <FilterFormActions handleClearFilter={onClearFilters} />

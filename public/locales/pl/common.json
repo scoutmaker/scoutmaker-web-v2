@@ -55,6 +55,7 @@
   "NOTES": "Notatki",
   "REPORT_TEMPLATES_CREATOR": "Kreator szablonów",
   "ORDERS": "Zlecenia",
+  "ORDER": "Zlecenie",
   "ADMIN_PANEL": "Panel administratora",
   "PROFILE": "Mój profil",
   "USER_DATA": "Dane użytkownika",
@@ -123,5 +124,13 @@
   "TEXT": "Treść",
   "PERCENTAGE_RATING": "Ocena procentowa",
   "MAX_RATING_SCORE": "Skala ocen",
-  "META_DATA": "Meta dane"
+  "META_DATA": "Meta dane",
+  "STATUS": "Status",
+  "CREATED_DATE": "Data utworzenia",
+  "DESCRIPTION": "Opis",
+  "SCOUT": "Scout",
+  "ALL": "Wszystko",
+  "MINE": "Moje",
+  "REJECT": "Odrzuć",
+  "CLOSE": "Zamknij"
 }

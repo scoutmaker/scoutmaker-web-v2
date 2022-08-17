@@ -96,7 +96,7 @@ const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
   return (
     <>
       {isLoading && <Loader />}
-      <PageHeading title={t('orders:INDEX_PAGE_TITLE')} // ADD_TRANS
+      <PageHeading title={t('orders:INDEX_PAGE_TITLE')}
       />
       <OrdersFilterForm
         matchesData={matchesData || []}
@@ -137,7 +137,7 @@ const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
       <Fab href="/orders/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}
-        message={t('orders:DELETE_CONFIRM_QUESTION')} // ADD_TRANS
+        message={t('orders:DELETE_CONFIRM_QUESTION')}
         handleAccept={() => {
           if (toDeleteData)
             deleteOrder(toDeleteData.id)

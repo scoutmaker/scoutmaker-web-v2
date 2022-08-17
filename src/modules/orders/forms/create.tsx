@@ -51,7 +51,7 @@ export const CreateOrderForm = ({
               as={TextField}
               variant="outlined"
               fullWidth
-              label={t('DESCRIPTION')} // ADD_TRANS
+              label={t('DESCRIPTION')}
               error={touched.description && !!errors.description}
               helperText={touched.description && errors.description}
             />
@@ -70,7 +70,7 @@ export const CreateOrderForm = ({
               helperText={touched.matchId ? errors.matchId : undefined}
             />
             <MainFormActions
-              label={t('ORDER')} // ADD_TRANS
+              label={t('ORDER')}
               onCancelClick={() => {
                 if (onCancelClick) {
                   onCancelClick()

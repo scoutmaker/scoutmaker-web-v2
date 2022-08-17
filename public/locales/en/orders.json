@@ -1,0 +1,16 @@
+{
+  "CARD_TITLE": "Observation order",
+  "CREATED_AFTER": "Created after",
+  "CREATED_BEFORE": "Created before",
+  "NO_DESCRIPTION_ERROR": "Please provide order description",
+  "NO_MATCH_ERROR": "Please choose match",
+  "NO_PLAYER_ERROR": "Please choose player",
+  "ACCEPT": "Accept",
+  "SINGLE_PAGE": "Observation order nr {{nr}}",
+  "CREATE_PAGE_TITLE": "Create a new order",
+  "INDEX_PAGE_TITLE": "Orders database",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete this order?",
+  "OPEN": "open",
+  "CLOSED": "closed",
+  "ACCEPTED": "accepted"
+}

@@ -17,7 +17,7 @@ function generateHeadCells(t: TFunction): IHeadCell[] {
     { id: 'scout', label: t('SCOUT') },
     { id: 'createdAt', label: t('CREATED_AT') },
     { id: 'description', label: t('DESCRIPTION') },
-    { id: 'reportsCount', label: t('orders:REPORTS_COUNT'), isSortingDisabled: true },
+    { id: 'reportsCount', label: t('REPORTS_COUNT'), isSortingDisabled: true },
   ]
 }
 

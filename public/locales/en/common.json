@@ -55,6 +55,7 @@
   "NOTES": "Notes",
   "REPORT_TEMPLATES_CREATOR": "Templates creator",
   "ORDERS": "Orders",
+  "ORDER": "Order",
   "ADMIN_PANEL": "Admin panel",
   "PROFILE": "Profile",
   "USER_DATA": "User data",
@@ -123,5 +124,13 @@
   "TEXT": "Text",
   "PERCENTAGE_RATING": "Percentage rating",
   "MAX_RATING_SCORE": "Max rating score",
-  "META_DATA": "Meta data"
+  "META_DATA": "Meta data",
+  "STATUS": "Status",
+  "CREATED_DATE": "Create date",
+  "DESCRIPTION": "Description",
+  "SCOUT": "Scout",
+  "ALL": "All",
+  "MINE": "Mine",
+  "REJECT": "Reject",
+  "CLOSE": "Close"
 }

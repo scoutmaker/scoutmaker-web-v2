@@ -14,15 +14,15 @@ export const initialValues: CreateOrderDto = {
 export function generateCreateValidationSchema(t: TFunction) {
   return yup
     .object({
-      description: yup.string().required(t('orders:NO_DESCRIPTION_ERROR')), // ADD_TRANS
+      description: yup.string().required(t('orders:NO_DESCRIPTION_ERROR')),
       matchId: validateId({
         required: true,
         message: t('orders:NO_MATCH_ERROR'),
-      }), // ADD_TRANS
+      }),
       playerId: validateId({
         required: true,
         message: t('orders:NO_PLAYER_ERROR'),
-      }), // ADD_TRANS
+      }),
     })
     .defined()
 }
