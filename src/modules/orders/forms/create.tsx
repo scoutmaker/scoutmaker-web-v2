@@ -60,7 +60,7 @@ export const CreateOrderForm = ({
               name='playerId'
               label={t("PLAYER")}
               error={touched.playerId && !!errors.playerId}
-              helperText={touched.description ? errors.description : undefined}
+              helperText={touched.playerId ? errors.playerId : undefined}
             />
             <MatchesCombo
               data={matchesData}
