@@ -4,19 +4,13 @@ import React, { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
-import { ReportSkillAssessmentCategoriesIcon } from '@/components/icons'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { CountriesFilterForm } from '@/modules/countries/forms/filter'
-import { useCountries, useDeleteCountry } from '@/modules/countries/hooks'
-import { CountriesTable } from '@/modules/countries/table/countries'
-import { CountriesTableRow } from '@/modules/countries/table/countries-row'
-import { CountriesFiltersDto, CountriesSortBy } from '@/modules/countries/types'
+import { ReportSkillAssessmentCategoriesFilterForm } from '@/modules/report-skill-assessment-categories/forms/filter'
 import {
   useDeleteReportSkillAssessmentCategory,
   useReportSkillAssessmentCategories,
-  useReportSkillAssessmentCategoriesList,
 } from '@/modules/report-skill-assessment-categories/hooks'
 import { ReportSkillAssessmentCategoriesTable } from '@/modules/report-skill-assessment-categories/table/report-skill-assessment-categories'
 import { ReportSkillAssessmentCategoriesTableRow } from '@/modules/report-skill-assessment-categories/table/report-skill-assessment-categories-row'
@@ -94,11 +88,11 @@ const ReportSkillAssessmentCategoriesPage = ({
       <PageHeading
         title={t('report-skill-assessment-categories:INDEX_PAGE_TITLE')}
       />
-      {/* <CountriesFilterForm
+      <ReportSkillAssessmentCategoriesFilterForm
         filters={filters}
         onFilter={handleSetFilters}
         onClearFilters={() => handleSetFilters(initialFilters)}
-      /> */}
+      />
       <ReportSkillAssessmentCategoriesTable
         page={page}
         rowsPerPage={rowsPerPage}
