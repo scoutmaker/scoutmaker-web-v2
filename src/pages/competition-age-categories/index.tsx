@@ -7,12 +7,18 @@ import { Fab } from '@/components/fab/fab'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
+import { CompetitionAgeCategoriesFilterForm } from '@/modules/competition-age-categories/forms/filter'
 import { useCompetitionAgeCategories, useDeleteCompetitionAgeCategory } from '@/modules/competition-age-categories/hooks'
 import { CompetitionAgeCategoriesTableRow } from '@/modules/competition-age-categories/table/row'
 import { CompetitionAgeCategoriesTable } from '@/modules/competition-age-categories/table/table'
-import { CompetitionAgeCategortyDto } from '@/modules/competition-age-categories/types'
+import { CompetitionAgeCategoriesFiltersDto, CompetitionAgeCategoriesSortBy } from '@/modules/competition-age-categories/types'
+import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
+
+const initialFilters: CompetitionAgeCategoriesFiltersDto = {
+  name: ''
+}
 
 export const getServerSideProps = withSessionSsrRole(['common', 'comp-age-categ'], ['ADMIN'])
 
@@ -37,7 +43,23 @@ const CompetitionAgeCategoriesPage = ({ errorMessage, errorStatus }: TSsrRole) =
     handleSort,
   } = useTable('compAgeCategTable')
 
-  const { data: compAgeCateg, isLoading: dataLoading } = useCompetitionAgeCategories({})
+  const [filters, setFilters] = useLocalStorage<CompetitionAgeCategoriesFiltersDto>({
+    key: 'compAgeCateg-filters',
+    initialValue: initialFilters
+  })
+
+  const handleSetFilters = (newFilters: CompetitionAgeCategoriesFiltersDto) => {
+    setFilters(newFilters);
+    handleChangePage(null, 0);
+  };
+
+  const { data: compAgeCateg, isLoading: dataLoading } = useCompetitionAgeCategories({
+    page: page + 1,
+    limit: rowsPerPage,
+    sortBy: sortBy as CompetitionAgeCategoriesSortBy,
+    sortingOrder: order,
+    ...filters,
+  })
 
   const { mutate: deleteCompAgeCateg, isLoading: deleteLoading } = useDeleteCompetitionAgeCategory()
 
@@ -47,6 +69,11 @@ const CompetitionAgeCategoriesPage = ({ errorMessage, errorStatus }: TSsrRole) =
       {(dataLoading ||
         deleteLoading) && <Loader />}
       <PageHeading title={t('comp-age-categ:INDEX_PAGE_TITLE')} />
+      <CompetitionAgeCategoriesFilterForm
+        filters={filters}
+        onFilter={handleSetFilters}
+        onClearFilters={() => handleSetFilters(initialFilters)}
+      />
       <CompetitionAgeCategoriesTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -55,13 +82,11 @@ const CompetitionAgeCategoriesPage = ({ errorMessage, errorStatus }: TSsrRole) =
         handleChangePage={handleChangePage}
         handleChangeRowsPerPage={handleChangeRowsPerPage}
         handleSort={handleSort}
-        // @ts-ignore
-        total={compAgeCateg?.length || 0}
+        total={compAgeCateg?.totalDocs || 0}
         actions
       >
         {!!compAgeCateg &&
-          // @ts-ignore
-          compAgeCateg.map((item: CompetitionAgeCategortyDto) => (
+          compAgeCateg.docs.map((item) => (
             <CompetitionAgeCategoriesTableRow
               key={item.id}
               data={item}
