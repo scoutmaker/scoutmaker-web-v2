@@ -117,7 +117,7 @@ export const OrdersTableRow = ({
         )}
       </StyledTableCell>
       <StyledTableCell align="center">
-        <Badge badgeContent={_count.reports} color="secondary">
+        <Badge badgeContent={_count.reports || '0'} color="secondary">
           <ReportsIcon />
         </Badge>
       </StyledTableCell>

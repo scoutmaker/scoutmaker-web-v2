@@ -1,4 +1,3 @@
-import { TFunction } from 'next-i18next'
 import * as yup from 'yup'
 
 import { validateId } from '@/utils/validation-helpers'
@@ -11,18 +10,12 @@ export const initialValues: CreateOrderDto = {
   playerId: 0,
 }
 
-export function generateCreateValidationSchema(t: TFunction) {
+export function generateCreateValidationSchema() {
   return yup
     .object({
-      description: yup.string().required(t('orders:NO_DESCRIPTION_ERROR')),
-      matchId: validateId({
-        required: true,
-        message: t('orders:NO_MATCH_ERROR'),
-      }),
-      playerId: validateId({
-        required: true,
-        message: t('orders:NO_PLAYER_ERROR'),
-      }),
+      description: yup.string().notRequired(),
+      matchId: validateId(),
+      playerId: validateId(),
     })
     .defined()
 }
