@@ -20,7 +20,7 @@ import {
 } from '@/modules/report-skill-assessment-categories/types'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
-import { getCreateRoute, Routes } from '@/utils/routes'
+import { getCreateRoute, getEditRoute, Routes } from '@/utils/routes'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(
@@ -105,13 +105,23 @@ const ReportSkillAssessmentCategoriesPage = ({
         actions
       >
         {!categoriesLoading &&
-          categories?.docs.map(country => (
+          categories?.docs.map(category => (
             <ReportSkillAssessmentCategoriesTableRow
-              key={country.id}
-              data={country}
-              onEditClick={() => router.push(`/countries/edit/${country.id}`)}
+              key={category.id}
+              data={category}
+              onEditClick={() =>
+                router.push(
+                  getEditRoute(
+                    Routes.REPORT_SKILL_ASSESSMENT_CATEGORIES,
+                    category.id,
+                  ),
+                )
+              }
               onDeleteClick={() => {
-                setCategoryToDeleteData({ id: country.id, name: country.name })
+                setCategoryToDeleteData({
+                  id: category.id,
+                  name: category.name,
+                })
                 setIsDeleteConfirmationModalOpen(true)
               }}
               isEditOptionEnabled

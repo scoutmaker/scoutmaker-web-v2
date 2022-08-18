@@ -8,3 +8,7 @@ export enum Routes {
 export function getCreateRoute(route: Routes) {
   return `/${route}/create`
 }
+
+export function getEditRoute(route: Routes, identifier: string | number) {
+  return `/${route}/edit/${identifier}`
+}
