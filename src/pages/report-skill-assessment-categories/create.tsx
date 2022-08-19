@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { CreateCompetitionAgeCategoryForm } from '@/modules/competition-age-categories/forms/create'
+import { CreateReportSkillAssessmentCategoryForm } from '@/modules/report-skill-assessment-categories/forms/create'
 import { useCreateReportSkillAssessmentCategory } from '@/modules/report-skill-assessment-categories/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
@@ -28,7 +28,7 @@ const CreateReportSkillAssessmentCategoryPage = ({
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('report-skill-assessments:CREATE_PAGE_TITLE')} />
-      <CreateCompetitionAgeCategoryForm
+      <CreateReportSkillAssessmentCategoryForm
         onSubmit={createReportSkillAssessmentCategory}
       />
     </>
