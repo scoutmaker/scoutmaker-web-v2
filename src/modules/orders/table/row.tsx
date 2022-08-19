@@ -96,7 +96,7 @@ export const OrdersTableRow = ({
           />
         </TableMenu>
       </StyledTableCell>
-      <CellWithLink href={getSinglePlayerRoute(player?.slug || '')} label={`${player?.firstName} ${player?.lastName}`} />
+      <CellWithLink href={getSinglePlayerRoute(player?.slug || '')} label={player ? `${player?.firstName} ${player?.lastName}` : ''} />
       <StyledTableCell>{player?.primaryPosition.name}</StyledTableCell>
       <CellWithLink href={`/teams/${player?.teams[0].team.slug}`} label={player?.teams[0].team.name || ''} />
       <CellWithLink href={`/matches/${match?.id}`} label={match ? `${match?.homeTeam.name} vs ${match.awayTeam.name}` : ''} />
