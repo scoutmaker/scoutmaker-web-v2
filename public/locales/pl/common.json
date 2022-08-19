@@ -136,5 +136,8 @@
   "TEXT": "Treść",
   "PERCENTAGE_RATING": "Ocena procentowa",
   "MAX_RATING_SCORE": "Skala ocen",
-  "META_DATA": "Meta dane"
+  "META_DATA": "Meta dane",
+  "TEMPLATES": "Szablony",
+  "REPORT_SKILL_ASSESSMENT_CATEGORY": "Kategoria cech",
+  "REPORT_SKILL_ASSESSMENT_CATEGORIES": "Kategorie cech"
 }

@@ -136,5 +136,8 @@
   "TEXT": "Text",
   "PERCENTAGE_RATING": "Percentage rating",
   "MAX_RATING_SCORE": "Max rating score",
-  "META_DATA": "Meta data"
+  "META_DATA": "Meta data",
+  "TEMPLATES": "Templates",
+  "REPORT_SKILL_ASSESSMENT_CATEGORY": "Skill category",
+  "REPORT_SKILL_ASSESSMENT_CATEGORIES": "Skill categories"
 }

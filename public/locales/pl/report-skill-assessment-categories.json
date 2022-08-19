@@ -1,0 +1,7 @@
+{
+  "NO_NAME_ERROR": "Podaj nazwę kategorii cech",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć kategorię cech {{name}}?",
+  "INDEX_PAGE_TITLE": "Baza kategorii cech",
+  "CREATE_PAGE_TITLE": "Utwórz nową kategorię cech",
+  "EDIT_PAGE_TITLE": "Edycja danych kategorii cech"
+}
