@@ -136,5 +136,12 @@
   "TEXT": "Text",
   "PERCENTAGE_RATING": "Percentage rating",
   "MAX_RATING_SCORE": "Max rating score",
-  "META_DATA": "Meta data"
+  "META_DATA": "Meta data",
+  "INSIDER_NOTE": "Insider note",
+  "INSIDER_NOTES": "Insider notes",
+  "REMOVE_FROM_LIKED": "Remove from liked",
+  "ADD_TO_LIKED": "Add to liked",
+  "IS_LIKED": "Is liked",
+  "INFORMANT": "Informant",
+  "DESCRIPTION": "Description"
 }
