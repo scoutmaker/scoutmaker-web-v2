@@ -102,7 +102,7 @@ export const InsiderNotesTableRow = ({
       </StyledTableCell>
       <CellWithLink href={getSinglePlayerRoute(player.slug || '')} label={`${player.firstName} ${player.lastName}`} />
       <StyledTableCell> {player.primaryPosition.name}</StyledTableCell>
-      <CellWithLink href={`/teams/${meta}`} label={meta?.team ? meta.team.name : ''} />
+      <CellWithLink href={`/teams/${meta?.team.slug}`} label={meta?.team ? meta.team.name : ''} />
       <StyledTableCell>{informant || ''}</StyledTableCell>
       <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
     </StyledTableRow>
