@@ -36,8 +36,9 @@ const initialFilters: OrdersFiltersDto = {
   playerIds: [],
   status: 'OPEN',
   teamIds: [],
-  // @ts-ignore - so 'ALL' radio is selected by default filters
-  userId: ''
+  // @ts-ignore
+  userId: false,
+  onlyMine: false
 }
 
 interface ItoDeleteData {
@@ -65,7 +66,12 @@ const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
   })
 
   function handleSetFilters(newFilters: OrdersFiltersDto) {
-    setFilters(newFilters)
+    const filtersRS = newFilters // for eslint
+
+    if (filtersRS.onlyMine) filtersRS.userId = data?.userId
+    else filtersRS.userId = undefined
+
+    setFilters(filtersRS)
     handleChangePage(null, 0)
   }
 
@@ -102,7 +108,6 @@ const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
         matchesData={matchesData || []}
         playersData={playersData || []}
         teamsData={teamsData || []}
-        userId={data?.userId || 1}
         filters={filters}
         onFilter={handleSetFilters}
         onClearFilters={() => handleSetFilters(initialFilters)}

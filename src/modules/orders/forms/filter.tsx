@@ -1,6 +1,6 @@
-import { FormControlLabel, Radio, styled, TextField } from '@mui/material'
+import { Grid, styled, TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
-import { RadioGroup } from 'formik-mui'
+import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
 import { Container } from '@/components/forms/container'
@@ -15,7 +15,7 @@ import { TeamBasicDataDto } from '@/modules/teams/types'
 import { StatusSelect } from '../status-select'
 import { OrdersFiltersDto } from '../types'
 
-const FlexContainer = styled('div')(() => ({
+const StyledCheckboxContainer = styled('div')(() => ({
   display: 'flex',
   justifyContent: 'center',
 }))
@@ -27,7 +27,6 @@ type IFilterFormProps = {
   playersData: PlayerBasicDataDto[]
   teamsData: TeamBasicDataDto[]
   matchesData: MatchBasicDataDto[]
-  userId: number
 }
 
 export const OrdersFilterForm = ({
@@ -36,8 +35,7 @@ export const OrdersFilterForm = ({
   onClearFilters,
   playersData,
   teamsData,
-  matchesData,
-  userId
+  matchesData
 }: IFilterFormProps) => {
   const { t } = useTranslation()
 
@@ -50,20 +48,6 @@ export const OrdersFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <Container>
-            <Field component={RadioGroup} name="userId" >
-              <FlexContainer>
-                <FormControlLabel
-                  value=''
-                  control={<Radio />}
-                  label={t('ALL')}
-                />
-                <FormControlLabel
-                  value={userId} // ADD
-                  control={<Radio />}
-                  label={t('MINE')}
-                />
-              </FlexContainer>
-            </Field>
             <PlayersCombo
               data={playersData}
               name='playerIds'
@@ -86,21 +70,36 @@ export const OrdersFilterForm = ({
               name='status'
               label={t('STATUS')}
             />
-            <Field
-              name="createdAfter"
-              as={TextField}
-              type='date'
-              variant="outlined"
-              label={t('orders:CREATED_AFTER')}
-            />
-            <Field
-              name="createdBefore"
-              as={TextField}
-              type='date'
-              variant="outlined"
-              label={t('orders:CREATED_BEFORE')}
-
-            />
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <Field
+                  name="createdAfter"
+                  as={TextField}
+                  type='date'
+                  variant="outlined"
+                  label={t('orders:CREATED_AFTER')}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Field
+                  name="createdBefore"
+                  as={TextField}
+                  type='date'
+                  variant="outlined"
+                  label={t('orders:CREATED_BEFORE')}
+                  fullWidth
+                />
+              </Grid>
+            </Grid>
+            <StyledCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="onlyMine"
+                Label={{ label: t('ONLY_MINE') }}
+              />
+            </StyledCheckboxContainer>
             <FilterFormActions handleClearFilter={onClearFilters} />
           </Container>
         </Form>

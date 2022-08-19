@@ -4,7 +4,6 @@ import { Select } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
 import { IComboProps } from '../../types/combo'
-import { OrderStatusChip } from './StatusChip'
 
 export const StatusSelect = ({
   name,

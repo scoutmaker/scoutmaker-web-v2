@@ -132,5 +132,6 @@
   "ALL": "Wszystko",
   "MINE": "Moje",
   "REJECT": "Odrzuć",
-  "CLOSE": "Zamknij"
+  "CLOSE": "Zamknij",
+  "ONLY_MINE": "Tylko moje"
 }

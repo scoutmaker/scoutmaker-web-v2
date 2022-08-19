@@ -2,8 +2,6 @@ export type OrderDto = Components.Schemas.OrderDto
 
 export type CreateOrderDto = Components.Schemas.CreateOrderDto
 
-// export type UpdateOrderDto = Components.Schemas.UpdateOrde
-
 export type FindAllOrdersParams = Pick<
   Paths.OrdersControllerFindAll.QueryParameters,
   | 'createdAfter'
@@ -19,15 +17,18 @@ export type FindAllOrdersParams = Pick<
   | 'userId'
 >
 
-export type OrdersFiltersDto = Pick<
-  FindAllOrdersParams,
-  | 'createdAfter'
-  | 'createdBefore'
-  | 'matchIds'
-  | 'playerIds'
-  | 'status'
-  | 'teamIds'
-  | 'userId'
->
+export interface OrdersFiltersDto
+  extends Pick<
+    FindAllOrdersParams,
+    | 'createdAfter'
+    | 'createdBefore'
+    | 'matchIds'
+    | 'playerIds'
+    | 'status'
+    | 'teamIds'
+    | 'userId'
+  > {
+  onlyMine: boolean
+}
 
 export type OrdersSortBy = Paths.OrdersControllerFindAll.Parameters.SortBy

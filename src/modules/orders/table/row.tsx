@@ -7,9 +7,11 @@ import { useTranslation } from 'next-i18next'
 
 import { AcceptIcon, CloseIcon, NoteIcon, RejectIcon, ReportsIcon } from '@/components/icons'
 import { StyledTableCell } from '@/components/tables/cell'
+import { CellWithLink } from '@/components/tables/cell-with-link'
 import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
 import { StyledTableRow } from '@/components/tables/row'
+import { getSinglePlayerRoute } from '@/modules/players/utils'
 import { formatDate } from '@/utils/format-date'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
@@ -44,8 +46,7 @@ export const OrdersTableRow = ({
     handleMenuAction,
   } = useTableMenu()
 
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { id, player, status, scout, createdAt, description, _count, } = data
+  const { id, player, status, scout, createdAt, description, _count: count, match } = data
 
   return (
     <StyledTableRow
@@ -85,14 +86,6 @@ export const OrdersTableRow = ({
                 }}
               />
             </>}
-          {/* <TableMenuItem
-            icon={<EditIcon fontSize="small" />}
-            text={t('EDIT')}
-            onClick={() => {
-              handleMenuAction(onEditClick)
-            }}
-            disabled={!isEditOptionEnabled}
-          /> */}
           <TableMenuItem
             icon={<DeleteIcon fontSize="small" />}
             text={t('DELETE')}
@@ -103,9 +96,11 @@ export const OrdersTableRow = ({
           />
         </TableMenu>
       </StyledTableCell>
-      <StyledTableCell>{`${player?.firstName} ${player?.lastName}`}</StyledTableCell>
+      <CellWithLink href={getSinglePlayerRoute(player?.slug || '')} label={`${player?.firstName} ${player?.lastName}`} />
       <StyledTableCell>{player?.primaryPosition.name}</StyledTableCell>
-      <StyledTableCell>{player?.teams[0].team.name}</StyledTableCell>
+      <CellWithLink href={`/teams/${player?.teams[0].team.slug}`} label={player?.teams[0].team.name || ''} />
+      <CellWithLink href={`/matches/${match?.id}`} label={match ? `${match?.homeTeam.name} vs ${match.awayTeam.name}` : ''} />
+
       <StyledTableCell><OrderStatusChip status={status} /></StyledTableCell>
       <StyledTableCell>{scout ? `${scout.firstName} ${scout.lastName}` : ''}</StyledTableCell>
       <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
@@ -117,7 +112,7 @@ export const OrdersTableRow = ({
         )}
       </StyledTableCell>
       <StyledTableCell align="center">
-        <Badge badgeContent={_count.reports || '0'} color="secondary">
+        <Badge badgeContent={count.reports || '0'} color="secondary">
           <ReportsIcon />
         </Badge>
       </StyledTableCell>
