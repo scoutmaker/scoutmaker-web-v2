@@ -29,4 +29,5 @@ export {
   Dashboard as TemplatesIcon,
   Favorite as UnlikeIcon,
   Person as UserDataIcon,
+  Tv as VideoIcon,
 } from '@mui/icons-material'

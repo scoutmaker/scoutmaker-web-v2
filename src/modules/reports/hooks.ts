@@ -21,6 +21,7 @@ import {
   FindAllReportsParams,
   ReportBasicDataDto,
   ReportDto,
+  ReportPaginatedDataDto,
   UpdateReportDto,
 } from './types'
 
@@ -30,7 +31,7 @@ export const useReportsList = () =>
   useList<ReportBasicDataDto>(moduleName, getReportsList)
 
 export const useReports = (params: FindAllReportsParams) =>
-  usePaginatedData<FindAllReportsParams, ReportDto>(
+  usePaginatedData<FindAllReportsParams, ReportPaginatedDataDto>(
     moduleName,
     params,
     getReports,

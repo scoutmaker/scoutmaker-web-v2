@@ -29,6 +29,8 @@ export type ReportsSortBy = Paths.ReportsControllerFindAll.Parameters.SortBy
 
 export type ReportDto = Components.Schemas.ReportDto
 
+export type ReportPaginatedDataDto = Components.Schemas.ReportPaginatedDataDto
+
 export type CreateReportDto = Components.Schemas.CreateReportDto
 
 export type UpdateReportDto = Components.Schemas.UpdateReportDto

@@ -3,6 +3,7 @@ import {
   FindAllReportsParams,
   ReportBasicDataDto,
   ReportDto,
+  ReportPaginatedDataDto,
   UpdateReportDto,
 } from '@/modules/reports/types'
 import { TModuleName } from '@/services/api/modules'
@@ -26,7 +27,10 @@ export const getReportById = (id: number, token?: string) =>
 export const getReportsList = () => getDataList<ReportBasicDataDto>(moduleName)
 
 export const getReports = (params: FindAllReportsParams) =>
-  getPaginatedData<FindAllReportsParams, ReportDto>(params, moduleName)
+  getPaginatedData<FindAllReportsParams, ReportPaginatedDataDto>(
+    params,
+    moduleName,
+  )
 
 export const createReport = (data: CreateReportDto) =>
   createDocument<CreateReportDto, ReportDto>(data, moduleName)
