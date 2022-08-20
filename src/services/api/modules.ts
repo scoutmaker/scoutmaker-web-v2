@@ -17,3 +17,4 @@ export type TModuleName =
   | 'competition-types'
   | 'notes'
   | 'report-skill-assessment-categories'
+  | 'reports'
