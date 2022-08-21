@@ -22,7 +22,8 @@ import {
 } from '@/modules/reports/hooks'
 import { ReportsTableRow } from '@/modules/reports/table/row'
 import { ReportsTable } from '@/modules/reports/table/table'
-import { ReportsFiltersDto, ReportsSortBy } from '@/modules/reports/types'
+import { ReportsFilterFormData, ReportsSortBy } from '@/modules/reports/types'
+import { mapFilterFormDataToFiltersDto } from '@/modules/reports/utils'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { getDocumentNumber } from '@/utils/get-document-number'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
@@ -52,19 +53,18 @@ export const getServerSideProps = withSessionSsr(
   },
 )
 
-const initialFilters: ReportsFiltersDto = {
+const initialFilters: ReportsFilterFormData = {
   competitionGroupIds: [],
   competitionIds: [],
   isLiked: false,
   matchIds: [],
-  percentageRatingRangeEnd: 100,
-  percentageRatingRangeStart: 0,
   playerBornAfter: 1980,
   playerBornBefore: 2005,
   playerIds: [],
   positionIds: [],
   teamIds: [],
   hasVideo: false,
+  ratingRange: 'ALL',
 }
 
 interface IReportToDeleteData {
@@ -88,12 +88,12 @@ const ReportsPage = () => {
     handleSort,
   } = useTable('reports-table')
 
-  const [filters, setFilters] = useLocalStorage<ReportsFiltersDto>({
+  const [filters, setFilters] = useLocalStorage<ReportsFilterFormData>({
     key: 'reports-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: ReportsFiltersDto) {
+  function handleSetFilters(newFilters: ReportsFilterFormData) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -113,7 +113,7 @@ const ReportsPage = () => {
     limit: rowsPerPage,
     sortBy: sortBy as ReportsSortBy,
     sortingOrder: order,
-    // ...filters,
+    ...mapFilterFormDataToFiltersDto(filters),
   })
 
   const { mutate: deleteReport, isLoading: deleteReportLoading } =

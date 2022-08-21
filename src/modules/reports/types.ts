@@ -25,6 +25,18 @@ export type ReportsFiltersDto = Omit<
   'limit' | 'page' | 'sortBy' | 'sortingOrder'
 >
 
+export type RatingRange =
+  | 'ALL'
+  | 'NEGATIVE_SELECTION'
+  | 'NO_DECISION'
+  | 'TO_OBSERVE'
+  | 'POSITIVE_SELECTION'
+
+export type ReportsFilterFormData = Omit<
+  ReportsFiltersDto,
+  'percentageRatingRangeStart' | 'percentageRatingRangeEnd'
+> & { ratingRange: RatingRange }
+
 export type ReportsSortBy = Paths.ReportsControllerFindAll.Parameters.SortBy
 
 export type ReportDto = Components.Schemas.ReportDto
