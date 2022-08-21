@@ -409,16 +409,13 @@ declare namespace Components {
             author: UserBasicDataDto;
             createdAt: string; // date-time
             likes: LikeInsiderNoteBasicDataDto[];
+            meta?: InsiderNoteMetaDto;
         }
-        export interface InsiderNotePaginatedDataDto {
-            player?: PlayerSuperBasicDataDto;
+        export interface InsiderNoteMetaDto {
             id: number;
-            docNumber: number;
-            informant?: string;
-            description?: string;
-            author: UserBasicDataDto;
-            createdAt: string; // date-time
-            likes: LikeInsiderNoteBasicDataDto[];
+            team: TeamBasicDataDto;
+            competition: CompetitionBasicDataDto;
+            competitionGroup: CompetitionGroupBasicDataDto;
         }
         export interface InsiderNoteSuperBasicDataDto {
             id: number;
@@ -716,15 +713,14 @@ declare namespace Components {
             url: string;
         }
         export interface ReportBasicDataDto {
+            status: "IN_PROGRESS" | "FINISHED";
             id: number;
             docNumber: number;
-            status: {
-                [key: string]: any;
-            };
             player: PlayerSuperBasicDataDto;
             author: UserBasicDataDto;
         }
         export interface ReportDto {
+            status: "IN_PROGRESS" | "FINISHED";
             id: number;
             docNumber: number;
             minutesPlayed?: number;
@@ -738,9 +734,6 @@ declare namespace Components {
             summary?: string;
             avgRating?: number;
             percentageRating?: number;
-            status: {
-                [key: string]: any;
-            };
             createdAt: string; // date-time
             template: ReportTemplateBasicDataDto;
             player: PlayerSuperBasicDataDto;
@@ -748,8 +741,23 @@ declare namespace Components {
             author: UserBasicDataDto;
             skills: ReportSkillAssessmentBasicDataDto[];
             likes: LikeReportBasicDataDto[];
+            meta?: ReportMetaDto;
+        }
+        export interface ReportMetaBasicDataDto {
+            id: number;
+            team: TeamBasicDataDto;
+            position: PlayerPositionDto;
+        }
+        export interface ReportMetaDto {
+            id: number;
+            team: TeamBasicDataDto;
+            position: PlayerPositionDto;
+            competition: CompetitionBasicDataDto;
+            competitionGroup: CompetitionGroupBasicDataDto;
         }
         export interface ReportPaginatedDataDto {
+            status: "IN_PROGRESS" | "FINISHED";
+            meta?: ReportMetaBasicDataDto;
             id: number;
             docNumber: number;
             player: PlayerSuperBasicDataDto;
@@ -758,10 +766,10 @@ declare namespace Components {
             videoUrl?: string;
             author: UserBasicDataDto;
             createdAt: string; // date-time
-            status: {
-                [key: string]: any;
-            };
             likes: LikeReportBasicDataDto[];
+            match?: MatchBasicDataDto;
+            videoDescription?: string;
+            summary?: string;
         }
         export interface ReportSkillAssessmentBasicDataDto {
             id: number;
@@ -2380,7 +2388,7 @@ declare namespace Paths {
                     hasNextPage?: boolean;
                     prevPage?: number | null;
                     nextPage?: number | null;
-                    docs?: Components.Schemas.InsiderNotePaginatedDataDto[];
+                    docs?: Components.Schemas.InsiderNoteDto[];
                 };
             }
         }

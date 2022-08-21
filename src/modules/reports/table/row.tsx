@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { ReactNode, useState } from 'react'
+import { useState } from 'react'
 
 import {
   DeleteIcon,
@@ -38,6 +38,7 @@ import {
 import { formatDate } from '@/utils/format-date'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
+import { StatusChip } from '../status-chip'
 import { ReportPaginatedDataDto } from '../types'
 import { getSingleReportRoute } from '../utils'
 
@@ -77,13 +78,14 @@ export const ReportsTableRow = ({
     author,
     createdAt,
     likes,
-    // match,
+    match,
     percentageRating,
     player,
-    // videoDescription,
+    videoDescription,
     status,
     videoUrl,
-    // summary,
+    summary,
+    meta,
   } = data
 
   return (
@@ -163,17 +165,17 @@ export const ReportsTableRow = ({
         ) : (
           <StyledTableCell>-</StyledTableCell>
         )}
-        <StyledTableCell>-</StyledTableCell>
-
-        {/* <StyledTableCell>{meta?.position?.name || '-'}</StyledTableCell> */}
+        <StyledTableCell>{meta?.position?.name || '-'}</StyledTableCell>
         <StyledTableCell>
           {percentageRating ? (
             <RatingChip
               rating={parseInt(((percentageRating * 4) / 100).toFixed())}
             />
-          ) : null}
+          ) : (
+            '-'
+          )}
         </StyledTableCell>
-        {/* {match ? (
+        {match ? (
           <CellWithLink
             href={getSingleMatchRoute(match.id)}
             label={getMatchDisplayName({
@@ -183,9 +185,8 @@ export const ReportsTableRow = ({
           />
         ) : (
           <StyledTableCell>-</StyledTableCell>
-        )} */}
-        <StyledTableCell>-</StyledTableCell>
-        {/* <StyledTableCell>
+        )}
+        <StyledTableCell>
           {videoUrl ? (
             <Tooltip title={videoDescription || 'video'}>
               <Link
@@ -197,28 +198,33 @@ export const ReportsTableRow = ({
                 <VideoIcon />
               </Link>
             </Tooltip>
-          ) : null}
-        </StyledTableCell> */}
-        <StyledTableCell>-</StyledTableCell>
-        {/* <StyledTableCell>
+          ) : (
+            '-'
+          )}
+        </StyledTableCell>
+        <StyledTableCell>
           {match ? formatDate(match.date) : '-'}
-        </StyledTableCell> */}
-        <StyledTableCell>-</StyledTableCell>
+        </StyledTableCell>
         <StyledTableCell>{`${author.firstName} ${author.lastName}`}</StyledTableCell>
         <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
-        <StyledTableCell>{status as ReactNode}</StyledTableCell>
+        <StyledTableCell>
+          <StatusChip status={status} />
+        </StyledTableCell>
       </StyledTableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={10}>
           <Collapse in={isRowExpanded} timeout="auto" unmountOnExit>
             <Box margin={1}>
-              {/* <Typography variant="h6" gutterBottom>
-                {`Nr ${shirtNo || 'N/A'}, ${
-                  meta?.position && meta.position.name
-                } (${meta?.team && meta.team.name})`}
-              </Typography> */}
+              <Typography variant="h6" gutterBottom>
+                {`${getPlayerFullName({
+                  firstName: player.firstName,
+                  lastName: player.lastName,
+                })}, ${meta?.position && meta.position.name} (${
+                  meta?.team && meta.team.name
+                })`}
+              </Typography>
               <Typography gutterBottom variant="body2">
-                {/* {summary} */}
+                {summary}
               </Typography>
             </Box>
           </Collapse>

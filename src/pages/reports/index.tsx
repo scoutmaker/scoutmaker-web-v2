@@ -113,7 +113,7 @@ const ReportsPage = () => {
     limit: rowsPerPage,
     sortBy: sortBy as ReportsSortBy,
     sortingOrder: order,
-    ...filters,
+    // ...filters,
   })
 
   const { mutate: deleteReport, isLoading: deleteReportLoading } =
