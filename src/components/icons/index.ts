@@ -10,6 +10,7 @@ export {
   Edit as EditIcon,
   ExpandMore as ExpandMoreIcon,
   Home as HomeIcon,
+  Newspaper as InsiderNotesIcon,
   KeyboardArrowDown as KeyboardArrowDownIcon,
   KeyboardArrowUp as KeyboardArrowUpIcon,
   FavoriteBorder as LikeIcon,

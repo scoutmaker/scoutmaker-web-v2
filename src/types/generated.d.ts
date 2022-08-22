@@ -409,16 +409,13 @@ declare namespace Components {
             author: UserBasicDataDto;
             createdAt: string; // date-time
             likes: LikeInsiderNoteBasicDataDto[];
+            meta?: InsiderNoteMetaDto;
         }
-        export interface InsiderNotePaginatedDataDto {
-            player?: PlayerSuperBasicDataDto;
+        export interface InsiderNoteMetaDto {
             id: number;
-            docNumber: number;
-            informant?: string;
-            description?: string;
-            author: UserBasicDataDto;
-            createdAt: string; // date-time
-            likes: LikeInsiderNoteBasicDataDto[];
+            team: TeamBasicDataDto;
+            competition: CompetitionBasicDataDto;
+            competitionGroup: CompetitionGroupBasicDataDto;
         }
         export interface InsiderNoteSuperBasicDataDto {
             id: number;
@@ -2380,7 +2377,7 @@ declare namespace Paths {
                     hasNextPage?: boolean;
                     prevPage?: number | null;
                     nextPage?: number | null;
-                    docs?: Components.Schemas.InsiderNotePaginatedDataDto[];
+                    docs?: Components.Schemas.InsiderNoteDto[];
                 };
             }
         }
