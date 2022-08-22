@@ -1,10 +1,10 @@
 {
-  "CREATE_PAGE_TITLE": "Utwórz nową insajderską notatkę",
-  "INDEX_PAGE_TITLE": "Baza insajderskich notatek",
-  "DELETE_CONFIRM_QUESTION": "Czy napewno chcesz usunąć insajderską notatkę nr {{nr}}",
-  "EDIT_PAGE_TITLE": "Edycja insajderskiej notatki nr {{nr}}",
+  "CREATE_PAGE_TITLE": "Utwórz nową notatkę insajderską",
+  "INDEX_PAGE_TITLE": "Baza notatek insajderskich",
+  "DELETE_CONFIRM_QUESTION": "Czy napewno chcesz usunąć notatkę insajderską nr {{nr}}",
+  "EDIT_PAGE_TITLE": "Edycja notatki insajderskiej nr {{nr}}",
   "NO_PLAYER_ERROR": "Wybierz zawodnika",
   "META_DATA_DISCLAIMER": "Ponizsze pola to relacje do zespołu, rozgrywek oraz grup rozgrywkowych, jakie Twoja notatka będzie posiadać. Pola te są opcjonalne. Jeśli ich nie wypełnisz, powiązania zostaną utworzone automatycznie na podstawie aktualnych danych zawodnika.",
-  "NOTE_DETAILS": "Szczegóły insajderskiej notatki",
-  "DETAILS_TITLE": "Insajderska notatka nr {{nr}}"
+  "NOTE_DETAILS": "Szczegóły notatki insajderskiej",
+  "DETAILS_TITLE": "Notatka insajderska nr {{nr}}"
 }
