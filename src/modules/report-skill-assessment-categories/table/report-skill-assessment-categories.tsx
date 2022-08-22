@@ -4,17 +4,15 @@ import { ReactNode } from 'react'
 import { Table } from '@/components/tables/table'
 import { ICommonTableProps, IHeadCell } from '@/types/tables'
 
-interface ITableProps extends ICommonTableProps {
+interface IReportSkillAssessmentCategoriesTableProps extends ICommonTableProps {
   children: ReactNode
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
-  return [
-    { id: 'name', label: t('NAME') },
-  ]
+  return [{ id: 'name', label: t('NAME') }]
 }
 
-export const CompetitionAgeCategoriesTable = ({
+export const ReportSkillAssessmentCategoriesTable = ({
   page,
   rowsPerPage,
   sortBy,
@@ -25,7 +23,7 @@ export const CompetitionAgeCategoriesTable = ({
   total,
   actions,
   children,
-}: ITableProps) => {
+}: IReportSkillAssessmentCategoriesTableProps) => {
   const { t } = useTranslation()
 
   return (

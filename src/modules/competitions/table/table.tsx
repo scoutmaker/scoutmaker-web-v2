@@ -11,10 +11,16 @@ interface ITableProps extends ICommonTableProps {
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
     { id: 'name', label: t('NAME') },
+    { id: 'gender', label: t('GENDER') },
+    { id: 'type', label: t('COMPETITION_TYPE') },
+    { id: 'country', label: t('COUNTRY') },
+    { id: 'level', label: t('LEVEL') },
+    { id: 'ageCategory', label: t('COMPETITION_AGE_CATEGORY') },
+    { id: 'juniorLevel', label: t('COMPETITION_JUNIOR_LEVEL') },
   ]
 }
 
-export const CompetitionAgeCategoriesTable = ({
+export const CompetitionsTable = ({
   page,
   rowsPerPage,
   sortBy,

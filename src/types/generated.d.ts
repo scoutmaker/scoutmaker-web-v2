@@ -1475,11 +1475,35 @@ declare namespace Paths {
         }
     }
     namespace CompetitionAgeCategoriesControllerFindAll {
+        namespace Parameters {
+            export type Limit = number;
+            export type Name = string;
+            export type Page = number;
+            export type SortBy = "id" | "name";
+            export type SortingOrder = "asc" | "desc";
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
                 message: string;
-                data?: Components.Schemas.CompetitionAgeCategoryDto[];
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.CompetitionAgeCategoryDto[];
+                };
             }
         }
     }
@@ -1495,6 +1519,15 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.CompetitionAgeCategoryDto;
+            }
+        }
+    }
+    namespace CompetitionAgeCategoriesControllerGetList {
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.CompetitionAgeCategoryDto[];
             }
         }
     }
@@ -1540,11 +1573,39 @@ declare namespace Paths {
         }
     }
     namespace CompetitionGroupsControllerFindAll {
+        namespace Parameters {
+            export type CompetitionIds = number[];
+            export type Limit = number;
+            export type Name = string;
+            export type Page = number;
+            export type RegionIds = number[];
+            export type SortBy = "id" | "name" | "competition";
+            export type SortingOrder = "asc" | "desc";
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            competitionIds?: Parameters.CompetitionIds;
+            regionIds?: Parameters.RegionIds;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
                 message: string;
-                data?: Components.Schemas.CompetitionGroupBasicDataDto[];
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.CompetitionGroupDto[];
+                };
             }
         }
     }
@@ -1560,6 +1621,15 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.CompetitionGroupDto;
+            }
+        }
+    }
+    namespace CompetitionGroupsControllerGetList {
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.CompetitionGroupBasicDataDto[];
             }
         }
     }
@@ -1605,11 +1675,37 @@ declare namespace Paths {
         }
     }
     namespace CompetitionJuniorLevelsControllerFindAll {
+        namespace Parameters {
+            export type Level = number;
+            export type Limit = number;
+            export type Name = string;
+            export type Page = number;
+            export type SortBy = "id" | "name" | "level";
+            export type SortingOrder = "asc" | "desc";
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            level?: Parameters.Level;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
                 message: string;
-                data?: Components.Schemas.CompetitionJuniorLevelDto[];
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.CompetitionJuniorLevelDto[];
+                };
             }
         }
     }
@@ -1625,6 +1721,15 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.CompetitionJuniorLevelDto;
+            }
+        }
+    }
+    namespace CompetitionJuniorLevelsControllerGetList {
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.CompetitionJuniorLevelDto[];
             }
         }
     }
@@ -1803,11 +1908,35 @@ declare namespace Paths {
         }
     }
     namespace CompetitionTypesControllerFindAll {
+        namespace Parameters {
+            export type Limit = number;
+            export type Name = string;
+            export type Page = number;
+            export type SortBy = "id" | "name";
+            export type SortingOrder = "asc" | "desc";
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
                 message: string;
-                data?: Components.Schemas.CompetitionTypeDto[];
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.CompetitionTypeDto[];
+                };
             }
         }
     }
@@ -1823,6 +1952,15 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.CompetitionTypeDto;
+            }
+        }
+    }
+    namespace CompetitionTypesControllerGetList {
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.CompetitionTypeDto[];
             }
         }
     }
@@ -2062,6 +2200,15 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.CountryDto;
+            }
+        }
+    }
+    namespace CountriesControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
             }
         }
     }
@@ -3359,11 +3506,35 @@ declare namespace Paths {
         }
     }
     namespace OrganizationsControllerFindAll {
+        namespace Parameters {
+            export type Limit = number;
+            export type Name = string;
+            export type Page = number;
+            export type SortBy = "id" | "name" | "createdAt";
+            export type SortingOrder = "asc" | "desc";
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
                 message: string;
-                data?: Components.Schemas.OrganizationDto;
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.OrganizationDto[];
+                };
             }
         }
     }
@@ -3374,6 +3545,15 @@ declare namespace Paths {
         export interface PathParameters {
             id: Parameters.Id;
         }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.OrganizationDto;
+            }
+        }
+    }
+    namespace OrganizationsControllerGetList {
         namespace Responses {
             export interface $200 {
                 success: boolean;
@@ -3440,11 +3620,37 @@ declare namespace Paths {
         }
     }
     namespace PlayerPositionsControllerFindAll {
+        namespace Parameters {
+            export type Code = string;
+            export type Limit = number;
+            export type Name = string;
+            export type Page = number;
+            export type SortBy = "id" | "name" | "code";
+            export type SortingOrder = "asc" | "desc";
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            code?: Parameters.Code;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
                 message: string;
-                data?: Components.Schemas.PlayerPositionDto[];
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.PlayerPositionDto[];
+                };
             }
         }
     }
@@ -3460,6 +3666,15 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.PlayerPositionDto;
+            }
+        }
+    }
+    namespace PlayerPositionsControllerGetList {
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerPositionDto[];
             }
         }
     }
@@ -3829,11 +4044,35 @@ declare namespace Paths {
         }
     }
     namespace ReportBackgroundImagesControllerFindAll {
+        namespace Parameters {
+            export type Limit = number;
+            export type Name = string;
+            export type Page = number;
+            export type SortBy = "id" | "name";
+            export type SortingOrder = "asc" | "desc";
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
                 message: string;
-                data?: Components.Schemas.ReportBackgroundImageDto;
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.ReportBackgroundImageDto[];
+                };
             }
         }
     }
@@ -3844,6 +4083,15 @@ declare namespace Paths {
         export interface PathParameters {
             id: Parameters.Id;
         }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.ReportBackgroundImageDto;
+            }
+        }
+    }
+    namespace ReportBackgroundImagesControllerGetList {
         namespace Responses {
             export interface $200 {
                 success: boolean;
@@ -3894,11 +4142,35 @@ declare namespace Paths {
         }
     }
     namespace ReportSkillAssessmentCategoriesControllerFindAll {
+        namespace Parameters {
+            export type Limit = number;
+            export type Name = string;
+            export type Page = number;
+            export type SortBy = "id" | "name";
+            export type SortingOrder = "asc" | "desc";
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
                 message: string;
-                data?: Components.Schemas.ReportSkillAssessmentCategoryDto;
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.ReportSkillAssessmentCategoryDto[];
+                };
             }
         }
     }
@@ -3909,6 +4181,15 @@ declare namespace Paths {
         export interface PathParameters {
             id: Parameters.Id;
         }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.ReportSkillAssessmentCategoryDto;
+            }
+        }
+    }
+    namespace ReportSkillAssessmentCategoriesControllerGetList {
         namespace Responses {
             export interface $200 {
                 success: boolean;
@@ -3959,11 +4240,37 @@ declare namespace Paths {
         }
     }
     namespace ReportSkillAssessmentTemplatesControllerFindAll {
+        namespace Parameters {
+            export type CategoryIds = number[];
+            export type Limit = number;
+            export type Name = string;
+            export type Page = number;
+            export type SortBy = "id" | "name" | "category";
+            export type SortingOrder = "asc" | "desc";
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            categoryIds?: Parameters.CategoryIds;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
                 message: string;
-                data?: Components.Schemas.ReportSkillAssessmentTemplateDto;
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.ReportSkillAssessmentTemplateDto[];
+                };
             }
         }
     }
@@ -3974,6 +4281,15 @@ declare namespace Paths {
         export interface PathParameters {
             id: Parameters.Id;
         }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.ReportSkillAssessmentTemplateDto;
+            }
+        }
+    }
+    namespace ReportSkillAssessmentTemplatesControllerGetList {
         namespace Responses {
             export interface $200 {
                 success: boolean;
@@ -4059,11 +4375,35 @@ declare namespace Paths {
         }
     }
     namespace ReportTemplatesControllerFindAll {
+        namespace Parameters {
+            export type Limit = number;
+            export type Name = string;
+            export type Page = number;
+            export type SortBy = "id" | "name";
+            export type SortingOrder = "asc" | "desc";
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
                 message: string;
-                data?: Components.Schemas.ReportTemplateDto;
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.ReportTemplateDto[];
+                };
             }
         }
     }
@@ -4074,6 +4414,15 @@ declare namespace Paths {
         export interface PathParameters {
             id: Parameters.Id;
         }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.ReportTemplateDto;
+            }
+        }
+    }
+    namespace ReportTemplatesControllerGetList {
         namespace Responses {
             export interface $200 {
                 success: boolean;
@@ -4235,11 +4584,35 @@ declare namespace Paths {
         }
     }
     namespace SeasonsControllerFindAll {
+        namespace Parameters {
+            export type Limit = number;
+            export type Name = string;
+            export type Page = number;
+            export type SortBy = "id" | "name" | "isActive" | "startDate" | "endDate";
+            export type SortingOrder = "asc" | "desc";
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
                 message: string;
-                data?: Components.Schemas.SeasonDto;
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.SeasonDto[];
+                };
             }
         }
     }
@@ -4250,6 +4623,15 @@ declare namespace Paths {
         export interface PathParameters {
             id: Parameters.Id;
         }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.SeasonDto;
+            }
+        }
+    }
+    namespace SeasonsControllerGetList {
         namespace Responses {
             export interface $200 {
                 success: boolean;
@@ -4543,11 +4925,35 @@ declare namespace Paths {
         }
     }
     namespace UserFootballRolesControllerFindAll {
+        namespace Parameters {
+            export type Limit = number;
+            export type Name = string;
+            export type Page = number;
+            export type SortBy = "id" | "name";
+            export type SortingOrder = "asc" | "desc";
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
                 message: string;
-                data?: Components.Schemas.UserFootballRoleDto;
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.UserFootballRoleDto[];
+                };
             }
         }
     }
@@ -4558,6 +4964,15 @@ declare namespace Paths {
         export interface PathParameters {
             id: Parameters.Id;
         }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.UserFootballRoleDto;
+            }
+        }
+    }
+    namespace UserFootballRolesControllerGetList {
         namespace Responses {
             export interface $200 {
                 success: boolean;
@@ -5069,6 +5484,47 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.UserDto;
+            }
+        }
+    }
+    namespace UsersControllerFindAll {
+        namespace Parameters {
+            export type ClubIds = number[];
+            export type FootballRoleIds = number[];
+            export type Limit = number;
+            export type Name = string;
+            export type Page = number;
+            export type RegionIds = number[];
+            export type Role = "ADMIN" | "PLAYMAKER_SCOUT" | "SCOUT";
+            export type SortBy = "id" | "firstName" | "lastName" | "club" | "footballRole" | "region" | "reportsCount" | "notesCount" | "insiderNotesCount";
+            export type SortingOrder = "asc" | "desc";
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            role?: Parameters.Role;
+            regionIds?: Parameters.RegionIds;
+            clubIds?: Parameters.ClubIds;
+            footballRoleIds?: Parameters.FootballRoleIds;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.UserDto[];
+                };
             }
         }
     }
