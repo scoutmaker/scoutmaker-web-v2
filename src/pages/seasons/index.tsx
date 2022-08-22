@@ -7,11 +7,18 @@ import { Fab } from '@/components/fab/fab'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { useDeleteSeason, useSeasonsList, useSetActiveSeason, useUnSetActiveSeason } from '@/modules/seasons/hooks'
+import { SeasonsFilterForm } from '@/modules/seasons/forms/filter'
+import { useDeleteSeason, useSeasons, useSetActiveSeason, useUnSetActiveSeason } from '@/modules/seasons/hooks'
 import { SeasonsTableRow } from '@/modules/seasons/table/row'
 import { SeasonsTable } from '@/modules/seasons/table/table'
+import { SeasonsFiltersDto, SeasonsSortBy } from '@/modules/seasons/types'
+import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
+
+const initialFilters: SeasonsFiltersDto = {
+  name: ''
+}
 
 export const getServerSideProps = withSessionSsrRole(['common', 'seasons'], ['ADMIN'])
 
@@ -36,7 +43,23 @@ const SeasonsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     handleSort,
   } = useTable('seasonsTable')
 
-  const { data: seasons, isLoading: dataLoading } = useSeasonsList()
+  const [filters, setFilters] = useLocalStorage<SeasonsFiltersDto>({
+    key: 'seasons-filters',
+    initialValue: initialFilters,
+  })
+
+  function handleSetFilters(newFilters: SeasonsFiltersDto) {
+    setFilters(newFilters)
+    handleChangePage(null, 0)
+  }
+
+  const { data: seasons, isLoading: dataLoading } = useSeasons({
+    page: page + 1,
+    limit: rowsPerPage,
+    sortBy: sortBy as SeasonsSortBy,
+    sortingOrder: order,
+    ...filters,
+  })
 
   const { mutate: deleteSeason, isLoading: deleteLoading } = useDeleteSeason()
 
@@ -50,6 +73,11 @@ const SeasonsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('seasons:INDEX_PAGE_TITLE')} />
+      <SeasonsFilterForm
+        filters={filters}
+        onFilter={handleSetFilters}
+        onClearFilters={() => handleSetFilters(initialFilters)}
+      />
       <SeasonsTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -58,11 +86,11 @@ const SeasonsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
         handleChangePage={handleChangePage}
         handleChangeRowsPerPage={handleChangeRowsPerPage}
         handleSort={handleSort}
-        total={seasons?.length || 0}
+        total={seasons?.totalDocs || 0}
         actions
       >
         {!!seasons &&
-          seasons.map(season => (
+          seasons.docs.map(season => (
             <SeasonsTableRow
               key={season.id}
               data={season}

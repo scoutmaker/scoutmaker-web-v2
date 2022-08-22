@@ -4,8 +4,11 @@ export type CreateSeasonDto = Components.Schemas.CreateSeasonDto
 
 export type UpdateSeasonDto = Components.Schemas.UpdateSeasonDto
 
-// nothing at the moment
-export type FindAllSeasonsParams = {}
+export type FindAllSeasonsParams = Pick<
+  Paths.SeasonsControllerFindAll.QueryParameters,
+  'limit' | 'name' | 'page' | 'sortBy' | 'sortingOrder'
+>
 
-// nothing at the moment
-export type SeasonsFiltersDto = {}
+export type SeasonsFiltersDto = Pick<FindAllSeasonsParams, 'name'>
+
+export type SeasonsSortBy = Paths.SeasonsControllerFindAll.Parameters.SortBy
