@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { useUser } from '@/modules/auth/hooks'
+import { Routes } from '@/utils/routes'
 import { isAdmin, isPrivilegedUser } from '@/utils/user-roles'
 
 import {
@@ -23,10 +24,12 @@ import {
   ProfileIcon,
   RegionIcon,
   ReportsIcon,
+  ReportSkillAssessmentCategoriesIcon,
   ReportTemplatesIcon,
   SeasonIcon,
   SettingsIcon,
   TeamsIcon,
+  TemplatesIcon,
   UserDataIcon,
 } from '../icons'
 import { ExpandeableNavElement } from './expandeable-nav-element'
@@ -46,6 +49,7 @@ export const NavList = () => {
 
   const [isDatabaseListOpen, setDatabaseListOpen] = useState(false)
   const [isObservationListOpen, setObservationListOpen] = useState(false)
+  const [isTemplatesListOpen, setTemplatesListOpen] = useState(false)
   const [isProfileListOpen, setProfileListOpen] = useState(false)
   const [isAdminListOpen, setAdminListOpen] = useState(false)
 
@@ -117,10 +121,26 @@ export const NavList = () => {
           text={t('ORDERS')}
         />
       ) : null}
+      <ExpandeableNavElement
+        icon={<TemplatesIcon color="error" />}
+        handleClick={() => setTemplatesListOpen(!isTemplatesListOpen)}
+        open={isTemplatesListOpen}
+        title={t('TEMPLATES')}
+      >
+        <NavElement
+          icon={<ReportSkillAssessmentCategoriesIcon color="error" />}
+          to={Routes.REPORT_SKILL_ASSESSMENT_CATEGORIES}
+          text={t('REPORT_SKILL_ASSESSMENT_CATEGORIES')}
+        />
+        <NavElement
+          icon={<ReportTemplatesIcon color="error" />}
+          to="/reporttemplates"
+          text={t('REPORT_TEMPLATES_CREATOR')}
+        />
+      </ExpandeableNavElement>
       {/* <MatchButton onClick={handleMatchClick} isAtTheMatch={isAtTheMatch} /> */}
       {/* <QuickNoteButton onClick={handleQuickNoteClick} /> */}
       {isAdmin(user) && (
-
         <ExpandeableNavElement
           icon={<AdminIcon color="error" />}
           handleClick={() => setAdminListOpen(!isAdminListOpen)}

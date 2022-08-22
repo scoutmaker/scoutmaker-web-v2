@@ -143,5 +143,8 @@
   "ADD_TO_LIKED": "Dodaj do polubionych",
   "IS_LIKED": "Czy jest polubiony",
   "INFORMANT": "Informator",
-  "DESCRIPTION": "Opis"
+  "DESCRIPTION": "Opis",
+  "TEMPLATES": "Szablony",
+  "REPORT_SKILL_ASSESSMENT_CATEGORY": "Kategoria cech",
+  "REPORT_SKILL_ASSESSMENT_CATEGORIES": "Kategorie cech"
 }

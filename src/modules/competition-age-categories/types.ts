@@ -7,8 +7,15 @@ export type CreateCompetitionAgeCategoryDto =
 export type UpdateCompetitionAgeCategoryDto =
   Components.Schemas.UpdateCompetitionAgeCategoryDto
 
-// nothing at the moment
-export type FindAllCompetitionAgeCategoriesParams = {}
+export type FindAllCompetitionAgeCategoriesParams = Pick<
+  Paths.CompetitionAgeCategoriesControllerFindAll.QueryParameters,
+  'limit' | 'name' | 'page' | 'sortBy' | 'sortingOrder'
+>
 
-// nothing at the moment
-export type CompetitionAgeCategoriesFiltersDto = {}
+export type CompetitionAgeCategoriesFiltersDto = Pick<
+  Paths.CompetitionAgeCategoriesControllerFindAll.QueryParameters,
+  'name'
+>
+
+export type CompetitionAgeCategoriesSortBy =
+  Paths.CompetitionAgeCategoriesControllerFindAll.Parameters.SortBy

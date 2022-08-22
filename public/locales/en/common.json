@@ -143,5 +143,8 @@
   "ADD_TO_LIKED": "Add to liked",
   "IS_LIKED": "Is liked",
   "INFORMANT": "Informant",
-  "DESCRIPTION": "Description"
+  "DESCRIPTION": "Description",
+  "TEMPLATES": "Templates",
+  "REPORT_SKILL_ASSESSMENT_CATEGORY": "Skill category",
+  "REPORT_SKILL_ASSESSMENT_CATEGORIES": "Skill categories"
 }
