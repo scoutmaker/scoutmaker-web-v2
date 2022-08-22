@@ -11,7 +11,9 @@ import { CellWithLink } from '@/components/tables/cell-with-link'
 import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
 import { StyledTableRow } from '@/components/tables/row'
+import { getMatchDisplayName, getSingleMatchRoute } from '@/modules/matches/utils'
 import { getSinglePlayerRoute } from '@/modules/players/utils'
+import { getSingleTeamRoute } from '@/modules/teams/utils'
 import { formatDate } from '@/utils/format-date'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
@@ -98,8 +100,8 @@ export const OrdersTableRow = ({
       </StyledTableCell>
       <CellWithLink href={getSinglePlayerRoute(player?.slug || '')} label={player ? `${player?.firstName} ${player?.lastName}` : ''} />
       <StyledTableCell>{player?.primaryPosition.name}</StyledTableCell>
-      <CellWithLink href={`/teams/${player?.teams[0].team.slug}`} label={player?.teams[0].team.name || ''} />
-      <CellWithLink href={`/matches/${match?.id}`} label={match ? `${match?.homeTeam.name} vs ${match.awayTeam.name}` : ''} />
+      <CellWithLink href={getSingleTeamRoute(player?.teams[0].team.slug || '')} label={player?.teams[0].team.name || ''} />
+      <CellWithLink href={getSingleMatchRoute(match?.id || 0)} label={match ? getMatchDisplayName({ awayTeamName: match.awayTeam.name, homeTeamName: match.homeTeam.name, competitionName: match.competition.name }) : ''} />
 
       <StyledTableCell><OrderStatusChip status={status} /></StyledTableCell>
       <StyledTableCell>{scout ? `${scout.firstName} ${scout.lastName}` : ''}</StyledTableCell>
