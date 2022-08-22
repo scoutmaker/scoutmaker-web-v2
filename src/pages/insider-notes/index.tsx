@@ -21,9 +21,7 @@ import { useLocalStorage } from '@/utils/hooks/use-local-storage';
 import { useTable } from '@/utils/hooks/use-table';
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole';
 
-// UPDATE AFTER ORDERS PR
-export const getServerSideProps = withSessionSsrRole<{ userId: number }>(['common', 'insider-notes'], false,
-  async (token, params, user) => ({ data: { userId: user?.id || 0 } }));
+export const getServerSideProps = withSessionSsrRole(['common', 'insider-notes'], false);
 
 const initialFilters: InsiderNotesFiltersDto = {
   competitionGroupIds: [],
@@ -34,7 +32,7 @@ const initialFilters: InsiderNotesFiltersDto = {
   teamIds: []
 }
 
-const InsiderNotesPage = ({ data, errorStatus, errorMessage }: TSsrRole<{ userId: number }>) => {
+const InsiderNotesPage = ({ errorStatus, errorMessage }: TSsrRole) => {
   const { t } = useTranslation();
   const router = useRouter();
 
@@ -88,7 +86,7 @@ const InsiderNotesPage = ({ data, errorStatus, errorMessage }: TSsrRole<{ userId
     playersLoading ||
     teamsLoading || likeLoading || unLikeLoading
 
-  if (errorStatus || !data) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
@@ -128,7 +126,6 @@ const InsiderNotesPage = ({ data, errorStatus, errorMessage }: TSsrRole<{ userId
             isDeleteOptionEnabled
             onLikeClick={likeInsiderNote}
             onUnlikeClick={unLikeInsiderNote}
-            userId={data.userId}
           />
         ))}
       </InsiderNotesTable>

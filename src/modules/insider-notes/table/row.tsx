@@ -23,7 +23,6 @@ interface ITableRowProps {
   onDeleteClick: () => void
   isEditOptionEnabled: boolean
   isDeleteOptionEnabled: boolean
-  userId: number
   onUnlikeClick: (id: number) => void
   onLikeClick: (id: number) => void
 }
@@ -34,7 +33,6 @@ export const InsiderNotesTableRow = ({
   onDeleteClick,
   isEditOptionEnabled,
   isDeleteOptionEnabled,
-  userId,
   onUnlikeClick,
   onLikeClick
 }: ITableRowProps) => {
@@ -64,7 +62,7 @@ export const InsiderNotesTableRow = ({
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
         >
-          {likes.some(e => e.userId === userId) ? (
+          {likes.length ? (
             <TableMenuItem
               icon={<UnlikeIcon fontSize="small" />}
               text={t('REMOVE_FROM_LIKED')}
