@@ -139,5 +139,6 @@
   "META_DATA": "Meta dane",
   "TEMPLATES": "Szablony",
   "REPORT_SKILL_ASSESSMENT_CATEGORY": "Kategoria cech",
-  "REPORT_SKILL_ASSESSMENT_CATEGORIES": "Kategorie cech"
+  "REPORT_SKILL_ASSESSMENT_CATEGORIES": "Kategorie cech",
+  "CODE": "Kod"
 }
