@@ -108,7 +108,17 @@ export const OrdersTableRow = ({
         ) : (
           <StyledTableCell>-</StyledTableCell>
         )}
-      <CellWithLink href={getSingleMatchRoute(match?.id || 0)} label={match ? getMatchDisplayName({ awayTeamName: match.awayTeam.name, homeTeamName: match.homeTeam.name, competitionName: match.competition.name }) : ''} />
+        {match ? (
+          <CellWithLink
+            href={getSingleMatchRoute(match.id)}
+            label={getMatchDisplayName({
+              homeTeamName: match.homeTeam.name,
+              awayTeamName: match.awayTeam.name,
+            })}
+          />
+        ) : (
+          <StyledTableCell>-</StyledTableCell>
+        )}
 
       <StyledTableCell><OrderStatusChip status={status} /></StyledTableCell>
       <StyledTableCell>{scout ? `${scout.firstName} ${scout.lastName}` : ''}</StyledTableCell>
