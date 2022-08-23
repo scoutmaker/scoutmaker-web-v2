@@ -72,7 +72,7 @@ const PlayerPositionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
   return (
     <>
       {isLoading && <Loader />}
-      <PageHeading title={t('player-positions:INDEX_PAGE_TITLE')} // ADD_TRANS
+      <PageHeading title={t('player-positions:INDEX_PAGE_TITLE')}
       />
       <PlayerPositionsFilterForm
         filters={filters}
@@ -110,7 +110,7 @@ const PlayerPositionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
       <Fab href="/player-positions/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}
-        message={t('player-positions:DELETE_CONFIRM_QUESTION', { // ADD_TRANS
+        message={t('player-positions:DELETE_CONFIRM_QUESTION', {
           name: toDeleteData?.name,
         })}
         handleAccept={() => {

@@ -18,7 +18,7 @@ const CreatePlayerPositionPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   return (
     <>
       {createLoading && <Loader />}
-      <PageHeading title={t('player-positions:CREATE_PAGE_TITLE')} // ADD_TRANS
+      <PageHeading title={t('player-positions:CREATE_PAGE_TITLE')}
       />
       <CreatePlayerPositionForm
         onSubmit={createPlayerPosition}
