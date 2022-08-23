@@ -20,13 +20,14 @@ const getWriteTrans = async (lang, file, tag) => {
   const path = __dirname + `/../../public/locales/${lang}/${file}.json`
   fs.access(path, fs.F_OK, err => {
     if (err) {
-      const obj = { tag: translation }
+      const obj = {}
+      obj[tag] = translation
       fs.writeFileSync(path, JSON.stringify(obj, null, 2))
       return
     }
     //file exists
     const objBuff = fs.readFileSync(path)
-    let obj = JSON.parse(objBuff)
+    const obj = JSON.parse(objBuff)
     obj[tag] = translation
     fs.writeFileSync(path, JSON.stringify(obj, null, 2))
   })
