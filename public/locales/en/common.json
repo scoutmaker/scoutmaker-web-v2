@@ -147,6 +147,12 @@
   "REJECT": "Reject",
   "CLOSE": "Close",
   "ONLY_MINE": "Only mine",
+  "INSIDER_NOTE": "Insider note",
+  "INSIDER_NOTES": "Insider notes",
+  "REMOVE_FROM_LIKED": "Remove from liked",
+  "ADD_TO_LIKED": "Add to liked",
+  "IS_LIKED": "Is liked",
+  "INFORMANT": "Informant",
   "TEMPLATES": "Templates",
   "REPORT_SKILL_ASSESSMENT_CATEGORY": "Skill category",
   "REPORT_SKILL_ASSESSMENT_CATEGORIES": "Skill categories"

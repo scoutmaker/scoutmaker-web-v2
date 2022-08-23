@@ -15,6 +15,7 @@ import {
   CountryIcon,
   DatabaseIcon,
   HomeIcon,
+  InsiderNotesIcon,
   MatchesIcon,
   NotesIcon,
   ObservationIcon,
@@ -101,6 +102,16 @@ export const NavList = () => {
           icon={<NotesIcon color="error" />}
           to="/notes"
           text={t('NOTES')}
+        />
+        <NavElement
+          icon={<InsiderNotesIcon color="error" />}
+          to="/insider-notes"
+          text={t('INSIDER_NOTES')}
+        />
+        <NavElement
+          icon={<ReportTemplatesIcon color="error" />}
+          to="/reporttemplates"
+          text={t('REPORT_TEMPLATES_CREATOR')}
         />
       </ExpandeableNavElement>
       {isPrivilegedUser(user) ? (

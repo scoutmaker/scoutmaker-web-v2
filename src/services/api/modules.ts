@@ -18,3 +18,4 @@ export type TModuleName =
   | 'notes'
   | 'orders'
   | 'report-skill-assessment-categories'
+  | 'insider-notes'

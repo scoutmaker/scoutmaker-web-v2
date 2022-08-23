@@ -147,6 +147,12 @@
   "REJECT": "Odrzuć",
   "CLOSE": "Zamknij",
   "ONLY_MINE": "Tylko moje",
+  "INSIDER_NOTE": "Notatka insajderska",
+  "INSIDER_NOTES": "Notatki insajderskie",
+  "REMOVE_FROM_LIKED": "Usuń z polubionych",
+  "ADD_TO_LIKED": "Dodaj do polubionych",
+  "IS_LIKED": "Czy jest polubiony",
+  "INFORMANT": "Informator",
   "TEMPLATES": "Szablony",
   "REPORT_SKILL_ASSESSMENT_CATEGORY": "Kategoria cech",
   "REPORT_SKILL_ASSESSMENT_CATEGORIES": "Kategorie cech"

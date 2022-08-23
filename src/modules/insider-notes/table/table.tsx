@@ -10,14 +10,15 @@ interface ITableProps extends ICommonTableProps {
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
-    { id: 'name', label: t('NAME') },
-    { id: 'startDate', label: t('seasons:START_DATE') },
-    { id: 'endDate', label: t('seasons:END_DATE') },
-    { id: 'isActive', label: t('seasons:IS_ACTIVE') }
+    { id: 'player', label: t('PLAYER') },
+    { id: 'position', label: t('PRIMARY_POSITION'), isSortingDisabled: true },
+    { id: 'team', label: t('TEAM'), isSortingDisabled: true },
+    { id: 'informant', label: t('INFORMANT'), isSortingDisabled: true },
+    { id: 'createdAt', label: t('CREATED_AT') },
   ]
 }
 
-export const SeasonsTable = ({
+export const InsiderNotesTable = ({
   page,
   rowsPerPage,
   sortBy,
