@@ -172,6 +172,11 @@ export const NavList = () => {
             to="/competitions"
             text={t('COMPETITIONS')}
           />
+          <NavElement
+            icon={<CompetitionIcon color="error" />}
+            to="/competition-types"
+            text={t('COMPETITION_TYPES')}
+          />
         </ExpandeableNavElement>
       )}
       <StyledDivider />
