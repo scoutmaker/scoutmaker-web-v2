@@ -1,0 +1,13 @@
+{
+  "CARD_TITLE": "Zlecenie obserwacji",
+  "CREATED_AFTER": "Utworzone po",
+  "CREATED_BEFORE": "Utworzone przed",
+  "ACCEPT": "Przyjmij",
+  "SINGLE_PAGE": "Zlecenie obserwacji nr {{nr}}",
+  "CREATE_PAGE_TITLE": "Utwórz nowe zlecenie",
+  "INDEX_PAGE_TITLE": "Baza zleceń",
+  "DELETE_CONFIRM_QUESTION": "Czy napewno chcesz usunąć to zlecenie?",
+  "OPEN": "otwarte",
+  "CLOSED": "zamknięte",
+  "ACCEPTED": "przyjęte"
+}
