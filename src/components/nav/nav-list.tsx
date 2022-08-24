@@ -20,6 +20,7 @@ import {
   NotesIcon,
   ObservationIcon,
   OrdersIcon,
+  PlayerPositionIcon,
   PlayersIcon,
   ProfileIcon,
   RegionIcon,
@@ -176,6 +177,11 @@ export const NavList = () => {
             icon={<CompetitionIcon color="error" />}
             to="/competition-types"
             text={t('COMPETITION_TYPES')}
+          />
+          <NavElement
+            icon={<PlayerPositionIcon color="error" />}
+            to="/player-positions"
+            text={t('POSITIONS')}
           />
         </ExpandeableNavElement>
       )}

@@ -1,0 +1,8 @@
+{
+  "NO_NAME_ERROR": "Podaj nazwę pozycji",
+  "NO_CODE_ERROR": "Podaj kod pozycji",
+  "INDEX_PAGE_TITLE": "Baza pozycji zawodnika",
+  "EDIT_PAGE_TITLE": "Edycja danych pozycji zawodnika",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć pozycję {{name}}?",
+  "CREATE_PAGE_TITLE": "Utwórz nową pozycję zawodnika"
+}
