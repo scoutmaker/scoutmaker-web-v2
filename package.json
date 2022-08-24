@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate-types": "dtsgen --url http://localhost:7777/api-docs-json -o ./src/types/generated.d.ts"
+    "generate-types": "dtsgen --url http://localhost:7777/api-docs-json -o ./src/types/generated.d.ts",
+    "add-trans": "node ./src/utils/create-translation.js"
   },
   "dependencies": {
     "@emotion/cache": "^11.9.3",
