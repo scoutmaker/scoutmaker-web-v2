@@ -1,0 +1,7 @@
+{
+  "NO_NAME_ERROR": "Please provide competition type name",
+  "INDEX_PAGE_TITLE": "Competition types database",
+  "CREATE_PAGE_TITLE": "Create new competition type",
+  "EDIT_PAGE_TITLE": "Edit competition type data",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to competition type {{name}}?"
+}
