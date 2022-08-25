@@ -10,6 +10,7 @@ import { isAdmin, isPrivilegedUser } from '@/utils/user-roles'
 import {
   AdminIcon,
   AgeCategoryIcon,
+  BallIcon,
   ClubsIcon,
   CompetitionIcon,
   CountryIcon,
@@ -182,6 +183,11 @@ export const NavList = () => {
             icon={<PlayerPositionIcon color="error" />}
             to="/player-positions"
             text={t('POSITIONS')}
+          />
+          <NavElement
+            icon={<BallIcon color="error" />}
+            to="/user-football-roles"
+            text={t('FOOTBALL_ROLES')}
           />
         </ExpandeableNavElement>
       )}
