@@ -1,0 +1,8 @@
+{
+  "NO_NAME_ERROR": "Podaj nazwę grupy rozgrywkowej",
+  "INDEX_PAGE_TITLE": "Baza grup rozgrywkowych",
+  "CREATE_PAGE_TITLE": "Utwórz nową grupę rozgrywkową",
+  "EDIT_PAGE_TITLE": "Edytuj dane grupy rozgrywkowej",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć grupę rozgrywkową {{name}}?",
+  "NO_COMPETITION_ERROR": "Wybierz rozgrywki dla grupy rozgrywkowej"
+}
