@@ -1,5 +1,6 @@
 import filter from 'just-filter-object'
 
+
 type Tobj = Record<string, any>
 
 const isDate = (d: any) => d instanceof Date
@@ -27,6 +28,14 @@ const getDiff = (lhs: Tobj, rhs: Tobj) => {
   return Object.keys(r).reduce((acc, key) => {
     if (hasOwnProperty(l, key)) {
       if (Array.isArray(r[key])) {
+        if(Array.isArray(l[key])){
+          const sr = [...r[key]].sort().toString()
+          const sl = [...l[key]].sort().toString()
+          // no diff
+          if(sr === sl)
+            return acc
+        }
+          
         acc[key] = r[key]
         return acc
       }
