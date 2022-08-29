@@ -1,0 +1,8 @@
+{
+  "NO_NAME_ERROR": "Podaj nazwę juniorskiego poziomu rozgrywek",
+  "NO_LEVEL_ERROR": "Podaj poziom juniorskiego poziomu rozgrywek",
+  "INDEX_PAGE_TITLE": "Baza juniorskich rozgrywek",
+  "CREATE_PAGE_TITLE": "Utwórz nowy poziom juniorskich rozgrywek",
+  "EDIT_PAGE_TITLE": "Edytuj dane juniorskiego poziomu rozgrywek",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć juniorski poziom rozgrywek {{name}}?"
+}

@@ -175,6 +175,11 @@ export const NavList = () => {
           />
           <NavElement
             icon={<CompetitionIcon color="error" />}
+            to="/competition-junior-levels"
+            text={t('COMPETITION_JUNIOR_LEVELS')}
+          />
+          <NavElement
+            icon={<CompetitionIcon color="error" />}
             to="/competition-types"
             text={t('COMPETITION_TYPES')}
           />
