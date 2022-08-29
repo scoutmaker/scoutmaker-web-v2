@@ -9,6 +9,7 @@ import { CompetitionsCombo } from '@/modules/competitions/combo'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { RegionsCombo } from '@/modules/regions/combo'
 import { RegionDto } from '@/modules/regions/types'
+import updatedDiff from '@/utils/updatedDiff'
 
 import { CompetitionGroupDto, UpdateCompetitionGroupDto } from '../types'
 import {
@@ -43,7 +44,7 @@ export const EditCompetitionGroupForm = ({
       initialValues={initialValues}
       validationSchema={() => generateUpdateValidationSchema()}
       enableReinitialize
-      onSubmit={onSubmit}
+      onSubmit={data => onSubmit(updatedDiff(initialValues, data))}
     >
       {({ handleReset, touched, errors }) => (
         <Form>
