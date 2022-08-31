@@ -14,20 +14,22 @@ const StyledContainer = styled('div')(({ theme }) => ({
 interface IRatingInputProps {
   max: number
   value: any
+  label?: string
+  name: string
 }
 
-export const RatingInput = ({ max, value }: IRatingInputProps) => {
+export const RatingInput = ({ max, value, label, name }: IRatingInputProps) => {
   const { t } = useTranslation()
-  const [ratingField] = useField({ name: 'rating', type: 'number' })
+  const [ratingField] = useField({ name, type: 'number' })
 
   return (
     <StyledContainer>
-      <Typography>{t('RATING')}</Typography>
+      <Typography>{label || t('RATING')}</Typography>
       <Rating
         {...ratingField}
         value={value}
         precision={1}
-        name="rating"
+        name={name}
         max={max}
         sx={{
           '& .MuiRating-iconFilled': {

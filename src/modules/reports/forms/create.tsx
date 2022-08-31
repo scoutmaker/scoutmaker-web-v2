@@ -18,6 +18,7 @@ import { PlayerBasicDataDto } from '@/modules/players/types'
 import { ReportTemplatesCombo } from '@/modules/report-templates/combo'
 import { useReportTemplatesList } from '@/modules/report-templates/hooks'
 import { ReportTemplateBasicDataDto } from '@/modules/report-templates/types'
+import { SummaryStep } from '@/modules/reports/forms/summary-step'
 import { useStepper } from '@/utils/hooks/use-stepper'
 
 import { CreateReportDto, ReportType } from '../types'
@@ -125,6 +126,11 @@ export const CreateReportForm = ({
       title: t('reports:MATCH_STEP'),
       content: <MatchStep matchesData={matchesData} />,
       errorKeys: ['videoURL'],
+    },
+    {
+      title: t('reports:SUMMARY_STEP'),
+      content: <SummaryStep />,
+      errorKeys: ['summary'],
     },
   ]
 
