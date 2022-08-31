@@ -48,3 +48,5 @@ export type CreateReportDto = Components.Schemas.CreateReportDto
 export type UpdateReportDto = Components.Schemas.UpdateReportDto
 
 export type ReportStatus = ReportDto['status']
+
+export type ReportType = 'order' | 'custom'
