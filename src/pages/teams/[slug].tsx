@@ -1,4 +1,6 @@
-import { Typography } from '@mui/material'
+import { Add as AddIcon } from '@mui/icons-material'
+import { Box, Typography } from '@mui/material'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -20,6 +22,7 @@ type TTeamPageProps = {
   errorStatus: number | null
   errorMessage: string | null
   team: TeamDto | null
+  isAdmin: boolean
 }
 
 export const getServerSideProps = withSessionSsr<TTeamPageProps>(
@@ -33,6 +36,7 @@ export const getServerSideProps = withSessionSsr<TTeamPageProps>(
           errorStatus: null,
           errorMessage: null,
           team: null,
+          isAdmin: false
         },
       }
     }
@@ -59,6 +63,7 @@ export const getServerSideProps = withSessionSsr<TTeamPageProps>(
           errorStatus: response.status,
           errorMessage: response.data.message,
           team: null,
+          isAdmin: false
         },
       }
     }
@@ -69,13 +74,15 @@ export const getServerSideProps = withSessionSsr<TTeamPageProps>(
         errorStatus: null,
         errorMessage: null,
         team,
+        isAdmin: user.role === 'ADMIN'
       },
     }
   },
 )
 
-const TeamPage = ({ team, errorMessage, errorStatus }: TTeamPageProps) => {
+const TeamPage = ({ team, errorMessage, errorStatus, isAdmin }: TTeamPageProps) => {
   const { t } = useTranslation(['teams'])
+  const router = useRouter()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -101,9 +108,13 @@ const TeamPage = ({ team, errorMessage, errorStatus }: TTeamPageProps) => {
       <PageHeading title={team.name} />
       <TeamDetailsCard team={team} />
       <section>
-        <Typography variant="h3" align="center" sx={{ margin: 3 }}>
-          {t('teams:COMPETITION_PARTICIPATIONS_HEADING')}
-        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+          <Typography variant="h3" align="center" sx={{ marginY: 3 }}>
+            {t('teams:COMPETITION_PARTICIPATIONS_HEADING')}
+          </Typography>
+          {isAdmin &&
+            <AddIcon onClick={() => router.push(`/competition-participations/create/${team.id}`)} cursor='pointer' />}
+        </Box>
         <CompetitionParticipationsTable
           page={page}
           rowsPerPage={rowsPerPage}
@@ -114,14 +125,17 @@ const TeamPage = ({ team, errorMessage, errorStatus }: TTeamPageProps) => {
           handleSort={handleSort}
           total={participations?.totalDocs || 0}
         >
-          {participations
-            ? participations.docs.map(participation => (
-                <CompetitionParticipationsTableRow
-                  key={team.id}
-                  data={participation}
-                />
-              ))
-            : null}
+          {!!participations
+            && participations.docs.map(participation => (
+              <CompetitionParticipationsTableRow
+                key={team.id}
+                data={participation}
+                isDeleteOptionEnabled={false}
+                isEditOptionEnabled={false}
+                onDeleteClick={() => { }}
+                onEditClick={() => { }}
+              />
+            ))}
         </CompetitionParticipationsTable>
       </section>
     </>
