@@ -179,6 +179,11 @@ export const NavList = () => {
             text={t('COMPETITION_TYPES')}
           />
           <NavElement
+            icon={<CompetitionIcon color="error" />}
+            to="/competition-participations"
+            text={t('COMPETITION_PARTICIPATIONS')}
+          />
+          <NavElement
             icon={<PlayerPositionIcon color="error" />}
             to="/player-positions"
             text={t('POSITIONS')}
