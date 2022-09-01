@@ -10,6 +10,7 @@ import { isAdmin, isPrivilegedUser } from '@/utils/user-roles'
 import {
   AdminIcon,
   AgeCategoryIcon,
+  BallIcon,
   ClubsIcon,
   CompetitionIcon,
   CountryIcon,
@@ -175,6 +176,11 @@ export const NavList = () => {
           />
           <NavElement
             icon={<CompetitionIcon color="error" />}
+            to="/competition-junior-levels"
+            text={t('COMPETITION_JUNIOR_LEVELS')}
+          />
+          <NavElement
+            icon={<CompetitionIcon color="error" />}
             to="/competition-types"
             text={t('COMPETITION_TYPES')}
           />
@@ -187,6 +193,11 @@ export const NavList = () => {
             icon={<PlayerPositionIcon color="error" />}
             to="/player-positions"
             text={t('POSITIONS')}
+          />
+          <NavElement
+            icon={<BallIcon color="error" />}
+            to="/user-football-roles"
+            text={t('FOOTBALL_ROLES')}
           />
         </ExpandeableNavElement>
       )}
