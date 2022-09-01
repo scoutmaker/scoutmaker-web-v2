@@ -1,0 +1,10 @@
+{
+  "NO_NAME_ERROR": "Please provide skill template name",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete skill template {{name}}?",
+  "INDEX_PAGE_TITLE": "Skill templates database",
+  "CREATE_PAGE_TITLE": "Create new skill template",
+  "EDIT_PAGE_TITLE": "Edit skill template",
+  "NO_CATEGORY_ERROR": "Please choose skill template category",
+  "NO_SHORTNAME_ERROR": "Please provide skill template short name",
+  "HAS_SCORE": "Score"
+}
