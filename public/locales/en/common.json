@@ -156,5 +156,7 @@
   "TEMPLATES": "Templates",
   "REPORT_SKILL_ASSESSMENT_CATEGORY": "Skill category",
   "REPORT_SKILL_ASSESSMENT_CATEGORIES": "Skill categories",
-  "CODE": "Code"
+  "CODE": "Code",
+  "COMPETITION_PARTICIPATION": "Competition participation",
+  "COMPETITION_PARTICIPATIONS": "Competition participations"
 }

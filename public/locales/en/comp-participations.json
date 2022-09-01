@@ -1,0 +1,16 @@
+{
+  "INDEX_PAGE_TITLE": "Competition participations database",
+  "CREATE_PAGE_TITLE": "Create new competition participation",
+  "EDIT_PAGE_TITLE": "Edit competition participation data",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete this competition participation?",
+  "COPY_FROM": "Season to copy from",
+  "COPY_TO": "Season to copy to",
+  "COPY_OF_SEASON": "Competition participations in season copy",
+  "NO_COPY_FROM_ERROR": "Please choose season to copy from",
+  "NO_COPY_TO_ERROR": "Please choose season to copy to",
+  "COPY_PAGE_TITLE": "Copy competition participations to diffrent season",
+  "NO_COMPETITION_ERROR": "Please choose competition",
+  "NO_SEASON_ERROR": "Please choose season",
+  "NO_TEAM_ERROR": "Please choose team",
+  "NO_GROUP_ERROR": "Please choose competition group"
+}

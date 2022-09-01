@@ -156,5 +156,7 @@
   "TEMPLATES": "Szablony",
   "REPORT_SKILL_ASSESSMENT_CATEGORY": "Kategoria cech",
   "REPORT_SKILL_ASSESSMENT_CATEGORIES": "Kategorie cech",
-  "CODE": "Kod"
+  "CODE": "Kod",
+  "COMPETITION_PARTICIPATION": "Udział w rozgrywkach",
+  "COMPETITION_PARTICIPATIONS": "Udziały w rozgrywkach"
 }
