@@ -100,25 +100,25 @@ export const OrdersTableRow = ({
       </StyledTableCell>
       <CellWithLink href={getSinglePlayerRoute(player?.slug || '')} label={player ? `${player?.firstName} ${player?.lastName}` : ''} />
       <StyledTableCell>{player?.primaryPosition.name}</StyledTableCell>
-        {player?.teams[0] ? (
-          <CellWithLink
-            href={getSingleTeamRoute(player.teams[0].team.slug}
-            label={player.teams[0].team.name}
-          />
-        ) : (
-          <StyledTableCell>-</StyledTableCell>
-        )}
-        {match ? (
-          <CellWithLink
-            href={getSingleMatchRoute(match.id)}
-            label={getMatchDisplayName({
-              homeTeamName: match.homeTeam.name,
-              awayTeamName: match.awayTeam.name,
-            })}
-          />
-        ) : (
-          <StyledTableCell>-</StyledTableCell>
-        )}
+      {player?.teams[0] ? (
+        <CellWithLink
+          href={getSingleTeamRoute(player.teams[0].team.slug)}
+          label={player.teams[0].team.name}
+        />
+      ) : (
+        <StyledTableCell>-</StyledTableCell>
+      )}
+      {match ? (
+        <CellWithLink
+          href={getSingleMatchRoute(match.id)}
+          label={getMatchDisplayName({
+            homeTeamName: match.homeTeam.name,
+            awayTeamName: match.awayTeam.name,
+          })}
+        />
+      ) : (
+        <StyledTableCell>-</StyledTableCell>
+      )}
 
       <StyledTableCell><OrderStatusChip status={status} /></StyledTableCell>
       <StyledTableCell>{scout ? `${scout.firstName} ${scout.lastName}` : ''}</StyledTableCell>
