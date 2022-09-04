@@ -1,15 +1,7 @@
-import {
-  Box,
-  Step,
-  StepContent,
-  StepLabel,
-  Stepper,
-  TextField,
-} from '@mui/material'
-import { Field, Form, Formik } from 'formik'
-import filter from 'just-filter-object'
+import { Box, Step, StepContent, StepLabel, Stepper } from '@mui/material'
+import { Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
-import { ReactNode, useState } from 'react'
+import { useState } from 'react'
 
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
@@ -18,8 +10,6 @@ import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { MatchBasicDataDto } from '@/modules/matches/types'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { PlayerBasicDataDto } from '@/modules/players/types'
-import { ReportTemplatesCombo } from '@/modules/report-templates/combo'
-import { useReportTemplatesList } from '@/modules/report-templates/hooks'
 import { ReportTemplateBasicDataDto } from '@/modules/report-templates/types'
 import { MetaStep } from '@/modules/reports/forms/meta-step'
 import { SkillAssessmentsStep } from '@/modules/reports/forms/skill-assessments-step'
@@ -33,12 +23,14 @@ import { PlayerStep } from './player-step'
 import { ReportTypeStep } from './report-type-step'
 import { StatsStep } from './stats-step'
 import { StepActions } from './step-actions'
-
-type TStep = {
-  title: string
-  content: ReactNode
-  errorKeys?: string[]
-}
+import { TemplateStep } from './template-step'
+import {
+  formatCreateReportDto,
+  generateReportFormValidationSchema,
+  getStepError,
+  initialValues,
+  TStep,
+} from './utils'
 
 interface ICreateFormProps {
   onSubmit: (data: CreateReportDto) => void
@@ -52,27 +44,6 @@ interface ICreateFormProps {
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
   isOrderOptionDisabled?: boolean
-}
-
-const initialValues: CreateReportDto = {
-  playerId: 0,
-  templateId: 0,
-  assists: 0,
-  competitionGroupId: 0,
-  competitionId: 0,
-  finalRating: 0,
-  goals: 0,
-  matchId: 0,
-  minutesPlayed: 0,
-  positionPlayedId: 0,
-  redCards: 0,
-  shirtNo: 0,
-  skillAssessments: [],
-  summary: '',
-  teamId: 0,
-  videoDescription: '',
-  videoUrl: '',
-  yellowCards: 0,
 }
 
 export const CreateReportForm = ({
@@ -90,7 +61,7 @@ export const CreateReportForm = ({
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
-  const { activeStep, handleNext, handleBack, setActiveStep } = useStepper()
+  const { activeStep, handleNext, handleBack } = useStepper()
 
   // TODO: handle this
   const activeOrderId = 0
@@ -102,9 +73,10 @@ export const CreateReportForm = ({
   const steps: TStep[] = [
     {
       title: t('REPORT_TEMPLATE_STEP_TITLE'),
+      errorKeys: ['templateId'],
       content:
         templatesData.length > 0 ? (
-          <ReportTemplatesCombo data={templatesData} name="templateId" />
+          <TemplateStep templatesData={templatesData} />
         ) : (
           <p>{t('reports:PICK_REPORT_TEMPLATE')}</p>
         ),
@@ -125,6 +97,7 @@ export const CreateReportForm = ({
         reportType === 'custom'
           ? t('reports:PLAYER_INFO_STEP_TITLE')
           : t('reports:ORDER_PLAYER_INFO_STEP_TITLE'),
+      errorKeys: ['playerId', 'shirtNo'],
       content:
         reportType === 'order' ? (
           // TODO: handle order step
@@ -133,17 +106,16 @@ export const CreateReportForm = ({
         ) : (
           <PlayerStep playersData={playersData} />
         ),
-      errorKeys: ['player', 'order'],
     },
     {
       title: t('reports:MATCH_STEP_TITLE'),
       content: <MatchStep matchesData={matchesData} />,
-      errorKeys: ['videoURL'],
+      errorKeys: ['matchId', 'videoUrl', 'videoDescription'],
     },
     {
       title: t('reports:SUMMARY_STEP_TITLE'),
       content: <SummaryStep />,
-      errorKeys: ['summary'],
+      errorKeys: ['finalRating', 'summary'],
     },
     {
       title: t('reports:SKILL_ASSESSMENTS_STEP_TITLE'),
@@ -152,6 +124,13 @@ export const CreateReportForm = ({
     {
       title: t('reports:STATS_STEP_TITLE'),
       content: <StatsStep />,
+      errorKeys: [
+        'minutesPlayed',
+        'goals',
+        'assists',
+        'yellowCards',
+        'redCards',
+      ],
     },
     {
       title: t('reports:META_STEP_TITLE'),
@@ -163,22 +142,26 @@ export const CreateReportForm = ({
           competitionGroupsData={competitionGroupsData}
         />
       ),
+      errorKeys: [
+        'positionPlayedId',
+        'teamId',
+        'competitionId',
+        'competitionGroupId',
+      ],
     },
   ]
 
   return (
     <Formik
       initialValues={initialValues}
-      // validationSchema={generateCreateFormValidationSchema(t)}
+      validationSchema={generateReportFormValidationSchema(t)}
       enableReinitialize
       onSubmit={(data, { resetForm }) => {
-        // const dataToSubmit = filter(data, (_, value) => value)
-        // onSubmit(dataToSubmit as CreateReportDto)
-        onSubmit(data)
-        // resetForm()
+        onSubmit(formatCreateReportDto(data) as CreateReportDto)
+        resetForm()
       }}
     >
-      {({ handleReset, touched, errors }) => (
+      {({ handleReset, touched, errors, values }) => (
         <Form>
           <Stepper
             activeStep={activeStep}
@@ -187,7 +170,9 @@ export const CreateReportForm = ({
           >
             {steps.map(step => (
               <Step key={step.title}>
-                <StepLabel>{step.title}</StepLabel>
+                <StepLabel error={getStepError({ errors, touched, step })}>
+                  {step.title}
+                </StepLabel>
                 <StepContent>
                   <Box sx={{ mt: 1 }}>{step.content}</Box>
                   <StepActions
@@ -195,11 +180,9 @@ export const CreateReportForm = ({
                     totalSteps={steps.length}
                     handleBack={handleBack}
                     handleNext={handleNext}
-                    isNextButtonDisabled={false}
-                    // isNextButtonDisabled={
-                    //   (activeStep === 2 && !values.player && !values.order) ||
-                    //   (activeStep === 4 && !values.summary)
-                    // }
+                    isNextButtonDisabled={
+                      !values.templateId || !values.playerId
+                    }
                   />
                 </StepContent>
               </Step>

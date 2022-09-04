@@ -42,9 +42,10 @@ export const MatchStep = ({ matchesData }: IMatchStepProps) => {
         variant="outlined"
         fullWidth
         label={t('VIDEO_DESCRIPTION')}
-        error={touched.videoUrl && !!errors.videoUrl}
+        error={touched.videoDescription && !!errors.videoDescription}
         helperText={
-          (touched.videoUrl && errors.videoUrl) || t('OPTIONAL_FIELD')
+          (touched.videoDescription && errors.videoDescription) ||
+          t('OPTIONAL_FIELD')
         }
       />
     </Box>
