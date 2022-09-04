@@ -1,3 +1,4 @@
+import { Box, Grid } from '@mui/material'
 import { updatedDiff } from 'deep-object-diff'
 import { Form, Formik } from 'formik'
 import filter from 'just-filter-object'
@@ -19,6 +20,7 @@ import { ReportDto, UpdateReportDto } from '@/modules/reports/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { BasicDetailsCard } from './components/basic-details-card'
+import { VideoCard } from './components/video-card'
 
 interface IEditReportFormProps {
   current: ReportDto
@@ -57,19 +59,20 @@ export const EditReportForm = ({
       >
         {({ handleReset }) => (
           <Form>
-            <Container>
-              <MainFormActions
-                label={t('NOTE')}
-                isEditState
-                onCancelClick={() => {
-                  if (onCancelClick) {
-                    onCancelClick()
-                  }
-                  handleReset()
-                  setAlert({ msg: t('CHANGES_CANCELLED'), type: 'warning' })
-                }}
-              />
-            </Container>
+            <Box sx={{ my: 2 }}>
+              <VideoCard />
+            </Box>
+            <MainFormActions
+              label={t('NOTE')}
+              isEditState
+              onCancelClick={() => {
+                if (onCancelClick) {
+                  onCancelClick()
+                }
+                handleReset()
+                setAlert({ msg: t('CHANGES_CANCELLED'), type: 'warning' })
+              }}
+            />
           </Form>
         )}
       </Formik>

@@ -21,7 +21,7 @@ interface IReportBasicDetailsCard {
 }
 
 export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
-  const { t } = useTranslation(['common', 'notes'])
+  const { t } = useTranslation(['common', 'reports'])
 
   const {
     createdAt,
