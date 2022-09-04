@@ -6,7 +6,7 @@ import React from 'react'
 import { ReportTemplatesCombo } from '@/modules/report-templates/combo'
 import { ReportTemplateBasicDataDto } from '@/modules/report-templates/types'
 
-import { CreateReportDto } from '../types'
+import { CreateReportDto } from '../../types'
 
 interface ITemplateStepProps {
   templatesData: ReportTemplateBasicDataDto[]

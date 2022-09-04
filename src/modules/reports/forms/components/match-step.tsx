@@ -6,7 +6,7 @@ import React from 'react'
 import { MatchesCombo } from '@/modules/matches/combo'
 import { MatchBasicDataDto } from '@/modules/matches/types'
 
-import { CreateReportDto } from '../types'
+import { CreateReportDto } from '../../types'
 
 interface IMatchStepProps {
   matchesData: MatchBasicDataDto[]

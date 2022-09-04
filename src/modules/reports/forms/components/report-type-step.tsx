@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { ReportType } from '../types'
+import { ReportType } from '../../types'
 
 interface IReportTypeStepProps {
   reportType: ReportType

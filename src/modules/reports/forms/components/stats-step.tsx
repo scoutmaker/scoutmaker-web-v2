@@ -3,7 +3,7 @@ import { Field, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
-import { CreateReportDto } from '../types'
+import { CreateReportDto } from '../../types'
 
 export const StatsStep = () => {
   const { t } = useTranslation()

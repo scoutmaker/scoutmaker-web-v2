@@ -8,7 +8,7 @@ import { Loader } from '@/components/loader/loader'
 import { RatingInput } from '@/components/rating-input/rating-input'
 import { useReportTemplate } from '@/modules/report-templates/hooks'
 
-import { CreateReportDto } from '../types'
+import { CreateReportDto } from '../../types'
 
 function groupSkillsByCategory(
   skills: Components.Schemas.ReportSkillAssessmentTemplateDto[],

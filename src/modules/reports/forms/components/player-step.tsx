@@ -6,7 +6,7 @@ import React from 'react'
 import { PlayersCombo } from '@/modules/players/combo'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 
-import { CreateReportDto } from '../types'
+import { CreateReportDto } from '../../types'
 
 interface IPlayerStepProps {
   playersData: PlayerBasicDataDto[]

@@ -12,7 +12,7 @@ import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
-import { CreateReportDto } from '../types'
+import { CreateReportDto } from '../../types'
 
 interface IMetaStepProps {
   positionsData: PlayerPositionDto[]

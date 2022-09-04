@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 
 import { RatingInput } from '@/components/rating-input/rating-input'
 
-import { CreateReportDto } from '../types'
+import { CreateReportDto } from '../../types'
 
 export const SummaryStep = () => {
   const { t } = useTranslation()
