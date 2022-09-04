@@ -13,7 +13,7 @@ const StyledContainer = styled('div')(({ theme }) => ({
 
 interface IRatingInputProps {
   max: number
-  value: any
+  value?: any
   label?: string
   name: string
 }

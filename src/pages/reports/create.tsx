@@ -39,7 +39,7 @@ const CreateReportPage = ({ errorMessage, errorStatus }: TSsrRole) => {
       {isLoading && <Loader />}
       <PageHeading title={t('reports:CREATE_PAGE_TITLE')} />
       <CreateReportForm
-        onSubmit={createReport}
+        onSubmit={data => console.log(data)}
         templatesData={reportTemplates || []}
         playersData={players || []}
         ordersData={[]}

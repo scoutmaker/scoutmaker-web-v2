@@ -18,6 +18,7 @@ import { PlayerBasicDataDto } from '@/modules/players/types'
 import { ReportTemplatesCombo } from '@/modules/report-templates/combo'
 import { useReportTemplatesList } from '@/modules/report-templates/hooks'
 import { ReportTemplateBasicDataDto } from '@/modules/report-templates/types'
+import { SkillAssessmentsStep } from '@/modules/reports/forms/skill-assessments-step'
 import { SummaryStep } from '@/modules/reports/forms/summary-step'
 import { useStepper } from '@/utils/hooks/use-stepper'
 
@@ -91,7 +92,7 @@ export const CreateReportForm = ({
       title: t('REPORT_TEMPLATE'),
       content:
         templatesData.length > 0 ? (
-          <ReportTemplatesCombo data={templatesData} name="template" />
+          <ReportTemplatesCombo data={templatesData} name="templateId" />
         ) : (
           <p>{t('reports:PICK_REPORT_TEMPLATE')}</p>
         ),
@@ -132,6 +133,10 @@ export const CreateReportForm = ({
       content: <SummaryStep />,
       errorKeys: ['summary'],
     },
+    {
+      title: t('reports:SKILL_ASSESSMENTS_STEP'),
+      content: <SkillAssessmentsStep />,
+    },
   ]
 
   return (
@@ -140,9 +145,10 @@ export const CreateReportForm = ({
       // validationSchema={generateCreateFormValidationSchema(t)}
       enableReinitialize
       onSubmit={(data, { resetForm }) => {
-        const dataToSubmit = filter(data, (_, value) => value)
-        onSubmit(dataToSubmit as CreateReportDto)
-        resetForm()
+        // const dataToSubmit = filter(data, (_, value) => value)
+        // onSubmit(dataToSubmit as CreateReportDto)
+        onSubmit(data)
+        // resetForm()
       }}
     >
       {({ handleReset, touched, errors }) => (

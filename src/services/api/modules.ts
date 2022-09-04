@@ -18,3 +18,4 @@ export type TModuleName =
   | 'notes'
   | 'report-skill-assessment-categories'
   | 'reports'
+  | 'report-templates'
