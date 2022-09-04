@@ -715,14 +715,13 @@ declare namespace Components {
         export interface ReportBasicDataDto {
             status: "IN_PROGRESS" | "FINISHED";
             id: number;
-            docNumber: number;
             player: PlayerSuperBasicDataDto;
             author: UserBasicDataDto;
         }
         export interface ReportDto {
             status: "IN_PROGRESS" | "FINISHED";
             id: number;
-            docNumber: number;
+            shirtNo?: number;
             minutesPlayed?: number;
             goals?: number;
             assists?: number;
@@ -759,7 +758,6 @@ declare namespace Components {
             status: "IN_PROGRESS" | "FINISHED";
             meta?: ReportMetaBasicDataDto;
             id: number;
-            docNumber: number;
             player: PlayerSuperBasicDataDto;
             finalRating?: number;
             percentageRating?: number;
@@ -797,7 +795,6 @@ declare namespace Components {
         }
         export interface ReportSuperBasicDataDto {
             id: number;
-            docNumber: number;
             createdAt: string; // date-time
         }
         export interface ReportTemplateBasicDataDto {

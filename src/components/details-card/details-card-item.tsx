@@ -13,7 +13,7 @@ export const CardItemBasic = ({ title, value, href }: ICardItemBasicProps) => {
 
   return (
     <Grid item xs={12}>
-      <Typography>
+      <Typography sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
         <strong>{title}: </strong>
         {href ? (
           <Link href={href} passHref>

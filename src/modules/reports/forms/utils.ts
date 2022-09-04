@@ -1,10 +1,15 @@
 import { FormikErrors, FormikTouched } from 'formik'
 import filter from 'just-filter-object'
+import map from 'just-map-values'
 import { TFunction } from 'next-i18next'
 import { ReactNode } from 'react'
 import * as yup from 'yup'
 
-import { CreateReportDto } from '@/modules/reports/types'
+import {
+  CreateReportDto,
+  ReportDto,
+  UpdateReportDto,
+} from '@/modules/reports/types'
 import { validateId } from '@/utils/validation-helpers'
 
 export const initialValues: CreateReportDto = {
@@ -95,4 +100,30 @@ export function getStepError({ errors, touched, step }: GetStepErrorArgs) {
     }
   })
   return !!stepErrors.length
+}
+
+export function getInitialStateFromCurrent(report: ReportDto): UpdateReportDto {
+  const {
+    id,
+    author,
+    createdAt,
+    likes,
+    match,
+    meta,
+    percentageRating,
+    player,
+    ...rest
+  } = report
+
+  const mappedRest = map({ ...rest }, value => value || '')
+
+  return {
+    ...mappedRest,
+    competitionGroupId: meta?.competitionGroup?.id,
+    competitionId: meta?.competition?.id,
+    positionPlayedId: meta?.position?.id,
+    teamId: meta?.team?.id,
+    matchId: match?.id,
+    playerId: player?.id,
+  }
 }
