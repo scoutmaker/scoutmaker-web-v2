@@ -26,6 +26,7 @@ import { CreateReportDto, ReportType } from '../types'
 import { MatchStep } from './match-step'
 import { PlayerStep } from './player-step'
 import { ReportTypeStep } from './report-type-step'
+import { StatsStep } from './stats-step'
 import { StepActions } from './step-actions'
 
 type TStep = {
@@ -89,7 +90,7 @@ export const CreateReportForm = ({
 
   const steps: TStep[] = [
     {
-      title: t('REPORT_TEMPLATE'),
+      title: t('REPORT_TEMPLATE_STEP_TITLE'),
       content:
         templatesData.length > 0 ? (
           <ReportTemplatesCombo data={templatesData} name="templateId" />
@@ -98,7 +99,7 @@ export const CreateReportForm = ({
         ),
     },
     {
-      title: t('REPORT_TYPE'),
+      title: t('REPORT_TYPE_STEP_TITLE'),
       content: (
         <ReportTypeStep
           reportType={reportType}
@@ -111,8 +112,8 @@ export const CreateReportForm = ({
     {
       title:
         reportType === 'custom'
-          ? t('reports:PLAYER_INFO')
-          : t('reports:ORDER_PLAYER_INFO'),
+          ? t('reports:PLAYER_INFO_STEP_TITLE')
+          : t('reports:ORDER_PLAYER_INFO_STEP_TITLE'),
       content:
         reportType === 'order' ? (
           // TODO: handle order step
@@ -124,18 +125,26 @@ export const CreateReportForm = ({
       errorKeys: ['player', 'order'],
     },
     {
-      title: t('reports:MATCH_STEP'),
+      title: t('reports:MATCH_STEP_TITLE'),
       content: <MatchStep matchesData={matchesData} />,
       errorKeys: ['videoURL'],
     },
     {
-      title: t('reports:SUMMARY_STEP'),
+      title: t('reports:SUMMARY_STEP_TITLE'),
       content: <SummaryStep />,
       errorKeys: ['summary'],
     },
     {
-      title: t('reports:SKILL_ASSESSMENTS_STEP'),
+      title: t('reports:SKILL_ASSESSMENTS_STEP_TITLE'),
       content: <SkillAssessmentsStep />,
+    },
+    {
+      title: t('reports:SKILL_ASSESSMENTS_STEP_TITLE'),
+      content: <SkillAssessmentsStep />,
+    },
+    {
+      title: t('reports:STATS_STEP_TITLE'),
+      content: <StatsStep />,
     },
   ]
 

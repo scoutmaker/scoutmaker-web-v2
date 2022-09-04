@@ -63,7 +63,7 @@ export const SkillAssessmentsStep = () => {
               >
                 {item.hasScore && (
                   <RatingInput
-                    max={4}
+                    max={template.maxRatingScore}
                     name={`skillAssessments[${item.originalIdx}].rating`}
                   />
                 )}
