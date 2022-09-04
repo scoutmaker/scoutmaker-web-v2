@@ -13,13 +13,18 @@ import { ReactNode, useState } from 'react'
 
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
+import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { MatchBasicDataDto } from '@/modules/matches/types'
+import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { ReportTemplatesCombo } from '@/modules/report-templates/combo'
 import { useReportTemplatesList } from '@/modules/report-templates/hooks'
 import { ReportTemplateBasicDataDto } from '@/modules/report-templates/types'
+import { MetaStep } from '@/modules/reports/forms/meta-step'
 import { SkillAssessmentsStep } from '@/modules/reports/forms/skill-assessments-step'
 import { SummaryStep } from '@/modules/reports/forms/summary-step'
+import { TeamBasicDataDto } from '@/modules/teams/types'
 import { useStepper } from '@/utils/hooks/use-stepper'
 
 import { CreateReportDto, ReportType } from '../types'
@@ -42,7 +47,10 @@ interface ICreateFormProps {
   ordersData: any[]
   playersData: PlayerBasicDataDto[]
   matchesData: MatchBasicDataDto[]
-  fullwidth?: boolean
+  positionsData: PlayerPositionDto[]
+  teamsData: TeamBasicDataDto[]
+  competitionsData: CompetitionBasicDataDto[]
+  competitionGroupsData: CompetitionGroupBasicDataDto[]
   isOrderOptionDisabled?: boolean
 }
 
@@ -70,11 +78,14 @@ const initialValues: CreateReportDto = {
 export const CreateReportForm = ({
   onSubmit,
   onCancelClick,
-  fullwidth,
   ordersData,
   matchesData,
   playersData,
   templatesData,
+  teamsData,
+  positionsData,
+  competitionsData,
+  competitionGroupsData,
   isOrderOptionDisabled,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
@@ -139,12 +150,19 @@ export const CreateReportForm = ({
       content: <SkillAssessmentsStep />,
     },
     {
-      title: t('reports:SKILL_ASSESSMENTS_STEP_TITLE'),
-      content: <SkillAssessmentsStep />,
-    },
-    {
       title: t('reports:STATS_STEP_TITLE'),
       content: <StatsStep />,
+    },
+    {
+      title: t('reports:META_STEP_TITLE'),
+      content: (
+        <MetaStep
+          teamsData={teamsData}
+          positionsData={positionsData}
+          competitionsData={competitionsData}
+          competitionGroupsData={competitionGroupsData}
+        />
+      ),
     },
   ]
 
