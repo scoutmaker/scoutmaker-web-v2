@@ -10,10 +10,10 @@ interface ITableProps extends ICommonTableProps {
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
-    { id: 'name', label: t('NAME'), isSortingDisabled: true },
-    { id: 'startDate', label: t('seasons:START_DATE'), isSortingDisabled: true },
-    { id: 'endDate', label: t('seasons:END_DATE'), isSortingDisabled: true },
-    { id: 'isActive', label: t('seasons:IS_ACTIVE'), isSortingDisabled: true }
+    { id: 'name', label: t('NAME') },
+    { id: 'startDate', label: t('seasons:START_DATE') },
+    { id: 'endDate', label: t('seasons:END_DATE') },
+    { id: 'isActive', label: t('seasons:IS_ACTIVE') }
   ]
 }
 

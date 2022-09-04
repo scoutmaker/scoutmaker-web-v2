@@ -16,6 +16,8 @@ export type TModuleName =
   | 'competition-junior-levels'
   | 'competition-types'
   | 'notes'
+  | 'orders'
   | 'report-skill-assessment-categories'
   | 'reports'
   | 'report-templates'
+  | 'insider-notes'

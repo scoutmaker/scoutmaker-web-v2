@@ -1,0 +1,10 @@
+{
+  "CREATE_PAGE_TITLE": "Create new insider note",
+  "INDEX_PAGE_TITLE": "Insider notes database",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete this insider note no. {{nr}}?",
+  "EDIT_PAGE_TITLE": "Edit insider note no. {{nr}}",
+  "NO_PLAYER_ERROR": "Please choose player",
+  "META_DATA_DISCLAIMER": "You don't have to fill out these fields. These are values of team, competition and competition group, your note will be related to. If you leave them blank, they will be filled out automatically based on current player relations.",
+  "NOTE_DETAILS": "Insider note details",
+  "DETAILS_TITLE": "Insider note no. {{nr}}"
+}

@@ -1,0 +1,7 @@
+{
+  "NO_NAME_ERROR": "Podaj nazwę roli w klubie",
+  "INDEX_PAGE_TITLE": "Baza roli w klubach",
+  "CREATE_PAGE_TITLE": "Utwórz nowy rolę w klubach",
+  "EDIT_PAGE_TITLE": "Edytuj dane roli w klubie",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć rolę {{name}}?"
+}

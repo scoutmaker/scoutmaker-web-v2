@@ -1,0 +1,7 @@
+{
+  "NO_NAME_ERROR": "Podaj nazwę typu rozgrywek",
+  "INDEX_PAGE_TITLE": "Baza typów rozgrywek",
+  "CREATE_PAGE_TITLE": "Utwórz nowy typ rozgrywek",
+  "EDIT_PAGE_TITLE": "Edytuj dane typu rozgrywek",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć typ rozgrywek {{name}}?"
+}

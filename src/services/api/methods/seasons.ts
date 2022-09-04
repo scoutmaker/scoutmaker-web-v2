@@ -1,5 +1,6 @@
 import {
   CreateSeasonDto,
+  FindAllSeasonsParams,
   SeasonDto,
   UpdateSeasonDto,
 } from '@/modules/seasons/types'
@@ -8,6 +9,7 @@ import {
   deleteDocument,
   getAssetById,
   getDataList,
+  getPaginatedData,
   updateDocument,
 } from '@/services/api/methods/helpers'
 import { TModuleName } from '@/services/api/modules'
@@ -18,6 +20,9 @@ import { ApiResponse } from '../types'
 const moduleName: TModuleName = 'seasons'
 
 export const getSeasonsList = () => getDataList<SeasonDto>(moduleName)
+
+export const getSeasons = (params: FindAllSeasonsParams) =>
+  getPaginatedData<FindAllSeasonsParams, SeasonDto>(params, moduleName)
 
 export const deleteSeason = (id: number) =>
   deleteDocument<SeasonDto>(id, moduleName)

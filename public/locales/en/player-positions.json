@@ -1,0 +1,8 @@
+{
+  "NO_NAME_ERROR": "Please provide position name",
+  "NO_CODE_ERROR": "Please provide position code",
+  "INDEX_PAGE_TITLE": "Player positions database",
+  "EDIT_PAGE_TITLE": "Edit player position data",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete position {{name}}?",
+  "CREATE_PAGE_TITLE": "Create new player position"
+}

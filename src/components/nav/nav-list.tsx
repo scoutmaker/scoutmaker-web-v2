@@ -10,15 +10,18 @@ import { isAdmin, isPrivilegedUser } from '@/utils/user-roles'
 import {
   AdminIcon,
   AgeCategoryIcon,
+  BallIcon,
   ClubsIcon,
   CompetitionIcon,
   CountryIcon,
   DatabaseIcon,
   HomeIcon,
+  InsiderNotesIcon,
   MatchesIcon,
   NotesIcon,
   ObservationIcon,
   OrdersIcon,
+  PlayerPositionIcon,
   PlayersIcon,
   ProfileIcon,
   RegionIcon,
@@ -102,6 +105,16 @@ export const NavList = () => {
           to="/notes"
           text={t('NOTES')}
         />
+        <NavElement
+          icon={<InsiderNotesIcon color="error" />}
+          to="/insider-notes"
+          text={t('INSIDER_NOTES')}
+        />
+        <NavElement
+          icon={<ReportTemplatesIcon color="error" />}
+          to="/reporttemplates"
+          text={t('REPORT_TEMPLATES_CREATOR')}
+        />
       </ExpandeableNavElement>
       {isPrivilegedUser(user) ? (
         <NavElement
@@ -160,6 +173,26 @@ export const NavList = () => {
             icon={<CompetitionIcon color="error" />}
             to="/competitions"
             text={t('COMPETITIONS')}
+          />
+          <NavElement
+            icon={<CompetitionIcon color="error" />}
+            to="/competition-junior-levels"
+            text={t('COMPETITION_JUNIOR_LEVELS')}
+          />
+          <NavElement
+            icon={<CompetitionIcon color="error" />}
+            to="/competition-types"
+            text={t('COMPETITION_TYPES')}
+          />
+          <NavElement
+            icon={<PlayerPositionIcon color="error" />}
+            to="/player-positions"
+            text={t('POSITIONS')}
+          />
+          <NavElement
+            icon={<BallIcon color="error" />}
+            to="/user-football-roles"
+            text={t('FOOTBALL_ROLES')}
           />
         </ExpandeableNavElement>
       )}

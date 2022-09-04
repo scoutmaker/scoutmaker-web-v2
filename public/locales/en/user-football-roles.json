@@ -1,0 +1,7 @@
+{
+  "NO_NAME_ERROR": "Please provide user football role name",
+  "INDEX_PAGE_TITLE": "User football roles database",
+  "CREATE_PAGE_TITLE": "Create new user football role",
+  "EDIT_PAGE_TITLE": "Edit user football role data",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete user football role {{name}}?"
+}
