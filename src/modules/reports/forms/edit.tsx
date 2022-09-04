@@ -20,6 +20,7 @@ import { ReportDto, UpdateReportDto } from '@/modules/reports/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { BasicDetailsCard } from './components/basic-details-card'
+import { SummaryCard } from './components/summary-card'
 import { VideoCard } from './components/video-card'
 
 interface IEditReportFormProps {
@@ -61,6 +62,9 @@ export const EditReportForm = ({
           <Form>
             <Box sx={{ my: 2 }}>
               <VideoCard />
+            </Box>
+            <Box sx={{ my: 2 }}>
+              <SummaryCard />
             </Box>
             <MainFormActions
               label={t('NOTE')}
