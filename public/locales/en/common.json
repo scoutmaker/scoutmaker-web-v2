@@ -159,5 +159,10 @@
   "REPORT_SKILL_ASSESSMENT_CATEGORIES": "Skill categories",
   "CODE": "Code",
   "TEAM_AFFILIATION": "Team affiliation",
-  "TEAM_AFFILIATIONS": "Team affiliations"
+  "TEAM_AFFILIATIONS": "Team affiliations",
+  "REPORT_SKILL_ASSESSMENT_TEMPLATE": "Skill template",
+  "REPORT_SKILL_ASSESSMENT_TEMPLATES": "Skill templates",
+  "CATEGORY": "Category",
+  "CATEGORIES": "Categories",
+  "SHORT_NAME": "Short name"
 }

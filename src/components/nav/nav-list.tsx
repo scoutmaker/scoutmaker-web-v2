@@ -136,6 +136,11 @@ export const NavList = () => {
           text={t('REPORT_SKILL_ASSESSMENT_CATEGORIES')}
         />
         <NavElement
+          icon={<ReportSkillAssessmentCategoriesIcon color="error" />}
+          to={Routes.REPORT_SKILL_ASSESSMENT_TEMPLATES}
+          text={t('REPORT_SKILL_ASSESSMENT_TEMPLATES')}
+        />
+        <NavElement
           icon={<ReportTemplatesIcon color="error" />}
           to="/reporttemplates"
           text={t('REPORT_TEMPLATES_CREATOR')}
@@ -184,6 +189,11 @@ export const NavList = () => {
             icon={<CompetitionIcon color="error" />}
             to="/competition-types"
             text={t('COMPETITION_TYPES')}
+          />
+          <NavElement
+            icon={<CompetitionIcon color="error" />}
+            to="/competition-groups"
+            text={t('COMPETITION_GROUPS')}
           />
           <NavElement
             icon={<PlayerPositionIcon color="error" />}
