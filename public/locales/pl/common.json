@@ -157,5 +157,7 @@
   "TEMPLATES": "Szablony",
   "REPORT_SKILL_ASSESSMENT_CATEGORY": "Kategoria cech",
   "REPORT_SKILL_ASSESSMENT_CATEGORIES": "Kategorie cech",
-  "CODE": "Kod"
+  "CODE": "Kod",
+  "TEAM_AFFILIATION": "Przynależność klubowa",
+  "TEAM_AFFILIATIONS": "Przynależności klubowe"
 }
