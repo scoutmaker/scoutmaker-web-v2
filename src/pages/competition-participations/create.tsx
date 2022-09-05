@@ -27,8 +27,6 @@ const CreateCompetitionParticipantPage = ({ errorMessage, errorStatus }: TSsrRol
 
   const isLoading = teamsLoading || competitionsLoading || seasonsLoading || groupsLoading || createLoading
 
-  console.log(router.query?.teamId)
-
   if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
