@@ -35,8 +35,8 @@ export const CompetitionParticipationDetailsCard = ({ comp }: IDetailsCard) => {
           />
           <CardItemBasic
             title={t('COMPETITION_GROUP')}
-            value={group.name}
-            href={`/competition-groups/${group.id}`}
+            value={group?.name}
+            href={group ? `/competition-groups/${group.id}` : undefined}
           />
           <CardItemBasic
             title={t('SEASON')}

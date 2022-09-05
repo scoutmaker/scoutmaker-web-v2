@@ -32,10 +32,7 @@ export function generateCreateValidationSchema(t: TFunction) {
         required: true,
         message: t('comp-participations:NO_TEAM_ERROR'),
       }),
-      groupId: validateId({
-        required: true,
-        message: t('comp-participations:NO_GROUP_ERROR'),
-      }),
+      groupId: validateId(),
     })
     .defined()
 }

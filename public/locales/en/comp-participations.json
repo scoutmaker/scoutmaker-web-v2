@@ -11,6 +11,5 @@
   "COPY_PAGE_TITLE": "Copy competition participations to diffrent season",
   "NO_COMPETITION_ERROR": "Please choose competition",
   "NO_SEASON_ERROR": "Please choose season",
-  "NO_TEAM_ERROR": "Please choose team",
-  "NO_GROUP_ERROR": "Please choose competition group"
+  "NO_TEAM_ERROR": "Please choose team"
 }

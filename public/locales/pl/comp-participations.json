@@ -11,6 +11,5 @@
   "COPY_PAGE_TITLE": "Skopiuj udziały w rozgrywkach do innego sezonu",
   "NO_COMPETITION_ERROR": "Wybierz rozgrywki",
   "NO_SEASON_ERROR": "Wybierz sezon",
-  "NO_TEAM_ERROR": "Wybierz zespół",
-  "NO_GROUP_ERROR": "Wybierz grupę rozgrywkową"
+  "NO_TEAM_ERROR": "Wybierz zespół"
 }
