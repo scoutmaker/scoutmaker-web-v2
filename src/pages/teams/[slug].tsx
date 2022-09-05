@@ -113,7 +113,7 @@ const TeamPage = ({ team, errorMessage, errorStatus, isAdmin }: TTeamPageProps) 
             {t('teams:COMPETITION_PARTICIPATIONS_HEADING')}
           </Typography>
           {isAdmin &&
-            <Button variant='contained' onClick={() => router.push(`/competition-participations/create/${team.id}`)}>{t('ADD')} <AddIcon /></Button>
+            <Button variant='contained' onClick={() => router.push(`/competition-participations/create?teamId=${team.id}`)}>{t('ADD')} <AddIcon /></Button>
           }
         </Box>
         <CompetitionParticipationsTable

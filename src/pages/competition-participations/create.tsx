@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { ErrorContent } from '@/components/error/error-content'
@@ -11,10 +12,10 @@ import { useSeasonsList } from '@/modules/seasons/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<number>(['common', 'comp-participations'], ['ADMIN'],
-  async (token, params) => ({ data: params?.teamId ? +(params.teamId[0] as string) : 0 }));
+export const getServerSideProps = withSessionSsrRole(['common', 'comp-participations'], ['ADMIN']);
 
-const CreateCompetitionParticipantPage = ({ errorMessage, errorStatus, data }: TSsrRole<number>) => {
+const CreateCompetitionParticipantPage = ({ errorMessage, errorStatus }: TSsrRole) => {
+  const router = useRouter()
   const { t } = useTranslation()
 
   const { mutate: createCompetitionParticipation, isLoading: createLoading } = useCreateCompetitionParticipation()
@@ -25,6 +26,8 @@ const CreateCompetitionParticipantPage = ({ errorMessage, errorStatus, data }: T
   const { data: groupsData, isLoading: groupsLoading } = useCompetitionGroupsList()
 
   const isLoading = teamsLoading || competitionsLoading || seasonsLoading || groupsLoading || createLoading
+
+  console.log(router.query?.teamId)
 
   if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
@@ -37,7 +40,7 @@ const CreateCompetitionParticipantPage = ({ errorMessage, errorStatus, data }: T
         groupsData={groupsData || []}
         seasonsData={seasonsData || []}
         teamsData={teamsData || []}
-        teamId={data as number}
+        teamId={+(router.query?.teamId as string) || 0}
       />
     </>
   )

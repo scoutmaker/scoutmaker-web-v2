@@ -82,7 +82,7 @@ export const SeasonsTableRow = ({
             icon={<CopyIcon fontSize="small" />}
             text={t('seasons:COPY_TO_NEW')}
             onClick={() =>
-              router.push(`/competition-participations/copy/${id}`)
+              router.push(`/competition-participations/copy?fromId=${id}`)
             }
           />
           {!isActive ? (

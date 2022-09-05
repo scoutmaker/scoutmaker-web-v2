@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { ErrorContent } from '@/components/error/error-content'
@@ -8,14 +9,13 @@ import { useCopyCompetitionParticipation } from '@/modules/competition-participa
 import { useSeasonsList } from '@/modules/seasons/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<number>(['common', 'comp-participations'], ['ADMIN'],
-  async (token, params) => ({ data: params?.fromId ? +(params.fromId[0] as string) : 0 }));
+export const getServerSideProps = withSessionSsrRole(['common', 'comp-participations'], ['ADMIN']);
 
 const EditSeasonPage = ({
-  data,
   errorMessage,
   errorStatus,
-}: TSsrRole<number>) => {
+}: TSsrRole) => {
+  const router = useRouter()
   const { t } = useTranslation()
 
   const { data: seasonsData, isLoading: seasonsLoading } = useSeasonsList()
@@ -33,7 +33,7 @@ const EditSeasonPage = ({
       <CopyParticipationsForm
         onSubmit={copyComp}
         seasonsData={seasonsData || []}
-        fromSeasonId={data as number}
+        fromSeasonId={+(router.query?.fromId as string) || 0}
       />
     </>
   )
