@@ -6,9 +6,11 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { StyledTableCell } from '@/components/tables/cell'
+import { CellWithLink } from '@/components/tables/cell-with-link'
 import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
 import { StyledTableRow } from '@/components/tables/row'
+import { getSingleTeamRoute } from '@/modules/teams/utils'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
 import { CompetitionParticipationDto } from '../types'
@@ -77,11 +79,11 @@ export const CompetitionParticipationsTableRow = ({
           </TableMenu>
         </StyledTableCell>}
       {shouldDisplayTeamName ? (
-        <StyledTableCell>{team.name}</StyledTableCell>
+        <CellWithLink href={getSingleTeamRoute(team.slug)} label={team.name} />
       ) : null}
-      <StyledTableCell>{season.name}</StyledTableCell>
-      <StyledTableCell>{competition.name}</StyledTableCell>
-      <StyledTableCell>{group?.name}</StyledTableCell>
+      <CellWithLink href={`/seasons/${season.id}`} label={season.name} />
+      <CellWithLink href={`/competitions/${competition.id}`} label={competition.name} />
+      {group ? <CellWithLink href={`/competition-groups/${group.id}`} label={group.name} /> : <StyledTableCell>-</StyledTableCell>}
     </StyledTableRow>
   )
 }
