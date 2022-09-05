@@ -157,5 +157,10 @@
   "TEMPLATES": "Templates",
   "REPORT_SKILL_ASSESSMENT_CATEGORY": "Skill category",
   "REPORT_SKILL_ASSESSMENT_CATEGORIES": "Skill categories",
-  "CODE": "Code"
+  "CODE": "Code",
+  "REPORT_SKILL_ASSESSMENT_TEMPLATE": "Skill template",
+  "REPORT_SKILL_ASSESSMENT_TEMPLATES": "Skill templates",
+  "CATEGORY": "Category",
+  "CATEGORIES": "Categories",
+  "SHORT_NAME": "Short name"
 }

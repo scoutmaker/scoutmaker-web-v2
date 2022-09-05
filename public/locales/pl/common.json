@@ -157,5 +157,10 @@
   "TEMPLATES": "Szablony",
   "REPORT_SKILL_ASSESSMENT_CATEGORY": "Kategoria cech",
   "REPORT_SKILL_ASSESSMENT_CATEGORIES": "Kategorie cech",
-  "CODE": "Kod"
+  "CODE": "Kod",
+  "REPORT_SKILL_ASSESSMENT_TEMPLATE": "Szablon cech",
+  "REPORT_SKILL_ASSESSMENT_TEMPLATES": "Szablony cech",
+  "CATEGORY": "Kategoria",
+  "CATEGORIES": "Kategorie",
+  "SHORT_NAME": "Skrót nazwy"
 }
