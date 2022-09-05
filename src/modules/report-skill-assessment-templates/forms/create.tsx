@@ -36,6 +36,7 @@ export const CreateReportSkillASsessmentTemplateForm = ({
       enableReinitialize
       onSubmit={(data, { resetForm }) => {
         const dataToSubmit = filter(data, (_, value) => value)
+        dataToSubmit.hasScore = data.hasScore
         onSubmit(dataToSubmit as CreateReportSkillAssessmentTemplateDto)
         resetForm()
       }}
