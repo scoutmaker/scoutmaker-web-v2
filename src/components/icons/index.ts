@@ -31,7 +31,9 @@ export {
   Create as ReportTemplatesIcon,
   AccessTime as SeasonIcon,
   Settings as SettingsIcon,
+  GroupWork as TeamAffiliationIcon,
   GroupWork as TeamsIcon,
   Dashboard as TemplatesIcon,
   Favorite as UnlikeIcon,
-  Person as UserDataIcon} from '@mui/icons-material'
+  Person as UserDataIcon,
+} from '@mui/icons-material'
