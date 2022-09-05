@@ -3,6 +3,7 @@ export enum Routes {
   TEAMS = '/teams',
   MATCHES = '/matches',
   REPORT_SKILL_ASSESSMENT_CATEGORIES = '/report-skill-assessment-categories',
+  REPORT_SKILL_ASSESSMENT_TEMPLATES = '/report-skill-assessment-templates',
 }
 
 export function getCreateRoute(route: Routes) {
