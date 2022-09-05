@@ -1,5 +1,5 @@
 import { Add as AddIcon } from '@mui/icons-material'
-import { Box, Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -81,7 +81,7 @@ export const getServerSideProps = withSessionSsr<TTeamPageProps>(
 )
 
 const TeamPage = ({ team, errorMessage, errorStatus, isAdmin }: TTeamPageProps) => {
-  const { t } = useTranslation(['teams'])
+  const { t } = useTranslation()
   const router = useRouter()
 
   const {
@@ -108,12 +108,13 @@ const TeamPage = ({ team, errorMessage, errorStatus, isAdmin }: TTeamPageProps) 
       <PageHeading title={team.name} />
       <TeamDetailsCard team={team} />
       <section>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
-          <Typography variant="h3" align="center" sx={{ marginY: 3 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginY: 3, gap: 1 }} >
+          <Typography variant="h3" align="center">
             {t('teams:COMPETITION_PARTICIPATIONS_HEADING')}
           </Typography>
           {isAdmin &&
-            <AddIcon onClick={() => router.push(`/competition-participations/create/${team.id}`)} cursor='pointer' />}
+            <Button variant='contained' onClick={() => router.push(`/competition-participations/create/${team.id}`)}>{t('ADD')} <AddIcon /></Button>
+          }
         </Box>
         <CompetitionParticipationsTable
           page={page}
