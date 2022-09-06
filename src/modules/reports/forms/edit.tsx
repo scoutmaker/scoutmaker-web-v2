@@ -1,4 +1,4 @@
-import { Box, Grid } from '@mui/material'
+import { Box, Card, CardContent, CardHeader, Grid } from '@mui/material'
 import { updatedDiff } from 'deep-object-diff'
 import { Form, Formik } from 'formik'
 import filter from 'just-filter-object'
@@ -20,6 +20,9 @@ import { ReportDto, UpdateReportDto } from '@/modules/reports/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { BasicDetailsCard } from './components/basic-details-card'
+import { MetaStep } from './components/meta-step'
+import { SkillAssessmentsCard } from './components/skill-assessments-card'
+import { StatsStep } from './components/stats-step'
 import { SummaryCard } from './components/summary-card'
 import { VideoCard } from './components/video-card'
 
@@ -27,12 +30,20 @@ interface IEditReportFormProps {
   current: ReportDto
   onSubmit: (data: UpdateReportDto) => void
   onCancelClick?: () => void
+  positionsData: PlayerPositionDto[]
+  teamsData: TeamBasicDataDto[]
+  competitionsData: CompetitionBasicDataDto[]
+  competitionGroupsData: CompetitionGroupBasicDataDto[]
 }
 
 export const EditReportForm = ({
   current,
   onSubmit,
   onCancelClick,
+  positionsData,
+  teamsData,
+  competitionsData,
+  competitionGroupsData,
 }: IEditReportFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -44,7 +55,7 @@ export const EditReportForm = ({
       <BasicDetailsCard report={current} />
       <Formik
         initialValues={initialValues}
-        validationSchema={generateReportFormValidationSchema(t)}
+        // validationSchema={generateReportFormValidationSchema(t)}
         enableReinitialize
         onSubmit={data => {
           // const { rating, ...rest } = data
@@ -55,7 +66,7 @@ export const EditReportForm = ({
           //   initialValues,
           //   filter({ ...rest, rating: parsedRating }, (_, value) => value),
           // )
-          onSubmit(data)
+          console.log(data)
         }}
       >
         {({ handleReset }) => (
@@ -66,8 +77,39 @@ export const EditReportForm = ({
             <Box sx={{ my: 2 }}>
               <SummaryCard />
             </Box>
+            <Box sx={{ my: 2 }}>
+              <SkillAssessmentsCard
+                skills={current.skills}
+                maxRatingScore={current.template.maxRatingScore}
+              />
+            </Box>
+            <Box sx={{ my: 2 }}>
+              <Card>
+                <CardHeader title={t('reports:EDIT_STATS_CARD')} />
+                <CardContent
+                  sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+                >
+                  <StatsStep />
+                </CardContent>
+              </Card>
+            </Box>
+            <Box sx={{ my: 2 }}>
+              <Card>
+                <CardHeader title={t('reports:EDIT_META_CARD')} />
+                <CardContent
+                  sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+                >
+                  <MetaStep
+                    teamsData={teamsData}
+                    positionsData={positionsData}
+                    competitionsData={competitionsData}
+                    competitionGroupsData={competitionGroupsData}
+                  />
+                </CardContent>
+              </Card>
+            </Box>
             <MainFormActions
-              label={t('NOTE')}
+              label={t('REPORT')}
               isEditState
               onCancelClick={() => {
                 if (onCancelClick) {

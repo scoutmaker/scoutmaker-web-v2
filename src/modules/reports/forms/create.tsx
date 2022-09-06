@@ -157,7 +157,7 @@ export const CreateReportForm = ({
       validationSchema={generateReportFormValidationSchema(t)}
       enableReinitialize
       onSubmit={(data, { resetForm }) => {
-        onSubmit(formatCreateReportDto(data) as CreateReportDto)
+        onSubmit(formatCreateReportDto(data))
         resetForm()
       }}
     >
@@ -181,7 +181,7 @@ export const CreateReportForm = ({
                     handleBack={handleBack}
                     handleNext={handleNext}
                     isNextButtonDisabled={
-                      !values.templateId || !values.playerId
+                      !values.templateId || (activeStep > 1 && !values.playerId)
                     }
                   />
                 </StepContent>

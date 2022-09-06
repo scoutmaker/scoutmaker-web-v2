@@ -8,13 +8,13 @@ import { CreateReportDto } from '../../types'
 
 export const SummaryCard = () => {
   const { t } = useTranslation(['common', 'reports'])
-  const { touched, errors } = useFormikContext<CreateReportDto>()
+  const { touched, errors, values } = useFormikContext<CreateReportDto>()
 
   return (
     <Card>
       <CardHeader title={t('reports:EDIT_SUMMARY_CARD')} />
       <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        <RatingInput max={4} name="finalRating" />
+        <RatingInput max={4} name="finalRating" value={values.finalRating} />
         <Field
           name="summary"
           as={TextField}

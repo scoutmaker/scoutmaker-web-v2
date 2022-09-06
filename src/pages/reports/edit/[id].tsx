@@ -7,17 +7,11 @@ import { PageHeading } from '@/components/page-heading/page-heading'
 import { withSessionSsr } from '@/modules/auth/session'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
-import { useMatchesList } from '@/modules/matches/hooks'
-import { EditNoteForm } from '@/modules/notes/forms/edit'
-import { useUpdateNote } from '@/modules/notes/hooks'
-import { NoteDto } from '@/modules/notes/types'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
-import { usePlayersList } from '@/modules/players/hooks'
 import { EditReportForm } from '@/modules/reports/forms/edit'
 import { useUpdateReport } from '@/modules/reports/hooks'
 import { ReportDto } from '@/modules/reports/types'
 import { useTeamsList } from '@/modules/teams/hooks'
-import { getNoteById } from '@/services/api/methods/notes'
 import { getReportById } from '@/services/api/methods/reports'
 import { ApiError } from '@/services/api/types'
 import { getDocumentNumber } from '@/utils/get-document-number'
@@ -95,8 +89,6 @@ const EditReportPage = ({
     useCompetitionsList()
   const { data: competitionGroups, isLoading: competitionGroupsLoading } =
     useCompetitionGroupsList()
-  const { data: matches, isLoading: matchesLoading } = useMatchesList()
-  const { data: players, isLoading: playersLoading } = usePlayersList()
 
   const { mutate: updateReport, isLoading: updateReportLoading } =
     useUpdateReport(report?.id || 0)
@@ -106,8 +98,6 @@ const EditReportPage = ({
     teamsLoading ||
     competitionsLoading ||
     competitionGroupsLoading ||
-    matchesLoading ||
-    playersLoading ||
     updateReportLoading
 
   if (report) {
@@ -124,12 +114,10 @@ const EditReportPage = ({
         />
         <EditReportForm
           current={report}
-          // positionsData={positions || []}
-          // teamsData={teams || []}
-          // competitionGroupsData={competitionGroups || []}
-          // competitionsData={competitions || []}
-          // matchesData={matches || []}
-          // playersData={players || []}
+          positionsData={positions || []}
+          teamsData={teams || []}
+          competitionGroupsData={competitionGroups || []}
+          competitionsData={competitions || []}
           onSubmit={updateReport}
         />
       </>

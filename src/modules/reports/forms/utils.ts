@@ -57,11 +57,21 @@ export function generateReportFormValidationSchema(t: TFunction) {
     .defined()
 }
 
-export function formatCreateReportDto(data: CreateReportDto) {
-  const { finalRating, skillAssessments, ...rest } = data
+export function formatCreateReportDto(data: CreateReportDto): CreateReportDto {
+  const {
+    finalRating,
+    skillAssessments,
+    goals,
+    assists,
+    minutesPlayed,
+    redCards,
+    yellowCards,
+    ...rest
+  } = data
 
   const parsedRating =
     typeof finalRating === 'string' ? parseInt(finalRating) : finalRating
+
   const assessmentsWithParsedRatings = skillAssessments?.map(assessment => ({
     ...assessment,
     rating:
@@ -70,7 +80,7 @@ export function formatCreateReportDto(data: CreateReportDto) {
         : assessment.rating,
   }))
 
-  return filter(
+  const filteredData = filter(
     {
       ...rest,
       finalRating: parsedRating,
@@ -78,6 +88,15 @@ export function formatCreateReportDto(data: CreateReportDto) {
     },
     (_, value) => value,
   )
+
+  return {
+    ...filteredData,
+    goals: goals || 0,
+    assists: assists || 0,
+    minutesPlayed: minutesPlayed || 0,
+    redCards: redCards || 0,
+    yellowCards: yellowCards || 0,
+  } as CreateReportDto
 }
 
 export type TStep = {
@@ -112,13 +131,28 @@ export function getInitialStateFromCurrent(report: ReportDto): UpdateReportDto {
     meta,
     percentageRating,
     player,
+    avgRating,
+    redCards,
+    yellowCards,
+    assists,
+    goals,
+    template,
+    status,
+    skills,
     ...rest
   } = report
 
-  const mappedRest = map({ ...rest }, value => value || '')
+  const mappedRest = map(
+    { ...rest, skillAssessments: skills },
+    value => value || '',
+  )
 
   return {
     ...mappedRest,
+    redCards,
+    yellowCards,
+    assists,
+    goals,
     competitionGroupId: meta?.competitionGroup?.id,
     competitionId: meta?.competition?.id,
     positionPlayedId: meta?.position?.id,
