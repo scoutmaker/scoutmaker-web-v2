@@ -34,4 +34,6 @@ export {
   GroupWork as TeamsIcon,
   Dashboard as TemplatesIcon,
   Favorite as UnlikeIcon,
-  Person as UserDataIcon} from '@mui/icons-material'
+  Person as UserDataIcon,
+  Group as UsersIcon,
+} from '@mui/icons-material'
