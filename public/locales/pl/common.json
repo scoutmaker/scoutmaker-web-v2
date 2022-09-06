@@ -162,5 +162,8 @@
   "REPORT_SKILL_ASSESSMENT_TEMPLATES": "Szablony cech",
   "CATEGORY": "Kategoria",
   "CATEGORIES": "Kategorie",
-  "SHORT_NAME": "Skrót nazwy"
+  "SHORT_NAME": "Skrót nazwy",
+  "USER": "Użytkownik",
+  "USERS": "Użytkownicy",
+  "ROLE": "Rola"
 }

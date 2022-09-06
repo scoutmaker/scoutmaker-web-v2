@@ -162,5 +162,8 @@
   "REPORT_SKILL_ASSESSMENT_TEMPLATES": "Skill templates",
   "CATEGORY": "Category",
   "CATEGORIES": "Categories",
-  "SHORT_NAME": "Short name"
+  "SHORT_NAME": "Short name",
+  "USER": "User",
+  "USERS": "Users",
+  "ROLE": "Role"
 }
