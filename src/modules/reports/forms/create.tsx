@@ -25,10 +25,10 @@ import { StepActions } from './components/step-actions'
 import { SummaryStep } from './components/summary-step'
 import { TemplateStep } from './components/template-step'
 import {
+  createReportFormInitialValues,
   formatCreateReportDto,
-  generateReportFormValidationSchema,
+  generateCreateReportFormValidationSchema,
   getStepError,
-  initialValues,
   TStep,
 } from './utils'
 
@@ -153,8 +153,8 @@ export const CreateReportForm = ({
 
   return (
     <Formik
-      initialValues={initialValues}
-      validationSchema={generateReportFormValidationSchema(t)}
+      initialValues={createReportFormInitialValues}
+      validationSchema={generateCreateReportFormValidationSchema(t)}
       enableReinitialize
       onSubmit={(data, { resetForm }) => {
         onSubmit(formatCreateReportDto(data))
@@ -181,7 +181,7 @@ export const CreateReportForm = ({
                     handleBack={handleBack}
                     handleNext={handleNext}
                     isNextButtonDisabled={
-                      !values.templateId || (activeStep > 1 && !values.playerId)
+                      !values.templateId || (step > 1 && !values.playerId)
                     }
                   />
                 </StepContent>

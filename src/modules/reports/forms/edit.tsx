@@ -1,19 +1,15 @@
-import { Box, Card, CardContent, CardHeader, Grid } from '@mui/material'
-import { updatedDiff } from 'deep-object-diff'
+import { Box, Card, CardContent, CardHeader } from '@mui/material'
 import { Form, Formik } from 'formik'
-import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
-import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { MatchBasicDataDto } from '@/modules/matches/types'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
-import { PlayerBasicDataDto } from '@/modules/players/types'
 import {
-  generateReportFormValidationSchema,
+  formatUpdateReportDto,
+  generateEditReportFormValidationSchema,
   getInitialStateFromCurrent,
 } from '@/modules/reports/forms/utils'
 import { ReportDto, UpdateReportDto } from '@/modules/reports/types'
@@ -55,19 +51,11 @@ export const EditReportForm = ({
       <BasicDetailsCard report={current} />
       <Formik
         initialValues={initialValues}
-        // validationSchema={generateReportFormValidationSchema(t)}
+        validationSchema={generateEditReportFormValidationSchema()}
         enableReinitialize
-        onSubmit={data => {
-          // const { rating, ...rest } = data
-          // const parsedRating =
-          //   typeof rating === 'string' ? parseInt(rating) : rating
-
-          // const dataToSubmit = updatedDiff(
-          //   initialValues,
-          //   filter({ ...rest, rating: parsedRating }, (_, value) => value),
-          // )
-          console.log(data)
-        }}
+        onSubmit={data =>
+          onSubmit(formatUpdateReportDto({ data, initialValues }))
+        }
       >
         {({ handleReset }) => (
           <Form>

@@ -1,3 +1,4 @@
+import { diff } from 'deep-object-diff'
 import { FormikErrors, FormikTouched } from 'formik'
 import filter from 'just-filter-object'
 import map from 'just-map-values'
@@ -12,7 +13,7 @@ import {
 } from '@/modules/reports/types'
 import { validateId } from '@/utils/validation-helpers'
 
-export const initialValues: CreateReportDto = {
+export const createReportFormInitialValues: CreateReportDto = {
   playerId: 0,
   templateId: 0,
   assists: 0,
@@ -33,18 +34,22 @@ export const initialValues: CreateReportDto = {
   yellowCards: 0,
 }
 
-export function generateReportFormValidationSchema(t: TFunction) {
+const commonReportFormValidationSchemaFields = {
+  shirtNo: yup.number().integer().min(1).max(99).notRequired(),
+  minutesPlayed: yup.number().integer().min(0).max(120).notRequired(),
+  goals: yup.number().integer().min(0).notRequired(),
+  assists: yup.number().integer().min(0).notRequired(),
+  yellowCards: yup.number().integer().min(0).max(2).notRequired(),
+  redCards: yup.number().integer().min(0).max(1).notRequired(),
+  videoUrl: yup.string().url().notRequired(),
+  videoDescription: yup.string().notRequired(),
+  summary: yup.string().notRequired(),
+}
+
+export function generateCreateReportFormValidationSchema(t: TFunction) {
   return yup
     .object({
-      shirtNo: yup.number().integer().min(1).max(99).notRequired(),
-      minutesPlayed: yup.number().integer().min(0).max(120).notRequired(),
-      goals: yup.number().integer().min(0).notRequired(),
-      assists: yup.number().integer().min(0).notRequired(),
-      yellowCards: yup.number().integer().min(0).max(2).notRequired(),
-      redCards: yup.number().integer().min(0).max(1).notRequired(),
-      videoUrl: yup.string().url().notRequired(),
-      videoDescription: yup.string().notRequired(),
-      summary: yup.string().notRequired(),
+      ...commonReportFormValidationSchemaFields,
       templateId: validateId({
         required: true,
         message: t('reports:NO_TEMPLATE_ERROR'),
@@ -53,6 +58,14 @@ export function generateReportFormValidationSchema(t: TFunction) {
         required: true,
         message: t('reports:NO_PLAYER_ERROR'),
       }),
+    })
+    .defined()
+}
+
+export function generateEditReportFormValidationSchema() {
+  return yup
+    .object({
+      ...commonReportFormValidationSchemaFields,
     })
     .defined()
 }
@@ -99,6 +112,60 @@ export function formatCreateReportDto(data: CreateReportDto): CreateReportDto {
   } as CreateReportDto
 }
 
+interface IFormatUpdateReportDto {
+  initialValues: UpdateReportDto
+  data: UpdateReportDto
+}
+
+export function formatUpdateReportDto({
+  initialValues,
+  data,
+}: IFormatUpdateReportDto): UpdateReportDto {
+  // Get updated values
+  const updated: UpdateReportDto = diff(initialValues, data)
+
+  const { finalRating, skillAssessments, ...rest } = updated
+
+  // Parse final rating - if it's defined and of type string
+  const parsedRating =
+    typeof finalRating === 'string' ? parseInt(finalRating) : finalRating
+
+  // If updated.skillAssessments object exists, we want to send entire
+  // skill assessments array from data object to the backend with parsed
+  // ratings
+  const assessmentsWithParsedRatings = skillAssessments
+    ? data.skillAssessments?.map(assessment => ({
+        ...assessment,
+        rating:
+          typeof assessment.rating === 'string'
+            ? parseInt(assessment.rating)
+            : assessment.rating,
+      }))
+    : undefined
+
+  // Filter out undefined values
+
+  // Keys for which 0 is a valid value & we don't want to filter them out
+  const possibleZeroValueKeys = [
+    'goals',
+    'assists',
+    'minutesPlayed',
+    'redCards',
+    'yellowCards',
+  ]
+
+  const filteredData = filter(
+    {
+      ...rest,
+      finalRating: parsedRating,
+      skillAssessments: assessmentsWithParsedRatings,
+    },
+    (key, value) => (possibleZeroValueKeys.includes(key) ? true : value),
+  )
+
+  return filteredData
+}
+
 export type TStep = {
   title: string
   content: ReactNode
@@ -143,7 +210,14 @@ export function getInitialStateFromCurrent(report: ReportDto): UpdateReportDto {
   } = report
 
   const mappedRest = map(
-    { ...rest, skillAssessments: skills },
+    {
+      ...rest,
+      skillAssessments: skills.map(skill => ({
+        description: skill.description,
+        rating: skill.rating,
+        templateId: skill.template.id,
+      })),
+    },
     value => value || '',
   )
 

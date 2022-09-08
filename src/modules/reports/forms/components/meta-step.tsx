@@ -32,7 +32,7 @@ export const MetaStep = ({
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <Typography>{t('notes:META_DATA_DISCLAIMER')}</Typography>
+      <Typography>{t('reports:META_DATA_DISCLAIMER')}</Typography>
       <PlayersPositionCombo
         data={positionsData}
         name="positionPlayedId"

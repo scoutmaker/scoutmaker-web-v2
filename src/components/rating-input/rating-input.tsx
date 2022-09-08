@@ -13,21 +13,19 @@ const StyledContainer = styled('div')(({ theme }) => ({
 
 interface IRatingInputProps {
   max: number
-  value?: any
   label?: string
   name: string
 }
 
-export const RatingInput = ({ max, value, label, name }: IRatingInputProps) => {
+export const RatingInput = ({ max, label, name }: IRatingInputProps) => {
   const { t } = useTranslation()
-  const [ratingField] = useField({ name, type: 'number' })
+  const [ratingField] = useField({ name })
 
   return (
     <StyledContainer>
       <Typography>{label || t('RATING')}</Typography>
       <Rating
         {...ratingField}
-        value={value}
         precision={1}
         name={name}
         max={max}

@@ -65,7 +65,6 @@ export const SkillAssessmentsCard = ({
                     max={maxRatingScore}
                     label={item.template.name}
                     name={`skillAssessments[${item.originalIdx}].rating`}
-                    value={item.rating}
                   />
                 )}
                 <Field
