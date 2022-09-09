@@ -1,7 +1,6 @@
 import { Box, TextField } from '@mui/material'
 import { Field, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
-import React from 'react'
 
 import { PlayersCombo } from '@/modules/players/combo'
 import { PlayerBasicDataDto } from '@/modules/players/types'

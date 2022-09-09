@@ -57,7 +57,6 @@ const CreateReportPage = ({ errorMessage, errorStatus }: TSsrRole) => {
         onSubmit={createReport}
         templatesData={reportTemplates || []}
         playersData={players || []}
-        ordersData={[]}
         matchesData={matches || []}
         positionsData={positions || []}
         teamsData={teams || []}

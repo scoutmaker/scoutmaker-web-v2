@@ -547,16 +547,15 @@ declare namespace Components {
         export interface OrderBasicDataDto {
             player?: PlayerSuperBasicInfoDto;
             id: number;
-            docNumber: number;
             match?: MatchBasicDataDto;
             status: "OPEN" | "ACCEPTED" | "CLOSED";
+            createdAt: string; // date-time
         }
         export interface OrderCount {
             reports: number;
         }
         export interface OrderDto {
             id: number;
-            docNumber: number;
             status: "OPEN" | "ACCEPTED" | "CLOSED";
             description?: string;
             acceptDate?: string; // date-time

@@ -37,7 +37,6 @@ interface ICreateFormProps {
   onSubmit: (data: CreateReportDto) => void
   onCancelClick?: () => void
   templatesData: ReportTemplateBasicDataDto[]
-  ordersData: any[]
   playersData: PlayerBasicDataDto[]
   matchesData: MatchBasicDataDto[]
   positionsData: PlayerPositionDto[]
@@ -50,7 +49,6 @@ interface ICreateFormProps {
 export const CreateReportForm = ({
   onSubmit,
   onCancelClick,
-  ordersData,
   matchesData,
   playersData,
   templatesData,

@@ -20,6 +20,7 @@ export type PlayersFiltersDto = Pick<
   | 'name'
   | 'positionIds'
   | 'teamIds'
+  | 'orderId'
 >
 
 export type PlayersSortBy = Paths.PlayersControllerFindAll.Parameters.SortBy
