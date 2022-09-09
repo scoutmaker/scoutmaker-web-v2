@@ -4,7 +4,7 @@ export type PlayerSuperBasicDataDto = Components.Schemas.PlayerSuperBasicDataDto
 export type FindAllPlayersParams = Omit<
   Paths.PlayersControllerFindAll.QueryParameters,
   'footed'
-> & { footed: Footed | '' }
+> & { footed?: Footed | '' }
 
 export type Footed = Paths.PlayersControllerFindAll.Parameters.Footed
 

@@ -3,6 +3,7 @@ import {
   FindAllPlayersParams,
   PlayerBasicDataDto,
   PlayerDto,
+  PlayersFiltersDto,
   UpdatePlayerDto,
 } from '@/modules/players/types'
 import {
@@ -25,8 +26,12 @@ import { useUpdateDocument } from '@/utils/hooks/api/use-update-document'
 
 const moduleName: TModuleName = 'players'
 
-export const usePlayersList = () =>
-  useList<PlayerBasicDataDto>(moduleName, getPlayersList)
+export const usePlayersList = (params?: PlayersFiltersDto) =>
+  useList<PlayerBasicDataDto, PlayersFiltersDto>(
+    moduleName,
+    getPlayersList,
+    params,
+  )
 
 export const usePlayers = (params: FindAllPlayersParams) =>
   usePaginatedData<FindAllPlayersParams, PlayerDto>(
