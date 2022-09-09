@@ -11,6 +11,7 @@ import groupBy from 'just-group-by'
 import { useTranslation } from 'next-i18next'
 
 import { RatingInput } from '@/components/rating-input/rating-input'
+import { ReadOnlyRating } from '@/components/read-only-rating/read-only-rating'
 
 function groupSkillsByCategory(
   skills: Components.Schemas.ReportSkillAssessmentBasicDataDto[],
@@ -24,11 +25,13 @@ function groupSkillsByCategory(
 interface ISkillAssessmentsCardProps {
   skills: any
   maxRatingScore: number
+  readOnly?: boolean
 }
 
 export const SkillAssessmentsCard = ({
   skills,
   maxRatingScore,
+  readOnly,
 }: ISkillAssessmentsCardProps) => {
   const { t } = useTranslation(['common', 'reports'])
 
@@ -60,21 +63,32 @@ export const SkillAssessmentsCard = ({
                 }}
                 key={item.id}
               >
-                {item.template.hasScore && (
-                  <RatingInput
-                    max={maxRatingScore}
-                    label={item.template.name}
-                    name={`skillAssessments[${item.originalIdx}].rating`}
+                {item.template.hasScore &&
+                  (readOnly ? (
+                    <ReadOnlyRating
+                      max={maxRatingScore}
+                      label={item.template.name}
+                      value={item.rating || 0}
+                    />
+                  ) : (
+                    <RatingInput
+                      max={maxRatingScore}
+                      label={item.template.name}
+                      name={`skillAssessments[${item.originalIdx}].rating`}
+                    />
+                  ))}
+                {readOnly ? (
+                  <Typography>{item.description}</Typography>
+                ) : (
+                  <Field
+                    name={`skillAssessments[${item.originalIdx}].description`}
+                    as={TextField}
+                    variant="outlined"
+                    fullWidth
+                    multiline
+                    label={t(item.template.name)}
                   />
                 )}
-                <Field
-                  name={`skillAssessments[${item.originalIdx}].description`}
-                  as={TextField}
-                  variant="outlined"
-                  fullWidth
-                  multiline
-                  label={t(item.template.name)}
-                />
               </Box>
             ))}
           </Box>

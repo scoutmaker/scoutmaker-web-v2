@@ -2,28 +2,22 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ErrorContent } from '@/components/error/error-content'
-import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { withSessionSsr } from '@/modules/auth/session'
-import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
-import { useCompetitionsList } from '@/modules/competitions/hooks'
-import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
-import { EditReportForm } from '@/modules/reports/forms/edit'
-import { useUpdateReport } from '@/modules/reports/hooks'
+import { ReportDetails } from '@/modules/reports/details'
 import { ReportDto } from '@/modules/reports/types'
-import { useTeamsList } from '@/modules/teams/hooks'
 import { getReportById } from '@/services/api/methods/reports'
 import { ApiError } from '@/services/api/types'
 import { getDocumentNumber } from '@/utils/get-document-number'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
-type TEditReportPageProps = {
+type TReportPageProps = {
   errorStatus: number | null
   errorMessage: string | null
   report: ReportDto | null
 }
 
-export const getServerSideProps = withSessionSsr<TEditReportPageProps>(
+export const getServerSideProps = withSessionSsr<TReportPageProps>(
   async ({ req, res, locale, params }) => {
     const { user } = req.session
 
@@ -75,51 +69,25 @@ export const getServerSideProps = withSessionSsr<TEditReportPageProps>(
   },
 )
 
-const EditReportPage = ({
+const ReportPage = ({
   report,
   errorMessage,
   errorStatus,
-}: TEditReportPageProps) => {
+}: TReportPageProps) => {
   const { t } = useTranslation()
-
-  const { data: positions, isLoading: positionsLoading } =
-    usePlayerPositionsList()
-  const { data: teams, isLoading: teamsLoading } = useTeamsList()
-  const { data: competitions, isLoading: competitionsLoading } =
-    useCompetitionsList()
-  const { data: competitionGroups, isLoading: competitionGroupsLoading } =
-    useCompetitionGroupsList()
-
-  const { mutate: updateReport, isLoading: updateReportLoading } =
-    useUpdateReport(report?.id || 0)
-
-  const isLoading =
-    positionsLoading ||
-    teamsLoading ||
-    competitionsLoading ||
-    competitionGroupsLoading ||
-    updateReportLoading
 
   if (report) {
     return (
       <>
-        {isLoading && <Loader />}
         <PageHeading
-          title={t('reports:EDIT_REPORT_PAGE_TITLE', {
+          title={t('reports:REPORT_PAGE_TITLE', {
             number: getDocumentNumber({
               id: report.id,
               createdAt: report.createdAt,
             }),
           })}
         />
-        <EditReportForm
-          current={report}
-          positionsData={positions || []}
-          teamsData={teams || []}
-          competitionGroupsData={competitionGroups || []}
-          competitionsData={competitions || []}
-          onSubmit={updateReport}
-        />
+        <ReportDetails report={report} />
       </>
     )
   }
@@ -127,4 +95,4 @@ const EditReportPage = ({
   return <ErrorContent message={errorMessage} status={errorStatus} />
 }
 
-export default EditReportPage
+export default ReportPage
