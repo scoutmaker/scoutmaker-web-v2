@@ -296,6 +296,7 @@ declare namespace Components {
             summary?: string;
             templateId: number;
             playerId: number;
+            orderId?: number;
             positionPlayedId?: number;
             teamId?: number;
             competitionId?: number;
@@ -548,6 +549,7 @@ declare namespace Components {
             id: number;
             docNumber: number;
             match?: MatchBasicDataDto;
+            status: "OPEN" | "ACCEPTED" | "CLOSED";
         }
         export interface OrderCount {
             reports: number;
@@ -1034,6 +1036,7 @@ declare namespace Components {
             finalRating?: number;
             summary?: string;
             playerId?: number;
+            orderId?: number;
             positionPlayedId?: number;
             teamId?: number;
             competitionId?: number;
@@ -2654,6 +2657,7 @@ declare namespace Paths {
             export type GroupIds = number[];
             export type HasVideo = boolean;
             export type Limit = number;
+            export type OrderId = number;
             export type Page = number;
             export type SeasonId = number;
             export type SortBy = "id" | "date" | "homeTeam" | "awayTeam" | "competition" | "group" | "season" | "reportsCount" | "notesCount" | "videoUrl";
@@ -2665,6 +2669,7 @@ declare namespace Paths {
             competitionIds?: Parameters.CompetitionIds;
             groupIds?: Parameters.GroupIds;
             seasonId?: Parameters.SeasonId;
+            orderId?: Parameters.OrderId;
             hasVideo?: Parameters.HasVideo;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
@@ -2705,6 +2710,22 @@ declare namespace Paths {
         }
     }
     namespace MatchesControllerGetList {
+        namespace Parameters {
+            export type CompetitionIds = number[];
+            export type GroupIds = number[];
+            export type HasVideo = boolean;
+            export type OrderId = number;
+            export type SeasonId = number;
+            export type TeamId = number;
+        }
+        export interface QueryParameters {
+            teamId?: Parameters.TeamId;
+            competitionIds?: Parameters.CompetitionIds;
+            groupIds?: Parameters.GroupIds;
+            seasonId?: Parameters.SeasonId;
+            orderId?: Parameters.OrderId;
+            hasVideo?: Parameters.HasVideo;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
@@ -3828,6 +3849,7 @@ declare namespace Paths {
             export type IsLiked = boolean;
             export type Limit = number;
             export type Name = string;
+            export type OrderId = number;
             export type Page = number;
             export type PositionIds = number[];
             export type SortBy = "id" | "firstName" | "lastName" | "yearOfBirth" | "height" | "weight" | "footed" | "country" | "primaryPosition" | "reportsCount" | "notesCount";
@@ -3844,6 +3866,7 @@ declare namespace Paths {
             teamIds?: Parameters.TeamIds;
             competitionIds?: Parameters.CompetitionIds;
             competitionGroupIds?: Parameters.CompetitionGroupIds;
+            orderId?: Parameters.OrderId;
             isLiked?: Parameters.IsLiked;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
@@ -3899,6 +3922,32 @@ declare namespace Paths {
         }
     }
     namespace PlayersControllerGetList {
+        namespace Parameters {
+            export type BornAfter = number;
+            export type BornBefore = number;
+            export type CompetitionGroupIds = number[];
+            export type CompetitionIds = number[];
+            export type CountryIds = number[];
+            export type Footed = "LEFT" | "RIGHT" | "BOTH";
+            export type IsLiked = boolean;
+            export type Name = string;
+            export type OrderId = number;
+            export type PositionIds = number[];
+            export type TeamIds = number[];
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            bornAfter?: Parameters.BornAfter;
+            bornBefore?: Parameters.BornBefore;
+            footed?: Parameters.Footed;
+            countryIds?: Parameters.CountryIds;
+            positionIds?: Parameters.PositionIds;
+            teamIds?: Parameters.TeamIds;
+            competitionIds?: Parameters.CompetitionIds;
+            competitionGroupIds?: Parameters.CompetitionGroupIds;
+            orderId?: Parameters.OrderId;
+            isLiked?: Parameters.IsLiked;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
