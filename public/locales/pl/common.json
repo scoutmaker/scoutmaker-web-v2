@@ -165,5 +165,7 @@
   "SHORT_NAME": "Skrót nazwy",
   "USER": "Użytkownik",
   "USERS": "Użytkownicy",
-  "ROLE": "Rola"
+  "ROLE": "Rola",
+  "ORGANIZATION": "Organizacja",
+  "ORGANIZATIONS": "Organizacje"
 }
