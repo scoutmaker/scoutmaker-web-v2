@@ -17,6 +17,7 @@ import { useStepper } from '@/utils/hooks/use-stepper'
 import { CreateReportDto, ReportType } from '../types'
 import { MatchStep } from './components/match-step'
 import { MetaStep } from './components/meta-step'
+import { OrderStep } from './components/order-step'
 import { PlayerStep } from './components/player-step'
 import { ReportTypeStep } from './components/report-type-step'
 import { SkillAssessmentsStep } from './components/skill-assessments-step'
@@ -100,9 +101,7 @@ export const CreateReportForm = ({
       errorKeys: ['playerId', 'shirtNo'],
       content:
         reportType === 'order' ? (
-          // TODO: handle order step
-          // <OrderStep ordersData={[]} />
-          <div>Order step</div>
+          <OrderStep />
         ) : (
           <PlayerStep playersData={playersData} />
         ),
@@ -181,7 +180,7 @@ export const CreateReportForm = ({
                     handleBack={handleBack}
                     handleNext={handleNext}
                     isNextButtonDisabled={
-                      !values.templateId || (step > 1 && !values.playerId)
+                      !values.templateId || (activeStep > 1 && !values.playerId)
                     }
                   />
                 </StepContent>
