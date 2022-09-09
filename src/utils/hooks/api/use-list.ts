@@ -14,11 +14,15 @@ export function useList<
 ) {
   const { setAlert } = useAlertsState()
 
-  return useQuery([key, 'list'], () => queryFn(params), {
-    onError: (err: ApiError) =>
-      setAlert({
-        msg: err.response.data.message,
-        type: 'error',
-      }),
-  })
+  return useQuery(
+    [key, 'list', params ? { ...params } : 'full'],
+    () => queryFn(params),
+    {
+      onError: (err: ApiError) =>
+        setAlert({
+          msg: err.response.data.message,
+          type: 'error',
+        }),
+    },
+  )
 }
