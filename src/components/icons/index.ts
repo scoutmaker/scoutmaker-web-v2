@@ -21,6 +21,7 @@ export {
   Note as NotesIcon,
   Visibility as ObservationIcon,
   Assignment as OrdersIcon,
+  CorporateFare as OrganizationsIcon,
   Place as PlayerPositionIcon,
   DirectionsRun as PlayersIcon,
   AccountCircle as ProfileIcon,
