@@ -36,4 +36,5 @@ export {
   Favorite as UnlikeIcon,
   Person as UserDataIcon,
   Group as UsersIcon,
+  Subscriptions as UserSubscriptionsIcon,
 } from '@mui/icons-material'
