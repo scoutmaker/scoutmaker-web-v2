@@ -10,5 +10,6 @@
   "END_DATE": "Data zakończenia",
   "IS_ACTIVE": "Czy jest aktywny",
   "SET_ACTIVE": "Ustaw jako aktywny",
-  "UNSET_ACTIVE": "Ustaw jako nieaktywny"
+  "UNSET_ACTIVE": "Ustaw jako nieaktywny",
+  "COPY_TO_NEW": "Skopiuj udziały w rozgrywkach"
 }
