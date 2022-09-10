@@ -30,6 +30,7 @@ import {
   ReportTemplatesIcon,
   SeasonIcon,
   SettingsIcon,
+  TeamAffiliationIcon,
   TeamsIcon,
   TemplatesIcon,
   UserDataIcon,
@@ -208,6 +209,11 @@ export const NavList = () => {
             icon={<BallIcon color="error" />}
             to="/user-football-roles"
             text={t('FOOTBALL_ROLES')}
+          />
+          <NavElement
+            icon={<TeamAffiliationIcon color="error" />}
+            to="/team-affiliations"
+            text={t('TEAM_AFFILIATIONS')}
           />
         </ExpandeableNavElement>
       )}

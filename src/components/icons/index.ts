@@ -31,6 +31,7 @@ export {
   Create as ReportTemplatesIcon,
   AccessTime as SeasonIcon,
   Settings as SettingsIcon,
+  GroupWork as TeamAffiliationIcon,
   GroupWork as TeamsIcon,
   Dashboard as TemplatesIcon,
   Favorite as UnlikeIcon,
