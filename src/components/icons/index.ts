@@ -26,6 +26,7 @@ export {
   AccountCircle as ProfileIcon,
   SouthAmerica as RegionIcon,
   CancelOutlined as RejectIcon,
+  Landscape as ReportBackgroundImagesIcon,
   Assessment as ReportsIcon,
   FitnessCenter as ReportSkillAssessmentCategoriesIcon,
   Create as ReportTemplatesIcon,
@@ -34,4 +35,5 @@ export {
   GroupWork as TeamsIcon,
   Dashboard as TemplatesIcon,
   Favorite as UnlikeIcon,
-  Person as UserDataIcon} from '@mui/icons-material'
+  Person as UserDataIcon,
+} from '@mui/icons-material'
