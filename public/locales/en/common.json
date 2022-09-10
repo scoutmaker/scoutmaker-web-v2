@@ -162,5 +162,8 @@
   "REPORT_SKILL_ASSESSMENT_TEMPLATES": "Skill templates",
   "CATEGORY": "Category",
   "CATEGORIES": "Categories",
-  "SHORT_NAME": "Short name"
+  "SHORT_NAME": "Short name",
+  "URL": "Url",
+  "REPORT_BACKGROUND_IMAGE": "Report background image",
+  "REPORT_BACKGROUND_IMAGES": "Report background images"
 }

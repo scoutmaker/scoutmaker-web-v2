@@ -1,0 +1,8 @@
+{
+  "NO_NAME_ERROR": "Please provide report background image name",
+  "NO_URL_ERROR": "Please provide report background image url",
+  "INDEX_PAGE_TITLE": "Report background images database",
+  "CREATE_PAGE_TITLE": "Create new report background image",
+  "EDIT_PAGE_TITLE": "Edit report background image data",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete report background image {{name}}?"
+}

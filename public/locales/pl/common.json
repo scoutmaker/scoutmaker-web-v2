@@ -162,5 +162,8 @@
   "REPORT_SKILL_ASSESSMENT_TEMPLATES": "Szablony cech",
   "CATEGORY": "Kategoria",
   "CATEGORIES": "Kategorie",
-  "SHORT_NAME": "Skrót nazwy"
+  "SHORT_NAME": "Skrót nazwy",
+  "URL": "Adres",
+  "REPORT_BACKGROUND_IMAGE": "Obraz tła raportu",
+  "REPORT_BACKGROUND_IMAGES": "Obrazy tła raportów"
 }
