@@ -165,5 +165,7 @@
   "SHORT_NAME": "Short name",
   "USER": "User",
   "USERS": "Users",
-  "ROLE": "Role"
+  "ROLE": "Role",
+  "USER_SUBSCRIPTION": "User subscription",
+  "USER_SUBSCRIPTIONS": "User subscription"
 }

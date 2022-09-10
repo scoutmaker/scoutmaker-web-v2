@@ -165,5 +165,7 @@
   "SHORT_NAME": "Skrót nazwy",
   "USER": "Użytkownik",
   "USERS": "Użytkownicy",
-  "ROLE": "Rola"
+  "ROLE": "Rola",
+  "USER_SUBSCRIPTION": "Subskrypcja użytkownika",
+  "USER_SUBSCRIPTIONS": "Subskrypcja użytkownika"
 }
