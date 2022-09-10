@@ -27,7 +27,7 @@ export const SummaryCard = ({ report }: ISummaryCardProps) => {
       <CardHeader title={t('reports:SUMMARY_CARD_TITLE')} />
       <CardContent>
         <Grid container spacing={1}>
-          <CardItemBasic title={t('SUMMARY')} value={summary} />
+          <CardItemBasic title={t('reports:SUMMARY')} value={summary} />
           <CardItemBasic title={t('VIDEO_URL')} value={videoUrl} />
           <CardItemBasic
             title={t('VIDEO_DESCRIPTION')}
@@ -40,7 +40,7 @@ export const SummaryCard = ({ report }: ISummaryCardProps) => {
             }
           />
           <CardItemBasic
-            title={t('reports:AVG_RATING')}
+            title={t('reports:AVERAGE_RATING')}
             value={
               avgRating && percentageRating
                 ? `${avgRating.toFixed(2)} (${percentageRating.toFixed(1)}%)`

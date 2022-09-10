@@ -8,11 +8,11 @@ import { CreateReportDto } from '../../types'
 
 export const SummaryStep = () => {
   const { t } = useTranslation()
-  const { touched, errors, values } = useFormikContext<CreateReportDto>()
+  const { touched, errors } = useFormikContext<CreateReportDto>()
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <RatingInput max={4} value={values.finalRating} name="finalRating" />
+      <RatingInput max={4} name="finalRating" />
       <Field
         name="summary"
         as={TextField}

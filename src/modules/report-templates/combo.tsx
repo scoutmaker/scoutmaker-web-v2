@@ -45,8 +45,8 @@ export const ReportTemplatesCombo = ({
           {...params}
           error={error}
           helperText={helperText}
-          label={label || t('REPORT_TEMPLATES')}
-          placeholder={label || t('REPORT_TEMPLATES')}
+          label={label || t('REPORT_TEMPLATE')}
+          placeholder={label || t('REPORT_TEMPLATE')}
         />
       )}
     />

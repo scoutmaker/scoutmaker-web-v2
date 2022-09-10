@@ -25,7 +25,7 @@ export const createReportFormInitialValues: CreateReportDto = {
   minutesPlayed: 0,
   positionPlayedId: 0,
   redCards: 0,
-  shirtNo: 0,
+  shirtNo: 20,
   skillAssessments: [],
   summary: '',
   teamId: 0,

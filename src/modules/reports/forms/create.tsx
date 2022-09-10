@@ -59,7 +59,7 @@ export const CreateReportForm = ({
   isOrderOptionDisabled,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'reports'])
   const { activeStep, handleNext, handleBack } = useStepper()
 
   // TODO: handle this
@@ -71,7 +71,7 @@ export const CreateReportForm = ({
 
   const steps: TStep[] = [
     {
-      title: t('REPORT_TEMPLATE_STEP_TITLE'),
+      title: t('reports:REPORT_TEMPLATE_STEP_TITLE'),
       errorKeys: ['templateId'],
       content:
         templatesData.length > 0 ? (
@@ -81,7 +81,7 @@ export const CreateReportForm = ({
         ),
     },
     {
-      title: t('REPORT_TYPE_STEP_TITLE'),
+      title: t('reports:REPORT_TYPE_STEP_TITLE'),
       content: (
         <ReportTypeStep
           reportType={reportType}

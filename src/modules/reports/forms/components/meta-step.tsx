@@ -27,7 +27,7 @@ export const MetaStep = ({
   competitionGroupsData,
   competitionsData,
 }: IMetaStepProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'reports'])
   const { touched, errors } = useFormikContext<CreateReportDto>()
 
   return (
@@ -36,7 +36,7 @@ export const MetaStep = ({
       <PlayersPositionCombo
         data={positionsData}
         name="positionPlayedId"
-        label={t('PLAYER_POSITION')}
+        label={t('POSITION')}
         error={touched.positionPlayedId && !!errors.positionPlayedId}
         helperText={
           touched.positionPlayedId ? errors.positionPlayedId : undefined

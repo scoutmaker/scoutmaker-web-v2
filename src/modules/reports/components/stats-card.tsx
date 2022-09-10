@@ -16,7 +16,7 @@ export const StatsCard = ({ report }: IStatsCardProps) => {
 
   return (
     <Card>
-      <CardHeader title={t('reports:SUMMARY_CARD_TITLE')} />
+      <CardHeader title={t('reports:STATS_CARD_TITLE')} />
       <CardContent>
         <Grid container spacing={1}>
           <CardItemBasic title={t('MINUTES_PLAYED')} value={minutesPlayed} />

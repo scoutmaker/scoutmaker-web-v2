@@ -73,7 +73,7 @@ interface IReportToDeleteData {
 }
 
 const ReportsPage = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'reports'])
   const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =

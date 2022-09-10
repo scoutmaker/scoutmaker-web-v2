@@ -42,7 +42,7 @@ export const EditReportForm = ({
   competitionGroupsData,
 }: IEditReportFormProps) => {
   const { setAlert } = useAlertsState()
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'reports'])
 
   const initialValues = getInitialStateFromCurrent(current)
 

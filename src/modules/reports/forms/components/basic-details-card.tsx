@@ -69,12 +69,12 @@ export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
             value={match ? formatDate(match.date) : '-'}
           />
           <CardItemBasic
-            title={t('notes:POSITION_PLAYED')}
+            title={t('reports:POSITION_PLAYED')}
             value={meta?.position.name}
           />
           <CardItemBasic title={t('SHIRT_NO')} value={shirtNo} />
           <CardItemBasic
-            title={t('reports:AVARAGE_RATING')}
+            title={t('reports:AVERAGE_RATING')}
             value={`${avgRating}/${template.maxRatingScore}`}
           />
           <CardItemBasic

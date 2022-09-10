@@ -80,7 +80,7 @@ const EditReportPage = ({
   errorMessage,
   errorStatus,
 }: TEditReportPageProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'reports'])
 
   const { data: positions, isLoading: positionsLoading } =
     usePlayerPositionsList()

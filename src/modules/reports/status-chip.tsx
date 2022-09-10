@@ -9,12 +9,12 @@ interface IStatusChipProps {
 }
 
 export const StatusChip = ({ status }: IStatusChipProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'reports'])
 
   return (
     <Chip
       size="small"
-      label={t(status)}
+      label={t(`reports:${status}`)}
       color={status === 'FINISHED' ? 'success' : 'info'}
       sx={{ fontWeight: 'bold' }}
     />
