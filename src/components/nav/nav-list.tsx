@@ -25,6 +25,7 @@ import {
   PlayersIcon,
   ProfileIcon,
   RegionIcon,
+  ReportBackgroundImagesIcon,
   ReportsIcon,
   ReportSkillAssessmentCategoriesIcon,
   ReportTemplatesIcon,
@@ -203,6 +204,11 @@ export const NavList = () => {
             icon={<BallIcon color="error" />}
             to="/user-football-roles"
             text={t('FOOTBALL_ROLES')}
+          />
+          <NavElement
+            icon={<ReportBackgroundImagesIcon color="error" />}
+            to="/report-background-images"
+            text={t('REPORT_BACKGROUND_IMAGES')}
           />
         </ExpandeableNavElement>
       )}
