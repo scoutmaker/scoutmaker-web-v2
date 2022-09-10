@@ -1,4 +1,5 @@
 export type OrderDto = Components.Schemas.OrderDto
+export type OrderBasicDataDto = Components.Schemas.OrderBasicDataDto
 
 export type CreateOrderDto = Components.Schemas.CreateOrderDto
 
@@ -28,7 +29,10 @@ export interface OrdersFiltersDto
     | 'teamIds'
     | 'userId'
   > {
-  onlyMine: boolean
+  onlyMine?: boolean
 }
+
+export interface OrdersBasicFiltersDto
+  extends Omit<OrdersFiltersDto, 'onlyMine'> {}
 
 export type OrdersSortBy = Paths.OrdersControllerFindAll.Parameters.SortBy

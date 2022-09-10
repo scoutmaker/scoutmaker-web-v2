@@ -2677,6 +2677,11 @@ just-filter-object@^3.0.1:
   resolved "https://registry.yarnpkg.com/just-filter-object/-/just-filter-object-3.0.1.tgz#ac462d8e5252bfa9304451aac489143fb901528d"
   integrity sha512-H1z7tFvyTPr8lIHalaEeRFGek16WsWj6OHD0TiJHReAwO7MUwkmtbPzPu7L20w4adFINSJGwoxIt+IZLXLbDBw==
 
+just-group-by@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/just-group-by/-/just-group-by-2.1.1.tgz#b1b79925e3bca7cbf44acc24aa175aa5e954ab09"
+  integrity sha512-sygLOp/lxie+ruiL3cICjylWxXAR5RBErz2Laj04yo+dFqCRbPzDB8LLWn6aCx3HpONpwQ9sVp3EA0abPA8p2A==
+
 just-map-values@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/just-map-values/-/just-map-values-3.0.2.tgz#3617881b6bd2ee4215061f8270d973193937e161"

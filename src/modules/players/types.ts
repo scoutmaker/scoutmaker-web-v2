@@ -4,7 +4,7 @@ export type PlayerSuperBasicDataDto = Components.Schemas.PlayerSuperBasicDataDto
 export type FindAllPlayersParams = Omit<
   Paths.PlayersControllerFindAll.QueryParameters,
   'footed'
-> & { footed: Footed | '' }
+> & { footed?: Footed | '' }
 
 export type Footed = Paths.PlayersControllerFindAll.Parameters.Footed
 
@@ -20,6 +20,7 @@ export type PlayersFiltersDto = Pick<
   | 'name'
   | 'positionIds'
   | 'teamIds'
+  | 'orderId'
 >
 
 export type PlayersSortBy = Paths.PlayersControllerFindAll.Parameters.SortBy

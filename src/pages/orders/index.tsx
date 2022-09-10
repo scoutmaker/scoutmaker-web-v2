@@ -8,7 +8,13 @@ import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { useMatchesList } from '@/modules/matches/hooks'
 import { OrdersFilterForm } from '@/modules/orders/forms/filter'
-import { useAcceptOrder, useCloseOrder, useDeleteOrder, useOrders, useRejectOrder } from '@/modules/orders/hooks'
+import {
+  useAcceptOrder,
+  useCloseOrder,
+  useDeleteOrder,
+  useOrders,
+  useRejectOrder,
+} from '@/modules/orders/hooks'
 import { OrdersTableRow } from '@/modules/orders/table/row'
 import { OrdersTable } from '@/modules/orders/table/table'
 import { OrdersFiltersDto, OrdersSortBy } from '@/modules/orders/types'
@@ -23,8 +29,11 @@ interface IData {
   userId: number
 }
 
-export const getServerSideProps = withSessionSsrRole<IData>(['common', 'orders'], ['ADMIN', 'PLAYMAKER_SCOUT'],
-  async (token, params, user) => ({ data: { userId: user?.id as number } }));
+export const getServerSideProps = withSessionSsrRole<IData>(
+  ['common', 'orders'],
+  ['ADMIN', 'PLAYMAKER_SCOUT'],
+  async (token, params, user) => ({ data: { userId: user?.id as number } }),
+)
 
 const date = new Date()
 date.setFullYear(date.getFullYear() + 1)
@@ -38,7 +47,7 @@ const initialFilters: OrdersFiltersDto = {
   teamIds: [],
   // @ts-ignore
   userId: false,
-  onlyMine: false
+  onlyMine: false,
 }
 
 interface ItoDeleteData {
@@ -50,8 +59,7 @@ const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] =
-    useState<ItoDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<ItoDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order: tableOrder },
@@ -89,21 +97,28 @@ const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
     ...filters,
   })
 
-  const { mutate: deleteOrder, isLoading: deleteLoading } =
-    useDeleteOrder()
+  const { mutate: deleteOrder, isLoading: deleteLoading } = useDeleteOrder()
 
   const { mutate: acceptOrder, isLoading: acceptLoading } = useAcceptOrder()
   const { mutate: rejectOrder, isLoading: rejectLoading } = useRejectOrder()
   const { mutate: closeOrder, isLoading: closeLoading } = useCloseOrder()
 
-  const isLoading = deleteLoading || ordersLoading || matchesLoading || playersLoading || teamsLoading || acceptLoading || rejectLoading || closeLoading
+  const isLoading =
+    deleteLoading ||
+    ordersLoading ||
+    matchesLoading ||
+    playersLoading ||
+    teamsLoading ||
+    acceptLoading ||
+    rejectLoading ||
+    closeLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
-      <PageHeading title={t('orders:INDEX_PAGE_TITLE')}
-      />
+      <PageHeading title={t('orders:INDEX_PAGE_TITLE')} />
       <OrdersFilterForm
         matchesData={matchesData || []}
         playersData={playersData || []}
@@ -144,8 +159,7 @@ const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
         open={isDeleteConfirmationModalOpen}
         message={t('orders:DELETE_CONFIRM_QUESTION')}
         handleAccept={() => {
-          if (toDeleteData)
-            deleteOrder(toDeleteData.id)
+          if (toDeleteData) deleteOrder(toDeleteData.id)
 
           setToDeleteData(undefined)
         }}
