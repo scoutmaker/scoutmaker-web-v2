@@ -1,5 +1,6 @@
 import {
   Add as AddIcon,
+  ContentCopy as CopyIcon,
   Delete as DeleteIcon,
   Edit as EditIcon,
   Remove as RemoveIcon
@@ -76,6 +77,13 @@ export const SeasonsTableRow = ({
               handleMenuAction(onDeleteClick)
             }}
             disabled={!isDeleteOptionEnabled}
+          />
+          <TableMenuItem
+            icon={<CopyIcon fontSize="small" />}
+            text={t('seasons:COPY_TO_NEW')}
+            onClick={() =>
+              router.push(`/competition-participations/copy?fromId=${id}`)
+            }
           />
           {!isActive ? (
             <TableMenuItem

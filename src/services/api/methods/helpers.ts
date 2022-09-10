@@ -58,11 +58,13 @@ export async function getAssetById<DataType>({
 }
 
 // Get data list
-export async function getDataList<DataType>(
-  moduleName: TModuleName,
-): Promise<DataType[]> {
+export async function getDataList<
+  DataType,
+  ParamsType extends Record<string, TValue> = {},
+>(moduleName: TModuleName, params?: ParamsType): Promise<DataType[]> {
+  const query = params ? mapObjectToQueryParams(params) : undefined
   const { data } = await client.get<ApiResponse<DataType[]>>(
-    `/${moduleName}/list`,
+    `/${moduleName}/list${query ? `?${query}` : ''}`,
   )
   return data.data
 }

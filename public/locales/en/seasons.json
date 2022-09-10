@@ -10,5 +10,6 @@
   "END_DATE": "End date",
   "IS_ACTIVE": "Is active",
   "SET_ACTIVE": "Set as active",
-  "UNSET_ACTIVE": "Set as not active"
+  "UNSET_ACTIVE": "Set as not active",
+  "COPY_TO_NEW": "Copy competition participations"
 }
