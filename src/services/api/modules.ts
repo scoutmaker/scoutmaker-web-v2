@@ -21,3 +21,4 @@ export type TModuleName =
   | 'reports'
   | 'report-templates'
   | 'insider-notes'
+  | 'report-skill-assessment-templates'

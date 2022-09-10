@@ -1,0 +1,8 @@
+{
+  "NO_NAME_ERROR": "Please provide competition group name",
+  "INDEX_PAGE_TITLE": "Competition groups database",
+  "CREATE_PAGE_TITLE": "Create new competition group",
+  "EDIT_PAGE_TITLE": "Edit competition group data",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to competition group {{name}}?",
+  "NO_COMPETITION_ERROR": "Please choose competition group competition"
+}
