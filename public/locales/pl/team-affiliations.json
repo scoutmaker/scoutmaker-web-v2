@@ -1,0 +1,12 @@
+{
+  "START_DATE": "Początek",
+  "END_DATE": "Koniec",
+  "NO_START_DATE_ERROR": "Podaj datę rozpoczęcia przynależności klubowej",
+  "NO_END_DATE_ERROR": "Podaj datę zakończenia przynależności klubowej",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć tą przynależność klubową?",
+  "INDEX_PAGE_TITLE": "Baza przynależności klubowych",
+  "CREATE_PAGE_TITLE": "Utwórz nową przynależność klubową",
+  "EDIT_PAGE_TITLE": "Edycja danych przynależności klubowej",
+  "NO_PLAYER_ERROR": "Wybierz zawodnika przynależności klubowej",
+  "NO_TEAM_ERROR": "Wybierz zespół przynależności klubowej"
+}

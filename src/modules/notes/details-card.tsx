@@ -12,11 +12,11 @@ import { CardItemBasic } from '@/components/details-card/details-card-item'
 import { BallIcon, NotesIcon } from '@/components/icons'
 import { formatDate } from '@/utils/format-date'
 
+import { getDocumentNumber } from '../../utils/get-document-number'
 import { getMatchDisplayName, getSingleMatchRoute } from '../matches/utils'
 import { getPlayerFullName, getSinglePlayerRoute } from '../players/utils'
 import { getSingleTeamRoute } from '../teams/utils'
 import { NoteDto } from './types'
-import { getNoteNumber } from './utils'
 
 interface INoteDetailsCard {
   note: NoteDto
@@ -51,7 +51,7 @@ export const NoteDetailsCard = ({ note }: INoteDetailsCard) => {
           </Avatar>
         }
         title={t('notes:NOTE_DETAILS_TITLE', {
-          number: getNoteNumber({ id, createdAt }),
+          number: getDocumentNumber({ id, createdAt }),
         })}
         subheader={`${t('AUTHOR')}: ${author.firstName} ${author.lastName}`}
         titleTypographyProps={{ variant: 'h3' }}

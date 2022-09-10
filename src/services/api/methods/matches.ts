@@ -3,6 +3,7 @@ import {
   FindAllMatchesParams,
   MatchBasicDataDto,
   MatchDto,
+  MatchesFiltersDto,
   UpdateMatchDto,
 } from '@/modules/matches/types'
 import { TModuleName } from '@/services/api/modules'
@@ -21,7 +22,8 @@ const moduleName: TModuleName = 'matches'
 export const getMatchById = (id: number, token?: string) =>
   getAssetById<MatchDto>({ moduleName, id, token })
 
-export const getMatchesList = () => getDataList<MatchBasicDataDto>(moduleName)
+export const getMatchesList = (params?: MatchesFiltersDto) =>
+  getDataList<MatchBasicDataDto, MatchesFiltersDto>(moduleName, params)
 
 export const getMatches = (params: FindAllMatchesParams) =>
   getPaginatedData<FindAllMatchesParams, MatchDto>(params, moduleName)

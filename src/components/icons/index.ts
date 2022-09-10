@@ -31,10 +31,12 @@ export {
   Create as ReportTemplatesIcon,
   AccessTime as SeasonIcon,
   Settings as SettingsIcon,
+  GroupWork as TeamAffiliationIcon,
   GroupWork as TeamsIcon,
   Dashboard as TemplatesIcon,
   Favorite as UnlikeIcon,
   Person as UserDataIcon,
   Group as UsersIcon,
   Subscriptions as UserSubscriptionsIcon,
+  Tv as VideoIcon,
 } from '@mui/icons-material'

@@ -3,6 +3,7 @@ import {
   FindAllPlayersParams,
   PlayerBasicDataDto,
   PlayerDto,
+  PlayersFiltersDto,
   UpdatePlayerDto,
 } from '@/modules/players/types'
 import { TModuleName } from '@/services/api/modules'
@@ -23,7 +24,8 @@ const moduleName: TModuleName = 'players'
 export const getPlayerBySlug = (slug: string, token?: string) =>
   getAssetBySlug<PlayerDto>({ moduleName, slug, token })
 
-export const getPlayersList = () => getDataList<PlayerBasicDataDto>(moduleName)
+export const getPlayersList = (params?: PlayersFiltersDto) =>
+  getDataList<PlayerBasicDataDto, PlayersFiltersDto>(moduleName, params)
 
 export const getPlayers = (params: FindAllPlayersParams) =>
   getPaginatedData<FindAllPlayersParams, PlayerDto>(params, moduleName)

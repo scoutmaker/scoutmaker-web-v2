@@ -1,0 +1,15 @@
+{
+  "INDEX_PAGE_TITLE": "Baza udziałów w rozgrywkach",
+  "CREATE_PAGE_TITLE": "Utwórz nowy udział w rozgrywkach",
+  "EDIT_PAGE_TITLE": "Edytuj dane udziału w rozgrywkach",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć ten udział w rozgrywkach?",
+  "COPY_FROM": "Sezon do skopiowania z",
+  "COPY_TO": "Sezon do skopiowania do",
+  "COPY_OF_SEASON": "Kopia udziału w rozgrywkach z sezonu",
+  "NO_COPY_FROM_ERROR": "Wybierz sezon do skopiowania z",
+  "NO_COPY_TO_ERROR": "Wybierz sezon do skopiowania do",
+  "COPY_PAGE_TITLE": "Skopiuj udziały w rozgrywkach do innego sezonu",
+  "NO_COMPETITION_ERROR": "Wybierz rozgrywki",
+  "NO_SEASON_ERROR": "Wybierz sezon",
+  "NO_TEAM_ERROR": "Wybierz zespół"
+}
