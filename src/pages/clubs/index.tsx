@@ -66,7 +66,7 @@ const ClubsPage = () => {
     handleChangePage,
     handleChangeRowsPerPage,
     handleSort,
-  } = useTable('clubsTable')
+  } = useTable('clubs-table')
 
   const [filters, setFilters] = useLocalStorage<ClubsFiltersDto>({
     key: 'clubs-filters',

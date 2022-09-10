@@ -1,17 +1,24 @@
-import {
-  Delete as DeleteIcon,
-} from '@mui/icons-material'
+import { Delete as DeleteIcon } from '@mui/icons-material'
 import { Badge, Tooltip } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { AcceptIcon, CloseIcon, NoteIcon, RejectIcon, ReportsIcon } from '@/components/icons'
+import {
+  AcceptIcon,
+  CloseIcon,
+  NoteIcon,
+  RejectIcon,
+  ReportsIcon,
+} from '@/components/icons'
 import { StyledTableCell } from '@/components/tables/cell'
 import { CellWithLink } from '@/components/tables/cell-with-link'
 import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
 import { StyledTableRow } from '@/components/tables/row'
-import { getMatchDisplayName, getSingleMatchRoute } from '@/modules/matches/utils'
+import {
+  getMatchDisplayName,
+  getSingleMatchRoute,
+} from '@/modules/matches/utils'
 import { getSinglePlayerRoute } from '@/modules/players/utils'
 import { getSingleTeamRoute } from '@/modules/teams/utils'
 import { formatDate } from '@/utils/format-date'
@@ -35,7 +42,7 @@ export const OrdersTableRow = ({
   isDeleteOptionEnabled,
   onAcceptOrderClick,
   onRejectOrderClick,
-  onCloseOrderClick
+  onCloseOrderClick,
 }: ITableRowProps) => {
   const router = useRouter()
   const { t } = useTranslation()
@@ -48,7 +55,16 @@ export const OrdersTableRow = ({
     handleMenuAction,
   } = useTableMenu()
 
-  const { id, player, status, scout, createdAt, description, _count: count, match } = data
+  const {
+    id,
+    player,
+    status,
+    scout,
+    createdAt,
+    description,
+    _count: count,
+    match,
+  } = data
 
   return (
     <StyledTableRow
@@ -63,7 +79,7 @@ export const OrdersTableRow = ({
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
         >
-          {status === 'OPEN' ?
+          {status === 'OPEN' ? (
             <TableMenuItem
               icon={<AcceptIcon fontSize="small" />}
               text={t('orders:ACCEPT')}
@@ -71,7 +87,7 @@ export const OrdersTableRow = ({
                 handleMenuAction(() => onAcceptOrderClick(id))
               }}
             />
-            :
+          ) : (
             <>
               <TableMenuItem
                 icon={<RejectIcon fontSize="small" />}
@@ -87,7 +103,8 @@ export const OrdersTableRow = ({
                   handleMenuAction(() => onCloseOrderClick(id))
                 }}
               />
-            </>}
+            </>
+          )}
           <TableMenuItem
             icon={<DeleteIcon fontSize="small" />}
             text={t('DELETE')}
@@ -98,7 +115,10 @@ export const OrdersTableRow = ({
           />
         </TableMenu>
       </StyledTableCell>
-      <CellWithLink href={getSinglePlayerRoute(player?.slug || '')} label={player ? `${player?.firstName} ${player?.lastName}` : ''} />
+      <CellWithLink
+        href={getSinglePlayerRoute(player?.slug || '')}
+        label={player ? `${player?.firstName} ${player?.lastName}` : ''}
+      />
       <StyledTableCell>{player?.primaryPosition.name}</StyledTableCell>
       {player?.teams[0] ? (
         <CellWithLink
@@ -119,9 +139,12 @@ export const OrdersTableRow = ({
       ) : (
         <StyledTableCell>-</StyledTableCell>
       )}
-
-      <StyledTableCell><OrderStatusChip status={status} /></StyledTableCell>
-      <StyledTableCell>{scout ? `${scout.firstName} ${scout.lastName}` : ''}</StyledTableCell>
+      <StyledTableCell>
+        <OrderStatusChip status={status} />
+      </StyledTableCell>
+      <StyledTableCell>
+        {scout ? `${scout.firstName} ${scout.lastName}` : ''}
+      </StyledTableCell>
       <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
       <StyledTableCell padding="checkbox" align="center">
         {!!description && (

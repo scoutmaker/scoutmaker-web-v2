@@ -11,12 +11,12 @@ import { useMatchesList } from '@/modules/matches/hooks'
 import { EditNoteForm } from '@/modules/notes/forms/edit'
 import { useUpdateNote } from '@/modules/notes/hooks'
 import { NoteDto } from '@/modules/notes/types'
-import { getNoteNumber } from '@/modules/notes/utils'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { getNoteById } from '@/services/api/methods/notes'
 import { ApiError } from '@/services/api/types'
+import { getDocumentNumber } from '@/utils/get-document-number'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 type TEditNotePageProps = {
@@ -113,7 +113,10 @@ const EditNotePage = ({
         {isLoading && <Loader />}
         <PageHeading
           title={t('notes:EDIT_NOTE_PAGE_TITLE', {
-            number: getNoteNumber({ id: note.id, createdAt: note.createdAt }),
+            number: getDocumentNumber({
+              id: note.id,
+              createdAt: note.createdAt,
+            }),
           })}
         />
         <EditNoteForm

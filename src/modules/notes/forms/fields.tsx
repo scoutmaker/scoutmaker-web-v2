@@ -11,6 +11,7 @@ import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import { ExpandMoreIcon } from '@/components/icons'
+import { RatingInput } from '@/components/rating-input/rating-input'
 import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { CompetitionsCombo } from '@/modules/competitions/combo'
@@ -25,7 +26,6 @@ import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { CreateNoteDto, UpdateNoteDto } from '../types'
-import { RatingInput } from './rating-input'
 
 export const AccordionInnerContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -95,7 +95,11 @@ export const Fields = ({
         error={touched.maxRatingScore && !!errors.maxRatingScore}
         helperText={touched.maxRatingScore && errors.maxRatingScore}
       />
-      <RatingInput max={values.maxRatingScore || 4} value={values.rating} />
+      <RatingInput
+        max={values.maxRatingScore || 4}
+        value={values.rating}
+        name="rating"
+      />
       <Field
         name="description"
         as={TextField}
