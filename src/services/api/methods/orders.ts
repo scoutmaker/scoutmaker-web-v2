@@ -1,7 +1,9 @@
 import {
   CreateOrderDto,
   FindAllOrdersParams,
+  OrderBasicDataDto,
   OrderDto,
+  OrdersBasicFiltersDto,
 } from '@/modules/orders/types'
 
 import { client } from '../api'
@@ -11,6 +13,7 @@ import {
   createDocument,
   deleteDocument,
   getAssetById,
+  getDataList,
   getPaginatedData,
 } from './helpers'
 
@@ -21,6 +24,9 @@ export const getOrderById = (id: number, token?: string) =>
 
 export const getOrders = (params: FindAllOrdersParams) =>
   getPaginatedData<FindAllOrdersParams, OrderDto>(params, moduleName)
+
+export const getOrdersList = (params?: OrdersBasicFiltersDto) =>
+  getDataList<OrderBasicDataDto, OrdersBasicFiltersDto>(moduleName, params)
 
 export const createOrder = (data: CreateOrderDto) =>
   createDocument<CreateOrderDto, OrderDto>(data, moduleName)

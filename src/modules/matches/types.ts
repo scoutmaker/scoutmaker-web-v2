@@ -10,10 +10,11 @@ export type FindAllMatchesParams = Pick<
   | 'sortBy'
   | 'sortingOrder'
   | 'teamId'
+  | 'orderId'
 >
 export type MatchesFiltersDto = Pick<
   FindAllMatchesParams,
-  'competitionIds' | 'groupIds' | 'hasVideo' | 'seasonId' | 'teamId'
+  'competitionIds' | 'groupIds' | 'hasVideo' | 'seasonId' | 'teamId' | 'orderId'
 >
 export type MatchesSortBy = Paths.MatchesControllerFindAll.Parameters.SortBy
 export type MatchDto = Omit<Components.Schemas.MatchDto, '_count'> & {
