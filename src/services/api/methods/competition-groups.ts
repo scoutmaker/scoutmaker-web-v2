@@ -47,5 +47,5 @@ export const updateCompetitionGroup = ({ id, data }: IUpdateArgs) =>
 export const deleteCompetitionGroup = (id: number) =>
   deleteDocument<CompetitionGroupDto>(id, moduleName)
 
-export const getCompetitionGroupById = (id: number, token?: string) =>
+export const getCompetitionGroupById = (id: string, token?: string) =>
   getAssetById<CompetitionGroupDto>({ id, moduleName, token })

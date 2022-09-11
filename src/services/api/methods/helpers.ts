@@ -36,7 +36,7 @@ export async function getAssetBySlug<DataType>({
 // Get single asset by id
 interface IGetAssetByIdArgs {
   moduleName: TModuleName
-  id: number
+  id: string
   token?: string
 }
 
