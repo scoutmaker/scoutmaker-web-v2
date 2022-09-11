@@ -4,16 +4,16 @@ import * as yup from 'yup'
 import { CreateNoteDto, NoteDto, UpdateNoteDto } from '../types'
 
 export const initialValues: CreateNoteDto = {
-  playerId: 0,
+  playerId: '',
   shirtNo: 20,
-  matchId: 0,
+  matchId: '',
   maxRatingScore: 4,
   rating: 1,
   description: '',
-  competitionGroupId: 0,
-  competitionId: 0,
-  positionPlayedId: 0,
-  teamId: 0,
+  competitionGroupId: '',
+  competitionId: '',
+  positionPlayedId: '',
+  teamId: '',
 }
 
 export function generateNoteFormValidationSchema() {

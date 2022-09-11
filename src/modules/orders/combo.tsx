@@ -28,9 +28,9 @@ export const OrdersCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={[0, ...data.map(order => order.id)]}
-      getOptionLabel={(option: number) => {
-        if (option === 0) {
+      options={['', ...data.map(order => order.id)]}
+      getOptionLabel={(option: string) => {
+        if (option === '') {
           return ''
         }
         const order = data.find(c => c.id === option)

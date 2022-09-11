@@ -11,12 +11,12 @@ import {
 } from '../types'
 
 export const initialValues: CreateInsiderNoteDto = {
-  playerId: 0,
-  competitionGroupId: 0,
-  competitionId: 0,
+  playerId: '',
+  competitionGroupId: '',
+  competitionId: '',
   description: '',
   informant: '',
-  teamId: 0,
+  teamId: '',
 }
 
 export function generateCreateValidationSchema(t: TFunction) {

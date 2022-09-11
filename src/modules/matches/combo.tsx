@@ -27,9 +27,9 @@ export const MatchesCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={[0, ...data.map(match => match.id)]}
-      getOptionLabel={(option: number) => {
-        if (option === 0) {
+      options={['', ...data.map(match => match.id)]}
+      getOptionLabel={(option: string) => {
+        if (option === '') {
           return ''
         }
         const match = data.find(c => c.id === option)

@@ -6,8 +6,8 @@ import { CreateOrderDto } from '../types'
 
 export const initialValues: CreateOrderDto = {
   description: '',
-  matchId: 0,
-  playerId: 0,
+  matchId: '',
+  playerId: '',
 }
 
 export function generateCreateValidationSchema() {
