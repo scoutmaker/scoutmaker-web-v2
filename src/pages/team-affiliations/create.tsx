@@ -10,20 +10,25 @@ import { useCreateTeamAffiliation } from '@/modules/team-affiliations/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'team-affiliations'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'team-affiliations'],
+  ['ADMIN'],
+)
 
 const CreateTeamAffiliationPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
   const router = useRouter()
 
-  const { mutate: createTeamAffiliation, isLoading: createLoading } = useCreateTeamAffiliation()
+  const { mutate: createTeamAffiliation, isLoading: createLoading } =
+    useCreateTeamAffiliation()
 
   const { data: playersData, isLoading: playersLoading } = usePlayersList()
   const { data: teamsData, isLoading: teamsLoading } = useTeamsList()
 
   const isLoading = playersLoading || teamsLoading || createLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
@@ -32,7 +37,7 @@ const CreateTeamAffiliationPage = ({ errorMessage, errorStatus }: TSsrRole) => {
         onSubmit={createTeamAffiliation}
         playersData={playersData || []}
         teamsData={teamsData || []}
-        playerId={+(router.query?.playerId as string) || 0}
+        playerId={(router.query?.playerId as string) || ''}
       />
     </>
   )

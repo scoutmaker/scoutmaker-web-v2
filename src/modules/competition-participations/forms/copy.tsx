@@ -15,7 +15,7 @@ interface ICreateFormProps {
   onSubmit: (data: CopyCompetitionParticipationsDto) => void
   onCancelClick?: () => void
   fullwidth?: boolean
-  fromSeasonId?: number
+  fromSeasonId?: string
   seasonsData: SeasonDto[]
 }
 
@@ -24,14 +24,17 @@ export const CopyParticipationsForm = ({
   onCancelClick,
   fullwidth,
   fromSeasonId,
-  seasonsData
+  seasonsData,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
 
-  const initialValues: CopyCompetitionParticipationsDto = { toSeasonId: 0, fromSeasonId: 0 }
-  if (fromSeasonId)
-    initialValues.fromSeasonId = fromSeasonId
+  const initialValues: CopyCompetitionParticipationsDto = {
+    toSeasonId: '',
+    fromSeasonId: '',
+  }
+
+  if (fromSeasonId) initialValues.fromSeasonId = fromSeasonId
 
   return (
     <Formik
@@ -48,14 +51,16 @@ export const CopyParticipationsForm = ({
         <Form>
           <Container fullwidth={fullwidth}>
             <SeasonsCombo
-              name='fromSeasonId'
+              name="fromSeasonId"
               data={seasonsData}
               label={t('comp-participations:COPY_FROM')}
               error={touched.fromSeasonId && !!errors.fromSeasonId}
-              helperText={touched.fromSeasonId ? errors.fromSeasonId : undefined}
+              helperText={
+                touched.fromSeasonId ? errors.fromSeasonId : undefined
+              }
             />
             <SeasonsCombo
-              name='toSeasonId'
+              name="toSeasonId"
               data={seasonsData}
               label={t('comp-participations:COPY_TO')}
               error={touched.toSeasonId && !!errors.toSeasonId}

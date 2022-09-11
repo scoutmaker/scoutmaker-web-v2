@@ -5,7 +5,7 @@ import { ApiError, ApiResponse } from '@/services/api/types'
 
 export function useUpdateDocument<UpdateDto, ReturnType>(
   key: string,
-  docid: string,
+  docId: string,
   mutationFn: ({
     id,
     data,

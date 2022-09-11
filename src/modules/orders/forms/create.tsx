@@ -27,7 +27,7 @@ export const CreateOrderForm = ({
   onCancelClick,
   fullwidth,
   playersData,
-  matchesData
+  matchesData,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -35,7 +35,7 @@ export const CreateOrderForm = ({
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={generateCreateValidationSchema(t)}
+      validationSchema={generateCreateValidationSchema()}
       enableReinitialize
       onSubmit={(data, { resetForm }) => {
         const dataToSubmit = filter(data, (_, value) => value)
@@ -57,15 +57,15 @@ export const CreateOrderForm = ({
             />
             <PlayersCombo
               data={playersData}
-              name='playerId'
-              label={t("PLAYER")}
+              name="playerId"
+              label={t('PLAYER')}
               error={touched.playerId && !!errors.playerId}
               helperText={touched.playerId ? errors.playerId : undefined}
             />
             <MatchesCombo
               data={matchesData}
-              name='matchId'
-              label={t("MATCH")}
+              name="matchId"
+              label={t('MATCH')}
               error={touched.matchId && !!errors.matchId}
               helperText={touched.matchId ? errors.matchId : undefined}
             />
