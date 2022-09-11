@@ -5,19 +5,19 @@ import { getDocumentNumber } from '@/utils/get-document-number'
 import { OrderBasicDataDto } from './types'
 
 interface IGetOrderDisplayName {
-  id: string
+  docNumber: number
   createdAt: string
   player?: OrderBasicDataDto['player']
   match?: OrderBasicDataDto['match']
 }
 
 export function getOrderDisplayName({
-  id,
+  docNumber,
   createdAt,
   player,
   match,
 }: IGetOrderDisplayName) {
-  const displayName = getDocumentNumber({ id, createdAt })
+  const displayName = getDocumentNumber({ docNumber, createdAt })
 
   if (player) {
     return displayName.concat(

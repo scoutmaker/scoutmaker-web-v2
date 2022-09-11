@@ -82,7 +82,7 @@ const ReportPage = ({
         <PageHeading
           title={t('reports:REPORT_PAGE_TITLE', {
             number: getDocumentNumber({
-              id: report.id,
+              docNumber: report.docNumber,
               createdAt: report.createdAt,
             }),
           })}

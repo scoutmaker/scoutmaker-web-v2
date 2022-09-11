@@ -67,6 +67,7 @@ const initialFilters: NotesFiltersDto = {
 
 interface INoteToDeleteData {
   id: string
+  docNumber: number
   createdAt: string
 }
 
@@ -167,6 +168,7 @@ const NotesPage = () => {
                 onDeleteClick={() => {
                   setNoteToDeleteData({
                     id: note.id,
+                    docNumber: note.docNumber,
                     createdAt: note.createdAt,
                   })
                   setIsDeleteConfirmationModalOpen(true)
@@ -185,7 +187,7 @@ const NotesPage = () => {
         message={t('notes:DELETE_NOTE_CONFIRM_QUESTION', {
           number: noteToDeleteData
             ? getDocumentNumber({
-                id: noteToDeleteData.id,
+                docNumber: noteToDeleteData.docNumber,
                 createdAt: noteToDeleteData.createdAt,
               })
             : null,

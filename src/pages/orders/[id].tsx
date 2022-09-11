@@ -6,6 +6,7 @@ import { OrderDetailsCard } from '@/modules/orders/details-card'
 import { OrderDto } from '@/modules/orders/types'
 import { getOrderById } from '@/services/api/methods/orders'
 import { ApiError } from '@/services/api/types'
+import { getDocumentNumber } from '@/utils/get-document-number'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole<OrderDto>(
@@ -26,11 +27,14 @@ const OrderPage = ({ data, errorMessage, errorStatus }: TSsrRole<OrderDto>) => {
 
   if (!data || errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
+
+  const { docNumber, createdAt } = data
+
   return (
     <>
       <PageHeading
         title={t('orders:SINGLE_PAGE', {
-          nr: `${data.id}/${new Date(data.createdAt).getFullYear()}`,
+          nr: getDocumentNumber({ docNumber, createdAt }),
         })}
       />
       <OrderDetailsCard order={data} />

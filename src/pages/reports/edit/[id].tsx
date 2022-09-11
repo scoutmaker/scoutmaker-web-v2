@@ -107,7 +107,7 @@ const EditReportPage = ({
         <PageHeading
           title={t('reports:EDIT_REPORT_PAGE_TITLE', {
             number: getDocumentNumber({
-              id: report.id,
+              docNumber: report.docNumber,
               createdAt: report.createdAt,
             }),
           })}

@@ -1,15 +1,10 @@
-import {
-  Avatar,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid
-} from '@mui/material'
+import { Avatar, Card, CardContent, CardHeader, Grid } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { CardItemBasic } from '@/components/details-card/details-card-item'
 import { InsiderNotesIcon } from '@/components/icons'
 import { formatDate } from '@/utils/format-date'
+import { getDocumentNumber } from '@/utils/get-document-number'
 
 import { getPlayerFullName, getSinglePlayerRoute } from '../players/utils'
 import { getSingleTeamRoute } from '../teams/utils'
@@ -22,9 +17,8 @@ interface IInsiderNoteDetailsCard {
 export const InsiderNoteDetailsCard = ({ note }: IInsiderNoteDetailsCard) => {
   const { t } = useTranslation()
 
-  const {
-    createdAt, id, player, description, informant, meta, author
-  } = note
+  const { createdAt, docNumber, player, description, informant, meta, author } =
+    note
 
   return (
     <Card sx={{ maxWidth: 700, margin: '0 auto' }}>
@@ -38,7 +32,7 @@ export const InsiderNoteDetailsCard = ({ note }: IInsiderNoteDetailsCard) => {
           </Avatar>
         }
         title={t('insider-notes:DETAILS_TITLE', {
-          nr: `${id}/${new Date(createdAt).getFullYear()}`
+          nr: getDocumentNumber({ docNumber, createdAt }),
         })}
         subheader={`${t('AUTHOR')}: ${author.firstName} ${author.lastName}`}
         titleTypographyProps={{ variant: 'h3' }}
@@ -54,10 +48,7 @@ export const InsiderNoteDetailsCard = ({ note }: IInsiderNoteDetailsCard) => {
             title={t('PRIMARY_POSITION')}
             value={player.primaryPosition.name}
           />
-          <CardItemBasic
-            title={t('INFORMATOR')}
-            value={informant || '-'}
-          />
+          <CardItemBasic title={t('INFORMATOR')} value={informant || '-'} />
           <CardItemBasic
             title={t('TEAM')}
             value={meta?.team?.name || '-'}
@@ -66,15 +57,11 @@ export const InsiderNoteDetailsCard = ({ note }: IInsiderNoteDetailsCard) => {
           <CardItemBasic title={t('DESCRIPTION')} value={description} />
           <CardItemBasic
             title={t('COMPETITION')}
-            value={
-              meta?.competition ? meta.competition.name : '-'
-            }
+            value={meta?.competition ? meta.competition.name : '-'}
           />
           <CardItemBasic
             title={t('COMPETITION_GROUP')}
-            value={
-              meta?.competitionGroup ? meta.competitionGroup.name : '-'
-            }
+            value={meta?.competitionGroup ? meta.competitionGroup.name : '-'}
           />
           <CardItemBasic
             title={t('CREATED_AT')}

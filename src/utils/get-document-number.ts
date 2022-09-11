@@ -1,8 +1,11 @@
 interface IGetDocumentNumberArgs {
-  id: string
+  docNumber: number
   createdAt: string
 }
 
-export function getDocumentNumber({ id, createdAt }: IGetDocumentNumberArgs) {
-  return `${id}/${new Date(createdAt).getFullYear()}`
+export function getDocumentNumber({
+  docNumber,
+  createdAt,
+}: IGetDocumentNumberArgs) {
+  return `${docNumber}/${new Date(createdAt).getFullYear()}`
 }

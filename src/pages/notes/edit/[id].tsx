@@ -114,7 +114,7 @@ const EditNotePage = ({
         <PageHeading
           title={t('notes:EDIT_NOTE_PAGE_TITLE', {
             number: getDocumentNumber({
-              id: note.id,
+              docNumber: note.docNumber,
               createdAt: note.createdAt,
             }),
           })}

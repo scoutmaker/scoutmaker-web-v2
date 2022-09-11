@@ -17,7 +17,12 @@ export const CardItemBasic = ({ title, value, href }: ICardItemBasicProps) => {
         sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
         component="div"
       >
-        <strong>{title}: </strong>
+        <Typography
+          component="strong"
+          sx={{ alignSelf: 'start', fontWeight: 'bold' }}
+        >
+          {title}:{' '}
+        </Typography>
         {href ? (
           <Link href={href} passHref>
             <MUILink>{valueToDisplay}</MUILink>

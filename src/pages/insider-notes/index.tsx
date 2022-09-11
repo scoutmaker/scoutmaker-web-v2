@@ -25,6 +25,7 @@ import {
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
+import { getDocumentNumber } from '@/utils/get-document-number'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -51,6 +52,7 @@ const InsiderNotesPage = ({ errorStatus, errorMessage }: TSsrRole) => {
     useState(false)
   const [toDeleteData, setToDeleteData] = useState<{
     id: string
+    docNumber: number
     date: string
   }>()
 
@@ -144,7 +146,11 @@ const InsiderNotesPage = ({ errorStatus, errorMessage }: TSsrRole) => {
                 router.push(`/insider-notes/edit/${insNote.id}`)
               }
               onDeleteClick={() => {
-                setToDeleteData({ id: insNote.id, date: insNote.createdAt })
+                setToDeleteData({
+                  id: insNote.id,
+                  date: insNote.createdAt,
+                  docNumber: insNote.docNumber,
+                })
                 setIsDeleteConfirmationModalOpen(true)
               }}
               isEditOptionEnabled
@@ -159,7 +165,10 @@ const InsiderNotesPage = ({ errorStatus, errorMessage }: TSsrRole) => {
         open={isDeleteConfirmationModalOpen}
         message={t('insider-notes:DELETE_CONFIRM_QUESTION', {
           nr: toDeleteData
-            ? `${toDeleteData.id}/${new Date(toDeleteData.date).getFullYear()}`
+            ? getDocumentNumber({
+                docNumber: toDeleteData.docNumber,
+                createdAt: toDeleteData.date,
+              })
             : null,
         })}
         handleAccept={() => {

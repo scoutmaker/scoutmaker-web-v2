@@ -35,9 +35,9 @@ export const OrdersCombo = ({
         }
         const order = data.find(c => c.id === option)
         if (order) {
-          const { id, createdAt, match, player } = order
+          const { createdAt, match, player, docNumber } = order
           return getOrderDisplayName({
-            id,
+            docNumber,
             createdAt,
             match,
             player,

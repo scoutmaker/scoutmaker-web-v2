@@ -26,12 +26,12 @@ export const NoteDetailsCard = ({ note }: INoteDetailsCard) => {
   const { t } = useTranslation(['common', 'notes'])
 
   const {
-    id,
     author,
     createdAt,
     description,
     match,
     percentageRating,
+    docNumber,
     rating,
     maxRatingScore,
     player,
@@ -51,7 +51,7 @@ export const NoteDetailsCard = ({ note }: INoteDetailsCard) => {
           </Avatar>
         }
         title={t('notes:NOTE_DETAILS_TITLE', {
-          number: getDocumentNumber({ id, createdAt }),
+          number: getDocumentNumber({ docNumber, createdAt }),
         })}
         subheader={`${t('AUTHOR')}: ${author.firstName} ${author.lastName}`}
         titleTypographyProps={{ variant: 'h3' }}
