@@ -32,9 +32,9 @@ export const createCompetitionParticipation = (
 
 interface IUpdateArgs {
   input: UpdateCompetitionParticipationDto
-  teamId: number
-  competitionId: number
-  seasonId: number
+  teamid: string
+  competitionid: string
+  seasonid: string
 }
 export const updateCompetitionParticipation = async ({
   input,
@@ -81,8 +81,8 @@ export const getCompetitionParticipationById = async ({
 }
 
 export const copyCompetitionParticipations = async (
-  fromSeasonId: number,
-  toSeasonId: number,
+  fromSeasonid: string,
+  toSeasonid: string,
 ) => {
   const { data } = await client.post<ApiResponse<CompetitionParticipationDto>>(
     `/${moduleName}/copy/${fromSeasonId}/${toSeasonId}`,

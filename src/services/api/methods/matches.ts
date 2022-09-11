@@ -19,7 +19,7 @@ import {
 
 const moduleName: TModuleName = 'matches'
 
-export const getMatchById = (id: number, token?: string) =>
+export const getMatchById = (id: string, token?: string) =>
   getAssetById<MatchDto>({ moduleName, id, token })
 
 export const getMatchesList = (params?: MatchesFiltersDto) =>
@@ -32,12 +32,12 @@ export const createMatch = (data: CreateMatchDto) =>
   createDocument<CreateMatchDto, MatchDto>(data, moduleName)
 
 interface IUpdateMatchArgs {
-  id: number
+  id: string
   data: UpdateMatchDto
 }
 
 export const updateMatch = ({ id, data }: IUpdateMatchArgs) =>
   updateDocument<UpdateMatchDto, MatchDto>(id, data, moduleName)
 
-export const deleteMatch = (id: number) =>
+export const deleteMatch = (id: string) =>
   deleteDocument<MatchDto>(id, moduleName)

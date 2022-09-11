@@ -31,9 +31,9 @@ interface ITableRowProps {
   data: OrderDto
   onDeleteClick: () => void
   isDeleteOptionEnabled: boolean
-  onAcceptOrderClick: (id: number) => void
-  onRejectOrderClick: (id: number) => void
-  onCloseOrderClick: (id: number) => void
+  onAcceptOrderClick: (id: string) => void
+  onRejectOrderClick: (id: string) => void
+  onCloseOrderClick: (id: string) => void
 }
 
 export const OrdersTableRow = ({

@@ -5,7 +5,7 @@ import { getDocumentNumber } from '@/utils/get-document-number'
 import { OrderBasicDataDto } from './types'
 
 interface IGetOrderDisplayName {
-  id: number
+  id: string
   createdAt: string
   player?: OrderBasicDataDto['player']
   match?: OrderBasicDataDto['match']

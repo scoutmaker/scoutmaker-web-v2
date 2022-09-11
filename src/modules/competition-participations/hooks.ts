@@ -57,9 +57,9 @@ export const useCreateCompetitionParticipation = () =>
   >(moduleName, createCompetitionParticipation)
 
 export const useUpdateCompetitionParticipation = (
-  teamId: number,
-  competitionId: number,
-  seasonId: number,
+  teamId: string,
+  competitionId: string,
+  seasonId: string,
 ) => {
   const queryClient = useQueryClient()
   const { setAlert } = useAlertsState()

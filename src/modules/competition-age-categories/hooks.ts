@@ -41,7 +41,7 @@ export const useCreateCompetitionAgeCategory = () =>
     CompetitionAgeCategortyDto
   >(moduleName, createCompetitionAgeCategory)
 
-export const useUpdateCompetitionAgeCategory = (id: number) =>
+export const useUpdateCompetitionAgeCategory = (id: string) =>
   useUpdateDocument<
     UpdateCompetitionAgeCategoryDto,
     CompetitionAgeCategortyDto

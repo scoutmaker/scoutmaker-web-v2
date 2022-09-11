@@ -48,7 +48,7 @@ const initialFilters: ClubsFiltersDto = {
 }
 
 interface IClubToDeleteData {
-  id: number
+  id: string
   name: string
 }
 

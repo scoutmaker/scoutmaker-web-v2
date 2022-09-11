@@ -8,10 +8,16 @@ import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { CompetitionJuniorLevelsFilterForm } from '@/modules/competition-junior-levels/forms/filter'
-import { useCompetitionJuniorLevels, useDeleteCompetitionJuniorLevel } from '@/modules/competition-junior-levels/hooks'
+import {
+  useCompetitionJuniorLevels,
+  useDeleteCompetitionJuniorLevel,
+} from '@/modules/competition-junior-levels/hooks'
 import { CompetitionJuniorLevelsTableRow } from '@/modules/competition-junior-levels/table/row'
 import { CompetitionJuniorLevelsTable } from '@/modules/competition-junior-levels/table/table'
-import { CompetitionJuniorLevelsFiltersDto, CompetitionJuniorLevelsSortBy } from '@/modules/competition-junior-levels/types'
+import {
+  CompetitionJuniorLevelsFiltersDto,
+  CompetitionJuniorLevelsSortBy,
+} from '@/modules/competition-junior-levels/types'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -19,24 +25,29 @@ import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 const initialFilters: CompetitionJuniorLevelsFiltersDto = {
   name: '',
   // @ts-ignore so its empty
-  level: ''
+  level: '',
 }
 
-export const getServerSideProps = withSessionSsrRole(['common', 'comp-junior-levels'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'comp-junior-levels'],
+  ['ADMIN'],
+)
 
 interface IToDeleteData {
-  id: number
+  id: string
   name: string
 }
 
-const CompetitionJuniorLevelsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
+const CompetitionJuniorLevelsPage = ({
+  errorMessage,
+  errorStatus,
+}: TSsrRole) => {
   const { t } = useTranslation()
   const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] =
-    useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -45,29 +56,33 @@ const CompetitionJuniorLevelsPage = ({ errorMessage, errorStatus }: TSsrRole) =>
     handleSort,
   } = useTable('compJuniorLevelsTable')
 
-  const [filters, setFilters] = useLocalStorage<CompetitionJuniorLevelsFiltersDto>({
-    key: 'comp-junior-levels-filters',
-    initialValue: initialFilters,
-  })
+  const [filters, setFilters] =
+    useLocalStorage<CompetitionJuniorLevelsFiltersDto>({
+      key: 'comp-junior-levels-filters',
+      initialValue: initialFilters,
+    })
 
   function handleSetFilters(newFilters: CompetitionJuniorLevelsFiltersDto) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
 
-  const { data: compJuniorLevels, isLoading: dataLoading } = useCompetitionJuniorLevels({
-    page: page + 1,
-    limit: rowsPerPage,
-    sortBy: sortBy as CompetitionJuniorLevelsSortBy,
-    sortingOrder: order,
-    ...filters,
-  })
+  const { data: compJuniorLevels, isLoading: dataLoading } =
+    useCompetitionJuniorLevels({
+      page: page + 1,
+      limit: rowsPerPage,
+      sortBy: sortBy as CompetitionJuniorLevelsSortBy,
+      sortingOrder: order,
+      ...filters,
+    })
 
-  const { mutate: deleteCompJuniorLevel, isLoading: deleteLoading } = useDeleteCompetitionJuniorLevel()
+  const { mutate: deleteCompJuniorLevel, isLoading: deleteLoading } =
+    useDeleteCompetitionJuniorLevel()
 
   const isLoading = dataLoading || deleteLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
@@ -103,8 +118,7 @@ const CompetitionJuniorLevelsPage = ({ errorMessage, errorStatus }: TSsrRole) =>
               isEditOptionEnabled
               isDeleteOptionEnabled
             />
-          ))
-        }
+          ))}
       </CompetitionJuniorLevelsTable>
       <Fab href="/competition-junior-levels/create" />
       <ConfirmationModal
@@ -113,8 +127,7 @@ const CompetitionJuniorLevelsPage = ({ errorMessage, errorStatus }: TSsrRole) =>
           name: toDeleteData?.name,
         })}
         handleAccept={() => {
-          if (toDeleteData)
-            deleteCompJuniorLevel(toDeleteData.id)
+          if (toDeleteData) deleteCompJuniorLevel(toDeleteData.id)
 
           setToDeleteData(undefined)
         }}

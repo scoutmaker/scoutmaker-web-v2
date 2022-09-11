@@ -37,7 +37,7 @@ export const useCreateCompetitionType = () =>
     createCompetitionType,
   )
 
-export const useUpdateCompetitionType = (id: number) =>
+export const useUpdateCompetitionType = (id: string) =>
   useUpdateDocument<UpdateCompetitionTypeDto, CompetitionTypeDto>(
     moduleName,
     id,

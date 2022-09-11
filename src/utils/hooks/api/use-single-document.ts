@@ -5,8 +5,8 @@ import { ApiError } from '@/services/api/types'
 
 export function useSingleDocument<DataType>(
   key: string,
-  id: number,
-  queryFn: (id: number) => Promise<DataType>,
+  id: string,
+  queryFn: (id: string) => Promise<DataType>,
 ) {
   const { setAlert } = useAlertsState()
 

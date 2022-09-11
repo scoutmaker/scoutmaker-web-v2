@@ -1,5 +1,5 @@
 interface IGetDocumentNumberArgs {
-  id: number
+  id: string
   createdAt: string
 }
 

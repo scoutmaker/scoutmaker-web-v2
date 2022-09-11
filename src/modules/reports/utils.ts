@@ -2,7 +2,7 @@ import { Routes } from '@/utils/routes'
 
 import { RatingRange, ReportsFilterFormData, ReportsFiltersDto } from './types'
 
-export function getSingleReportRoute(id: number) {
+export function getSingleReportRoute(id: string) {
   return `${Routes.REPORTS}/${id}`
 }
 

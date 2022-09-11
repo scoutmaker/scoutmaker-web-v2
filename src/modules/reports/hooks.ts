@@ -40,7 +40,7 @@ export const useReports = (params: FindAllReportsParams) =>
 export const useCreateReport = () =>
   useCreateDocument<CreateReportDto, ReportDto>(moduleName, createReport)
 
-export const useUpdateReport = (id: number) =>
+export const useUpdateReport = (id: string) =>
   useUpdateDocument<UpdateReportDto, ReportDto>(moduleName, id, updateReport)
 
 export const useDeleteReport = () =>

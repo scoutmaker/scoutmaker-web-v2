@@ -31,25 +31,25 @@ export const createInsiderNote = (data: CreateInsiderNoteDto) =>
   createDocument<CreateInsiderNoteDto, InsiderNoteDto>(data, moduleName)
 
 interface IUpdateArgs {
-  id: number
+  id: string
   data: UpdateInsiderNoteDto
 }
 export const updateInsiderNote = ({ id, data }: IUpdateArgs) =>
   updateDocument<UpdateInsiderNoteDto, InsiderNoteDto>(id, data, moduleName)
 
-export const getInsiderNoteById = (id: number, token?: string) =>
+export const getInsiderNoteById = (id: string, token?: string) =>
   getAssetById<InsiderNoteDto>({ moduleName, id, token })
 
-export const deleteInsiderNote = (id: number) =>
+export const deleteInsiderNote = (id: string) =>
   deleteDocument<InsiderNoteDto>(id, moduleName)
 
-export const likeInsiderNote = (id: number) => likeDocument<InsiderNoteDto>(id)
+export const likeInsiderNote = (id: string) => likeDocument<InsiderNoteDto>(id)
 
-export const unLikeInsiderNote = (id: number) =>
+export const unLikeInsiderNote = (id: string) =>
   unLikeDocument<InsiderNoteDto>(id)
 
 async function likeDocument<ReturnType>(
-  id: number,
+  id: string,
 ): Promise<ApiResponse<ReturnType>> {
   const { data } = await client.post<ApiResponse<ReturnType>>(
     `/like-insider-notes/${id}`,
@@ -57,7 +57,7 @@ async function likeDocument<ReturnType>(
   return data
 }
 async function unLikeDocument<ReturnType>(
-  id: number,
+  id: string,
 ): Promise<ApiResponse<ReturnType>> {
   const { data } = await client.delete<ApiResponse<ReturnType>>(
     `/like-insider-notes/${id}`,

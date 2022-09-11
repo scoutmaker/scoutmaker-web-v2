@@ -34,18 +34,18 @@ export const createPlayer = (data: CreatePlayerDto) =>
   createDocument<CreatePlayerDto, PlayerDto>(data, moduleName)
 
 interface IUpdatePlayerArgs {
-  id: number
+  id: string
   data: UpdatePlayerDto
 }
 
 export const updatePlayer = ({ id, data }: IUpdatePlayerArgs) =>
   updateDocument<UpdatePlayerDto, PlayerDto>(id, data, moduleName)
 
-export const deletePlayer = (id: number) =>
+export const deletePlayer = (id: string) =>
   deleteDocument<PlayerDto>(id, moduleName)
 
-export const likePlayer = (id: number) =>
+export const likePlayer = (id: string) =>
   likeDocument<PlayerDto>(id, moduleName)
 
-export const unlikePlayer = (id: number) =>
+export const unlikePlayer = (id: string) =>
   unlikeDocument<PlayerDto>(id, moduleName)

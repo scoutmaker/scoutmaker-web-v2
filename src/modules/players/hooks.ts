@@ -43,7 +43,7 @@ export const usePlayers = (params: FindAllPlayersParams) =>
 export const useCreatePlayer = () =>
   useCreateDocument<CreatePlayerDto, PlayerDto>(moduleName, createPlayer)
 
-export const useUpdatePlayer = (id: number) =>
+export const useUpdatePlayer = (id: string) =>
   useUpdateDocument<UpdatePlayerDto, PlayerDto>(moduleName, id, updatePlayer)
 
 export const useDeletePlayer = () =>

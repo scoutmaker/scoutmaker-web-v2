@@ -52,7 +52,7 @@ const initialFilters: MatchesFiltersDto = {
 }
 
 interface IMatchToDeleteData {
-  id: number
+  id: string
   name: string
 }
 

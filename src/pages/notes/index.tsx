@@ -66,7 +66,7 @@ const initialFilters: NotesFiltersDto = {
 }
 
 interface INoteToDeleteData {
-  id: number
+  id: string
   createdAt: string
 }
 
@@ -171,8 +171,8 @@ const NotesPage = () => {
                   })
                   setIsDeleteConfirmationModalOpen(true)
                 }}
-                onLikeClick={(id: number) => likeNote(id)}
-                onUnlikeClick={(id: number) => unlikeNote(id)}
+                onLikeClick={(id: string) => likeNote(id)}
+                onUnlikeClick={(id: string) => unlikeNote(id)}
                 isEditOptionEnabled
                 isDeleteOptionEnabled
               />

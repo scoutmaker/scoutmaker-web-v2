@@ -26,7 +26,7 @@ import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 interface IData {
-  userId: number
+  userid: string
 }
 
 export const getServerSideProps = withSessionSsrRole<IData>(
@@ -51,7 +51,7 @@ const initialFilters: OrdersFiltersDto = {
 }
 
 interface ItoDeleteData {
-  id: number
+  id: string
 }
 
 const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {

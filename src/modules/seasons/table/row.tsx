@@ -3,7 +3,7 @@ import {
   ContentCopy as CopyIcon,
   Delete as DeleteIcon,
   Edit as EditIcon,
-  Remove as RemoveIcon
+  Remove as RemoveIcon,
 } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -23,8 +23,8 @@ interface ITableRowProps {
   onDeleteClick: () => void
   isEditOptionEnabled: boolean
   isDeleteOptionEnabled: boolean
-  onSetActiveClick: (id: number) => void
-  onUnSetActiveClick: (id: number) => void
+  onSetActiveClick: (id: string) => void
+  onUnSetActiveClick: (id: string) => void
 }
 
 export const SeasonsTableRow = ({
@@ -34,7 +34,7 @@ export const SeasonsTableRow = ({
   isEditOptionEnabled,
   isDeleteOptionEnabled,
   onSetActiveClick,
-  onUnSetActiveClick
+  onUnSetActiveClick,
 }: ITableRowProps) => {
   const router = useRouter()
   const { t } = useTranslation()

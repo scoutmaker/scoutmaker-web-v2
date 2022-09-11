@@ -34,7 +34,7 @@ export const createCompetitionGroup = (data: CreateCompetitionGroupDto) =>
   )
 
 interface IUpdateArgs {
-  id: number
+  id: string
   data: UpdateCompetitionGroupDto
 }
 export const updateCompetitionGroup = ({ id, data }: IUpdateArgs) =>
@@ -44,7 +44,7 @@ export const updateCompetitionGroup = ({ id, data }: IUpdateArgs) =>
     moduleName,
   )
 
-export const deleteCompetitionGroup = (id: number) =>
+export const deleteCompetitionGroup = (id: string) =>
   deleteDocument<CompetitionGroupDto>(id, moduleName)
 
 export const getCompetitionGroupById = (id: string, token?: string) =>

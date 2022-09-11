@@ -22,7 +22,7 @@ export const getTeamAffiliations = (params: FindAllTeamAffiliationsParams) =>
   )
 
 interface IUpdateArgs {
-  id: number
+  id: string
   data: UpdateTeamAffiliationDto
 }
 
@@ -33,11 +33,11 @@ export const updateTeamAffiliation = ({ id, data }: IUpdateArgs) =>
     moduleName,
   )
 
-export const deleteTeamAffiliation = (id: number) =>
+export const deleteTeamAffiliation = (id: string) =>
   deleteDocument<TeamAffiliationDto>(id, moduleName)
 
 export const createTeamAffiliation = (data: CreateTeamAffiliationDto) =>
   createDocument<CreateTeamAffiliationDto, TeamAffiliationDto>(data, moduleName)
 
-export const getTeamAffiliationById = (id: number, token?: string) =>
+export const getTeamAffiliationById = (id: string, token?: string) =>
   getAssetById<TeamAffiliationDto>({ moduleName, id, token })

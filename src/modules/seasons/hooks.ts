@@ -36,7 +36,7 @@ export const useSeasons = (params: FindAllSeasonsParams) =>
 export const useDeleteSeason = () =>
   useDeleteDocument<SeasonDto>(moduleName, deleteSeason)
 
-export const useUpdateSeason = (id: number) =>
+export const useUpdateSeason = (id: string) =>
   useUpdateDocument<UpdateSeasonDto, SeasonDto>(moduleName, id, updateSeason)
 
 export const useCreateSeason = () =>

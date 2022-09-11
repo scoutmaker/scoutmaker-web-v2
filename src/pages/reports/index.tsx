@@ -68,7 +68,7 @@ const initialFilters: ReportsFilterFormData = {
 }
 
 interface IReportToDeleteData {
-  id: number
+  id: string
   createdAt: string
 }
 
@@ -175,8 +175,8 @@ const ReportsPage = () => {
                   })
                   setIsDeleteConfirmationModalOpen(true)
                 }}
-                onLikeClick={(id: number) => likeReport(id)}
-                onUnlikeClick={(id: number) => unlikeReport(id)}
+                onLikeClick={(id: string) => likeReport(id)}
+                onUnlikeClick={(id: string) => unlikeReport(id)}
                 isEditOptionEnabled
                 isDeleteOptionEnabled
               />

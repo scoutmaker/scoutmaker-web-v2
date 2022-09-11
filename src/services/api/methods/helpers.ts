@@ -95,7 +95,7 @@ export async function createDocument<CreateDto, ReturnType>(
 
 // Update document
 export async function updateDocument<UpdateDto, ReturnType>(
-  id: number,
+  id: string,
   input: UpdateDto,
   moduleName: TModuleName,
 ): Promise<ApiResponse<ReturnType>> {
@@ -108,7 +108,7 @@ export async function updateDocument<UpdateDto, ReturnType>(
 
 // Delete document
 export async function deleteDocument<ReturnType>(
-  id: number,
+  id: string,
   moduleName: TModuleName,
 ): Promise<ApiResponse<ReturnType>> {
   const { data } = await client.delete<ApiResponse<ReturnType>>(
@@ -119,7 +119,7 @@ export async function deleteDocument<ReturnType>(
 
 // Like document
 export async function likeDocument<ReturnType>(
-  id: number,
+  id: string,
   moduleName: TModuleName,
 ): Promise<ApiResponse<ReturnType>> {
   const { data } = await client.post<ApiResponse<ReturnType>>(
@@ -130,7 +130,7 @@ export async function likeDocument<ReturnType>(
 
 // Unlike document
 export async function unlikeDocument<ReturnType>(
-  id: number,
+  id: string,
   moduleName: TModuleName,
 ): Promise<ApiResponse<ReturnType>> {
   const { data } = await client.delete<ApiResponse<ReturnType>>(
