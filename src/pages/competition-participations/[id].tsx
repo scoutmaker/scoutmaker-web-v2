@@ -14,13 +14,10 @@ export const getServerSideProps =
     ['ADMIN'],
     async (token, params) => {
       try {
-        const ids = params?.ids as string[]
-        const data = await getCompetitionParticipationById({
-          teamId: ids[0],
-          competitionId: ids[1],
-          seasonId: ids[2],
+        const data = await getCompetitionParticipationById(
+          params?.id as string,
           token,
-        })
+        )
         return { data }
       } catch (error) {
         return {
@@ -31,7 +28,7 @@ export const getServerSideProps =
     },
   )
 
-const SeasonPage = ({
+const CompetitionParticipationPage = ({
   data,
   errorMessage,
   errorStatus,
@@ -47,4 +44,4 @@ const SeasonPage = ({
   )
 }
 
-export default SeasonPage
+export default CompetitionParticipationPage

@@ -39,9 +39,7 @@ export const getServerSideProps = withSessionSsrRole(
 )
 
 interface IToDeleteData {
-  teamId: string
-  competitionId: string
-  seasonId: string
+  id: string
 }
 
 const CompetitionParticipationsPage = ({
@@ -128,21 +126,17 @@ const CompetitionParticipationsPage = ({
         shouldDisplayTeamName
       >
         {!!compParticipations &&
-          compParticipations.docs.map(comp => (
+          compParticipations.docs.map(participation => (
             <CompetitionParticipationsTableRow
-              key={[comp.team.id, comp.competition.id, comp.season.id].join('')}
-              data={comp}
+              key={participation.id}
+              data={participation}
               onEditClick={() => {
                 router.push(
-                  `/competition-participations/edit/${comp.team.id}/${comp.competition.id}/${comp.season.id}`,
+                  `/competition-participations/edit/${participation.id}`,
                 )
               }}
               onDeleteClick={() => {
-                setToDeleteData({
-                  competitionId: comp.competition.id,
-                  seasonId: comp.season.id,
-                  teamId: comp.team.id,
-                })
+                setToDeleteData({ id: participation.id })
                 setIsDeleteConfirmationModalOpen(true)
               }}
               isEditOptionEnabled
@@ -157,7 +151,7 @@ const CompetitionParticipationsPage = ({
         open={isDeleteConfirmationModalOpen}
         message={t('comp-participations:DELETE_CONFIRM_QUESTION')}
         handleAccept={() => {
-          if (toDeleteData) deleteCompParticipation(toDeleteData)
+          if (toDeleteData) deleteCompParticipation(toDeleteData.id)
 
           setToDeleteData(undefined)
         }}

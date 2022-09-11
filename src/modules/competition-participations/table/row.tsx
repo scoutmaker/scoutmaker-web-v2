@@ -1,7 +1,4 @@
-import {
-  Delete as DeleteIcon,
-  Edit as EditIcon,
-} from '@mui/icons-material'
+import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
@@ -32,9 +29,9 @@ export const CompetitionParticipationsTableRow = ({
   onDeleteClick,
   isEditOptionEnabled,
   isDeleteOptionEnabled,
-  actions
+  actions,
 }: ICompetitionParticipationsTableRowProps) => {
-  const { competition, group, season, team } = data
+  const { competition, group, season, team, id } = data
   const router = useRouter()
   const { t } = useTranslation()
 
@@ -50,9 +47,13 @@ export const CompetitionParticipationsTableRow = ({
     <StyledTableRow
       hover
       key={`${competition.id}${season.id}${team.id}`}
-      onClick={isMenuOpen ? undefined : () => router.push(`/competition-participations/${team.id}/${competition.id}/${season.id}`)}
+      onClick={
+        isMenuOpen
+          ? undefined
+          : () => router.push(`/competition-participations/${id}`)
+      }
     >
-      {actions &&
+      {actions && (
         <StyledTableCell padding="checkbox">
           <TableMenu
             menuAnchorEl={menuAnchorEl}
@@ -77,13 +78,24 @@ export const CompetitionParticipationsTableRow = ({
               disabled={!isDeleteOptionEnabled}
             />
           </TableMenu>
-        </StyledTableCell>}
+        </StyledTableCell>
+      )}
       {shouldDisplayTeamName ? (
         <CellWithLink href={getSingleTeamRoute(team.slug)} label={team.name} />
       ) : null}
       <CellWithLink href={`/seasons/${season.id}`} label={season.name} />
-      <CellWithLink href={`/competitions/${competition.id}`} label={competition.name} />
-      {group ? <CellWithLink href={`/competition-groups/${group.id}`} label={group.name} /> : <StyledTableCell>-</StyledTableCell>}
+      <CellWithLink
+        href={`/competitions/${competition.id}`}
+        label={competition.name}
+      />
+      {group ? (
+        <CellWithLink
+          href={`/competition-groups/${group.id}`}
+          label={group.name}
+        />
+      ) : (
+        <StyledTableCell>-</StyledTableCell>
+      )}
     </StyledTableRow>
   )
 }

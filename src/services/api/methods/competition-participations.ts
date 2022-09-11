@@ -1,5 +1,3 @@
-import { AxiosRequestConfig } from 'axios'
-
 import {
   CompetitionParticipationDto,
   CreateCompetitionParticipationDto,
@@ -10,7 +8,13 @@ import { TModuleName } from '@/services/api/modules'
 
 import { client } from '../api'
 import { ApiResponse } from '../types'
-import { createDocument, getPaginatedData } from './helpers'
+import {
+  createDocument,
+  deleteDocument,
+  getAssetById,
+  getPaginatedData,
+  updateDocument,
+} from './helpers'
 
 const moduleName: TModuleName = 'competition-participations'
 
@@ -31,54 +35,20 @@ export const createCompetitionParticipation = (
   >(data, moduleName)
 
 interface IUpdateArgs {
-  input: UpdateCompetitionParticipationDto
-  teamId: string
-  competitionId: string
-  seasonId: string
+  data: UpdateCompetitionParticipationDto
+  id: string
 }
-export const updateCompetitionParticipation = async ({
-  input,
-  teamId,
-  competitionId,
-  seasonId,
-}: IUpdateArgs) => {
-  const { data } = await client.patch<ApiResponse<CompetitionParticipationDto>>(
-    `/${moduleName}/${teamId}/${competitionId}/${seasonId}`,
-    input,
-  )
-  return data
-}
+export const updateCompetitionParticipation = ({ data, id }: IUpdateArgs) =>
+  updateDocument<
+    UpdateCompetitionParticipationDto,
+    CompetitionParticipationDto
+  >(id, data, moduleName)
 
-export const deleteCompetitionParticipation = async ({
-  teamId,
-  competitionId,
-  seasonId,
-}: Omit<IUpdateArgs, 'input'>) => {
-  const { data } = await client.delete<
-    ApiResponse<CompetitionParticipationDto>
-  >(`/${moduleName}/${teamId}/${competitionId}/${seasonId}`)
-  return data
-}
+export const deleteCompetitionParticipation = (id: string) =>
+  deleteDocument<CompetitionParticipationDto>(id, moduleName)
 
-interface IGetByIdArgs extends Omit<IUpdateArgs, 'input'> {
-  token: string
-}
-
-export const getCompetitionParticipationById = async ({
-  teamId,
-  competitionId,
-  seasonId,
-  token,
-}: IGetByIdArgs) => {
-  const config: AxiosRequestConfig = token
-    ? { headers: { 'x-auth-token': token } }
-    : {}
-  const { data } = await client.get<ApiResponse<CompetitionParticipationDto>>(
-    `/${moduleName}/${teamId}/${competitionId}/${seasonId}`,
-    config,
-  )
-  return data.data
-}
+export const getCompetitionParticipationById = (id: string, token?: string) =>
+  getAssetById<CompetitionParticipationDto>({ moduleName, id, token })
 
 export const copyCompetitionParticipations = async (
   fromSeasonId: string,

@@ -20,13 +20,10 @@ export const getServerSideProps =
     ['ADMIN'],
     async (token, params) => {
       try {
-        const ids = params?.ids as string[]
-        const data = await getCompetitionParticipationById({
-          teamId: ids[0],
-          competitionId: ids[1],
-          seasonId: ids[2],
+        const data = await getCompetitionParticipationById(
+          params?.id as string,
           token,
-        })
+        )
         return { data }
       } catch (error) {
         return {
@@ -45,11 +42,7 @@ const EditCompetitionParticipationPage = ({
   const { t } = useTranslation()
 
   const { mutate: updateComp, isLoading: updateLoading } =
-    useUpdateCompetitionParticipation(
-      data?.team.id || '',
-      data?.competition.id || '',
-      data?.season.id || '',
-    )
+    useUpdateCompetitionParticipation(data?.id || '')
 
   const { data: teamsData, isLoading: teamsLoading } = useTeamsList()
   const { data: competitionsData, isLoading: competitionsLoading } =
