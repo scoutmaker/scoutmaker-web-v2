@@ -71,7 +71,7 @@ export const ClubsTableRow = ({
       <StyledTableCell>{`${getFlagEmoji(country.code)} ${
         country.name
       }`}</StyledTableCell>
-      <StyledTableCell>{region.name}</StyledTableCell>
+      <StyledTableCell>{region?.name}</StyledTableCell>
     </StyledTableRow>
   )
 }
