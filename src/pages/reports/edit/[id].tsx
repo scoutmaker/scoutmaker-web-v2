@@ -47,7 +47,7 @@ export const getServerSideProps = withSessionSsr<TEditReportPageProps>(
 
     try {
       const reportData = await getReportById(
-        parseInt(params?.id as string),
+        params?.id as string,
         req.session.token,
       )
       report = reportData
@@ -91,7 +91,7 @@ const EditReportPage = ({
     useCompetitionGroupsList()
 
   const { mutate: updateReport, isLoading: updateReportLoading } =
-    useUpdateReport(report?.id || 0)
+    useUpdateReport(report?.id || '')
 
   const isLoading =
     positionsLoading ||

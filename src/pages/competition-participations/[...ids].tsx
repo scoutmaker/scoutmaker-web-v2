@@ -8,21 +8,34 @@ import { getCompetitionParticipationById } from '@/services/api/methods/competit
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<CompetitionParticipationDto>(['common', 'comp-participations'], ['ADMIN'],
-  async (token, params) => {
-    try {
-      const ids = params?.ids as string[]
-      const data = await getCompetitionParticipationById({ teamId: +ids[0], competitionId: +ids[1], seasonId: +ids[2], token })
-      return { data }
-    } catch (error) {
-      return {
-        data: null,
-        error: error as ApiError
+export const getServerSideProps =
+  withSessionSsrRole<CompetitionParticipationDto>(
+    ['common', 'comp-participations'],
+    ['ADMIN'],
+    async (token, params) => {
+      try {
+        const ids = params?.ids as string[]
+        const data = await getCompetitionParticipationById({
+          teamId: ids[0],
+          competitionId: ids[1],
+          seasonId: ids[2],
+          token,
+        })
+        return { data }
+      } catch (error) {
+        return {
+          data: null,
+          error: error as ApiError,
+        }
       }
-    }
-  });
+    },
+  )
 
-const SeasonPage = ({ data, errorMessage, errorStatus }: TSsrRole<CompetitionParticipationDto>) => {
+const SeasonPage = ({
+  data,
+  errorMessage,
+  errorStatus,
+}: TSsrRole<CompetitionParticipationDto>) => {
   const { t } = useTranslation()
 
   if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />

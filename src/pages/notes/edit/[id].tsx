@@ -49,7 +49,7 @@ export const getServerSideProps = withSessionSsr<TEditNotePageProps>(
 
     try {
       const noteData = await getNoteById(
-        parseInt(params?.id as string),
+        params?.id as string,
         req.session.token,
       )
       note = noteData
@@ -95,7 +95,7 @@ const EditNotePage = ({
   const { data: players, isLoading: playersLoading } = usePlayersList()
 
   const { mutate: updateNote, isLoading: updateNoteLoading } = useUpdateNote(
-    note?.id || 0,
+    note?.id || '',
   )
 
   const isLoading =

@@ -25,8 +25,8 @@ import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 const initialFilters: TeamAffiliationsFilterDto = {
-  playerId: 0,
-  teamId: 0,
+  playerId: '',
+  teamId: '',
 }
 
 export const getServerSideProps = withSessionSsrRole(

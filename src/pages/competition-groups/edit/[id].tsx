@@ -12,21 +12,21 @@ import { getCompetitionGroupById } from '@/services/api/methods/competition-grou
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<CompetitionGroupDto>(['common', 'comp-groups'], ['ADMIN'],
+export const getServerSideProps = withSessionSsrRole<CompetitionGroupDto>(
+  ['common', 'comp-groups'],
+  ['ADMIN'],
   async (token, params) => {
     try {
-      const data = await getCompetitionGroupById(
-        +(params?.id as string),
-        token,
-      )
+      const data = await getCompetitionGroupById(params?.id as string, token)
       return { data }
     } catch (error) {
       return {
         data: null,
-        error: error as ApiError
+        error: error as ApiError,
       }
     }
-  });
+  },
+)
 
 const EditCompetitionGroupPage = ({
   data,
@@ -35,22 +35,20 @@ const EditCompetitionGroupPage = ({
 }: TSsrRole<CompetitionGroupDto>) => {
   const { t } = useTranslation()
 
-  const { mutate: updateCompGroup, isLoading: updateLoading } = useUpdateCompetitionGroup(
-    data?.id || 0,
-  )
-
-  const { data: competitionsData, isLoading: competitionsLoading } = useCompetitionsList()
+  const { mutate: updateCompGroup, isLoading: updateLoading } =
+    useUpdateCompetitionGroup(data?.id || '')
+  const { data: competitionsData, isLoading: competitionsLoading } =
+    useCompetitionsList()
   const { data: regionsData, isLoading: regionsLoading } = useRegionsList()
 
   const isLoading = competitionsLoading || regionsLoading || updateLoading
 
-  if (!data || errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (!data || errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
-      <PageHeading
-        title={t('comp-groups:EDIT_PAGE_TITLE')}
-      />
+      <PageHeading title={t('comp-groups:EDIT_PAGE_TITLE')} />
       <EditCompetitionGroupForm
         current={data}
         onSubmit={updateCompGroup}

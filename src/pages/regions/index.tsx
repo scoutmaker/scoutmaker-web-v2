@@ -24,7 +24,7 @@ export const getServerSideProps = withSessionSsrRole(
 
 const initialFilters: RegionsFilterDto = {
   name: '',
-  countryId: 0,
+  countryId: '',
 }
 
 interface IRegionToDeleteData {

@@ -80,7 +80,7 @@ const EditTeamPage = ({
 
   const { data: clubs, isLoading: clubsLoading } = useClubsList()
   const { mutate: updateTeam, isLoading: updateTeamLoading } = useUpdateTeam(
-    team?.id || 0,
+    team?.id || '',
   )
 
   if (team) {

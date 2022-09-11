@@ -8,23 +8,30 @@ import { getCompetitionJuniorLevelById } from '@/services/api/methods/competitio
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<CompetitionJuniorLevelDto>(['common', 'comp-junior-levels'], ['ADMIN'],
+export const getServerSideProps = withSessionSsrRole<CompetitionJuniorLevelDto>(
+  ['common', 'comp-junior-levels'],
+  ['ADMIN'],
   async (token, params) => {
     try {
       const data = await getCompetitionJuniorLevelById(
-        +(params?.id as string),
+        params?.id as string,
         token,
       )
       return { data }
     } catch (error) {
       return {
         data: null,
-        error: error as ApiError
+        error: error as ApiError,
       }
     }
-  });
+  },
+)
 
-const CompetitionJuniorLevelPage = ({ data, errorMessage, errorStatus }: TSsrRole<CompetitionJuniorLevelDto>) => {
+const CompetitionJuniorLevelPage = ({
+  data,
+  errorMessage,
+  errorStatus,
+}: TSsrRole<CompetitionJuniorLevelDto>) => {
   const { t } = useTranslation()
 
   if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />

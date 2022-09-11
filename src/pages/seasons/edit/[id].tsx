@@ -10,21 +10,21 @@ import { getSeasonById } from '@/services/api/methods/seasons'
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<SeasonDto>(['common', 'seasons'], ['ADMIN'],
+export const getServerSideProps = withSessionSsrRole<SeasonDto>(
+  ['common', 'seasons'],
+  ['ADMIN'],
   async (token, params) => {
     try {
-      const data = await getSeasonById(
-        +(params?.id as string),
-        token,
-      )
+      const data = await getSeasonById(params?.id as string, token)
       return { data }
     } catch (error) {
       return {
         data: null,
-        error: error as ApiError
+        error: error as ApiError,
       }
     }
-  });
+  },
+)
 
 const EditSeasonPage = ({
   data,
@@ -34,20 +34,16 @@ const EditSeasonPage = ({
   const { t } = useTranslation()
 
   const { mutate: updateSeason, isLoading: updateLoading } = useUpdateSeason(
-    data?.id || 0,
+    data?.id || '',
   )
 
-  if (!data || errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (!data || errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {updateLoading && <Loader />}
-      <PageHeading
-        title={t('seasons:EDIT_PAGE_TITLE')}
-      />
-      <EditSeasonForm
-        current={data}
-        onSubmit={updateSeason}
-      />
+      <PageHeading title={t('seasons:EDIT_PAGE_TITLE')} />
+      <EditSeasonForm current={data} onSubmit={updateSeason} />
     </>
   )
 }

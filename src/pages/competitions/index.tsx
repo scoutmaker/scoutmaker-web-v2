@@ -33,12 +33,12 @@ export const getServerSideProps = withSessionSsrRole(
 
 const initialFilters: CompetitionsFiltersDto = {
   name: '',
-  ageCategoryId: 0,
-  countryId: 0,
+  ageCategoryId: '',
+  countryId: '',
   gender: undefined,
-  juniorLevelId: 0,
+  juniorLevelId: '',
   level: 0,
-  typeId: 0,
+  typeId: '',
 }
 
 interface IToDeleteData {

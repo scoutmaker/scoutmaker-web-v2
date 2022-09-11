@@ -10,16 +10,22 @@ import { getCompetitionAgeCategoryById } from '@/services/api/methods/competitio
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<CompetitionAgeCategortyDto>(['common', 'comp-age-categ'], ['ADMIN'],
-  async (token, params) => {
-    try {
-      const data = await getCompetitionAgeCategoryById(
-        +(params?.id as string), token)
-      return { data }
-    } catch (error) {
-      return { data: null, error: error as ApiError }
-    }
-  })
+export const getServerSideProps =
+  withSessionSsrRole<CompetitionAgeCategortyDto>(
+    ['common', 'comp-age-categ'],
+    ['ADMIN'],
+    async (token, params) => {
+      try {
+        const data = await getCompetitionAgeCategoryById(
+          params?.id as string,
+          token,
+        )
+        return { data }
+      } catch (error) {
+        return { data: null, error: error as ApiError }
+      }
+    },
+  )
 
 const EditCompAgeCategPage = ({
   data,
@@ -28,17 +34,14 @@ const EditCompAgeCategPage = ({
 }: TSsrRole<CompetitionAgeCategortyDto>) => {
   const { t } = useTranslation()
 
-  const { mutate: updateCompAgeCateg, isLoading: isUpdateLoading } = useUpdateCompetitionAgeCategory(
-    data?.id || 0,
-  )
+  const { mutate: updateCompAgeCateg, isLoading: isUpdateLoading } =
+    useUpdateCompetitionAgeCategory(data?.id || '')
 
   if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isUpdateLoading && <Loader />}
-      <PageHeading
-        title={t('comp-age-categ:EDIT_PAGE_TITLE')}
-      />
+      <PageHeading title={t('comp-age-categ:EDIT_PAGE_TITLE')} />
       <EditCompetitionAgeCategoryForm
         current={data}
         onSubmit={updateCompAgeCateg}

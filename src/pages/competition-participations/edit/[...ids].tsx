@@ -14,19 +14,28 @@ import { getCompetitionParticipationById } from '@/services/api/methods/competit
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<CompetitionParticipationDto>(['common', 'comp-participations'], ['ADMIN'],
-  async (token, params) => {
-    try {
-      const ids = params?.ids as string[]
-      const data = await getCompetitionParticipationById({ teamId: +ids[0], competitionId: +ids[1], seasonId: +ids[2], token })
-      return { data }
-    } catch (error) {
-      return {
-        data: null,
-        error: error as ApiError
+export const getServerSideProps =
+  withSessionSsrRole<CompetitionParticipationDto>(
+    ['common', 'comp-participations'],
+    ['ADMIN'],
+    async (token, params) => {
+      try {
+        const ids = params?.ids as string[]
+        const data = await getCompetitionParticipationById({
+          teamId: ids[0],
+          competitionId: ids[1],
+          seasonId: ids[2],
+          token,
+        })
+        return { data }
+      } catch (error) {
+        return {
+          data: null,
+          error: error as ApiError,
+        }
       }
-    }
-  });
+    },
+  )
 
 const EditCompetitionParticipationPage = ({
   data,
@@ -35,24 +44,33 @@ const EditCompetitionParticipationPage = ({
 }: TSsrRole<CompetitionParticipationDto>) => {
   const { t } = useTranslation()
 
-  const { mutate: updateComp, isLoading: updateLoading } = useUpdateCompetitionParticipation(
-    data?.team.id || 0, data?.competition.id || 0, data?.season.id || 0
-  )
+  const { mutate: updateComp, isLoading: updateLoading } =
+    useUpdateCompetitionParticipation(
+      data?.team.id || '',
+      data?.competition.id || '',
+      data?.season.id || '',
+    )
 
   const { data: teamsData, isLoading: teamsLoading } = useTeamsList()
-  const { data: competitionsData, isLoading: competitionsLoading } = useCompetitionsList()
+  const { data: competitionsData, isLoading: competitionsLoading } =
+    useCompetitionsList()
   const { data: seasonsData, isLoading: seasonsLoading } = useSeasonsList()
-  const { data: groupsData, isLoading: groupsLoading } = useCompetitionGroupsList()
+  const { data: groupsData, isLoading: groupsLoading } =
+    useCompetitionGroupsList()
 
-  const isLoading = updateLoading || teamsLoading || competitionsLoading || seasonsLoading || groupsLoading
+  const isLoading =
+    updateLoading ||
+    teamsLoading ||
+    competitionsLoading ||
+    seasonsLoading ||
+    groupsLoading
 
-  if (!data || errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (!data || errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
-      <PageHeading
-        title={t('comp-participations:EDIT_PAGE_TITLE')}
-      />
+      <PageHeading title={t('comp-participations:EDIT_PAGE_TITLE')} />
       <EditCompetitionParticipationForm
         current={data}
         onSubmit={updateComp}

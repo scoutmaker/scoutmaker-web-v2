@@ -41,7 +41,7 @@ export const getServerSideProps = withSessionSsr<TReportPageProps>(
 
     try {
       const reportData = await getReportById(
-        parseInt(params?.id as string),
+        params?.id as string,
         req.session.token,
       )
       report = reportData

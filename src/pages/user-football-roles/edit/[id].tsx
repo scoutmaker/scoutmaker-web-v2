@@ -10,21 +10,21 @@ import { getUserFootballRoleById } from '@/services/api/methods/user-football-ro
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<UserFootballRoleDto>(['common', 'user-football-roles'], ['ADMIN'],
+export const getServerSideProps = withSessionSsrRole<UserFootballRoleDto>(
+  ['common', 'user-football-roles'],
+  ['ADMIN'],
   async (token, params) => {
     try {
-      const data = await getUserFootballRoleById(
-        +(params?.id as string),
-        token,
-      )
+      const data = await getUserFootballRoleById(params?.id as string, token)
       return { data }
     } catch (error) {
       return {
         data: null,
-        error: error as ApiError
+        error: error as ApiError,
       }
     }
-  });
+  },
+)
 
 const EditUserFootballRolePage = ({
   data,
@@ -33,21 +33,16 @@ const EditUserFootballRolePage = ({
 }: TSsrRole<UserFootballRoleDto>) => {
   const { t } = useTranslation()
 
-  const { mutate: updateRole, isLoading: updateLoading } = useUpdateUserFootballRole(
-    data?.id || 0,
-  )
+  const { mutate: updateRole, isLoading: updateLoading } =
+    useUpdateUserFootballRole(data?.id || '')
 
-  if (!data || errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (!data || errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {updateLoading && <Loader />}
-      <PageHeading
-        title={t('user-football-roles:EDIT_PAGE_TITLE')}
-      />
-      <EditUserFootballRoleForm
-        current={data}
-        onSubmit={updateRole}
-      />
+      <PageHeading title={t('user-football-roles:EDIT_PAGE_TITLE')} />
+      <EditUserFootballRoleForm current={data} onSubmit={updateRole} />
     </>
   )
 }

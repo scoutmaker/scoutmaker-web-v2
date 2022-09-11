@@ -27,10 +27,10 @@ import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 const initialFilters: CompetitionParticipationsFilterDto = {
-  competitionId: 0,
-  groupId: 0,
-  seasonId: 0,
-  teamId: 0,
+  competitionId: '',
+  groupId: '',
+  seasonId: '',
+  teamId: '',
 }
 
 export const getServerSideProps = withSessionSsrRole(
@@ -39,9 +39,9 @@ export const getServerSideProps = withSessionSsrRole(
 )
 
 interface IToDeleteData {
-  teamid: string
-  competitionid: string
-  seasonid: string
+  teamId: string
+  competitionId: string
+  seasonId: string
 }
 
 const CompetitionParticipationsPage = ({

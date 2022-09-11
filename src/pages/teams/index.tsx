@@ -51,7 +51,7 @@ export const getServerSideProps = withSessionSsr(
 
 const initialFilters: TeamsFiltersDto = {
   name: '',
-  clubId: 0,
+  clubId: '',
   competitionGroupIds: [],
   competitionIds: [],
   countryIds: [],
