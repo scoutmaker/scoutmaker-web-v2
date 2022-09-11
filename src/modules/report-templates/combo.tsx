@@ -28,9 +28,9 @@ export const ReportTemplatesCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={[0, ...data.map(template => template.id)]}
-      getOptionLabel={(option: number) => {
-        if (option === 0) {
+      options={['', ...data.map(template => template.id)]}
+      getOptionLabel={(option: string) => {
+        if (option === '') {
           return ''
         }
         const selected = data.find(template => template.id === option)

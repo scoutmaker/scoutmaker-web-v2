@@ -95,11 +95,7 @@ export const Fields = ({
         error={touched.maxRatingScore && !!errors.maxRatingScore}
         helperText={touched.maxRatingScore && errors.maxRatingScore}
       />
-      <RatingInput
-        max={values.maxRatingScore || 4}
-        value={values.rating}
-        name="rating"
-      />
+      <RatingInput max={values.maxRatingScore || 4} name="rating" />
       <Field
         name="description"
         as={TextField}

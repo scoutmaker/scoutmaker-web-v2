@@ -51,7 +51,7 @@ export const getServerSideProps = withSessionSsr(
 
 const initialFilters: TeamsFiltersDto = {
   name: '',
-  clubId: 0,
+  clubId: '',
   competitionGroupIds: [],
   competitionIds: [],
   countryIds: [],
@@ -60,7 +60,7 @@ const initialFilters: TeamsFiltersDto = {
 }
 
 interface ITeamToDeleteData {
-  id: number
+  id: string
   name: string
 }
 
@@ -158,8 +158,8 @@ const TeamsPage = () => {
                   setTeamToDeleteData({ id: team.id, name: team.name })
                   setIsDeleteConfirmationModalOpen(true)
                 }}
-                onLikeClick={(id: number) => likeTeam(id)}
-                onUnlikeClick={(id: number) => unlikeTeam(id)}
+                onLikeClick={(id: string) => likeTeam(id)}
+                onUnlikeClick={(id: string) => unlikeTeam(id)}
                 isEditOptionEnabled
                 isDeleteOptionEnabled
               />

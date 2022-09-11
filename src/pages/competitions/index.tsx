@@ -11,29 +11,38 @@ import { useCompetitionAgeCategoriesList } from '@/modules/competition-age-categ
 import { useCompetitionJuniorLevelsList } from '@/modules/competition-junior-levels/hooks'
 import { useCompetitionTypesList } from '@/modules/competition-types/hooks'
 import { CompetitionsFilterForm } from '@/modules/competitions/forms/filter'
-import { useCompetitions, useDeleteCompetition } from '@/modules/competitions/hooks'
+import {
+  useCompetitions,
+  useDeleteCompetition,
+} from '@/modules/competitions/hooks'
 import { CompetitionsTableRow } from '@/modules/competitions/table/row'
 import { CompetitionsTable } from '@/modules/competitions/table/table'
-import { CompetitionsFiltersDto, CompetitionsSortBy } from '@/modules/competitions/types'
+import {
+  CompetitionsFiltersDto,
+  CompetitionsSortBy,
+} from '@/modules/competitions/types'
 import { useCountriesList } from '@/modules/countries/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'competitions'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'competitions'],
+  ['ADMIN'],
+)
 
 const initialFilters: CompetitionsFiltersDto = {
   name: '',
-  ageCategoryId: 0,
-  countryId: 0,
+  ageCategoryId: '',
+  countryId: '',
   gender: undefined,
-  juniorLevelId: 0,
+  juniorLevelId: '',
   level: 0,
-  typeId: 0
+  typeId: '',
 }
 
 interface IToDeleteData {
-  id: number
+  id: string
   name: string
 }
 
@@ -43,8 +52,7 @@ const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] =
-    useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -63,23 +71,29 @@ const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
     handleChangePage(null, 0)
   }
 
-  const { data: ageCategoriesData, isLoading: ageCategLoading } = useCompetitionAgeCategoriesList()
+  const { data: ageCategoriesData, isLoading: ageCategLoading } =
+    useCompetitionAgeCategoriesList()
 
-  const { data: juniorLevelsData, isLoading: juniorLevelsLoading } = useCompetitionJuniorLevelsList()
+  const { data: juniorLevelsData, isLoading: juniorLevelsLoading } =
+    useCompetitionJuniorLevelsList()
 
-  const { data: competitionTypesData, isLoading: compTypesLoading } = useCompetitionTypesList()
+  const { data: competitionTypesData, isLoading: compTypesLoading } =
+    useCompetitionTypesList()
 
-  const { data: countriesData, isLoading: countriesLoading } = useCountriesList()
+  const { data: countriesData, isLoading: countriesLoading } =
+    useCountriesList()
 
-  const { data: competitions, isLoading: competitionsLoading } = useCompetitions({
-    page: page + 1,
-    limit: rowsPerPage,
-    sortBy: sortBy as CompetitionsSortBy,
-    sortingOrder: order,
-    ...filters,
-  })
+  const { data: competitions, isLoading: competitionsLoading } =
+    useCompetitions({
+      page: page + 1,
+      limit: rowsPerPage,
+      sortBy: sortBy as CompetitionsSortBy,
+      sortingOrder: order,
+      ...filters,
+    })
 
-  const { mutate: deleteCompetition, isLoading: deleteCompetitionLoading } = useDeleteCompetition()
+  const { mutate: deleteCompetition, isLoading: deleteCompetitionLoading } =
+    useDeleteCompetition()
 
   const isLoading =
     juniorLevelsLoading ||
@@ -90,12 +104,12 @@ const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
     countriesLoading ||
     competitionsLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
-      <PageHeading title={t('competitions:INDEX_PAGE_TITLE')}
-      />
+      <PageHeading title={t('competitions:INDEX_PAGE_TITLE')} />
       <CompetitionsFilterForm
         filters={filters}
         competitionAgeCategoriesData={ageCategoriesData || []}
@@ -116,8 +130,8 @@ const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
         total={competitions?.totalDocs || 0}
         actions
       >
-        {!!competitions
-          && competitions.docs.map(comp => (
+        {!!competitions &&
+          competitions.docs.map(comp => (
             <CompetitionsTableRow
               key={comp.id}
               data={comp}

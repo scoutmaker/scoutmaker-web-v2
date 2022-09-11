@@ -12,12 +12,12 @@ import {
 
 export const initialValues: CreateCompetitonDto = {
   name: '',
-  ageCategoryId: 0,
-  countryId: 0,
+  ageCategoryId: '',
+  countryId: '',
   level: 1,
-  typeId: 0,
+  typeId: '',
   gender: 'MALE',
-  juniorLevelId: 0,
+  juniorLevelId: '',
 }
 
 export function generateCreateValidationSchema(t: TFunction) {

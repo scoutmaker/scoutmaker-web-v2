@@ -9,10 +9,7 @@ import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { useCountriesList } from '@/modules/countries/hooks'
 import { RegionsFilterForm } from '@/modules/regions/forms/filter'
-import {
-  useDeleteRegion,
-  useRegions,
-} from '@/modules/regions/hooks'
+import { useDeleteRegion, useRegions } from '@/modules/regions/hooks'
 import { RegionsTable } from '@/modules/regions/table/regions'
 import { RegionsTableRow } from '@/modules/regions/table/regions-row'
 import { RegionsFilterDto, RegionsSortBy } from '@/modules/regions/types'
@@ -20,15 +17,18 @@ import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'regions'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'regions'],
+  ['ADMIN'],
+)
 
 const initialFilters: RegionsFilterDto = {
   name: '',
-  countryId: 0,
+  countryId: '',
 }
 
 interface IRegionToDeleteData {
-  id: number
+  id: string
   name: string
 }
 
@@ -73,7 +73,8 @@ const RegionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
 
   const isLoading = countriesLoading || regionsLoading || deleteRegionLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
@@ -119,8 +120,7 @@ const RegionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
           name: regionToDeleteData?.name,
         })}
         handleAccept={() => {
-          if (regionToDeleteData)
-            deleteRegion(regionToDeleteData.id)
+          if (regionToDeleteData) deleteRegion(regionToDeleteData.id)
 
           setRegionToDeleteData(undefined)
         }}

@@ -8,33 +8,44 @@ import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { CompetitionAgeCategoriesFilterForm } from '@/modules/competition-age-categories/forms/filter'
-import { useCompetitionAgeCategories, useDeleteCompetitionAgeCategory } from '@/modules/competition-age-categories/hooks'
+import {
+  useCompetitionAgeCategories,
+  useDeleteCompetitionAgeCategory,
+} from '@/modules/competition-age-categories/hooks'
 import { CompetitionAgeCategoriesTableRow } from '@/modules/competition-age-categories/table/row'
 import { CompetitionAgeCategoriesTable } from '@/modules/competition-age-categories/table/table'
-import { CompetitionAgeCategoriesFiltersDto, CompetitionAgeCategoriesSortBy } from '@/modules/competition-age-categories/types'
+import {
+  CompetitionAgeCategoriesFiltersDto,
+  CompetitionAgeCategoriesSortBy,
+} from '@/modules/competition-age-categories/types'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 const initialFilters: CompetitionAgeCategoriesFiltersDto = {
-  name: ''
+  name: '',
 }
 
-export const getServerSideProps = withSessionSsrRole(['common', 'comp-age-categ'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'comp-age-categ'],
+  ['ADMIN'],
+)
 
 interface IToDeleteData {
-  id: number
+  id: string
   name: string
 }
 
-const CompetitionAgeCategoriesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
+const CompetitionAgeCategoriesPage = ({
+  errorMessage,
+  errorStatus,
+}: TSsrRole) => {
   const { t } = useTranslation()
   const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] =
-    useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -43,31 +54,34 @@ const CompetitionAgeCategoriesPage = ({ errorMessage, errorStatus }: TSsrRole) =
     handleSort,
   } = useTable('compAgeCategTable')
 
-  const [filters, setFilters] = useLocalStorage<CompetitionAgeCategoriesFiltersDto>({
-    key: 'compAgeCateg-filters',
-    initialValue: initialFilters
-  })
+  const [filters, setFilters] =
+    useLocalStorage<CompetitionAgeCategoriesFiltersDto>({
+      key: 'compAgeCateg-filters',
+      initialValue: initialFilters,
+    })
 
   const handleSetFilters = (newFilters: CompetitionAgeCategoriesFiltersDto) => {
-    setFilters(newFilters);
-    handleChangePage(null, 0);
-  };
+    setFilters(newFilters)
+    handleChangePage(null, 0)
+  }
 
-  const { data: compAgeCateg, isLoading: dataLoading } = useCompetitionAgeCategories({
-    page: page + 1,
-    limit: rowsPerPage,
-    sortBy: sortBy as CompetitionAgeCategoriesSortBy,
-    sortingOrder: order,
-    ...filters,
-  })
+  const { data: compAgeCateg, isLoading: dataLoading } =
+    useCompetitionAgeCategories({
+      page: page + 1,
+      limit: rowsPerPage,
+      sortBy: sortBy as CompetitionAgeCategoriesSortBy,
+      sortingOrder: order,
+      ...filters,
+    })
 
-  const { mutate: deleteCompAgeCateg, isLoading: deleteLoading } = useDeleteCompetitionAgeCategory()
+  const { mutate: deleteCompAgeCateg, isLoading: deleteLoading } =
+    useDeleteCompetitionAgeCategory()
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
-      {(dataLoading ||
-        deleteLoading) && <Loader />}
+      {(dataLoading || deleteLoading) && <Loader />}
       <PageHeading title={t('comp-age-categ:INDEX_PAGE_TITLE')} />
       <CompetitionAgeCategoriesFilterForm
         filters={filters}
@@ -86,7 +100,7 @@ const CompetitionAgeCategoriesPage = ({ errorMessage, errorStatus }: TSsrRole) =
         actions
       >
         {!!compAgeCateg &&
-          compAgeCateg.docs.map((item) => (
+          compAgeCateg.docs.map(item => (
             <CompetitionAgeCategoriesTableRow
               key={item.id}
               data={item}
@@ -100,8 +114,7 @@ const CompetitionAgeCategoriesPage = ({ errorMessage, errorStatus }: TSsrRole) =
               isEditOptionEnabled
               isDeleteOptionEnabled
             />
-          ))
-        }
+          ))}
       </CompetitionAgeCategoriesTable>
       <Fab href="/competition-age-categories/create" />
       <ConfirmationModal
@@ -110,8 +123,7 @@ const CompetitionAgeCategoriesPage = ({ errorMessage, errorStatus }: TSsrRole) =
           name: toDeleteData?.name,
         })}
         handleAccept={() => {
-          if (toDeleteData)
-            deleteCompAgeCateg(toDeleteData.id)
+          if (toDeleteData) deleteCompAgeCateg(toDeleteData.id)
 
           setToDeleteData(undefined)
         }}

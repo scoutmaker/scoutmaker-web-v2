@@ -19,7 +19,7 @@ import {
 
 const moduleName: TModuleName = 'orders'
 
-export const getOrderById = (id: number, token?: string) =>
+export const getOrderById = (id: string, token?: string) =>
   getAssetById<OrderDto>({ moduleName, id, token })
 
 export const getOrders = (params: FindAllOrdersParams) =>
@@ -31,20 +31,20 @@ export const getOrdersList = (params?: OrdersBasicFiltersDto) =>
 export const createOrder = (data: CreateOrderDto) =>
   createDocument<CreateOrderDto, OrderDto>(data, moduleName)
 
-export const deleteOrder = (id: number) =>
+export const deleteOrder = (id: string) =>
   deleteDocument<OrderDto>(id, moduleName)
 
-export const acceptOrder = (id: number) =>
+export const acceptOrder = (id: string) =>
   toggleOrderState<OrderDto>(id, 'accept')
 
-export const rejectOrder = (id: number) =>
+export const rejectOrder = (id: string) =>
   toggleOrderState<OrderDto>(id, 'reject')
 
-export const closeOrder = (id: number) =>
+export const closeOrder = (id: string) =>
   toggleOrderState<OrderDto>(id, 'close')
 
 async function toggleOrderState<ReturnType>(
-  id: number,
+  id: string,
   setState: 'accept' | 'reject' | 'close',
 ): Promise<ApiResponse<ReturnType>> {
   const { data } = await client.patch<ApiResponse<ReturnType>>(

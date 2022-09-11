@@ -43,12 +43,12 @@ export const getServerSideProps = withSessionSsr(
 
 const initialFilters: ClubsFiltersDto = {
   name: '',
-  countryId: 0,
-  regionId: 0,
+  countryId: '',
+  regionId: '',
 }
 
 interface IClubToDeleteData {
-  id: number
+  id: string
   name: string
 }
 

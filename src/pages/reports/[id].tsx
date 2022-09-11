@@ -41,7 +41,7 @@ export const getServerSideProps = withSessionSsr<TReportPageProps>(
 
     try {
       const reportData = await getReportById(
-        parseInt(params?.id as string),
+        params?.id as string,
         req.session.token,
       )
       report = reportData
@@ -82,7 +82,7 @@ const ReportPage = ({
         <PageHeading
           title={t('reports:REPORT_PAGE_TITLE', {
             number: getDocumentNumber({
-              id: report.id,
+              docNumber: report.docNumber,
               createdAt: report.createdAt,
             }),
           })}

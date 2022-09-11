@@ -12,22 +12,37 @@ import { useSeasonsList } from '@/modules/seasons/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'comp-participations'], ['ADMIN']);
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'comp-participations'],
+  ['ADMIN'],
+)
 
-const CreateCompetitionParticipantPage = ({ errorMessage, errorStatus }: TSsrRole) => {
+const CreateCompetitionParticipantPage = ({
+  errorMessage,
+  errorStatus,
+}: TSsrRole) => {
   const router = useRouter()
   const { t } = useTranslation()
 
-  const { mutate: createCompetitionParticipation, isLoading: createLoading } = useCreateCompetitionParticipation()
+  const { mutate: createCompetitionParticipation, isLoading: createLoading } =
+    useCreateCompetitionParticipation()
 
   const { data: teamsData, isLoading: teamsLoading } = useTeamsList()
-  const { data: competitionsData, isLoading: competitionsLoading } = useCompetitionsList()
+  const { data: competitionsData, isLoading: competitionsLoading } =
+    useCompetitionsList()
   const { data: seasonsData, isLoading: seasonsLoading } = useSeasonsList()
-  const { data: groupsData, isLoading: groupsLoading } = useCompetitionGroupsList()
+  const { data: groupsData, isLoading: groupsLoading } =
+    useCompetitionGroupsList()
 
-  const isLoading = teamsLoading || competitionsLoading || seasonsLoading || groupsLoading || createLoading
+  const isLoading =
+    teamsLoading ||
+    competitionsLoading ||
+    seasonsLoading ||
+    groupsLoading ||
+    createLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
@@ -38,7 +53,7 @@ const CreateCompetitionParticipantPage = ({ errorMessage, errorStatus }: TSsrRol
         groupsData={groupsData || []}
         seasonsData={seasonsData || []}
         teamsData={teamsData || []}
-        teamId={+(router.query?.teamId as string) || 0}
+        teamId={(router.query?.teamId as string) || ''}
       />
     </>
   )

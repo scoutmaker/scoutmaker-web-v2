@@ -9,12 +9,12 @@ export function validateId(args?: IValidateIdArgs) {
   const { message, required } = args || {}
 
   if (required) {
-    return yup.number().notOneOf([0], message).required(message)
+    return yup.string().required(message)
   }
 
-  return yup.number()
+  return yup.string()
 }
 
 export function validateIdsArray() {
-  return yup.array().of(yup.number())
+  return yup.array().of(yup.string())
 }

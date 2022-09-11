@@ -5,12 +5,12 @@ import { ApiError, ApiResponse } from '@/services/api/types'
 
 export function useLikeDocument<DataType>(
   key: string,
-  mutationFn: (id: number) => Promise<ApiResponse<DataType>>,
+  mutationFn: (id: string) => Promise<ApiResponse<DataType>>,
 ) {
   const queryClient = useQueryClient()
   const { setAlert } = useAlertsState()
 
-  return useMutation((id: number) => mutationFn(id), {
+  return useMutation((id: string) => mutationFn(id), {
     onSuccess: data => {
       setAlert({
         msg: data.message,

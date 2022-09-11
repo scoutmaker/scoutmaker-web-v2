@@ -82,7 +82,7 @@ const EditClubPage = ({
   const { data: regions, isLoading: isRegionsLoading } = useRegionsList()
   const { data: countries, isLoading: isCountriesLoading } = useCountriesList()
   const { mutate: updateClub, isLoading: isUpdateClubLoading } = useUpdateClub(
-    club?.id || 0,
+    club?.id || '',
   )
 
   if (club) {

@@ -8,22 +8,31 @@ import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { SeasonsFilterForm } from '@/modules/seasons/forms/filter'
-import { useDeleteUserFootballRole, useUserFootballRoles } from '@/modules/user-football-roles/hooks'
+import {
+  useDeleteUserFootballRole,
+  useUserFootballRoles,
+} from '@/modules/user-football-roles/hooks'
 import { UserFootballRolesTableRow } from '@/modules/user-football-roles/table/row'
 import { UserFootballRolesTable } from '@/modules/user-football-roles/table/table'
-import { UserFootballRolesFiltersDto, UserFootballRolesSortBy } from '@/modules/user-football-roles/types'
+import {
+  UserFootballRolesFiltersDto,
+  UserFootballRolesSortBy,
+} from '@/modules/user-football-roles/types'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 const initialFilters: UserFootballRolesFiltersDto = {
-  name: ''
+  name: '',
 }
 
-export const getServerSideProps = withSessionSsrRole(['common', 'user-football-roles'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'user-football-roles'],
+  ['ADMIN'],
+)
 
 interface IToDeleteData {
-  id: number
+  id: string
   name: string
 }
 
@@ -33,8 +42,7 @@ const UserFootballRolesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] =
-    useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -53,19 +61,22 @@ const UserFootballRolesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     handleChangePage(null, 0)
   }
 
-  const { data: userFootballRoles, isLoading: dataLoading } = useUserFootballRoles({
-    page: page + 1,
-    limit: rowsPerPage,
-    sortBy: sortBy as UserFootballRolesSortBy,
-    sortingOrder: order,
-    ...filters,
-  })
+  const { data: userFootballRoles, isLoading: dataLoading } =
+    useUserFootballRoles({
+      page: page + 1,
+      limit: rowsPerPage,
+      sortBy: sortBy as UserFootballRolesSortBy,
+      sortingOrder: order,
+      ...filters,
+    })
 
-  const { mutate: deleteRole, isLoading: deleteLoading } = useDeleteUserFootballRole()
+  const { mutate: deleteRole, isLoading: deleteLoading } =
+    useDeleteUserFootballRole()
 
   const isLoading = dataLoading || deleteLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
@@ -101,8 +112,7 @@ const UserFootballRolesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
               isEditOptionEnabled
               isDeleteOptionEnabled
             />
-          ))
-        }
+          ))}
       </UserFootballRolesTable>
       <Fab href="/user-football-roles/create" />
       <ConfirmationModal
@@ -111,8 +121,7 @@ const UserFootballRolesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
           name: toDeleteData?.name,
         })}
         handleAccept={() => {
-          if (toDeleteData)
-            deleteRole(toDeleteData.id)
+          if (toDeleteData) deleteRole(toDeleteData.id)
 
           setToDeleteData(undefined)
         }}

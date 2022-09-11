@@ -14,15 +14,18 @@ import { getCompetitionById } from '@/services/api/methods/competitions'
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<CompetitionDto>(['common', 'competitions'], ['ADMIN'],
+export const getServerSideProps = withSessionSsrRole<CompetitionDto>(
+  ['common', 'competitions'],
+  ['ADMIN'],
   async (token, params) => {
     try {
-      const data = await getCompetitionById(+(params?.id as string), token)
+      const data = await getCompetitionById(params?.id as string, token)
       return { data }
     } catch (error) {
       return { data: null, error: error as ApiError }
     }
-  })
+  },
+)
 
 const EditCompetitionPage = ({
   data,
@@ -31,26 +34,34 @@ const EditCompetitionPage = ({
 }: TSsrRole<CompetitionDto>) => {
   const { t } = useTranslation()
 
-  const { data: ageCategoriesData, isLoading: ageCategLoading } = useCompetitionAgeCategoriesList()
+  const { data: ageCategoriesData, isLoading: ageCategLoading } =
+    useCompetitionAgeCategoriesList()
 
-  const { data: juniorLevelsData, isLoading: juniorLevelsLoading } = useCompetitionJuniorLevelsList()
+  const { data: juniorLevelsData, isLoading: juniorLevelsLoading } =
+    useCompetitionJuniorLevelsList()
 
-  const { data: competitionTypesData, isLoading: compTypesLoading } = useCompetitionTypesList()
+  const { data: competitionTypesData, isLoading: compTypesLoading } =
+    useCompetitionTypesList()
 
-  const { data: countriesData, isLoading: countriesLoading } = useCountriesList()
+  const { data: countriesData, isLoading: countriesLoading } =
+    useCountriesList()
 
-  const { mutate: updateCompetition, isLoading: updateLoading } = useUpdateCompetition(data?.id || 0)
+  const { mutate: updateCompetition, isLoading: updateLoading } =
+    useUpdateCompetition(data?.id || '')
 
+  const isLoading =
+    ageCategLoading ||
+    juniorLevelsLoading ||
+    compTypesLoading ||
+    countriesLoading ||
+    updateLoading
 
-  const isLoading = ageCategLoading || juniorLevelsLoading || compTypesLoading || countriesLoading || updateLoading
-
-  if (errorStatus || !data) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus || !data)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
-      <PageHeading
-        title={t('competitions:EDIT_PAGE_TITLE')}
-      />
+      <PageHeading title={t('competitions:EDIT_PAGE_TITLE')} />
       <EditCompetitionForm
         current={data}
         onSubmit={updateCompetition}
@@ -61,7 +72,6 @@ const EditCompetitionPage = ({
       />
     </>
   )
-
 }
 
 export default EditCompetitionPage

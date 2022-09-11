@@ -15,5 +15,5 @@ const moduleName: TModuleName = 'report-templates'
 export const useReportTemplatesList = () =>
   useList<ReportTemplateBasicDataDto>(moduleName, getReportTemplatesList)
 
-export const useReportTemplate = (id: number) =>
+export const useReportTemplate = (id: string) =>
   useSingleDocument<ReportTemplateDto>(moduleName, id, getReportTemplateById)

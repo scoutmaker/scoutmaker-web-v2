@@ -29,7 +29,7 @@ export const useTeamAffiliations = (params: FindAllTeamAffiliationsParams) =>
 export const useDeleteTeamAffiliation = () =>
   useDeleteDocument<TeamAffiliationDto>(moduleName, deleteTeamAffiliation)
 
-export const useUpdateTeamAffiliation = (id: number) =>
+export const useUpdateTeamAffiliation = (id: string) =>
   useUpdateDocument<UpdateTeamAffiliationDto, TeamAffiliationDto>(
     moduleName,
     id,

@@ -20,7 +20,7 @@ interface ICreateFormProps {
   fullwidth?: boolean
   teamsData: TeamBasicDataDto[]
   playersData: PlayerBasicDataDto[]
-  playerId?: number
+  playerId?: string
 }
 
 export const CreateTeamAffiliationForm = ({
@@ -29,7 +29,7 @@ export const CreateTeamAffiliationForm = ({
   fullwidth,
   teamsData,
   playersData,
-  playerId
+  playerId,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -52,14 +52,14 @@ export const CreateTeamAffiliationForm = ({
         <Form>
           <Container fullwidth={fullwidth}>
             <PlayersCombo
-              name='playerId'
+              name="playerId"
               data={playersData}
               label={t('PLAYER')}
               error={touched.playerId && !!errors.playerId}
               helperText={touched.playerId ? errors.playerId : undefined}
             />
             <TeamsCombo
-              name='teamId'
+              name="teamId"
               data={teamsData}
               label={t('TEAM')}
               error={touched.teamId && !!errors.teamId}
@@ -68,7 +68,7 @@ export const CreateTeamAffiliationForm = ({
             <Field
               name="startDate"
               as={TextField}
-              type='date'
+              type="date"
               variant="outlined"
               fullWidth
               label={t('team-affiliations:START_DATE')}
@@ -78,14 +78,13 @@ export const CreateTeamAffiliationForm = ({
             <Field
               name="endDate"
               as={TextField}
-              type='date'
+              type="date"
               variant="outlined"
               fullWidth
               label={t('team-affiliations:END_DATE')}
               error={touched.endDate && !!errors.endDate}
               helperText={touched.endDate && errors.endDate}
               InputLabelProps={{ shrink: true }}
-
             />
             <MainFormActions
               label={t('TEAM_AFFILIATION')}

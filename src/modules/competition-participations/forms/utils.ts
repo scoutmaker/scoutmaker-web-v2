@@ -11,38 +11,31 @@ import {
 } from '../types'
 
 export const initialValues: CreateCompetitionParticipationDto = {
-  competitionId: 0,
-  seasonId: 0,
-  teamId: 0,
-  groupId: 0,
+  competitionId: '',
+  seasonId: '',
+  teamId: '',
+  groupId: '',
 }
 
 export function generateCreateValidationSchema(t: TFunction) {
   return yup
     .object({
-      competitionId: validateId({
-        required: true,
-        message: t('comp-participations:NO_COMPETITION_ERROR'),
-      }),
-      seasonId: validateId({
-        required: true,
-        message: t('comp-participations:NO_SEASON_ERROR'),
-      }),
-      teamId: validateId({
-        required: true,
-        message: t('comp-participations:NO_TEAM_ERROR'),
-      }),
-      groupId: validateId(),
+      competitionId: yup
+        .string()
+        .required(t('comp-participations:NO_COMPETITION_ERROR')),
+      seasonId: yup.string().required(t('comp-participations:NO_SEASON_ERROR')),
+      teamId: yup.string().required(t('comp-participations:NO_TEAM_ERROR')),
+      groupId: yup.string().notRequired(),
     })
     .defined()
 }
 
 export function generateUpdateValidationSchema() {
   return yup.object({
-    competitionId: validateId(),
-    seasonId: validateId(),
-    teamId: validateId(),
-    groupId: validateId(),
+    competitionId: yup.string().notRequired(),
+    seasonId: yup.string().notRequired(),
+    teamId: yup.string().notRequired(),
+    groupId: yup.string().notRequired(),
   })
 }
 

@@ -9,10 +9,16 @@ import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { CompetitionParticipationsFilterForm } from '@/modules/competition-participations/forms/filter'
-import { useCompetitionParticipations, useDeleteCompetitionParticipation } from '@/modules/competition-participations/hooks'
+import {
+  useCompetitionParticipations,
+  useDeleteCompetitionParticipation,
+} from '@/modules/competition-participations/hooks'
 import { CompetitionParticipationsTableRow } from '@/modules/competition-participations/table/row'
 import { CompetitionParticipationsTable } from '@/modules/competition-participations/table/table'
-import { CompetitionParticipationsFilterDto, CompetitionParticipationsSortBy } from '@/modules/competition-participations/types'
+import {
+  CompetitionParticipationsFilterDto,
+  CompetitionParticipationsSortBy,
+} from '@/modules/competition-participations/types'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { useSeasonsList } from '@/modules/seasons/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
@@ -21,28 +27,31 @@ import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 const initialFilters: CompetitionParticipationsFilterDto = {
-  competitionId: 0,
-  groupId: 0,
-  seasonId: 0,
-  teamId: 0
+  competitionId: '',
+  groupId: '',
+  seasonId: '',
+  teamId: '',
 }
 
-export const getServerSideProps = withSessionSsrRole(['common', 'comp-participations'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'comp-participations'],
+  ['ADMIN'],
+)
 
 interface IToDeleteData {
-  teamId: number
-  competitionId: number
-  seasonId: number
+  id: string
 }
 
-const CompetitionParticipationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
+const CompetitionParticipationsPage = ({
+  errorMessage,
+  errorStatus,
+}: TSsrRole) => {
   const { t } = useTranslation()
   const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] =
-    useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -51,35 +60,46 @@ const CompetitionParticipationsPage = ({ errorMessage, errorStatus }: TSsrRole) 
     handleSort,
   } = useTable('compParticipationsTable')
 
-  const [filters, setFilters] = useLocalStorage<CompetitionParticipationsFilterDto>({
-    key: 'comp-participations-filters',
-    initialValue: initialFilters,
-  })
+  const [filters, setFilters] =
+    useLocalStorage<CompetitionParticipationsFilterDto>({
+      key: 'comp-participations-filters',
+      initialValue: initialFilters,
+    })
 
   function handleSetFilters(newFilters: CompetitionParticipationsFilterDto) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
 
-  const { data: compParticipations, isLoading: dataLoading } = useCompetitionParticipations({
-    page: page + 1,
-    limit: rowsPerPage,
-    sortBy: sortBy as CompetitionParticipationsSortBy,
-    sortingOrder: order,
-    ...filters,
-  })
+  const { data: compParticipations, isLoading: dataLoading } =
+    useCompetitionParticipations({
+      page: page + 1,
+      limit: rowsPerPage,
+      sortBy: sortBy as CompetitionParticipationsSortBy,
+      sortingOrder: order,
+      ...filters,
+    })
 
-  const { mutate: deleteCompParticipation, isLoading: deleteLoading } = useDeleteCompetitionParticipation()
+  const { mutate: deleteCompParticipation, isLoading: deleteLoading } =
+    useDeleteCompetitionParticipation()
 
   const { data: teamsData, isLoading: teamsLoading } = useTeamsList()
-  const { data: competitionsData, isLoading: competitionsLoading } = useCompetitionsList()
+  const { data: competitionsData, isLoading: competitionsLoading } =
+    useCompetitionsList()
   const { data: seasonsData, isLoading: seasonsLoading } = useSeasonsList()
-  const { data: groupsData, isLoading: groupsLoading } = useCompetitionGroupsList()
+  const { data: groupsData, isLoading: groupsLoading } =
+    useCompetitionGroupsList()
 
+  const isLoading =
+    dataLoading ||
+    deleteLoading ||
+    teamsLoading ||
+    competitionsLoading ||
+    seasonsLoading ||
+    groupsLoading
 
-  const isLoading = dataLoading || deleteLoading || teamsLoading || competitionsLoading || seasonsLoading || groupsLoading
-
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
@@ -106,15 +126,17 @@ const CompetitionParticipationsPage = ({ errorMessage, errorStatus }: TSsrRole) 
         shouldDisplayTeamName
       >
         {!!compParticipations &&
-          compParticipations.docs.map(comp => (
+          compParticipations.docs.map(participation => (
             <CompetitionParticipationsTableRow
-              key={[comp.team.id, comp.competition.id, comp.season.id].join('')}
-              data={comp}
+              key={participation.id}
+              data={participation}
               onEditClick={() => {
-                router.push(`/competition-participations/edit/${comp.team.id}/${comp.competition.id}/${comp.season.id}`)
+                router.push(
+                  `/competition-participations/edit/${participation.id}`,
+                )
               }}
               onDeleteClick={() => {
-                setToDeleteData({ competitionId: comp.competition.id, seasonId: comp.season.id, teamId: comp.team.id })
+                setToDeleteData({ id: participation.id })
                 setIsDeleteConfirmationModalOpen(true)
               }}
               isEditOptionEnabled
@@ -122,16 +144,14 @@ const CompetitionParticipationsPage = ({ errorMessage, errorStatus }: TSsrRole) 
               shouldDisplayTeamName
               actions
             />
-          ))
-        }
+          ))}
       </CompetitionParticipationsTable>
       <Fab href="/competition-participations/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}
         message={t('comp-participations:DELETE_CONFIRM_QUESTION')}
         handleAccept={() => {
-          if (toDeleteData)
-            deleteCompParticipation(toDeleteData)
+          if (toDeleteData) deleteCompParticipation(toDeleteData.id)
 
           setToDeleteData(undefined)
         }}

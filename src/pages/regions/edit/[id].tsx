@@ -11,21 +11,21 @@ import { getRegionById } from '@/services/api/methods/regions'
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<RegionDto>(['common', 'regions'], ['ADMIN'],
+export const getServerSideProps = withSessionSsrRole<RegionDto>(
+  ['common', 'regions'],
+  ['ADMIN'],
   async (token, params) => {
     try {
-      const regionData = await getRegionById(
-        +(params?.id as string),
-        token,
-      )
+      const regionData = await getRegionById(params?.id as string, token)
       return { data: regionData }
     } catch (error) {
       return {
         data: null,
-        error: error as ApiError
+        error: error as ApiError,
       }
     }
-  });
+  },
+)
 
 const EditTeamPage = ({
   data,
@@ -35,17 +35,15 @@ const EditTeamPage = ({
   const { t } = useTranslation()
 
   const { data: countries, isLoading: countriesLoading } = useCountriesList()
-  const { mutate: updateRegion, isLoading: updateRegionLoading } = useUpdateRegion(
-    data?.id || 0,
-  )
+  const { mutate: updateRegion, isLoading: updateRegionLoading } =
+    useUpdateRegion(data?.id || '')
 
-  if (!data || errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (!data || errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {(countriesLoading || updateRegionLoading) && <Loader />}
-      <PageHeading
-        title={t('regions:EDIT_PAGE_TITLE')}
-      />
+      <PageHeading title={t('regions:EDIT_PAGE_TITLE')} />
       <EditRegionForm
         current={data}
         countriesData={countries || []}

@@ -29,11 +29,11 @@ export const getCompetitionTypesList = () =>
 export const createCompetitionType = (data: CreateCompetitionTypeDto) =>
   createDocument<CreateCompetitionTypeDto, CompetitionTypeDto>(data, moduleName)
 
-export const deleteCompetitionType = (id: number) =>
+export const deleteCompetitionType = (id: string) =>
   deleteDocument<CompetitionTypeDto>(id, moduleName)
 
 interface IUpdateArgs {
-  id: number
+  id: string
   data: UpdateCompetitionTypeDto
 }
 
@@ -44,5 +44,5 @@ export const updateCompetitionType = ({ id, data }: IUpdateArgs) =>
     moduleName,
   )
 
-export const getCompetitionTypeById = (id: number, token?: string) =>
+export const getCompetitionTypeById = (id: string, token?: string) =>
   getAssetById<CompetitionTypeDto>({ moduleName, id, token })

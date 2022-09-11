@@ -15,7 +15,7 @@ export const getServerSideProps =
     async (token, params) => {
       try {
         const data = await getReportSkillAssessmentCategoryById(
-          +(params?.id as string),
+          params?.id as string,
           token,
         )
         return { data }
