@@ -1,6 +1,7 @@
 import {
   CreateOrganizationDto,
   FindAllOrganizationsParams,
+  OrganizationBasicDataDto,
   OrganizationDto,
   UpdateOrganizationDto,
 } from '@/modules/organizations/types'
@@ -20,7 +21,7 @@ import { ApiResponse } from '../types'
 const moduleName: TModuleName = 'organizations'
 
 export const getOrganizationsList = () =>
-  getDataList<OrganizationDto>(moduleName)
+  getDataList<OrganizationBasicDataDto>(moduleName)
 
 export const getOrganizations = (params: FindAllOrganizationsParams) =>
   getPaginatedData<FindAllOrganizationsParams, OrganizationDto>(

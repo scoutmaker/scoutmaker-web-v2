@@ -21,6 +21,7 @@ import { useUpdateDocument } from '@/utils/hooks/api/use-update-document'
 import {
   CreateOrganizationDto,
   FindAllOrganizationsParams,
+  OrganizationBasicDataDto,
   OrganizationDto,
   UpdateOrganizationDto,
 } from './types'
@@ -28,7 +29,7 @@ import {
 const moduleName: TModuleName = 'organizations'
 
 export const useOrganizationsList = () =>
-  useList<OrganizationDto>(moduleName, getOrganizationsList)
+  useList<OrganizationBasicDataDto>(moduleName, getOrganizationsList)
 
 export const useOrganizations = (params: FindAllOrganizationsParams) =>
   usePaginatedData<FindAllOrganizationsParams, OrganizationDto>(

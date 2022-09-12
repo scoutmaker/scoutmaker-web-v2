@@ -1,5 +1,7 @@
 export type OrganizationDto = Components.Schemas.OrganizationDto
 
+export type OrganizationBasicDataDto = Components.Schemas.OrganizationBasicDataDto
+
 export type CreateOrganizationDto = Components.Schemas.CreateOrganizationDto
 
 export type UpdateOrganizationDto = Components.Schemas.UpdateOrganizationDto
