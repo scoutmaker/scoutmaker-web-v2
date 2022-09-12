@@ -8,23 +8,31 @@ import { getReportSkillAssessmentTemplateById } from '@/services/api/methods/rep
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<ReportSkillAssessmentTemplateDto>(['common', 'report-skill-assessment-templates'], false,
-  async (token, params) => {
-    try {
-      const data = await getReportSkillAssessmentTemplateById(
-        +(params?.id as string),
-        token,
-      )
-      return { data }
-    } catch (error) {
-      return {
-        data: null,
-        error: error as ApiError
+export const getServerSideProps =
+  withSessionSsrRole<ReportSkillAssessmentTemplateDto>(
+    ['common', 'report-skill-assessment-templates'],
+    false,
+    async (token, params) => {
+      try {
+        const data = await getReportSkillAssessmentTemplateById(
+          params?.id as string,
+          token,
+        )
+        return { data }
+      } catch (error) {
+        return {
+          data: null,
+          error: error as ApiError,
+        }
       }
-    }
-  });
+    },
+  )
 
-const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<ReportSkillAssessmentTemplateDto>) => {
+const MatchPage = ({
+  data,
+  errorMessage,
+  errorStatus,
+}: TSsrRole<ReportSkillAssessmentTemplateDto>) => {
   const { t } = useTranslation()
 
   if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />

@@ -7,9 +7,9 @@ import { validateId } from '@/utils/validation-helpers'
 
 export const initialValues: CreateTeamDto = {
   name: '',
-  clubId: 0,
-  competitionId: 0,
-  groupId: 0,
+  clubId: '',
+  competitionId: '',
+  groupId: '',
   minut90url: '',
   transfermarktUrl: '',
   lnpId: '',

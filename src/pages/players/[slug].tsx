@@ -1,10 +1,10 @@
-import { Typography } from '@mui/material'
+import { Add as AddIcon } from '@mui/icons-material'
+import { Box, Button, Typography } from '@mui/material'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { withSessionSsr } from '@/modules/auth/session'
 import { PlayerDetialsCard } from '@/modules/players/details-card'
 import { PlayerDto } from '@/modules/players/types'
 import { useTeamAffiliations } from '@/modules/team-affiliations/hooks'
@@ -14,72 +14,35 @@ import { TeamAffiliationsSortBy } from '@/modules/team-affiliations/types'
 import { getPlayerBySlug } from '@/services/api/methods/players'
 import { ApiError } from '@/services/api/types'
 import { useTable } from '@/utils/hooks/use-table'
-import { redirectToLogin } from '@/utils/redirect-to-login'
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-type TPlayerPageProps = {
-  errorStatus: number | null
-  errorMessage: string | null
-  player: PlayerDto | null
+type TData = {
+  isAdmin: boolean
+  player: PlayerDto
 }
 
-export const getServerSideProps = withSessionSsr<TPlayerPageProps>(
-  async ({ req, res, locale, params }) => {
-    const { user } = req.session
-
-    if (!user) {
-      redirectToLogin(res)
-      return {
-        props: {
-          errorStatus: null,
-          errorMessage: null,
-          player: null,
-        },
-      }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'players',
-    ])
-
-    let player: PlayerDto
-
+export const getServerSideProps = withSessionSsrRole<TData>(['common', 'players'], false,
+  async (token, params, user) => {
     try {
-      const teamData = await getPlayerBySlug(
+      const data = await getPlayerBySlug(
         params?.slug as string,
-        req.session.token,
+        token
       )
-      player = teamData
+      return { data: { isAdmin: !!user?.role.includes('ADMIN'), player: data } }
     } catch (error) {
-      const { response } = error as ApiError
-
-      return {
-        props: {
-          ...translations,
-          errorStatus: response.status,
-          errorMessage: response.data.message,
-          player: null,
-        },
-      }
+      return { data: null, error: error as ApiError }
     }
-
-    return {
-      props: {
-        ...translations,
-        errorStatus: null,
-        errorMessage: null,
-        player,
-      },
-    }
-  },
-)
+  })
 
 const PlayerPage = ({
-  player,
+  data,
   errorMessage,
   errorStatus,
-}: TPlayerPageProps) => {
-  const { t } = useTranslation(['players'])
+}: TSsrRole<TData>) => {
+  const { t } = useTranslation()
+  const router = useRouter()
+
+  const { isAdmin, player } = data as TData
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -105,9 +68,14 @@ const PlayerPage = ({
       <PageHeading title={`${player.firstName} ${player.lastName}`} />
       <PlayerDetialsCard player={player} />
       <section>
-        <Typography variant="h3" align="center" sx={{ margin: 3 }}>
-          {t('players:TEAM_AFFILIATIONS_HEADING')}
-        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginY: 3, gap: 1 }} >
+          <Typography variant="h3" align="center">
+            {t('players:TEAM_AFFILIATIONS_HEADING')}
+          </Typography>
+          {isAdmin &&
+            <Button variant='contained' onClick={() => router.push(`/team-affiliations/create?playerId=${player.id}`)}>{t('ADD')} <AddIcon /></Button>
+          }
+        </Box>
         <TeamAffiliationsTable
           page={page}
           rowsPerPage={rowsPerPage}
@@ -120,11 +88,15 @@ const PlayerPage = ({
         >
           {affiliations
             ? affiliations.docs.map(affiliation => (
-                <TeamAffiliationsTableRow
-                  key={affiliation.id}
-                  data={affiliation}
-                />
-              ))
+              <TeamAffiliationsTableRow
+                key={affiliation.id}
+                data={affiliation}
+                isDeleteOptionEnabled={false}
+                isEditOptionEnabled={false}
+                onDeleteClick={() => { }}
+                onEditClick={() => { }}
+              />
+            ))
             : null}
         </TeamAffiliationsTable>
       </section>

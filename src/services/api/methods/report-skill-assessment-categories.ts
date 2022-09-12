@@ -37,7 +37,7 @@ export const createReportSkillAssessmentCategory = (
   >(data, moduleName)
 
 interface IUpdateReportSkillAssessmentCategoryArgs {
-  id: number
+  id: string
   data: UpdateReportSkillAssessmentCategoryDto
 }
 export const updateReportSkillAssessmentCategory = ({
@@ -50,9 +50,9 @@ export const updateReportSkillAssessmentCategory = ({
   >(id, data, moduleName)
 
 export const getReportSkillAssessmentCategoryById = (
-  id: number,
+  id: string,
   token?: string,
 ) => getAssetById<ReportSkillAssessmentCategoryDto>({ moduleName, id, token })
 
-export const deleteReportSkillAssessmentCategory = (id: number) =>
+export const deleteReportSkillAssessmentCategory = (id: string) =>
   deleteDocument<ReportSkillAssessmentCategoryDto>(id, moduleName)

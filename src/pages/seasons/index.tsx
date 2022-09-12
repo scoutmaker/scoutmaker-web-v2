@@ -8,7 +8,12 @@ import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { SeasonsFilterForm } from '@/modules/seasons/forms/filter'
-import { useDeleteSeason, useSeasons, useSetActiveSeason, useUnSetActiveSeason } from '@/modules/seasons/hooks'
+import {
+  useDeleteSeason,
+  useSeasons,
+  useSetActiveSeason,
+  useUnSetActiveSeason,
+} from '@/modules/seasons/hooks'
 import { SeasonsTableRow } from '@/modules/seasons/table/row'
 import { SeasonsTable } from '@/modules/seasons/table/table'
 import { SeasonsFiltersDto, SeasonsSortBy } from '@/modules/seasons/types'
@@ -17,13 +22,16 @@ import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 const initialFilters: SeasonsFiltersDto = {
-  name: ''
+  name: '',
 }
 
-export const getServerSideProps = withSessionSsrRole(['common', 'seasons'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'seasons'],
+  ['ADMIN'],
+)
 
 interface IToDeleteData {
-  id: number
+  id: string
   name: string
 }
 
@@ -33,8 +41,7 @@ const SeasonsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] =
-    useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -63,12 +70,16 @@ const SeasonsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
 
   const { mutate: deleteSeason, isLoading: deleteLoading } = useDeleteSeason()
 
-  const { mutate: setActiveSeason, isLoading: setActiveLoading } = useSetActiveSeason()
-  const { mutate: unSetActiveSeason, isLoading: unSetActiveLoading } = useUnSetActiveSeason()
+  const { mutate: setActiveSeason, isLoading: setActiveLoading } =
+    useSetActiveSeason()
+  const { mutate: unSetActiveSeason, isLoading: unSetActiveLoading } =
+    useUnSetActiveSeason()
 
-  const isLoading = dataLoading || deleteLoading || setActiveLoading || unSetActiveLoading
+  const isLoading =
+    dataLoading || deleteLoading || setActiveLoading || unSetActiveLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
@@ -101,13 +112,12 @@ const SeasonsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
                 setToDeleteData({ id: season.id, name: season.name })
                 setIsDeleteConfirmationModalOpen(true)
               }}
-              onSetActiveClick={(id: number) => setActiveSeason(id)}
-              onUnSetActiveClick={(id: number) => unSetActiveSeason(id)}
+              onSetActiveClick={(id: string) => setActiveSeason(id)}
+              onUnSetActiveClick={(id: string) => unSetActiveSeason(id)}
               isEditOptionEnabled
               isDeleteOptionEnabled
             />
-          ))
-        }
+          ))}
       </SeasonsTable>
       <Fab href="/seasons/create" />
       <ConfirmationModal
@@ -116,8 +126,7 @@ const SeasonsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
           name: toDeleteData?.name,
         })}
         handleAccept={() => {
-          if (toDeleteData)
-            deleteSeason(toDeleteData.id)
+          if (toDeleteData) deleteSeason(toDeleteData.id)
 
           setToDeleteData(undefined)
         }}

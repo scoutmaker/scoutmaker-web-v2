@@ -1,12 +1,13 @@
 import map from 'just-map-values'
 import { TFunction } from 'next-i18next'
 import * as yup from 'yup'
+
 import { CountryDto, CreateCountryDto, UpdateCountryDto } from '../types'
 
 export const initialValues: CreateCountryDto = {
   name: '',
   code: '',
-  isEuMember: false
+  isEuMember: false,
 }
 
 export function generateCreateCountryValidationSchema(t: TFunction) {
@@ -27,13 +28,15 @@ export function generateUpdateCountryValidationSchema() {
   })
 }
 
-export function getInitialStateFromCurrent(country: CountryDto): UpdateCountryDto {
+export function getInitialStateFromCurrent(
+  country: CountryDto,
+): UpdateCountryDto {
   const { name, code, isEuMember } = country
 
   const values = {
     name,
     code,
-    isEuMember
+    isEuMember,
   }
 
   return map(values, value => value || '')

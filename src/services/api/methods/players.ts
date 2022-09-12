@@ -3,6 +3,7 @@ import {
   FindAllPlayersParams,
   PlayerBasicDataDto,
   PlayerDto,
+  PlayersFiltersDto,
   UpdatePlayerDto,
 } from '@/modules/players/types'
 import { TModuleName } from '@/services/api/modules'
@@ -23,7 +24,8 @@ const moduleName: TModuleName = 'players'
 export const getPlayerBySlug = (slug: string, token?: string) =>
   getAssetBySlug<PlayerDto>({ moduleName, slug, token })
 
-export const getPlayersList = () => getDataList<PlayerBasicDataDto>(moduleName)
+export const getPlayersList = (params?: PlayersFiltersDto) =>
+  getDataList<PlayerBasicDataDto, PlayersFiltersDto>(moduleName, params)
 
 export const getPlayers = (params: FindAllPlayersParams) =>
   getPaginatedData<FindAllPlayersParams, PlayerDto>(params, moduleName)
@@ -32,18 +34,18 @@ export const createPlayer = (data: CreatePlayerDto) =>
   createDocument<CreatePlayerDto, PlayerDto>(data, moduleName)
 
 interface IUpdatePlayerArgs {
-  id: number
+  id: string
   data: UpdatePlayerDto
 }
 
 export const updatePlayer = ({ id, data }: IUpdatePlayerArgs) =>
   updateDocument<UpdatePlayerDto, PlayerDto>(id, data, moduleName)
 
-export const deletePlayer = (id: number) =>
+export const deletePlayer = (id: string) =>
   deleteDocument<PlayerDto>(id, moduleName)
 
-export const likePlayer = (id: number) =>
+export const likePlayer = (id: string) =>
   likeDocument<PlayerDto>(id, moduleName)
 
-export const unlikePlayer = (id: number) =>
+export const unlikePlayer = (id: string) =>
   unlikeDocument<PlayerDto>(id, moduleName)

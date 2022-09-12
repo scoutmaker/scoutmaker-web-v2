@@ -12,7 +12,7 @@ import {
 
 export const initialValues: CreateReportSkillAssessmentTemplateDto = {
   name: '',
-  categoryId: 0,
+  categoryId: '',
   hasScore: false,
   shortName: '',
 }

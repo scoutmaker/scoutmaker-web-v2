@@ -5,12 +5,12 @@ import { ApiError, ApiResponse } from '@/services/api/types'
 
 export function useUpdateDocument<UpdateDto, ReturnType>(
   key: string,
-  docId: number,
+  docId: string,
   mutationFn: ({
     id,
     data,
   }: {
-    id: number
+    id: string
     data: UpdateDto
   }) => Promise<ApiResponse<ReturnType>>,
 ) {

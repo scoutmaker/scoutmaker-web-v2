@@ -42,7 +42,7 @@ const ReportSkillAssessmentCategoriesPage = ({
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
   const [categoryToDeleteData, setCategoryToDeleteData] = useState<{
-    id: number
+    id: string
     name: string
   }>()
 

@@ -14,21 +14,21 @@ import { getInsiderNoteById } from '@/services/api/methods/insider-notes'
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<InsiderNoteDto>(['common', 'insider-notes'], false,
+export const getServerSideProps = withSessionSsrRole<InsiderNoteDto>(
+  ['common', 'insider-notes'],
+  false,
   async (token, params) => {
     try {
-      const data = await getInsiderNoteById(
-        +(params?.id as string),
-        token,
-      )
+      const data = await getInsiderNoteById(params?.id as string, token)
       return { data }
     } catch (error) {
       return {
         data: null,
-        error: error as ApiError
+        error: error as ApiError,
       }
     }
-  });
+  },
+)
 
 const EditInsiderNotePage = ({
   data,
@@ -37,23 +37,33 @@ const EditInsiderNotePage = ({
 }: TSsrRole<InsiderNoteDto>) => {
   const { t } = useTranslation()
 
-  const { mutate: updateInsiderNote, isLoading: updateLoading } = useUpdateInsiderNote(
-    data?.id || 0,
-  )
+  const { mutate: updateInsiderNote, isLoading: updateLoading } =
+    useUpdateInsiderNote(data?.id || '')
 
-  const { data: competitionGroupsData, isLoading: competitionGroupsLoading } = useCompetitionGroupsList()
-  const { data: competitionsData, isLoading: competitionsLoading } = useCompetitionsList()
+  const { data: competitionGroupsData, isLoading: competitionGroupsLoading } =
+    useCompetitionGroupsList()
+  const { data: competitionsData, isLoading: competitionsLoading } =
+    useCompetitionsList()
   const { data: playersData, isLoading: playersLoading } = usePlayersList()
   const { data: teamsData, isLoading: teamsLoading } = useTeamsList()
 
-  const isLoading = updateLoading || competitionGroupsLoading || competitionsLoading || playersLoading || teamsLoading
+  const isLoading =
+    updateLoading ||
+    competitionGroupsLoading ||
+    competitionsLoading ||
+    playersLoading ||
+    teamsLoading
 
-  if (!data || errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (!data || errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
       <PageHeading
-        title={t('insider-notes:EDIT_PAGE_TITLE', { nr: `${data.id}/${new Date(data.createdAt).getFullYear()}` })} />
+        title={t('insider-notes:EDIT_PAGE_TITLE', {
+          nr: `${data.id}/${new Date(data.createdAt).getFullYear()}`,
+        })}
+      />
       <EditInsiderNoteForm
         current={data}
         onSubmit={updateInsiderNote}

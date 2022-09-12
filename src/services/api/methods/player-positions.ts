@@ -30,7 +30,7 @@ export const createPlayerPosition = (data: CreatePlayerPostitionDto) =>
   createDocument<CreatePlayerPostitionDto, PlayerPositionDto>(data, moduleName)
 
 interface IUpdateArgs {
-  id: number
+  id: string
   data: UpdatePlayerPostitionDto
 }
 export const updatePlayerPosition = ({ id, data }: IUpdateArgs) =>
@@ -40,8 +40,8 @@ export const updatePlayerPosition = ({ id, data }: IUpdateArgs) =>
     moduleName,
   )
 
-export const getPlayerPositionById = (id: number, token?: string) =>
+export const getPlayerPositionById = (id: string, token?: string) =>
   getAssetById<PlayerPositionDto>({ moduleName, id, token })
 
-export const deletePlayerPosition = (id: number) =>
+export const deletePlayerPosition = (id: string) =>
   deleteDocument<PlayerPositionDto>(id, moduleName)

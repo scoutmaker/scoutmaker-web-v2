@@ -7,7 +7,7 @@ import { IComboProps } from '../../types/combo'
 import { CompetitionAgeCategortyDto } from './types'
 
 interface ICompAgeCategComboProps
-  extends IComboProps<CompetitionAgeCategortyDto> { }
+  extends IComboProps<CompetitionAgeCategortyDto> {}
 
 export const CompetitionAgeCategoriesCombo = ({
   data,
@@ -27,13 +27,12 @@ export const CompetitionAgeCategoriesCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={[0, ...data.map(item => item.id)]}
-      getOptionLabel={(option: number) => {
-        if (option === 0) return ''
+      options={['', ...data.map(item => item.id)]}
+      getOptionLabel={(option: string) => {
+        if (option === '') return ''
 
         const compAgeCateg = data.find(c => c.id === option)
-        if (compAgeCateg)
-          return compAgeCateg.name
+        if (compAgeCateg) return compAgeCateg.name
 
         return t('NONE')
       }}

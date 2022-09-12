@@ -41,7 +41,7 @@ export const useCreateReportSkillAssessmentCategory = () =>
     ReportSkillAssessmentCategoryDto
   >(moduleName, createReportSkillAssessmentCategory)
 
-export const useUpdateReportSkillAssessmentCategory = (id: number) =>
+export const useUpdateReportSkillAssessmentCategory = (id: string) =>
   useUpdateDocument<
     UpdateReportSkillAssessmentCategoryDto,
     ReportSkillAssessmentCategoryDto

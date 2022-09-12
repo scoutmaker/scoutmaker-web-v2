@@ -11,21 +11,24 @@ import { getCompetitionJuniorLevelById } from '@/services/api/methods/competitio
 import { useUpdateCompetitionJuniorLevel } from '@/modules/competition-junior-levels/hooks'
 import { EditCompetitionJuniorLevelForm } from '@/modules/competition-junior-levels/forms/edit'
 
-export const getServerSideProps = withSessionSsrRole<CompetitionJuniorLevelDto>(['common', 'comp-junior-levels'], ['ADMIN'],
+export const getServerSideProps = withSessionSsrRole<CompetitionJuniorLevelDto>(
+  ['common', 'comp-junior-levels'],
+  ['ADMIN'],
   async (token, params) => {
     try {
       const data = await getCompetitionJuniorLevelById(
-        +(params?.id as string),
+        params?.id as string,
         token,
       )
       return { data }
     } catch (error) {
       return {
         data: null,
-        error: error as ApiError
+        error: error as ApiError,
       }
     }
-  });
+  },
+)
 
 const EditCompetitionJuniorLevelPage = ({
   data,
@@ -34,17 +37,15 @@ const EditCompetitionJuniorLevelPage = ({
 }: TSsrRole<CompetitionJuniorLevelDto>) => {
   const { t } = useTranslation()
 
-  const { mutate: updateCompJuniorLevel, isLoading: updateLoading } = useUpdateCompetitionJuniorLevel(
-    data?.id || 0,
-  )
+  const { mutate: updateCompJuniorLevel, isLoading: updateLoading } =
+    useUpdateCompetitionJuniorLevel(data?.id || '')
 
-  if (!data || errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (!data || errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {updateLoading && <Loader />}
-      <PageHeading
-        title={t('comp-junior-levels:EDIT_PAGE_TITLE')}
-      />
+      <PageHeading title={t('comp-junior-levels:EDIT_PAGE_TITLE')} />
       <EditCompetitionJuniorLevelForm
         current={data}
         onSubmit={updateCompJuniorLevel}

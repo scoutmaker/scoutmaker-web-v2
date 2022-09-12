@@ -8,22 +8,31 @@ import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { CompetitionTypesFilterForm } from '@/modules/competition-types/forms/filter'
-import { useCompetitionTypes, useDeleteCompetitionType } from '@/modules/competition-types/hooks'
+import {
+  useCompetitionTypes,
+  useDeleteCompetitionType,
+} from '@/modules/competition-types/hooks'
 import { CompetitionTypesTableRow } from '@/modules/competition-types/table/row'
 import { CompetitionTypesTable } from '@/modules/competition-types/table/table'
-import { CompetitionTypesFiltersDto, CompetitionTypesSortBy } from '@/modules/competition-types/types'
+import {
+  CompetitionTypesFiltersDto,
+  CompetitionTypesSortBy,
+} from '@/modules/competition-types/types'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 const initialFilters: CompetitionTypesFiltersDto = {
-  name: ''
+  name: '',
 }
 
-export const getServerSideProps = withSessionSsrRole(['common', 'competition-types'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'competition-types'],
+  ['ADMIN'],
+)
 
 interface IToDeleteData {
-  id: number
+  id: string
   name: string
 }
 
@@ -33,8 +42,7 @@ const CompetitionTypesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] =
-    useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -53,20 +61,22 @@ const CompetitionTypesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     handleChangePage(null, 0)
   }
 
-  const { data: competitionTypes, isLoading: dataLoading } = useCompetitionTypes({
-    page: page + 1,
-    limit: rowsPerPage,
-    sortBy: sortBy as CompetitionTypesSortBy,
-    sortingOrder: order,
-    ...filters,
-  })
+  const { data: competitionTypes, isLoading: dataLoading } =
+    useCompetitionTypes({
+      page: page + 1,
+      limit: rowsPerPage,
+      sortBy: sortBy as CompetitionTypesSortBy,
+      sortingOrder: order,
+      ...filters,
+    })
 
-  const { mutate: deleteCompetitionType, isLoading: deleteLoading } = useDeleteCompetitionType()
-
+  const { mutate: deleteCompetitionType, isLoading: deleteLoading } =
+    useDeleteCompetitionType()
 
   const isLoading = dataLoading || deleteLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
@@ -102,8 +112,7 @@ const CompetitionTypesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
               isEditOptionEnabled
               isDeleteOptionEnabled
             />
-          ))
-        }
+          ))}
       </CompetitionTypesTable>
       <Fab href="/competition-types/create" />
       <ConfirmationModal
@@ -112,8 +121,7 @@ const CompetitionTypesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
           name: toDeleteData?.name,
         })}
         handleAccept={() => {
-          if (toDeleteData)
-            deleteCompetitionType(toDeleteData.id)
+          if (toDeleteData) deleteCompetitionType(toDeleteData.id)
 
           setToDeleteData(undefined)
         }}

@@ -18,6 +18,8 @@ export type TModuleName =
   | 'notes'
   | 'orders'
   | 'report-skill-assessment-categories'
+  | 'reports'
+  | 'report-templates'
   | 'insider-notes'
   | 'report-skill-assessment-templates'
   | 'users'

@@ -20,16 +20,16 @@ export const getUsersList = () => getDataList<UserBasicDataDto>(moduleName)
 export const getUsers = (params: FindAllUsersParams) =>
   getPaginatedData<FindAllUsersParams, UserDto>(params, moduleName)
 
-export const getUserById = (id: number, token?: string) =>
+export const getUserById = (id: string, token?: string) =>
   getAssetById<UserDto>({ moduleName, id, token })
 
-export const setScoutRoleUser = (id: number) => changeUserRole(id, 'SCOUT')
+export const setScoutRoleUser = (id: string) => changeUserRole(id, 'SCOUT')
 
-export const setPMScoutRoleUser = (id: number) =>
+export const setPMScoutRoleUser = (id: string) =>
   changeUserRole(id, 'PLAYMAKER_SCOUT')
 
 async function changeUserRole(
-  id: number,
+  id: string,
   role: 'SCOUT' | 'PLAYMAKER_SCOUT',
 ): Promise<ApiResponse<UserDto>> {
   const { data } = await client.patch<ApiResponse<UserDto>>(

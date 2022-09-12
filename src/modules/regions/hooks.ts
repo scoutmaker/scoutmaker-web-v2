@@ -30,7 +30,7 @@ export const useRegions = (params: FindAllRegionsParams) =>
     getRegions,
   )
 
-export const useUpdateRegion = (id: number) =>
+export const useUpdateRegion = (id: string) =>
   useUpdateDocument<UpdateRegionDto, RegionDto>(moduleName, id, updateRegion)
 
 export const useDeleteRegion = () =>

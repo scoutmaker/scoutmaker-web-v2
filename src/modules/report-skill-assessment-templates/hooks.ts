@@ -41,7 +41,7 @@ export const useDeleteReportSkillAssessmentTemplate = () =>
     deleteReportSkillAssessmentTemplate,
   )
 
-export const useUpdateReportSkillAssessmentTemplate = (id: number) =>
+export const useUpdateReportSkillAssessmentTemplate = (id: string) =>
   useUpdateDocument<
     UpdateReportSkillAssessmentTemplateDto,
     ReportSkillAssessmentTemplateDto

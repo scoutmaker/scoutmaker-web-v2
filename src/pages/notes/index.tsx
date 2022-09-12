@@ -21,10 +21,10 @@ import {
 import { NotesTableRow } from '@/modules/notes/table/row'
 import { NotesTable } from '@/modules/notes/table/table'
 import { NotesFiltersDto, NotesSortBy } from '@/modules/notes/types'
-import { getNoteNumber } from '@/modules/notes/utils'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
+import { getDocumentNumber } from '@/utils/get-document-number'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { redirectToLogin } from '@/utils/redirect-to-login'
@@ -66,7 +66,8 @@ const initialFilters: NotesFiltersDto = {
 }
 
 interface INoteToDeleteData {
-  id: number
+  id: string
+  docNumber: number
   createdAt: string
 }
 
@@ -167,12 +168,13 @@ const NotesPage = () => {
                 onDeleteClick={() => {
                   setNoteToDeleteData({
                     id: note.id,
+                    docNumber: note.docNumber,
                     createdAt: note.createdAt,
                   })
                   setIsDeleteConfirmationModalOpen(true)
                 }}
-                onLikeClick={(id: number) => likeNote(id)}
-                onUnlikeClick={(id: number) => unlikeNote(id)}
+                onLikeClick={(id: string) => likeNote(id)}
+                onUnlikeClick={(id: string) => unlikeNote(id)}
                 isEditOptionEnabled
                 isDeleteOptionEnabled
               />
@@ -184,8 +186,8 @@ const NotesPage = () => {
         open={isDeleteConfirmationModalOpen}
         message={t('notes:DELETE_NOTE_CONFIRM_QUESTION', {
           number: noteToDeleteData
-            ? getNoteNumber({
-                id: noteToDeleteData.id,
+            ? getDocumentNumber({
+                docNumber: noteToDeleteData.docNumber,
                 createdAt: noteToDeleteData.createdAt,
               })
             : null,

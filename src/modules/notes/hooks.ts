@@ -35,7 +35,7 @@ export const useNotes = (params: FindAllNotesParams) =>
 export const useCreateNote = () =>
   useCreateDocument<CreateNoteDto, NoteDto>(moduleName, createNote)
 
-export const useUpdateNote = (id: number) =>
+export const useUpdateNote = (id: string) =>
   useUpdateDocument<UpdateNoteDto, NoteDto>(moduleName, id, updateNote)
 
 export const useDeleteNote = () =>

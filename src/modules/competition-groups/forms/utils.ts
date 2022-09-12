@@ -2,8 +2,6 @@ import map from 'just-map-values'
 import { TFunction } from 'next-i18next'
 import * as yup from 'yup'
 
-import { validateId, validateIdsArray } from '@/utils/validation-helpers'
-
 import {
   CompetitionGroupDto,
   CreateCompetitionGroupDto,
@@ -12,7 +10,7 @@ import {
 
 export const initialValues: CreateCompetitionGroupDto = {
   name: '',
-  competitionId: 0,
+  competitionId: '',
   regionIds: [],
 }
 
@@ -20,11 +18,10 @@ export function generateCreateValidationSchema(t: TFunction) {
   return yup
     .object({
       name: yup.string().required(t('comp-groups:NO_NAME_ERROR')),
-      competitionId: validateId({
-        required: true,
-        message: t('comp-groups:NO_COMPETITION_ERROR'),
-      }),
-      regionIds: validateIdsArray().min(1).required(),
+      competitionId: yup
+        .string()
+        .required(t('comp-groups:NO_COMPETITION_ERROR')),
+      regionIds: yup.array().of(yup.string()).min(1).required(),
     })
     .defined()
 }
@@ -32,8 +29,8 @@ export function generateCreateValidationSchema(t: TFunction) {
 export function generateUpdateValidationSchema() {
   return yup.object({
     name: yup.string().notRequired(),
-    competitionId: validateId(),
-    regionIds: validateIdsArray().notRequired(),
+    competitionId: yup.string().notRequired(),
+    regionIds: yup.array().of(yup.string()).notRequired(),
   })
 }
 

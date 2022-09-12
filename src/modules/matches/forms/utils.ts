@@ -11,11 +11,11 @@ import { formatDate } from '@/utils/format-date'
 import { validateId } from '@/utils/validation-helpers'
 
 export const initialValues: CreateMatchDto = {
-  homeTeamId: 0,
-  awayTeamId: 0,
-  competitionId: 0,
-  groupId: 0,
-  seasonId: 0,
+  homeTeamId: '',
+  awayTeamId: '',
+  competitionId: '',
+  groupId: '',
+  seasonId: '',
   date: formatDate(),
   homeGoals: 0,
   awayGoals: 0,
@@ -70,7 +70,7 @@ export function getInitialStateFromCurrent(match: MatchDto): UpdateMatchDto {
     homeTeamId: homeTeam.id,
     awayTeamId: awayTeam.id,
     competitionId: competition.id,
-    groupId: group?.id || 0,
+    groupId: group?.id || '',
     date: formatDate(date),
     seasonId: season.id,
     awayGoals: awayGoals || 0,

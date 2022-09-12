@@ -20,7 +20,7 @@ import {
 
 const moduleName: TModuleName = 'notes'
 
-export const getNoteById = (id: number, token?: string) =>
+export const getNoteById = (id: string, token?: string) =>
   getAssetById<NoteDto>({ moduleName, id, token })
 
 export const getNotesList = () => getDataList<NoteBasicDataDto>(moduleName)
@@ -32,17 +32,17 @@ export const createNote = (data: CreateNoteDto) =>
   createDocument<CreateNoteDto, NoteDto>(data, moduleName)
 
 interface IUpdateNoteArgs {
-  id: number
+  id: string
   data: UpdateNoteDto
 }
 
 export const updateNote = ({ id, data }: IUpdateNoteArgs) =>
   updateDocument<UpdateNoteDto, NoteDto>(id, data, moduleName)
 
-export const deleteNote = (id: number) =>
+export const deleteNote = (id: string) =>
   deleteDocument<NoteDto>(id, moduleName)
 
-export const likeNote = (id: number) => likeDocument<NoteDto>(id, moduleName)
+export const likeNote = (id: string) => likeDocument<NoteDto>(id, moduleName)
 
-export const unlikeNote = (id: number) =>
+export const unlikeNote = (id: string) =>
   unlikeDocument<NoteDto>(id, moduleName)

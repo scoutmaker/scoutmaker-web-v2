@@ -24,11 +24,11 @@ export const getSeasonsList = () => getDataList<SeasonDto>(moduleName)
 export const getSeasons = (params: FindAllSeasonsParams) =>
   getPaginatedData<FindAllSeasonsParams, SeasonDto>(params, moduleName)
 
-export const deleteSeason = (id: number) =>
+export const deleteSeason = (id: string) =>
   deleteDocument<SeasonDto>(id, moduleName)
 
 interface IUpdateArgs {
-  id: number
+  id: string
   data: UpdateSeasonDto
 }
 export const updateSeason = ({ id, data }: IUpdateArgs) =>
@@ -37,17 +37,17 @@ export const updateSeason = ({ id, data }: IUpdateArgs) =>
 export const createSeason = (data: CreateSeasonDto) =>
   createDocument<CreateSeasonDto, SeasonDto>(data, moduleName)
 
-export const getSeasonById = (id: number, token?: string) =>
+export const getSeasonById = (id: string, token?: string) =>
   getAssetById<SeasonDto>({ moduleName, id, token })
 
-export const setActiveSeason = (id: number) =>
+export const setActiveSeason = (id: string) =>
   toggleActiveDocument<SeasonDto>(id, true)
 
-export const unSetActiveSeason = (id: number) =>
+export const unSetActiveSeason = (id: string) =>
   toggleActiveDocument<SeasonDto>(id, false)
 
 async function toggleActiveDocument<ReturnType>(
-  id: number,
+  id: string,
   activeState: boolean,
 ): Promise<ApiResponse<ReturnType>> {
   const { data } = await client.patch<ApiResponse<ReturnType>>(

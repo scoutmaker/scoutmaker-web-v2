@@ -31,6 +31,7 @@ import {
   ReportTemplatesIcon,
   SeasonIcon,
   SettingsIcon,
+  TeamAffiliationIcon,
   TeamsIcon,
   TemplatesIcon,
   UserDataIcon,
@@ -193,6 +194,11 @@ export const NavList = () => {
           />
           <NavElement
             icon={<CompetitionIcon color="error" />}
+            to="/competition-participations"
+            text={t('COMPETITION_PARTICIPATIONS')}
+          />
+          <NavElement
+            icon={<CompetitionIcon color="error" />}
             to="/competition-groups"
             text={t('COMPETITION_GROUPS')}
           />
@@ -215,6 +221,11 @@ export const NavList = () => {
             icon={<OrganizationsIcon color="error" />}
             to="/organizations"
             text={t('ORGANIZATIONS')}
+          />
+          <NavElement
+            icon={<TeamAffiliationIcon color="error" />}
+            to="/team-affiliations"
+            text={t('TEAM_AFFILIATIONS')}
           />
         </ExpandeableNavElement>
       )}

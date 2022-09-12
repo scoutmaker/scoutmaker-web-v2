@@ -28,7 +28,7 @@ export const getReportSkillAssessmentTemplates = (
   >(params, moduleName)
 
 interface IUpdateArgs {
-  id: number
+  id: string
   data: UpdateReportSkillAssessmentTemplateDto
 }
 
@@ -41,7 +41,7 @@ export const updateReportSkillAssessmentTemplate = ({
     ReportSkillAssessmentTemplateDto
   >(id, data, moduleName)
 
-export const deleteReportSkillAssessmentTemplate = (id: number) =>
+export const deleteReportSkillAssessmentTemplate = (id: string) =>
   deleteDocument<ReportSkillAssessmentTemplateDto>(id, moduleName)
 
 export const createReportSkillAssessmentTemplate = (
@@ -53,6 +53,6 @@ export const createReportSkillAssessmentTemplate = (
   >(data, moduleName)
 
 export const getReportSkillAssessmentTemplateById = (
-  id: number,
+  id: string,
   token?: string,
 ) => getAssetById<ReportSkillAssessmentTemplateDto>({ moduleName, id, token })
