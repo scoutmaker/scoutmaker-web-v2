@@ -5,13 +5,13 @@ import { ApiError } from '@/services/api/types'
 
 export function useSingleDocument<DataType>(
   key: string,
-  id: number,
-  queryFn: (id: number) => Promise<DataType>,
+  id: string,
+  queryFn: (id: string) => Promise<DataType>,
 ) {
   const { setAlert } = useAlertsState()
 
   return useQuery([key, id], () => queryFn(id), {
-    enabled: id !== 0,
+    enabled: id !== '',
     onError: (err: ApiError) =>
       setAlert({
         msg: err.response.data.message,

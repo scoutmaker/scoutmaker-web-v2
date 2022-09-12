@@ -10,5 +10,5 @@ const moduleName: TModuleName = 'report-templates'
 export const getReportTemplatesList = () =>
   getDataList<ReportTemplateBasicDataDto>(moduleName)
 
-export const getReportTemplateById = (id: number, token?: string) =>
+export const getReportTemplateById = (id: string, token?: string) =>
   getAssetById<ReportTemplateDto>({ moduleName, id, token })

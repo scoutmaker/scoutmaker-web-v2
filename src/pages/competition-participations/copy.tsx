@@ -9,31 +9,31 @@ import { useCopyCompetitionParticipation } from '@/modules/competition-participa
 import { useSeasonsList } from '@/modules/seasons/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'comp-participations'], ['ADMIN']);
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'comp-participations'],
+  ['ADMIN'],
+)
 
-const EditSeasonPage = ({
-  errorMessage,
-  errorStatus,
-}: TSsrRole) => {
+const EditSeasonPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const router = useRouter()
   const { t } = useTranslation()
 
   const { data: seasonsData, isLoading: seasonsLoading } = useSeasonsList()
 
-  const { mutate: copyComp, isLoading: copyLoading } = useCopyCompetitionParticipation()
+  const { mutate: copyComp, isLoading: copyLoading } =
+    useCopyCompetitionParticipation()
 
   const isLoading = seasonsLoading || copyLoading
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
-      <PageHeading
-        title={t('comp-participations:COPY_PAGE_TITLE')}
-      />
+      <PageHeading title={t('comp-participations:COPY_PAGE_TITLE')} />
       <CopyParticipationsForm
         onSubmit={copyComp}
         seasonsData={seasonsData || []}
-        fromSeasonId={+(router.query?.fromId as string) || 0}
+        fromSeasonId={(router.query?.fromId as string) || ''}
       />
     </>
   )

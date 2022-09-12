@@ -8,10 +8,16 @@ import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { CompetitionGroupsFilterForm } from '@/modules/competition-groups/forms/filter'
-import { useCompetitionGroups, useDeleteCompetitionGroup } from '@/modules/competition-groups/hooks'
+import {
+  useCompetitionGroups,
+  useDeleteCompetitionGroup,
+} from '@/modules/competition-groups/hooks'
 import { CompetitionGroupsTableRow } from '@/modules/competition-groups/table/row'
 import { CompetitionGroupsTable } from '@/modules/competition-groups/table/table'
-import { CompetitionGroupsFiltersDto, CompetitionGroupsSortBy } from '@/modules/competition-groups/types'
+import {
+  CompetitionGroupsFiltersDto,
+  CompetitionGroupsSortBy,
+} from '@/modules/competition-groups/types'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { useRegionsList } from '@/modules/regions/hooks'
 import { SeasonsFiltersDto } from '@/modules/seasons/types'
@@ -22,13 +28,16 @@ import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 const initialFilters: CompetitionGroupsFiltersDto = {
   name: '',
   competitionIds: [],
-  regionIds: []
+  regionIds: [],
 }
 
-export const getServerSideProps = withSessionSsrRole(['common', 'comp-groups'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'comp-groups'],
+  ['ADMIN'],
+)
 
 interface IToDeleteData {
-  id: number
+  id: string
   name: string
 }
 
@@ -38,8 +47,7 @@ const CompetitionGroupsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] =
-    useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -66,14 +74,18 @@ const CompetitionGroupsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     ...filters,
   })
 
-  const { data: competitionsData, isLoading: competitionsLoading } = useCompetitionsList()
+  const { data: competitionsData, isLoading: competitionsLoading } =
+    useCompetitionsList()
   const { data: regionsData, isLoading: regionsLoading } = useRegionsList()
 
-  const { mutate: deleteCompGroup, isLoading: deleteLoading } = useDeleteCompetitionGroup()
+  const { mutate: deleteCompGroup, isLoading: deleteLoading } =
+    useDeleteCompetitionGroup()
 
-  const isLoading = dataLoading || deleteLoading || competitionsLoading || regionsLoading
+  const isLoading =
+    dataLoading || deleteLoading || competitionsLoading || regionsLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
@@ -111,8 +123,7 @@ const CompetitionGroupsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
               isEditOptionEnabled
               isDeleteOptionEnabled
             />
-          ))
-        }
+          ))}
       </CompetitionGroupsTable>
       <Fab href="/competition-groups/create" />
       <ConfirmationModal
@@ -121,8 +132,7 @@ const CompetitionGroupsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
           name: toDeleteData?.name,
         })}
         handleAccept={() => {
-          if (toDeleteData)
-            deleteCompGroup(toDeleteData.id)
+          if (toDeleteData) deleteCompGroup(toDeleteData.id)
 
           setToDeleteData(undefined)
         }}

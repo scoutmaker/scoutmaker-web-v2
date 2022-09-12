@@ -21,7 +21,7 @@ import {
 
 const moduleName: TModuleName = 'reports'
 
-export const getReportById = (id: number, token?: string) =>
+export const getReportById = (id: string, token?: string) =>
   getAssetById<ReportDto>({ moduleName, id, token })
 
 export const getReportsList = () => getDataList<ReportBasicDataDto>(moduleName)
@@ -36,18 +36,18 @@ export const createReport = (data: CreateReportDto) =>
   createDocument<CreateReportDto, ReportDto>(data, moduleName)
 
 interface IUpdateReportArgs {
-  id: number
+  id: string
   data: UpdateReportDto
 }
 
 export const updateReport = ({ id, data }: IUpdateReportArgs) =>
   updateDocument<UpdateReportDto, ReportDto>(id, data, moduleName)
 
-export const deleteReport = (id: number) =>
+export const deleteReport = (id: string) =>
   deleteDocument<ReportDto>(id, moduleName)
 
-export const likeReport = (id: number) =>
+export const likeReport = (id: string) =>
   likeDocument<ReportDto>(id, moduleName)
 
-export const unlikeReport = (id: number) =>
+export const unlikeReport = (id: string) =>
   unlikeDocument<ReportDto>(id, moduleName)

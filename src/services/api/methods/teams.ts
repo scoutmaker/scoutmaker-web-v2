@@ -32,17 +32,17 @@ export const createTeam = (data: CreateTeamDto) =>
   createDocument<CreateTeamDto, TeamDto>(data, moduleName)
 
 interface IUpdateTeamArgs {
-  id: number
+  id: string
   data: UpdateTeamDto
 }
 
 export const updateTeam = ({ id, data }: IUpdateTeamArgs) =>
   updateDocument<UpdateTeamDto, TeamDto>(id, data, moduleName)
 
-export const deleteTeam = (id: number) =>
+export const deleteTeam = (id: string) =>
   deleteDocument<TeamDto>(id, moduleName)
 
-export const likeTeam = (id: number) => likeDocument<TeamDto>(id, moduleName)
+export const likeTeam = (id: string) => likeDocument<TeamDto>(id, moduleName)
 
-export const unlikeTeam = (id: number) =>
+export const unlikeTeam = (id: string) =>
   unlikeDocument<TeamDto>(id, moduleName)

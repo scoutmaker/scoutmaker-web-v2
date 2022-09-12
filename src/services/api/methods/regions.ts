@@ -22,18 +22,18 @@ export const getRegions = (params: FindAllRegionsParams) =>
   getPaginatedData<FindAllRegionsParams, RegionDto>(params, moduleName)
 
 interface IUpdateRegionArgs {
-  id: number
+  id: string
   data: UpdateRegionDto
 }
 
 export const updateRegion = ({ id, data }: IUpdateRegionArgs) =>
   updateDocument<UpdateRegionDto, RegionDto>(id, data, moduleName)
 
-export const deleteRegion = (id: number) =>
+export const deleteRegion = (id: string) =>
   deleteDocument<RegionDto>(id, moduleName)
 
 export const createRegion = (data: CreateRegionDto) =>
   createDocument<CreateRegionDto, RegionDto>(data, moduleName)
 
-export const getRegionById = (id: number, token?: string) =>
+export const getRegionById = (id: string, token?: string) =>
   getAssetById<RegionDto>({ moduleName, id, token })

@@ -24,6 +24,6 @@ export function getMatchResult(homeGoals?: number, awayGoals?: number) {
   return `${homeGoals}:${awayGoals}`
 }
 
-export function getSingleMatchRoute(id: number) {
+export function getSingleMatchRoute(id: string) {
   return `${Routes.MATCHES}/${id}`
 }

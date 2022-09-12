@@ -20,8 +20,8 @@ interface ITeamsTableRowProps {
   data: TeamDto
   onEditClick: () => void
   onDeleteClick: () => void
-  onLikeClick: (id: number) => void
-  onUnlikeClick: (id: number) => void
+  onLikeClick: (id: string) => void
+  onUnlikeClick: (id: string) => void
   isEditOptionEnabled: boolean
   isDeleteOptionEnabled: boolean
 }

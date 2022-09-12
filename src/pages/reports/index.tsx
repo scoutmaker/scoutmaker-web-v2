@@ -68,7 +68,8 @@ const initialFilters: ReportsFilterFormData = {
 }
 
 interface IReportToDeleteData {
-  id: number
+  id: string
+  docNumber: number
   createdAt: string
 }
 
@@ -171,12 +172,13 @@ const ReportsPage = () => {
                 onDeleteClick={() => {
                   setReportToDeleteData({
                     id: report.id,
+                    docNumber: report.docNumber,
                     createdAt: report.createdAt,
                   })
                   setIsDeleteConfirmationModalOpen(true)
                 }}
-                onLikeClick={(id: number) => likeReport(id)}
-                onUnlikeClick={(id: number) => unlikeReport(id)}
+                onLikeClick={(id: string) => likeReport(id)}
+                onUnlikeClick={(id: string) => unlikeReport(id)}
                 isEditOptionEnabled
                 isDeleteOptionEnabled
               />
@@ -189,7 +191,7 @@ const ReportsPage = () => {
         message={t('reports:DELETE_REPORT_CONFIRM_QUESTION', {
           number: reportToDeleteData
             ? getDocumentNumber({
-                id: reportToDeleteData.id,
+                docNumber: reportToDeleteData.docNumber,
                 createdAt: reportToDeleteData.createdAt,
               })
             : null,

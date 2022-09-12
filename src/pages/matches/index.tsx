@@ -47,12 +47,12 @@ const initialFilters: MatchesFiltersDto = {
   competitionIds: [],
   groupIds: [],
   hasVideo: false,
-  seasonId: 0,
-  teamId: 0,
+  seasonId: '',
+  teamId: '',
 }
 
 interface IMatchToDeleteData {
-  id: number
+  id: string
   name: string
 }
 

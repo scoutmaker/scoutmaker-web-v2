@@ -63,7 +63,7 @@ const initialFilters: PlayersFiltersDto = {
 }
 
 interface IPlayerToDeleteData {
-  id: number
+  id: string
   name: string
 }
 
@@ -167,8 +167,8 @@ const PlayersPage = () => {
                   })
                   setIsDeleteConfirmationModalOpen(true)
                 }}
-                onLikeClick={(id: number) => likePlayer(id)}
-                onUnlikeClick={(id: number) => unlikePlayer(id)}
+                onLikeClick={(id: string) => likePlayer(id)}
+                onUnlikeClick={(id: string) => unlikePlayer(id)}
                 isEditOptionEnabled
                 isDeleteOptionEnabled
               />

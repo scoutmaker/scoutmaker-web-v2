@@ -47,7 +47,7 @@ export const getServerSideProps = withSessionSsr<TEditMatchPageProps>(
 
     try {
       const matchData = await getMatchById(
-        parseInt(params?.id as string),
+        params?.id as string,
         req.session.token,
       )
       match = matchData
@@ -90,7 +90,7 @@ const EditMatchPage = ({
   const { data: teams, isLoading: teamsLoading } = useTeamsList()
 
   const { mutate: updateMatch, isLoading: updateMatchLoading } = useUpdateMatch(
-    match?.id || 0,
+    match?.id || '',
   )
 
   const isLoading =
@@ -106,7 +106,10 @@ const EditMatchPage = ({
         {isLoading && <Loader />}
         <PageHeading
           title={t('players:EDIT_PLAYER_PAGE_TITLE', {
-            name: getMatchDisplayName(match.homeTeam, match.awayTeam),
+            name: getMatchDisplayName({
+              homeTeamName: match.homeTeam.name,
+              awayTeamName: match.awayTeam.name,
+            }),
           })}
         />
         <EditMatchForm

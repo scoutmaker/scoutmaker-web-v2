@@ -25,7 +25,7 @@ export const getCompetitionAgeCategories = (
     CompetitionAgeCategortyDto
   >(params, moduleName)
 
-export const deleteCompetitionAgeCategory = (id: number) =>
+export const deleteCompetitionAgeCategory = (id: string) =>
   deleteDocument<CompetitionAgeCategortyDto>(id, moduleName)
 
 export const createCompetitionAgeCategory = (
@@ -36,11 +36,11 @@ export const createCompetitionAgeCategory = (
     moduleName,
   )
 
-export const getCompetitionAgeCategoryById = (id: number, token?: string) =>
+export const getCompetitionAgeCategoryById = (id: string, token?: string) =>
   getAssetById<CompetitionAgeCategortyDto>({ moduleName, id, token })
 
 interface IUpdateArgs {
-  id: number
+  id: string
   data: UpdateCompetitionAgeCategoryDto
 }
 export const updateCompetitionAgeCategory = ({ id, data }: IUpdateArgs) =>

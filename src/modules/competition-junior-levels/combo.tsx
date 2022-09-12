@@ -7,7 +7,8 @@ import { IComboProps } from '@/types/combo'
 
 import { CompetitionJuniorLevelDto } from './types'
 
-interface ICompJuniorLevelsComboProps extends IComboProps<CompetitionJuniorLevelDto> { }
+interface ICompJuniorLevelsComboProps
+  extends IComboProps<CompetitionJuniorLevelDto> {}
 
 export const CompetitionJuniorLevelsCombo = ({
   data,
@@ -27,13 +28,12 @@ export const CompetitionJuniorLevelsCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={[0, ...data.map(item => item.id)]}
-      getOptionLabel={(option: number) => {
-        if (option === 0) return ''
+      options={['', ...data.map(item => item.id)]}
+      getOptionLabel={(option: string) => {
+        if (option === '') return ''
 
         const compJuniorLevel = data.find(c => c.id === option)
-        if (compJuniorLevel)
-          return compJuniorLevel.name
+        if (compJuniorLevel) return compJuniorLevel.name
 
         return t('NONE')
       }}

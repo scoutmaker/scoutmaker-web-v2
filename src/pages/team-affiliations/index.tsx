@@ -9,24 +9,33 @@ import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { usePlayersList } from '@/modules/players/hooks'
 import { TeamAffiliationFilterForm } from '@/modules/team-affiliations/forms/filter'
-import { useDeleteTeamAffiliation, useTeamAffiliations } from '@/modules/team-affiliations/hooks'
+import {
+  useDeleteTeamAffiliation,
+  useTeamAffiliations,
+} from '@/modules/team-affiliations/hooks'
 import { TeamAffiliationsTableRow } from '@/modules/team-affiliations/table/row'
 import { TeamAffiliationsTable } from '@/modules/team-affiliations/table/team'
-import { TeamAffiliationsFilterDto, TeamAffiliationsSortBy } from '@/modules/team-affiliations/types'
+import {
+  TeamAffiliationsFilterDto,
+  TeamAffiliationsSortBy,
+} from '@/modules/team-affiliations/types'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 const initialFilters: TeamAffiliationsFilterDto = {
-  playerId: 0,
-  teamId: 0
+  playerId: '',
+  teamId: '',
 }
 
-export const getServerSideProps = withSessionSsrRole(['common', 'team-affiliations'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'team-affiliations'],
+  ['ADMIN'],
+)
 
 interface IToDeleteData {
-  id: number
+  id: string
 }
 
 const TeamAffiliationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
@@ -35,8 +44,7 @@ const TeamAffiliationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] =
-    useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -63,14 +71,17 @@ const TeamAffiliationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     ...filters,
   })
 
-  const { mutate: deleteTeamAffiliation, isLoading: deleteLoading } = useDeleteTeamAffiliation()
+  const { mutate: deleteTeamAffiliation, isLoading: deleteLoading } =
+    useDeleteTeamAffiliation()
 
   const { data: playersData, isLoading: playersLoading } = usePlayersList()
   const { data: teamsData, isLoading: teamsLoading } = useTeamsList()
 
-  const isLoading = dataLoading || deleteLoading || teamsLoading || playersLoading
+  const isLoading =
+    dataLoading || deleteLoading || teamsLoading || playersLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
@@ -111,16 +122,14 @@ const TeamAffiliationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
               actions
               shouldDisplayPlayerName
             />
-          ))
-        }
+          ))}
       </TeamAffiliationsTable>
       <Fab href="/team-affiliations/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}
         message={t('team-affiliations:DELETE_CONFIRM_QUESTION')}
         handleAccept={() => {
-          if (toDeleteData)
-            deleteTeamAffiliation(toDeleteData.id)
+          if (toDeleteData) deleteTeamAffiliation(toDeleteData.id)
 
           setToDeleteData(undefined)
         }}

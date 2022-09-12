@@ -8,21 +8,32 @@ import { getCompetitionAgeCategoryById } from '@/services/api/methods/competitio
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<CompetitionAgeCategortyDto>(['common', 'comp-age-categ'], ['ADMIN'],
-  async (token, params) => {
-    try {
-      const data = await getCompetitionAgeCategoryById(
-        +(params?.id as string), token)
-      return { data }
-    } catch (error) {
-      return { data: null, error: error as ApiError }
-    }
-  })
+export const getServerSideProps =
+  withSessionSsrRole<CompetitionAgeCategortyDto>(
+    ['common', 'comp-age-categ'],
+    ['ADMIN'],
+    async (token, params) => {
+      try {
+        const data = await getCompetitionAgeCategoryById(
+          params?.id as string,
+          token,
+        )
+        return { data }
+      } catch (error) {
+        return { data: null, error: error as ApiError }
+      }
+    },
+  )
 
-const CompAgeCategPage = ({ data, errorMessage, errorStatus }: TSsrRole<CompetitionAgeCategortyDto>) => {
+const CompAgeCategPage = ({
+  data,
+  errorMessage,
+  errorStatus,
+}: TSsrRole<CompetitionAgeCategortyDto>) => {
   const { t } = useTranslation()
 
-  if (!data || errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (!data || errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       <PageHeading title={t('COMPETITION_AGE_CATEGORY')} />

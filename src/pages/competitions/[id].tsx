@@ -7,18 +7,26 @@ import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 import { CompetitionDetailsCard } from '../../modules/competitions/details-card'
 
-export const getServerSideProps = withSessionSsrRole<CompetitionDto>(['common', 'competitions'], ['ADMIN'],
+export const getServerSideProps = withSessionSsrRole<CompetitionDto>(
+  ['common', 'competitions'],
+  ['ADMIN'],
   async (token, params) => {
     try {
-      const data = await getCompetitionById(+(params?.id as string), token)
+      const data = await getCompetitionById(params?.id as string, token)
       return { data }
     } catch (error) {
       return { data: null, error: error as ApiError }
     }
-  })
+  },
+)
 
-const CompetitionPage = ({ data, errorMessage, errorStatus }: TSsrRole<CompetitionDto>) => {
-  if (!data || errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+const CompetitionPage = ({
+  data,
+  errorMessage,
+  errorStatus,
+}: TSsrRole<CompetitionDto>) => {
+  if (!data || errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       <PageHeading title={data.name} />

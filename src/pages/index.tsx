@@ -12,7 +12,7 @@ export const getServerSideProps = withSessionSsr(async ({ req, res }) => {
     redirectToLogin(res)
     return {
       props: {
-        user: { id: 0, email: 'asd' } as User,
+        user: { id: '1', email: 'asd' } as User,
       },
     }
   }

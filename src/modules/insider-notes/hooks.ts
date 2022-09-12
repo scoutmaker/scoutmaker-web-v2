@@ -34,7 +34,7 @@ export const useInsiderNotes = (params: FindAllInsiderNotesParams) =>
     getInsiderNotes,
   )
 
-export const useUpdateInsiderNote = (id: number) =>
+export const useUpdateInsiderNote = (id: string) =>
   useUpdateDocument<UpdateInsiderNoteDto, InsiderNoteDto>(
     moduleName,
     id,

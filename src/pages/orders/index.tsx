@@ -26,13 +26,13 @@ import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 interface IData {
-  userId: number
+  userId: string
 }
 
 export const getServerSideProps = withSessionSsrRole<IData>(
   ['common', 'orders'],
   ['ADMIN', 'PLAYMAKER_SCOUT'],
-  async (token, params, user) => ({ data: { userId: user?.id as number } }),
+  async (token, params, user) => ({ data: { userId: user?.id as string } }),
 )
 
 const date = new Date()
@@ -51,7 +51,7 @@ const initialFilters: OrdersFiltersDto = {
 }
 
 interface ItoDeleteData {
-  id: number
+  id: string
 }
 
 const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {

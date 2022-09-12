@@ -3,12 +3,11 @@ import { TFunction } from 'next-i18next'
 import * as yup from 'yup'
 
 import { ClubDto, CreateClubDto, UpdateClubDto } from '@/modules/clubs/types'
-import { validateId } from '@/utils/validation-helpers'
 
 export const initialValues: CreateClubDto = {
   name: '',
-  countryId: 0,
-  regionId: 0,
+  countryId: '',
+  regionId: '',
   lnpId: '',
   city: '',
   postalCode: '',
@@ -36,14 +35,8 @@ export function generateCreateClubValidationSchema(t: TFunction) {
   return yup
     .object({
       name: yup.string().required(t('clubs:NO_NAME_ERROR')),
-      regionId: validateId({
-        required: true,
-        message: t('clubs:NO_REGION_ERROR'),
-      }),
-      countryId: validateId({
-        required: true,
-        message: t('clubs:NO_COUNTRY_ERROR'),
-      }),
+      regionId: yup.string().required(t('clubs:NO_REGION_ERROR')),
+      countryId: yup.string().required(t('clubs:NO_REGION_ERROR')),
       ...generateCommonClubFieldsValidationSchema(),
     })
     .defined()
@@ -52,8 +45,8 @@ export function generateCreateClubValidationSchema(t: TFunction) {
 export function generateUpdateClubValidationSchema() {
   return yup.object({
     name: yup.string().notRequired(),
-    regionId: validateId(),
-    countryId: validateId(),
+    regionId: yup.string().notRequired(),
+    countryId: yup.string().notRequired(),
     ...generateCommonClubFieldsValidationSchema(),
   })
 }
@@ -65,7 +58,7 @@ export function getInitialStateFromCurrent(club: ClubDto): UpdateClubDto {
 
   return {
     ...mappedRest,
-    regionId: region.id,
+    regionId: region?.id || '',
     countryId: country.id,
   }
 }

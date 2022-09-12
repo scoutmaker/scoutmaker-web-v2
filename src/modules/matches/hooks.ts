@@ -40,7 +40,7 @@ export const useMatches = (params: FindAllMatchesParams) =>
 export const useCreateMatch = () =>
   useCreateDocument<CreateMatchDto, MatchDto>(moduleName, createMatch)
 
-export const useUpdateMatch = (id: number) =>
+export const useUpdateMatch = (id: string) =>
   useUpdateDocument<UpdateMatchDto, MatchDto>(moduleName, id, updateMatch)
 
 export const useDeleteMatch = () =>

@@ -12,8 +12,8 @@ import {
 } from '../types'
 
 export const initialValues: CreateTeamAffiliationDto = {
-  playerId: 0,
-  teamId: 0,
+  playerId: '',
+  teamId: '',
   startDate: formatDate(),
   endDate: '',
 }

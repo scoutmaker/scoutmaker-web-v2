@@ -40,7 +40,7 @@ export const getServerSideProps = withSessionSsr<TMatchPageProps>(
 
     try {
       const matchData = await getMatchById(
-        parseInt(params?.id as string),
+        params?.id as string,
         req.session.token,
       )
       match = matchData

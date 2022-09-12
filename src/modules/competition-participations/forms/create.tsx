@@ -25,7 +25,7 @@ interface ICreateFormProps {
   competitionsData: CompetitionBasicDataDto[]
   groupsData: CompetitionGroupBasicDataDto[]
   seasonsData: SeasonDto[]
-  teamId?: number
+  teamId?: string
 }
 
 export const CreateCompetitionParticipationForm = ({
@@ -36,7 +36,7 @@ export const CreateCompetitionParticipationForm = ({
   competitionsData,
   groupsData,
   seasonsData,
-  teamId
+  teamId,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -59,28 +59,30 @@ export const CreateCompetitionParticipationForm = ({
         <Form>
           <Container fullwidth={fullwidth}>
             <TeamsCombo
-              name='teamId'
+              name="teamId"
               data={teamsData}
               error={touched.teamId && !!errors.teamId}
               helperText={touched.teamId ? errors.teamId : undefined}
               label={t('TEAM')}
             />
             <CompetitionsCombo
-              name='competitionId'
+              name="competitionId"
               data={competitionsData}
               error={touched.competitionId && !!errors.competitionId}
-              helperText={touched.competitionId ? errors.competitionId : undefined}
+              helperText={
+                touched.competitionId ? errors.competitionId : undefined
+              }
               label={t('COMPETITION')}
             />
             <CompetitionGroupsCombo
-              name='groupId'
+              name="groupId"
               data={groupsData}
               error={touched.groupId && !!errors.groupId}
               helperText={touched.groupId ? errors.groupId : undefined}
               label={t('COMPETITION_GROUP')}
             />
             <SeasonsCombo
-              name='seasonId'
+              name="seasonId"
               data={seasonsData}
               error={touched.seasonId && !!errors.seasonId}
               helperText={touched.seasonId ? errors.seasonId : undefined}

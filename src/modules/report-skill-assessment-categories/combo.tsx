@@ -7,7 +7,7 @@ import { IComboProps } from '@/types/combo'
 
 import { ReportSkillAssessmentCategoryDto } from './types'
 
-interface ICComboProps extends IComboProps<ReportSkillAssessmentCategoryDto> { }
+interface ICComboProps extends IComboProps<ReportSkillAssessmentCategoryDto> {}
 
 export const ReportSkillAssessmentCategoriesCombo = ({
   data,
@@ -27,14 +27,14 @@ export const ReportSkillAssessmentCategoriesCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={[0, ...data.map(role => role.id)]}
-      getOptionLabel={(option: number) => {
-        if (option === 0) {
+      options={['', ...data.map(role => role.id)]}
+      getOptionLabel={(option: string) => {
+        if (option === '') {
           return ''
         }
-        const report = data.find(r => r.id === option)
-        if (report) {
-          return report.name
+        const category = data.find(r => r.id === option)
+        if (category) {
+          return category.name
         }
         return t('NONE')
       }}

@@ -30,7 +30,7 @@ export const usePlayerPositions = (params: FindAllPlayerPositionsParams) =>
     getPlayerPositions,
   )
 
-export const useUpdatePlayerPosition = (id: number) =>
+export const useUpdatePlayerPosition = (id: string) =>
   useUpdateDocument<UpdatePlayerPostitionDto, PlayerPositionDto>(
     moduleName,
     id,
