@@ -3,7 +3,7 @@ import { TFunction } from 'next-i18next'
 import * as yup from 'yup'
 
 import { formatDate } from '@/utils/format-date'
-import { validateId } from '@/utils/validation-helpers'
+import { validateId, validateIdsArray } from '@/utils/validation-helpers'
 
 import {
   CreateUserSubscriptionDto,
@@ -16,14 +16,14 @@ export const initialValues: CreateUserSubscriptionDto = {
   competitionIds: [],
   endDate: formatDate(),
   startDate: formatDate(),
-  userId: 0,
+  userId: '',
 }
 
 export function generateCreateValidationSchema(t: TFunction) {
   return yup
     .object({
-      competitionGroupIds: yup.array().of(yup.number()).min(1),
-      competitionIds: yup.array().of(yup.number()).min(1),
+      competitionGroupIds: validateIdsArray().min(1),
+      competitionIds: validateIdsArray().min(1),
       endDate: yup.date().required(t('user-subs:NO_END_DATE_ERROR')),
       startDate: yup.date().required(t('user-subs:NO_START_DATE_ERROR')),
       userId: validateId({
@@ -36,8 +36,8 @@ export function generateCreateValidationSchema(t: TFunction) {
 
 export function generateUpdateValidationSchema() {
   return yup.object({
-    competitionGroupIds: yup.array().of(yup.number()).notRequired(),
-    competitionIds: yup.array().of(yup.number()).notRequired(),
+    competitionGroupIds: validateIdsArray().notRequired(),
+    competitionIds: validateIdsArray().notRequired(),
     endDate: yup.date().notRequired(),
     startDate: yup.date().notRequired(),
   })

@@ -34,7 +34,7 @@ export const useUserSubscriptions = (params: FindAllUserSubscriptionsParams) =>
 export const useDeleteUserSubscription = () =>
   useDeleteDocument<UserSubscriptionDto>(moduleName, deleteUserSubscription)
 
-export const useUpdateUserSubscription = (id: number) =>
+export const useUpdateUserSubscription = (id: string) =>
   useUpdateDocument<UpdateUserSubscriptionDto, UserSubscriptionDto>(
     moduleName,
     id,

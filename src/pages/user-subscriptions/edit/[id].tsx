@@ -16,7 +16,7 @@ export const getServerSideProps = withSessionSsrRole<UserSubscriptionDto>(['comm
   async (token, params) => {
     try {
       const data = await getUserSubscriptionById(
-        +(params?.id as string),
+        params?.id as string,
         token,
       )
       return { data }
@@ -36,7 +36,7 @@ const EditUserSubscriptionPage = ({
   const { t } = useTranslation()
 
   const { mutate: updateUserSub, isLoading: updateLoading } = useUpdateUserSubscription(
-    data?.id || 0,
+    data?.id || '',
   )
 
   const { data: compGroupsData, isLoading: compGroupsLoading } = useCompetitionGroupsList()

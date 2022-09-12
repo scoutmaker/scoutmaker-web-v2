@@ -12,7 +12,7 @@ export const getServerSideProps = withSessionSsrRole<UserSubscriptionDto>(['comm
   async (token, params) => {
     try {
       const data = await getUserSubscriptionById(
-        +(params?.id as string),
+        params?.id as string,
         token,
       )
       return { data }

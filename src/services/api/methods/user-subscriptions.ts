@@ -25,11 +25,11 @@ export const getUserSubscriptions = (params: FindAllUserSubscriptionsParams) =>
     moduleName,
   )
 
-export const deleteUserSubscription = (id: number) =>
+export const deleteUserSubscription = (id: string) =>
   deleteDocument<UserSubscriptionDto>(id, moduleName)
 
 interface IUpdateArgs {
-  id: number
+  id: string
   data: UpdateUserSubscriptionDto
 }
 export const updateUserSubscription = ({ id, data }: IUpdateArgs) =>
@@ -45,5 +45,5 @@ export const createUserSubscription = (data: CreateUserSubscriptionDto) =>
     moduleName,
   )
 
-export const getUserSubscriptionById = (id: number, token?: string) =>
+export const getUserSubscriptionById = (id: string, token?: string) =>
   getAssetById<UserSubscriptionDto>({ moduleName, id, token })
