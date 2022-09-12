@@ -24,3 +24,4 @@ export type TModuleName =
   | 'report-skill-assessment-templates'
   | 'users'
   | 'organizations'
+  | 'organization-subscriptions'
