@@ -22,6 +22,7 @@ import {
   ObservationIcon,
   OrdersIcon,
   OrganizationsIcon,
+  OrganizationSubscriptionsIcon,
   PlayerPositionIcon,
   PlayersIcon,
   ProfileIcon,
@@ -226,6 +227,11 @@ export const NavList = () => {
             icon={<TeamAffiliationIcon color="error" />}
             to="/team-affiliations"
             text={t('TEAM_AFFILIATIONS')}
+          />
+          <NavElement
+            icon={<OrganizationSubscriptionsIcon color="error" />}
+            to="/organization-subscriptions"
+            text={t('ORGANIZATION_SUBSCRIPTIONS')}
           />
         </ExpandeableNavElement>
       )}
