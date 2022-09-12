@@ -57,6 +57,7 @@ export const CreateOrganizationForm = ({
               multiple
               error={touched.memberIds && !!errors.memberIds}
               helperText={touched.memberIds ? errors.memberIds as string : undefined}
+              label={t('USERS')}
             />
             <MainFormActions
               label={t('ORGANIZATION')}
