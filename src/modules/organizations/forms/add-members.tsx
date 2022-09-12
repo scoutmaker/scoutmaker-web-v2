@@ -11,7 +11,7 @@ import { UserBasicDataDto } from '@/modules/users/types'
 import { generateAddMembersValidationSchema, initialValues } from './utils'
 
 interface ISubmitData {
-  memberIds: number[]
+  memberIds: string[]
 }
 
 interface ICreateFormProps {

@@ -19,7 +19,7 @@ export function generateCreateValidationSchema(t: TFunction) {
   return yup
     .object({
       name: yup.string().required(t('organizations:NO_NAME_ERROR')),
-      memberIds: yup.array().of(yup.number()).min(1),
+      memberIds: validateIdsArray().min(1),
     })
     .defined()
 }

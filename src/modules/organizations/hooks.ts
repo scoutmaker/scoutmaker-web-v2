@@ -40,7 +40,7 @@ export const useOrganizations = (params: FindAllOrganizationsParams) =>
 export const useDeleteOrganization = () =>
   useDeleteDocument<OrganizationDto>(moduleName, deleteOrganization)
 
-export const useUpdateOrganization = (id: number) =>
+export const useUpdateOrganization = (id: string) =>
   useUpdateDocument<UpdateOrganizationDto, OrganizationDto>(
     moduleName,
     id,
@@ -60,14 +60,14 @@ export const useRemoveMemberOrganization = () =>
   useMemberDocument(removeMemberOrganization)
 
 interface Ivalues {
-  organizationId: number
-  memberId: number
+  organizationId: string
+  memberId: string
 }
 
 function useMemberDocument(
   mutationFn: (
-    organizationId: number,
-    memberId: number,
+    organizationId: string,
+    memberId: string,
   ) => Promise<ApiResponse<OrganizationDto>>,
 ) {
   const queryClient = useQueryClient()

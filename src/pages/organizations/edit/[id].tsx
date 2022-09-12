@@ -14,7 +14,7 @@ export const getServerSideProps = withSessionSsrRole<OrganizationDto>(['common',
   async (token, params) => {
     try {
       const data = await getOrganizationById(
-        +(params?.id as string),
+        params?.id as string,
         token,
       )
       return { data }
@@ -34,7 +34,7 @@ const EditOrganizationPage = ({
   const { t } = useTranslation()
 
   const { mutate: updateOrganization, isLoading: updateLoading } = useUpdateOrganization(
-    data?.id || 0,
+    data?.id || '0',
   )
 
   if (!data || errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />

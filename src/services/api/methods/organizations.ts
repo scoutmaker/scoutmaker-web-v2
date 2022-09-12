@@ -28,11 +28,11 @@ export const getOrganizations = (params: FindAllOrganizationsParams) =>
     moduleName,
   )
 
-export const deleteOrganization = (id: number) =>
+export const deleteOrganization = (id: string) =>
   deleteDocument<OrganizationDto>(id, moduleName)
 
 interface IUpdateArgs {
-  id: number
+  id: string
   data: UpdateOrganizationDto
 }
 export const updateOrganization = ({ id, data }: IUpdateArgs) =>
@@ -41,18 +41,18 @@ export const updateOrganization = ({ id, data }: IUpdateArgs) =>
 export const createOrganization = (data: CreateOrganizationDto) =>
   createDocument<CreateOrganizationDto, OrganizationDto>(data, moduleName)
 
-export const getOrganizationById = (id: number, token?: string) =>
+export const getOrganizationById = (id: string, token?: string) =>
   getAssetById<OrganizationDto>({ moduleName, id, token })
 
-export const addMemberOrganization = (id: number, memberId: number) =>
+export const addMemberOrganization = (id: string, memberId: string) =>
   toggleMemberDocument(id, memberId, 'add-member')
 
-export const removeMemberOrganization = (id: number, memberId: number) =>
+export const removeMemberOrganization = (id: string, memberId: string) =>
   toggleMemberDocument(id, memberId, 'remove-member')
 
 async function toggleMemberDocument(
-  id: number,
-  memberId: number,
+  id: string,
+  memberId: string,
   action: 'add-member' | 'remove-member',
 ) {
   const { data } = await client.patch<ApiResponse<OrganizationDto>>(

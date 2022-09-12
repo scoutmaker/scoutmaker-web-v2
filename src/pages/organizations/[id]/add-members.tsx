@@ -15,7 +15,7 @@ export const getServerSideProps = withSessionSsrRole<OrganizationDto>(['common',
   async (token, params) => {
     try {
       const data = await getOrganizationById(
-        +(params?.id as string),
+        params?.id as string,
         token,
       )
       return { data }

@@ -23,7 +23,7 @@ const initialFilters: OrganizationsFiltersDto = {
 export const getServerSideProps = withSessionSsrRole(['common', 'organizations'], ['ADMIN'])
 
 interface IToDeleteData {
-  id: number
+  id: string
   name: string
 }
 

@@ -32,9 +32,9 @@ export const UsersCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={[0, ...members.map(user => user.id)]}
-      getOptionLabel={(option: number) => {
-        if (option === 0)
+      options={['', ...members.map(user => user.id)]}
+      getOptionLabel={(option: string) => {
+        if (!option)
           return ''
 
         const user = members.find(u => u.id === option)
