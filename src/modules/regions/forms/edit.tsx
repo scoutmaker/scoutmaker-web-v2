@@ -3,16 +3,18 @@ import { updatedDiff } from 'deep-object-diff'
 import { Field, Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
+
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { CountriesCombo } from '@/modules/countries/combo'
+import { CountryDto } from '@/modules/countries/types'
+
+import { RegionDto, UpdateRegionDto } from '../types'
 import {
   generateUpdateRegionValidationSchema,
   getInitialStateFromCurrent,
 } from './utils'
-import { RegionDto, UpdateRegionDto } from '../types'
-import { CountriesCombo } from '@/modules/countries/combo'
-import { CountryDto } from '@/modules/countries/types'
 
 interface IEditRegionFormProps {
   current: RegionDto
