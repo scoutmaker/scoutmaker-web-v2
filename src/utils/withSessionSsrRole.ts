@@ -1,6 +1,7 @@
+import { ParsedUrlQuery } from 'node:querystring'
+
 import { i18n } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { ParsedUrlQuery } from 'node:querystring'
 
 import { withSessionSsr } from '@/modules/auth/session'
 import { ApiError } from '@/services/api/types'
