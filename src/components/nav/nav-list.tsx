@@ -143,8 +143,8 @@ export const NavList = () => {
         />
         <NavElement
           icon={<ReportTemplatesIcon color="error" />}
-          to="/reporttemplates"
-          text={t('REPORT_TEMPLATES_CREATOR')}
+          to="/report-templates"
+          text={t('REPORT_TEMPLATES')}
         />
       </ExpandeableNavElement>
       {/* <MatchButton onClick={handleMatchClick} isAtTheMatch={isAtTheMatch} /> */}
