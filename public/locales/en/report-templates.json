@@ -1,0 +1,9 @@
+{
+  "NO_NAME_ERROR": "Please provide report template name",
+  "NO_RATING_ERROR": "Please provide report template max rating",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete report template {{name}}?",
+  "INDEX_PAGE_TITLE": "Report templates database",
+  "CREATE_PAGE_TITLE": "Create new report template",
+  "EDIT_PAGE_TITLE": "Edit report template",
+  "IS_PUBLIC": "Public"
+}
