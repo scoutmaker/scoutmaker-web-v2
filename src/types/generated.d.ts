@@ -1207,8 +1207,8 @@ declare namespace Components {
             startDate: string; // date-time
             endDate: string; // date-time
             user: UserBasicDataDto;
-            competitions: CompetitionBasicDataDto;
-            competitionGroups: CompetitionGroupBasicDataDto;
+            competitions: CompetitionBasicDataDto[];
+            competitionGroups: CompetitionGroupBasicDataDto[];
         }
     }
 }

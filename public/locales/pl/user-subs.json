@@ -1,0 +1,11 @@
+{
+  "NO_START_DATE_ERROR": "Podaj datę rozpoczęcia subskrybcji",
+  "NO_END_DATE_ERROR": "Podaj datę zakończenia subskrybcji",
+  "NO_USER_ERROR": "Wybierz użytkownika subskrybcji",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć tą subskrybcję użytkownika?",
+  "INDEX_PAGE_TITLE": "Baza subskrybcji użytkowników",
+  "CREATE_PAGE_TITLE": "Utwórz nową subskrybcję użytkownika",
+  "EDIT_PAGE_TITLE": "Edycja danych subskrybcji użytkownika",
+  "START_DATE": "Data rozpoczęcia",
+  "END_DATE": "Data zakończenia"
+}

@@ -172,6 +172,8 @@
   "USER": "Użytkownik",
   "USERS": "Użytkownicy",
   "ROLE": "Rola",
+  "USER_SUBSCRIPTION": "Subskrypcja użytkownika",
+  "USER_SUBSCRIPTIONS": "Subskrypcje użytkowników",
   "ORGANIZATION": "Organizacja",
   "ORGANIZATIONS": "Organizacje",
   "RATING_RANGE": "Zakres ocen",
