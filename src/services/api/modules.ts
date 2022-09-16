@@ -23,3 +23,4 @@ export type TModuleName =
   | 'insider-notes'
   | 'report-skill-assessment-templates'
   | 'users'
+  | 'organizations'

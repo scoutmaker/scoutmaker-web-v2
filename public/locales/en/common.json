@@ -172,6 +172,8 @@
   "USER": "User",
   "USERS": "Users",
   "ROLE": "Role",
+  "ORGANIZATION": "Organization",
+  "ORGANIZATIONS": "Organizations",
   "RATING_RANGE": "Rating range",
   "CREATE": "Create",
   "REPORT_TEMPLATE": "Szablon raportu",
