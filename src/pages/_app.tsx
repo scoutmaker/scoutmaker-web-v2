@@ -29,6 +29,8 @@ const secondaryLayoutRoutes = [
   '/test',
 ]
 
+const emptyLayoutRoutes = ['/']
+
 const MyApp = ({
   Component,
   emotionCache = clientSideEmotionCache,
@@ -40,6 +42,10 @@ const MyApp = ({
   const shouldUseSecondaryLayout = secondaryLayoutRoutes.includes(
     appProps.router.route,
   )
+  const shouldUseEmptyLayout = emptyLayoutRoutes.includes(
+    appProps.router.route,
+  )
+  const shouldUsePrimaryLayout = !shouldUseEmptyLayout && !shouldUseSecondaryLayout
 
   return (
     <CacheProvider value={emotionCache}>
@@ -50,15 +56,17 @@ const MyApp = ({
         <AlertsState>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            {shouldUseSecondaryLayout ? (
-              <SecondaryLayout>
-                <Component {...pageProps} />
-              </SecondaryLayout>
-            ) : (
+            {shouldUsePrimaryLayout &&
               <PrimaryLayout>
                 <Component {...pageProps} />
               </PrimaryLayout>
-            )}
+            }
+            {shouldUseSecondaryLayout &&
+              <SecondaryLayout>
+                <Component {...pageProps} />
+              </SecondaryLayout>
+            }
+            {shouldUseEmptyLayout && <Component {...pageProps} />}
           </ThemeProvider>
         </AlertsState>
         <ReactQueryDevtools />

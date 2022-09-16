@@ -24,7 +24,8 @@
       "@/types/*": ["types/*"],
       "@/utils/*": ["utils/*"],
       "@/services/*": ["services/*"],
-      "@/modules/*": ["modules/*"]
+      "@/modules/*": ["modules/*"],
+      "@/assets/*": ["assets/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
