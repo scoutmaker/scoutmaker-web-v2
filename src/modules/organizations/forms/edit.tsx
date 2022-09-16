@@ -7,30 +7,26 @@ import { useTranslation } from 'next-i18next'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { CountriesCombo } from '@/modules/countries/combo'
-import { CountryDto } from '@/modules/countries/types'
 
-import { RegionDto, UpdateRegionDto } from '../types'
+import { OrganizationDto, UpdateOrganizationDto } from '../types'
 import {
-  generateUpdateRegionValidationSchema,
+  generateUpdateValidationSchema,
   getInitialStateFromCurrent,
 } from './utils'
 
-interface IEditRegionFormProps {
-  current: RegionDto
-  countriesData: CountryDto[]
-  onSubmit: (data: UpdateRegionDto) => void
+interface IEditFormProps {
+  current: OrganizationDto
+  onSubmit: (data: UpdateOrganizationDto) => void
   onCancelClick?: () => void
   fullwidth?: boolean
 }
 
-export const EditRegionForm = ({
+export const EditOrganizationForm = ({
   current,
   onSubmit,
   onCancelClick,
-  fullwidth,
-  countriesData
-}: IEditRegionFormProps) => {
+  fullwidth
+}: IEditFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
 
@@ -39,7 +35,7 @@ export const EditRegionForm = ({
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={() => generateUpdateRegionValidationSchema()}
+      validationSchema={() => generateUpdateValidationSchema()}
       enableReinitialize
       onSubmit={data => {
         const dataToSubmit = updatedDiff(
@@ -61,15 +57,8 @@ export const EditRegionForm = ({
               error={touched.name && !!errors.name}
               helperText={touched.name && errors.name}
             />
-            <CountriesCombo
-              data={countriesData}
-              name="countryId"
-              label={t('COUNTRY')}
-              error={touched.countryId && !!errors.countryId}
-              helperText={touched.countryId ? errors.countryId : undefined}
-            />
             <MainFormActions
-              label={t('COUNTRY')}
+              label={t('ORGANIZATION')}
               isEditState
               onCancelClick={() => {
                 if (onCancelClick) {

@@ -4,23 +4,20 @@ import { useTranslation } from 'next-i18next'
 
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
-import { CountriesCombo } from '@/modules/countries/combo'
-import { CountryDto } from '@/modules/countries/types'
-import { RegionsFilterDto } from '@/modules/regions/types'
 
-type IRegionsFilterFormProps = {
-  countriesData: CountryDto[]
-  filters: RegionsFilterDto
-  onFilter: (data: RegionsFilterDto) => void
+import { OrganizationsFiltersDto } from '../types'
+
+interface IFormProps {
+  filters: OrganizationsFiltersDto
+  onFilter: (data: OrganizationsFiltersDto) => void
   onClearFilters: () => void
 }
 
-export const RegionsFilterForm = ({
-  countriesData,
+export const OrganizationsFilterForm = ({
   filters,
   onFilter,
   onClearFilters,
-}: IRegionsFilterFormProps) => {
+}: IFormProps) => {
   const { t } = useTranslation()
 
   return (
@@ -39,11 +36,6 @@ export const RegionsFilterForm = ({
               fullWidth
               label={t('NAME')}
               size="small"
-            />
-            <CountriesCombo
-              name="countryId"
-              data={countriesData}
-              label={t('COUNTRY')}
             />
             <FilterFormActions handleClearFilter={onClearFilters} />
           </Container>

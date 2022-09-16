@@ -1,5 +1,4 @@
 import { TextField } from '@mui/material'
-import { updatedDiff } from 'deep-object-diff'
 import { Field, Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
@@ -7,46 +6,37 @@ import { useTranslation } from 'next-i18next'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { CountriesCombo } from '@/modules/countries/combo'
-import { CountryDto } from '@/modules/countries/types'
+import { UsersCombo } from '@/modules/users/combo'
+import { UserBasicDataDto } from '@/modules/users/types'
 
-import { RegionDto, UpdateRegionDto } from '../types'
-import {
-  generateUpdateRegionValidationSchema,
-  getInitialStateFromCurrent,
-} from './utils'
+import { CreateOrganizationDto } from '../types'
+import { generateCreateValidationSchema, initialValues } from './utils'
 
-interface IEditRegionFormProps {
-  current: RegionDto
-  countriesData: CountryDto[]
-  onSubmit: (data: UpdateRegionDto) => void
+interface ICreateFormProps {
+  onSubmit: (data: CreateOrganizationDto) => void
   onCancelClick?: () => void
   fullwidth?: boolean
+  usersData: UserBasicDataDto[]
 }
 
-export const EditRegionForm = ({
-  current,
+export const CreateOrganizationForm = ({
   onSubmit,
   onCancelClick,
   fullwidth,
-  countriesData
-}: IEditRegionFormProps) => {
+  usersData
+}: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
-
-  const initialValues = getInitialStateFromCurrent(current)
 
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={() => generateUpdateRegionValidationSchema()}
+      validationSchema={generateCreateValidationSchema(t)}
       enableReinitialize
-      onSubmit={data => {
-        const dataToSubmit = updatedDiff(
-          initialValues,
-          filter(data, (_, value) => value),
-        )
-        onSubmit(dataToSubmit)
+      onSubmit={(data, { resetForm }) => {
+        const dataToSubmit = filter(data, (_, value) => value)
+        onSubmit(dataToSubmit as CreateOrganizationDto)
+        resetForm()
       }}
     >
       {({ handleReset, touched, errors }) => (
@@ -61,16 +51,16 @@ export const EditRegionForm = ({
               error={touched.name && !!errors.name}
               helperText={touched.name && errors.name}
             />
-            <CountriesCombo
-              data={countriesData}
-              name="countryId"
-              label={t('COUNTRY')}
-              error={touched.countryId && !!errors.countryId}
-              helperText={touched.countryId ? errors.countryId : undefined}
+            <UsersCombo
+              data={usersData}
+              name='memberIds'
+              multiple
+              error={touched.memberIds && !!errors.memberIds}
+              helperText={touched.memberIds ? errors.memberIds as string : undefined}
+              label={t('USERS')}
             />
             <MainFormActions
-              label={t('COUNTRY')}
-              isEditState
+              label={t('ORGANIZATION')}
               onCancelClick={() => {
                 if (onCancelClick) {
                   onCancelClick()

@@ -21,6 +21,7 @@ import {
   NotesIcon,
   ObservationIcon,
   OrdersIcon,
+  OrganizationsIcon,
   PlayerPositionIcon,
   PlayersIcon,
   ProfileIcon,
@@ -221,6 +222,11 @@ export const NavList = () => {
             icon={<UserSubscriptionsIcon color="error" />}
             to="/user-subscriptions"
             text={t('USER_SUBSCRIPTIONS')}
+          />
+          <NavElement
+            icon={<OrganizationsIcon color="error" />}
+            to="/organizations"
+            text={t('ORGANIZATIONS')}
           />
           <NavElement
             icon={<TeamAffiliationIcon color="error" />}
