@@ -34,7 +34,7 @@ export const ReportSkillAssessmentTemplatesCombo = ({
 
         const template = data.find(s => s.id === option)
         if (template)
-          return template.name
+          return `${template.name} (${template.category.name})`
 
         return t('NONE')
       }}
