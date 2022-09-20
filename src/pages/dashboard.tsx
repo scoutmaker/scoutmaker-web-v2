@@ -13,24 +13,23 @@ import { usePlayers } from "@/modules/players/hooks";
 import { useReports } from "@/modules/reports/hooks";
 import { ReportDto } from "@/modules/reports/types";
 import { useTeams } from "@/modules/teams/hooks";
-import { withSessionSsrRole } from "@/utils/withSessionSsrRole";
+import { TSsrRole, withSessionSsrRole } from "@/utils/withSessionSsrRole";
 
-export const getServerSideProps = withSessionSsrRole(['common', 'dashboard'], false)
+export const getServerSideProps = withSessionSsrRole<string>(['common', 'dashboard'], false,
+  async (token, params, user) => ({ data: user?.id as string }))
 
-const DashboardPage = () => {
+const DashboardPage = ({ data }: TSsrRole<string>) => {
   const { t } = useTranslation()
 
   const { data: players, isLoading: playersLoading } = usePlayers({})
   const { data: teams, isLoading: teamsLoading } = useTeams({})
   const { data: reports, isLoading: reportsLoading } = useReports({})
-  // TO_UPDATE
   const { data: userReports, isLoading: userReportsLoading } = useReports({
-
+    userId: data || ''
   })
   const { data: notes, isLoading: notesLoading } = useNotes({})
-  // TO_UPDATE
   const { data: userNotes, isLoading: userNotesLoading } = useNotes({
-
+    userId: data || ''
   })
   const { data: latestReport, isLoading: latestReportLoading } = useReports({
     limit: 2,
@@ -62,9 +61,9 @@ const DashboardPage = () => {
         <CountCard linkTo="/notes" title={t('dashboard:USER_NOTES_COUNT')} icon={<NotesIcon />} count={userNotes?.totalDocs} />
       </Container>
       <Container>
-        {!!latestReport && <ReportCard report={latestReport.docs[0] as ReportDto} title={t('dashboard:LATEST_REPORT')} />}
-        {!!highestRatedReport && <ReportCard report={highestRatedReport.docs[0] as ReportDto} title={t('dashboard:HIGHEST_RATED_REPORT')} />}
-        {!!latestNote && <NoteCard note={latestNote.docs[0]} title={t('dashboard:LATEST_NOTE')} />}
+        {!!latestReport?.docs.length && <ReportCard report={latestReport.docs[0] as ReportDto} title={t('dashboard:LATEST_REPORT')} />}
+        {!!highestRatedReport?.docs.length && <ReportCard report={highestRatedReport.docs[0] as ReportDto} title={t('dashboard:HIGHEST_RATED_REPORT')} />}
+        {!!latestNote?.docs.length && <NoteCard note={latestNote.docs[0]} title={t('dashboard:LATEST_NOTE')} />}
       </Container>
     </>
   )
