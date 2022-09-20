@@ -82,7 +82,7 @@ declare namespace Components {
             name: string;
             transfermarktUrl?: string;
             competition: CompetitionBasicDataDto;
-            regions: RegionWithoutCountryDto[];
+            regions?: RegionWithoutCountryDto[];
         }
         export interface CompetitionJuniorLevelDto {
             id: string;
@@ -166,7 +166,7 @@ declare namespace Components {
             name: string;
             competitionId: string;
             transfermarktUrl?: string;
-            regionIds: string[];
+            regionIds?: string[];
         }
         export interface CreateCompetitionJuniorLevelDto {
             id?: string;
@@ -269,7 +269,7 @@ declare namespace Components {
             countryId: string;
             primaryPositionId: string;
             secondaryPositionIds?: string[];
-            teamId: string;
+            teamId?: string;
             yearOfBirth: number;
             height?: number;
             weight?: number;
@@ -280,6 +280,8 @@ declare namespace Components {
             minut90url?: string;
             transfermarktId?: string;
             transfermarktUrl?: string;
+            scoutmakerv1Id?: string;
+            isPublic?: boolean;
         }
         export interface CreatePlayerPositionDto {
             id?: string;
@@ -371,12 +373,28 @@ declare namespace Components {
             id?: string;
             name: string;
             clubId: string;
-            competitionId: string;
+            competitionId?: string;
             groupId?: string;
             minut90url?: string;
             transfermarktUrl?: string;
+            scoutmakerv1Id?: string;
             lnpId?: string;
             isPublic?: boolean;
+        }
+        export interface CreateUserDto {
+            id?: string;
+            role?: "ADMIN" | "PLAYMAKER_SCOUT" | "SCOUT";
+            status?: "PENDING" | "ACTIVE" | "BLOCKED";
+            email: string;
+            firstName: string;
+            lastName: string;
+            phone?: string;
+            city?: string;
+            password: string;
+            activeRadius?: number;
+            scoutmakerv1Id?: string;
+            regionId?: string;
+            footballRoleId?: string;
         }
         export interface CreateUserFootballRoleDto {
             id?: string;
@@ -1043,6 +1061,8 @@ declare namespace Components {
             minut90url?: string;
             transfermarktId?: string;
             transfermarktUrl?: string;
+            scoutmakerv1Id?: string;
+            isPublic?: boolean;
         }
         export interface UpdatePlayerPositionDto {
             name?: string;
@@ -1117,6 +1137,7 @@ declare namespace Components {
             clubId?: string;
             minut90url?: string;
             transfermarktUrl?: string;
+            scoutmakerv1Id?: string;
             lnpId?: string;
         }
         export interface UpdateUserDto {
@@ -1515,6 +1536,15 @@ declare namespace Paths {
             }
         }
     }
+    namespace ClubsControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
+            }
+        }
+    }
     namespace CompetitionAgeCategoriesControllerCreate {
         export type RequestBody = Components.Schemas.CreateCompetitionAgeCategoryDto;
         namespace Responses {
@@ -1610,6 +1640,15 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.CompetitionAgeCategoryDto;
+            }
+        }
+    }
+    namespace CompetitionAgeCategoriesControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
             }
         }
     }
@@ -1712,6 +1751,15 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.CompetitionGroupDto;
+            }
+        }
+    }
+    namespace CompetitionGroupsControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
             }
         }
     }
@@ -1936,6 +1984,15 @@ declare namespace Paths {
             }
         }
     }
+    namespace CompetitionParticipationsControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
+            }
+        }
+    }
     namespace CompetitionTypesControllerCreate {
         export type RequestBody = Components.Schemas.CreateCompetitionTypeDto;
         namespace Responses {
@@ -2031,6 +2088,15 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.CompetitionTypeDto;
+            }
+        }
+    }
+    namespace CompetitionTypesControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
             }
         }
     }
@@ -2141,6 +2207,15 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.CompetitionDto;
+            }
+        }
+    }
+    namespace CompetitionsControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
             }
         }
     }
@@ -2483,6 +2558,15 @@ declare namespace Paths {
             }
         }
     }
+    namespace InsiderNotesControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
+            }
+        }
+    }
     namespace InsiderNotesLikesControllerCreate {
         namespace Parameters {
             export type InsiderNoteId = string;
@@ -2796,6 +2880,15 @@ declare namespace Paths {
             }
         }
     }
+    namespace MatchesControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
+            }
+        }
+    }
     namespace NotesControllerCreate {
         export type RequestBody = Components.Schemas.CreateNoteDto;
         namespace Responses {
@@ -2823,6 +2916,7 @@ declare namespace Paths {
             export type SortBy = "id" | "player" | "positionPlayed" | "percentageRating" | "match" | "author" | "createdAt";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
+            export type UserId = string;
         }
         export interface QueryParameters {
             playerIds?: Parameters.PlayerIds;
@@ -2836,6 +2930,7 @@ declare namespace Paths {
             playerBornAfter?: Parameters.PlayerBornAfter;
             playerBornBefore?: Parameters.PlayerBornBefore;
             isLiked?: Parameters.IsLiked;
+            userId?: Parameters.UserId;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -2917,6 +3012,15 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.NoteDto;
+            }
+        }
+    }
+    namespace NotesControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
             }
         }
     }
@@ -3666,6 +3770,15 @@ declare namespace Paths {
             }
         }
     }
+    namespace OrganizationsControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
+            }
+        }
+    }
     namespace PlayerPositionsControllerCreate {
         export type RequestBody = Components.Schemas.CreatePlayerPositionDto;
         namespace Responses {
@@ -3763,6 +3876,15 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.PlayerPositionDto;
+            }
+        }
+    }
+    namespace PlayerPositionsControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
             }
         }
     }
@@ -4018,6 +4140,15 @@ declare namespace Paths {
             }
         }
     }
+    namespace PlayersControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
+            }
+        }
+    }
     namespace RegionsControllerCreate {
         export type RequestBody = Components.Schemas.CreateRegionDto;
         namespace Responses {
@@ -4115,6 +4246,15 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.RegionDto;
+            }
+        }
+    }
+    namespace RegionsControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
             }
         }
     }
@@ -4575,6 +4715,7 @@ declare namespace Paths {
             export type SortBy = "id" | "player" | "positionPlayed" | "finalRating" | "percentageRating" | "videoUrl" | "author" | "createdAt" | "status";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
+            export type UserId = string;
         }
         export interface QueryParameters {
             playerIds?: Parameters.PlayerIds;
@@ -4589,6 +4730,7 @@ declare namespace Paths {
             playerBornBefore?: Parameters.PlayerBornBefore;
             hasVideo?: Parameters.HasVideo;
             isLiked?: Parameters.IsLiked;
+            userId?: Parameters.UserId;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -4769,6 +4911,15 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.SeasonDto;
+            }
+        }
+    }
+    namespace SeasonsControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
             }
         }
     }
@@ -4997,6 +5148,15 @@ declare namespace Paths {
             }
         }
     }
+    namespace TeamsControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
+            }
+        }
+    }
     namespace UserFootballRolesControllerCreate {
         export type RequestBody = Components.Schemas.CreateUserFootballRoleDto;
         namespace Responses {
@@ -5094,6 +5254,15 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.UserFootballRoleDto;
+            }
+        }
+    }
+    namespace UserFootballRolesControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
             }
         }
     }
@@ -5572,6 +5741,16 @@ declare namespace Paths {
             }
         }
     }
+    namespace UsersControllerCreate {
+        export type RequestBody = Components.Schemas.CreateUserDto;
+        namespace Responses {
+            export interface $201 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.UserDto;
+            }
+        }
+    }
     namespace UsersControllerFindAll {
         namespace Parameters {
             export type ClubIds = string[];
@@ -5634,6 +5813,15 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.UserBasicDataDto[];
+            }
+        }
+    }
+    namespace UsersControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
             }
         }
     }
