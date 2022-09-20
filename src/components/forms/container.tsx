@@ -11,10 +11,6 @@ export const Container = styled('div')<IContainerProps>(
     margin: theme.spacing(0, 'auto', 2),
     gap: theme.spacing(2),
 
-    [theme.breakpoints.up('sm')]: {
-      width: '50%',
-    },
-
     width: fullwidth ? '100%' : 'auto',
   }),
 )
