@@ -70,9 +70,9 @@ export const EditAccountForm = ({
     city: city || '',
     phone: phone || '',
     activeRadius: activeRadius || 0,
-    clubId: club?.id || 0,
-    footballRoleId: footballRole?.id || 0,
-    regionId: region?.id || 0,
+    clubId: club?.id || '',
+    footballRoleId: footballRole?.id || '',
+    regionId: region?.id || '',
   }
 
   const { data: clubs } = useClubsList()

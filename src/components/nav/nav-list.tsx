@@ -21,6 +21,7 @@ import {
   NotesIcon,
   ObservationIcon,
   OrdersIcon,
+  OrganizationsIcon,
   PlayerPositionIcon,
   PlayersIcon,
   ProfileIcon,
@@ -31,9 +32,12 @@ import {
   ReportTemplatesIcon,
   SeasonIcon,
   SettingsIcon,
+  TeamAffiliationIcon,
   TeamsIcon,
   TemplatesIcon,
   UserDataIcon,
+  UsersIcon,
+  UserSubscriptionsIcon,
 } from '../icons'
 import { ExpandeableNavElement } from './expandeable-nav-element'
 import { LogoutButton } from './logout-button'
@@ -192,6 +196,11 @@ export const NavList = () => {
           />
           <NavElement
             icon={<CompetitionIcon color="error" />}
+            to="/competition-participations"
+            text={t('COMPETITION_PARTICIPATIONS')}
+          />
+          <NavElement
+            icon={<CompetitionIcon color="error" />}
             to="/competition-groups"
             text={t('COMPETITION_GROUPS')}
           />
@@ -209,6 +218,26 @@ export const NavList = () => {
             icon={<ReportBackgroundImagesIcon color="error" />}
             to="/report-background-images"
             text={t('REPORT_BACKGROUND_IMAGES')}
+          />
+          <NavElement
+            icon={<UsersIcon color="error" />}
+            to="/users"
+            text={t('USERS')}
+          />
+          <NavElement
+            icon={<UserSubscriptionsIcon color="error" />}
+            to="/user-subscriptions"
+            text={t('USER_SUBSCRIPTIONS')}
+          />
+          <NavElement
+            icon={<OrganizationsIcon color="error" />}
+            to="/organizations"
+            text={t('ORGANIZATIONS')}
+          />
+          <NavElement
+            icon={<TeamAffiliationIcon color="error" />}
+            to="/team-affiliations"
+            text={t('TEAM_AFFILIATIONS')}
           />
         </ExpandeableNavElement>
       )}

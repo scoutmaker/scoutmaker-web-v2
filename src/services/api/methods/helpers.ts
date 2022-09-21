@@ -36,7 +36,7 @@ export async function getAssetBySlug<DataType>({
 // Get single asset by id
 interface IGetAssetByIdArgs {
   moduleName: TModuleName
-  id: number
+  id: string
   token?: string
 }
 
@@ -58,11 +58,13 @@ export async function getAssetById<DataType>({
 }
 
 // Get data list
-export async function getDataList<DataType>(
-  moduleName: TModuleName,
-): Promise<DataType[]> {
+export async function getDataList<
+  DataType,
+  ParamsType extends Record<string, TValue> = {},
+>(moduleName: TModuleName, params?: ParamsType): Promise<DataType[]> {
+  const query = params ? mapObjectToQueryParams(params) : undefined
   const { data } = await client.get<ApiResponse<DataType[]>>(
-    `/${moduleName}/list`,
+    `/${moduleName}/list${query ? `?${query}` : ''}`,
   )
   return data.data
 }
@@ -93,7 +95,7 @@ export async function createDocument<CreateDto, ReturnType>(
 
 // Update document
 export async function updateDocument<UpdateDto, ReturnType>(
-  id: number,
+  id: string,
   input: UpdateDto,
   moduleName: TModuleName,
 ): Promise<ApiResponse<ReturnType>> {
@@ -106,7 +108,7 @@ export async function updateDocument<UpdateDto, ReturnType>(
 
 // Delete document
 export async function deleteDocument<ReturnType>(
-  id: number,
+  id: string,
   moduleName: TModuleName,
 ): Promise<ApiResponse<ReturnType>> {
   const { data } = await client.delete<ApiResponse<ReturnType>>(
@@ -117,7 +119,7 @@ export async function deleteDocument<ReturnType>(
 
 // Like document
 export async function likeDocument<ReturnType>(
-  id: number,
+  id: string,
   moduleName: TModuleName,
 ): Promise<ApiResponse<ReturnType>> {
   const { data } = await client.post<ApiResponse<ReturnType>>(
@@ -128,7 +130,7 @@ export async function likeDocument<ReturnType>(
 
 // Unlike document
 export async function unlikeDocument<ReturnType>(
-  id: number,
+  id: string,
   moduleName: TModuleName,
 ): Promise<ApiResponse<ReturnType>> {
   const { data } = await client.delete<ApiResponse<ReturnType>>(

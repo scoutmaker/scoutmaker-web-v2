@@ -17,7 +17,7 @@ export const getServerSideProps =
     async (token, params) => {
       try {
         const data = await getReportSkillAssessmentCategoryById(
-          +(params?.id as string),
+          params?.id as string,
           token,
         )
         return { data }
@@ -37,7 +37,7 @@ const EditReportSkillAssessmentCategoryPage = ({
   const {
     mutate: updateReportSkillAssessmentCategory,
     isLoading: isUpdateLoading,
-  } = useUpdateReportSkillAssessmentCategory(data?.id || 0)
+  } = useUpdateReportSkillAssessmentCategory(data?.id || '')
 
   if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />
   return (

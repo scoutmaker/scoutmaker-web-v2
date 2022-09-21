@@ -11,12 +11,12 @@ import { useMatchesList } from '@/modules/matches/hooks'
 import { EditNoteForm } from '@/modules/notes/forms/edit'
 import { useUpdateNote } from '@/modules/notes/hooks'
 import { NoteDto } from '@/modules/notes/types'
-import { getNoteNumber } from '@/modules/notes/utils'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { getNoteById } from '@/services/api/methods/notes'
 import { ApiError } from '@/services/api/types'
+import { getDocumentNumber } from '@/utils/get-document-number'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 type TEditNotePageProps = {
@@ -49,7 +49,7 @@ export const getServerSideProps = withSessionSsr<TEditNotePageProps>(
 
     try {
       const noteData = await getNoteById(
-        parseInt(params?.id as string),
+        params?.id as string,
         req.session.token,
       )
       note = noteData
@@ -95,7 +95,7 @@ const EditNotePage = ({
   const { data: players, isLoading: playersLoading } = usePlayersList()
 
   const { mutate: updateNote, isLoading: updateNoteLoading } = useUpdateNote(
-    note?.id || 0,
+    note?.id || '',
   )
 
   const isLoading =
@@ -113,7 +113,10 @@ const EditNotePage = ({
         {isLoading && <Loader />}
         <PageHeading
           title={t('notes:EDIT_NOTE_PAGE_TITLE', {
-            number: getNoteNumber({ id: note.id, createdAt: note.createdAt }),
+            number: getDocumentNumber({
+              docNumber: note.docNumber,
+              createdAt: note.createdAt,
+            }),
           })}
         />
         <EditNoteForm

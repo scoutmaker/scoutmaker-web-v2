@@ -32,7 +32,7 @@ export const createUserFootballRole = (data: CreateUserFootballRoleDto) =>
   )
 
 interface IUpdateArgs {
-  id: number
+  id: string
   data: UpdateUserFootballRoleDto
 }
 export const updateUserFootballRole = ({ id, data }: IUpdateArgs) =>
@@ -42,8 +42,8 @@ export const updateUserFootballRole = ({ id, data }: IUpdateArgs) =>
     moduleName,
   )
 
-export const deleteUserFootballRole = (id: number) =>
+export const deleteUserFootballRole = (id: string) =>
   deleteDocument<UserFootballRoleDto>(id, moduleName)
 
-export const getUserFootballRoleById = (id: number, token?: string) =>
+export const getUserFootballRoleById = (id: string, token?: string) =>
   getAssetById<UserFootballRoleDto>({ moduleName, id, token })

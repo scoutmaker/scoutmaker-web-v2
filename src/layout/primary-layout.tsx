@@ -16,7 +16,7 @@ const StyledContentContainer = styled('main')(({ theme }) => ({
   marginLeft: 240,
   flexGrow: 1,
 
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     padding: theme.spacing(3, 1),
     marginLeft: 0,
   },

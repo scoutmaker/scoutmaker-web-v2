@@ -36,12 +36,12 @@ export const createCompetitionJuniorLevel = (
     moduleName,
   )
 
-export const deleteCompetitionJuniorLevel = (id: number) =>
+export const deleteCompetitionJuniorLevel = (id: string) =>
   deleteDocument<CompetitionJuniorLevelDto>(id, moduleName)
 
 interface IUpdateArgs {
   data: UpdateCompetitionJuniorLevelDto
-  id: number
+  id: string
 }
 export const updateCompetitionJuniorLevel = ({ data, id }: IUpdateArgs) =>
   updateDocument<UpdateCompetitionJuniorLevelDto, CompetitionJuniorLevelDto>(
@@ -50,5 +50,5 @@ export const updateCompetitionJuniorLevel = ({ data, id }: IUpdateArgs) =>
     moduleName,
   )
 
-export const getCompetitionJuniorLevelById = (id: number, token?: string) =>
+export const getCompetitionJuniorLevelById = (id: string, token?: string) =>
   getAssetById<CompetitionJuniorLevelDto>({ moduleName, id, token })

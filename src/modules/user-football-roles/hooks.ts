@@ -33,7 +33,7 @@ export const useUserFootballRoles = (params: FindAllUserFootballRolesDto) =>
 export const useDeleteUserFootballRole = () =>
   useDeleteDocument<UserFootballRoleDto>(moduleName, deleteUserFootballRole)
 
-export const useUpdateUserFootballRole = (id: number) =>
+export const useUpdateUserFootballRole = (id: string) =>
   useUpdateDocument<UpdateUserFootballRoleDto, UserFootballRoleDto>(
     moduleName,
     id,

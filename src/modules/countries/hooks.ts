@@ -33,7 +33,7 @@ export const useCountries = (params: FindAllCountriesParams) =>
 export const useCreateCountry = () =>
   useCreateDocument<CreateCountryDto, CountryDto>(moduleName, createCountry)
 
-export const useUpdateCountry = (id: number) =>
+export const useUpdateCountry = (id: string) =>
   useUpdateDocument<UpdateCountryDto, CountryDto>(moduleName, id, updateCountry)
 
 export const useDeleteCountry = () =>

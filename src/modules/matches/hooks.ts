@@ -17,13 +17,18 @@ import {
   FindAllMatchesParams,
   MatchBasicDataDto,
   MatchDto,
+  MatchesFiltersDto,
   UpdateMatchDto,
 } from './types'
 
 const moduleName: TModuleName = 'matches'
 
-export const useMatchesList = () =>
-  useList<MatchBasicDataDto>(moduleName, getMatchesList)
+export const useMatchesList = (params?: MatchesFiltersDto) =>
+  useList<MatchBasicDataDto, MatchesFiltersDto>(
+    moduleName,
+    getMatchesList,
+    params,
+  )
 
 export const useMatches = (params: FindAllMatchesParams) =>
   usePaginatedData<FindAllMatchesParams, MatchDto>(
@@ -35,7 +40,7 @@ export const useMatches = (params: FindAllMatchesParams) =>
 export const useCreateMatch = () =>
   useCreateDocument<CreateMatchDto, MatchDto>(moduleName, createMatch)
 
-export const useUpdateMatch = (id: number) =>
+export const useUpdateMatch = (id: string) =>
   useUpdateDocument<UpdateMatchDto, MatchDto>(moduleName, id, updateMatch)
 
 export const useDeleteMatch = () =>

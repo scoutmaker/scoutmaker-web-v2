@@ -40,7 +40,7 @@ export const getServerSideProps = withSessionSsr<TNotePageProps>(
 
     try {
       const noteData = await getNoteById(
-        parseInt(params?.id as string),
+        params?.id as string,
         req.session.token,
       )
       note = noteData

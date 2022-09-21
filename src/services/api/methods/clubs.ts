@@ -30,12 +30,12 @@ export const createClub = (data: CreateClubDto) =>
   createDocument<CreateClubDto, ClubDto>(data, moduleName)
 
 interface IUpdateClubArgs {
-  id: number
+  id: string
   data: UpdateClubDto
 }
 
 export const updateClub = ({ id, data }: IUpdateClubArgs) =>
   updateDocument<UpdateClubDto, ClubDto>(id, data, moduleName)
 
-export const deleteClub = (id: number) =>
+export const deleteClub = (id: string) =>
   deleteDocument<ClubDto>(id, moduleName)

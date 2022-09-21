@@ -8,23 +8,32 @@ import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { PlayerPositionsFilterForm } from '@/modules/player-positions/forms/filter'
-import { useDeletePlayerPosition, usePlayerPositions } from '@/modules/player-positions/hooks'
+import {
+  useDeletePlayerPosition,
+  usePlayerPositions,
+} from '@/modules/player-positions/hooks'
 import { PlayerPositionsTableRow } from '@/modules/player-positions/table/row'
 import { PlayerPositionsTable } from '@/modules/player-positions/table/table'
-import { PlayerPositionsFiltersDto, PlayerPositionsSortBy } from '@/modules/player-positions/types'
+import {
+  PlayerPositionsFiltersDto,
+  PlayerPositionsSortBy,
+} from '@/modules/player-positions/types'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'player-positions'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'player-positions'],
+  ['ADMIN'],
+)
 
 const initialFilters: PlayerPositionsFiltersDto = {
   name: '',
-  code: ''
+  code: '',
 }
 
 interface IToDeleteData {
-  id: number
+  id: string
   name: string
 }
 
@@ -34,8 +43,7 @@ const PlayerPositionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] =
-    useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -54,7 +62,6 @@ const PlayerPositionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
     handleChangePage(null, 0)
   }
 
-
   const { data: playerPositions, isLoading: dataLoading } = usePlayerPositions({
     page: page + 1,
     limit: rowsPerPage,
@@ -68,12 +75,12 @@ const PlayerPositionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
 
   const isLoading = dataLoading || deleteLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
-      <PageHeading title={t('player-positions:INDEX_PAGE_TITLE')}
-      />
+      <PageHeading title={t('player-positions:INDEX_PAGE_TITLE')} />
       <PlayerPositionsFilterForm
         filters={filters}
         onFilter={handleSetFilters}
@@ -114,8 +121,7 @@ const PlayerPositionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
           name: toDeleteData?.name,
         })}
         handleAccept={() => {
-          if (toDeleteData)
-            deletePlayerPosition(toDeleteData.id)
+          if (toDeleteData) deletePlayerPosition(toDeleteData.id)
 
           setToDeleteData(undefined)
         }}

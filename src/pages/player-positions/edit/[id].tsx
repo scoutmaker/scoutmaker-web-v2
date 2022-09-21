@@ -10,21 +10,21 @@ import { getPlayerPositionById } from '@/services/api/methods/player-positions'
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<PlayerPositionDto>(['common', 'player-positions'], ['ADMIN'],
+export const getServerSideProps = withSessionSsrRole<PlayerPositionDto>(
+  ['common', 'player-positions'],
+  ['ADMIN'],
   async (token, params) => {
     try {
-      const data = await getPlayerPositionById(
-        +(params?.id as string),
-        token,
-      )
+      const data = await getPlayerPositionById(params?.id as string, token)
       return { data }
     } catch (error) {
       return {
         data: null,
-        error: error as ApiError
+        error: error as ApiError,
       }
     }
-  });
+  },
+)
 
 const EditPlayerPositionPage = ({
   data,
@@ -33,21 +33,16 @@ const EditPlayerPositionPage = ({
 }: TSsrRole<PlayerPositionDto>) => {
   const { t } = useTranslation()
 
-  const { mutate: updatePlayerPosition, isLoading: updateLoading } = useUpdatePlayerPosition(
-    data?.id || 0,
-  )
+  const { mutate: updatePlayerPosition, isLoading: updateLoading } =
+    useUpdatePlayerPosition(data?.id || '')
 
-  if (!data || errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (!data || errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {updateLoading && <Loader />}
-      <PageHeading
-        title={t('player-positions:EDIT_PAGE_TITLE')}
-      />
-      <EditPlayerPositionForm
-        current={data}
-        onSubmit={updatePlayerPosition}
-      />
+      <PageHeading title={t('player-positions:EDIT_PAGE_TITLE')} />
+      <EditPlayerPositionForm current={data} onSubmit={updatePlayerPosition} />
     </>
   )
 }

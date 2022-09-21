@@ -1,7 +1,4 @@
-import {
-  Delete as DeleteIcon,
-  Edit as EditIcon,
-} from '@mui/icons-material'
+import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
@@ -23,8 +20,8 @@ interface ITableRowProps {
   onDeleteClick: () => void
   isEditOptionEnabled: boolean
   isDeleteOptionEnabled: boolean
-  onUnlikeClick: (id: number) => void
-  onLikeClick: (id: number) => void
+  onUnlikeClick: (id: string) => void
+  onLikeClick: (id: string) => void
 }
 
 export const InsiderNotesTableRow = ({
@@ -34,7 +31,7 @@ export const InsiderNotesTableRow = ({
   isEditOptionEnabled,
   isDeleteOptionEnabled,
   onUnlikeClick,
-  onLikeClick
+  onLikeClick,
 }: ITableRowProps) => {
   const router = useRouter()
   const { t } = useTranslation()
@@ -53,7 +50,9 @@ export const InsiderNotesTableRow = ({
     <StyledTableRow
       hover
       key={id}
-      onClick={isMenuOpen ? undefined : () => router.push(`/insider-notes/${id}`)}
+      onClick={
+        isMenuOpen ? undefined : () => router.push(`/insider-notes/${id}`)
+      }
     >
       <StyledTableCell padding="checkbox">
         <TableMenu
@@ -70,7 +69,6 @@ export const InsiderNotesTableRow = ({
                 handleMenuAction(() => onUnlikeClick(id))
               }}
             />
-
           ) : (
             <TableMenuItem
               icon={<LikeIcon fontSize="small" />}
@@ -98,9 +96,15 @@ export const InsiderNotesTableRow = ({
           />
         </TableMenu>
       </StyledTableCell>
-      <CellWithLink href={getSinglePlayerRoute(player.slug || '')} label={`${player.firstName} ${player.lastName}`} />
+      <CellWithLink
+        href={getSinglePlayerRoute(player.slug || '')}
+        label={`${player.firstName} ${player.lastName}`}
+      />
       <StyledTableCell> {player.primaryPosition.name}</StyledTableCell>
-      <CellWithLink href={`/teams/${meta?.team.slug}`} label={meta?.team ? meta.team.name : ''} />
+      <CellWithLink
+        href={`/teams/${meta?.team.slug}`}
+        label={meta?.team ? meta.team.name : ''}
+      />
       <StyledTableCell>{informant || ''}</StyledTableCell>
       <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
     </StyledTableRow>

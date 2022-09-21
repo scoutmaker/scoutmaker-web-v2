@@ -8,23 +8,27 @@ import { getCompetitionGroupById } from '@/services/api/methods/competition-grou
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<CompetitionGroupDto>(['common', 'comp-groups'], ['ADMIN'],
+export const getServerSideProps = withSessionSsrRole<CompetitionGroupDto>(
+  ['common', 'comp-groups'],
+  ['ADMIN'],
   async (token, params) => {
     try {
-      const data = await getCompetitionGroupById(
-        +(params?.id as string),
-        token,
-      )
+      const data = await getCompetitionGroupById(params?.id as string, token)
       return { data }
     } catch (error) {
       return {
         data: null,
-        error: error as ApiError
+        error: error as ApiError,
       }
     }
-  });
+  },
+)
 
-const CompetitionGroupPage = ({ data, errorMessage, errorStatus }: TSsrRole<CompetitionGroupDto>) => {
+const CompetitionGroupPage = ({
+  data,
+  errorMessage,
+  errorStatus,
+}: TSsrRole<CompetitionGroupDto>) => {
   const { t } = useTranslation()
 
   if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />

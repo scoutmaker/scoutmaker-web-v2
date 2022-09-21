@@ -34,7 +34,7 @@ export const useTeams = (params: FindAllTeamsParams) =>
 export const useCreateTeam = () =>
   useCreateDocument<CreateTeamDto, TeamDto>(moduleName, createTeam)
 
-export const useUpdateTeam = (id: number) =>
+export const useUpdateTeam = (id: string) =>
   useUpdateDocument<UpdateTeamDto, TeamDto>(moduleName, id, updateTeam)
 
 export const useDeleteTeam = () =>

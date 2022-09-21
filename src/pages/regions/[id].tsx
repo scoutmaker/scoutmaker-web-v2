@@ -8,23 +8,27 @@ import { getRegionById } from '@/services/api/methods/regions'
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<RegionDto>(['common', 'regions'], ['ADMIN'],
+export const getServerSideProps = withSessionSsrRole<RegionDto>(
+  ['common', 'regions'],
+  ['ADMIN'],
   async (token, params) => {
     try {
-      const regionData = await getRegionById(
-        +(params?.id as string),
-        token,
-      )
+      const regionData = await getRegionById(params?.id as string, token)
       return { data: regionData }
     } catch (error) {
       return {
         data: null,
-        error: error as ApiError
+        error: error as ApiError,
       }
     }
-  });
+  },
+)
 
-const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<RegionDto>) => {
+const MatchPage = ({
+  data,
+  errorMessage,
+  errorStatus,
+}: TSsrRole<RegionDto>) => {
   const { t } = useTranslation()
 
   if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />

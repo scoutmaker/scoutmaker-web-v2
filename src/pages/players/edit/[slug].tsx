@@ -86,7 +86,7 @@ const EditPlayerPage = ({
   const { data: teams, isLoading: teamsLoading } = useTeamsList()
 
   const { mutate: updatePlayer, isLoading: updatePlayerLoading } =
-    useUpdatePlayer(player?.id || 0)
+    useUpdatePlayer(player?.id || '')
 
   const isLoading =
     updatePlayerLoading || positionsLoading || countriesLoading || teamsLoading

@@ -59,7 +59,7 @@ export const ClubDetailsCard = ({ club }: IClubDetailsCard) => {
           <Grid item xs={12}>
             <Typography>
               <strong>{t('REGION')}: </strong>
-              {region.name}
+              {region?.name || '-'}
             </Typography>
           </Grid>
           <Grid item xs={12}>
