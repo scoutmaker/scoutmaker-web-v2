@@ -23,7 +23,7 @@ const initialFilters: ReportBgImagesFiltersDto = {
 export const getServerSideProps = withSessionSsrRole(['common', 'report-bg-images'], ['ADMIN'])
 
 interface IToDeleteData {
-  id: number
+  id: string
   name: string
 }
 

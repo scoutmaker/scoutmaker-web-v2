@@ -34,7 +34,7 @@ export const useReportBgImages = (params: FindAllReportBgImagesParams) =>
 export const useDeleteReportBgImage = () =>
   useDeleteDocument<ReportBgImageDto>(moduleName, deleteReportBgImage)
 
-export const useUpdateReportBgImage = (id: number) =>
+export const useUpdateReportBgImage = (id: string) =>
   useUpdateDocument<UpdateReportBgImageDto, ReportBgImageDto>(
     moduleName,
     id,

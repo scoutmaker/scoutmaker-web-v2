@@ -12,7 +12,7 @@ export const getServerSideProps = withSessionSsrRole<ReportBgImageDto>(['common'
   async (token, params) => {
     try {
       const data = await getReportBgImageById(
-        +(params?.id as string),
+        params?.id as string,
         token,
       )
       return { data }

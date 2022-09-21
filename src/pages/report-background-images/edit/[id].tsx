@@ -14,7 +14,7 @@ export const getServerSideProps = withSessionSsrRole<ReportBgImageDto>(['common'
   async (token, params) => {
     try {
       const data = await getReportBgImageById(
-        +(params?.id as string),
+        params?.id as string,
         token,
       )
       return { data }
@@ -34,7 +34,7 @@ const EditReportBgImagePage = ({
   const { t } = useTranslation()
 
   const { mutate: updateReportBgImg, isLoading: updateLoading } = useUpdateReportBgImage(
-    data?.id || 0,
+    data?.id || '',
   )
 
   if (!data || errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />

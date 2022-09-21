@@ -25,11 +25,11 @@ export const getReportBgImages = (params: FindAllReportBgImagesParams) =>
     moduleName,
   )
 
-export const deleteReportBgImage = (id: number) =>
+export const deleteReportBgImage = (id: string) =>
   deleteDocument<ReportBgImageDto>(id, moduleName)
 
 interface IUpdateArgs {
-  id: number
+  id: string
   data: UpdateReportBgImageDto
 }
 export const updateReportBgImage = ({ id, data }: IUpdateArgs) =>
@@ -38,5 +38,5 @@ export const updateReportBgImage = ({ id, data }: IUpdateArgs) =>
 export const createReportBgImage = (data: CreateReportBgImageDto) =>
   createDocument<CreateReportBgImageDto, ReportBgImageDto>(data, moduleName)
 
-export const getReportBgImageById = (id: number, token?: string) =>
+export const getReportBgImageById = (id: string, token?: string) =>
   getAssetById<ReportBgImageDto>({ moduleName, id, token })
