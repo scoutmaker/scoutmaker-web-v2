@@ -32,6 +32,7 @@ export const CreateReportBgImageForm = ({
       enableReinitialize
       onSubmit={(data, { resetForm }) => {
         const dataToSubmit = filter(data, (_, value) => value)
+        dataToSubmit.isPublic = data.isPublic
         onSubmit(dataToSubmit as CreateReportBgImageDto)
         resetForm()
       }}
