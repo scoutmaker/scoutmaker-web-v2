@@ -4,7 +4,7 @@ interface IProps {
   children: JSX.Element
 }
 
-const FilterAccordin = ({ children }: IProps) => (<StyledAccordion disableGutters>
+const FilterAccordion = ({ children }: IProps) => (<StyledAccordion disableGutters>
   <StyledAccordionSummary>
     <StyledAccordinText>Filtry</StyledAccordinText>
   </StyledAccordionSummary>
@@ -13,7 +13,7 @@ const FilterAccordin = ({ children }: IProps) => (<StyledAccordion disableGutter
   </StyledAccordionDetails>
 </StyledAccordion>)
 
-export default FilterAccordin
+export default FilterAccordion
 
 const StyledAccordion = styled(Accordion)(({ theme }) => ({
   margin: theme.spacing(2, 0),
