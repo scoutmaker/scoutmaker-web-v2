@@ -1,12 +1,13 @@
-import { Accordion, AccordionDetails, AccordionSummary, styled, Typography } from "@mui/material"
+import { Accordion, AccordionDetails, AccordionSummary, Chip, styled, Typography } from "@mui/material"
 
 interface IProps {
   children: JSX.Element
+  isChanged: boolean
 }
 
-const FilterAccordion = ({ children }: IProps) => (<StyledAccordion disableGutters>
+const FilterAccordion = ({ children, isChanged }: IProps) => (<StyledAccordion disableGutters>
   <StyledAccordionSummary>
-    <StyledAccordinText>Filtry</StyledAccordinText>
+    <StyledAccordinText>Filtry {isChanged && <ChangedChip />}</StyledAccordinText>
   </StyledAccordionSummary>
   <StyledAccordionDetails>
     {children}
@@ -35,3 +36,12 @@ const StyledAccordinText = styled(Typography)(({ theme }) => ({
   width: "100%",
   color: theme.palette.primary.contrastText
 }))
+
+const ChangedChip = () => (
+  <Chip
+    size="small"
+    label='Zmienione'
+    color='info'
+    sx={{ fontWeight: 'bold', marginLeft: 0.5 }}
+  />
+)

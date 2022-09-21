@@ -26,6 +26,7 @@ import { PlayersFiltersDto, PlayersSortBy } from '@/modules/players/types'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
+import { isDiffrent } from '@/utils/is-diffrent'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 export const getServerSideProps = withSessionSsr(
@@ -132,7 +133,7 @@ const PlayersPage = () => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('players:INDEX_PAGE_TITLE')} />
-      <FilterAccordion>
+      <FilterAccordion isChanged={isDiffrent(initialFilters, filters)}>
         <PlayersFilterForm
           filters={filters}
           countriesData={countries || []}
