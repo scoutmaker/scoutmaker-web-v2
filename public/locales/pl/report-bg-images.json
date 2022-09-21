@@ -4,5 +4,6 @@
   "INDEX_PAGE_TITLE": "Baza obrazów tła raportów",
   "CREATE_PAGE_TITLE": "Utwórz nowy obraz tła raportu",
   "EDIT_PAGE_TITLE": "Edytuj dane obrazu tła raportu",
-  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć obraz tła raportu {{name}}?"
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć obraz tła raportu {{name}}?",
+  "IS_PUBLIC": "Publiczny"
 }
