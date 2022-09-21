@@ -4,6 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
 
 import { Fab } from '@/components/fab/fab'
+import FilterAccordin from '@/components/filter-accordin/filter-accordin'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -131,16 +132,18 @@ const PlayersPage = () => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('players:INDEX_PAGE_TITLE')} />
-      <PlayersFilterForm
-        filters={filters}
-        countriesData={countries || []}
-        positionsData={positions || []}
-        competitionsData={competitions || []}
-        competitionGroupsData={competitionGroups || []}
-        teamsData={teams || []}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordin>
+        <PlayersFilterForm
+          filters={filters}
+          countriesData={countries || []}
+          positionsData={positions || []}
+          competitionsData={competitions || []}
+          competitionGroupsData={competitionGroups || []}
+          teamsData={teams || []}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordin>
       <PlayersTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -154,25 +157,25 @@ const PlayersPage = () => {
       >
         {players
           ? players.docs.map(player => (
-              <PlayersTableRow
-                key={player.id}
-                data={player}
-                onEditClick={() => {
-                  router.push(`/players/edit/${player.slug}`)
-                }}
-                onDeleteClick={() => {
-                  setPlayerToDeleteData({
-                    id: player.id,
-                    name: `${player.firstName} ${player.lastName}`,
-                  })
-                  setIsDeleteConfirmationModalOpen(true)
-                }}
-                onLikeClick={(id: string) => likePlayer(id)}
-                onUnlikeClick={(id: string) => unlikePlayer(id)}
-                isEditOptionEnabled
-                isDeleteOptionEnabled
-              />
-            ))
+            <PlayersTableRow
+              key={player.id}
+              data={player}
+              onEditClick={() => {
+                router.push(`/players/edit/${player.slug}`)
+              }}
+              onDeleteClick={() => {
+                setPlayerToDeleteData({
+                  id: player.id,
+                  name: `${player.firstName} ${player.lastName}`,
+                })
+                setIsDeleteConfirmationModalOpen(true)
+              }}
+              onLikeClick={(id: string) => likePlayer(id)}
+              onUnlikeClick={(id: string) => unlikePlayer(id)}
+              isEditOptionEnabled
+              isDeleteOptionEnabled
+            />
+          ))
           : null}
       </PlayersTable>
       <Fab href="/players/create" />
@@ -195,5 +198,7 @@ const PlayersPage = () => {
     </>
   )
 }
+
+
 
 export default PlayersPage
