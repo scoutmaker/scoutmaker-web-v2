@@ -1,7 +1,6 @@
-import { Box, TextField } from '@mui/material'
+import { TextField } from '@mui/material'
 import { updatedDiff } from 'deep-object-diff'
 import { Field, Form, Formik } from 'formik'
-import { CheckboxWithLabel } from 'formik-mui'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
@@ -49,7 +48,7 @@ export const EditReportBgImageForm = ({
       {({ handleReset, touched, errors }) => (
         <Form>
           <Container fullwidth={fullwidth}>
-          <Field
+            <Field
               name="name"
               as={TextField}
               variant="outlined"
@@ -67,14 +66,6 @@ export const EditReportBgImageForm = ({
               error={touched.url && !!errors.url}
               helperText={touched.url && errors.url}
             />
-            <Box display='flex' justifyContent='center'>
-              <Field
-                component={CheckboxWithLabel}
-                type="checkbox"
-                name="isPublic"
-                Label={{ label: t('report-bg-images:IS_PUBLIC') }}
-              />
-            </Box>
             <MainFormActions
               label={t('REPORT_BACKGROUND_IMAGE')}
               isEditState

@@ -28,7 +28,6 @@ export function generateUpdateValidationSchema() {
   return yup.object({
     name: yup.string().notRequired(),
     url: yup.string().notRequired(),
-    isPublic: yup.boolean().notRequired(),
   })
 }
 
