@@ -31,7 +31,8 @@ export const ImageContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'flex-end',
-  flexGrow: 0.8,
+  flex: 0.8,
+  marginTop: 'auto',
 
   [theme.breakpoints.down('lg')]: {
     order: 2,
