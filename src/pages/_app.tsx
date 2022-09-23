@@ -29,7 +29,7 @@ const secondaryLayoutRoutes = [
   '/test',
 ]
 
-const emptyLayoutRoutes = ['/', '/data-analysis', '/club-scouting']
+const emptyLayoutRoutes = ['/', '/data-analysis', '/club-scouting', '/scouting-academy']
 
 const MyApp = ({
   Component,
