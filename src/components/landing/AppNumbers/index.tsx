@@ -51,6 +51,7 @@ const Container = styled('div')(({ theme }) => ({
   alignItems: 'center',
   textAlign: 'center',
   gap: theme.spacing(4),
+  marginBottom: theme.spacing(2),
 
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',
