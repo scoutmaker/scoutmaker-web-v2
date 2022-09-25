@@ -37,6 +37,7 @@ import {
   TemplatesIcon,
   UserDataIcon,
   UsersIcon,
+  UserSubscriptionsIcon,
 } from '../icons'
 import { ExpandeableNavElement } from './expandeable-nav-element'
 import { LogoutButton } from './logout-button'
@@ -217,6 +218,11 @@ export const NavList = () => {
             icon={<UsersIcon color="error" />}
             to="/users"
             text={t('USERS')}
+          />
+          <NavElement
+            icon={<UserSubscriptionsIcon color="error" />}
+            to="/user-subscriptions"
+            text={t('USER_SUBSCRIPTIONS')}
           />
           <NavElement
             icon={<OrganizationsIcon color="error" />}

@@ -11,20 +11,28 @@ import { useCreateCompetition } from '@/modules/competitions/hooks'
 import { useCountriesList } from '@/modules/countries/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'competitions'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'competitions'],
+  ['ADMIN'],
+)
 
 const CreateCompetitionPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
 
-  const { data: ageCategoriesData, isLoading: ageCategLoading } = useCompetitionAgeCategoriesList()
+  const { data: ageCategoriesData, isLoading: ageCategLoading } =
+    useCompetitionAgeCategoriesList()
 
-  const { data: juniorLevelsData, isLoading: juniorLevelsLoading } = useCompetitionJuniorLevelsList()
+  const { data: juniorLevelsData, isLoading: juniorLevelsLoading } =
+    useCompetitionJuniorLevelsList()
 
-  const { data: competitionTypesData, isLoading: compTypesLoading } = useCompetitionTypesList()
+  const { data: competitionTypesData, isLoading: compTypesLoading } =
+    useCompetitionTypesList()
 
-  const { data: countriesData, isLoading: countriesLoading } = useCountriesList()
+  const { data: countriesData, isLoading: countriesLoading } =
+    useCountriesList()
 
-  const { mutate: createCompetition, isLoading: createLoading } = useCreateCompetition()
+  const { mutate: createCompetition, isLoading: createLoading } =
+    useCreateCompetition()
 
   const isLoading =
     ageCategLoading ||
@@ -33,12 +41,12 @@ const CreateCompetitionPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     createLoading ||
     countriesLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
-      <PageHeading title={t('competitions:CREATE_PAGE_TITLE')}
-      />
+      <PageHeading title={t('competitions:CREATE_PAGE_TITLE')} />
       <CreateCompetitionForm
         onSubmit={createCompetition}
         competitionAgeCategoriesData={ageCategoriesData || []}

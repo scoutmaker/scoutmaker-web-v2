@@ -8,24 +8,34 @@ import { CreateReportSkillASsessmentTemplateForm } from '@/modules/report-skill-
 import { useCreateReportSkillAssessmentTemplate } from '@/modules/report-skill-assessment-templates/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'report-skill-assessment-templates'], false)
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'report-skill-assessment-templates'],
+  false,
+)
 
-const CreateReportSkillAssessmentTemplatePage = ({ errorMessage, errorStatus }: TSsrRole) => {
+const CreateReportSkillAssessmentTemplatePage = ({
+  errorMessage,
+  errorStatus,
+}: TSsrRole) => {
   const { t } = useTranslation()
 
-  const { data: categories, isLoading: categoriesLoading } = useReportSkillAssessmentCategoriesList()
+  const { data: categories, isLoading: categoriesLoading } =
+    useReportSkillAssessmentCategoriesList()
 
-  const { mutate: createReport, isLoading: createLoading } = useCreateReportSkillAssessmentTemplate()
+  const { mutate: createReport, isLoading: createLoading } =
+    useCreateReportSkillAssessmentTemplate()
 
-  const isLoading =
-    categoriesLoading ||
-    createLoading
+  const isLoading = categoriesLoading || createLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
+
   return (
     <>
       {isLoading && <Loader />}
-      <PageHeading title={t('report-skill-assessment-templates:CREATE_PAGE_TITLE')} />
+      <PageHeading
+        title={t('report-skill-assessment-templates:CREATE_PAGE_TITLE')}
+      />
       <CreateReportSkillASsessmentTemplateForm
         onSubmit={createReport}
         categoriesData={categories || []}

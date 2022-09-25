@@ -7,20 +7,26 @@ import { CreateCompetitionAgeCategoryForm } from '@/modules/competition-age-cate
 import { useCreateCompetitionAgeCategory } from '@/modules/competition-age-categories/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'comp-age-categ'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'comp-age-categ'],
+  ['ADMIN'],
+)
 
-const CreateCompetitionAgeCategoryPage = ({ errorMessage, errorStatus }: TSsrRole) => {
+const CreateCompetitionAgeCategoryPage = ({
+  errorMessage,
+  errorStatus,
+}: TSsrRole) => {
   const { t } = useTranslation()
 
-  const { mutate: createCompAgeCateg, isLoading } = useCreateCompetitionAgeCategory()
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  const { mutate: createCompAgeCateg, isLoading } =
+    useCreateCompetitionAgeCategory()
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('comp-age-categ:CREATE_PAGE_TITLE')} />
-      <CreateCompetitionAgeCategoryForm
-        onSubmit={createCompAgeCateg}
-      />
+      <CreateCompetitionAgeCategoryForm onSubmit={createCompAgeCateg} />
     </>
   )
 }
