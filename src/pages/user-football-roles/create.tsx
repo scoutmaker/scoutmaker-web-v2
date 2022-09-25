@@ -7,21 +7,27 @@ import { CreateUserFootballRoleForm } from '@/modules/user-football-roles/forms/
 import { useCreateUserFootballRole } from '@/modules/user-football-roles/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'user-football-roles'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'user-football-roles'],
+  ['ADMIN'],
+)
 
-const CreateUserFootballRolePage = ({ errorMessage, errorStatus }: TSsrRole) => {
+const CreateUserFootballRolePage = ({
+  errorMessage,
+  errorStatus,
+}: TSsrRole) => {
   const { t } = useTranslation()
 
-  const { mutate: createRole, isLoading: createLoading } = useCreateUserFootballRole()
+  const { mutate: createRole, isLoading: createLoading } =
+    useCreateUserFootballRole()
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {createLoading && <Loader />}
       <PageHeading title={t('user-football-roles:CREATE_PAGE_TITLE')} />
-      <CreateUserFootballRoleForm
-        onSubmit={createRole}
-      />
+      <CreateUserFootballRoleForm onSubmit={createRole} />
     </>
   )
 }
