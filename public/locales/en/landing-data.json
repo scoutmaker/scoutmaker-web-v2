@@ -1,5 +1,4 @@
 {
-  "heroTitleEnd": "Analiza danych",
   "HERO_TITLE_END": "Analiza danych",
   "HERO_FEATURE1": "Bądź krok przed rywalami dzięki wiedzy analitycznej",
   "HERO_FEATURE2": "Usprawnij pracę działu skautingu",
@@ -30,6 +29,5 @@
   "PRICING_REGIONS": "Możliwość analizy wszystkich regionów",
   "PRICING_ALL": "Możliwość analizy wszystkich rozgrywek",
   "PRICING_CONST": "Stała współpraca",
-  "DATA_ANALYSIS_EXAMPLES": "Przykłady analizy danych",
-  "HOW_DO_WE_WORK": "Jak działamy?"
+  "DATA_ANALYSIS_EXAMPLES": "Przykłady analizy danych"
 }
