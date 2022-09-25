@@ -1,4 +1,4 @@
-import { State, Action } from './types'
+import { Action,State } from './types'
 
 export default (state: State, action: Action): State => {
   switch (action.type) {
