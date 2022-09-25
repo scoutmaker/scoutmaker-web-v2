@@ -14,7 +14,7 @@ export const HowDoWeWorkSection = () => {
     <Container>
       <LayoutContentWrapper>
         <Heading variant="h2">
-          {t('landing-data:HOW_DO_WE_WORK')}
+          {t('landing:HOW_DO_WE_WORK')}
         </Heading>
         <ContentContainer>
           {methodologyData.map((item) => (
@@ -36,7 +36,7 @@ const Heading = styled(Typography)(({ theme }) => ({
   color: theme.palette.primary.contrastText,
   padding: theme.spacing(3, 0),
 
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     textAlign: 'center',
   },
 }))

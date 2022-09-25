@@ -27,7 +27,7 @@ const TileContainer = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   marginBottom: theme.spacing(2),
 
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     alignItems: 'center',
     margin: '0 auto',
     marginBottom: theme.spacing(2),

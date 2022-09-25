@@ -18,7 +18,7 @@ export const PricingSection = ({ onButtonClick }: Props) => {
     <section>
       <LayoutContentWrapper>
         <Heading variant="h2">
-          {t('landing-scouting:PRICE_TABLE')}
+          {t('landing:PRICE_TABLE')}
         </Heading>
         <Container>
           <PricingCard
@@ -38,7 +38,7 @@ const Heading = styled(Typography)(({ theme }) => ({
   fontSize: 48,
   padding: theme.spacing(3, 0),
 
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     textAlign: 'center',
   },
 }))

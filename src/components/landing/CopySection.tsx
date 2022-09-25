@@ -54,12 +54,19 @@ const Heading = styled(Typography)(({ theme }) => ({
     color: theme.palette.secondary.main,
     fontStyle: 'normal',
   },
+
+  [theme.breakpoints.down('md')]: {
+    textAlign: 'center',
+  },
 }))
 
 const Text = styled(Typography)(({ theme }) => ({
   '& em': {
     color: theme.palette.secondary.main,
     fontStyle: 'normal',
+  },
+  [theme.breakpoints.down('md')]: {
+    textAlign: 'center',
   },
 }))
 

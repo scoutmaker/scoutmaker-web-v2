@@ -45,7 +45,7 @@ const ScoutingAcademyPage = () => {
         <HeroSection {...heroDataTrans} />
         <CopySection {...copyDataTrans} />
         <ValuesSection values={valuesTrans} />
-        <AdvantagesSection advantages={advantagesTrans} />
+        <AdvantagesSection advantages={advantagesTrans} dark />
         <EffectsSection title={t('landing-academy:TRUSTED_US')} effects={effectsTrans} />
         <PricingSection onButtonClick={() => setIsContactFormModalOpen(true)} />
         <ContactFormModal

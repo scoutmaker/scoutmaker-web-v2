@@ -10,7 +10,7 @@ import { ButtonsContainer, FlexWrapper, GoToAppButton, GoToAppContainer, Heading
 export const getServerSideProps = withSessionSsr(
   async ({ locale }) => {
     const translations = await serverSideTranslations(locale || 'pl', [
-      'landing-home',
+      'landing-home', 'landing'
     ])
 
     return {
@@ -40,18 +40,18 @@ const HomePage = () => {
           </Typography>
           <ButtonsContainer>
             <CtaButton
-              text={t('landing-home:CLUB_SCOUTING')}
+              text={t('landing:CLUB_SCOUTING')}
               href="/club-scouting"
             />
             <CtaButton
-              text={t('landing-home:ACADEMY_SCOUTING')}
+              text={t('landing:SCOUTING_ACADEMY')}
               href="/scouting-academy"
             />
             <CtaButton
-              text={t('landing-home:SCOUTING_APP')}
+              text={t('landing:SCOUTING_APP')}
               href="/scouting-app"
             />
-            <CtaButton text={t('landing-home:DATA_ANALYSIS')} href="/data-analysis" />
+            <CtaButton text={t('landing:DATA_ANALYSIS')} href="/data-analysis" />
           </ButtonsContainer>
         </div>
       </FlexWrapper>

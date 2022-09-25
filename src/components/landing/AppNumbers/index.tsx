@@ -4,30 +4,31 @@ import {
   Search as ScoutsIcon,
 } from '@mui/icons-material';
 import { styled } from '@mui/material';
+import { useTranslation } from 'next-i18next';
 
 import { AppNumber } from './AppNumber';
 
-/* eslint-disable arrow-body-style */
 export const AppNumbers = () => {
+  const { t } = useTranslation()
   // TO_ADD DATA HOOK
 
   return (
     <Container>
       <AppNumber
         count={500}
-        title="Raportów"
+        title={t('landing:NUMBERS_REPORTS')}
         icon={<ReportsIcon />}
       />
       <Divider />
       <AppNumber
         count={100}
-        title="Notatek"
+        title={t('landing:NUMBERS_NOTES')}
         icon={<NotesIcon />}
       />
       <Divider />
       <AppNumber
         count={20}
-        title="Skautów"
+        title={t('landing:NUMBERS_SCOUTS')}
         icon={<ScoutsIcon />}
       />
     </Container>

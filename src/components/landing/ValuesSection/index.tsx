@@ -55,7 +55,7 @@ const Heading = styled(Typography)(({ theme }) => ({
   fontSize: 48,
   padding: theme.spacing(8, 0),
 
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     textAlign: 'center',
   },
 }))
