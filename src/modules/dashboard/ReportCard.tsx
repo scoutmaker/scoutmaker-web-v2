@@ -1,4 +1,4 @@
-import { Avatar, Card, CardActionArea, CardContent, CardHeader, Grid, Typography } from "@mui/material";
+import { Avatar, Card, CardActionArea, CardContent, CardHeader, Grid, styled, Typography } from "@mui/material";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 
@@ -7,6 +7,9 @@ import { formatDate } from "@/utils/format-date";
 import { getDocumentNumber } from "@/utils/get-document-number";
 
 import { ReportDto } from "../reports/types";
+import { CardItemBasic } from "@/components/details-card/details-card-item";
+import { getPlayerFullName } from "../players/utils";
+import { StyledAvatar } from "./StyledAvatar";
 
 interface IReportCardProps {
   report: ReportDto
@@ -26,7 +29,7 @@ export const ReportCard = ({ report, title }: IReportCardProps) => {
         <Link href={`/reports/${id}`} >
           <CardHeader
             avatar={
-              <StyledAvatar aria-label="report icon">
+              <StyledAvatar aria-label="report icon" secondary>
                 <ReportsIcon />
               </StyledAvatar>
             }
@@ -38,38 +41,12 @@ export const ReportCard = ({ report, title }: IReportCardProps) => {
       </CardActionArea>
       <CardContent>
         <Grid container spacing={1}>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('PLAYER')}: </strong>
-              {player.firstName} {player.lastName}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('SCOUT')}: </strong>
-              {author.firstName} {author.lastName}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('CREATED_DATE')}: </strong>
-              {formatDate(createdAt)}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('AVG_RATING')}: </strong>
-              {avgRating?.toFixed(2) || t('NONE')}
-            </Typography>
-          </Grid>
+          <CardItemBasic title={t('PLAYER')} value={getPlayerFullName(player)} href={`/players/${player.slug}`} />
+          <CardItemBasic title={t('SCOUT')} value={`${author.firstName} ${author.lastName}`} />
+          <CardItemBasic title={t('CREATED_DATE')} value={formatDate(createdAt)} />
+          <CardItemBasic title={t('AVG_RATING')} value={avgRating?.toFixed(2) || t('NONE')} />
         </Grid>
       </CardContent>
     </Card>
   );
 };
-
-const StyledAvatar = ({ children }: any) => (<Avatar sx={(theme) => ({
-  background: theme.palette.secondary.main,
-  width: 50,
-  height: 50,
-})}>{children}</Avatar>)

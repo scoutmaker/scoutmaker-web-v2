@@ -1,6 +1,7 @@
 import { Add as AddIcon } from '@mui/icons-material'
-import { Avatar, Card, CardActionArea, CardContent, Typography } from "@mui/material";
+import { Card, CardActionArea, CardContent, styled, Typography } from "@mui/material";
 import Link from 'next/link';
+import { StyledAvatar } from "./StyledAvatar";
 
 interface ICreateCardProps {
   linkTo: string
@@ -28,18 +29,10 @@ export const CreateCard = ({ linkTo, title }: ICreateCardProps) => (
   </Card>
 );
 
-const CardContentContainer = ({ children }: any) => (
-  <CardContent sx={(theme) => ({
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    background: theme.palette.secondary.main,
-  })}>{children}</CardContent>)
-
-const StyledAvatar = ({ children }: any) => (<Avatar sx={(theme) => ({
-  backgroundColor: theme.palette.primary.main,
-  height: 56,
-  width: 56,
-})}>{children}</Avatar>)
-
+const CardContentContainer = styled(CardContent)(({ theme }) => ({
+  height: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  background: theme.palette.secondary.main,
+}))

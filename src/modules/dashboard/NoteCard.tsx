@@ -1,4 +1,4 @@
-import { Avatar, Card, CardActionArea, CardContent, CardHeader, Grid, Typography } from "@mui/material";
+import { Card, CardActionArea, CardContent, CardHeader, Grid } from "@mui/material";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 
@@ -7,6 +7,8 @@ import { formatDate } from "@/utils/format-date";
 import { getDocumentNumber } from "@/utils/get-document-number";
 
 import { NoteDto } from "../notes/types";
+import { CardItemBasic } from "@/components/details-card/details-card-item";
+import { StyledAvatar } from "./StyledAvatar";
 
 interface INoteCardProps {
   note: NoteDto;
@@ -23,7 +25,7 @@ export const NoteCard = ({ note, title }: INoteCardProps) => {
         <Link href={`/notes/${id}`}>
           <CardHeader
             avatar={
-              <StyledAvatar aria-label="note icon" >
+              <StyledAvatar aria-label="note icon" secondary>
                 <NotesIcon />
               </StyledAvatar>
             }
@@ -35,40 +37,17 @@ export const NoteCard = ({ note, title }: INoteCardProps) => {
       </CardActionArea>
       <CardContent>
         <Grid container spacing={1}>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('PLAYER')}: </strong>
-              {player
-                ? `${player.firstName} ${player.lastName}`
-                : `${t('PLAYER')} no. ${shirtNo || 'N/A'}`}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('SCOUT')}: </strong>
-              {author.firstName} {author.lastName}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('CREATED_DATE')}: </strong>
-              {formatDate(createdAt)}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('RATING')}: </strong>
-              {rating}
-            </Typography>
-          </Grid>
+          <CardItemBasic
+            title={t('PLAYER')}
+            value={player
+              ? `${player.firstName} ${player.lastName}`
+              : `${t('PLAYER')} no. ${shirtNo || 'N/A'}`}
+            href={player ? `/players/${player.slug}` : undefined} />
+          <CardItemBasic title={t('CREATED_DATE')} value={formatDate(createdAt)} />
+          <CardItemBasic title={t('SCOUT')} value={`${author.firstName} ${author.lastName}`} />
+          <CardItemBasic title={t('RATING')} value={rating} />
         </Grid>
       </CardContent>
     </Card>
   );
 };
-
-const StyledAvatar = ({ children }: any) => (<Avatar sx={(theme) => ({
-  background: theme.palette.secondary.main,
-  width: 50,
-  height: 50,
-})}>{children}</Avatar>)
