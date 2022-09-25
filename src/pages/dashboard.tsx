@@ -4,6 +4,7 @@ import { useTranslation } from "next-i18next";
 import { NotesIcon, PlayersIcon, ReportsIcon, TeamsIcon } from "@/components/icons";
 import { Loader } from "@/components/loader/loader";
 import { PageHeading } from "@/components/page-heading/page-heading";
+import { useUser } from "@/modules/auth/hooks";
 import { CountCard } from "@/modules/dashboard/CountCard";
 import { CreateCard } from "@/modules/dashboard/CreateCard";
 import { NoteCard } from "@/modules/dashboard/NoteCard";
@@ -13,23 +14,25 @@ import { usePlayers } from "@/modules/players/hooks";
 import { useReports } from "@/modules/reports/hooks";
 import { ReportDto } from "@/modules/reports/types";
 import { useTeams } from "@/modules/teams/hooks";
-import { TSsrRole, withSessionSsrRole } from "@/utils/withSessionSsrRole";
+import { withSessionSsrRole } from "@/utils/withSessionSsrRole";
 
-export const getServerSideProps = withSessionSsrRole<string>(['common', 'dashboard'], false,
-  async (token, params, user) => ({ data: user?.id as string }))
+export const getServerSideProps = withSessionSsrRole<string>(['common', 'dashboard'], false)
 
-const DashboardPage = ({ data }: TSsrRole<string>) => {
+const DashboardPage = () => {
   const { t } = useTranslation()
+
+  const { data: userData, isLoading: userDataLoading } = useUser()
+  const { id: userId } = userData || {}
 
   const { data: players, isLoading: playersLoading } = usePlayers({})
   const { data: teams, isLoading: teamsLoading } = useTeams({})
   const { data: reports, isLoading: reportsLoading } = useReports({})
   const { data: userReports, isLoading: userReportsLoading } = useReports({
-    userId: data || ''
+    userId
   })
   const { data: notes, isLoading: notesLoading } = useNotes({})
   const { data: userNotes, isLoading: userNotesLoading } = useNotes({
-    userId: data || ''
+    userId
   })
   const { data: latestReport, isLoading: latestReportLoading } = useReports({
     limit: 2,
@@ -44,7 +47,8 @@ const DashboardPage = ({ data }: TSsrRole<string>) => {
     sortBy: 'createdAt'
   })
 
-  const isLoading = playersLoading || teamsLoading || reportsLoading || userReportsLoading || notesLoading || userNotesLoading || latestReportLoading || highestRatedReportLoading || latestNoteLoading
+
+  const isLoading = playersLoading || teamsLoading || reportsLoading || userReportsLoading || notesLoading || userNotesLoading || latestReportLoading || highestRatedReportLoading || latestNoteLoading || userDataLoading
 
   return (
     <>
