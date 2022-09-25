@@ -1,0 +1,9 @@
+{
+  "NO_NAME_ERROR": "Podaj nazwę szablonu raportu",
+  "NO_RATING_ERROR": "Podaj maksymalną ocenę szablonu raportu",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć szablon raportu {{name}}?",
+  "INDEX_PAGE_TITLE": "Baza szablonów raportów",
+  "CREATE_PAGE_TITLE": "Utwórz nowy szablon raportu",
+  "EDIT_PAGE_TITLE": "Edycja danych szablonu raportu",
+  "IS_PUBLIC": "Publiczny"
+}
