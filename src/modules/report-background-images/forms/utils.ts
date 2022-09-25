@@ -18,7 +18,7 @@ export function generateCreateValidationSchema(t: TFunction) {
   return yup
     .object({
       name: yup.string().required(t('report-bg-images:NO_NAME_ERROR')),
-      url: yup.string().required(t('report-bg-images:NO_URL_ERROR')),
+      url: yup.string().url().required(t('report-bg-images:NO_URL_ERROR')),
       isPublic: yup.boolean().required(),
     })
     .defined()
@@ -27,7 +27,7 @@ export function generateCreateValidationSchema(t: TFunction) {
 export function generateUpdateValidationSchema() {
   return yup.object({
     name: yup.string().notRequired(),
-    url: yup.string().notRequired(),
+    url: yup.string().url().notRequired(),
   })
 }
 
