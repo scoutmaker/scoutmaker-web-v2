@@ -7,7 +7,8 @@ import { IComboProps } from '@/types/combo'
 
 import { ReportSkillAssessmentTemplateDto } from './types'
 
-interface IRSATComboProps extends IComboProps<ReportSkillAssessmentTemplateDto> { }
+interface IRSATComboProps
+  extends IComboProps<ReportSkillAssessmentTemplateDto> {}
 
 export const ReportSkillAssessmentTemplatesCombo = ({
   data,
@@ -29,12 +30,10 @@ export const ReportSkillAssessmentTemplatesCombo = ({
       size={size}
       options={['', ...data.map(s => s.id)]}
       getOptionLabel={(option: string) => {
-        if (option === '')
-          return ''
+        if (option === '') return ''
 
         const template = data.find(s => s.id === option)
-        if (template)
-          return `${template.name} (${template.category.name})`
+        if (template) return `${template.name} (${template.category.name})`
 
         return t('NONE')
       }}

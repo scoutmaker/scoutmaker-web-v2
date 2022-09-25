@@ -8,16 +8,22 @@ import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { ReportTemplatesFilterForm } from '@/modules/report-templates/forms/filter'
-import { useDeleteReportTemplate, useReportTemplates } from '@/modules/report-templates/hooks'
+import {
+  useDeleteReportTemplate,
+  useReportTemplates,
+} from '@/modules/report-templates/hooks'
 import { ReportTemplatesTableRow } from '@/modules/report-templates/table/row'
 import { ReportTemplatesTable } from '@/modules/report-templates/table/table'
-import { ReportTemplatesFiltersDto, ReportTemplatesSortBy } from '@/modules/report-templates/types'
+import {
+  ReportTemplatesFiltersDto,
+  ReportTemplatesSortBy,
+} from '@/modules/report-templates/types'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 const initialFilters: ReportTemplatesFiltersDto = {
-  name: ''
+  name: '',
 }
 
 export const getServerSideProps = withSessionSsrRole(
@@ -63,10 +69,10 @@ const ReportTemplatesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     ...filters,
   })
 
-  const { mutate: deleteTemplate, isLoading: deleteLoading } = useDeleteReportTemplate()
+  const { mutate: deleteTemplate, isLoading: deleteLoading } =
+    useDeleteReportTemplate()
 
-  const isLoading =
-    dataLoading || deleteLoading
+  const isLoading = dataLoading || deleteLoading
 
   if (errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />

@@ -8,15 +8,21 @@ import { CreateReportTemplateForm } from '@/modules/report-templates/forms/creat
 import { useCreateReportTemplate } from '@/modules/report-templates/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'report-templates'], false)
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'report-templates'],
+  false,
+)
 
 const CreateReportTemplatePage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
 
-  const { mutate: createReportTemplate, isLoading: createLoading } = useCreateReportTemplate()
-  const { data: skillTemplates, isLoading: skillTemplatesLoading } = useReportSkillAssessmentTemplatesList()
+  const { mutate: createReportTemplate, isLoading: createLoading } =
+    useCreateReportTemplate()
+  const { data: skillTemplates, isLoading: skillTemplatesLoading } =
+    useReportSkillAssessmentTemplatesList()
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {(createLoading || skillTemplatesLoading) && <Loader />}

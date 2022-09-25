@@ -6,7 +6,9 @@ import { ReportTemplatesIcon } from '@/components/icons'
 
 import { ReportTemplateDto } from './types'
 
-export const ReportTemplatesDetailsCard = ({ reportTemplate }: IRegionDetailsCard) => {
+export const ReportTemplatesDetailsCard = ({
+  reportTemplate,
+}: IRegionDetailsCard) => {
   const { t } = useTranslation()
 
   const { name, maxRatingScore, skillAssessmentTemplates } = reportTemplate
@@ -29,7 +31,10 @@ export const ReportTemplatesDetailsCard = ({ reportTemplate }: IRegionDetailsCar
         <Grid container spacing={1}>
           <CardItemBasic title={t('NAME')} value={name} />
           <CardItemBasic title={t('MAX_RATING_SCORE')} value={maxRatingScore} />
-          <CardItemBasic title={t('REPORT_SKILL_ASSESSMENT_TEMPLATES')} value={skillAssessmentTemplates.map(e => e.name).join(', ')} />
+          <CardItemBasic
+            title={t('REPORT_SKILL_ASSESSMENT_TEMPLATES')}
+            value={skillAssessmentTemplates.map(e => e.name).join(', ')}
+          />
         </Grid>
       </CardContent>
     </Card>

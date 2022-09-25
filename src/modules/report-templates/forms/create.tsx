@@ -24,7 +24,7 @@ export const CreateReportTemplateForm = ({
   onSubmit,
   onCancelClick,
   fullwidth,
-  skillTemplatesData
+  skillTemplatesData,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -56,7 +56,7 @@ export const CreateReportTemplateForm = ({
             <Field
               name="maxRatingScore"
               as={TextField}
-              type='number'
+              type="number"
               variant="outlined"
               fullWidth
               label={t('MAX_RATING_SCORE')}
@@ -65,13 +65,20 @@ export const CreateReportTemplateForm = ({
             />
             <ReportSkillAssessmentTemplatesCombo
               data={skillTemplatesData}
-              name='skillAssessmentTemplateIds'
+              name="skillAssessmentTemplateIds"
               multiple
               label={t('REPORT_SKILL_ASSESSMENT_TEMPLATES')}
-              error={touched.skillAssessmentTemplateIds && !!errors.skillAssessmentTemplateIds}
-              helperText={touched.skillAssessmentTemplateIds ? errors.skillAssessmentTemplateIds as string : undefined}
+              error={
+                touched.skillAssessmentTemplateIds &&
+                !!errors.skillAssessmentTemplateIds
+              }
+              helperText={
+                touched.skillAssessmentTemplateIds
+                  ? (errors.skillAssessmentTemplateIds as string)
+                  : undefined
+              }
             />
-            <Box display='flex' justifyContent='center'>
+            <Box display="flex" justifyContent="center">
               <Field
                 component={CheckboxWithLabel}
                 type="checkbox"

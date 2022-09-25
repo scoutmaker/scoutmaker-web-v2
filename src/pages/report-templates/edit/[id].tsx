@@ -34,10 +34,10 @@ const EditReportTemplatePage = ({
 }: TSsrRole<ReportTemplateDto>) => {
   const { t } = useTranslation()
 
-  const { mutate: updateReportTemplate, isLoading: updateLoading } = useUpdateReportTemplate(
-    data?.id || '',
-  )
-  const { data: skillTemplates, isLoading: skillTemplatesLoading } = useReportSkillAssessmentTemplatesList()
+  const { mutate: updateReportTemplate, isLoading: updateLoading } =
+    useUpdateReportTemplate(data?.id || '')
+  const { data: skillTemplates, isLoading: skillTemplatesLoading } =
+    useReportSkillAssessmentTemplatesList()
 
   if (!data || errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />

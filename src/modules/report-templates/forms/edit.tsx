@@ -27,7 +27,7 @@ export const EditReportTemplateForm = ({
   onSubmit,
   onCancelClick,
   fullwidth,
-  skillTemplatesData
+  skillTemplatesData,
 }: IEditFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -56,7 +56,7 @@ export const EditReportTemplateForm = ({
             <Field
               name="maxRatingScore"
               as={TextField}
-              type='number'
+              type="number"
               variant="outlined"
               fullWidth
               label={t('MAX_RATING_SCORE')}
@@ -65,11 +65,18 @@ export const EditReportTemplateForm = ({
             />
             <ReportSkillAssessmentTemplatesCombo
               data={skillTemplatesData}
-              name='skillAssessmentTemplateIds'
+              name="skillAssessmentTemplateIds"
               multiple
               label={t('REPORT_SKILL_ASSESSMENT_TEMPLATES')}
-              error={touched.skillAssessmentTemplateIds && !!errors.skillAssessmentTemplateIds}
-              helperText={touched.skillAssessmentTemplateIds ? errors.skillAssessmentTemplateIds as string : undefined}
+              error={
+                touched.skillAssessmentTemplateIds &&
+                !!errors.skillAssessmentTemplateIds
+              }
+              helperText={
+                touched.skillAssessmentTemplateIds
+                  ? (errors.skillAssessmentTemplateIds as string)
+                  : undefined
+              }
             />
             <MainFormActions
               label={t('REPORT_TEMPLATE')}
