@@ -10,7 +10,10 @@ import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types
 import { CompetitionsCombo } from '@/modules/competitions/combo'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 
-import { OrganizationSubscriptionDto, UpdateOrganizationSubscriptionDto } from '../types'
+import {
+  OrganizationSubscriptionDto,
+  UpdateOrganizationSubscriptionDto,
+} from '../types'
 import {
   generateUpdateValidationSchema,
   getInitialStateFromCurrent,
@@ -31,7 +34,7 @@ export const EditOrganizationSubscriptionForm = ({
   onCancelClick,
   fullwidth,
   competitionGroupsData,
-  competitionsData
+  competitionsData,
 }: IEditFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -50,24 +53,34 @@ export const EditOrganizationSubscriptionForm = ({
           <Container fullwidth={fullwidth}>
             <CompetitionsCombo
               data={competitionsData}
-              name='competitionIds'
+              name="competitionIds"
               multiple
               label={t('COMPETITIONS')}
               error={touched.competitionIds && !!errors.competitionIds}
-              helperText={touched.competitionIds ? errors.competitionIds as string : undefined}
+              helperText={
+                touched.competitionIds
+                  ? (errors.competitionIds as string)
+                  : undefined
+              }
             />
             <CompetitionGroupsCombo
               data={competitionGroupsData}
-              name='competitionGroupIds'
+              name="competitionGroupIds"
               multiple
               label={t('COMPETITION_GROUPS')}
-              error={touched.competitionGroupIds && !!errors.competitionGroupIds}
-              helperText={touched.competitionGroupIds ? errors.competitionGroupIds as string : undefined}
+              error={
+                touched.competitionGroupIds && !!errors.competitionGroupIds
+              }
+              helperText={
+                touched.competitionGroupIds
+                  ? (errors.competitionGroupIds as string)
+                  : undefined
+              }
             />
             <Field
               name="startDate"
               as={TextField}
-              type='date'
+              type="date"
               variant="outlined"
               fullWidth
               label={t('organization-subs:START_DATE')}
@@ -77,7 +90,7 @@ export const EditOrganizationSubscriptionForm = ({
             <Field
               name="endDate"
               as={TextField}
-              type='date'
+              type="date"
               variant="outlined"
               fullWidth
               label={t('organization-subs:END_DATE')}

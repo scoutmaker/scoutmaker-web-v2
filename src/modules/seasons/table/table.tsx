@@ -13,7 +13,7 @@ function generateHeadCells(t: TFunction): IHeadCell[] {
     { id: 'name', label: t('NAME') },
     { id: 'startDate', label: t('seasons:START_DATE') },
     { id: 'endDate', label: t('seasons:END_DATE') },
-    { id: 'isActive', label: t('seasons:IS_ACTIVE') }
+    { id: 'isActive', label: t('seasons:IS_ACTIVE') },
   ]
 }
 

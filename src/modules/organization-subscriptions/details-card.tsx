@@ -10,7 +10,8 @@ import { OrganizationSubscriptionDto } from './types'
 export const OrganizationSubscriptionDetailsCard = ({ sub }: IDetailsCard) => {
   const { t } = useTranslation()
 
-  const { endDate, startDate, competitionGroups, competitions, organization } = sub
+  const { endDate, startDate, competitionGroups, competitions, organization } =
+    sub
 
   return (
     <Card sx={{ maxWidth: 700, margin: '0 auto' }}>
@@ -28,9 +29,19 @@ export const OrganizationSubscriptionDetailsCard = ({ sub }: IDetailsCard) => {
       />
       <CardContent>
         <Grid container spacing={1}>
-          <CardItemBasic title={t('ORGANIZATION')} value={organization.name} href={`/organizations/${organization.id}`} />
-          <CardItemBasic title={t('COMPETITIONS')} value={competitions.map(c => c.name).join(', ')} />
-          <CardItemBasic title={t('COMPETITION_GROUPS')} value={competitionGroups.map(g => g.name).join(', ')} />
+          <CardItemBasic
+            title={t('ORGANIZATION')}
+            value={organization.name}
+            href={`/organizations/${organization.id}`}
+          />
+          <CardItemBasic
+            title={t('COMPETITIONS')}
+            value={competitions.map(c => c.name).join(', ')}
+          />
+          <CardItemBasic
+            title={t('COMPETITION_GROUPS')}
+            value={competitionGroups.map(g => g.name).join(', ')}
+          />
           <CardItemBasic
             title={t('organization-subs:START_DATE')}
             value={formatDate(startDate)}

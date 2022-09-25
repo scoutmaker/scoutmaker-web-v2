@@ -31,7 +31,7 @@ export const EditUserSubscriptionForm = ({
   onCancelClick,
   fullwidth,
   competitionGroupsData,
-  competitionsData
+  competitionsData,
 }: IEditFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -49,25 +49,33 @@ export const EditUserSubscriptionForm = ({
         <Form>
           <Container fullwidth={fullwidth}>
             <CompetitionsCombo
-              name='competitionIds'
+              name="competitionIds"
               data={competitionsData}
               multiple
               error={touched.competitionIds && !!errors.competitionIds}
-              helperText={touched.competitionIds ? errors.competitionIds as string : undefined}
+              helperText={
+                touched.competitionIds
+                  ? (errors.competitionIds as string)
+                  : undefined
+              }
               label={t('COMPETITIONS')}
             />
             <CompetitionGroupsCombo
-              name='competitionGroupIds'
+              name="competitionGroupIds"
               data={competitionGroupsData}
               multiple
               error={touched.competitionIds && !!errors.competitionIds}
-              helperText={touched.competitionIds ? errors.competitionIds as string : undefined}
+              helperText={
+                touched.competitionIds
+                  ? (errors.competitionIds as string)
+                  : undefined
+              }
               label={t('COMPETITION_GROUPS')}
             />
             <Field
               name="startDate"
               as={TextField}
-              type='date'
+              type="date"
               variant="outlined"
               fullWidth
               label={t('user-subs:START_DATE')}
@@ -77,7 +85,7 @@ export const EditUserSubscriptionForm = ({
             <Field
               name="endDate"
               as={TextField}
-              type='date'
+              type="date"
               variant="outlined"
               fullWidth
               label={t('user-subs:END_DATE')}

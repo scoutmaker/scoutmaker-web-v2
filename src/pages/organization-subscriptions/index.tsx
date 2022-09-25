@@ -10,10 +10,16 @@ import { PageHeading } from '@/components/page-heading/page-heading'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { OrganizationSubscriptionsFilterForm } from '@/modules/organization-subscriptions/forms/filter'
-import { useDeleteOrganizationSubscription, useOrganizationSubscriptions } from '@/modules/organization-subscriptions/hooks'
+import {
+  useDeleteOrganizationSubscription,
+  useOrganizationSubscriptions,
+} from '@/modules/organization-subscriptions/hooks'
 import { OrganizationSubscriptionsTableRow } from '@/modules/organization-subscriptions/table/row'
 import { OrganizationSubscriptionsTable } from '@/modules/organization-subscriptions/table/table'
-import { OrganizationSubscriptionsFiltersDto, OrganizationSubscriptionsSortBy } from '@/modules/organization-subscriptions/types'
+import {
+  OrganizationSubscriptionsFiltersDto,
+  OrganizationSubscriptionsSortBy,
+} from '@/modules/organization-subscriptions/types'
 import { useOrganizationsList } from '@/modules/organizations/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
@@ -22,7 +28,7 @@ import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 const initialFilters: OrganizationSubscriptionsFiltersDto = {
   competitionGroupIds: [],
   competitionIds: [],
-  organizationId: ''
+  organizationId: '',
 }
 
 export const getServerSideProps = withSessionSsrRole(
@@ -35,7 +41,10 @@ interface IToDeleteData {
   name: string
 }
 
-const OrganizationSubscriptionsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
+const OrganizationSubscriptionsPage = ({
+  errorMessage,
+  errorStatus,
+}: TSsrRole) => {
   const { t } = useTranslation()
   const router = useRouter()
 
@@ -50,32 +59,42 @@ const OrganizationSubscriptionsPage = ({ errorMessage, errorStatus }: TSsrRole) 
     handleSort,
   } = useTable('orgSubsTable')
 
-  const [filters, setFilters] = useLocalStorage<OrganizationSubscriptionsFiltersDto>({
-    key: 'organization-subs-filters',
-    initialValue: initialFilters,
-  })
+  const [filters, setFilters] =
+    useLocalStorage<OrganizationSubscriptionsFiltersDto>({
+      key: 'organization-subs-filters',
+      initialValue: initialFilters,
+    })
 
   function handleSetFilters(newFilters: OrganizationSubscriptionsFiltersDto) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
 
-  const { data: orgSubs, isLoading: dataLoading } = useOrganizationSubscriptions({
-    page: page + 1,
-    limit: rowsPerPage,
-    sortBy: sortBy as OrganizationSubscriptionsSortBy,
-    sortingOrder: order,
-    ...filters,
-  })
+  const { data: orgSubs, isLoading: dataLoading } =
+    useOrganizationSubscriptions({
+      page: page + 1,
+      limit: rowsPerPage,
+      sortBy: sortBy as OrganizationSubscriptionsSortBy,
+      sortingOrder: order,
+      ...filters,
+    })
 
-  const { mutate: deleteOrgSub, isLoading: deleteLoading } = useDeleteOrganizationSubscription()
+  const { mutate: deleteOrgSub, isLoading: deleteLoading } =
+    useDeleteOrganizationSubscription()
 
-  const { data: organizations, isLoading: organizationsLoading } = useOrganizationsList()
-  const { data: compGroups, isLoading: compgroupsLoading } = useCompetitionGroupsList()
-  const { data: competitions, isLoading: competitionsLoading } = useCompetitionsList()
+  const { data: organizations, isLoading: organizationsLoading } =
+    useOrganizationsList()
+  const { data: compGroups, isLoading: compgroupsLoading } =
+    useCompetitionGroupsList()
+  const { data: competitions, isLoading: competitionsLoading } =
+    useCompetitionsList()
 
   const isLoading =
-    dataLoading || deleteLoading || organizationsLoading || compgroupsLoading || competitionsLoading
+    dataLoading ||
+    deleteLoading ||
+    organizationsLoading ||
+    compgroupsLoading ||
+    competitionsLoading
   if (errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
@@ -121,7 +140,9 @@ const OrganizationSubscriptionsPage = ({ errorMessage, errorStatus }: TSsrRole) 
       <Fab href="/organization-subscriptions/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}
-        message={t('organization-subs:DELETE_CONFIRM_QUESTION', { name: toDeleteData?.name })}
+        message={t('organization-subs:DELETE_CONFIRM_QUESTION', {
+          name: toDeleteData?.name,
+        })}
         handleAccept={() => {
           if (toDeleteData) deleteOrgSub(toDeleteData.id)
 

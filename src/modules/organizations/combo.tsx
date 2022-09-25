@@ -7,7 +7,8 @@ import { IComboProps } from '@/types/combo'
 
 import { OrganizationBasicDataDto } from './types'
 
-interface IOrganizationsComboProps extends IComboProps<OrganizationBasicDataDto> { }
+interface IOrganizationsComboProps
+  extends IComboProps<OrganizationBasicDataDto> {}
 
 export const OrganizationsCombo = ({
   data,
@@ -29,12 +30,10 @@ export const OrganizationsCombo = ({
       size={size}
       options={['', ...data.map(o => o.id)]}
       getOptionLabel={(option: string) => {
-        if (!option)
-          return ''
+        if (!option) return ''
 
         const organization = data.find(s => s.id === option)
-        if (organization)
-          return organization.name
+        if (organization) return organization.name
 
         return t('NONE')
       }}

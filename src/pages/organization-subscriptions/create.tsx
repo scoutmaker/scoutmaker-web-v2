@@ -10,20 +10,35 @@ import { useCreateOrganizationSubscription } from '@/modules/organization-subscr
 import { useOrganizationsList } from '@/modules/organizations/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'organization-subs'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'organization-subs'],
+  ['ADMIN'],
+)
 
-const CreateOrganizationSubscriptionPage = ({ errorMessage, errorStatus }: TSsrRole) => {
+const CreateOrganizationSubscriptionPage = ({
+  errorMessage,
+  errorStatus,
+}: TSsrRole) => {
   const { t } = useTranslation()
 
-  const { mutate: createOrgSub, isLoading: createLoading } = useCreateOrganizationSubscription()
+  const { mutate: createOrgSub, isLoading: createLoading } =
+    useCreateOrganizationSubscription()
 
-  const { data: organizations, isLoading: organizationsLoading } = useOrganizationsList()
-  const { data: compGroups, isLoading: compgroupsLoading } = useCompetitionGroupsList()
-  const { data: competitions, isLoading: competitionsLoading } = useCompetitionsList()
+  const { data: organizations, isLoading: organizationsLoading } =
+    useOrganizationsList()
+  const { data: compGroups, isLoading: compgroupsLoading } =
+    useCompetitionGroupsList()
+  const { data: competitions, isLoading: competitionsLoading } =
+    useCompetitionsList()
 
-  const isLoading = createLoading || organizationsLoading || compgroupsLoading || competitionsLoading
+  const isLoading =
+    createLoading ||
+    organizationsLoading ||
+    compgroupsLoading ||
+    competitionsLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}

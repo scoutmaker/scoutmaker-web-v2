@@ -27,7 +27,7 @@ export const OrganizationSubscriptionsFilterForm = ({
   onClearFilters,
   competitionGroupsData,
   competitionsData,
-  organizationsData
+  organizationsData,
 }: IFormProps) => {
   const { t } = useTranslation()
 
@@ -42,17 +42,17 @@ export const OrganizationSubscriptionsFilterForm = ({
           <Container>
             <OrganizationsCombo
               data={organizationsData}
-              name='organizationId'
+              name="organizationId"
             />
             <CompetitionsCombo
               data={competitionsData}
-              name='competitionIds'
+              name="competitionIds"
               multiple
               label={t('COMPETITIONS')}
             />
             <CompetitionGroupsCombo
               data={competitionGroupsData}
-              name='competitionGroupIds'
+              name="competitionGroupIds"
               multiple
               label={t('COMPETITION_GROUPS')}
             />

@@ -19,7 +19,7 @@ interface ICreateFormProps {
 export const CreatePlayerPositionForm = ({
   onSubmit,
   onCancelClick,
-  fullwidth
+  fullwidth,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()

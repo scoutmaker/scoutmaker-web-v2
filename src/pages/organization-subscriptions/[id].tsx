@@ -8,21 +8,25 @@ import { getOrganizationSubscriptionById } from '@/services/api/methods/organiza
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<OrganizationSubscriptionDto>(
-  ['common', 'organization-subs'],
-  ['ADMIN'],
-  async (token, params) => {
-    try {
-      const data = await getOrganizationSubscriptionById(params?.id as string, token)
-      return { data }
-    } catch (error) {
-      return {
-        data: null,
-        error: error as ApiError,
+export const getServerSideProps =
+  withSessionSsrRole<OrganizationSubscriptionDto>(
+    ['common', 'organization-subs'],
+    ['ADMIN'],
+    async (token, params) => {
+      try {
+        const data = await getOrganizationSubscriptionById(
+          params?.id as string,
+          token,
+        )
+        return { data }
+      } catch (error) {
+        return {
+          data: null,
+          error: error as ApiError,
+        }
       }
-    }
-  },
-)
+    },
+  )
 
 const OrganizationSubscriptionPage = ({
   data,

@@ -30,7 +30,7 @@ export const TeamAffiliationsTableRow = ({
   onDeleteClick,
   isEditOptionEnabled,
   isDeleteOptionEnabled,
-  actions
+  actions,
 }: ITeamAffiliationsTableRowProps) => {
   const { id, player, team, startDate, endDate } = data
   const router = useRouter()
@@ -48,9 +48,11 @@ export const TeamAffiliationsTableRow = ({
     <StyledTableRow
       hover
       key={id}
-      onClick={isMenuOpen ? undefined : () => router.push(`/team-affiliations/${id}`)}
+      onClick={
+        isMenuOpen ? undefined : () => router.push(`/team-affiliations/${id}`)
+      }
     >
-      {actions &&
+      {actions && (
         <StyledTableCell padding="checkbox">
           <TableMenu
             menuAnchorEl={menuAnchorEl}
@@ -75,7 +77,8 @@ export const TeamAffiliationsTableRow = ({
               disabled={!isDeleteOptionEnabled}
             />
           </TableMenu>
-        </StyledTableCell>}
+        </StyledTableCell>
+      )}
       {shouldDisplayPlayerName ? (
         <StyledTableCell sx={{ minWidth: 150 }}>
           <Link href={`/players/${player.slug}`} passHref>

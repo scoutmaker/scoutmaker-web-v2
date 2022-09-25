@@ -1,5 +1,5 @@
-import { Chip } from "@mui/material";
-import { useTranslation } from "next-i18next";
+import { Chip } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 
 interface IStatusChip {
   status: 'OPEN' | 'ACCEPTED' | 'CLOSED'
@@ -21,11 +21,6 @@ export const OrderStatusChip = ({ status }: IStatusChip) => {
   }
 
   return (
-    <Chip
-      size="small"
-      label={t(`orders:${status}`)}
-      color={getColor(status)}
-    />
-  );
-};
-
+    <Chip size="small" label={t(`orders:${status}`)} color={getColor(status)} />
+  )
+}

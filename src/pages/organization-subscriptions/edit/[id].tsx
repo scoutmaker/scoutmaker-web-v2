@@ -12,21 +12,25 @@ import { getOrganizationSubscriptionById } from '@/services/api/methods/organiza
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<OrganizationSubscriptionDto>(
-  ['common', 'organization-subs'],
-  ['ADMIN'],
-  async (token, params) => {
-    try {
-      const data = await getOrganizationSubscriptionById(params?.id as string, token)
-      return { data }
-    } catch (error) {
-      return {
-        data: null,
-        error: error as ApiError,
+export const getServerSideProps =
+  withSessionSsrRole<OrganizationSubscriptionDto>(
+    ['common', 'organization-subs'],
+    ['ADMIN'],
+    async (token, params) => {
+      try {
+        const data = await getOrganizationSubscriptionById(
+          params?.id as string,
+          token,
+        )
+        return { data }
+      } catch (error) {
+        return {
+          data: null,
+          error: error as ApiError,
+        }
       }
-    }
-  },
-)
+    },
+  )
 
 const EditOrganizationSubscriptionPage = ({
   data,
@@ -35,12 +39,13 @@ const EditOrganizationSubscriptionPage = ({
 }: TSsrRole<OrganizationSubscriptionDto>) => {
   const { t } = useTranslation()
 
-  const { mutate: updateOrgSub, isLoading: updateLoading } = useUpdateOrganizationSubscription(
-    data?.id || '',
-  )
+  const { mutate: updateOrgSub, isLoading: updateLoading } =
+    useUpdateOrganizationSubscription(data?.id || '')
 
-  const { data: compGroups, isLoading: compgroupsLoading } = useCompetitionGroupsList()
-  const { data: competitions, isLoading: competitionsLoading } = useCompetitionsList()
+  const { data: compGroups, isLoading: compgroupsLoading } =
+    useCompetitionGroupsList()
+  const { data: competitions, isLoading: competitionsLoading } =
+    useCompetitionsList()
 
   const isLoading = updateLoading || compgroupsLoading || competitionsLoading
 
