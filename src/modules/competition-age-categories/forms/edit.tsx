@@ -8,7 +8,10 @@ import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 
-import { CompetitionAgeCategortyDto, UpdateCompetitionAgeCategoryDto } from '../types'
+import {
+  CompetitionAgeCategortyDto,
+  UpdateCompetitionAgeCategoryDto,
+} from '../types'
 import {
   generateUpdateValidationSchema,
   getInitialStateFromCurrent,

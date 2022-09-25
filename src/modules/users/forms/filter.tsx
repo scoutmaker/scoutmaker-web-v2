@@ -29,7 +29,7 @@ export const UsersFilterForm = ({
   onClearFilters,
   regionsData,
   clubsData,
-  userFootballRolesData
+  userFootballRolesData,
 }: IFormProps) => {
   const { t } = useTranslation()
 
@@ -50,23 +50,12 @@ export const UsersFilterForm = ({
               label={t('NAME')}
               size="small"
             />
-            <RoleSelect
-              name='role'
-              label={t('ROLE')}
-            />
-            <RegionsCombo
-              data={regionsData}
-              name='regionIds'
-              multiple
-            />
-            <ClubsCombo
-              data={clubsData}
-              name='clubIds'
-              multiple
-            />
+            <RoleSelect name="role" label={t('ROLE')} />
+            <RegionsCombo data={regionsData} name="regionIds" multiple />
+            <ClubsCombo data={clubsData} name="clubIds" multiple />
             <UserFootballRolesCombo
               data={userFootballRolesData}
-              name='footballRoleIds'
+              name="footballRoleIds"
               multiple
             />
             <FilterFormActions handleClearFilter={onClearFilters} />

@@ -172,6 +172,10 @@
   "USER": "User",
   "USERS": "Users",
   "ROLE": "Role",
+  "USER_SUBSCRIPTION": "User subscription",
+  "USER_SUBSCRIPTIONS": "User subscription",
+  "ORGANIZATION": "Organization",
+  "ORGANIZATIONS": "Organizations",
   "RATING_RANGE": "Rating range",
   "CREATE": "Create",
   "REPORT_TEMPLATE": "Report template",
@@ -186,5 +190,7 @@
   "YELLOW_CARD": "Yellow card",
   "YELLOW_CARDS": "Yellow cards",
   "RED_CARD": "Red card",
-  "RED_CARDS": "Red cards"
+  "RED_CARDS": "Red cards",
+  "ORGANIZATION_SUBSCRIPTION": "Organization subscription",
+  "ORGANIZATION_SUBSCRIPTIONS": "Organization subscriptions"
 }

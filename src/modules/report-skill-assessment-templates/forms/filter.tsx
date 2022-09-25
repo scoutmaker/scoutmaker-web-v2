@@ -20,7 +20,7 @@ export const ReportSkillAssessmentTemplatesFilterForm = ({
   filters,
   onFilter,
   onClearFilters,
-  categoriesData
+  categoriesData,
 }: IFormProps) => {
   const { t } = useTranslation()
 
@@ -42,7 +42,7 @@ export const ReportSkillAssessmentTemplatesFilterForm = ({
               size="small"
             />
             <ReportSkillAssessmentCategoriesCombo
-              name='categoryIds'
+              name="categoryIds"
               data={categoriesData}
               multiple
               label={t('CATEGORIES')}

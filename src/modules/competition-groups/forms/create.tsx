@@ -27,7 +27,7 @@ export const CreateCompetitionGroupForm = ({
   onCancelClick,
   fullwidth,
   competitionsData,
-  regionsData
+  regionsData,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -57,18 +57,22 @@ export const CreateCompetitionGroupForm = ({
             />
             <CompetitionsCombo
               data={competitionsData}
-              name='competitionId'
+              name="competitionId"
               label={t('COMPETITION')}
               error={touched.competitionId && !!errors.competitionId}
-              helperText={touched.competitionId ? errors.competitionId : undefined}
+              helperText={
+                touched.competitionId ? errors.competitionId : undefined
+              }
             />
             <RegionsCombo
               multiple
               data={regionsData}
-              name='regionIds'
+              name="regionIds"
               label={t('REGIONS')}
               error={touched.regionIds && !!errors.regionIds}
-              helperText={touched.regionIds ? errors.regionIds as string : undefined}
+              helperText={
+                touched.regionIds ? (errors.regionIds as string) : undefined
+              }
             />
             <MainFormActions
               label={t('COMPETITION_GROUP')}

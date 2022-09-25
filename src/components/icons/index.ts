@@ -21,6 +21,8 @@ export {
   Note as NotesIcon,
   Visibility as ObservationIcon,
   Assignment as OrdersIcon,
+  CorporateFare as OrganizationsIcon,
+  Subscriptions as OrganizationSubscriptionsIcon,
   Place as PlayerPositionIcon,
   DirectionsRun as PlayersIcon,
   AccountCircle as ProfileIcon,
@@ -37,5 +39,6 @@ export {
   Favorite as UnlikeIcon,
   Person as UserDataIcon,
   Group as UsersIcon,
+  Subscriptions as UserSubscriptionsIcon,
   Tv as VideoIcon,
 } from '@mui/icons-material'

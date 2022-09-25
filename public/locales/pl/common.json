@@ -172,6 +172,10 @@
   "USER": "Użytkownik",
   "USERS": "Użytkownicy",
   "ROLE": "Rola",
+  "USER_SUBSCRIPTION": "Subskrypcja użytkownika",
+  "USER_SUBSCRIPTIONS": "Subskrypcje użytkowników",
+  "ORGANIZATION": "Organizacja",
+  "ORGANIZATIONS": "Organizacje",
   "RATING_RANGE": "Zakres ocen",
   "CREATE": "Utwórz",
   "REPORT_TEMPLATE": "Szablon raportu",
@@ -186,5 +190,7 @@
   "YELLOW_CARD": "Żółta kartka",
   "YELLOW_CARDS": "Żółte kartki",
   "RED_CARD": "Czerwona kartka",
-  "RED_CARDS": "Czerwone kartki"
+  "RED_CARDS": "Czerwone kartki",
+  "ORGANIZATION_SUBSCRIPTION": "Subskrypcja organizacji",
+  "ORGANIZATION_SUBSCRIPTIONS": "Subskrypcje organizacji"
 }

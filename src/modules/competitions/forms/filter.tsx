@@ -17,7 +17,6 @@ import { CountryDto } from '@/modules/countries/types'
 import { GendersSelect } from '../genders-select'
 
 type IFilterFormProps = {
-
   filters: CompetitionsFiltersDto
   onFilter: (data: CompetitionsFiltersDto) => void
   onClearFilters: () => void
@@ -34,7 +33,7 @@ export const CompetitionsFilterForm = ({
   competitionAgeCategoriesData,
   countriesData,
   competitionTypesData,
-  competitionJuniorLevelsData
+  competitionJuniorLevelsData,
 }: IFilterFormProps) => {
   const { t } = useTranslation()
 
@@ -57,35 +56,32 @@ export const CompetitionsFilterForm = ({
             />
             <Field
               name="level"
-              type='number'
+              type="number"
               as={TextField}
               variant="outlined"
               fullWidth
               label={`${t('LEVEL')} 1-15`}
               size="small"
-              inputProps={{ min: 1, max: 15, step: 1, pattern: "[1-9]|1[0-5]" }}
+              inputProps={{ min: 1, max: 15, step: 1, pattern: '[1-9]|1[0-5]' }}
             />
-            <GendersSelect
-              name='gender'
-              label={t('GENDER')}
-            />
+            <GendersSelect name="gender" label={t('GENDER')} />
             <CountriesCombo
               name="countryId"
               data={countriesData}
               label={t('COUNTRY')}
             />
             <CompetitionAgeCategoriesCombo
-              name='ageCategoryId'
+              name="ageCategoryId"
               data={competitionAgeCategoriesData}
               label={t('COMPETITION_AGE_CATEGORY')}
             />
             <CompetitionTypesCombo
-              name='typeId'
+              name="typeId"
               data={competitionTypesData}
               label={t('COMPETITION_TYPE')}
             />
             <CompetitionJuniorLevelsCombo
-              name='juniorLevelId'
+              name="juniorLevelId"
               data={competitionJuniorLevelsData}
               label={t('COMPETITION_JUNIOR_LEVEL')}
             />

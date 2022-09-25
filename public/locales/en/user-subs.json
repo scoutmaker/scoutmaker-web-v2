@@ -1,0 +1,12 @@
+{
+  "NO_START_DATE_ERROR": "Please provide subscription start date",
+  "NO_END_DATE_ERROR": "Please provide subscription end date",
+  "NO_USER_ERROR": "Please choose subscription user",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete this user subscription?",
+  "INDEX_PAGE_TITLE": "User subscriptions database",
+  "CREATE_PAGE_TITLE": "Create new user subscription",
+  "EDIT_PAGE_TITLE": "Edit user subscription",
+  "START_DATE": "Start date",
+  "END_DATE": "End date",
+  "IS_ACTIVE": "Is active"
+}

@@ -11,7 +11,10 @@ import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { ReportSkillAssessmentCategoriesCombo } from '@/modules/report-skill-assessment-categories/combo'
 import { ReportSkillAssessmentCategoryDto } from '@/modules/report-skill-assessment-categories/types'
 
-import { ReportSkillAssessmentTemplateDto, UpdateReportSkillAssessmentTemplateDto } from '../types'
+import {
+  ReportSkillAssessmentTemplateDto,
+  UpdateReportSkillAssessmentTemplateDto,
+} from '../types'
 import {
   generateUpdateValidationSchema,
   getInitialStateFromCurrent,
@@ -30,7 +33,7 @@ export const EditReportSkillAssessmentTemplateForm = ({
   onSubmit,
   onCancelClick,
   fullwidth,
-  categoriesData
+  categoriesData,
 }: IEditFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -73,7 +76,7 @@ export const EditReportSkillAssessmentTemplateForm = ({
             />
             <ReportSkillAssessmentCategoriesCombo
               data={categoriesData}
-              name='categoryId'
+              name="categoryId"
               label={t('REPORT_SKILL_ASSESSMENT_CATEGORY')}
               error={touched.categoryId && !!errors.categoryId}
               helperText={touched.categoryId ? errors.categoryId : undefined}
@@ -83,7 +86,9 @@ export const EditReportSkillAssessmentTemplateForm = ({
                 component={CheckboxWithLabel}
                 type="checkbox"
                 name="hasScore"
-                Label={{ label: t('report-skill-assessment-templates:HAS_SCORE') }}
+                Label={{
+                  label: t('report-skill-assessment-templates:HAS_SCORE'),
+                }}
               />
             </Box>
             <MainFormActions

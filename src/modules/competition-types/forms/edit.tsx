@@ -25,7 +25,7 @@ export const EditCompetitionTypeForm = ({
   current,
   onSubmit,
   onCancelClick,
-  fullwidth
+  fullwidth,
 }: IEditRegionFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()

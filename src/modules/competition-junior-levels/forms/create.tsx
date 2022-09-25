@@ -19,7 +19,7 @@ interface ICreateFormProps {
 export const CreateCompetitionJuniorLevelForm = ({
   onSubmit,
   onCancelClick,
-  fullwidth
+  fullwidth,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -49,7 +49,7 @@ export const CreateCompetitionJuniorLevelForm = ({
             />
             <Field
               name="level"
-              type='number'
+              type="number"
               as={TextField}
               variant="outlined"
               fullWidth

@@ -8,7 +8,10 @@ import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 
-import { CompetitionJuniorLevelDto, UpdateCompetitionJuniorLevelDto } from '../types'
+import {
+  CompetitionJuniorLevelDto,
+  UpdateCompetitionJuniorLevelDto,
+} from '../types'
 import {
   generateUpdateValidationSchema,
   getInitialStateFromCurrent,
@@ -25,7 +28,7 @@ export const EditCompetitionJuniorLevelForm = ({
   current,
   onSubmit,
   onCancelClick,
-  fullwidth
+  fullwidth,
 }: IEditFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -59,7 +62,7 @@ export const EditCompetitionJuniorLevelForm = ({
             />
             <Field
               name="level"
-              type='number'
+              type="number"
               as={TextField}
               variant="outlined"
               fullWidth
