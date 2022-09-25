@@ -42,7 +42,7 @@ export function getInitialStateFromCurrent(
   const values = {
     name,
     competitionId: competition.id,
-    regionIds: regions.map(r => r.id),
+    regionIds: regions?.map(r => r.id) || [],
   }
 
   return map(values, value => value || '')
