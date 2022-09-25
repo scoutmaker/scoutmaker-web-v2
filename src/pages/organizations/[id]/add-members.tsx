@@ -11,27 +11,32 @@ import { getOrganizationById } from '@/services/api/methods/organizations'
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<OrganizationDto>(['common', 'organizations'], ['ADMIN'],
+export const getServerSideProps = withSessionSsrRole<OrganizationDto>(
+  ['common', 'organizations'],
+  ['ADMIN'],
   async (token, params) => {
     try {
-      const data = await getOrganizationById(
-        params?.id as string,
-        token,
-      )
+      const data = await getOrganizationById(params?.id as string, token)
       return { data }
     } catch (error) {
       return {
         data: null,
-        error: error as ApiError
+        error: error as ApiError,
       }
     }
-  });
+  },
+)
 
-const AddMembersPage = ({ data, errorMessage, errorStatus }: TSsrRole<OrganizationDto>) => {
+const AddMembersPage = ({
+  data,
+  errorMessage,
+  errorStatus,
+}: TSsrRole<OrganizationDto>) => {
   const { t } = useTranslation()
 
   const { data: users, isLoading: usersLoading } = useUsersList()
-  const { mutate: addMember, isLoading: addMemberLoading } = useAddMemberOrganization()
+  const { mutate: addMember, isLoading: addMemberLoading } =
+    useAddMemberOrganization()
 
   const isLoading = usersLoading || addMemberLoading
 
@@ -43,8 +48,10 @@ const AddMembersPage = ({ data, errorMessage, errorStatus }: TSsrRole<Organizati
       <AddOrganizationMembersForm
         usersData={users || []}
         filterOutUsers={data.members}
-        onSubmit={(formData) => {
-          formData.memberIds.forEach(memberId => addMember({ memberId, organizationId: data.id }))
+        onSubmit={formData => {
+          formData.memberIds.forEach(memberId =>
+            addMember({ memberId, organizationId: data.id }),
+          )
         }}
       />
     </>
