@@ -1,7 +1,4 @@
-import {
-  Delete as DeleteIcon,
-  Edit as EditIcon,
-} from '@mui/icons-material'
+import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
@@ -45,7 +42,11 @@ export const CompetitionAgeCategoriesTableRow = ({
     <StyledTableRow
       hover
       key={id}
-      onClick={isMenuOpen ? undefined : () => router.push(`/competition-age-categories/${id}`)}
+      onClick={
+        isMenuOpen
+          ? undefined
+          : () => router.push(`/competition-age-categories/${id}`)
+      }
     >
       <StyledTableCell padding="checkbox">
         <TableMenu

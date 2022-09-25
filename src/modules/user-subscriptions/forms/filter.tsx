@@ -26,7 +26,7 @@ export const UserSubscriptionsFilterForm = ({
   onClearFilters,
   competitionGroupsData,
   competitionsData,
-  usersData
+  usersData,
 }: IFormProps) => (
   <Formik
     initialValues={filters}
@@ -36,18 +36,15 @@ export const UserSubscriptionsFilterForm = ({
     {() => (
       <Form autoComplete="off">
         <Container>
-          <UsersCombo
-            data={usersData}
-            name='userId'
-          />
+          <UsersCombo data={usersData} name="userId" />
           <CompetitionsCombo
             data={competitionsData}
-            name='competitionIds'
+            name="competitionIds"
             multiple
           />
           <CompetitionGroupsCombo
             data={competitionGroupsData}
-            name='competitionGroupIds'
+            name="competitionGroupIds"
             multiple
           />
           <FilterFormActions handleClearFilter={onClearFilters} />

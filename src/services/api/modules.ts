@@ -25,3 +25,4 @@ export type TModuleName =
   | 'users'
   | 'user-subscriptions'
   | 'organizations'
+  | 'organization-subscriptions'

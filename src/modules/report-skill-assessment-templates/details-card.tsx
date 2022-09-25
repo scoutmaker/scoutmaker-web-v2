@@ -6,7 +6,9 @@ import { ReportSkillAssessmentCategoriesIcon } from '@/components/icons'
 
 import { ReportSkillAssessmentTemplateDto } from './types'
 
-export const ReportSkillAssessmentTemplateDetailsCard = ({ report }: IDetailsCard) => {
+export const ReportSkillAssessmentTemplateDetailsCard = ({
+  report,
+}: IDetailsCard) => {
   const { t } = useTranslation()
 
   const { name, category, hasScore, shortName } = report

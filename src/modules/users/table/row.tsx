@@ -23,7 +23,7 @@ interface ITableRowProps {
 export const UsersTableRow = ({
   data,
   onSetScoutClick,
-  onSetPlaymakerScoutClick
+  onSetPlaymakerScoutClick,
 }: ITableRowProps) => {
   const router = useRouter()
   const { t } = useTranslation()
@@ -45,30 +45,32 @@ export const UsersTableRow = ({
       onClick={isMenuOpen ? undefined : () => router.push(`/users/${id}`)}
     >
       <StyledTableCell padding="checkbox">
-        {!isAdmin(data) && <TableMenu
-          menuAnchorEl={menuAnchorEl}
-          isMenuOpen={isMenuOpen}
-          onMenuClick={handleMenuClick}
-          onMenuClose={handleMenuClose}
-        >
-          {isPlaymakerScout(data) ?
-            <TableMenuItem
-              icon={<DownIcon fontSize="small" />}
-              text={t('users:SET_SCOUT_ROLE')}
-              onClick={() => {
-                handleMenuAction(onSetScoutClick)
-              }}
-            />
-            :
-            <TableMenuItem
-              icon={<UpIcon fontSize="small" />}
-              text={t('users:SET_PLAYMAKER_SCOUT_ROLE')}
-              onClick={() => {
-                handleMenuAction(onSetPlaymakerScoutClick)
-              }}
-            />
-          }
-        </TableMenu>}
+        {!isAdmin(data) && (
+          <TableMenu
+            menuAnchorEl={menuAnchorEl}
+            isMenuOpen={isMenuOpen}
+            onMenuClick={handleMenuClick}
+            onMenuClose={handleMenuClose}
+          >
+            {isPlaymakerScout(data) ? (
+              <TableMenuItem
+                icon={<DownIcon fontSize="small" />}
+                text={t('users:SET_SCOUT_ROLE')}
+                onClick={() => {
+                  handleMenuAction(onSetScoutClick)
+                }}
+              />
+            ) : (
+              <TableMenuItem
+                icon={<UpIcon fontSize="small" />}
+                text={t('users:SET_PLAYMAKER_SCOUT_ROLE')}
+                onClick={() => {
+                  handleMenuAction(onSetPlaymakerScoutClick)
+                }}
+              />
+            )}
+          </TableMenu>
+        )}
       </StyledTableCell>
       <StyledTableCell>{lastName}</StyledTableCell>
       <StyledTableCell>{firstName}</StyledTableCell>

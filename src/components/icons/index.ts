@@ -22,6 +22,7 @@ export {
   Visibility as ObservationIcon,
   Assignment as OrdersIcon,
   CorporateFare as OrganizationsIcon,
+  Subscriptions as OrganizationSubscriptionsIcon,
   Place as PlayerPositionIcon,
   DirectionsRun as PlayersIcon,
   AccountCircle as ProfileIcon,

@@ -11,7 +11,7 @@ interface ITableProps extends ICommonTableProps {
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
     { id: 'name', label: t('NAME') },
-    { id: 'code', label: t('CODE') }
+    { id: 'code', label: t('CODE') },
   ]
 }
 

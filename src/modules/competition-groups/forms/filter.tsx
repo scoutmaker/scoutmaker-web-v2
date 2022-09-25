@@ -24,7 +24,7 @@ export const CompetitionGroupsFilterForm = ({
   onFilter,
   onClearFilters,
   competitionsData,
-  regionsData
+  regionsData,
 }: IFormProps) => {
   const { t } = useTranslation()
 
@@ -48,13 +48,13 @@ export const CompetitionGroupsFilterForm = ({
             <CompetitionsCombo
               multiple
               data={competitionsData}
-              name='competitionIds'
+              name="competitionIds"
               label={t('COMPETITIONS')}
             />
             <RegionsCombo
               multiple
               data={regionsData}
-              name='regionIds'
+              name="regionIds"
               label={t('REGIONS')}
             />
             <FilterFormActions handleClearFilter={onClearFilters} />
