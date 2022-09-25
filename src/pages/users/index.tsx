@@ -7,7 +7,11 @@ import { useClubsList } from '@/modules/clubs/hooks'
 import { useRegionsList } from '@/modules/regions/hooks'
 import { useUserFootballRolesList } from '@/modules/user-football-roles/hooks'
 import { UsersFilterForm } from '@/modules/users/forms/filter'
-import { useSetPMScoutRoleUser, useSetScoutRoleUser, useUsers } from '@/modules/users/hooks'
+import {
+  useSetPMScoutRoleUser,
+  useSetScoutRoleUser,
+  useUsers,
+} from '@/modules/users/hooks'
 import { UsersTableRow } from '@/modules/users/table/row'
 import { UsersTable } from '@/modules/users/table/table'
 import { UsersFiltersDto, UsersSortBy } from '@/modules/users/types'
@@ -21,10 +25,13 @@ const initialFilters: UsersFiltersDto = {
   name: '',
   regionIds: [],
   // @ts-ignore so its empty
-  role: ''
+  role: '',
 }
 
-export const getServerSideProps = withSessionSsrRole(['common', 'users'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'users'],
+  ['ADMIN'],
+)
 
 const UsersPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
@@ -56,14 +63,24 @@ const UsersPage = ({ errorMessage, errorStatus }: TSsrRole) => {
 
   const { data: clubs, isLoading: clubsLoading } = useClubsList()
   const { data: regions, isLoading: regionsLoading } = useRegionsList()
-  const { data: userFootballRoles, isLoading: userFootballRolesLoading } = useUserFootballRolesList()
+  const { data: userFootballRoles, isLoading: userFootballRolesLoading } =
+    useUserFootballRolesList()
 
-  const { mutate: setScoutRole, isLoading: scoutRoleLoading } = useSetScoutRoleUser()
-  const { mutate: setPMScoutRole, isLoading: pmScoutRoleLoading } = useSetPMScoutRoleUser()
+  const { mutate: setScoutRole, isLoading: scoutRoleLoading } =
+    useSetScoutRoleUser()
+  const { mutate: setPMScoutRole, isLoading: pmScoutRoleLoading } =
+    useSetPMScoutRoleUser()
 
-  const isLoading = dataLoading || clubsLoading || regionsLoading || userFootballRolesLoading || scoutRoleLoading || pmScoutRoleLoading
+  const isLoading =
+    dataLoading ||
+    clubsLoading ||
+    regionsLoading ||
+    userFootballRolesLoading ||
+    scoutRoleLoading ||
+    pmScoutRoleLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
@@ -75,7 +92,6 @@ const UsersPage = ({ errorMessage, errorStatus }: TSsrRole) => {
         clubsData={clubs || []}
         regionsData={regions || []}
         userFootballRolesData={userFootballRoles || []}
-
       />
       <UsersTable
         page={page}
@@ -96,8 +112,7 @@ const UsersPage = ({ errorMessage, errorStatus }: TSsrRole) => {
               onSetPlaymakerScoutClick={() => setPMScoutRole(user.id)}
               onSetScoutClick={() => setScoutRole(user.id)}
             />
-          ))
-        }
+          ))}
       </UsersTable>
     </>
   )

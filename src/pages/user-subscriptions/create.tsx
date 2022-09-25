@@ -10,20 +10,30 @@ import { useCreateUserSubscription } from '@/modules/user-subscriptions/hooks'
 import { useUsersList } from '@/modules/users/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'user-subs'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'user-subs'],
+  ['ADMIN'],
+)
 
-const CreateUserSubscriptionPage = ({ errorMessage, errorStatus }: TSsrRole) => {
+const CreateUserSubscriptionPage = ({
+  errorMessage,
+  errorStatus,
+}: TSsrRole) => {
   const { t } = useTranslation()
 
-  const { mutate: createUserSub, isLoading: createLoading } = useCreateUserSubscription()
+  const { mutate: createUserSub, isLoading: createLoading } =
+    useCreateUserSubscription()
 
-  const { data: compGroupsData, isLoading: compGroupsLoading } = useCompetitionGroupsList()
+  const { data: compGroupsData, isLoading: compGroupsLoading } =
+    useCompetitionGroupsList()
   const { data: compsData, isLoading: compsLoading } = useCompetitionsList()
   const { data: usersData, isLoading: usersLoading } = useUsersList()
 
-  const isLoading = compGroupsLoading || compsLoading || usersLoading || createLoading
+  const isLoading =
+    compGroupsLoading || compsLoading || usersLoading || createLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
