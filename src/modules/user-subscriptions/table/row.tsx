@@ -1,7 +1,4 @@
-import {
-  Delete as DeleteIcon,
-  Edit as EditIcon
-} from '@mui/icons-material'
+import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
@@ -47,7 +44,9 @@ export const UserSubscriptionsTableRow = ({
     <StyledTableRow
       hover
       key={id}
-      onClick={isMenuOpen ? undefined : () => router.push(`/user-subscriptions/${id}`)}
+      onClick={
+        isMenuOpen ? undefined : () => router.push(`/user-subscriptions/${id}`)
+      }
     >
       <StyledTableCell padding="checkbox">
         <TableMenu
@@ -74,7 +73,10 @@ export const UserSubscriptionsTableRow = ({
           />
         </TableMenu>
       </StyledTableCell>
-      <CellWithLink label={`${user.firstName} ${user.lastName}`} href={`/users/${user.id}`} />
+      <CellWithLink
+        label={`${user.firstName} ${user.lastName}`}
+        href={`/users/${user.id}`}
+      />
       <StyledTableCell>{formatDate(startDate)}</StyledTableCell>
       <StyledTableCell>{formatDate(endDate)}</StyledTableCell>
     </StyledTableRow>

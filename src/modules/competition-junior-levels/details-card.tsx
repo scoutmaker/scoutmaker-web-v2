@@ -28,10 +28,7 @@ export const CompetitionJuniorLevelDetailsCard = ({ comp }: IDetailsCard) => {
       <CardContent>
         <Grid container spacing={1}>
           <CardItemBasic title={t('NAME')} value={name} />
-          <CardItemBasic
-            title={t('LEVEL')}
-            value={level}
-          />
+          <CardItemBasic title={t('LEVEL')} value={level} />
         </Grid>
       </CardContent>
     </Card>

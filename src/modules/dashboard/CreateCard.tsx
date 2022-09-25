@@ -1,7 +1,14 @@
 import { Add as AddIcon } from '@mui/icons-material'
-import { Card, CardActionArea, CardContent, styled, Typography } from "@mui/material";
-import Link from 'next/link';
-import { StyledAvatar } from "./StyledAvatar";
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  styled,
+  Typography,
+} from '@mui/material'
+import Link from 'next/link'
+
+import { StyledAvatar } from './StyledAvatar'
 
 interface ICreateCardProps {
   linkTo: string
@@ -10,12 +17,13 @@ interface ICreateCardProps {
 
 export const CreateCard = ({ linkTo, title }: ICreateCardProps) => (
   <Card>
-    <Link
-      href={linkTo}
-    >
+    <Link href={linkTo}>
       <CardActionArea sx={{ height: '100%' }}>
         <CardContentContainer>
-          <Typography variant="h6" color={(theme) => theme.palette.primary.contrastText}>
+          <Typography
+            variant="h6"
+            color={theme => theme.palette.primary.contrastText}
+          >
             {title}
           </Typography>
           <div>
@@ -27,7 +35,7 @@ export const CreateCard = ({ linkTo, title }: ICreateCardProps) => (
       </CardActionArea>
     </Link>
   </Card>
-);
+)
 
 const CardContentContainer = styled(CardContent)(({ theme }) => ({
   height: '100%',

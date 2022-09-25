@@ -36,7 +36,7 @@ export const CreateCompetitionForm = ({
   competitionAgeCategoriesData,
   countriesData,
   competitionTypesData,
-  competitionJuniorLevelsData
+  competitionJuniorLevelsData,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -66,21 +66,23 @@ export const CreateCompetitionForm = ({
             />
             <CompetitionAgeCategoriesCombo
               data={competitionAgeCategoriesData}
-              name='ageCategoryId'
+              name="ageCategoryId"
               label={t('COMPETITION_AGE_CATEGORY')}
               error={touched.ageCategoryId && !!errors.ageCategoryId}
-              helperText={touched.ageCategoryId ? errors.ageCategoryId : undefined}
+              helperText={
+                touched.ageCategoryId ? errors.ageCategoryId : undefined
+              }
             />
             <CountriesCombo
               data={countriesData}
-              name='countryId'
+              name="countryId"
               label={t('COUNTRY')}
               error={touched.countryId && !!errors.countryId}
               helperText={touched.countryId ? errors.countryId : undefined}
             />
             <Field
               name="level"
-              type='number'
+              type="number"
               as={TextField}
               variant="outlined"
               fullWidth
@@ -90,23 +92,25 @@ export const CreateCompetitionForm = ({
             />
             <CompetitionTypesCombo
               data={competitionTypesData}
-              name='typeId'
+              name="typeId"
               label={t('COMPETITION_TYPE')}
               error={touched.typeId && !!errors.typeId}
               helperText={touched.typeId ? errors.typeId : undefined}
             />
             <GendersSelect
-              name='gender'
+              name="gender"
               label={t('GENDER')}
               error={touched.gender && !!errors.gender}
               helperText={touched.gender ? errors.gender : undefined}
             />
             <CompetitionJuniorLevelsCombo
-              name='juniorLevelId'
+              name="juniorLevelId"
               data={competitionJuniorLevelsData}
               label={t('COMPETITION_JUNIOR_LEVEL')}
               error={touched.juniorLevelId && !!errors.juniorLevelId}
-              helperText={touched.juniorLevelId ? errors.juniorLevelId : undefined}
+              helperText={
+                touched.juniorLevelId ? errors.juniorLevelId : undefined
+              }
             />
             <MainFormActions
               label={t('COMPETITION')}

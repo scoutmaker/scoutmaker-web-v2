@@ -40,7 +40,7 @@ export const CompetitionJuniorLevelsFilterForm = ({
             <Field
               name="level"
               as={TextField}
-              type='number'
+              type="number"
               variant="outlined"
               fullWidth
               label={t('LEVEL')}

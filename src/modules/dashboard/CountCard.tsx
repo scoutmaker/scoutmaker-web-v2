@@ -1,8 +1,15 @@
-import { Card, CardActionArea, CardContent, styled, Typography } from "@mui/material";
-import Link from "next/link";
-import { ReactElement } from "react";
-import CountUp from "react-countup";
-import { StyledAvatar } from "./StyledAvatar";
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  styled,
+  Typography,
+} from '@mui/material'
+import Link from 'next/link'
+import { ReactElement } from 'react'
+import CountUp from 'react-countup'
+
+import { StyledAvatar } from './StyledAvatar'
 
 interface ICountCardProps {
   title: string
@@ -31,7 +38,7 @@ export const CountCard = ({ icon, linkTo, title, count }: ICountCardProps) => (
       </CardActionArea>
     </Link>
   </Card>
-);
+)
 
 const CardContentContainer = styled(CardContent)({
   height: '100%',

@@ -27,10 +27,7 @@ export const CompetitionGroupDetailsCard = ({ group }: IDetailsCard) => {
       />
       <CardContent>
         <Grid container spacing={1}>
-          <CardItemBasic
-            title={t('NAME')}
-            value={name}
-          />
+          <CardItemBasic title={t('NAME')} value={name} />
           <CardItemBasic
             title={t('COMPETITION')}
             value={competition.name}
