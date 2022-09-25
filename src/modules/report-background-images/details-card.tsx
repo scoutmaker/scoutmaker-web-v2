@@ -6,10 +6,10 @@ import { ReportBackgroundImagesIcon } from '@/components/icons'
 
 import { ReportBgImageDto } from './types'
 
-export const ReportBgImageDetailsCard = ({ repbg }: ICountryDetailsCard) => {
+export const ReportBgImageDetailsCard = ({ reportBackgroundImage }: ICountryDetailsCard) => {
   const { t } = useTranslation()
 
-  const { name, url } = repbg
+  const { name, url } = reportBackgroundImage
 
   return (
     <Card sx={{ maxWidth: 700, margin: '0 auto' }}>
@@ -36,5 +36,5 @@ export const ReportBgImageDetailsCard = ({ repbg }: ICountryDetailsCard) => {
 }
 
 interface ICountryDetailsCard {
-  repbg: ReportBgImageDto
+  reportBackgroundImage: ReportBgImageDto
 }

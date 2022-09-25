@@ -31,7 +31,7 @@ const ReportBgImagePage = ({ data, errorMessage, errorStatus }: TSsrRole<ReportB
   return (
     <>
       <PageHeading title={t('REPORT_BACKGROUND_IMAGE')} />
-      <ReportBgImageDetailsCard repbg={data} />
+      <ReportBgImageDetailsCard reportBackgroundImage={data} />
     </>
   )
 }

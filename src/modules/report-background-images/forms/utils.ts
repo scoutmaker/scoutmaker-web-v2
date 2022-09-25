@@ -32,9 +32,9 @@ export function generateUpdateValidationSchema() {
 }
 
 export function getInitialStateFromCurrent(
-  bgimg: ReportBgImageDto,
+  reportBackgroundImage: ReportBgImageDto,
 ): UpdateReportBgImageDto {
-  const { name, url } = bgimg
+  const { name, url } = reportBackgroundImage
 
   const values = {
     name,
