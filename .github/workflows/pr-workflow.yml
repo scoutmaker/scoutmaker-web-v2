@@ -12,5 +12,6 @@ jobs:
        uses: actions/setup-node@v3
        with:
         node-version: '16.x'
+     - run: yarn
      - run: yarn lint
      - run: yarn build
