@@ -191,5 +191,7 @@
   "YELLOW_CARDS": "Yellow cards",
   "RED_CARD": "Red card",
   "RED_CARDS": "Red cards",
-  "AVG_RATING": "Average rating"
+  "AVG_RATING": "Average rating",
+  "ORGANIZATION_SUBSCRIPTION": "Organization subscription",
+  "ORGANIZATION_SUBSCRIPTIONS": "Organization subscriptions"
 }
