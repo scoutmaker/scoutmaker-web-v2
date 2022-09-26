@@ -23,5 +23,10 @@ export const keyTextMap = (t: TFunction, data: IFilterAccordionDtos): ReturnType
     isLiked: () => t('ONLY_LIKED'),
     footed: (value: string) => `${t('FOOTED')}: ${t(value)}`,
     name: (value: string) => value,
+    userId: (id: string) => {
+      if (!data?.usersData) return 'NO DATA'
+      const user = data.usersData.find(u => u.id === id)
+      return `${t('USER')}: ${user?.firstName} ${user?.lastName}`
+    },
   })
 }
