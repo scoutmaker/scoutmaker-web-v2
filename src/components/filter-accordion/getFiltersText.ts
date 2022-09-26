@@ -12,7 +12,7 @@ interface IProps extends IFilterAccordionDtos {
   filters: { [key: string]: any }
 }
 
-export const getFiltersText = (t: TFunction, props: IProps) => {
+export const getFiltersText = (t: TFunction, props: IProps): string[] => {
   const finalArray: string[] = []
   const keyTextMapTrans = keyTextMap(t, props)
   const { filters } = props
@@ -20,7 +20,7 @@ export const getFiltersText = (t: TFunction, props: IProps) => {
   Object.keys(filters).forEach(key => {
     const value = filters[key]
     if (!value) return
-    
+
     const types = ['string', 'number', 'boolean']
     if (types.includes(typeof value)) {
       if (!keyTextMapTrans.hasOwnProperty(key))
