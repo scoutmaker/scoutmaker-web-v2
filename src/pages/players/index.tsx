@@ -26,7 +26,6 @@ import { PlayersFiltersDto, PlayersSortBy } from '@/modules/players/types'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
-import { isDiffrent } from '@/utils/is-diffrent'
 import { redirectToLogin } from '@/utils/redirect-to-login'
 
 export const getServerSideProps = withSessionSsr(
@@ -118,6 +117,14 @@ const PlayersPage = () => {
   const { mutate: unlikePlayer, isLoading: unlikePlayerLoading } =
     useUnlikePlayer()
 
+  const filterData = {
+    competitionGroupsData: competitionGroups || [],
+    competitionsData: competitions || [],
+    countriesData: countries || [],
+    positionsData: positions || [],
+    teamsData: teams || []
+  }
+
   const isLoading =
     countriesLoading ||
     teamsLoading ||
@@ -133,16 +140,12 @@ const PlayersPage = () => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('players:INDEX_PAGE_TITLE')} />
-      <FilterAccordion isChanged={isDiffrent(initialFilters, filters)}>
+      <FilterAccordion filters={filters} data={filterData}>
         <PlayersFilterForm
           filters={filters}
-          countriesData={countries || []}
-          positionsData={positions || []}
-          competitionsData={competitions || []}
-          competitionGroupsData={competitionGroups || []}
-          teamsData={teams || []}
           onFilter={handleSetFilters}
           onClearFilters={() => handleSetFilters(initialFilters)}
+          {...filterData}
         />
       </FilterAccordion>
       <PlayersTable

@@ -1,18 +1,28 @@
 import { Accordion, AccordionDetails, AccordionSummary, Chip, styled, Typography } from "@mui/material"
+import { useTranslation } from "next-i18next"
+
+import { getFiltersText } from "./getFiltersText"
+import { IFilterAccordionDtos } from "./types"
 
 interface IProps {
   children: JSX.Element
-  isChanged: boolean
+  filters: { [key: string]: any }
+  data: IFilterAccordionDtos
 }
 
-const FilterAccordion = ({ children, isChanged }: IProps) => (<StyledAccordion disableGutters>
-  <StyledAccordionSummary>
-    <StyledAccordinText>Filtry {isChanged && <ChangedChip />}</StyledAccordinText>
-  </StyledAccordionSummary>
-  <StyledAccordionDetails>
-    {children}
-  </StyledAccordionDetails>
-</StyledAccordion>)
+const FilterAccordion = ({ children, filters, data }: IProps) => {
+  const { t } = useTranslation()
+  const activeFilters = getFiltersText(t, { filters, ...data })
+
+  return (<StyledAccordion disableGutters>
+    <StyledAccordionSummary>
+      <StyledAccordinText>Filtry {activeFilters.map(filt => <FilterChip label={filt} />)}</StyledAccordinText>
+    </StyledAccordionSummary>
+    <StyledAccordionDetails>
+      {children}
+    </StyledAccordionDetails>
+  </StyledAccordion>)
+}
 
 export default FilterAccordion
 
@@ -37,10 +47,14 @@ const StyledAccordinText = styled(Typography)(({ theme }) => ({
   color: theme.palette.primary.contrastText
 }))
 
-const ChangedChip = () => (
+interface IFilterChipProps {
+  label: string
+}
+
+const FilterChip = ({ label }: IFilterChipProps) => (
   <Chip
     size="small"
-    label='Zmienione'
+    label={label}
     color='info'
     sx={{ fontWeight: 'bold', marginLeft: 0.5 }}
   />
