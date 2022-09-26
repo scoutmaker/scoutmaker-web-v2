@@ -13,6 +13,7 @@ import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { useCountriesList } from '@/modules/countries/hooks'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import { PlayersFilterForm } from '@/modules/players/forms/filter'
+import { mapFiltersStateToFilterDto } from '@/modules/players/forms/utils'
 import {
   useDeletePlayer,
   useLikePlayer,
@@ -21,7 +22,7 @@ import {
 } from '@/modules/players/hooks'
 import { PlayersTableRow } from '@/modules/players/table/row'
 import { PlayersTable } from '@/modules/players/table/table'
-import { PlayersFiltersDto, PlayersSortBy } from '@/modules/players/types'
+import { PlayersFiltersState, PlayersSortBy } from '@/modules/players/types'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
@@ -49,16 +50,16 @@ export const getServerSideProps = withSessionSsr(
   },
 )
 
-const initialFilters: PlayersFiltersDto = {
+const initialFilters: PlayersFiltersState = {
   name: '',
   bornAfter: 1980,
   bornBefore: 2005,
   footed: '',
-  competitionGroupIds: [],
-  competitionIds: [],
-  countryIds: [],
-  positionIds: [],
-  teamIds: [],
+  countries: [],
+  positions: [],
+  teams: [],
+  competitions: [],
+  competitionGroups: [],
   isLiked: false,
 }
 
@@ -83,12 +84,12 @@ const PlayersPage = () => {
     handleSort,
   } = useTable('players-table')
 
-  const [filters, setFilters] = useLocalStorage<PlayersFiltersDto>({
+  const [filters, setFilters] = useLocalStorage({
     key: 'players-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: PlayersFiltersDto) {
+  function handleSetFilters(newFilters: PlayersFiltersState) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -107,7 +108,7 @@ const PlayersPage = () => {
     limit: rowsPerPage,
     sortBy: sortBy as PlayersSortBy,
     sortingOrder: order,
-    ...filters,
+    ...mapFiltersStateToFilterDto(filters),
   })
 
   const { mutate: deletePlayer, isLoading: deletePlayerLoading } =

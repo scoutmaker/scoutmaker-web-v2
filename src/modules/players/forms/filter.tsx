@@ -4,20 +4,21 @@ import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
+import { Combo } from '@/components/combo/combo'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
-import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
+import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { CountriesCombo } from '@/modules/countries/combo'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { CountryDto } from '@/modules/countries/types'
-import { PlayersPositionCombo } from '@/modules/player-positions/combo'
+import { mapCountriesListToComboOptions } from '@/modules/countries/utils'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
+import { mapPositionsListToComboOptions } from '@/modules/player-positions/utils'
 import { FootedSelect } from '@/modules/players/footed-select'
-import { PlayersFiltersDto } from '@/modules/players/types'
-import { TeamsCombo } from '@/modules/teams/combo'
+import { PlayersFiltersState } from '@/modules/players/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
+import { mapTeamsListToComboOptions } from '@/modules/teams/utils'
 
 const StyledCheckboxContainer = styled('div')(() => ({
   display: 'flex',
@@ -30,8 +31,8 @@ interface IPlayersFilterFormProps {
   teamsData: TeamBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
-  filters: PlayersFiltersDto
-  onFilter: (data: PlayersFiltersDto) => void
+  filters: PlayersFiltersState
+  onFilter: (data: PlayersFiltersState) => void
   onClearFilters: () => void
 }
 
@@ -91,33 +92,35 @@ export const PlayersFilterForm = ({
               </Grid>
             </Grid>
             <FootedSelect name="footed" label={t('FOOTED')} size="small" />
-            <CountriesCombo
-              name="countryIds"
-              data={countriesData}
+            <Combo
+              name="countries"
+              data={mapCountriesListToComboOptions(countriesData)}
               label={t('COUNTRIES')}
               multiple
             />
-            <PlayersPositionCombo
-              name="positionIds"
-              data={positionsData}
+            <Combo
+              name="positions"
+              data={mapPositionsListToComboOptions(positionsData)}
               label={t('POSITIONS')}
               multiple
             />
-            <TeamsCombo
-              data={teamsData}
-              name="teamIds"
+            <Combo
+              name="teams"
+              data={mapTeamsListToComboOptions(teamsData)}
               label={t('TEAM')}
               multiple
             />
-            <CompetitionsCombo
-              name="competitionIds"
-              data={competitionsData}
+            <Combo
+              name="competitions"
+              data={mapCompetitionsListToComboOptions(competitionsData)}
               label={t('COMPETITIONS')}
               multiple
             />
-            <CompetitionGroupsCombo
-              name="competitionGroupIds"
-              data={competitionGroupsData}
+            <Combo
+              name="competitionGroups"
+              data={mapCompetitionGroupsListToComboOptions(
+                competitionGroupsData,
+              )}
               label={t('COMPETITION_GROUPS')}
               multiple
             />
