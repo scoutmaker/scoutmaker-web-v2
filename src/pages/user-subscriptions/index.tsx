@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -18,6 +19,7 @@ import { useUsersList } from '@/modules/users/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
+
 
 const initialFilters: UserSubscriptionsFiltersDto = {
   competitionGroupIds: [],
@@ -67,10 +69,9 @@ const UserSubscriptionsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
 
   const { mutate: deleteUserSub, isLoading: deleteLoading } = useDeleteUserSubscription()
 
-  const { data: compGroupsData, isLoading: compGroupsLoading } = useCompetitionGroupsList()
-  const { data: compsData, isLoading: compsLoading } = useCompetitionsList()
+  const { data: competitionGroupsData, isLoading: compGroupsLoading } = useCompetitionGroupsList()
+  const { data: competitionsData, isLoading: compsLoading } = useCompetitionsList()
   const { data: usersData, isLoading: usersLoading } = useUsersList()
-
 
   const isLoading = dataLoading || deleteLoading || compGroupsLoading || compsLoading || usersLoading
 
@@ -79,14 +80,17 @@ const UserSubscriptionsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('user-subs:INDEX_PAGE_TITLE')} />
-      <UserSubscriptionsFilterForm
-        filters={filters}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-        competitionGroupsData={compGroupsData || []}
-        competitionsData={compsData || []}
-        usersData={usersData || []}
-      />
+      <FilterAccordion filters={filters} data={{ competitionGroupsData, competitionsData, usersData }}>
+        <UserSubscriptionsFilterForm
+          filters={filters}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+          competitionGroupsData={competitionGroupsData || []}
+          competitionsData={competitionsData || []}
+          usersData={usersData || []}
+        />
+
+      </FilterAccordion>
       <UserSubscriptionsTable
         page={page}
         rowsPerPage={rowsPerPage}
