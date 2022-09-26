@@ -1,3 +1,5 @@
+import { IComboOptions } from '@/components/combo/types'
+
 export type PlayerBasicDataDto = Components.Schemas.PlayerBasicDataDto
 export type PlayerSuperBasicDataDto = Components.Schemas.PlayerSuperBasicDataDto
 
@@ -22,6 +24,21 @@ export type PlayersFiltersDto = Pick<
   | 'teamIds'
   | 'orderId'
 >
+
+export type PlayersFiltersState = Omit<
+  PlayersFiltersDto,
+  | 'countryIds'
+  | 'positionIds'
+  | 'teamIds'
+  | 'competitionIds'
+  | 'competitionGroupIds'
+> & {
+  countries: IComboOptions[]
+  positions: IComboOptions[]
+  teams: IComboOptions[]
+  competitions: IComboOptions[]
+  competitionGroups: IComboOptions[]
+}
 
 export type PlayersSortBy = Paths.PlayersControllerFindAll.Parameters.SortBy
 
