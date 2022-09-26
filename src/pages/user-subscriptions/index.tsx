@@ -22,13 +22,13 @@ import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 const initialFilters: UserSubscriptionsFiltersDto = {
   competitionGroupIds: [],
   competitionIds: [],
-  userId: 0
+  userId: ''
 }
 
 export const getServerSideProps = withSessionSsrRole(['common', 'user-subs'], ['ADMIN'])
 
 interface IToDeleteData {
-  id: number
+  id: string
 }
 
 const UserSubscriptionsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
