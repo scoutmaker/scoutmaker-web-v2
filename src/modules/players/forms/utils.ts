@@ -6,8 +6,11 @@ import {
   CreatePlayerDto,
   Footed,
   PlayerDto,
+  PlayersFiltersDto,
+  PlayersFiltersState,
   UpdatePlayerDto,
 } from '@/modules/players/types'
+import { getIdsArray } from '@/utils/get-ids-array'
 import { validateId, validateIdsArray } from '@/utils/validation-helpers'
 
 export const initialValues: CreatePlayerDto = {
@@ -108,5 +111,27 @@ export function getInitialStateFromCurrent(player: PlayerDto): UpdatePlayerDto {
     countryId: country.id,
     primaryPositionId: primaryPosition.id,
     secondaryPositionIds: secondaryPositions?.map(pos => pos.id) || [],
+  }
+}
+
+export function mapFiltersStateToFilterDto(
+  input: PlayersFiltersState,
+): PlayersFiltersDto {
+  const {
+    countries,
+    positions,
+    teams,
+    competitionGroups,
+    competitions,
+    ...rest
+  } = input
+
+  return {
+    ...rest,
+    countryIds: getIdsArray(countries),
+    positionIds: getIdsArray(positions),
+    teamIds: getIdsArray(teams),
+    competitionIds: getIdsArray(competitions),
+    competitionGroupIds: getIdsArray(competitionGroups),
   }
 }
