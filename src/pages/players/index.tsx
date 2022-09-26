@@ -142,6 +142,8 @@ const PlayersPage = () => {
         onFilter={handleSetFilters}
         onClearFilters={() => handleSetFilters(initialFilters)}
       />
+      <h3>Applied filters:</h3>
+      <pre>{JSON.stringify(filters, null, 2)}</pre>
       <PlayersTable
         page={page}
         rowsPerPage={rowsPerPage}
