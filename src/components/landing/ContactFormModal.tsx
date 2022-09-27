@@ -6,7 +6,6 @@ import * as yup from 'yup'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState';
 
-import { Container } from "../forms/container";
 import { MainFormActions } from "../forms/main-form-actions";
 import { Loader } from "../loader/loader";
 
@@ -47,7 +46,7 @@ export const ContactFormModal = ({ onClose, open }: Props) => {
           >
             {({ errors, touched, handleReset }) => (
               <Form>
-                <Container fullwidth >
+                <Container >
                   <Field
                     name="from"
                     as={TextField}
@@ -114,6 +113,16 @@ export const ContactFormModal = ({ onClose, open }: Props) => {
     </>
   );
 };
+
+export const Container = styled('div')(
+  ({ theme }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    margin: theme.spacing(0, 'auto', 2),
+    gap: theme.spacing(2),
+    width: '100%',
+  }),
+)
 
 const StyledDialog = styled(Dialog)({
   '& .MuiPaper-root': {
