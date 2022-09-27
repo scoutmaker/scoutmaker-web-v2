@@ -32,7 +32,7 @@ export const FunctionalitySection = () => {
               md={6}
               sm={6}
               xs={12}
-
+              key={functionality.title}
             >
               <Title variant="h4">
                 {functionality.title}
