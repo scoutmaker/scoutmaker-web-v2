@@ -35,7 +35,7 @@ export const CompetitionGroupDetailsCard = ({ group }: IDetailsCard) => {
           />
           <CardItemBasic
             title={t('REGIONS')}
-            value={regions.map(region => region.name).join(', ')}
+            value={regions?.map(region => region.name).join(', ') || t('NONE')}
           />
         </Grid>
       </CardContent>

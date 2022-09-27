@@ -34,11 +34,11 @@ export const UserSubscriptionDetailsCard = ({ userSub }: IDetailsCard) => {
           />
           <CardItemBasic
             title={t('COMPETITIONS')}
-            value={competitions.map(c => c.name).join(', ')}
+            value={competitions?.map(c => c.name).join(', ') || t('NONE')}
           />
           <CardItemBasic
             title={t('COMPETITION_GROUPS')}
-            value={competitionGroups.map(g => g.name).join(', ')}
+            value={competitionGroups?.map(g => g.name).join(', ') || t('NONE')}
           />
           <CardItemBasic
             title={t('user-subs:START_DATE')}
