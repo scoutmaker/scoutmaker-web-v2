@@ -1,0 +1,9 @@
+{
+  "NO_NAME_ERROR": "Podaj nazwę obrazu tła raportu",
+  "NO_URL_ERROR": "Podaj adres obrazu tła raportu",
+  "INDEX_PAGE_TITLE": "Baza obrazów tła raportów",
+  "CREATE_PAGE_TITLE": "Utwórz nowy obraz tła raportu",
+  "EDIT_PAGE_TITLE": "Edytuj dane obrazu tła raportu",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć obraz tła raportu {{name}}?",
+  "IS_PUBLIC": "Publiczny"
+}

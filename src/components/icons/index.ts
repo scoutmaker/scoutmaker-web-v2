@@ -28,6 +28,7 @@ export {
   AccountCircle as ProfileIcon,
   SouthAmerica as RegionIcon,
   CancelOutlined as RejectIcon,
+  Landscape as ReportBackgroundImagesIcon,
   Assessment as ReportsIcon,
   FitnessCenter as ReportSkillAssessmentCategoriesIcon,
   Create as ReportTemplatesIcon,
