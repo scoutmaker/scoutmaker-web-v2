@@ -8,19 +8,28 @@ import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { ReportBgImagesFilterForm } from '@/modules/report-background-images/forms/filter'
-import { useDeleteReportBgImage, useReportBgImages } from '@/modules/report-background-images/hooks'
+import {
+  useDeleteReportBgImage,
+  useReportBgImages,
+} from '@/modules/report-background-images/hooks'
 import { ReportBgImagesTableRow } from '@/modules/report-background-images/table/row'
 import { ReportBgImagesTable } from '@/modules/report-background-images/table/table'
-import { ReportBgImagesFiltersDto, ReportBgImagesSortBy } from '@/modules/report-background-images/types'
+import {
+  ReportBgImagesFiltersDto,
+  ReportBgImagesSortBy,
+} from '@/modules/report-background-images/types'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 const initialFilters: ReportBgImagesFiltersDto = {
-  name: ''
+  name: '',
 }
 
-export const getServerSideProps = withSessionSsrRole(['common', 'report-bg-images'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'report-bg-images'],
+  ['ADMIN'],
+)
 
 interface IToDeleteData {
   id: string
@@ -33,8 +42,7 @@ const ReportBgImagesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] =
-    useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -61,11 +69,13 @@ const ReportBgImagesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     ...filters,
   })
 
-  const { mutate: deleteReportBgImage, isLoading: deleteLoading } = useDeleteReportBgImage()
+  const { mutate: deleteReportBgImage, isLoading: deleteLoading } =
+    useDeleteReportBgImage()
 
   const isLoading = dataLoading || deleteLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
@@ -101,8 +111,7 @@ const ReportBgImagesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
               isEditOptionEnabled
               isDeleteOptionEnabled
             />
-          ))
-        }
+          ))}
       </ReportBgImagesTable>
       <Fab href="/report-background-images/create" />
       <ConfirmationModal
@@ -111,8 +120,7 @@ const ReportBgImagesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
           name: toDeleteData?.name,
         })}
         handleAccept={() => {
-          if (toDeleteData)
-            deleteReportBgImage(toDeleteData.id)
+          if (toDeleteData) deleteReportBgImage(toDeleteData.id)
 
           setToDeleteData(undefined)
         }}

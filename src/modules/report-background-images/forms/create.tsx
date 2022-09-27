@@ -20,7 +20,7 @@ interface ICreateFormProps {
 export const CreateReportBgImageForm = ({
   onSubmit,
   onCancelClick,
-  fullwidth
+  fullwidth,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -58,7 +58,7 @@ export const CreateReportBgImageForm = ({
               error={touched.url && !!errors.url}
               helperText={touched.url && errors.url}
             />
-            <Box display='flex' justifyContent='center'>
+            <Box display="flex" justifyContent="center">
               <Field
                 component={CheckboxWithLabel}
                 type="checkbox"

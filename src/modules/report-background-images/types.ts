@@ -1,5 +1,4 @@
-export type ReportBgImageDto =
-  Components.Schemas.ReportBackgroundImageDto
+export type ReportBgImageDto = Components.Schemas.ReportBackgroundImageDto
 
 export type CreateReportBgImageDto =
   Components.Schemas.CreateReportBackgroundImageDto
@@ -12,10 +11,7 @@ export type FindAllReportBgImagesParams = Pick<
   'limit' | 'name' | 'page' | 'sortBy' | 'sortingOrder'
 >
 
-export type ReportBgImagesFiltersDto = Pick<
-FindAllReportBgImagesParams,
-  'name'
->
+export type ReportBgImagesFiltersDto = Pick<FindAllReportBgImagesParams, 'name'>
 
 export type ReportBgImagesSortBy =
   Paths.ReportBackgroundImagesControllerFindAll.Parameters.SortBy

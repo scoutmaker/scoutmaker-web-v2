@@ -10,21 +10,21 @@ import { getReportBgImageById } from '@/services/api/methods/report-background-i
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<ReportBgImageDto>(['common', 'report-bg-images'], ['ADMIN'],
+export const getServerSideProps = withSessionSsrRole<ReportBgImageDto>(
+  ['common', 'report-bg-images'],
+  ['ADMIN'],
   async (token, params) => {
     try {
-      const data = await getReportBgImageById(
-        params?.id as string,
-        token,
-      )
+      const data = await getReportBgImageById(params?.id as string, token)
       return { data }
     } catch (error) {
       return {
         data: null,
-        error: error as ApiError
+        error: error as ApiError,
       }
     }
-  });
+  },
+)
 
 const EditReportBgImagePage = ({
   data,
@@ -33,21 +33,16 @@ const EditReportBgImagePage = ({
 }: TSsrRole<ReportBgImageDto>) => {
   const { t } = useTranslation()
 
-  const { mutate: updateReportBgImg, isLoading: updateLoading } = useUpdateReportBgImage(
-    data?.id || '',
-  )
+  const { mutate: updateReportBgImg, isLoading: updateLoading } =
+    useUpdateReportBgImage(data?.id || '')
 
-  if (!data || errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (!data || errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {updateLoading && <Loader />}
-      <PageHeading
-        title={t('report-bg-images:EDIT_PAGE_TITLE')}
-      />
-      <EditReportBgImageForm
-        current={data}
-        onSubmit={updateReportBgImg}
-      />
+      <PageHeading title={t('report-bg-images:EDIT_PAGE_TITLE')} />
+      <EditReportBgImageForm current={data} onSubmit={updateReportBgImg} />
     </>
   )
 }

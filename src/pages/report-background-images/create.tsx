@@ -7,21 +7,24 @@ import { CreateReportBgImageForm } from '@/modules/report-background-images/form
 import { useCreateReportBgImage } from '@/modules/report-background-images/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'report-bg-images'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'report-bg-images'],
+  ['ADMIN'],
+)
 
-const CreateReportBgImagePage = ({errorMessage,errorStatus}: TSsrRole) => {
+const CreateReportBgImagePage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
 
-  const { mutate: createRepBgImg, isLoading: createLoading } = useCreateReportBgImage()
+  const { mutate: createRepBgImg, isLoading: createLoading } =
+    useCreateReportBgImage()
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {createLoading && <Loader />}
       <PageHeading title={t('report-bg-images:CREATE_PAGE_TITLE')} />
-      <CreateReportBgImageForm
-        onSubmit={createRepBgImg}
-      />
+      <CreateReportBgImageForm onSubmit={createRepBgImg} />
     </>
   )
 }

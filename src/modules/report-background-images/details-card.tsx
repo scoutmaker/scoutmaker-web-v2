@@ -6,7 +6,9 @@ import { ReportBackgroundImagesIcon } from '@/components/icons'
 
 import { ReportBgImageDto } from './types'
 
-export const ReportBgImageDetailsCard = ({ reportBackgroundImage }: ICountryDetailsCard) => {
+export const ReportBgImageDetailsCard = ({
+  reportBackgroundImage,
+}: ICountryDetailsCard) => {
   const { t } = useTranslation()
 
   const { name, url } = reportBackgroundImage
