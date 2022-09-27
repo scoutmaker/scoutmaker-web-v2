@@ -18,12 +18,9 @@ export const heroData = (t: TFunction) => ({
     alt: 'App dashboard view',
   },
   title: (
-    <p>
-      {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
-      <>
-        {t('landing-app:APP')} Scout<em>Maker</em>.pro
-      </>
-    </p>
+    <>
+      {t('landing-app:APP')} Scout<em>Maker</em>.pro
+    </>
   ),
   features: [
     t('landing-app:HERO_FEATURE1'),

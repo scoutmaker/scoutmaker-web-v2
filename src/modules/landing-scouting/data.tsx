@@ -32,9 +32,7 @@ export const heroData = (t: TFunction) => ({
     alt: 'App dashboard view',
   },
   title: (
-    <p>
-      Scout<em>Maker</em>.pro
-    </p>
+    <>Scout<em>Maker</em>.pro</>
   ),
   features: [
     t('landing-scouting:HERO_FEATURE1'),

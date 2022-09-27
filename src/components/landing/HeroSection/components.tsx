@@ -42,6 +42,7 @@ export const ImageContainer = styled('div')(({ theme }) => ({
 export const Heading = styled(Typography)(({ theme }) => ({
   fontSize: 48,
   fontWeight: theme.typography.fontWeightBold,
+  paddingY: theme.spacing(2),
 
   '& em': {
     color: theme.palette.secondary.main,
@@ -50,6 +51,7 @@ export const Heading = styled(Typography)(({ theme }) => ({
 
   [theme.breakpoints.down('lg')]: {
     textAlign: 'center',
+    marginTop: theme.spacing(14)
   },
 }))
 
