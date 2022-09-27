@@ -1,4 +1,5 @@
 import { CssBaseline } from "@mui/material";
+import { GetStaticPropsContext } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useState } from "react";
@@ -9,24 +10,21 @@ import { CopySection } from "@/components/landing/CopySection";
 import { EffectsSection } from "@/components/landing/EffectsSection";
 import { Footer } from "@/components/landing/Footer";
 import HeroSection from "@/components/landing/HeroSection";
-import { withSessionSsr } from "@/modules/auth/session";
 import { advantages, copyData, effects, heroData } from "@/modules/landing-data/data";
 import { HowDoWeWorkSection } from "@/modules/landing-data/HowDoWeWorkSection";
 import { PricingSection } from "@/modules/landing-data/PricingSection";
 
-export const getServerSideProps = withSessionSsr(
-  async ({ locale }) => {
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'landing', 'common', 'landing-data',
-    ])
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+  const translations = await serverSideTranslations(locale || 'pl', [
+    'landing', 'common', 'landing-data'
+  ])
 
-    return {
-      props: {
-        ...translations,
-      },
-    }
-  },
-)
+  return {
+    props: {
+      ...translations,
+    },
+  }
+}
 
 const DataAnalysisPage = () => {
   const [isContactFormModalOpen, setIsContactFormModalOpen] = useState(false);

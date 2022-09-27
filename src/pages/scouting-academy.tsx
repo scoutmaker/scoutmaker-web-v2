@@ -1,5 +1,6 @@
 
 import { CssBaseline } from '@mui/material';
+import { GetStaticPropsContext } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState } from 'react';
@@ -11,23 +12,21 @@ import { EffectsSection } from '@/components/landing/EffectsSection';
 import { Footer } from '@/components/landing/Footer';
 import HeroSection from '@/components/landing/HeroSection';
 import { ValuesSection } from '@/components/landing/ValuesSection';
-import { withSessionSsr } from '@/modules/auth/session';
 import { advantages, copyData, effects, heroData, values } from '@/modules/landing-academy/data';
 import { PricingSection } from '@/modules/landing-academy/PricingSection';
 
-export const getServerSideProps = withSessionSsr(
-  async ({ locale }) => {
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'landing', 'landing-academy'
-    ])
 
-    return {
-      props: {
-        ...translations,
-      },
-    }
-  },
-)
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+  const translations = await serverSideTranslations(locale || 'pl', [
+    'landing', 'landing-academy'
+  ])
+
+  return {
+    props: {
+      ...translations,
+    },
+  }
+}
 
 const ScoutingAcademyPage = () => {
   const [isContactFormModalOpen, setIsContactFormModalOpen] = useState(false);

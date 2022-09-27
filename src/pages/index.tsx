@@ -1,25 +1,23 @@
 import { CssBaseline, Link, Typography } from '@mui/material'
+import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { withSessionSsr } from '@/modules/auth/session'
 import { CtaButton } from '@/modules/landing-home/CtaButton'
 import { Header } from '@/modules/landing-home/Header'
 import { ButtonsContainer, FlexWrapper, GoToAppButton, GoToAppContainer, HeadingText, MainContainer, WrapperImg } from '@/modules/landing-home/Home'
 
-export const getServerSideProps = withSessionSsr(
-  async ({ locale }) => {
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'landing-home', 'landing'
-    ])
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+  const translations = await serverSideTranslations(locale || 'pl', [
+    'landing', 'landing-home'
+  ])
 
-    return {
-      props: {
-        ...translations,
-      },
-    }
-  },
-)
+  return {
+    props: {
+      ...translations,
+    },
+  }
+}
 
 const HomePage = () => {
   const { t } = useTranslation()
