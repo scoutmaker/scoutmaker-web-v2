@@ -1,5 +1,5 @@
-import { styled, Typography } from "@mui/material";
-import { ReactNode } from "react";
+import { styled, Typography } from '@mui/material'
+import { ReactNode } from 'react'
 import CountUp from 'react-countup'
 
 interface IProps {
@@ -10,15 +10,15 @@ interface IProps {
 
 export const AppNumber = ({ title, count, icon }: IProps) => (
   <div>
-    <Typography fontSize={26}>
-      {count ? <CountUp end={count} /> : 0}
-    </Typography>
+    <Typography fontSize={26}>{count ? <CountUp end={count} /> : 0}</Typography>
     <TitleContainer>
-      <Typography textTransform='uppercase' fontSize={18}>{title}</Typography>
+      <Typography textTransform="uppercase" fontSize={18}>
+        {title}
+      </Typography>
       {icon}
     </TitleContainer>
   </div>
-);
+)
 
 const TitleContainer = styled('div')(({ theme }) => ({
   display: 'flex',

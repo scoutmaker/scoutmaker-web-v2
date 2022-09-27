@@ -1,14 +1,14 @@
-import { styled, Typography } from '@mui/material';
-import { useTranslation } from 'next-i18next';
+import { styled, Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 
-import { LayoutContentWrapper } from '@/components/landing/LayoutContentWrapper';
-import { PricingCard } from '@/components/landing/PricingCard';
+import { LayoutContentWrapper } from '@/components/landing/LayoutContentWrapper'
+import { PricingCard } from '@/components/landing/PricingCard'
 
-import { constantCooperationPricing, oneTimeServicePricing } from './data';
+import { constantCooperationPricing, oneTimeServicePricing } from './data'
 
 type Props = {
-  onButtonClick?: () => void;
-};
+  onButtonClick?: () => void
+}
 
 export const PricingSection = ({ onButtonClick }: Props) => {
   const { t } = useTranslation()
@@ -18,10 +18,8 @@ export const PricingSection = ({ onButtonClick }: Props) => {
   return (
     <section>
       <LayoutContentWrapper>
-        <Heading variant="h2" >
-          {t('landing:PRICE_TABLE')}
-        </Heading>
-        <Container >
+        <Heading variant="h2">{t('landing:PRICE_TABLE')}</Heading>
+        <Container>
           <PricingCard
             features={oneTimeServicePricingTrans.features}
             priceFrom
@@ -39,8 +37,8 @@ export const PricingSection = ({ onButtonClick }: Props) => {
         </Container>
       </LayoutContentWrapper>
     </section>
-  );
-};
+  )
+}
 
 const Heading = styled(Typography)(({ theme }) => ({
   fontSize: 48,

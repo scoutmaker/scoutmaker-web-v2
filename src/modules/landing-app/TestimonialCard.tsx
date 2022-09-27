@@ -4,26 +4,28 @@ import {
   CardHeader,
   styled,
   Typography,
-} from '@mui/material';
+} from '@mui/material'
 
 type Props = {
-  title: string;
-  subtitle: string;
-  text: string;
-};
+  title: string
+  subtitle: string
+  text: string
+}
 
 export const TestimonialCard = ({ title, subtitle, text }: Props) => (
-  <Container >
+  <Container>
     <Header
       title={title}
       subheader={subtitle}
-      subheaderTypographyProps={{ sx: (theme) => ({ color: theme.palette.secondary.contrastText }) }}
+      subheaderTypographyProps={{
+        sx: theme => ({ color: theme.palette.secondary.contrastText }),
+      }}
     />
     <CardContent>
       <Typography>{text}</Typography>
     </CardContent>
   </Container>
-);
+)
 
 const Container = styled(Card)({
   height: '100%',

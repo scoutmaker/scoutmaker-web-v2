@@ -6,24 +6,24 @@ import {
   Money as MoneyIcon,
   Note as NotesIcon,
   Storage as DatabaseIcon,
-} from '@mui/icons-material';
-import { StaticImageData } from 'next/image';
-import { TFunction } from 'next-i18next';
+} from '@mui/icons-material'
+import { StaticImageData } from 'next/image'
+import { TFunction } from 'next-i18next'
 
-import bytomLogo from '@/assets/bytom-logo.png';
-import lubinLogo from '@/assets/lubin-logo.png';
-import nielbaLogo from '@/assets/nielba-logo.png';
-import odraLogo from '@/assets/odra-logo.png';
-import phoneMockup from '@/assets/phone1.png';
-import phoneMenuMockup from '@/assets/phone2.png';
-import podhaleLogo from '@/assets/podhale-logo.png';
-import polkowiceLogo from '@/assets/polkowice-logo.png';
-import backgroundImage from '@/assets/scouting-background.png';
-import sypekPhoto from '@/assets/sypek-photo.jpg';
-import szmytPhoto from '@/assets/szmyt-photo.jpg';
-import tkoczPhoto from '@/assets/tkocz-photo.png';
-import zakPhoto from '@/assets/zak-photo.png';
-import { Advantage, Value } from '@/components/landing/types';
+import bytomLogo from '@/assets/bytom-logo.png'
+import lubinLogo from '@/assets/lubin-logo.png'
+import nielbaLogo from '@/assets/nielba-logo.png'
+import odraLogo from '@/assets/odra-logo.png'
+import phoneMockup from '@/assets/phone1.png'
+import phoneMenuMockup from '@/assets/phone2.png'
+import podhaleLogo from '@/assets/podhale-logo.png'
+import polkowiceLogo from '@/assets/polkowice-logo.png'
+import backgroundImage from '@/assets/scouting-background.png'
+import sypekPhoto from '@/assets/sypek-photo.jpg'
+import szmytPhoto from '@/assets/szmyt-photo.jpg'
+import tkoczPhoto from '@/assets/tkocz-photo.png'
+import zakPhoto from '@/assets/zak-photo.png'
+import { Advantage, Value } from '@/components/landing/types'
 
 export const heroData = (t: TFunction) => ({
   backgroundImage: backgroundImage.src,
@@ -32,27 +32,39 @@ export const heroData = (t: TFunction) => ({
     alt: 'App dashboard view',
   },
   title: (
-    <>Scout<em>Maker</em>.pro</>
+    <>
+      Scout<em>Maker</em>.pro
+    </>
   ),
   features: [
     t('landing-scouting:HERO_FEATURE1'),
     t('landing-scouting:HERO_FEATURE2'),
     t('landing-scouting:HERO_FEATURE3'),
   ],
-});
+})
 
 export const copyData = (t: TFunction) => {
   const txt = t('landing-scouting:COPY_TEXT').split('{{em}}')
 
-  return ({
-    title: <>{t('landing-scouting:COPY_TITLE_START')} Scout<em>Maker</em>.Pro</>,
-    text: <>{txt[0]}<em>{txt[1]}</em>{txt[2]}</>,
+  return {
+    title: (
+      <>
+        {t('landing-scouting:COPY_TITLE_START')} Scout<em>Maker</em>.Pro
+      </>
+    ),
+    text: (
+      <>
+        {txt[0]}
+        <em>{txt[1]}</em>
+        {txt[2]}
+      </>
+    ),
     image: {
       img: phoneMenuMockup,
       alt: 'App with menu open view',
     },
-  })
-};
+  }
+}
 
 export const values = (t: TFunction): Value[] => [
   {
@@ -62,10 +74,9 @@ export const values = (t: TFunction): Value[] => [
     values: [
       t('landing-scouting:VALUES_DATA1'),
       t('landing-scouting:VALUES_DATA2'),
-      t('landing-scouting:VALUES_DATA3')
+      t('landing-scouting:VALUES_DATA3'),
     ],
-    link:
-      'https://docs.google.com/spreadsheets/d/1zmP7uwEdXgTcHyAM0kLqZJzwHhRkXtpI/edit?usp=sharing&ouid=117557516330646294431&rtpof=true&sd=true',
+    link: 'https://docs.google.com/spreadsheets/d/1zmP7uwEdXgTcHyAM0kLqZJzwHhRkXtpI/edit?usp=sharing&ouid=117557516330646294431&rtpof=true&sd=true',
   },
   {
     number: '02',
@@ -75,8 +86,7 @@ export const values = (t: TFunction): Value[] => [
       t('landing-scouting:VALUES_NOTES1'),
       t('landing-scouting:VALUES_NOTES2'),
     ],
-    link:
-      'https://drive.google.com/file/d/1c7Clw9Q3_HTFJHml7QNTfroMTGi3imwu/view?usp=sharing',
+    link: 'https://drive.google.com/file/d/1c7Clw9Q3_HTFJHml7QNTfroMTGi3imwu/view?usp=sharing',
   },
   {
     number: '03',
@@ -87,8 +97,7 @@ export const values = (t: TFunction): Value[] => [
       t('landing-scouting:VALUES_REPORTS2'),
       t('landing-scouting:VALUES_REPORTS3'),
     ],
-    link:
-      'https://drive.google.com/file/d/1KzkA-VticPoDlzuqpCVRGC-q7wos8T68/view?usp=sharing',
+    link: 'https://drive.google.com/file/d/1KzkA-VticPoDlzuqpCVRGC-q7wos8T68/view?usp=sharing',
   },
   {
     number: '04',
@@ -98,10 +107,9 @@ export const values = (t: TFunction): Value[] => [
       t('landing-scouting:VALUES_RECOMMENDATIONS1'),
       t('landing-scouting:VALUES_RECOMMENDATIONS2'),
     ],
-    link:
-      'https://drive.google.com/file/d/1MbPfmxE8g0CTpieYb1Z0d99YwhNAkeCq/view?usp=sharing',
+    link: 'https://drive.google.com/file/d/1MbPfmxE8g0CTpieYb1Z0d99YwhNAkeCq/view?usp=sharing',
   },
-];
+]
 
 export const advantages = (t: TFunction): Advantage[] => [
   {
@@ -124,22 +132,22 @@ export const advantages = (t: TFunction): Advantage[] => [
     icon: <ScoutingIcon color="inherit" />,
     text: t('landing-scouting:ADVANTAGE_SCOUTING_TEXT'),
   },
-];
+]
 
 type ClubData = {
-  name: string;
-  logo: StaticImageData;
-};
+  name: string
+  logo: StaticImageData
+}
 
 export type Transfer = {
   player: {
-    name: string;
-    image: StaticImageData;
-  };
-  from: ClubData;
-  to: ClubData;
-  reportLink: string;
-};
+    name: string
+    image: StaticImageData
+  }
+  from: ClubData
+  to: ClubData
+  reportLink: string
+}
 
 export const transfers: Transfer[] = [
   {
@@ -206,14 +214,14 @@ export const transfers: Transfer[] = [
     reportLink:
       'https://drive.google.com/file/d/1pX2hTw-QO9BPJRpSONQjRU7sEYdET9iL/view?usp=sharing',
   },
-];
+]
 
 export type Recommendation = {
-  player: string;
-  from: string;
-  to: string;
-  reportLink: string;
-};
+  player: string
+  from: string
+  to: string
+  reportLink: string
+}
 
 export const recommendations: Recommendation[] = [
   {
@@ -258,7 +266,7 @@ export const recommendations: Recommendation[] = [
     reportLink:
       'https://drive.google.com/file/d/1e2UkW4DgFzWROx_AoK2xHMUPwJpjg4Qo/view?usp=sharing',
   },
-];
+]
 
 export const mainPricing = (t: TFunction) => ({
   price: '1199 pln',
@@ -276,7 +284,7 @@ export const mainPricing = (t: TFunction) => ({
       value: true,
     },
   ],
-});
+})
 
 export const historicalDataPricing = (t: TFunction) => ({
   price: t('landing-scouting:REQUEST_PRICE'),
@@ -284,4 +292,4 @@ export const historicalDataPricing = (t: TFunction) => ({
     { title: t('landing-scouting:HISTORICAL_19_20'), value: true },
     { title: t('landing-scouting:HISTORICAL_20_21'), value: true },
   ],
-});
+})

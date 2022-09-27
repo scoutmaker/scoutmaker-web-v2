@@ -1,16 +1,16 @@
-import { Repeat as RepeatIcon } from '@mui/icons-material';
-import { Button, styled, Typography } from '@mui/material';
-import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
+import { Repeat as RepeatIcon } from '@mui/icons-material'
+import { Button, styled, Typography } from '@mui/material'
+import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 
-import { Recommendation } from '../data';
+import { Recommendation } from '../data'
 
 type Props = {
-  recommendation: Recommendation;
-};
+  recommendation: Recommendation
+}
 
 export const RecommendationCard = ({ recommendation }: Props) => {
-  const { player, from, to, reportLink } = recommendation;
+  const { player, from, to, reportLink } = recommendation
   const { t } = useTranslation()
 
   return (
@@ -27,21 +27,14 @@ export const RecommendationCard = ({ recommendation }: Props) => {
           <RepeatIcon />
         </Transfer>
       </ContentContainer>
-      <Link
-        href={reportLink}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <StyledButton
-          color="secondary"
-          variant="contained"
-        >
+      <Link href={reportLink} target="_blank" rel="noopener noreferrer">
+        <StyledButton color="secondary" variant="contained">
           {t('landing-scouting:SEE_REPORT')}
         </StyledButton>
       </Link>
     </Card>
-  );
-};
+  )
+}
 
 const Card = styled('div')(({ theme }) => ({
   display: 'flex',

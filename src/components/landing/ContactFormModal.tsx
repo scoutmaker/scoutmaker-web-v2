@@ -1,24 +1,32 @@
-import { LocalPhone as PhoneIcon, Mail as MailIcon } from '@mui/icons-material';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, styled, TextField } from "@mui/material";
-import { Field, Form, Formik } from "formik";
-import { useTranslation } from "next-i18next";
+import { LocalPhone as PhoneIcon, Mail as MailIcon } from '@mui/icons-material'
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  styled,
+  TextField,
+} from '@mui/material'
+import { Field, Form, Formik } from 'formik'
+import { useTranslation } from 'next-i18next'
 import * as yup from 'yup'
 
-import { useAlertsState } from '@/context/alerts/useAlertsState';
+import { useAlertsState } from '@/context/alerts/useAlertsState'
 
-import { MainFormActions } from "../forms/main-form-actions";
-import { Loader } from "../loader/loader";
+import { MainFormActions } from '../forms/main-form-actions'
+import { Loader } from '../loader/loader'
 
 type Props = {
-  onClose: () => void;
-  open: boolean;
-};
+  onClose: () => void
+  open: boolean
+}
 
 export const ContactFormModal = ({ onClose, open }: Props) => {
   const { t } = useTranslation()
 
   // const { mutate: sendEmail, isLoading } = useSendEmail();
-  const { setAlert } = useAlertsState();
+  const { setAlert } = useAlertsState()
   const isLoading = false
 
   return (
@@ -29,7 +37,9 @@ export const ContactFormModal = ({ onClose, open }: Props) => {
         onClose={onClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">{t('landing:CONTACT_FORM_TITLE')}</DialogTitle>
+        <DialogTitle id="form-dialog-title">
+          {t('landing:CONTACT_FORM_TITLE')}
+        </DialogTitle>
         <DialogContent>
           <Formik
             initialValues={{
@@ -41,12 +51,12 @@ export const ContactFormModal = ({ onClose, open }: Props) => {
             enableReinitialize
             onSubmit={(data, { resetForm }) => {
               // sendEmail(data);
-              resetForm();
+              resetForm()
             }}
           >
             {({ errors, touched, handleReset }) => (
               <Form>
-                <Container >
+                <Container>
                   <Field
                     name="from"
                     as={TextField}
@@ -85,8 +95,8 @@ export const ContactFormModal = ({ onClose, open }: Props) => {
                       setAlert({
                         msg: t('CHANGES_CANCELED'),
                         type: 'warning',
-                      });
-                      handleReset();
+                      })
+                      handleReset()
                     }}
                   />
                 </Container>
@@ -98,7 +108,7 @@ export const ContactFormModal = ({ onClose, open }: Props) => {
               <PhoneIcon />
               +48 504 271 466
             </ContactLink>
-            <ContactLink href="mailto:biuro@playmaker.pro" >
+            <ContactLink href="mailto:biuro@playmaker.pro">
               <MailIcon />
               biuro@playmaker.pro
             </ContactLink>
@@ -111,24 +121,22 @@ export const ContactFormModal = ({ onClose, open }: Props) => {
         </DialogActions>
       </StyledDialog>
     </>
-  );
-};
+  )
+}
 
-export const Container = styled('div')(
-  ({ theme }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    margin: theme.spacing(0, 'auto', 2),
-    gap: theme.spacing(2),
-    width: '100%',
-  }),
-)
+export const Container = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  margin: theme.spacing(0, 'auto', 2),
+  gap: theme.spacing(2),
+  width: '100%',
+}))
 
 const StyledDialog = styled(Dialog)({
   '& .MuiPaper-root': {
-    width: '95%'
-  }
-});
+    width: '95%',
+  },
+})
 
 const ContactContainer = styled('div')(({ theme }) => ({
   fontSize: 18,
@@ -157,4 +165,4 @@ const validationSchema = yup
     subject: yup.string().required('Proszę podać temat wiadomości'),
     message: yup.string().required('Proszę podać treść wiadomości'),
   })
-  .defined();
+  .defined()

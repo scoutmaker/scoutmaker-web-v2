@@ -1,9 +1,9 @@
-import { Grid, styled, Typography } from "@mui/material";
-import { useTranslation } from "next-i18next";
+import { Grid, styled, Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 
-import { LayoutContentWrapper } from "@/components/landing/LayoutContentWrapper";
+import { LayoutContentWrapper } from '@/components/landing/LayoutContentWrapper'
 
-import { functionalities } from "./data";
+import { functionalities } from './data'
 
 export const FunctionalitySection = () => {
   const { t } = useTranslation()
@@ -12,9 +12,7 @@ export const FunctionalitySection = () => {
   return (
     <Container>
       <LayoutContentWrapper>
-        <Heading variant="h2" >
-          {t('landing-app:FUNCTIONALITIES')}
-        </Heading>
+        <Heading variant="h2">{t('landing-app:FUNCTIONALITIES')}</Heading>
       </LayoutContentWrapper>
       <LayoutContentWrapper>
         <TilesContainer
@@ -22,7 +20,7 @@ export const FunctionalitySection = () => {
           // @ts-ignore
           component="ul"
         >
-          {functionalitiesTrans.map((functionality) => (
+          {functionalitiesTrans.map(functionality => (
             <TitleGrid
               item
               // @ts-ignore
@@ -34,17 +32,15 @@ export const FunctionalitySection = () => {
               xs={12}
               key={functionality.title}
             >
-              <Title variant="h4">
-                {functionality.title}
-              </Title>
+              <Title variant="h4">{functionality.title}</Title>
               <Typography>{functionality.text}</Typography>
             </TitleGrid>
           ))}
         </TilesContainer>
       </LayoutContentWrapper>
-    </Container >
-  );
-};
+    </Container>
+  )
+}
 
 const Container = styled('section')(({ theme }) => ({
   paddingBottom: theme.spacing(4),
@@ -64,7 +60,6 @@ const Title = styled(Typography)(({ theme }) => ({
   fontSize: 18,
   fontWeight: theme.typography.fontWeightBold,
   marginBottom: theme.spacing(1),
-
 }))
 
 const TitleGrid = styled(Grid)(({ theme }) => ({
@@ -76,5 +71,5 @@ const TitleGrid = styled(Grid)(({ theme }) => ({
 
 const TilesContainer = styled(Grid)(({ theme }) => ({
   marginTop: theme.spacing(3),
-  justifyContent: 'space-between'
+  justifyContent: 'space-between',
 }))

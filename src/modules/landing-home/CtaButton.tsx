@@ -1,6 +1,6 @@
 import { ArrowForwardIos as ArrowIcon } from '@mui/icons-material'
-import { Button, styled } from "@mui/material";
-import Link from "next/link";
+import { Button, styled } from '@mui/material'
+import Link from 'next/link'
 
 interface IProps {
   text: string
@@ -8,16 +8,12 @@ interface IProps {
 }
 
 export const CtaButton = ({ text, href }: IProps) => (
-  <Link href={href} >
-    <CustomButton
-      color="secondary"
-      variant="contained"
-      endIcon={<ArrowIcon />}
-    >
+  <Link href={href}>
+    <CustomButton color="secondary" variant="contained" endIcon={<ArrowIcon />}>
       {text}
     </CustomButton>
   </Link>
-);
+)
 
 const CustomButton = styled(Button)(({ theme }) => ({
   width: 280,
@@ -30,4 +26,4 @@ const CustomButton = styled(Button)(({ theme }) => ({
   [theme.breakpoints.down('xs')]: {
     width: 300,
   },
-}));
+}))

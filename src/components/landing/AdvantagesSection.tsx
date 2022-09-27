@@ -1,12 +1,12 @@
-import { Box, Grid, styled, Theme, Typography } from "@mui/material";
-import { useTranslation } from "next-i18next";
+import { Box, Grid, styled, Theme, Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 
-import { AdvantageTile } from "./AdvantageTile";
-import { LayoutContentWrapper } from "./LayoutContentWrapper";
-import { Advantage } from "./types";
+import { AdvantageTile } from './AdvantageTile'
+import { LayoutContentWrapper } from './LayoutContentWrapper'
+import { Advantage } from './types'
 
 type Props = {
-  advantages: Advantage[];
+  advantages: Advantage[]
   dark?: boolean
 }
 
@@ -17,17 +17,14 @@ export const AdvantagesSection = ({ advantages, dark }: Props) => {
     color: dark ? theme.palette.primary.contrastText : '',
   })
 
-
   return (
-    <Box component='section' sx={containerStyle}>
+    <Box component="section" sx={containerStyle}>
       <LayoutContentWrapper>
-        <Heading variant="h2" >
-          {t('landing:BENEFITS')}
-        </Heading>
+        <Heading variant="h2">{t('landing:BENEFITS')}</Heading>
       </LayoutContentWrapper>
       <LayoutContentWrapper>
         <TilesContainer container spacing={2}>
-          {advantages.map((advantage) => (
+          {advantages.map(advantage => (
             <Grid item xs={12} md={6} lg={3} key={advantage.title}>
               <AdvantageTile advantage={advantage} />
             </Grid>
@@ -36,7 +33,7 @@ export const AdvantagesSection = ({ advantages, dark }: Props) => {
       </LayoutContentWrapper>
     </Box>
   )
-};
+}
 
 const Heading = styled(Typography)(({ theme }) => ({
   fontSize: 48,
@@ -50,4 +47,3 @@ const Heading = styled(Typography)(({ theme }) => ({
 const TilesContainer = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(4, 0),
 }))
-

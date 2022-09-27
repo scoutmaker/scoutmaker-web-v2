@@ -1,12 +1,12 @@
-import { styled } from '@mui/material';
+import { styled } from '@mui/material'
 
 import logo from '../../../public/logo-white.png'
 
 export const Header = () => (
   <Container>
-    <Logo src={logo.src} alt='Scoutmaker logo' />
+    <Logo src={logo.src} alt="Scoutmaker logo" />
   </Container>
-);
+)
 
 const Container = styled('header')(({ theme }) => ({
   display: 'flex',

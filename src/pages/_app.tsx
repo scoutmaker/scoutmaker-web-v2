@@ -29,7 +29,13 @@ const secondaryLayoutRoutes = [
   '/test',
 ]
 
-const emptyLayoutRoutes = ['/', '/data-analysis', '/club-scouting', '/scouting-academy', '/scouting-app']
+const emptyLayoutRoutes = [
+  '/',
+  '/data-analysis',
+  '/club-scouting',
+  '/scouting-academy',
+  '/scouting-app',
+]
 
 const MyApp = ({
   Component,
@@ -42,10 +48,9 @@ const MyApp = ({
   const shouldUseSecondaryLayout = secondaryLayoutRoutes.includes(
     appProps.router.route,
   )
-  const shouldUseEmptyLayout = emptyLayoutRoutes.includes(
-    appProps.router.route,
-  )
-  const shouldUsePrimaryLayout = !shouldUseEmptyLayout && !shouldUseSecondaryLayout
+  const shouldUseEmptyLayout = emptyLayoutRoutes.includes(appProps.router.route)
+  const shouldUsePrimaryLayout =
+    !shouldUseEmptyLayout && !shouldUseSecondaryLayout
 
   return (
     <CacheProvider value={emotionCache}>
@@ -56,16 +61,16 @@ const MyApp = ({
         <AlertsState>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            {shouldUsePrimaryLayout &&
+            {shouldUsePrimaryLayout && (
               <PrimaryLayout>
                 <Component {...pageProps} />
               </PrimaryLayout>
-            }
-            {shouldUseSecondaryLayout &&
+            )}
+            {shouldUseSecondaryLayout && (
               <SecondaryLayout>
                 <Component {...pageProps} />
               </SecondaryLayout>
-            }
+            )}
             {shouldUseEmptyLayout && <Component {...pageProps} />}
           </ThemeProvider>
         </AlertsState>

@@ -1,10 +1,10 @@
-import { styled, Typography } from "@mui/material";
-import { useTranslation } from "next-i18next";
+import { styled, Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 
-import { LayoutContentWrapper } from "@/components/landing/LayoutContentWrapper";
-import { PricingCard } from "@/components/landing/PricingCard";
+import { LayoutContentWrapper } from '@/components/landing/LayoutContentWrapper'
+import { PricingCard } from '@/components/landing/PricingCard'
 
-import { variantOnePricing, variantTwoPricing } from "./data";
+import { variantOnePricing, variantTwoPricing } from './data'
 
 export const PricingSection = () => {
   const { t } = useTranslation()
@@ -14,9 +14,7 @@ export const PricingSection = () => {
   return (
     <section>
       <LayoutContentWrapper>
-        <Heading variant="h2">
-          {t('landing:PRICE_TABLE')}
-        </Heading>
+        <Heading variant="h2">{t('landing:PRICE_TABLE')}</Heading>
         <Container>
           <PricingCard
             features={variantOnePricingTrans.features}
@@ -29,8 +27,8 @@ export const PricingSection = () => {
         </Container>
       </LayoutContentWrapper>
     </section>
-  );
-};
+  )
+}
 
 const Heading = styled(Typography)(({ theme }) => ({
   fontSize: 48,

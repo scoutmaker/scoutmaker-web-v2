@@ -1,13 +1,20 @@
-import { Box, List } from "@mui/material";
-import Image, { StaticImageData } from "next/image";
-import { useTranslation } from "next-i18next";
-import { ReactNode } from "react";
+import { Box, List } from '@mui/material'
+import Image, { StaticImageData } from 'next/image'
+import { useTranslation } from 'next-i18next'
+import { ReactNode } from 'react'
 
-import { AppNumbers } from "../AppNumbers";
-import { GoToSectionButton } from "../GoToSectionButton";
-import { LayoutContentWrapper } from "../LayoutContentWrapper";
-import { ListElement } from "../ListElement";
-import { ButtonContainer, Container, ContentContainer, Heading, ImageContainer, InnerContainer } from "./components";
+import { AppNumbers } from '../AppNumbers'
+import { GoToSectionButton } from '../GoToSectionButton'
+import { LayoutContentWrapper } from '../LayoutContentWrapper'
+import { ListElement } from '../ListElement'
+import {
+  ButtonContainer,
+  Container,
+  ContentContainer,
+  Heading,
+  ImageContainer,
+  InnerContainer,
+} from './components'
 
 interface IProps {
   backgroundImage: string
@@ -34,16 +41,14 @@ const HeroSection = ({
       <LayoutContentWrapper>
         <InnerContainer>
           <ImageContainer>
-            <Box width='80%' display='flex'>
+            <Box width="80%" display="flex">
               <Image src={image.img} alt={image.alt} />
             </Box>
           </ImageContainer>
           <ContentContainer>
-            <Heading variant="h2">
-              {title}
-            </Heading>
-            <Box component={List} fontSize='36'>
-              {features.map((feature) => (
+            <Heading variant="h2">{title}</Heading>
+            <Box component={List} fontSize="36">
+              {features.map(feature => (
                 <ListElement text={feature} key={feature} />
               ))}
             </Box>
@@ -55,7 +60,7 @@ const HeroSection = ({
         </InnerContainer>
       </LayoutContentWrapper>
     </Container>
-  );
-};
+  )
+}
 
 export default HeroSection

@@ -1,8 +1,15 @@
-import { Button, Card, CardActions, CardContent, styled, Typography } from "@mui/material";
-import Image from 'next/future/image';
-import { StaticImageData } from "next/image";
-import Link from "next/link";
-import { useTranslation } from "next-i18next";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  styled,
+  Typography,
+} from '@mui/material'
+import Image from 'next/future/image'
+import { StaticImageData } from 'next/image'
+import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 
 interface IProps {
   title: string
@@ -18,30 +25,25 @@ export const EffectCard = ({ title, text, logo, link }: IProps) => {
     <CustomCard>
       <CardContent>
         <ImageContainer>
-          <Image src={logo} alt={title} style={{ height: '200px', objectFit: 'contain' }} />
+          <Image
+            src={logo}
+            alt={title}
+            style={{ height: '200px', objectFit: 'contain' }}
+          />
         </ImageContainer>
-        <Title variant="h4">
-          {title}
-        </Title>
+        <Title variant="h4">{title}</Title>
         <Typography>{text}</Typography>
       </CardContent>
       <CardActions>
-        <CustomLink
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <CustomButtom
-            color="secondary"
-            variant="contained"
-          >
+        <CustomLink href={link} target="_blank" rel="noopener noreferrer">
+          <CustomButtom color="secondary" variant="contained">
             {t('landing:SEE')}
           </CustomButtom>
         </CustomLink>
       </CardActions>
     </CustomCard>
-  );
-};
+  )
+}
 
 const CustomCard = styled(Card)({
   height: '100%',
@@ -68,7 +70,7 @@ const CustomLink = styled(Link)({
 
   '&:hover': {
     textDecoration: 'none',
-  }
+  },
 })
 
 const CustomButtom = styled(Button)({

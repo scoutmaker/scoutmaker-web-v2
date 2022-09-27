@@ -1,15 +1,15 @@
-import { Button, styled, Typography } from '@mui/material';
-import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
+import { Button, styled, Typography } from '@mui/material'
+import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 
-import { Value } from '../types';
+import { Value } from '../types'
 
 type Props = {
-  value: Value;
-};
+  value: Value
+}
 
 export const ValueTile = ({ value }: Props) => {
-  const { number, title, icon, values, link } = value;
+  const { number, title, icon, values, link } = value
   const { t } = useTranslation()
 
   return (
@@ -17,35 +17,23 @@ export const ValueTile = ({ value }: Props) => {
       <Heading>
         <Number>{number}</Number>
         <TitleContainer>
-          <Title variant="h4" >
-            {title}
-          </Title>
+          <Title variant="h4">{title}</Title>
           {icon}
         </TitleContainer>
       </Heading>
       <List>
-        {values.map((valueEl) => (
-          <ListItem key={valueEl}>
-            {valueEl}
-          </ListItem>
+        {values.map(valueEl => (
+          <ListItem key={valueEl}>{valueEl}</ListItem>
         ))}
       </List>
-      <Link
-        href={link}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <StyledButton
-          variant="contained"
-          color="secondary"
-        >
+      <Link href={link} target="_blank" rel="noopener noreferrer">
+        <StyledButton variant="contained" color="secondary">
           {t('landing:SEE_EXAMPLE')}
         </StyledButton>
       </Link>
     </Tile>
-  );
-};
-
+  )
+}
 
 const Tile = styled('div')(({ theme }) => ({
   display: 'flex',

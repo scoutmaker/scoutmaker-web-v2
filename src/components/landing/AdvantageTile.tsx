@@ -1,26 +1,24 @@
-import { styled, Typography } from "@mui/material";
+import { styled, Typography } from '@mui/material'
 
-import { Advantage } from "./types";
+import { Advantage } from './types'
 
 interface IProps {
   advantage: Advantage
 }
 
 export const AdvantageTile = ({ advantage }: IProps) => {
-  const { title, icon, text } = advantage;
+  const { title, icon, text } = advantage
 
   return (
     <TileContainer>
       <Heading>
-        <Title variant="h4">
-          {title}
-        </Title>
+        <Title variant="h4">{title}</Title>
         {icon}
       </Heading>
       <Text>{text}</Text>
     </TileContainer>
-  );
-};
+  )
+}
 
 const TileContainer = styled('div')(({ theme }) => ({
   display: 'flex',

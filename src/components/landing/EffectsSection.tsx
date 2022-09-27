@@ -1,8 +1,8 @@
-import { Grid, styled, Typography } from "@mui/material";
+import { Grid, styled, Typography } from '@mui/material'
 
-import { EffectCard } from "./EffectCard";
-import { LayoutContentWrapper } from "./LayoutContentWrapper";
-import { Effect } from "./types";
+import { EffectCard } from './EffectCard'
+import { LayoutContentWrapper } from './LayoutContentWrapper'
+import { Effect } from './types'
 
 interface IProps {
   title: string
@@ -12,14 +12,9 @@ interface IProps {
 export const EffectsSection = ({ title, effects }: IProps) => (
   <Container>
     <LayoutContentWrapper>
-      <Heading variant="h2">
-        {title}
-      </Heading>
-      <CardsContainer
-        container
-        spacing={3}
-      >
-        {effects.map((effect) => (
+      <Heading variant="h2">{title}</Heading>
+      <CardsContainer container spacing={3}>
+        {effects.map(effect => (
           <Grid
             item
             key={effect.name}
@@ -40,7 +35,7 @@ export const EffectsSection = ({ title, effects }: IProps) => (
       </CardsContainer>
     </LayoutContentWrapper>
   </Container>
-);
+)
 
 const Container = styled('section')(({ theme }) => ({
   paddingBottom: theme.spacing(4),

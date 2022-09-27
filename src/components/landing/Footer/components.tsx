@@ -1,4 +1,4 @@
-import { Divider as DDivider, styled } from "@mui/material";
+import { Divider as DDivider, styled } from '@mui/material'
 
 export const Container = styled('footer')(({ theme }) => ({
   background: '#000',

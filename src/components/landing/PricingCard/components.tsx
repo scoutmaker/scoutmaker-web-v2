@@ -1,5 +1,12 @@
-import { Check, Close } from '@mui/icons-material';
-import { Button, Card, Divider, ListItemText, styled, Typography } from '@mui/material';
+import { Check, Close } from '@mui/icons-material'
+import {
+  Button,
+  Card,
+  Divider,
+  ListItemText,
+  styled,
+  Typography,
+} from '@mui/material'
 
 export const CustomCard = styled(Card)(({ theme }) => ({
   background: theme.palette.primary.main,

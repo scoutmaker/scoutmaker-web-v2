@@ -1,10 +1,10 @@
-import { Grid, styled, Typography } from "@mui/material";
-import { useTranslation } from "next-i18next";
+import { Grid, styled, Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 
-import { LayoutContentWrapper } from "@/components/landing/LayoutContentWrapper";
+import { LayoutContentWrapper } from '@/components/landing/LayoutContentWrapper'
 
-import { transfers } from "../data";
-import { TransferCard } from "./TransferCard";
+import { transfers } from '../data'
+import { TransferCard } from './TransferCard'
 
 export const TransfersSection = () => {
   const { t } = useTranslation()
@@ -12,11 +12,9 @@ export const TransfersSection = () => {
   return (
     <Container>
       <LayoutContentWrapper>
-        <Heading variant="h2" >
-          {t('landing-scouting:ACTIVITY_EFFECTS')}
-        </Heading>
+        <Heading variant="h2">{t('landing-scouting:ACTIVITY_EFFECTS')}</Heading>
         <Grid container spacing={3}>
-          {transfers.map((transfer) => (
+          {transfers.map(transfer => (
             <Grid
               item
               xl={3}
@@ -33,7 +31,7 @@ export const TransfersSection = () => {
       </LayoutContentWrapper>
     </Container>
   )
-};
+}
 
 const Container = styled('section')(({ theme }) => ({
   background: '#000',

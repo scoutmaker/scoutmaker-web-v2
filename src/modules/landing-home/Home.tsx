@@ -1,7 +1,6 @@
-import { Button, styled, Typography } from "@mui/material";
+import { Button, styled, Typography } from '@mui/material'
 
 import backgroundImg from '@/assets/scouting-background.png'
-
 
 export const WrapperImg = styled('div')(({ theme }) => ({
   color: theme.palette.primary.contrastText,
@@ -61,8 +60,6 @@ export const HeadingText = styled(Typography)(({ theme }) => ({
   },
 }))
 
-
-
 export const ButtonsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
@@ -94,6 +91,6 @@ export const GoToAppButton = styled(Button)(({ theme }) => ({
   },
 
   [theme.breakpoints.down(700)]: {
-    flex: 1
+    flex: 1,
   },
 }))

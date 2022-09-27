@@ -2,11 +2,11 @@ import {
   Create as NotesIcon,
   LibraryBooks as ReportsIcon,
   Search as ScoutsIcon,
-} from '@mui/icons-material';
-import { styled } from '@mui/material';
-import { useTranslation } from 'next-i18next';
+} from '@mui/icons-material'
+import { styled } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 
-import { AppNumber } from './AppNumber';
+import { AppNumber } from './AppNumber'
 
 export const AppNumbers = () => {
   const { t } = useTranslation()
@@ -32,8 +32,8 @@ export const AppNumbers = () => {
         icon={<ScoutsIcon />}
       />
     </Container>
-  );
-};
+  )
+}
 
 const Divider = styled('div')(({ theme }) => ({
   width: 2,

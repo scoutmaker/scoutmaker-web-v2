@@ -1,8 +1,8 @@
-import { Box, styled, Typography } from "@mui/material";
-import Image, { StaticImageData } from "next/image";
-import { ReactNode } from "react";
+import { Box, styled, Typography } from '@mui/material'
+import Image, { StaticImageData } from 'next/image'
+import { ReactNode } from 'react'
 
-import { LayoutContentWrapper } from "./LayoutContentWrapper";
+import { LayoutContentWrapper } from './LayoutContentWrapper'
 
 interface IProps {
   title: ReactNode
@@ -17,10 +17,8 @@ export const CopySection = ({ title, text, image }: IProps) => (
   <Wrapper id="copy">
     <LayoutContentWrapper>
       <Container>
-        <Box flexBasis='80%'>
-          <Heading>
-            {title}
-          </Heading>
+        <Box flexBasis="80%">
+          <Heading>{title}</Heading>
           <Text>{text}</Text>
         </Box>
         <ImageContainer>
@@ -29,7 +27,7 @@ export const CopySection = ({ title, text, image }: IProps) => (
       </Container>
     </LayoutContentWrapper>
   </Wrapper>
-);
+)
 
 const Container = styled('div')(({ theme }) => ({
   display: 'flex',

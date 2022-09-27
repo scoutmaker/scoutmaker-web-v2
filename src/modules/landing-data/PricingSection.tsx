@@ -1,10 +1,10 @@
-import { styled, Typography } from "@mui/material";
-import { useTranslation } from "next-i18next";
+import { styled, Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 
-import { LayoutContentWrapper } from "@/components/landing/LayoutContentWrapper";
-import { PricingCard } from "@/components/landing/PricingCard";
+import { LayoutContentWrapper } from '@/components/landing/LayoutContentWrapper'
+import { PricingCard } from '@/components/landing/PricingCard'
 
-import { constantCooperationPricing, oneTimeServicePricing } from "./data";
+import { constantCooperationPricing, oneTimeServicePricing } from './data'
 
 interface IProps {
   onButtonClick?: () => void
@@ -19,9 +19,7 @@ export const PricingSection = ({ onButtonClick }: IProps) => {
   return (
     <section>
       <LayoutContentWrapper>
-        <Heading variant="h2" >
-          Cennik
-        </Heading>
+        <Heading variant="h2">Cennik</Heading>
         <Container>
           <PricingCard
             features={oneTimeServicePricingData.features}
@@ -40,8 +38,8 @@ export const PricingSection = ({ onButtonClick }: IProps) => {
         </Container>
       </LayoutContentWrapper>
     </section>
-  );
-};
+  )
+}
 
 const Heading = styled(Typography)(({ theme }) => ({
   fontSize: 48,

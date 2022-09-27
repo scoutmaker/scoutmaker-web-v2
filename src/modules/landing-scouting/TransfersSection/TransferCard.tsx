@@ -1,33 +1,37 @@
-import { Repeat as RepeatIcon } from '@mui/icons-material';
-import { Box, Button, styled, Typography } from "@mui/material";
-import Image from 'next/future/image';
-import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
+import { Repeat as RepeatIcon } from '@mui/icons-material'
+import { Box, Button, styled, Typography } from '@mui/material'
+import Image from 'next/future/image'
+import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 
-import { Transfer } from "../data";
+import { Transfer } from '../data'
 
 type Props = {
-  transfer: Transfer;
-};
+  transfer: Transfer
+}
 
 export const TransferCard = ({ transfer }: Props) => {
-  const { player, from, to, reportLink } = transfer;
+  const { player, from, to, reportLink } = transfer
   const { t } = useTranslation()
 
   return (
     <Card>
       <ImageContainer>
-        <Image src={player.image} alt={player.name} style={{ height: '100%', width: '100%', objectFit: 'cover' }} />
+        <Image
+          src={player.image}
+          alt={player.name}
+          style={{ height: '100%', width: '100%', objectFit: 'cover' }}
+        />
       </ImageContainer>
       <ContentContainer>
-        <Name variant="h4" gutterBottom >
+        <Name variant="h4" gutterBottom>
           {player.name}
         </Name>
         <TransferCont>
           <div>
             <Club>
               <Typography>{from.name}</Typography>
-              <Box marginLeft={(theme) => theme.spacing(2)}>
+              <Box marginLeft={theme => theme.spacing(2)}>
                 <Image src={from.logo} alt={from.name} height={30} width={35} />
               </Box>
             </Club>
@@ -39,22 +43,14 @@ export const TransferCard = ({ transfer }: Props) => {
           <RepeatIcon />
         </TransferCont>
       </ContentContainer>
-      <Link
-        href={reportLink}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <StyledButton
-          color="secondary"
-          variant="contained"
-          fullWidth
-        >
+      <Link href={reportLink} target="_blank" rel="noopener noreferrer">
+        <StyledButton color="secondary" variant="contained" fullWidth>
           {t('landing-scouting:SEE_REPORT')}
         </StyledButton>
       </Link>
-    </Card >
-  );
-};
+    </Card>
+  )
+}
 
 const Card = styled('div')(({ theme }) => ({
   display: 'flex',

@@ -1,12 +1,12 @@
-import { Grid, styled, Typography } from "@mui/material";
-import { useTranslation } from "next-i18next";
+import { Grid, styled, Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 
-import { LayoutContentWrapper } from "@/components/landing/LayoutContentWrapper";
+import { LayoutContentWrapper } from '@/components/landing/LayoutContentWrapper'
 
-import { Testimonial } from "./data";
-import { TestimonialCard } from "./TestimonialCard";
+import { Testimonial } from './data'
+import { TestimonialCard } from './TestimonialCard'
 
-type Props = { testimonials: Testimonial[] };
+type Props = { testimonials: Testimonial[] }
 
 export const TestimonialsSection = ({ testimonials }: Props) => {
   const { t } = useTranslation()
@@ -14,14 +14,9 @@ export const TestimonialsSection = ({ testimonials }: Props) => {
   return (
     <section>
       <LayoutContentWrapper>
-        <Heading variant="h2" >
-          {t('landing-app:TRUSTED_US')}
-        </Heading>
-        <Container
-          container
-          spacing={3}
-        >
-          {testimonials.map((testimonial) => (
+        <Heading variant="h2">{t('landing-app:TRUSTED_US')}</Heading>
+        <Container container spacing={3}>
+          {testimonials.map(testimonial => (
             <Grid
               item
               key={testimonial.name}
@@ -41,8 +36,8 @@ export const TestimonialsSection = ({ testimonials }: Props) => {
         </Container>
       </LayoutContentWrapper>
     </section>
-  );
-};
+  )
+}
 
 const Heading = styled(Typography)(({ theme }) => ({
   fontSize: 48,
@@ -56,5 +51,5 @@ const Heading = styled(Typography)(({ theme }) => ({
 
 const Container = styled(Grid)(({ theme }) => ({
   marginTop: theme.spacing(3),
-  justifyContent: 'space-between'
+  justifyContent: 'space-between',
 }))

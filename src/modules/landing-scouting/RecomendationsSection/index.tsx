@@ -1,10 +1,10 @@
-import { Grid, styled, Typography } from '@mui/material';
-import { useTranslation } from 'next-i18next';
+import { Grid, styled, Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 
-import { LayoutContentWrapper } from '@/components/landing/LayoutContentWrapper';
+import { LayoutContentWrapper } from '@/components/landing/LayoutContentWrapper'
 
-import { recommendations } from '../data';
-import { RecommendationCard } from './RecommendationCard';
+import { recommendations } from '../data'
+import { RecommendationCard } from './RecommendationCard'
 
 export const RecommendationsSection = () => {
   const { t } = useTranslation()
@@ -13,11 +13,11 @@ export const RecommendationsSection = () => {
     <section>
       <Container>
         <LayoutContentWrapper>
-          <Heading variant="h2" >
+          <Heading variant="h2">
             {t('landing-scouting:RECOMENDATIONS_REST')}
           </Heading>
           <CardsContainer container spacing={3}>
-            {recommendations.map((recommendation) => (
+            {recommendations.map(recommendation => (
               <Grid
                 item
                 xl={4}
@@ -34,8 +34,8 @@ export const RecommendationsSection = () => {
         </LayoutContentWrapper>
       </Container>
     </section>
-  );
-};
+  )
+}
 
 const Container = styled('div')(({ theme }) => ({
   background: '#000',

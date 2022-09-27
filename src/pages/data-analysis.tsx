@@ -1,22 +1,29 @@
-import { CssBaseline } from "@mui/material";
-import { GetStaticPropsContext } from "next";
-import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useState } from "react";
+import { CssBaseline } from '@mui/material'
+import { GetStaticPropsContext } from 'next'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useState } from 'react'
 
-import { AdvantagesSection } from "@/components/landing/AdvantagesSection";
-import { ContactFormModal } from "@/components/landing/ContactFormModal";
-import { CopySection } from "@/components/landing/CopySection";
-import { EffectsSection } from "@/components/landing/EffectsSection";
-import { Footer } from "@/components/landing/Footer";
-import HeroSection from "@/components/landing/HeroSection";
-import { advantages, copyData, effects, heroData } from "@/modules/landing-data/data";
-import { HowDoWeWorkSection } from "@/modules/landing-data/HowDoWeWorkSection";
-import { PricingSection } from "@/modules/landing-data/PricingSection";
+import { AdvantagesSection } from '@/components/landing/AdvantagesSection'
+import { ContactFormModal } from '@/components/landing/ContactFormModal'
+import { CopySection } from '@/components/landing/CopySection'
+import { EffectsSection } from '@/components/landing/EffectsSection'
+import { Footer } from '@/components/landing/Footer'
+import HeroSection from '@/components/landing/HeroSection'
+import {
+  advantages,
+  copyData,
+  effects,
+  heroData,
+} from '@/modules/landing-data/data'
+import { HowDoWeWorkSection } from '@/modules/landing-data/HowDoWeWorkSection'
+import { PricingSection } from '@/modules/landing-data/PricingSection'
 
 export async function getStaticProps({ locale }: GetStaticPropsContext) {
   const translations = await serverSideTranslations(locale || 'pl', [
-    'landing', 'common', 'landing-data'
+    'landing',
+    'common',
+    'landing-data',
   ])
 
   return {
@@ -27,7 +34,7 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
 }
 
 const DataAnalysisPage = () => {
-  const [isContactFormModalOpen, setIsContactFormModalOpen] = useState(false);
+  const [isContactFormModalOpen, setIsContactFormModalOpen] = useState(false)
   const { t } = useTranslation()
   const heroDataTrans = heroData(t)
   const copyDataTrans = copyData(t)
@@ -41,7 +48,10 @@ const DataAnalysisPage = () => {
         <HeroSection {...heroDataTrans} />
         <CopySection {...copyDataTrans} />
         <AdvantagesSection advantages={advantagesDataTrans} />
-        <EffectsSection effects={effectsDataTrans} title={t('landing-data:DATA_ANALYSIS_EXAMPLES')} />
+        <EffectsSection
+          effects={effectsDataTrans}
+          title={t('landing-data:DATA_ANALYSIS_EXAMPLES')}
+        />
         <HowDoWeWorkSection />
         <PricingSection onButtonClick={() => setIsContactFormModalOpen(true)} />
         <ContactFormModal
@@ -51,7 +61,7 @@ const DataAnalysisPage = () => {
       </main>
       <Footer />
     </>
-  );
-};
+  )
+}
 
 export default DataAnalysisPage

@@ -1,18 +1,16 @@
-import { styled, Typography } from "@mui/material";
+import { styled, Typography } from '@mui/material'
 
 interface Props {
-  number: string;
-  text: string;
+  number: string
+  text: string
 }
 
-export const ListItem = ({ number, text }: Props) =>
-(
+export const ListItem = ({ number, text }: Props) => (
   <Container>
     <Number>{number}</Number>
     <Typography fontSize={20}>{text}</Typography>
   </Container>
-);
-
+)
 
 const Container = styled('ul')(({ theme }) => ({
   display: 'flex',

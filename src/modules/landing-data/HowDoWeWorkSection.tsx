@@ -1,10 +1,10 @@
-import { styled, Typography } from "@mui/material";
-import { useTranslation } from "next-i18next";
+import { styled, Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 
-import { LayoutContentWrapper } from "@/components/landing/LayoutContentWrapper";
+import { LayoutContentWrapper } from '@/components/landing/LayoutContentWrapper'
 
-import { methodology } from "./data";
-import { ListItem } from "./ListItem";
+import { methodology } from './data'
+import { ListItem } from './ListItem'
 
 export const HowDoWeWorkSection = () => {
   const { t } = useTranslation()
@@ -13,18 +13,16 @@ export const HowDoWeWorkSection = () => {
   return (
     <Container>
       <LayoutContentWrapper>
-        <Heading variant="h2">
-          {t('landing:HOW_DO_WE_WORK')}
-        </Heading>
+        <Heading variant="h2">{t('landing:HOW_DO_WE_WORK')}</Heading>
         <ContentContainer>
-          {methodologyData.map((item) => (
+          {methodologyData.map(item => (
             <ListItem key={item.number} number={item.number} text={item.text} />
           ))}
         </ContentContainer>
       </LayoutContentWrapper>
     </Container>
-  );
-};
+  )
+}
 
 const Container = styled('section')(({ theme }) => ({
   background: '#000',

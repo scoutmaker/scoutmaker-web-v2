@@ -1,7 +1,7 @@
-import { styled, Typography } from "@mui/material";
+import { styled, Typography } from '@mui/material'
 
-export const Container = styled("section", {
-  shouldForwardProp: (prop) => prop !== "backgroundImage",
+export const Container = styled('section', {
+  shouldForwardProp: prop => prop !== 'backgroundImage',
 })<{ backgroundImage?: string }>(({ theme, backgroundImage }) => ({
   minHeight: '100vh',
   backgroundImage: `url(${backgroundImage})`,
@@ -11,7 +11,7 @@ export const Container = styled("section", {
   [theme.breakpoints.down('lg')]: {
     backgroundPosition: 'left center',
   },
-}));
+}))
 
 export const InnerContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -51,7 +51,7 @@ export const Heading = styled(Typography)(({ theme }) => ({
 
   [theme.breakpoints.down('lg')]: {
     textAlign: 'center',
-    marginTop: theme.spacing(14)
+    marginTop: theme.spacing(14),
   },
 }))
 

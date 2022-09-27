@@ -1,24 +1,31 @@
-import { CssBaseline } from "@mui/material";
-import { GetStaticPropsContext } from "next";
-import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useState } from "react";
+import { CssBaseline } from '@mui/material'
+import { GetStaticPropsContext } from 'next'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useState } from 'react'
 
-import { AdvantagesSection } from "@/components/landing/AdvantagesSection";
-import { ContactFormModal } from "@/components/landing/ContactFormModal";
-import { CopySection } from "@/components/landing/CopySection";
-import { Footer } from "@/components/landing/Footer";
-import HeroSection from "@/components/landing/HeroSection";
-import { ValuesSection } from "@/components/landing/ValuesSection";
-import { advantages, copyData, heroData, values } from "@/modules/landing-scouting/data";
-import { HistoricalDataSection } from "@/modules/landing-scouting/HistoricalDataSection";
-import { PricingSection } from "@/modules/landing-scouting/PricingSection";
-import { RecommendationsSection } from "@/modules/landing-scouting/RecomendationsSection";
-import { TransfersSection } from "@/modules/landing-scouting/TransfersSection";
+import { AdvantagesSection } from '@/components/landing/AdvantagesSection'
+import { ContactFormModal } from '@/components/landing/ContactFormModal'
+import { CopySection } from '@/components/landing/CopySection'
+import { Footer } from '@/components/landing/Footer'
+import HeroSection from '@/components/landing/HeroSection'
+import { ValuesSection } from '@/components/landing/ValuesSection'
+import {
+  advantages,
+  copyData,
+  heroData,
+  values,
+} from '@/modules/landing-scouting/data'
+import { HistoricalDataSection } from '@/modules/landing-scouting/HistoricalDataSection'
+import { PricingSection } from '@/modules/landing-scouting/PricingSection'
+import { RecommendationsSection } from '@/modules/landing-scouting/RecomendationsSection'
+import { TransfersSection } from '@/modules/landing-scouting/TransfersSection'
 
 export async function getStaticProps({ locale }: GetStaticPropsContext) {
   const translations = await serverSideTranslations(locale || 'pl', [
-    'landing', 'common', 'landing-scouting'
+    'landing',
+    'common',
+    'landing-scouting',
   ])
 
   return {
@@ -29,7 +36,7 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
 }
 
 const ClubScoutingPage = () => {
-  const [isContactFormModalOpen, setIsContactFormModalOpen] = useState(false);
+  const [isContactFormModalOpen, setIsContactFormModalOpen] = useState(false)
   const { t } = useTranslation()
 
   const heroDataTranslated = heroData(t)
@@ -58,7 +65,7 @@ const ClubScoutingPage = () => {
       </main>
       <Footer />
     </>
-  );
-};
+  )
+}
 
 export default ClubScoutingPage

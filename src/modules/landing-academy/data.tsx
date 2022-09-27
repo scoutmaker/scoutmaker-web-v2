@@ -5,17 +5,17 @@ import {
   Money as MoneyIcon,
   Search as ScoutingIcon,
   Storage as DatabaseIcon,
-} from '@mui/icons-material';
-import { TFunction } from 'next-i18next';
+} from '@mui/icons-material'
+import { TFunction } from 'next-i18next'
 
-import backgroundImage from '@/assets/academy-background.png';
-import bytomLogo from '@/assets/bytom-logo.png';
-import chemikLogo from '@/assets/chemik-logo.png';
-import jantarLogo from '@/assets/jantar-logo.png';
-import phoneMockup from '@/assets/phone1.png';
-import phoneMenuMockup from '@/assets/phone2.png';
-import resoviaLogo from '@/assets/resovia-logo.png';
-import { Advantage, Effect, Value } from '@/components/landing/types';
+import backgroundImage from '@/assets/academy-background.png'
+import bytomLogo from '@/assets/bytom-logo.png'
+import chemikLogo from '@/assets/chemik-logo.png'
+import jantarLogo from '@/assets/jantar-logo.png'
+import phoneMockup from '@/assets/phone1.png'
+import phoneMenuMockup from '@/assets/phone2.png'
+import resoviaLogo from '@/assets/resovia-logo.png'
+import { Advantage, Effect, Value } from '@/components/landing/types'
 
 export const heroData = (t: TFunction) => ({
   backgroundImage: backgroundImage.src,
@@ -33,7 +33,7 @@ export const heroData = (t: TFunction) => ({
     t('landing-academy:HERO_FEATURE2'),
     t('landing-academy:HERO_FEATURE3'),
   ],
-});
+})
 
 export const copyData = (t: TFunction) => ({
   title: (
@@ -46,7 +46,7 @@ export const copyData = (t: TFunction) => ({
     img: phoneMenuMockup,
     alt: 'App with menu open view',
   },
-});
+})
 
 export const values = (t: TFunction): Value[] => [
   {
@@ -88,11 +88,11 @@ export const values = (t: TFunction): Value[] => [
     icon: <FeedbackIcon />,
     values: [
       t('landing-academy:VALUE_FEEDBACK1'),
-      t('landing-academy:VALUE_FEEDBACK2')
+      t('landing-academy:VALUE_FEEDBACK2'),
     ],
     link: '',
   },
-];
+]
 
 export const advantages = (t: TFunction): Advantage[] => [
   {
@@ -115,7 +115,7 @@ export const advantages = (t: TFunction): Advantage[] => [
     icon: <ScoutingIcon color="inherit" />,
     text: t('landing-academy:ADVANTAGE_ESCOUTING_TEXT'),
   },
-];
+]
 
 export const effects = (t: TFunction): Effect[] => [
   {
@@ -128,15 +128,13 @@ export const effects = (t: TFunction): Effect[] => [
     logo: resoviaLogo,
     name: 'Resovia Rzeszów',
     text: t('landing-academy:EFFECT_RESOVIA_TEXT'),
-    link:
-      'https://docs.google.com/spreadsheets/d/1eUvPMT_4a6CHo661ZyoS3VJYRWRJr2fu/edit?usp=sharing&ouid=117557516330646294431&rtpof=true&sd=true',
+    link: 'https://docs.google.com/spreadsheets/d/1eUvPMT_4a6CHo661ZyoS3VJYRWRJr2fu/edit?usp=sharing&ouid=117557516330646294431&rtpof=true&sd=true',
   },
   {
     logo: jantarLogo,
     name: 'Jantar Ustka',
     text: t('landing-academy:EFFECT_JANTAR_TEXT'),
-    link:
-      'https://docs.google.com/spreadsheets/d/1LxromvMx1iISMBRqv_eQrcgpEfGBAxBR/edit?usp=sharing&ouid=117557516330646294431&rtpof=true&sd=true',
+    link: 'https://docs.google.com/spreadsheets/d/1LxromvMx1iISMBRqv_eQrcgpEfGBAxBR/edit?usp=sharing&ouid=117557516330646294431&rtpof=true&sd=true',
   },
   {
     logo: chemikLogo,
@@ -144,7 +142,7 @@ export const effects = (t: TFunction): Effect[] => [
     text: t('landing-academy:EFFECT_CHEMIK_TEXT'),
     link: '',
   },
-];
+]
 
 export const oneTimeServicePricing = (t: TFunction) => ({
   price: '399 pln',
@@ -158,7 +156,7 @@ export const oneTimeServicePricing = (t: TFunction) => ({
     { title: t('landing-academy:PRICE_COOPERATION'), value: true },
     { title: t('landing-academy:PRICE_ALL_COMPETITIONS'), value: true },
   ],
-});
+})
 
 export const constantCooperationPricing = (t: TFunction) => ({
   price: '199 pln/miesiąc',
@@ -172,4 +170,4 @@ export const constantCooperationPricing = (t: TFunction) => ({
     { title: t('landing-academy:PRICE_COOPERATION'), value: true },
     { title: t('landing-academy:PRICE_ALL_COMPETITIONS'), value: true },
   ],
-});
+})

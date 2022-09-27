@@ -1,11 +1,11 @@
-import { Grid, styled, Typography } from "@mui/material";
-import { useTranslation } from "next-i18next";
+import { Grid, styled, Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 
-import { LayoutContentWrapper } from "../LayoutContentWrapper";
-import { Value } from "../types";
-import { ValueTile } from "./ValueTile";
+import { LayoutContentWrapper } from '../LayoutContentWrapper'
+import { Value } from '../types'
+import { ValueTile } from './ValueTile'
 
-type Props = { values: Value[] };
+type Props = { values: Value[] }
 
 export const ValuesSection = ({ values }: Props) => {
   const { t } = useTranslation()
@@ -14,11 +14,9 @@ export const ValuesSection = ({ values }: Props) => {
     <Container>
       <Shape />
       <LayoutContentWrapper>
-        <Heading variant="h2" >
-          {t('landing:HOW_DO_WE_WORK')}
-        </Heading>
+        <Heading variant="h2">{t('landing:HOW_DO_WE_WORK')}</Heading>
         <Grid container spacing={4}>
-          {values.map((value) => (
+          {values.map(value => (
             <Grid item xs={12} md={6} lg={3} key={value.number}>
               <ValueTile value={value} />
             </Grid>
@@ -27,8 +25,7 @@ export const ValuesSection = ({ values }: Props) => {
       </LayoutContentWrapper>
     </Container>
   )
-};
-
+}
 
 const Container = styled('section')(({ theme }) => ({
   paddingBottom: theme.spacing(4),
