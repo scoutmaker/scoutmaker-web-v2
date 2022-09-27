@@ -1,3 +1,4 @@
+import { StaticImageData } from 'next/image'
 import { ReactNode } from 'react'
 
 export interface Advantage {
@@ -15,7 +16,7 @@ export interface Value {
 }
 
 export interface Effect {
-  logo: string
+  logo: StaticImageData
   name: string
   text: string
   link: string

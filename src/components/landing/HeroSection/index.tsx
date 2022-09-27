@@ -1,4 +1,5 @@
 import { Box, List } from "@mui/material";
+import Image, { StaticImageData } from "next/image";
 import { useTranslation } from "next-i18next";
 import { ReactNode } from "react";
 
@@ -11,7 +12,7 @@ import { ButtonContainer, Container, ContentContainer, Heading, ImageContainer, 
 interface IProps {
   backgroundImage: string
   image: {
-    src: string
+    img: StaticImageData
     alt: string
   }
   title: ReactNode
@@ -33,7 +34,9 @@ const HeroSection = ({
       <LayoutContentWrapper>
         <InnerContainer>
           <ImageContainer>
-            <Box component='img' src={image.src} alt={image.alt} width='80%' />
+            <Box width='80%' display='flex'>
+              <Image src={image.img} alt={image.alt} />
+            </Box>
           </ImageContainer>
           <ContentContainer>
             <Heading variant="h2">

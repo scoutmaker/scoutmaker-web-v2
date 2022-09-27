@@ -1,5 +1,6 @@
 import { Repeat as RepeatIcon } from '@mui/icons-material';
-import { Button, styled, Typography } from "@mui/material";
+import { Box, Button, styled, Typography } from "@mui/material";
+import Image from 'next/future/image';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 
@@ -16,7 +17,7 @@ export const TransferCard = ({ transfer }: Props) => {
   return (
     <Card>
       <ImageContainer>
-        <Image src={player.image} alt={player.name} />
+        <Image src={player.image} alt={player.name} style={{ height: '100%', width: '100%', objectFit: 'cover' }} />
       </ImageContainer>
       <ContentContainer>
         <Name variant="h4" gutterBottom >
@@ -26,11 +27,13 @@ export const TransferCard = ({ transfer }: Props) => {
           <div>
             <Club>
               <Typography>{from.name}</Typography>
-              <Logo src={from.logo} alt={from.name} />
+              <Box marginLeft={(theme) => theme.spacing(2)}>
+                <Image src={from.logo} alt={from.name} height={30} width={35} />
+              </Box>
             </Club>
             <Club>
               <Typography>{to.name}</Typography>
-              <Logo src={to.logo} alt={to.name} />
+              <Image src={to.logo} alt={to.name} height={30} width={35} />
             </Club>
           </div>
           <RepeatIcon />
@@ -49,7 +52,7 @@ export const TransferCard = ({ transfer }: Props) => {
           {t('landing-scouting:SEE_REPORT')}
         </StyledButton>
       </Link>
-    </Card>
+    </Card >
   );
 };
 
@@ -68,10 +71,10 @@ const ImageContainer = styled('div')({
   alignSelf: 'center',
 })
 
-const Image = styled('img')({
-  height: '100%',
-  objectFit: 'contain',
-})
+// const Image = styled('img')({
+//   height: '100%',
+//   objectFit: 'contain',
+// })
 
 const ContentContainer = styled('div')(({ theme }) => ({
   padding: theme.spacing(1, 3),
@@ -88,10 +91,10 @@ const TransferCont = styled('div')(({ theme }) => ({
   gap: theme.spacing(2),
 }))
 
-const Logo = styled('img')(({ theme }) => ({
-  height: 30,
-  marginLeft: theme.spacing(2),
-}))
+// const Logo = styled('img')(({ theme }) => ({
+//   height: 30,
+//   marginLeft: theme.spacing(2),
+// }))
 
 const Club = styled('div')(({ theme }) => ({
   display: 'flex',

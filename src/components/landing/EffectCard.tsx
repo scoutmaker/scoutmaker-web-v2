@@ -1,11 +1,13 @@
 import { Button, Card, CardActions, CardContent, styled, Typography } from "@mui/material";
+import Image from 'next/future/image';
+import { StaticImageData } from "next/image";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 
 interface IProps {
   title: string
   text: string
-  logo: string
+  logo: StaticImageData
   link: string
 }
 
@@ -16,7 +18,7 @@ export const EffectCard = ({ title, text, logo, link }: IProps) => {
     <CustomCard>
       <CardContent>
         <ImageContainer>
-          <Image src={logo} alt={title} />
+          <Image src={logo} alt={title} style={{ height: '200px', objectFit: 'contain' }} />
         </ImageContainer>
         <Title variant="h4">
           {title}
@@ -51,11 +53,6 @@ const CustomCard = styled(Card)({
 const ImageContainer = styled('div')({
   display: 'flex',
   justifyContent: 'center',
-})
-
-const Image = styled('img')({
-  height: 200,
-  margin: '0 auto',
 })
 
 const Title = styled(Typography)(({ theme }) => ({

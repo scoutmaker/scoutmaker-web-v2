@@ -14,7 +14,7 @@ import { Advantage } from '@/components/landing/types';
 export const heroData = (t: TFunction) => ({
   backgroundImage: backgroundImage.src,
   image: {
-    src: phoneMockup.src,
+    img: phoneMockup,
     alt: 'App dashboard view',
   },
   title: (
@@ -43,7 +43,7 @@ export const copyData = (t: TFunction) => ({
   ),
   text: t('landing-app:COPY_TEXT'),
   image: {
-    src: phoneMenuMockup.src,
+    img: phoneMenuMockup,
     alt: 'App with menu open view',
   },
 });

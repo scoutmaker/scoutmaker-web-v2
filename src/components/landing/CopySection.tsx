@@ -1,4 +1,5 @@
 import { Box, styled, Typography } from "@mui/material";
+import Image, { StaticImageData } from "next/image";
 import { ReactNode } from "react";
 
 import { LayoutContentWrapper } from "./LayoutContentWrapper";
@@ -7,7 +8,7 @@ interface IProps {
   title: ReactNode
   text: string | ReactNode
   image: {
-    src: string
+    img: StaticImageData
     alt: string
   }
 }
@@ -23,7 +24,7 @@ export const CopySection = ({ title, text, image }: IProps) => (
           <Text>{text}</Text>
         </Box>
         <ImageContainer>
-          <Box component='img' src={image.src} alt={image.alt} width='100%' />
+          <Image src={image.img} alt={image.alt} />
         </ImageContainer>
       </Container>
     </LayoutContentWrapper>

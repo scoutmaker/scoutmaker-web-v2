@@ -20,7 +20,7 @@ import { Advantage, Effect, Value } from '@/components/landing/types';
 export const heroData = (t: TFunction) => ({
   backgroundImage: backgroundImage.src,
   image: {
-    src: phoneMockup.src,
+    img: phoneMockup,
     alt: 'App dashboard view',
   },
   title: (
@@ -46,7 +46,7 @@ export const copyData = (t: TFunction) => ({
   ),
   text: t('landing-academy:COPY_TEXT'),
   image: {
-    src: phoneMenuMockup.src,
+    img: phoneMenuMockup,
     alt: 'App with menu open view',
   },
 });
@@ -122,27 +122,27 @@ export const advantages = (t: TFunction): Advantage[] => [
 
 export const effects = (t: TFunction): Effect[] => [
   {
-    logo: bytomLogo.src,
+    logo: bytomLogo,
     name: 'Polonia Bytom',
     text: t('landing-academy:EFFECT_POLONIA_TEXT'),
     link: '',
   },
   {
-    logo: resoviaLogo.src,
+    logo: resoviaLogo,
     name: 'Resovia Rzeszów',
     text: t('landing-academy:EFFECT_RESOVIA_TEXT'),
     link:
       'https://docs.google.com/spreadsheets/d/1eUvPMT_4a6CHo661ZyoS3VJYRWRJr2fu/edit?usp=sharing&ouid=117557516330646294431&rtpof=true&sd=true',
   },
   {
-    logo: jantarLogo.src,
+    logo: jantarLogo,
     name: 'Jantar Ustka',
     text: t('landing-academy:EFFECT_JANTAR_TEXT'),
     link:
       'https://docs.google.com/spreadsheets/d/1LxromvMx1iISMBRqv_eQrcgpEfGBAxBR/edit?usp=sharing&ouid=117557516330646294431&rtpof=true&sd=true',
   },
   {
-    logo: chemikLogo.src,
+    logo: chemikLogo,
     name: 'Chemik Bydgoszcz',
     text: t('landing-academy:EFFECT_CHEMIK_TEXT'),
     link: '',

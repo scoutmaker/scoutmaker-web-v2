@@ -20,7 +20,7 @@ import { Advantage, Effect } from '@/components/landing/types';
 export const heroData = (t: TFunction) => ({
   backgroundImage: backgroundImage.src,
   image: {
-    src: phoneMockup.src,
+    img: phoneMockup,
     alt: 'App dashboard view',
   },
   title: (
@@ -49,7 +49,7 @@ export const copyData = (t: TFunction) => ({
   ),
   text: t('landing-data:COPY_TEXT'),
   image: {
-    src: phoneMenuMockup.src,
+    img: phoneMenuMockup,
     alt: 'App with menu open view',
   },
 });
@@ -79,28 +79,28 @@ export const advantages = (t: TFunction): Advantage[] => [
 
 export const effects = (t: TFunction): Effect[] => [
   {
-    logo: neptunLogo.src,
+    logo: neptunLogo,
     name: 'Neptun Końskie',
     text: t('landing-data:EFFECT_NEPTUN_TEXT'),
     link:
       'https://docs.google.com/spreadsheets/d/1j3F5USvi03odeJqZFQ-M8FCzxLfE42P5/edit?usp=sharing&ouid=117557516330646294431&rtpof=true&sd=true',
   },
   {
-    logo: resoviaLogo.src,
+    logo: resoviaLogo,
     name: 'Resovia Rzeszów',
     text: t('landing-data:EFFECT_RESOVIA_TEXT'),
     link:
       'https://docs.google.com/spreadsheets/d/1eUvPMT_4a6CHo661ZyoS3VJYRWRJr2fu/edit?usp=sharing&ouid=117557516330646294431&rtpof=true&sd=true',
   },
   {
-    logo: skierniewiceLogo.src,
+    logo: skierniewiceLogo,
     name: 'Widok Skierniewice',
     text: t('landing-data:EFFECT_WIDOK_TEXT'),
     link:
       'https://docs.google.com/spreadsheets/d/108PchGw8K2GSnQvpT2uzrQgLxFTDsplE/edit?usp=sharing&ouid=117557516330646294431&rtpof=true&sd=true',
   },
   {
-    logo: odraLogo.src,
+    logo: odraLogo,
     name: 'Odra Opole',
     text: t('landing-data:EFFECT_ODRA_TEXT'),
     link:

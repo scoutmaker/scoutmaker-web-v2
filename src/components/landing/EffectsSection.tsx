@@ -18,7 +18,6 @@ export const EffectsSection = ({ title, effects }: IProps) => (
       <CardsContainer
         container
         spacing={3}
-      // justifyContent="space-between" CHECK
       >
         {effects.map((effect) => (
           <Grid

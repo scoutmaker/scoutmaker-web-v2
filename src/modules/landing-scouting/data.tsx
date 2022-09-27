@@ -7,6 +7,7 @@ import {
   Note as NotesIcon,
   Storage as DatabaseIcon,
 } from '@mui/icons-material';
+import { StaticImageData } from 'next/image';
 import { TFunction } from 'next-i18next';
 
 import bytomLogo from '@/assets/bytom-logo.png';
@@ -27,7 +28,7 @@ import { Advantage, Value } from '@/components/landing/types';
 export const heroData = (t: TFunction) => ({
   backgroundImage: backgroundImage.src,
   image: {
-    src: phoneMockup.src,
+    img: phoneMockup,
     alt: 'App dashboard view',
   },
   title: (
@@ -49,7 +50,7 @@ export const copyData = (t: TFunction) => {
     title: <>{t('landing-scouting:COPY_TITLE_START')} Scout<em>Maker</em>.Pro</>,
     text: <>{txt[0]}<em>{txt[1]}</em>{txt[2]}</>,
     image: {
-      src: phoneMenuMockup.src,
+      img: phoneMenuMockup,
       alt: 'App with menu open view',
     },
   })
@@ -129,13 +130,13 @@ export const advantages = (t: TFunction): Advantage[] => [
 
 type ClubData = {
   name: string;
-  logo: string;
+  logo: StaticImageData;
 };
 
 export type Transfer = {
   player: {
     name: string;
-    image: string;
+    image: StaticImageData;
   };
   from: ClubData;
   to: ClubData;
@@ -146,15 +147,15 @@ export const transfers: Transfer[] = [
   {
     player: {
       name: 'Adam Żak',
-      image: zakPhoto.src,
+      image: zakPhoto,
     },
     from: {
       name: 'Polonia Bytom',
-      logo: bytomLogo.src,
+      logo: bytomLogo,
     },
     to: {
       name: 'Odra Opole',
-      logo: odraLogo.src,
+      logo: odraLogo,
     },
     reportLink:
       'https://drive.google.com/file/d/1IsRkdUEYIBXvt6zCjn_kmafVafUC49s_/view?usp=sharing',
@@ -162,15 +163,15 @@ export const transfers: Transfer[] = [
   {
     player: {
       name: 'Maksymilian Tkocz',
-      image: tkoczPhoto.src,
+      image: tkoczPhoto,
     },
     from: {
       name: 'Podhale Nowy Targ',
-      logo: podhaleLogo.src,
+      logo: podhaleLogo,
     },
     to: {
       name: 'Odra Opole',
-      logo: odraLogo.src,
+      logo: odraLogo,
     },
     reportLink:
       'https://drive.google.com/file/d/1k161cG--8hZaMNO2qf7bfUMDsQmI3UNi/view?usp=sharing',
@@ -178,15 +179,15 @@ export const transfers: Transfer[] = [
   {
     player: {
       name: 'Kajetan Szmyt',
-      image: szmytPhoto.src,
+      image: szmytPhoto,
     },
     from: {
       name: 'Nielba Wągrowiec',
-      logo: nielbaLogo.src,
+      logo: nielbaLogo,
     },
     to: {
       name: 'Górnik Polkowice',
-      logo: polkowiceLogo.src,
+      logo: polkowiceLogo,
     },
     reportLink:
       'https://drive.google.com/file/d/1Z9uArxzOJ2_T02K3Zc7Rk7mR82qT8keV/view?usp=sharing',
@@ -194,15 +195,15 @@ export const transfers: Transfer[] = [
   {
     player: {
       name: 'Jakub Sypek',
-      image: sypekPhoto.src,
+      image: sypekPhoto,
     },
     from: {
       name: 'Zagłębie II Lubin',
-      logo: lubinLogo.src,
+      logo: lubinLogo,
     },
     to: {
       name: 'Górnik Polkowice',
-      logo: polkowiceLogo.src,
+      logo: polkowiceLogo,
     },
     reportLink:
       'https://drive.google.com/file/d/1pX2hTw-QO9BPJRpSONQjRU7sEYdET9iL/view?usp=sharing',
