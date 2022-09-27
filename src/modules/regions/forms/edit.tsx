@@ -29,7 +29,7 @@ export const EditRegionForm = ({
   onSubmit,
   onCancelClick,
   fullwidth,
-  countriesData
+  countriesData,
 }: IEditRegionFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()

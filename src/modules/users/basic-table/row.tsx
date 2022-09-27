@@ -1,6 +1,4 @@
-import {
-  Delete as DeleteIcon,
-} from '@mui/icons-material'
+import { Delete as DeleteIcon } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
@@ -19,7 +17,7 @@ interface ITableRowProps {
 
 export const BasicUsersTableRow = ({
   data,
-  onRemoveFromOrganization
+  onRemoveFromOrganization,
 }: ITableRowProps) => {
   const router = useRouter()
   const { t } = useTranslation()
@@ -47,14 +45,15 @@ export const BasicUsersTableRow = ({
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
         >
-          {!!onRemoveFromOrganization &&
+          {!!onRemoveFromOrganization && (
             <TableMenuItem
               icon={<DeleteIcon fontSize="small" />}
               text={t('organizations:REMOVE_FROM_ORGANIZATION')}
               onClick={() => {
                 handleMenuAction(onRemoveFromOrganization)
               }}
-            />}
+            />
+          )}
         </TableMenu>
       </StyledTableCell>
       <StyledTableCell>{lastName}</StyledTableCell>

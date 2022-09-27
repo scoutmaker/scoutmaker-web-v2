@@ -22,6 +22,7 @@ import {
   ObservationIcon,
   OrdersIcon,
   OrganizationsIcon,
+  OrganizationSubscriptionsIcon,
   PlayerPositionIcon,
   PlayersIcon,
   ProfileIcon,
@@ -146,8 +147,8 @@ export const NavList = () => {
         />
         <NavElement
           icon={<ReportTemplatesIcon color="error" />}
-          to="/reporttemplates"
-          text={t('REPORT_TEMPLATES_CREATOR')}
+          to="/report-templates"
+          text={t('REPORT_TEMPLATES')}
         />
       </ExpandeableNavElement>
       {/* <MatchButton onClick={handleMatchClick} isAtTheMatch={isAtTheMatch} /> */}
@@ -238,6 +239,11 @@ export const NavList = () => {
             icon={<TeamAffiliationIcon color="error" />}
             to="/team-affiliations"
             text={t('TEAM_AFFILIATIONS')}
+          />
+          <NavElement
+            icon={<OrganizationSubscriptionsIcon color="error" />}
+            to="/organization-subscriptions"
+            text={t('ORGANIZATION_SUBSCRIPTIONS')}
           />
         </ExpandeableNavElement>
       )}

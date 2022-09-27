@@ -18,6 +18,7 @@ export type FindAllReportsParams = Pick<
   | 'sortingOrder'
   | 'teamIds'
   | 'hasVideo'
+  | 'userId'
 >
 
 export type ReportsFiltersDto = Omit<

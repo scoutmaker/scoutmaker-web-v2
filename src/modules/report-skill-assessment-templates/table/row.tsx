@@ -1,7 +1,4 @@
-import {
-  Delete as DeleteIcon,
-  Edit as EditIcon
-} from '@mui/icons-material'
+import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
@@ -26,7 +23,7 @@ export const ReportSkillAssessmentTemplatesTableRow = ({
   onEditClick,
   onDeleteClick,
   isEditOptionEnabled,
-  isDeleteOptionEnabled
+  isDeleteOptionEnabled,
 }: ITableRowProps) => {
   const router = useRouter()
   const { t } = useTranslation()
@@ -45,7 +42,11 @@ export const ReportSkillAssessmentTemplatesTableRow = ({
     <StyledTableRow
       hover
       key={id}
-      onClick={isMenuOpen ? undefined : () => router.push(`/report-skill-assessment-templates/${id}`)}
+      onClick={
+        isMenuOpen
+          ? undefined
+          : () => router.push(`/report-skill-assessment-templates/${id}`)
+      }
     >
       <StyledTableCell padding="checkbox">
         <TableMenu

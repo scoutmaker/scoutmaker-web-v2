@@ -9,19 +9,28 @@ import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { useRegionsList } from '@/modules/regions/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'comp-groups'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'comp-groups'],
+  ['ADMIN'],
+)
 
-const CreateCompetitionGroupPage = ({ errorMessage, errorStatus }: TSsrRole) => {
+const CreateCompetitionGroupPage = ({
+  errorMessage,
+  errorStatus,
+}: TSsrRole) => {
   const { t } = useTranslation()
 
-  const { mutate: createCompGroup, isLoading: createLoading } = useCreateCompetitionGroup()
+  const { mutate: createCompGroup, isLoading: createLoading } =
+    useCreateCompetitionGroup()
 
-  const { data: competitionsData, isLoading: competitionsLoading } = useCompetitionsList()
+  const { data: competitionsData, isLoading: competitionsLoading } =
+    useCompetitionsList()
   const { data: regionsData, isLoading: regionsLoading } = useRegionsList()
 
   const isLoading = createLoading || competitionsLoading || regionsLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}

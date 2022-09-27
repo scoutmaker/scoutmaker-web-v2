@@ -12,21 +12,21 @@ import { getUserSubscriptionById } from '@/services/api/methods/user-subscriptio
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<UserSubscriptionDto>(['common', 'user-subs'], ['ADMIN'],
+export const getServerSideProps = withSessionSsrRole<UserSubscriptionDto>(
+  ['common', 'user-subs'],
+  ['ADMIN'],
   async (token, params) => {
     try {
-      const data = await getUserSubscriptionById(
-        params?.id as string,
-        token,
-      )
+      const data = await getUserSubscriptionById(params?.id as string, token)
       return { data }
     } catch (error) {
       return {
         data: null,
-        error: error as ApiError
+        error: error as ApiError,
       }
     }
-  });
+  },
+)
 
 const EditUserSubscriptionPage = ({
   data,
@@ -35,22 +35,21 @@ const EditUserSubscriptionPage = ({
 }: TSsrRole<UserSubscriptionDto>) => {
   const { t } = useTranslation()
 
-  const { mutate: updateUserSub, isLoading: updateLoading } = useUpdateUserSubscription(
-    data?.id || '',
-  )
+  const { mutate: updateUserSub, isLoading: updateLoading } =
+    useUpdateUserSubscription(data?.id || '')
 
-  const { data: compGroupsData, isLoading: compGroupsLoading } = useCompetitionGroupsList()
+  const { data: compGroupsData, isLoading: compGroupsLoading } =
+    useCompetitionGroupsList()
   const { data: compsData, isLoading: compsLoading } = useCompetitionsList()
 
   const isLoading = compGroupsLoading || compsLoading || updateLoading
 
-  if (!data || errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (!data || errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
-      <PageHeading
-        title={t('user-subs:EDIT_PAGE_TITLE')}
-      />
+      <PageHeading title={t('user-subs:EDIT_PAGE_TITLE')} />
       <EditUserSubscriptionForm
         current={data}
         onSubmit={updateUserSub}

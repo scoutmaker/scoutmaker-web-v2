@@ -27,7 +27,11 @@ export const CompetitionParticipationDetailsCard = ({ comp }: IDetailsCard) => {
       />
       <CardContent>
         <Grid container spacing={1}>
-          <CardItemBasic title={t('TEAM')} value={team.name} href={`/teams/${team.slug}`} />
+          <CardItemBasic
+            title={t('TEAM')}
+            value={team.name}
+            href={`/teams/${team.slug}`}
+          />
           <CardItemBasic
             title={t('COMPETITION')}
             value={competition.name}

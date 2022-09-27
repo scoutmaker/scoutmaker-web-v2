@@ -181,8 +181,8 @@
   "ORGANIZATIONS": "Organizations",
   "RATING_RANGE": "Rating range",
   "CREATE": "Create",
-  "REPORT_TEMPLATE": "Szablon raportu",
-  "REPORT_TEMPLATES": "Szablony raportów",
+  "REPORT_TEMPLATE": "Report template",
+  "REPORT_TEMPLATES": "Report templates",
   "BACK": "Back",
   "FORWARD": "Forward",
   "MINUTES_PLAYED": "Minutes played",
@@ -193,5 +193,8 @@
   "YELLOW_CARD": "Yellow card",
   "YELLOW_CARDS": "Yellow cards",
   "RED_CARD": "Red card",
-  "RED_CARDS": "Red cards"
+  "RED_CARDS": "Red cards",
+  "AVG_RATING": "Average rating",
+  "ORGANIZATION_SUBSCRIPTION": "Organization subscription",
+  "ORGANIZATION_SUBSCRIPTIONS": "Organization subscriptions"
 }

@@ -25,7 +25,7 @@ export const EditUserFootballRoleForm = ({
   current,
   onSubmit,
   onCancelClick,
-  fullwidth
+  fullwidth,
 }: IEditFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
