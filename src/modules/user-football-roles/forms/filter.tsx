@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 
-import {  UserFootballRolesFiltersDto } from '../types'
+import { UserFootballRolesFiltersDto } from '../types'
 
 interface IFormProps {
   filters: UserFootballRolesFiltersDto

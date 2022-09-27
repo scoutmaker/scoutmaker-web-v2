@@ -12,7 +12,11 @@ function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
     { id: 'name', label: t('NAME') },
     { id: 'category', label: t('CATEGORY') },
-    { id: 'hasScore', label: t('report-skill-assessment-templates:HAS_SCORE'), isSortingDisabled: true },
+    {
+      id: 'hasScore',
+      label: t('report-skill-assessment-templates:HAS_SCORE'),
+      isSortingDisabled: true,
+    },
   ]
 }
 

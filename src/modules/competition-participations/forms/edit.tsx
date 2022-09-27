@@ -15,7 +15,10 @@ import { SeasonDto } from '@/modules/seasons/types'
 import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
-import { CompetitionParticipationDto, UpdateCompetitionParticipationDto } from '../types'
+import {
+  CompetitionParticipationDto,
+  UpdateCompetitionParticipationDto,
+} from '../types'
 import {
   generateUpdateValidationSchema,
   getInitialStateFromCurrent,
@@ -40,7 +43,7 @@ export const EditCompetitionParticipationForm = ({
   teamsData,
   competitionsData,
   groupsData,
-  seasonsData
+  seasonsData,
 }: IEditFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -64,28 +67,30 @@ export const EditCompetitionParticipationForm = ({
         <Form>
           <Container fullwidth={fullwidth}>
             <TeamsCombo
-              name='teamId'
+              name="teamId"
               data={teamsData}
               error={touched.teamId && !!errors.teamId}
               helperText={touched.teamId ? errors.teamId : undefined}
               label={t('TEAM')}
             />
             <CompetitionsCombo
-              name='competitionId'
+              name="competitionId"
               data={competitionsData}
               error={touched.competitionId && !!errors.competitionId}
-              helperText={touched.competitionId ? errors.competitionId : undefined}
+              helperText={
+                touched.competitionId ? errors.competitionId : undefined
+              }
               label={t('COMPETITION')}
             />
             <CompetitionGroupsCombo
-              name='groupId'
+              name="groupId"
               data={groupsData}
               error={touched.groupId && !!errors.groupId}
               helperText={touched.groupId ? errors.groupId : undefined}
               label={t('COMPETITION_GROUP')}
             />
             <SeasonsCombo
-              name='seasonId'
+              name="seasonId"
               data={seasonsData}
               error={touched.seasonId && !!errors.seasonId}
               helperText={touched.seasonId ? errors.seasonId : undefined}

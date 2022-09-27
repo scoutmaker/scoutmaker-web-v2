@@ -8,20 +8,23 @@ import { CreateRegionForm } from '@/modules/regions/forms/create'
 import { useCreateRegion } from '@/modules/regions/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'regions'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'regions'],
+  ['ADMIN'],
+)
 
 const CreateTeamPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
 
   const { data: countries, isLoading: countriesLoading } = useCountriesList()
 
-  const { mutate: createRegion, isLoading: createRegionLoading } = useCreateRegion()
+  const { mutate: createRegion, isLoading: createRegionLoading } =
+    useCreateRegion()
 
-  const isLoading =
-    createRegionLoading ||
-    countriesLoading
+  const isLoading = createRegionLoading || countriesLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}

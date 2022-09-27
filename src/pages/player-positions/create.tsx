@@ -7,22 +7,24 @@ import { CreatePlayerPositionForm } from '@/modules/player-positions/forms/creat
 import { useCreatePlayerPosition } from '@/modules/player-positions/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'player-positions'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'player-positions'],
+  ['ADMIN'],
+)
 
 const CreatePlayerPositionPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
 
-  const { mutate: createPlayerPosition, isLoading: createLoading } = useCreatePlayerPosition()
+  const { mutate: createPlayerPosition, isLoading: createLoading } =
+    useCreatePlayerPosition()
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {createLoading && <Loader />}
-      <PageHeading title={t('player-positions:CREATE_PAGE_TITLE')}
-      />
-      <CreatePlayerPositionForm
-        onSubmit={createPlayerPosition}
-      />
+      <PageHeading title={t('player-positions:CREATE_PAGE_TITLE')} />
+      <CreatePlayerPositionForm onSubmit={createPlayerPosition} />
     </>
   )
 }

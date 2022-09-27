@@ -35,7 +35,7 @@ export const OrdersFilterForm = ({
   onClearFilters,
   playersData,
   teamsData,
-  matchesData
+  matchesData,
 }: IFilterFormProps) => {
   const { t } = useTranslation()
 
@@ -50,32 +50,29 @@ export const OrdersFilterForm = ({
           <Container>
             <PlayersCombo
               data={playersData}
-              name='playerIds'
+              name="playerIds"
               label={t('PLAYERS')}
               multiple
             />
             <TeamsCombo
               data={teamsData}
-              name='teamIds'
+              name="teamIds"
               label={t('TEAMS')}
               multiple
             />
             <MatchesCombo
               data={matchesData}
-              name='matchIds'
+              name="matchIds"
               label={t('MATCHES')}
               multiple
             />
-            <StatusSelect
-              name='status'
-              label={t('STATUS')}
-            />
+            <StatusSelect name="status" label={t('STATUS')} />
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <Field
                   name="createdAfter"
                   as={TextField}
-                  type='date'
+                  type="date"
                   variant="outlined"
                   label={t('orders:CREATED_AFTER')}
                   fullWidth
@@ -85,7 +82,7 @@ export const OrdersFilterForm = ({
                 <Field
                   name="createdBefore"
                   as={TextField}
-                  type='date'
+                  type="date"
                   variant="outlined"
                   label={t('orders:CREATED_BEFORE')}
                   fullWidth

@@ -27,7 +27,7 @@ export const AddOrganizationMembersForm = ({
   onCancelClick,
   fullwidth,
   usersData,
-  filterOutUsers
+  filterOutUsers,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -48,10 +48,12 @@ export const AddOrganizationMembersForm = ({
           <Container fullwidth={fullwidth}>
             <UsersCombo
               data={usersData}
-              name='memberIds'
+              name="memberIds"
               multiple
               error={touched.memberIds && !!errors.memberIds}
-              helperText={touched.memberIds ? errors.memberIds as string : undefined}
+              helperText={
+                touched.memberIds ? (errors.memberIds as string) : undefined
+              }
               label={t('USERS')}
               filterOut={filterOutUsers}
             />

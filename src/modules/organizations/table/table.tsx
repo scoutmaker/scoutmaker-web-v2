@@ -12,7 +12,11 @@ function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
     { id: 'name', label: t('NAME') },
     { id: 'createdAd', label: t('CREATED_AT') },
-    { id: 'memberCount', label: t('organizations:MEMBER_COUNT'), isSortingDisabled: true }
+    {
+      id: 'memberCount',
+      label: t('organizations:MEMBER_COUNT'),
+      isSortingDisabled: true,
+    },
   ]
 }
 

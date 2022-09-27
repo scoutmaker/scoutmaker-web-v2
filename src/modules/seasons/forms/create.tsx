@@ -19,7 +19,7 @@ interface ICreateFormProps {
 export const CreateSeasonForm = ({
   onSubmit,
   onCancelClick,
-  fullwidth
+  fullwidth,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -50,7 +50,7 @@ export const CreateSeasonForm = ({
             <Field
               name="startDate"
               as={TextField}
-              type='date'
+              type="date"
               variant="outlined"
               fullWidth
               label={t('seasons:START_DATE')}
@@ -60,7 +60,7 @@ export const CreateSeasonForm = ({
             <Field
               name="endDate"
               as={TextField}
-              type='date'
+              type="date"
               variant="outlined"
               fullWidth
               label={t('seasons:END_DATE')}

@@ -8,23 +8,27 @@ import { getUserSubscriptionById } from '@/services/api/methods/user-subscriptio
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<UserSubscriptionDto>(['common', 'user-subs'], ['ADMIN'],
+export const getServerSideProps = withSessionSsrRole<UserSubscriptionDto>(
+  ['common', 'user-subs'],
+  ['ADMIN'],
   async (token, params) => {
     try {
-      const data = await getUserSubscriptionById(
-        params?.id as string,
-        token,
-      )
+      const data = await getUserSubscriptionById(params?.id as string, token)
       return { data }
     } catch (error) {
       return {
         data: null,
-        error: error as ApiError
+        error: error as ApiError,
       }
     }
-  });
+  },
+)
 
-const UserSubscriptionPage = ({ data, errorMessage, errorStatus }: TSsrRole<UserSubscriptionDto>) => {
+const UserSubscriptionPage = ({
+  data,
+  errorMessage,
+  errorStatus,
+}: TSsrRole<UserSubscriptionDto>) => {
   const { t } = useTranslation()
 
   if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />

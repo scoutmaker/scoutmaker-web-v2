@@ -169,6 +169,9 @@
   "CATEGORY": "Category",
   "CATEGORIES": "Categories",
   "SHORT_NAME": "Short name",
+  "URL": "Url",
+  "REPORT_BACKGROUND_IMAGE": "Report background image",
+  "REPORT_BACKGROUND_IMAGES": "Report background images",
   "USER": "User",
   "USERS": "Users",
   "ROLE": "Role",
@@ -178,8 +181,8 @@
   "ORGANIZATIONS": "Organizations",
   "RATING_RANGE": "Rating range",
   "CREATE": "Create",
-  "REPORT_TEMPLATE": "Szablon raportu",
-  "REPORT_TEMPLATES": "Szablony raportów",
+  "REPORT_TEMPLATE": "Report template",
+  "REPORT_TEMPLATES": "Report templates",
   "BACK": "Back",
   "FORWARD": "Forward",
   "MINUTES_PLAYED": "Minutes played",
@@ -191,5 +194,7 @@
   "YELLOW_CARDS": "Yellow cards",
   "RED_CARD": "Red card",
   "RED_CARDS": "Red cards",
-  "AVG_RATING": "Average rating"
+  "AVG_RATING": "Average rating",
+  "ORGANIZATION_SUBSCRIPTION": "Organization subscription",
+  "ORGANIZATION_SUBSCRIPTIONS": "Organization subscriptions"
 }

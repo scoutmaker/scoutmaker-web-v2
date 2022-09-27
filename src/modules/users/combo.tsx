@@ -19,11 +19,12 @@ export const UsersCombo = ({
   multiple,
   error,
   helperText,
-  filterOut
+  filterOut,
 }: IUserComboProps) => {
   const { t } = useTranslation()
-  let members = data;
-  if (filterOut) members = data.filter(user => !filterOut.find(u => u.id === user.id))
+  let members = data
+  if (filterOut)
+    members = data.filter(user => !filterOut.find(u => u.id === user.id))
 
   return (
     <Field
@@ -34,12 +35,10 @@ export const UsersCombo = ({
       size={size}
       options={['', ...members.map(user => user.id)]}
       getOptionLabel={(option: string) => {
-        if (!option)
-          return ''
+        if (!option) return ''
 
         const user = members.find(u => u.id === option)
-        if (user)
-          return `${user.firstName} ${user.lastName}`
+        if (user) return `${user.firstName} ${user.lastName}`
 
         return t('NONE')
       }}

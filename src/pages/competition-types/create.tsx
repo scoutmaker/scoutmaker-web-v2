@@ -7,21 +7,24 @@ import { CreateCompetitionTypeForm } from '@/modules/competition-types/forms/cre
 import { useCreateCompetitionType } from '@/modules/competition-types/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'competition-types'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'competition-types'],
+  ['ADMIN'],
+)
 
 const CreateCompetitionTypePage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
 
-  const { mutate: createCompType, isLoading: createLoading } = useCreateCompetitionType()
+  const { mutate: createCompType, isLoading: createLoading } =
+    useCreateCompetitionType()
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {createLoading && <Loader />}
       <PageHeading title={t('competition-types:CREATE_PAGE_TITLE')} />
-      <CreateCompetitionTypeForm
-        onSubmit={createCompType}
-      />
+      <CreateCompetitionTypeForm onSubmit={createCompType} />
     </>
   )
 }
