@@ -10,7 +10,10 @@ import { useSeasonsList } from '@/modules/seasons/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'matches'], false)
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'matches'],
+  false,
+)
 
 const CreateMatchPage = () => {
   const { t } = useTranslation()

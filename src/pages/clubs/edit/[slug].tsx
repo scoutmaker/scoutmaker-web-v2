@@ -12,18 +12,18 @@ import { getClubBySlug } from '@/services/api/methods/clubs'
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<ClubDto>(['common', 'clubs'], false,
+export const getServerSideProps = withSessionSsrRole<ClubDto>(
+  ['common', 'clubs'],
+  false,
   async (token, params) => {
     try {
-      const data = await getClubBySlug(
-        params?.slug as string,
-        token
-      )
+      const data = await getClubBySlug(params?.slug as string, token)
       return { data }
     } catch (error) {
       return { data: null, error: error as ApiError }
     }
-  })
+  },
+)
 
 const EditClubPage = ({
   data,

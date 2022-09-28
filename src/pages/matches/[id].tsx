@@ -7,18 +7,18 @@ import { getMatchById } from '@/services/api/methods/matches'
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<MatchDto>(['common', 'matches'], false,
+export const getServerSideProps = withSessionSsrRole<MatchDto>(
+  ['common', 'matches'],
+  false,
   async (token, params) => {
     try {
-      const data = await getMatchById(
-        params?.id as string,
-        token
-      )
+      const data = await getMatchById(params?.id as string, token)
       return { data }
     } catch (error) {
       return { data: null, error: error as ApiError }
     }
-  })
+  },
+)
 
 const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
   if (data) {

@@ -97,20 +97,20 @@ const ClubsPage = () => {
       >
         {clubs
           ? clubs.docs.map(club => (
-            <ClubsTableRow
-              key={club.id}
-              data={club}
-              onEditClick={() => {
-                router.push(`/clubs/edit/${club.slug}`)
-              }}
-              onDeleteClick={() => {
-                setClubToDeleteData({ id: club.id, name: club.name })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))
+              <ClubsTableRow
+                key={club.id}
+                data={club}
+                onEditClick={() => {
+                  router.push(`/clubs/edit/${club.slug}`)
+                }}
+                onDeleteClick={() => {
+                  setClubToDeleteData({ id: club.id, name: club.name })
+                  setIsDeleteConfirmationModalOpen(true)
+                }}
+                isEditOptionEnabled
+                isDeleteOptionEnabled
+              />
+            ))
           : null}
       </ClubsTable>
       <Fab href="/clubs/create" />

@@ -126,22 +126,22 @@ const TeamsPage = () => {
       >
         {teams
           ? teams.docs.map(team => (
-            <TeamsTableRow
-              key={team.id}
-              data={team}
-              onEditClick={() => {
-                router.push(`/teams/edit/${team.slug}`)
-              }}
-              onDeleteClick={() => {
-                setTeamToDeleteData({ id: team.id, name: team.name })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              onLikeClick={(id: string) => likeTeam(id)}
-              onUnlikeClick={(id: string) => unlikeTeam(id)}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))
+              <TeamsTableRow
+                key={team.id}
+                data={team}
+                onEditClick={() => {
+                  router.push(`/teams/edit/${team.slug}`)
+                }}
+                onDeleteClick={() => {
+                  setTeamToDeleteData({ id: team.id, name: team.name })
+                  setIsDeleteConfirmationModalOpen(true)
+                }}
+                onLikeClick={(id: string) => likeTeam(id)}
+                onUnlikeClick={(id: string) => unlikeTeam(id)}
+                isEditOptionEnabled
+                isDeleteOptionEnabled
+              />
+            ))
           : null}
       </TeamsTable>
       <Fab href="/teams/create" />

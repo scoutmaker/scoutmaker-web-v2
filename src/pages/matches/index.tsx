@@ -19,7 +19,10 @@ import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'matches'], false)
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'matches'],
+  false,
+)
 
 const initialFilters: MatchesFiltersDto = {
   competitionIds: [],
@@ -112,23 +115,23 @@ const MatchesPage = () => {
       >
         {matches
           ? matches.docs.map(match => (
-            <MatchesTableRow
-              key={match.id}
-              data={match}
-              onEditClick={() => {
-                router.push(`/matches/edit/${match.id}`)
-              }}
-              onDeleteClick={() => {
-                setMatchToDeleteData({
-                  id: match.id,
-                  name: `${match.homeTeam.name} vs. ${match.awayTeam.name}`,
-                })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))
+              <MatchesTableRow
+                key={match.id}
+                data={match}
+                onEditClick={() => {
+                  router.push(`/matches/edit/${match.id}`)
+                }}
+                onDeleteClick={() => {
+                  setMatchToDeleteData({
+                    id: match.id,
+                    name: `${match.homeTeam.name} vs. ${match.awayTeam.name}`,
+                  })
+                  setIsDeleteConfirmationModalOpen(true)
+                }}
+                isEditOptionEnabled
+                isDeleteOptionEnabled
+              />
+            ))
           : null}
       </MatchesTable>
       <Fab href="/matches/create" />

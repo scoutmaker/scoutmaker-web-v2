@@ -9,7 +9,10 @@ import { useCreatePlayer } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'players'], false)
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'players'],
+  false,
+)
 
 const CreatePlayerPage = () => {
   const { t } = useTranslation()

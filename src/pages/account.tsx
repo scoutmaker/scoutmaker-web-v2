@@ -19,7 +19,10 @@ import { UpdatePasswordForm } from '@/modules/auth/forms/update-password'
 import { useUpdatePassword, useUpdateUser, useUser } from '@/modules/auth/hooks'
 import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'account'], false)
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'account'],
+  false,
+)
 
 const AccountPage = () => {
   const { t } = useTranslation(['common', 'account'])

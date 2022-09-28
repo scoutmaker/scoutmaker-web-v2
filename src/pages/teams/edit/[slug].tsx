@@ -11,18 +11,18 @@ import { getTeamBySlug } from '@/services/api/methods/teams'
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<TeamDto>(['common', 'teams'], false,
+export const getServerSideProps = withSessionSsrRole<TeamDto>(
+  ['common', 'teams'],
+  false,
   async (token, params) => {
     try {
-      const data = await getTeamBySlug(
-        params?.slug as string,
-        token,
-      )
+      const data = await getTeamBySlug(params?.slug as string, token)
       return { data }
     } catch (error) {
       return { data: null, error: error as ApiError }
     }
-  })
+  },
+)
 
 const EditTeamPage = ({
   data,

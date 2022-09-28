@@ -13,18 +13,18 @@ import { getPlayerBySlug } from '@/services/api/methods/players'
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<PlayerDto>(['common', 'players'], false,
+export const getServerSideProps = withSessionSsrRole<PlayerDto>(
+  ['common', 'players'],
+  false,
   async (token, params) => {
     try {
-      const data = await getPlayerBySlug(
-        params?.slug as string,
-        token
-      )
+      const data = await getPlayerBySlug(params?.slug as string, token)
       return { data }
     } catch (error) {
       return { data: null, error: error as ApiError }
     }
-  })
+  },
+)
 
 const EditPlayerPage = ({
   data,

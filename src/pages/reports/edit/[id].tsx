@@ -15,7 +15,9 @@ import { ApiError } from '@/services/api/types'
 import { getDocumentNumber } from '@/utils/get-document-number'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<ReportDto>(['common', 'reports'], false,
+export const getServerSideProps = withSessionSsrRole<ReportDto>(
+  ['common', 'reports'],
+  false,
   async (token, params) => {
     try {
       const data = await getReportById(params?.id as string, token)
@@ -23,7 +25,8 @@ export const getServerSideProps = withSessionSsrRole<ReportDto>(['common', 'repo
     } catch (error) {
       return { data: null, error: error as ApiError }
     }
-  })
+  },
+)
 
 const EditReportPage = ({
   data,

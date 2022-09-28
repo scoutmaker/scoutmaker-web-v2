@@ -21,20 +21,24 @@ interface TTeamPageProps {
   isAdmin: boolean
 }
 
-export const getServerSideProps = withSessionSsrRole<TTeamPageProps>(['common', 'teams'], false,
+export const getServerSideProps = withSessionSsrRole<TTeamPageProps>(
+  ['common', 'teams'],
+  false,
   async (token, params, user) => {
     try {
-      const team = await getTeamBySlug(
-        params?.slug as string,
-        token,
-      )
+      const team = await getTeamBySlug(params?.slug as string, token)
       return { data: { team, isAdmin: user?.role === 'ADMIN' } }
     } catch (error) {
       return { data: null, error: error as ApiError }
     }
-  })
+  },
+)
 
-const TeamPage = ({ errorMessage, errorStatus, data }: TSsrRole<TTeamPageProps>) => {
+const TeamPage = ({
+  errorMessage,
+  errorStatus,
+  data,
+}: TSsrRole<TTeamPageProps>) => {
   const { t } = useTranslation()
   const router = useRouter()
 
@@ -43,7 +47,10 @@ const TeamPage = ({ errorMessage, errorStatus, data }: TSsrRole<TTeamPageProps>)
     handleChangePage,
     handleChangeRowsPerPage,
     handleSort,
-  } = useTable(`competition-participations-table-team:${data?.team.id}`, 'seasonId')
+  } = useTable(
+    `competition-participations-table-team:${data?.team.id}`,
+    'seasonId',
+  )
 
   const { data: participations } = useCompetitionParticipations({
     page: page + 1,
@@ -105,8 +112,8 @@ const TeamPage = ({ errorMessage, errorStatus, data }: TSsrRole<TTeamPageProps>)
                 data={participation}
                 isDeleteOptionEnabled={false}
                 isEditOptionEnabled={false}
-                onDeleteClick={() => { }}
-                onEditClick={() => { }}
+                onDeleteClick={() => {}}
+                onEditClick={() => {}}
               />
             ))}
         </CompetitionParticipationsTable>

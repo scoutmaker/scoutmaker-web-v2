@@ -8,18 +8,18 @@ import { getNoteById } from '@/services/api/methods/notes'
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<NoteDto>(['common', 'notes'], false,
+export const getServerSideProps = withSessionSsrRole<NoteDto>(
+  ['common', 'notes'],
+  false,
   async (token, params) => {
     try {
-      const data = await getNoteById(
-        params?.id as string,
-        token
-      )
+      const data = await getNoteById(params?.id as string, token)
       return { data }
     } catch (error) {
       return { data: null, error: error as ApiError }
     }
-  })
+  },
+)
 
 const NotePage = ({ data, errorMessage, errorStatus }: TSsrRole<NoteDto>) => {
   const { t } = useTranslation(['common', 'notes'])

@@ -137,26 +137,26 @@ const NotesPage = () => {
       >
         {notes
           ? notes.docs.map(note => (
-            <NotesTableRow
-              key={note.id}
-              data={note}
-              onEditClick={() => {
-                router.push(`/notes/edit/${note.id}`)
-              }}
-              onDeleteClick={() => {
-                setNoteToDeleteData({
-                  id: note.id,
-                  docNumber: note.docNumber,
-                  createdAt: note.createdAt,
-                })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              onLikeClick={(id: string) => likeNote(id)}
-              onUnlikeClick={(id: string) => unlikeNote(id)}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))
+              <NotesTableRow
+                key={note.id}
+                data={note}
+                onEditClick={() => {
+                  router.push(`/notes/edit/${note.id}`)
+                }}
+                onDeleteClick={() => {
+                  setNoteToDeleteData({
+                    id: note.id,
+                    docNumber: note.docNumber,
+                    createdAt: note.createdAt,
+                  })
+                  setIsDeleteConfirmationModalOpen(true)
+                }}
+                onLikeClick={(id: string) => likeNote(id)}
+                onUnlikeClick={(id: string) => unlikeNote(id)}
+                isEditOptionEnabled
+                isDeleteOptionEnabled
+              />
+            ))
           : null}
       </NotesTable>
       <Fab href="/notes/create" />
@@ -165,9 +165,9 @@ const NotesPage = () => {
         message={t('notes:DELETE_NOTE_CONFIRM_QUESTION', {
           number: noteToDeleteData
             ? getDocumentNumber({
-              docNumber: noteToDeleteData.docNumber,
-              createdAt: noteToDeleteData.createdAt,
-            })
+                docNumber: noteToDeleteData.docNumber,
+                createdAt: noteToDeleteData.createdAt,
+              })
             : null,
         })}
         handleAccept={() => {

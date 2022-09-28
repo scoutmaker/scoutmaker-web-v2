@@ -29,7 +29,10 @@ import { useTable } from '@/utils/hooks/use-table'
 import { getCreateRoute, getEditRoute, Routes } from '@/utils/routes'
 import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'reports'], false)
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'reports'],
+  false,
+)
 
 const initialFilters: ReportsFilterFormData = {
   competitionGroupIds: [],
@@ -141,26 +144,26 @@ const ReportsPage = () => {
       >
         {reports
           ? reports.docs.map(report => (
-            <ReportsTableRow
-              key={report.id}
-              data={report}
-              onEditClick={() => {
-                router.push(getEditRoute(Routes.REPORTS, report.id))
-              }}
-              onDeleteClick={() => {
-                setReportToDeleteData({
-                  id: report.id,
-                  docNumber: report.docNumber,
-                  createdAt: report.createdAt,
-                })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              onLikeClick={(id: string) => likeReport(id)}
-              onUnlikeClick={(id: string) => unlikeReport(id)}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))
+              <ReportsTableRow
+                key={report.id}
+                data={report}
+                onEditClick={() => {
+                  router.push(getEditRoute(Routes.REPORTS, report.id))
+                }}
+                onDeleteClick={() => {
+                  setReportToDeleteData({
+                    id: report.id,
+                    docNumber: report.docNumber,
+                    createdAt: report.createdAt,
+                  })
+                  setIsDeleteConfirmationModalOpen(true)
+                }}
+                onLikeClick={(id: string) => likeReport(id)}
+                onUnlikeClick={(id: string) => unlikeReport(id)}
+                isEditOptionEnabled
+                isDeleteOptionEnabled
+              />
+            ))
           : null}
       </ReportsTable>
       <Fab href={getCreateRoute(Routes.REPORTS)} />
@@ -169,9 +172,9 @@ const ReportsPage = () => {
         message={t('reports:DELETE_REPORT_CONFIRM_QUESTION', {
           number: reportToDeleteData
             ? getDocumentNumber({
-              docNumber: reportToDeleteData.docNumber,
-              createdAt: reportToDeleteData.createdAt,
-            })
+                docNumber: reportToDeleteData.docNumber,
+                createdAt: reportToDeleteData.createdAt,
+              })
             : null,
         })}
         handleAccept={() => {
