@@ -1,9 +1,7 @@
-import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 
 import { StyledTableCell } from '@/components/tables/cell'
 import { TableMenu } from '@/components/tables/menu'
-import { TableMenuItem } from '@/components/tables/menu-item'
 import { StyledTableRow } from '@/components/tables/row'
 import { ClubDto } from '@/modules/clubs/types'
 import { getFlagEmoji } from '@/utils/get-flag-emoji'
@@ -48,24 +46,11 @@ export const ClubsTableRow = ({
           isMenuOpen={isMenuOpen}
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
-        >
-          <TableMenuItem
-            icon={<EditIcon fontSize="small" />}
-            text="Edytuj"
-            onClick={() => {
-              handleMenuAction(onEditClick)
-            }}
-            disabled={!isEditOptionEnabled}
-          />
-          <TableMenuItem
-            icon={<DeleteIcon fontSize="small" />}
-            text="Usuń"
-            onClick={() => {
-              handleMenuAction(onDeleteClick)
-            }}
-            disabled={!isDeleteOptionEnabled}
-          />
-        </TableMenu>
+          isDeleteOptionEnabled={isDeleteOptionEnabled}
+          isEditOptionEnabled={isEditOptionEnabled}
+          onDeleteClick={() => handleMenuAction(onDeleteClick)}
+          onEditClick={() => handleMenuAction(onEditClick)}
+        />
       </StyledTableCell>
       <StyledTableCell>{name}</StyledTableCell>
       <StyledTableCell>{`${getFlagEmoji(country.code)} ${

@@ -1,7 +1,5 @@
 import {
   Assessment as ReportsIcon,
-  Delete as DeleteIcon,
-  Edit as EditIcon,
   Favorite as UnlikeIcon,
   FavoriteBorder as LikeIcon,
   Note as NotesIcon,
@@ -78,23 +76,11 @@ export const PlayersTableRow = ({
           isMenuOpen={isMenuOpen}
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
+          isDeleteOptionEnabled={isDeleteOptionEnabled}
+          isEditOptionEnabled={isEditOptionEnabled}
+          onDeleteClick={() => handleMenuAction(onDeleteClick)}
+          onEditClick={() => handleMenuAction(onEditClick)}
         >
-          <TableMenuItem
-            icon={<EditIcon fontSize="small" />}
-            text={t('EDIT')}
-            onClick={() => {
-              handleMenuAction(onEditClick)
-            }}
-            disabled={!isEditOptionEnabled}
-          />
-          <TableMenuItem
-            icon={<DeleteIcon fontSize="small" />}
-            text={t('DELETE')}
-            onClick={() => {
-              handleMenuAction(onDeleteClick)
-            }}
-            disabled={!isDeleteOptionEnabled}
-          />
           {likes.length === 0 ? (
             <TableMenuItem
               icon={<LikeIcon fontSize="small" />}
