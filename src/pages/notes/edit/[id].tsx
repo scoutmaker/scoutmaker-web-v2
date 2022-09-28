@@ -1,10 +1,8 @@
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { withSessionSsr } from '@/modules/auth/session'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { useMatchesList } from '@/modules/matches/hooks'
@@ -17,71 +15,26 @@ import { useTeamsList } from '@/modules/teams/hooks'
 import { getNoteById } from '@/services/api/methods/notes'
 import { ApiError } from '@/services/api/types'
 import { getDocumentNumber } from '@/utils/get-document-number'
-import { redirectToLogin } from '@/utils/redirect-to-login'
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-type TEditNotePageProps = {
-  errorStatus: number | null
-  errorMessage: string | null
-  note: NoteDto | null
-}
-
-export const getServerSideProps = withSessionSsr<TEditNotePageProps>(
-  async ({ req, res, locale, params }) => {
-    const { user } = req.session
-
-    if (!user) {
-      redirectToLogin(res)
-      return {
-        props: {
-          errorStatus: null,
-          errorMessage: null,
-          note: null,
-        },
-      }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'notes',
-    ])
-
-    let note: NoteDto
-
+export const getServerSideProps = withSessionSsrRole<NoteDto>(['common', 'notes'], false,
+  async (token, params) => {
     try {
-      const noteData = await getNoteById(
+      const data = await getNoteById(
         params?.id as string,
-        req.session.token,
+        token
       )
-      note = noteData
+      return { data }
     } catch (error) {
-      const { response } = error as ApiError
-
-      return {
-        props: {
-          ...translations,
-          errorStatus: response.status,
-          errorMessage: response.data.message,
-          note: null,
-        },
-      }
+      return { data: null, error: error as ApiError }
     }
-
-    return {
-      props: {
-        ...translations,
-        errorStatus: null,
-        errorMessage: null,
-        note,
-      },
-    }
-  },
-)
+  })
 
 const EditNotePage = ({
-  note,
+  data,
   errorMessage,
   errorStatus,
-}: TEditNotePageProps) => {
+}: TSsrRole<NoteDto>) => {
   const { t } = useTranslation()
 
   const { data: positions, isLoading: positionsLoading } =
@@ -95,7 +48,7 @@ const EditNotePage = ({
   const { data: players, isLoading: playersLoading } = usePlayersList()
 
   const { mutate: updateNote, isLoading: updateNoteLoading } = useUpdateNote(
-    note?.id || '',
+    data?.id || '',
   )
 
   const isLoading =
@@ -107,20 +60,20 @@ const EditNotePage = ({
     playersLoading ||
     updateNoteLoading
 
-  if (note) {
+  if (data) {
     return (
       <>
         {isLoading && <Loader />}
         <PageHeading
           title={t('notes:EDIT_NOTE_PAGE_TITLE', {
             number: getDocumentNumber({
-              docNumber: note.docNumber,
-              createdAt: note.createdAt,
+              docNumber: data.docNumber,
+              createdAt: data.createdAt,
             }),
           })}
         />
         <EditNoteForm
-          current={note}
+          current={data}
           positionsData={positions || []}
           teamsData={teams || []}
           competitionGroupsData={competitionGroups || []}

@@ -1,10 +1,8 @@
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { withSessionSsr } from '@/modules/auth/session'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { EditMatchForm } from '@/modules/matches/forms/edit'
@@ -15,71 +13,26 @@ import { useSeasonsList } from '@/modules/seasons/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { getMatchById } from '@/services/api/methods/matches'
 import { ApiError } from '@/services/api/types'
-import { redirectToLogin } from '@/utils/redirect-to-login'
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-type TEditMatchPageProps = {
-  errorStatus: number | null
-  errorMessage: string | null
-  match: MatchDto | null
-}
-
-export const getServerSideProps = withSessionSsr<TEditMatchPageProps>(
-  async ({ req, res, locale, params }) => {
-    const { user } = req.session
-
-    if (!user) {
-      redirectToLogin(res)
-      return {
-        props: {
-          errorStatus: null,
-          errorMessage: null,
-          match: null,
-        },
-      }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'matches',
-    ])
-
-    let match: MatchDto
-
+export const getServerSideProps = withSessionSsrRole<MatchDto>(['common', 'matches'], false,
+  async (token, params) => {
     try {
-      const matchData = await getMatchById(
+      const data = await getMatchById(
         params?.id as string,
-        req.session.token,
+        token
       )
-      match = matchData
+      return { data }
     } catch (error) {
-      const { response } = error as ApiError
-
-      return {
-        props: {
-          ...translations,
-          errorStatus: response.status,
-          errorMessage: response.data.message,
-          match: null,
-        },
-      }
+      return { data: null, error: error as ApiError }
     }
-
-    return {
-      props: {
-        ...translations,
-        errorStatus: null,
-        errorMessage: null,
-        match,
-      },
-    }
-  },
-)
+  })
 
 const EditMatchPage = ({
-  match,
+  data,
   errorMessage,
   errorStatus,
-}: TEditMatchPageProps) => {
+}: TSsrRole<MatchDto>) => {
   const { t } = useTranslation()
 
   const { data: competitionGroups, isLoading: competitionGroupsLoading } =
@@ -90,7 +43,7 @@ const EditMatchPage = ({
   const { data: teams, isLoading: teamsLoading } = useTeamsList()
 
   const { mutate: updateMatch, isLoading: updateMatchLoading } = useUpdateMatch(
-    match?.id || '',
+    data?.id || '',
   )
 
   const isLoading =
@@ -100,20 +53,20 @@ const EditMatchPage = ({
     seasonsLoading ||
     teamsLoading
 
-  if (match) {
+  if (data) {
     return (
       <>
         {isLoading && <Loader />}
         <PageHeading
           title={t('players:EDIT_PLAYER_PAGE_TITLE', {
             name: getMatchDisplayName({
-              homeTeamName: match.homeTeam.name,
-              awayTeamName: match.awayTeam.name,
+              homeTeamName: data.homeTeam.name,
+              awayTeamName: data.awayTeam.name,
             }),
           })}
         />
         <EditMatchForm
-          current={match}
+          current={data}
           competitionGroupsData={competitionGroups || []}
           competitionsData={competitions || []}
           seasonsData={seasons || []}

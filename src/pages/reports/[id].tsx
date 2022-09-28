@@ -1,98 +1,45 @@
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { withSessionSsr } from '@/modules/auth/session'
 import { ReportDetails } from '@/modules/reports/details'
 import { ReportDto } from '@/modules/reports/types'
 import { getReportById } from '@/services/api/methods/reports'
 import { ApiError } from '@/services/api/types'
 import { getDocumentNumber } from '@/utils/get-document-number'
-import { redirectToLogin } from '@/utils/redirect-to-login'
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-type TReportPageProps = {
-  errorStatus: number | null
-  errorMessage: string | null
-  report: ReportDto | null
-}
-
-export const getServerSideProps = withSessionSsr<TReportPageProps>(
-  async ({ req, res, locale, params }) => {
-    const { user } = req.session
-
-    if (!user) {
-      redirectToLogin(res)
-      return {
-        props: {
-          errorStatus: null,
-          errorMessage: null,
-          report: null,
-        },
-      }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'reports',
-    ])
-
-    let report: ReportDto
-
+export const getServerSideProps = withSessionSsrRole<ReportDto>(['common', 'reports'], false,
+  async (token, params) => {
     try {
-      const reportData = await getReportById(
-        params?.id as string,
-        req.session.token,
-      )
-      report = reportData
+      const data = await getReportById(params?.id as string, token)
+      return { data }
     } catch (error) {
-      const { response } = error as ApiError
-
-      return {
-        props: {
-          ...translations,
-          errorStatus: response.status,
-          errorMessage: response.data.message,
-          report: null,
-        },
-      }
+      return { data: null, error: error as ApiError }
     }
-
-    return {
-      props: {
-        ...translations,
-        errorStatus: null,
-        errorMessage: null,
-        report,
-      },
-    }
-  },
-)
+  })
 
 const ReportPage = ({
-  report,
+  data,
   errorMessage,
   errorStatus,
-}: TReportPageProps) => {
+}: TSsrRole<ReportDto>) => {
   const { t } = useTranslation()
 
-  if (report) {
-    return (
-      <>
-        <PageHeading
-          title={t('reports:REPORT_PAGE_TITLE', {
-            number: getDocumentNumber({
-              docNumber: report.docNumber,
-              createdAt: report.createdAt,
-            }),
-          })}
-        />
-        <ReportDetails report={report} />
-      </>
-    )
-  }
-
-  return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />
+  return (
+    <>
+      <PageHeading
+        title={t('reports:REPORT_PAGE_TITLE', {
+          number: getDocumentNumber({
+            docNumber: data.docNumber,
+            createdAt: data.createdAt,
+          }),
+        })}
+      />
+      <ReportDetails report={data} />
+    </>
+  )
 }
 
 export default ReportPage

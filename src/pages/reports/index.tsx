@@ -1,13 +1,11 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
 
 import { Fab } from '@/components/fab/fab'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { withSessionSsr } from '@/modules/auth/session'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { useMatchesList } from '@/modules/matches/hooks'
@@ -28,30 +26,10 @@ import { useTeamsList } from '@/modules/teams/hooks'
 import { getDocumentNumber } from '@/utils/get-document-number'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
-import { redirectToLogin } from '@/utils/redirect-to-login'
 import { getCreateRoute, getEditRoute, Routes } from '@/utils/routes'
+import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsr(
-  async ({ locale, req, res }) => {
-    const { user } = req.session
-
-    if (!user) {
-      redirectToLogin(res)
-      return { props: {} }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'reports',
-    ])
-
-    return {
-      props: {
-        ...translations,
-      },
-    }
-  },
-)
+export const getServerSideProps = withSessionSsrRole(['common', 'reports'], false)
 
 const initialFilters: ReportsFilterFormData = {
   competitionGroupIds: [],
@@ -163,26 +141,26 @@ const ReportsPage = () => {
       >
         {reports
           ? reports.docs.map(report => (
-              <ReportsTableRow
-                key={report.id}
-                data={report}
-                onEditClick={() => {
-                  router.push(getEditRoute(Routes.REPORTS, report.id))
-                }}
-                onDeleteClick={() => {
-                  setReportToDeleteData({
-                    id: report.id,
-                    docNumber: report.docNumber,
-                    createdAt: report.createdAt,
-                  })
-                  setIsDeleteConfirmationModalOpen(true)
-                }}
-                onLikeClick={(id: string) => likeReport(id)}
-                onUnlikeClick={(id: string) => unlikeReport(id)}
-                isEditOptionEnabled
-                isDeleteOptionEnabled
-              />
-            ))
+            <ReportsTableRow
+              key={report.id}
+              data={report}
+              onEditClick={() => {
+                router.push(getEditRoute(Routes.REPORTS, report.id))
+              }}
+              onDeleteClick={() => {
+                setReportToDeleteData({
+                  id: report.id,
+                  docNumber: report.docNumber,
+                  createdAt: report.createdAt,
+                })
+                setIsDeleteConfirmationModalOpen(true)
+              }}
+              onLikeClick={(id: string) => likeReport(id)}
+              onUnlikeClick={(id: string) => unlikeReport(id)}
+              isEditOptionEnabled
+              isDeleteOptionEnabled
+            />
+          ))
           : null}
       </ReportsTable>
       <Fab href={getCreateRoute(Routes.REPORTS)} />
@@ -191,9 +169,9 @@ const ReportsPage = () => {
         message={t('reports:DELETE_REPORT_CONFIRM_QUESTION', {
           number: reportToDeleteData
             ? getDocumentNumber({
-                docNumber: reportToDeleteData.docNumber,
-                createdAt: reportToDeleteData.createdAt,
-              })
+              docNumber: reportToDeleteData.docNumber,
+              createdAt: reportToDeleteData.createdAt,
+            })
             : null,
         })}
         handleAccept={() => {

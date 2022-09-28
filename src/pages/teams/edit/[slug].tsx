@@ -1,105 +1,55 @@
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { withSessionSsr } from '@/modules/auth/session'
 import { useClubsList } from '@/modules/clubs/hooks'
 import { EditTeamForm } from '@/modules/teams/forms/edit'
 import { useUpdateTeam } from '@/modules/teams/hooks'
 import { TeamDto } from '@/modules/teams/types'
 import { getTeamBySlug } from '@/services/api/methods/teams'
 import { ApiError } from '@/services/api/types'
-import { redirectToLogin } from '@/utils/redirect-to-login'
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-type TEditTeamPageProps = {
-  errorStatus: number | null
-  errorMessage: string | null
-  team: TeamDto | null
-}
-
-export const getServerSideProps = withSessionSsr<TEditTeamPageProps>(
-  async ({ req, res, locale, params }) => {
-    const { user } = req.session
-
-    if (!user) {
-      redirectToLogin(res)
-      return {
-        props: {
-          errorStatus: null,
-          errorMessage: null,
-          team: null,
-        },
-      }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'teams',
-    ])
-
-    let team: TeamDto
-
+export const getServerSideProps = withSessionSsrRole<TeamDto>(['common', 'teams'], false,
+  async (token, params) => {
     try {
-      const teamData = await getTeamBySlug(
+      const data = await getTeamBySlug(
         params?.slug as string,
-        req.session.token,
+        token,
       )
-      team = teamData
+      return { data }
     } catch (error) {
-      const { response } = error as ApiError
-
-      return {
-        props: {
-          ...translations,
-          errorStatus: response.status,
-          errorMessage: response.data.message,
-          team: null,
-        },
-      }
+      return { data: null, error: error as ApiError }
     }
-
-    return {
-      props: {
-        ...translations,
-        errorStatus: null,
-        errorMessage: null,
-        team,
-      },
-    }
-  },
-)
+  })
 
 const EditTeamPage = ({
-  team,
+  data,
   errorMessage,
   errorStatus,
-}: TEditTeamPageProps) => {
+}: TSsrRole<TeamDto>) => {
   const { t } = useTranslation()
 
   const { data: clubs, isLoading: clubsLoading } = useClubsList()
   const { mutate: updateTeam, isLoading: updateTeamLoading } = useUpdateTeam(
-    team?.id || '',
+    data?.id || '',
   )
 
-  if (team) {
-    return (
-      <>
-        {(clubsLoading || updateTeamLoading) && <Loader />}
-        <PageHeading
-          title={t('teams:EDIT_TEAM_PAGE_TITLE', { name: team.name })}
-        />
-        <EditTeamForm
-          current={team}
-          clubsData={clubs || []}
-          onSubmit={updateTeam}
-        />
-      </>
-    )
-  }
-
-  return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />
+  return (
+    <>
+      {(clubsLoading || updateTeamLoading) && <Loader />}
+      <PageHeading
+        title={t('teams:EDIT_TEAM_PAGE_TITLE', { name: data.name })}
+      />
+      <EditTeamForm
+        current={data}
+        clubsData={clubs || []}
+        onSubmit={updateTeam}
+      />
+    </>
+  )
 }
 
 export default EditTeamPage

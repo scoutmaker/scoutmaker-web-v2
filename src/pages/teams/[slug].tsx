@@ -2,11 +2,9 @@ import { Add as AddIcon } from '@mui/icons-material'
 import { Box, Button, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { withSessionSsr } from '@/modules/auth/session'
 import { useCompetitionParticipations } from '@/modules/competition-participations/hooks'
 import { CompetitionParticipationsTableRow } from '@/modules/competition-participations/table/row'
 import { CompetitionParticipationsTable } from '@/modules/competition-participations/table/table'
@@ -16,71 +14,27 @@ import { TeamDto } from '@/modules/teams/types'
 import { getTeamBySlug } from '@/services/api/methods/teams'
 import { ApiError } from '@/services/api/types'
 import { useTable } from '@/utils/hooks/use-table'
-import { redirectToLogin } from '@/utils/redirect-to-login'
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-type TTeamPageProps = {
-  errorStatus: number | null
-  errorMessage: string | null
-  team: TeamDto | null
+interface TTeamPageProps {
+  team: TeamDto
   isAdmin: boolean
 }
 
-export const getServerSideProps = withSessionSsr<TTeamPageProps>(
-  async ({ req, res, locale, params }) => {
-    const { user } = req.session
-
-    if (!user) {
-      redirectToLogin(res)
-      return {
-        props: {
-          errorStatus: null,
-          errorMessage: null,
-          team: null,
-          isAdmin: false
-        },
-      }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'teams',
-    ])
-
-    let team: TeamDto
-
+export const getServerSideProps = withSessionSsrRole<TTeamPageProps>(['common', 'teams'], false,
+  async (token, params, user) => {
     try {
-      const teamData = await getTeamBySlug(
+      const team = await getTeamBySlug(
         params?.slug as string,
-        req.session.token,
+        token,
       )
-      team = teamData
+      return { data: { team, isAdmin: user?.role === 'ADMIN' } }
     } catch (error) {
-      const { response } = error as ApiError
-
-      return {
-        props: {
-          ...translations,
-          errorStatus: response.status,
-          errorMessage: response.data.message,
-          team: null,
-          isAdmin: false
-        },
-      }
+      return { data: null, error: error as ApiError }
     }
+  })
 
-    return {
-      props: {
-        ...translations,
-        errorStatus: null,
-        errorMessage: null,
-        team,
-        isAdmin: user.role === 'ADMIN'
-      },
-    }
-  },
-)
-
-const TeamPage = ({ team, errorMessage, errorStatus, isAdmin }: TTeamPageProps) => {
+const TeamPage = ({ errorMessage, errorStatus, data }: TSsrRole<TTeamPageProps>) => {
   const { t } = useTranslation()
   const router = useRouter()
 
@@ -89,20 +43,20 @@ const TeamPage = ({ team, errorMessage, errorStatus, isAdmin }: TTeamPageProps) 
     handleChangePage,
     handleChangeRowsPerPage,
     handleSort,
-  } = useTable(`competition-participations-table-team:${team?.id}`, 'seasonId')
+  } = useTable(`competition-participations-table-team:${data?.team.id}`, 'seasonId')
 
   const { data: participations } = useCompetitionParticipations({
     page: page + 1,
     limit: rowsPerPage,
     sortBy: sortBy as CompetitionParticipationsSortBy,
     sortingOrder: order,
-    teamId: team?.id,
+    teamId: data?.team.id,
   })
 
-  if (!team) {
+  if (!data?.team) {
     return <ErrorContent message={errorMessage} status={errorStatus} />
   }
-
+  const { team, isAdmin } = data
   return (
     <>
       <PageHeading title={team.name} />

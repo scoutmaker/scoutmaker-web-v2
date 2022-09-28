@@ -1,28 +1,6 @@
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-import { withSessionSsr } from '@/modules/auth/session'
-import { redirectToLogin } from '@/utils/redirect-to-login'
-
-export const getServerSideProps = withSessionSsr(
-  async ({ req, res, locale }) => {
-    const { user } = req.session
-
-    if (!user) {
-      redirectToLogin(res)
-      return { props: {} }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-    ])
-
-    return {
-      props: {
-        ...translations,
-      },
-    }
-  },
-)
+export const getServerSideProps = withSessionSsrRole(['common'], false)
 
 const ProfilePage = () => <h1>Profile</h1>
 
