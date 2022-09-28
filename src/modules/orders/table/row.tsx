@@ -1,4 +1,3 @@
-import { Delete as DeleteIcon } from '@mui/icons-material'
 import { Badge, Tooltip } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -78,6 +77,9 @@ export const OrdersTableRow = ({
           isMenuOpen={isMenuOpen}
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
+          isDeleteOptionEnabled={isDeleteOptionEnabled}
+          isEditOptionEnabled={false}
+          onDeleteClick={() => handleMenuAction(onDeleteClick)}
         >
           {status === 'OPEN' ? (
             <TableMenuItem
@@ -105,14 +107,6 @@ export const OrdersTableRow = ({
               />
             </>
           )}
-          <TableMenuItem
-            icon={<DeleteIcon fontSize="small" />}
-            text={t('DELETE')}
-            onClick={() => {
-              handleMenuAction(onDeleteClick)
-            }}
-            disabled={!isDeleteOptionEnabled}
-          />
         </TableMenu>
       </StyledTableCell>
       <CellWithLink

@@ -1,4 +1,3 @@
-import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
@@ -60,6 +59,10 @@ export const InsiderNotesTableRow = ({
           isMenuOpen={isMenuOpen}
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
+          isDeleteOptionEnabled={isDeleteOptionEnabled}
+          isEditOptionEnabled={isEditOptionEnabled}
+          onDeleteClick={() => handleMenuAction(onDeleteClick)}
+          onEditClick={() => handleMenuAction(onEditClick)}
         >
           {likes.length ? (
             <TableMenuItem
@@ -78,22 +81,6 @@ export const InsiderNotesTableRow = ({
               }}
             />
           )}
-          <TableMenuItem
-            icon={<EditIcon fontSize="small" />}
-            text={t('EDIT')}
-            onClick={() => {
-              handleMenuAction(onEditClick)
-            }}
-            disabled={!isEditOptionEnabled}
-          />
-          <TableMenuItem
-            icon={<DeleteIcon fontSize="small" />}
-            text={t('DELETE')}
-            onClick={() => {
-              handleMenuAction(onDeleteClick)
-            }}
-            disabled={!isDeleteOptionEnabled}
-          />
         </TableMenu>
       </StyledTableCell>
       <CellWithLink

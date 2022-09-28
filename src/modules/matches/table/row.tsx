@@ -1,18 +1,14 @@
 import {
   Assessment as ReportsIcon,
-  Delete as DeleteIcon,
-  Edit as EditIcon,
   Note as NotesIcon,
   Tv as TvIcon,
 } from '@mui/icons-material'
 import { Badge, Link } from '@mui/material'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
 
 import { StyledTableCell } from '@/components/tables/cell'
 import { CellWithLink } from '@/components/tables/cell-with-link'
 import { TableMenu } from '@/components/tables/menu'
-import { TableMenuItem } from '@/components/tables/menu-item'
 import { StyledTableRow } from '@/components/tables/row'
 import { MatchDto } from '@/modules/matches/types'
 import { formatDate } from '@/utils/format-date'
@@ -36,7 +32,6 @@ export const MatchesTableRow = ({
   isDeleteOptionEnabled,
 }: IMatchesTableRowProps) => {
   const router = useRouter()
-  const { t } = useTranslation()
 
   const {
     menuAnchorEl,
@@ -72,24 +67,11 @@ export const MatchesTableRow = ({
           isMenuOpen={isMenuOpen}
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
-        >
-          <TableMenuItem
-            icon={<EditIcon fontSize="small" />}
-            text={t('EDIT')}
-            onClick={() => {
-              handleMenuAction(onEditClick)
-            }}
-            disabled={!isEditOptionEnabled}
-          />
-          <TableMenuItem
-            icon={<DeleteIcon fontSize="small" />}
-            text={t('DELETE')}
-            onClick={() => {
-              handleMenuAction(onDeleteClick)
-            }}
-            disabled={!isDeleteOptionEnabled}
-          />
-        </TableMenu>
+          isDeleteOptionEnabled={isDeleteOptionEnabled}
+          isEditOptionEnabled={isEditOptionEnabled}
+          onDeleteClick={() => handleMenuAction(onDeleteClick)}
+          onEditClick={() => handleMenuAction(onEditClick)}
+        />
       </StyledTableCell>
       <CellWithLink href={`/teams/${homeTeam.slug}`} label={homeTeam.name} />
       <CellWithLink href={`/teams/${awayTeam.slug}`} label={awayTeam.name} />
