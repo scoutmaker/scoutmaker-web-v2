@@ -7,21 +7,27 @@ import { CreateCompetitionJuniorLevelForm } from '@/modules/competition-junior-l
 import { useCreateCompetitionJuniorLevel } from '@/modules/competition-junior-levels/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'comp-junior-levels'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'comp-junior-levels'],
+  ['ADMIN'],
+)
 
-const CreateCompetitionJuniorLevelPage = ({ errorMessage, errorStatus }: TSsrRole) => {
+const CreateCompetitionJuniorLevelPage = ({
+  errorMessage,
+  errorStatus,
+}: TSsrRole) => {
   const { t } = useTranslation()
 
-  const { mutate: createCompJuniorLevel, isLoading: createLoading } = useCreateCompetitionJuniorLevel()
+  const { mutate: createCompJuniorLevel, isLoading: createLoading } =
+    useCreateCompetitionJuniorLevel()
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {createLoading && <Loader />}
       <PageHeading title={t('comp-junior-levels:CREATE_PAGE_TITLE')} />
-      <CreateCompetitionJuniorLevelForm
-        onSubmit={createCompJuniorLevel}
-      />
+      <CreateCompetitionJuniorLevelForm onSubmit={createCompJuniorLevel} />
     </>
   )
 }

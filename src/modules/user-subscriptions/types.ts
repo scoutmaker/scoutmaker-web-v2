@@ -1,4 +1,14 @@
-export type UserSubscriptionDto = Components.Schemas.UserSubscriptionDto
+import { CompetitionGroupBasicDataDto } from '../competition-groups/types'
+import { CompetitionBasicDataDto } from '../competitions/types'
+
+export interface UserSubscriptionDto
+  extends Omit<
+    Components.Schemas.UserSubscriptionDto,
+    'competitions' | 'competitionGroups'
+  > {
+  competitions: CompetitionBasicDataDto[]
+  competitionGroups: CompetitionGroupBasicDataDto[]
+}
 
 export type CreateUserSubscriptionDto =
   Components.Schemas.CreateUserSubscriptionDto

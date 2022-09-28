@@ -1,7 +1,4 @@
-import {
-  Delete as DeleteIcon,
-  Edit as EditIcon,
-} from '@mui/icons-material'
+import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
@@ -46,7 +43,9 @@ export const CompetitionGroupsTableRow = ({
     <StyledTableRow
       hover
       key={id}
-      onClick={isMenuOpen ? undefined : () => router.push(`/competition-groups/${id}`)}
+      onClick={
+        isMenuOpen ? undefined : () => router.push(`/competition-groups/${id}`)
+      }
     >
       <StyledTableCell padding="checkbox">
         <TableMenu
@@ -74,7 +73,10 @@ export const CompetitionGroupsTableRow = ({
         </TableMenu>
       </StyledTableCell>
       <StyledTableCell>{name}</StyledTableCell>
-      <CellWithLink href={`/competitions/${competition.id}`} label={competition.name} />
+      <CellWithLink
+        href={`/competitions/${competition.id}`}
+        label={competition.name}
+      />
     </StyledTableRow>
   )
 }

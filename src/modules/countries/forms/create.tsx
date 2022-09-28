@@ -26,7 +26,7 @@ interface ICreateCountryFormProps {
 export const CreateCountryForm = ({
   onSubmit,
   onCancelClick,
-  fullwidth
+  fullwidth,
 }: ICreateCountryFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()

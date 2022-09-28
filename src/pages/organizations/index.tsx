@@ -8,19 +8,28 @@ import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { OrganizationsFilterForm } from '@/modules/organizations/forms/filter'
-import { useDeleteOrganization, useOrganizations } from '@/modules/organizations/hooks'
+import {
+  useDeleteOrganization,
+  useOrganizations,
+} from '@/modules/organizations/hooks'
 import { OrganizationsTableRow } from '@/modules/organizations/table/row'
 import { OrganizationsTable } from '@/modules/organizations/table/table'
-import { OrganizationsFiltersDto, OrganizationsSortBy } from '@/modules/organizations/types'
+import {
+  OrganizationsFiltersDto,
+  OrganizationsSortBy,
+} from '@/modules/organizations/types'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 const initialFilters: OrganizationsFiltersDto = {
-  name: ''
+  name: '',
 }
 
-export const getServerSideProps = withSessionSsrRole(['common', 'organizations'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'organizations'],
+  ['ADMIN'],
+)
 
 interface IToDeleteData {
   id: string
@@ -33,8 +42,7 @@ const OrganizationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] =
-    useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -61,11 +69,13 @@ const OrganizationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     ...filters,
   })
 
-  const { mutate: deleteOrganization, isLoading: deleteLoading } = useDeleteOrganization()
+  const { mutate: deleteOrganization, isLoading: deleteLoading } =
+    useDeleteOrganization()
 
   const isLoading = dataLoading || deleteLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
@@ -101,8 +111,7 @@ const OrganizationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
               isEditOptionEnabled
               isDeleteOptionEnabled
             />
-          ))
-        }
+          ))}
       </OrganizationsTable>
       <Fab href="/organizations/create" />
       <ConfirmationModal
@@ -111,8 +120,7 @@ const OrganizationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
           name: toDeleteData?.name,
         })}
         handleAccept={() => {
-          if (toDeleteData)
-            deleteOrganization(toDeleteData.id)
+          if (toDeleteData) deleteOrganization(toDeleteData.id)
 
           setToDeleteData(undefined)
         }}

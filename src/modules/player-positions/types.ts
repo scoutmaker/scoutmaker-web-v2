@@ -16,4 +16,5 @@ export type PlayerPositionsFiltersDto = Pick<
   'code' | 'name'
 >
 
-export type PlayerPositionsSortBy = Paths.PlayerPositionsControllerFindAll.Parameters.SortBy
+export type PlayerPositionsSortBy =
+  Paths.PlayerPositionsControllerFindAll.Parameters.SortBy

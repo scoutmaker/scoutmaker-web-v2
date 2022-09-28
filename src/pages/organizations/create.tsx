@@ -8,16 +8,21 @@ import { useCreateOrganization } from '@/modules/organizations/hooks'
 import { useUsersList } from '@/modules/users/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'organizations'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'organizations'],
+  ['ADMIN'],
+)
 
 const CreateOrganiztionPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
 
-  const { mutate: createOrganization, isLoading: createLoading } = useCreateOrganization()
+  const { mutate: createOrganization, isLoading: createLoading } =
+    useCreateOrganization()
 
   const { data: users, isLoading: usersLoading } = useUsersList()
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {(createLoading || usersLoading) && <Loader />}

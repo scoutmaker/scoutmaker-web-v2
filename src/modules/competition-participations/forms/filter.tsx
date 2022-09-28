@@ -31,7 +31,7 @@ export const CompetitionParticipationsFilterForm = ({
   teamsData,
   competitionsData,
   groupsData,
-  seasonsData
+  seasonsData,
 }: IFormProps) => {
   const { t } = useTranslation()
 
@@ -44,23 +44,19 @@ export const CompetitionParticipationsFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <Container>
-            <TeamsCombo
-              name='teamId'
-              data={teamsData}
-              label={t('TEAM')}
-            />
+            <TeamsCombo name="teamId" data={teamsData} label={t('TEAM')} />
             <CompetitionsCombo
-              name='competitionId'
+              name="competitionId"
               data={competitionsData}
               label={t('COMPETITION')}
             />
             <CompetitionGroupsCombo
-              name='groupId'
+              name="groupId"
               data={groupsData}
               label={t('COMPETITION_GROUP')}
             />
             <SeasonsCombo
-              name='seasonId'
+              name="seasonId"
               data={seasonsData}
               label={t('SEASON')}
             />

@@ -23,7 +23,7 @@ export const CreateOrganizationForm = ({
   onSubmit,
   onCancelClick,
   fullwidth,
-  usersData
+  usersData,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -53,10 +53,12 @@ export const CreateOrganizationForm = ({
             />
             <UsersCombo
               data={usersData}
-              name='memberIds'
+              name="memberIds"
               multiple
               error={touched.memberIds && !!errors.memberIds}
-              helperText={touched.memberIds ? errors.memberIds as string : undefined}
+              helperText={
+                touched.memberIds ? (errors.memberIds as string) : undefined
+              }
               label={t('USERS')}
             />
             <MainFormActions

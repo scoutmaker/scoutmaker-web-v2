@@ -32,7 +32,6 @@ interface IFilterFormProps {
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
   playerPositionsData: PlayerPositionDto[]
-
 }
 
 export const InsiderNotesFilterForm = ({
@@ -43,7 +42,7 @@ export const InsiderNotesFilterForm = ({
   teamsData,
   competitionsData,
   competitionGroupsData,
-  playerPositionsData
+  playerPositionsData,
 }: IFilterFormProps) => {
   const { t } = useTranslation()
 
@@ -59,31 +58,31 @@ export const InsiderNotesFilterForm = ({
             <PlayersCombo
               data={playersData}
               label={t('PLAYERS')}
-              name='playerIds'
+              name="playerIds"
               multiple
             />
             <PlayersPositionCombo
               data={playerPositionsData}
               label={t('POSITIONS')}
-              name='positionIds'
+              name="positionIds"
               multiple
             />
             <TeamsCombo
               data={teamsData}
               label={t('TEAMS')}
-              name='teamIds'
+              name="teamIds"
               multiple
             />
             <CompetitionsCombo
               data={competitionsData}
               label={t('COMPETITIONS')}
-              name='competitionIds'
+              name="competitionIds"
               multiple
             />
             <CompetitionGroupsCombo
               data={competitionGroupsData}
               label={t('COMPETITION_GROUPS')}
-              name='competitionGroupIds'
+              name="competitionGroupIds"
             />
             <StyledCheckboxContainer>
               <Field

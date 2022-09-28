@@ -25,7 +25,7 @@ export const EditTeamAffiliationForm = ({
   current,
   onSubmit,
   onCancelClick,
-  fullwidth
+  fullwidth,
 }: IEditFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -51,7 +51,7 @@ export const EditTeamAffiliationForm = ({
             <Field
               name="startDate"
               as={TextField}
-              type='date'
+              type="date"
               variant="outlined"
               fullWidth
               label={t('team-affiliations:START_DATE')}
@@ -61,7 +61,7 @@ export const EditTeamAffiliationForm = ({
             <Field
               name="endDate"
               as={TextField}
-              type='date'
+              type="date"
               variant="outlined"
               fullWidth
               label={t('team-affiliations:END_DATE')}

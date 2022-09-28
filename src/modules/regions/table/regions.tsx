@@ -11,7 +11,7 @@ interface IRegionsTableProps extends ICommonTableProps {
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
     { id: 'name', label: t('NAME') },
-    { id: 'countryId', label: t('COUNTRY') }
+    { id: 'countryId', label: t('COUNTRY') },
   ]
 }
 

@@ -23,7 +23,7 @@ export const TeamAffiliationFilterForm = ({
   onFilter,
   onClearFilters,
   playersData,
-  teamsData
+  teamsData,
 }: IFormProps) => {
   const { t } = useTranslation()
 
@@ -37,15 +37,11 @@ export const TeamAffiliationFilterForm = ({
         <Form autoComplete="off">
           <Container>
             <PlayersCombo
-              name='playerId'
+              name="playerId"
               data={playersData}
               label={t('PLAYER')}
             />
-            <TeamsCombo
-              name='teamId'
-              data={teamsData}
-              label={t('TEAM')}
-            />
+            <TeamsCombo name="teamId" data={teamsData} label={t('TEAM')} />
             <FilterFormActions handleClearFilter={onClearFilters} />
           </Container>
         </Form>

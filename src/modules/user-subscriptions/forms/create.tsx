@@ -31,7 +31,7 @@ export const CreateUserSubscriptionForm = ({
   fullwidth,
   competitionGroupsData,
   competitionsData,
-  usersData
+  usersData,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -51,29 +51,37 @@ export const CreateUserSubscriptionForm = ({
         <Form>
           <Container fullwidth={fullwidth}>
             <UsersCombo
-              name='userId'
+              name="userId"
               data={usersData}
               error={touched.userId && !!errors.userId}
               helperText={touched.userId ? errors.userId : undefined}
             />
             <CompetitionsCombo
-              name='competitionIds'
+              name="competitionIds"
               data={competitionsData}
               multiple
               error={touched.competitionIds && !!errors.competitionIds}
-              helperText={touched.competitionIds ? errors.competitionIds as string : undefined}
+              helperText={
+                touched.competitionIds
+                  ? (errors.competitionIds as string)
+                  : undefined
+              }
             />
             <CompetitionGroupsCombo
-              name='competitionGroupIds'
+              name="competitionGroupIds"
               data={competitionGroupsData}
               multiple
               error={touched.competitionIds && !!errors.competitionIds}
-              helperText={touched.competitionIds ? errors.competitionIds as string : undefined}
+              helperText={
+                touched.competitionIds
+                  ? (errors.competitionIds as string)
+                  : undefined
+              }
             />
             <Field
               name="startDate"
               as={TextField}
-              type='date'
+              type="date"
               variant="outlined"
               fullWidth
               label={t('user-subs:START_DATE')}
@@ -83,7 +91,7 @@ export const CreateUserSubscriptionForm = ({
             <Field
               name="endDate"
               as={TextField}
-              type='date'
+              type="date"
               variant="outlined"
               fullWidth
               label={t('user-subs:END_DATE')}

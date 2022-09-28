@@ -21,24 +21,20 @@ type TData = {
   player: PlayerDto
 }
 
-export const getServerSideProps = withSessionSsrRole<TData>(['common', 'players'], false,
+export const getServerSideProps = withSessionSsrRole<TData>(
+  ['common', 'players'],
+  false,
   async (token, params, user) => {
     try {
-      const data = await getPlayerBySlug(
-        params?.slug as string,
-        token
-      )
+      const data = await getPlayerBySlug(params?.slug as string, token)
       return { data: { isAdmin: !!user?.role.includes('ADMIN'), player: data } }
     } catch (error) {
       return { data: null, error: error as ApiError }
     }
-  })
+  },
+)
 
-const PlayerPage = ({
-  data,
-  errorMessage,
-  errorStatus,
-}: TSsrRole<TData>) => {
+const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
   const { t } = useTranslation()
   const router = useRouter()
 
@@ -68,13 +64,29 @@ const PlayerPage = ({
       <PageHeading title={`${player.firstName} ${player.lastName}`} />
       <PlayerDetialsCard player={player} />
       <section>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginY: 3, gap: 1 }} >
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            marginY: 3,
+            gap: 1,
+          }}
+        >
           <Typography variant="h3" align="center">
             {t('players:TEAM_AFFILIATIONS_HEADING')}
           </Typography>
-          {isAdmin &&
-            <Button variant='contained' onClick={() => router.push(`/team-affiliations/create?playerId=${player.id}`)}>{t('ADD')} <AddIcon /></Button>
-          }
+          {isAdmin && (
+            <Button
+              variant="contained"
+              onClick={() =>
+                router.push(`/team-affiliations/create?playerId=${player.id}`)
+              }
+            >
+              {t('ADD')} <AddIcon />
+            </Button>
+          )}
         </Box>
         <TeamAffiliationsTable
           page={page}
@@ -88,15 +100,15 @@ const PlayerPage = ({
         >
           {affiliations
             ? affiliations.docs.map(affiliation => (
-              <TeamAffiliationsTableRow
-                key={affiliation.id}
-                data={affiliation}
-                isDeleteOptionEnabled={false}
-                isEditOptionEnabled={false}
-                onDeleteClick={() => { }}
-                onEditClick={() => { }}
-              />
-            ))
+                <TeamAffiliationsTableRow
+                  key={affiliation.id}
+                  data={affiliation}
+                  isDeleteOptionEnabled={false}
+                  isEditOptionEnabled={false}
+                  onDeleteClick={() => {}}
+                  onEditClick={() => {}}
+                />
+              ))
             : null}
         </TeamAffiliationsTable>
       </section>

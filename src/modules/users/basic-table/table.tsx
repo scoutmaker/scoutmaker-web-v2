@@ -11,7 +11,7 @@ interface ITableProps extends ICommonTableProps {
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
     { id: 'lastName', label: t('LAST_NAME'), isSortingDisabled: true },
-    { id: 'firstName', label: t('FIRST_NAME'), isSortingDisabled: true }
+    { id: 'firstName', label: t('FIRST_NAME'), isSortingDisabled: true },
   ]
 }
 
