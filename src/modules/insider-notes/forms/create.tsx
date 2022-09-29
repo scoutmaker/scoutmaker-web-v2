@@ -1,4 +1,10 @@
-import { Accordion, AccordionDetails, AccordionSummary, TextField, Typography } from '@mui/material'
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  TextField,
+  Typography,
+} from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
@@ -37,7 +43,7 @@ export const CreateInsiderNoteForm = ({
   playersData,
   teamsData,
   competitionsData,
-  competitionGroupsData
+  competitionGroupsData,
 }: IFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -88,11 +94,15 @@ export const CreateInsiderNoteForm = ({
                 aria-controls="meta-data-fields-content"
                 id="meta-data-fields-header"
               >
-                <Typography sx={{ fontWeight: 'bold' }}>{t('META_DATA')}</Typography>
+                <Typography sx={{ fontWeight: 'bold' }}>
+                  {t('META_DATA')}
+                </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <AccordionInnerContainer>
-                  <Typography>{t('insider-notes:META_DATA_DISCLAIMER')}</Typography>
+                  <Typography>
+                    {t('insider-notes:META_DATA_DISCLAIMER')}
+                  </Typography>
                   <TeamsCombo
                     data={teamsData}
                     name="teamId"
@@ -105,14 +115,22 @@ export const CreateInsiderNoteForm = ({
                     name="competitionId"
                     label={t('COMPETITION')}
                     error={touched.competitionId && !!errors.competitionId}
-                    helperText={touched.competitionId ? errors.competitionId : undefined}
+                    helperText={
+                      touched.competitionId ? errors.competitionId : undefined
+                    }
                   />
                   <CompetitionGroupsCombo
                     data={competitionGroupsData}
                     name="competitionGroupId"
                     label={t('COMPETITION_GROUP')}
-                    error={touched.competitionGroupId && !!errors.competitionGroupId}
-                    helperText={touched.competitionGroupId ? errors.competitionGroupId : undefined}
+                    error={
+                      touched.competitionGroupId && !!errors.competitionGroupId
+                    }
+                    helperText={
+                      touched.competitionGroupId
+                        ? errors.competitionGroupId
+                        : undefined
+                    }
                   />
                 </AccordionInnerContainer>
               </AccordionDetails>

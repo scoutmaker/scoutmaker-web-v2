@@ -24,7 +24,7 @@ export const CreateReportSkillASsessmentTemplateForm = ({
   onSubmit,
   onCancelClick,
   fullwidth,
-  categoriesData
+  categoriesData,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -64,7 +64,7 @@ export const CreateReportSkillASsessmentTemplateForm = ({
             />
             <ReportSkillAssessmentCategoriesCombo
               data={categoriesData}
-              name='categoryId'
+              name="categoryId"
               label={t('REPORT_SKILL_ASSESSMENT_CATEGORY')}
               error={touched.categoryId && !!errors.categoryId}
               helperText={touched.categoryId ? errors.categoryId : undefined}
@@ -74,7 +74,9 @@ export const CreateReportSkillASsessmentTemplateForm = ({
                 component={CheckboxWithLabel}
                 type="checkbox"
                 name="hasScore"
-                Label={{ label: t('report-skill-assessment-templates:HAS_SCORE') }}
+                Label={{
+                  label: t('report-skill-assessment-templates:HAS_SCORE'),
+                }}
               />
             </Box>
             <MainFormActions

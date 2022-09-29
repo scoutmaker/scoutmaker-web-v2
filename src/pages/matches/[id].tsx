@@ -1,84 +1,36 @@
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
 import { ErrorContent } from '@/components/error/error-content'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { withSessionSsr } from '@/modules/auth/session'
 import { MatchDetailsCard } from '@/modules/matches/details-card'
 import { MatchDto } from '@/modules/matches/types'
 import { getMatchDisplayName } from '@/modules/matches/utils'
 import { getMatchById } from '@/services/api/methods/matches'
 import { ApiError } from '@/services/api/types'
-import { redirectToLogin } from '@/utils/redirect-to-login'
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-type TMatchPageProps = {
-  errorStatus: number | null
-  errorMessage: string | null
-  match: MatchDto | null
-}
-
-export const getServerSideProps = withSessionSsr<TMatchPageProps>(
-  async ({ req, res, locale, params }) => {
-    const { user } = req.session
-
-    if (!user) {
-      redirectToLogin(res)
-      return {
-        props: {
-          errorStatus: null,
-          errorMessage: null,
-          match: null,
-        },
-      }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'matches',
-    ])
-
-    let match: MatchDto
-
+export const getServerSideProps = withSessionSsrRole<MatchDto>(
+  ['common', 'matches'],
+  false,
+  async (token, params) => {
     try {
-      const matchData = await getMatchById(
-        params?.id as string,
-        req.session.token,
-      )
-      match = matchData
+      const data = await getMatchById(params?.id as string, token)
+      return { data }
     } catch (error) {
-      const { response } = error as ApiError
-
-      return {
-        props: {
-          ...translations,
-          errorStatus: response.status,
-          errorMessage: response.data.message,
-          match: null,
-        },
-      }
-    }
-
-    return {
-      props: {
-        ...translations,
-        errorStatus: null,
-        errorMessage: null,
-        match,
-      },
+      return { data: null, error: error as ApiError }
     }
   },
 )
 
-const MatchPage = ({ match, errorMessage, errorStatus }: TMatchPageProps) => {
-  if (match) {
+const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
+  if (data) {
     return (
       <>
         <PageHeading
           title={getMatchDisplayName({
-            homeTeamName: match.homeTeam.name,
-            awayTeamName: match.awayTeam.name,
+            homeTeamName: data.homeTeam.name,
+            awayTeamName: data.awayTeam.name,
           })}
         />
-        <MatchDetailsCard match={match} />
+        <MatchDetailsCard match={data} />
       </>
     )
   }

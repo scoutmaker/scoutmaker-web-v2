@@ -11,27 +11,37 @@ import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole(['common', 'insider-notes'], false)
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'insider-notes'],
+  false,
+)
 
 const CreateInsiderNotePage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
 
-  const { mutate: createInsiderNote, isLoading: createLoading } = useCreateInsiderNote()
+  const { mutate: createInsiderNote, isLoading: createLoading } =
+    useCreateInsiderNote()
 
-  const { data: competitionGroupsData, isLoading: competitionGroupsLoading } = useCompetitionGroupsList()
-  const { data: competitionsData, isLoading: competitionsLoading } = useCompetitionsList()
+  const { data: competitionGroupsData, isLoading: competitionGroupsLoading } =
+    useCompetitionGroupsList()
+  const { data: competitionsData, isLoading: competitionsLoading } =
+    useCompetitionsList()
   const { data: playersData, isLoading: playersLoading } = usePlayersList()
   const { data: teamsData, isLoading: teamsLoading } = useTeamsList()
 
   const isLoading =
-    createLoading || competitionGroupsLoading || competitionsLoading || playersLoading || teamsLoading
+    createLoading ||
+    competitionGroupsLoading ||
+    competitionsLoading ||
+    playersLoading ||
+    teamsLoading
 
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
-      <PageHeading title={t('insider-notes:CREATE_PAGE_TITLE')}
-      />
+      <PageHeading title={t('insider-notes:CREATE_PAGE_TITLE')} />
       <CreateInsiderNoteForm
         competitionGroupsData={competitionGroupsData || []}
         competitionsData={competitionsData || []}

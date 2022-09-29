@@ -12,7 +12,7 @@ function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
     { id: 'user', label: t('USER') },
     { id: 'startDate', label: t('user-subs:START_DATE') },
-    { id: 'endDate', label: t('user-subs:END_DATE') }
+    { id: 'endDate', label: t('user-subs:END_DATE') },
   ]
 }
 

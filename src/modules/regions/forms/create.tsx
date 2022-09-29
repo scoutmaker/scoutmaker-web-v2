@@ -23,7 +23,7 @@ export const CreateRegionForm = ({
   onSubmit,
   onCancelClick,
   fullwidth,
-  countriesData
+  countriesData,
 }: ICreateRegionFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()

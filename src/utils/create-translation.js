@@ -36,9 +36,12 @@ const getWriteTrans = async (lang, file, tag) => {
 ;(async () => {
   const langs = ['en', 'pl']
   const file = await askQuestion('File name: ')
-  const transTag = await askQuestion('Translation tag: ')
+  const times = await askQuestion('Amount of translations: ')
 
-  for (const indx in langs) {
-    await getWriteTrans(langs[indx], file, transTag)
+  for (let i = 0; i < times; i++) {
+    const transTag = await askQuestion('Translation tag: ')
+    for (const indx in langs) {
+      await getWriteTrans(langs[indx], file, transTag)
+    }
   }
 })()

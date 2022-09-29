@@ -15,27 +15,32 @@ import { getOrganizationById } from '@/services/api/methods/organizations'
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<OrganizationDto>(['common', 'organizations'], ['ADMIN'],
+export const getServerSideProps = withSessionSsrRole<OrganizationDto>(
+  ['common', 'organizations'],
+  ['ADMIN'],
   async (token, params) => {
     try {
-      const data = await getOrganizationById(
-        params?.id as string,
-        token,
-      )
+      const data = await getOrganizationById(params?.id as string, token)
       return { data }
     } catch (error) {
       return {
         data: null,
-        error: error as ApiError
+        error: error as ApiError,
       }
     }
-  });
+  },
+)
 
-const OrganizationPage = ({ data, errorMessage, errorStatus }: TSsrRole<OrganizationDto>) => {
+const OrganizationPage = ({
+  data,
+  errorMessage,
+  errorStatus,
+}: TSsrRole<OrganizationDto>) => {
   const { t } = useTranslation()
   const router = useRouter()
 
-  const { mutate: removeMember, isLoading: removeMemberLoading } = useRemoveMemberOrganization()
+  const { mutate: removeMember, isLoading: removeMemberLoading } =
+    useRemoveMemberOrganization()
 
   if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
@@ -44,30 +49,45 @@ const OrganizationPage = ({ data, errorMessage, errorStatus }: TSsrRole<Organiza
       <PageHeading title={t('ORGANIZATION')} />
       <OrganizationDetailsCard organization={data} />
       <section>
-
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginY: 3, gap: 1 }} >
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            marginY: 3,
+            gap: 1,
+          }}
+        >
           <Typography variant="h3" align="center">
             {t('organizations:USERS_HEADING')}
           </Typography>
-          <Button variant='contained' onClick={() => router.push(`/organizations/${data.id}/add-members`)}>{t('organizations:ADD_MEMBERS_BTN')} <AddIcon /></Button>
+          <Button
+            variant="contained"
+            onClick={() => router.push(`/organizations/${data.id}/add-members`)}
+          >
+            {t('organizations:ADD_MEMBERS_BTN')} <AddIcon />
+          </Button>
         </Box>
         <BasicUsersTable
           page={0}
           rowsPerPage={data.members.length}
-          sortBy=''
-          order='asc'
-          handleChangePage={() => { }}
-          handleChangeRowsPerPage={() => { }}
-          handleSort={() => { }}
+          sortBy=""
+          order="asc"
+          handleChangePage={() => {}}
+          handleChangeRowsPerPage={() => {}}
+          handleSort={() => {}}
           total={data.members.length}
           actions
         >
-          {
-            data.members.map(member =>
-              <BasicUsersTableRow data={member}
-                onRemoveFromOrganization={() => removeMember({ memberId: member.id, organizationId: data.id })}
-              />)
-          }
+          {data.members.map(member => (
+            <BasicUsersTableRow
+              data={member}
+              onRemoveFromOrganization={() =>
+                removeMember({ memberId: member.id, organizationId: data.id })
+              }
+            />
+          ))}
         </BasicUsersTable>
       </section>
     </>

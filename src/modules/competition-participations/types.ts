@@ -22,4 +22,5 @@ export type CreateCompetitionParticipationDto =
 export type UpdateCompetitionParticipationDto =
   Components.Schemas.UpdateCompetitionParticipationDto
 
-export type CopyCompetitionParticipationsDto = Paths.CompetitionParticipationsControllerCopyFromSeasonToSeason.PathParameters
+export type CopyCompetitionParticipationsDto =
+  Paths.CompetitionParticipationsControllerCopyFromSeasonToSeason.PathParameters

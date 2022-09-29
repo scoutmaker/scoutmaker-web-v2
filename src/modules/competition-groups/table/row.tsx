@@ -1,14 +1,8 @@
-import {
-  Delete as DeleteIcon,
-  Edit as EditIcon,
-} from '@mui/icons-material'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
 
 import { StyledTableCell } from '@/components/tables/cell'
 import { CellWithLink } from '@/components/tables/cell-with-link'
 import { TableMenu } from '@/components/tables/menu'
-import { TableMenuItem } from '@/components/tables/menu-item'
 import { StyledTableRow } from '@/components/tables/row'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
@@ -30,7 +24,6 @@ export const CompetitionGroupsTableRow = ({
   isDeleteOptionEnabled,
 }: ITableRowProps) => {
   const router = useRouter()
-  const { t } = useTranslation()
 
   const {
     menuAnchorEl,
@@ -46,7 +39,9 @@ export const CompetitionGroupsTableRow = ({
     <StyledTableRow
       hover
       key={id}
-      onClick={isMenuOpen ? undefined : () => router.push(`/competition-groups/${id}`)}
+      onClick={
+        isMenuOpen ? undefined : () => router.push(`/competition-groups/${id}`)
+      }
     >
       <StyledTableCell padding="checkbox">
         <TableMenu
@@ -54,27 +49,17 @@ export const CompetitionGroupsTableRow = ({
           isMenuOpen={isMenuOpen}
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
-        >
-          <TableMenuItem
-            icon={<EditIcon fontSize="small" />}
-            text={t('EDIT')}
-            onClick={() => {
-              handleMenuAction(onEditClick)
-            }}
-            disabled={!isEditOptionEnabled}
-          />
-          <TableMenuItem
-            icon={<DeleteIcon fontSize="small" />}
-            text={t('DELETE')}
-            onClick={() => {
-              handleMenuAction(onDeleteClick)
-            }}
-            disabled={!isDeleteOptionEnabled}
-          />
-        </TableMenu>
+          isDeleteOptionEnabled={isDeleteOptionEnabled}
+          isEditOptionEnabled={isEditOptionEnabled}
+          onDeleteClick={() => handleMenuAction(onDeleteClick)}
+          onEditClick={() => handleMenuAction(onEditClick)}
+        />
       </StyledTableCell>
       <StyledTableCell>{name}</StyledTableCell>
-      <CellWithLink href={`/competitions/${competition.id}`} label={competition.name} />
+      <CellWithLink
+        href={`/competitions/${competition.id}`}
+        label={competition.name}
+      />
     </StyledTableRow>
   )
 }

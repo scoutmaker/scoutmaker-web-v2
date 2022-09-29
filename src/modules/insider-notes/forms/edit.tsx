@@ -41,7 +41,7 @@ export const EditInsiderNoteForm = ({
   playersData,
   teamsData,
   competitionsData,
-  competitionGroupsData
+  competitionGroupsData,
 }: IEditFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -101,14 +101,20 @@ export const EditInsiderNoteForm = ({
               name="competitionId"
               label={t('COMPETITION')}
               error={touched.competitionId && !!errors.competitionId}
-              helperText={touched.competitionId ? errors.competitionId : undefined}
+              helperText={
+                touched.competitionId ? errors.competitionId : undefined
+              }
             />
             <CompetitionGroupsCombo
               data={competitionGroupsData}
               name="competitionGroupId"
               label={t('COMPETITION_GROUP')}
               error={touched.competitionGroupId && !!errors.competitionGroupId}
-              helperText={touched.competitionGroupId ? errors.competitionGroupId : undefined}
+              helperText={
+                touched.competitionGroupId
+                  ? errors.competitionGroupId
+                  : undefined
+              }
             />
             <MainFormActions
               label={t('INSIDER_NOTES')}

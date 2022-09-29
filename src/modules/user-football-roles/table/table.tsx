@@ -9,9 +9,7 @@ interface ITableProps extends ICommonTableProps {
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
-  return [
-    { id: 'name', label: t('NAME') },
-  ]
+  return [{ id: 'name', label: t('NAME') }]
 }
 
 export const UserFootballRolesTable = ({

@@ -10,10 +10,16 @@ import { PageHeading } from '@/components/page-heading/page-heading'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { UserSubscriptionsFilterForm } from '@/modules/user-subscriptions/forms/filter'
-import { useDeleteUserSubscription, useUserSubscriptions } from '@/modules/user-subscriptions/hooks'
+import {
+  useDeleteUserSubscription,
+  useUserSubscriptions,
+} from '@/modules/user-subscriptions/hooks'
 import { UserSubscriptionsTableRow } from '@/modules/user-subscriptions/table/row'
 import { UserSubscriptionsTable } from '@/modules/user-subscriptions/table/table'
-import { UserSubscriptionsFiltersDto, UserSubscriptionsSortBy } from '@/modules/user-subscriptions/types'
+import {
+  UserSubscriptionsFiltersDto,
+  UserSubscriptionsSortBy,
+} from '@/modules/user-subscriptions/types'
 import { useUsersList } from '@/modules/users/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
@@ -22,13 +28,16 @@ import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 const initialFilters: UserSubscriptionsFiltersDto = {
   competitionGroupIds: [],
   competitionIds: [],
-  userId: 0
+  userId: '',
 }
 
-export const getServerSideProps = withSessionSsrRole(['common', 'user-subs'], ['ADMIN'])
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'user-subs'],
+  ['ADMIN'],
+)
 
 interface IToDeleteData {
-  id: number
+  id: string
 }
 
 const UserSubscriptionsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
@@ -37,8 +46,7 @@ const UserSubscriptionsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] =
-    useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -57,24 +65,32 @@ const UserSubscriptionsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     handleChangePage(null, 0)
   }
 
-  const { data: userSubscriptions, isLoading: dataLoading } = useUserSubscriptions({
-    page: page + 1,
-    limit: rowsPerPage,
-    sortBy: sortBy as UserSubscriptionsSortBy,
-    sortingOrder: order,
-    ...filters,
-  })
+  const { data: userSubscriptions, isLoading: dataLoading } =
+    useUserSubscriptions({
+      page: page + 1,
+      limit: rowsPerPage,
+      sortBy: sortBy as UserSubscriptionsSortBy,
+      sortingOrder: order,
+      ...filters,
+    })
 
-  const { mutate: deleteUserSub, isLoading: deleteLoading } = useDeleteUserSubscription()
+  const { mutate: deleteUserSub, isLoading: deleteLoading } =
+    useDeleteUserSubscription()
 
-  const { data: compGroupsData, isLoading: compGroupsLoading } = useCompetitionGroupsList()
+  const { data: compGroupsData, isLoading: compGroupsLoading } =
+    useCompetitionGroupsList()
   const { data: compsData, isLoading: compsLoading } = useCompetitionsList()
   const { data: usersData, isLoading: usersLoading } = useUsersList()
 
+  const isLoading =
+    dataLoading ||
+    deleteLoading ||
+    compGroupsLoading ||
+    compsLoading ||
+    usersLoading
 
-  const isLoading = dataLoading || deleteLoading || compGroupsLoading || compsLoading || usersLoading
-
-  if (errorStatus) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
@@ -113,16 +129,14 @@ const UserSubscriptionsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
               isEditOptionEnabled
               isDeleteOptionEnabled
             />
-          ))
-        }
+          ))}
       </UserSubscriptionsTable>
       <Fab href="/user-subscriptions/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}
         message={t('user-subs:DELETE_CONFIRM_QUESTION')}
         handleAccept={() => {
-          if (toDeleteData)
-            deleteUserSub(toDeleteData.id)
+          if (toDeleteData) deleteUserSub(toDeleteData.id)
 
           setToDeleteData(undefined)
         }}
