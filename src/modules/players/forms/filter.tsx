@@ -132,6 +132,7 @@ export const PlayersFilterForm = ({
                 type="checkbox"
                 name="isLiked"
                 Label={{ label: t('players:LIKED_ONLY') }}
+                size="small"
               />
             </StyledCheckboxContainer>
             <FilterFormActions handleClearFilter={onClearFilters} />
