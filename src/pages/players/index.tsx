@@ -27,7 +27,6 @@ import { useTable } from '@/utils/hooks/use-table'
 import { isDiffrent } from '@/utils/is-diffrent'
 import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-
 export const getServerSideProps = withSessionSsrRole(
   ['common', 'players'],
   false,
@@ -140,25 +139,25 @@ const PlayersPage = () => {
       >
         {players
           ? players.docs.map(player => (
-            <PlayersTableRow
-              key={player.id}
-              data={player}
-              onEditClick={() => {
-                router.push(`/players/edit/${player.slug}`)
-              }}
-              onDeleteClick={() => {
-                setPlayerToDeleteData({
-                  id: player.id,
-                  name: `${player.firstName} ${player.lastName}`,
-                })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              onLikeClick={(id: string) => likePlayer(id)}
-              onUnlikeClick={(id: string) => unlikePlayer(id)}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))
+              <PlayersTableRow
+                key={player.id}
+                data={player}
+                onEditClick={() => {
+                  router.push(`/players/edit/${player.slug}`)
+                }}
+                onDeleteClick={() => {
+                  setPlayerToDeleteData({
+                    id: player.id,
+                    name: `${player.firstName} ${player.lastName}`,
+                  })
+                  setIsDeleteConfirmationModalOpen(true)
+                }}
+                onLikeClick={(id: string) => likePlayer(id)}
+                onUnlikeClick={(id: string) => unlikePlayer(id)}
+                isEditOptionEnabled
+                isDeleteOptionEnabled
+              />
+            ))
           : null}
       </PlayersTable>
       <Fab href="/players/create" />
@@ -181,7 +180,5 @@ const PlayersPage = () => {
     </>
   )
 }
-
-
 
 export default PlayersPage
