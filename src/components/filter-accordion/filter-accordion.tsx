@@ -1,14 +1,16 @@
 import { Accordion, AccordionDetails, AccordionSummary, Chip, styled, Typography } from "@mui/material"
 
+import { ExpandMoreIcon } from "../icons"
+
 interface IProps {
   children: JSX.Element
   isChanged: boolean
 }
 
-const FilterAccordion = ({ children, isChanged }: IProps) => (<StyledAccordion disableGutters>
-  <StyledAccordionSummary>
+const FilterAccordion = ({ children, isChanged }: IProps) => (<StyledAccordion disableGutters >
+  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
     <StyledAccordinText>Filtry {isChanged && <ChangedChip />}</StyledAccordinText>
-  </StyledAccordionSummary>
+  </AccordionSummary>
   <StyledAccordionDetails>
     {children}
   </StyledAccordionDetails>
@@ -21,21 +23,15 @@ const StyledAccordion = styled(Accordion)(({ theme }) => ({
   background: 'none'
 }))
 
-const StyledAccordionSummary = styled(AccordionSummary)(({ theme }) => ({
-  background: theme.palette.primary.main,
-}))
-
 const StyledAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
-  background: 'none',
   paddingTop: theme.spacing(2)
 }))
 
-const StyledAccordinText = styled(Typography)(({ theme }) => ({
+const StyledAccordinText = styled(Typography)({
   fontWeight: 'bold',
   textAlign: 'center',
   width: "100%",
-  color: theme.palette.primary.contrastText
-}))
+})
 
 const ChangedChip = () => (
   <Chip
