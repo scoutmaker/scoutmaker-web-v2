@@ -1,13 +1,11 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
 
 import { Fab } from '@/components/fab/fab'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { withSessionSsr } from '@/modules/auth/session'
 import { ClubsFilterForm } from '@/modules/clubs/forms/filter'
 import { useClubs, useDeleteClub } from '@/modules/clubs/hooks'
 import { ClubsTableRow } from '@/modules/clubs/table/row'
@@ -17,29 +15,9 @@ import { useCountriesList } from '@/modules/countries/hooks'
 import { useRegionsList } from '@/modules/regions/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
-import { redirectToLogin } from '@/utils/redirect-to-login'
+import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsr(
-  async ({ locale, req, res }) => {
-    const { user } = req.session
-
-    if (!user) {
-      redirectToLogin(res)
-      return { props: {} }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'clubs',
-    ])
-
-    return {
-      props: {
-        ...translations,
-      },
-    }
-  },
-)
+export const getServerSideProps = withSessionSsrRole(['common', 'clubs'], false)
 
 const initialFilters: ClubsFiltersDto = {
   name: '',

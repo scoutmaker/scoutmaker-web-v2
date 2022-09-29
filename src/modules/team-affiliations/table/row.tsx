@@ -1,12 +1,9 @@
 import { Link as MUILink } from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
 
-import { DeleteIcon, EditIcon } from '@/components/icons'
 import { StyledTableCell } from '@/components/tables/cell'
 import { TableMenu } from '@/components/tables/menu'
-import { TableMenuItem } from '@/components/tables/menu-item'
 import { StyledTableRow } from '@/components/tables/row'
 import { formatDate } from '@/utils/format-date'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
@@ -34,7 +31,6 @@ export const TeamAffiliationsTableRow = ({
 }: ITeamAffiliationsTableRowProps) => {
   const { id, player, team, startDate, endDate } = data
   const router = useRouter()
-  const { t } = useTranslation()
 
   const {
     menuAnchorEl,
@@ -59,24 +55,11 @@ export const TeamAffiliationsTableRow = ({
             isMenuOpen={isMenuOpen}
             onMenuClick={handleMenuClick}
             onMenuClose={handleMenuClose}
-          >
-            <TableMenuItem
-              icon={<EditIcon fontSize="small" />}
-              text={t('EDIT')}
-              onClick={() => {
-                handleMenuAction(onEditClick)
-              }}
-              disabled={!isEditOptionEnabled}
-            />
-            <TableMenuItem
-              icon={<DeleteIcon fontSize="small" />}
-              text={t('DELETE')}
-              onClick={() => {
-                handleMenuAction(onDeleteClick)
-              }}
-              disabled={!isDeleteOptionEnabled}
-            />
-          </TableMenu>
+            isDeleteOptionEnabled={isDeleteOptionEnabled}
+            isEditOptionEnabled={isEditOptionEnabled}
+            onDeleteClick={() => handleMenuAction(onDeleteClick)}
+            onEditClick={() => handleMenuAction(onEditClick)}
+          />
         </StyledTableCell>
       )}
       {shouldDisplayPlayerName ? (
