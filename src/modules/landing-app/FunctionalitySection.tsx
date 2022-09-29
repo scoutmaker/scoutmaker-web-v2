@@ -15,15 +15,10 @@ export const FunctionalitySection = () => {
         <Heading variant="h2">{t('landing-app:FUNCTIONALITIES')}</Heading>
       </LayoutContentWrapper>
       <LayoutContentWrapper>
-        <TilesContainer
-          container
-          // @ts-ignore
-          component="ul"
-        >
+        <TilesContainer container component="ul">
           {functionalitiesTrans.map(functionality => (
             <TitleGrid
               item
-              // @ts-ignore
               component="li"
               xl={4}
               lg={4}
@@ -67,9 +62,9 @@ const TitleGrid = styled(Grid)(({ theme }) => ({
   fontWeight: theme.typography.fontWeightBold,
   marginBottom: theme.spacing(1),
   padding: theme.spacing(1),
-}))
+})) as typeof Grid
 
 const TilesContainer = styled(Grid)(({ theme }) => ({
   marginTop: theme.spacing(3),
   justifyContent: 'space-between',
-}))
+})) as typeof Grid

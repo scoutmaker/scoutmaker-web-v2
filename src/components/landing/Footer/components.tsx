@@ -1,4 +1,4 @@
-import { Divider as DDivider, styled } from '@mui/material'
+import { Divider as MuiDivider, styled } from '@mui/material'
 
 export const Container = styled('footer')(({ theme }) => ({
   background: '#000',
@@ -62,7 +62,7 @@ export const LinksContainer = styled('div')(({ theme }) => ({
   },
 }))
 
-export const Divider = styled(DDivider)(({ theme }) => ({
+export const Divider = styled(MuiDivider)(({ theme }) => ({
   background: theme.palette.primary.contrastText,
   width: 4,
   height: 60,

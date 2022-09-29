@@ -31,12 +31,9 @@ export const heroData = (t: TFunction) => ({
 
 export const copyData = (t: TFunction) => ({
   title: (
-    <p>
-      {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
-      <>
-        {t('landing-app:APP')} Scout<em>Maker</em>.pro
-      </>
-    </p>
+    <>
+      {t('landing-app:APP')} Scout<em>Maker</em>.pro
+    </>
   ),
   text: t('landing-app:COPY_TEXT'),
   image: {

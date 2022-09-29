@@ -1,4 +1,4 @@
-import { Box, Grid, styled, Theme, Typography } from '@mui/material'
+import { Box, Grid, styled, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { AdvantageTile } from './AdvantageTile'
@@ -12,13 +12,14 @@ type Props = {
 
 export const AdvantagesSection = ({ advantages, dark }: Props) => {
   const { t } = useTranslation()
-  const containerStyle = (theme: Theme) => ({
-    background: dark ? '#000' : '',
-    color: dark ? theme.palette.primary.contrastText : '',
-  })
 
   return (
-    <Box component="section" sx={containerStyle}>
+    <Box
+      component="section"
+      sx={
+        dark ? { background: '#000', color: 'primary.contrastText' } : undefined
+      }
+    >
       <LayoutContentWrapper>
         <Heading variant="h2">{t('landing:BENEFITS')}</Heading>
       </LayoutContentWrapper>
