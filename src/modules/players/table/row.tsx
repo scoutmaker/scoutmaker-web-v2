@@ -8,6 +8,7 @@ import { Badge, Link as MUILink } from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { MouseEvent } from 'react'
 
 import { StyledTableCell } from '@/components/tables/cell'
 import { TableMenu } from '@/components/tables/menu'
@@ -64,6 +65,12 @@ export const PlayersTableRow = ({
     _count: count,
   } = data
 
+  const cellChangeLikedClick = (e: MouseEvent) => {
+    e.stopPropagation()
+    if (likes.length) onUnlikeClick(id)
+    else onLikeClick(id)
+  }
+
   return (
     <StyledTableRow
       hover
@@ -99,6 +106,16 @@ export const PlayersTableRow = ({
             />
           )}
         </TableMenu>
+      </StyledTableCell>
+      <StyledTableCell
+        onClick={cellChangeLikedClick}
+        sx={theme => ({ paddingLeft: theme.spacing(2) })}
+      >
+        {likes.length ? (
+          <UnlikeIcon fontSize="small" />
+        ) : (
+          <LikeIcon fontSize="small" />
+        )}
       </StyledTableCell>
       <StyledTableCell>{lastName}</StyledTableCell>
       <StyledTableCell>{firstName}</StyledTableCell>
