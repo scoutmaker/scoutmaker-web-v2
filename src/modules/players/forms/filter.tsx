@@ -129,8 +129,8 @@ export const PlayersFilterForm = ({
                 Label={{ label: t('players:LIKED_ONLY') }}
               />
             </StyledCheckboxContainer>
-            <FilterFormActions handleClearFilter={onClearFilters} />
           </Container>
+          <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>
       )}
     </Formik>
