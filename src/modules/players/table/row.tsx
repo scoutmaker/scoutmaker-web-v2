@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
+import { LikedTableCell } from '@/components/likedTableCell/likedTableCell'
 import { StyledTableCell } from '@/components/tables/cell'
 import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
@@ -64,6 +65,11 @@ export const PlayersTableRow = ({
     _count: count,
   } = data
 
+  const cellChangeLikedClick = () => {
+    if (likes.length) onUnlikeClick(id)
+    else onLikeClick(id)
+  }
+
   return (
     <StyledTableRow
       hover
@@ -100,6 +106,10 @@ export const PlayersTableRow = ({
           )}
         </TableMenu>
       </StyledTableCell>
+      <LikedTableCell
+        isLiked={!!likes.length}
+        onClicked={cellChangeLikedClick}
+      />
       <StyledTableCell>{lastName}</StyledTableCell>
       <StyledTableCell>{firstName}</StyledTableCell>
       <StyledTableCell sx={{ minWidth: 100 }}>{`${getFlagEmoji(country.code)} ${

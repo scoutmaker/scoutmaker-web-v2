@@ -10,6 +10,7 @@ interface IPlayersTableProps extends ICommonTableProps {
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
+    { id: 'favourite', label: '', isSortingDisabled: true },
     { id: 'lastName', label: t('LAST_NAME') },
     { id: 'firstName', label: t('FIRST_NAME') },
     { id: 'country', label: t('COUNTRY') },
