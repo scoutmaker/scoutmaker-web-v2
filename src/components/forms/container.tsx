@@ -7,17 +7,14 @@ interface IContainerProps {
 export const Container = styled('div')<IContainerProps>(
   ({ theme, fullwidth }) => ({
     display: 'flex',
-    flexWrap: 'wrap',
-    gap: theme.spacing(1.5),
-    '& > div': {
-      flex: '1 0 320px',
-    },
+    flexDirection: 'column',
+    margin: theme.spacing(0, 'auto', 2),
+    gap: theme.spacing(2),
 
-    [theme.breakpoints.up(1640)]: {
-      '& > div': {
-        flex: '1 0 400px',
-      },
-    },
     width: fullwidth ? '100%' : 'auto',
+
+    [theme.breakpoints.up('sm')]: {
+      width: '50%',
+    },
   }),
 )
