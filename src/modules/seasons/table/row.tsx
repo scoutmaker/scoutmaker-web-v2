@@ -1,8 +1,6 @@
 import {
   Add as AddIcon,
   ContentCopy as CopyIcon,
-  Delete as DeleteIcon,
-  Edit as EditIcon,
   Remove as RemoveIcon,
 } from '@mui/icons-material'
 import { useRouter } from 'next/router'
@@ -61,23 +59,11 @@ export const SeasonsTableRow = ({
           isMenuOpen={isMenuOpen}
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
+          isDeleteOptionEnabled={isDeleteOptionEnabled}
+          isEditOptionEnabled={isEditOptionEnabled}
+          onDeleteClick={() => handleMenuAction(onDeleteClick)}
+          onEditClick={() => handleMenuAction(onEditClick)}
         >
-          <TableMenuItem
-            icon={<EditIcon fontSize="small" />}
-            text={t('EDIT')}
-            onClick={() => {
-              handleMenuAction(onEditClick)
-            }}
-            disabled={!isEditOptionEnabled}
-          />
-          <TableMenuItem
-            icon={<DeleteIcon fontSize="small" />}
-            text={t('DELETE')}
-            onClick={() => {
-              handleMenuAction(onDeleteClick)
-            }}
-            disabled={!isDeleteOptionEnabled}
-          />
           <TableMenuItem
             icon={<CopyIcon fontSize="small" />}
             text={t('seasons:COPY_TO_NEW')}

@@ -53,20 +53,23 @@ export const OrdersFilterForm = ({
               name="playerIds"
               label={t('PLAYERS')}
               multiple
+              size="small"
             />
             <TeamsCombo
               data={teamsData}
               name="teamIds"
               label={t('TEAMS')}
               multiple
+              size="small"
             />
             <MatchesCombo
               data={matchesData}
               name="matchIds"
               label={t('MATCHES')}
               multiple
+              size="small"
             />
-            <StatusSelect name="status" label={t('STATUS')} />
+            <StatusSelect name="status" label={t('STATUS')} size="small" />
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <Field
@@ -76,6 +79,7 @@ export const OrdersFilterForm = ({
                   variant="outlined"
                   label={t('orders:CREATED_AFTER')}
                   fullWidth
+                  size="small"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -86,6 +90,7 @@ export const OrdersFilterForm = ({
                   variant="outlined"
                   label={t('orders:CREATED_BEFORE')}
                   fullWidth
+                  size="small"
                 />
               </Grid>
             </Grid>
@@ -95,6 +100,7 @@ export const OrdersFilterForm = ({
                 type="checkbox"
                 name="onlyMine"
                 Label={{ label: t('ONLY_MINE') }}
+                size="small"
               />
             </StyledCheckboxContainer>
             <FilterFormActions handleClearFilter={onClearFilters} />

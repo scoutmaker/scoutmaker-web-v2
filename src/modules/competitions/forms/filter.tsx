@@ -64,26 +64,30 @@ export const CompetitionsFilterForm = ({
               size="small"
               inputProps={{ min: 1, max: 15, step: 1, pattern: '[1-9]|1[0-5]' }}
             />
-            <GendersSelect name="gender" label={t('GENDER')} />
+            <GendersSelect name="gender" label={t('GENDER')} size="small" />
             <CountriesCombo
               name="countryId"
               data={countriesData}
               label={t('COUNTRY')}
+              size="small"
             />
             <CompetitionAgeCategoriesCombo
               name="ageCategoryId"
               data={competitionAgeCategoriesData}
               label={t('COMPETITION_AGE_CATEGORY')}
+              size="small"
             />
             <CompetitionTypesCombo
               name="typeId"
               data={competitionTypesData}
               label={t('COMPETITION_TYPE')}
+              size="small"
             />
             <CompetitionJuniorLevelsCombo
               name="juniorLevelId"
               data={competitionJuniorLevelsData}
               label={t('COMPETITION_JUNIOR_LEVEL')}
+              size="small"
             />
             <FilterFormActions handleClearFilter={onClearFilters} />
           </Container>

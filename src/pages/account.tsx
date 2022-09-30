@@ -10,7 +10,6 @@ import {
   Typography,
 } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -18,30 +17,11 @@ import { UpdateUserDto, User } from '@/modules/auth/auth'
 import { EditAccountForm } from '@/modules/auth/forms/edit-account'
 import { UpdatePasswordForm } from '@/modules/auth/forms/update-password'
 import { useUpdatePassword, useUpdateUser, useUser } from '@/modules/auth/hooks'
-import { withSessionSsr } from '@/modules/auth/session'
-import { redirectToLogin } from '@/utils/redirect-to-login'
+import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsr(
-  async ({ req, res, locale }) => {
-    const { user } = req.session
-
-    if (!user) {
-      redirectToLogin(res)
-      return { props: {} }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'account',
-    ])
-
-    return {
-      props: {
-        ...translations,
-        user,
-      },
-    }
-  },
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'account'],
+  false,
 )
 
 const AccountPage = () => {

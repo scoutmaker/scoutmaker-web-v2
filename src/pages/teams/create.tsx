@@ -1,37 +1,15 @@
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { withSessionSsr } from '@/modules/auth/session'
 import { useClubsList } from '@/modules/clubs/hooks'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { CreateTeamForm } from '@/modules/teams/forms/create'
 import { useCreateTeam } from '@/modules/teams/hooks'
-import { redirectToLogin } from '@/utils/redirect-to-login'
+import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsr(
-  async ({ req, res, locale }) => {
-    const { user } = req.session
-
-    if (!user) {
-      redirectToLogin(res)
-      return { props: {} }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'teams',
-    ])
-
-    return {
-      props: {
-        ...translations,
-      },
-    }
-  },
-)
+export const getServerSideProps = withSessionSsrRole(['common', 'teams'], false)
 
 const CreateTeamPage = () => {
   const { t } = useTranslation()

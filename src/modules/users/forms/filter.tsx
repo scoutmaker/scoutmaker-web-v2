@@ -50,13 +50,19 @@ export const UsersFilterForm = ({
               label={t('NAME')}
               size="small"
             />
-            <RoleSelect name="role" label={t('ROLE')} />
-            <RegionsCombo data={regionsData} name="regionIds" multiple />
-            <ClubsCombo data={clubsData} name="clubIds" multiple />
+            <RoleSelect name="role" label={t('ROLE')} size="small" />
+            <RegionsCombo
+              data={regionsData}
+              name="regionIds"
+              multiple
+              size="small"
+            />
+            <ClubsCombo data={clubsData} name="clubIds" multiple size="small" />
             <UserFootballRolesCombo
               data={userFootballRolesData}
               name="footballRoleIds"
               multiple
+              size="small"
             />
             <FilterFormActions handleClearFilter={onClearFilters} />
           </Container>

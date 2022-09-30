@@ -46,6 +46,7 @@ export const ReportSkillAssessmentTemplatesFilterForm = ({
               data={categoriesData}
               multiple
               label={t('CATEGORIES')}
+              size="small"
             />
             <FilterFormActions handleClearFilter={onClearFilters} />
           </Container>
