@@ -1,50 +1,84 @@
-import { useEffect, useState } from 'react'
+import { CssBaseline, Link, Typography } from '@mui/material'
+import { GetStaticPropsContext } from 'next'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { User } from '@/modules/auth/auth'
-import { withSessionSsr } from '@/modules/auth/session'
-import { client } from '@/services/api/api'
-import { redirectToLogin } from '@/utils/redirect-to-login'
+import { CtaButton } from '@/modules/landing-home/CtaButton'
+import { Header } from '@/modules/landing-home/Header'
+import {
+  ButtonsContainer,
+  FlexWrapper,
+  GoToAppButton,
+  GoToAppContainer,
+  HeadingText,
+  MainContainer,
+  WrapperImg,
+} from '@/modules/landing-home/Home'
 
-export const getServerSideProps = withSessionSsr(async ({ req, res }) => {
-  const { user } = req.session
-
-  if (user === undefined) {
-    redirectToLogin(res)
-    return {
-      props: {
-        user: { id: '1', email: 'asd' } as User,
-      },
-    }
-  }
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+  const translations = await serverSideTranslations(locale || 'pl', [
+    'landing',
+    'landing-home',
+  ])
 
   return {
-    props: { user: req.session.user },
+    props: {
+      ...translations,
+    },
   }
-})
-
-interface IHomepageProps {
-  user: any
 }
 
-const Home = ({ user }: IHomepageProps) => {
-  const [countries, setCountries] = useState<any[]>([])
-
-  useEffect(() => {
-    async function getCountries() {
-      const res = await client.get('/countries')
-      setCountries(res.data.data)
-    }
-
-    getCountries()
-  }, [])
+const HomePage = () => {
+  const { t } = useTranslation()
 
   return (
-    <>
-      <h1>Hello</h1>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
-      <pre>{JSON.stringify(countries, null, 2)}</pre>
-    </>
+    <WrapperImg>
+      <Header />
+      <CssBaseline />
+      <MainContainer>
+        <FlexWrapper>
+          <div>
+            <HeadingText variant="h1">
+              {t('landing-home:PAGE_TITLE')}
+            </HeadingText>
+          </div>
+          <div>
+            <Typography variant="h2" align="center">
+              {t('landing-home:PAGE_SUB_TITLE')}
+            </Typography>
+            <ButtonsContainer>
+              <CtaButton
+                text={t('landing:CLUB_SCOUTING')}
+                href="/club-scouting"
+              />
+              <CtaButton
+                text={t('landing:SCOUTING_ACADEMY')}
+                href="/scouting-academy"
+              />
+              <CtaButton
+                text={t('landing:SCOUTING_APP')}
+                href="/scouting-app"
+              />
+              <CtaButton
+                text={t('landing:DATA_ANALYSIS')}
+                href="/data-analysis"
+              />
+            </ButtonsContainer>
+          </div>
+        </FlexWrapper>
+        <GoToAppContainer>
+          <GoToAppButton
+            color="secondary"
+            variant="contained"
+            href="/login"
+            LinkComponent={Link}
+          >
+            {t('landing-home:GO_TO_APP')}
+          </GoToAppButton>
+        </GoToAppContainer>
+      </MainContainer>
+    </WrapperImg>
   )
 }
 
-export default Home
+export default HomePage
