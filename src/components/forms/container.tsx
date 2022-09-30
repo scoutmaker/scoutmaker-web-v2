@@ -9,7 +9,6 @@ export const Container = styled('div')<IContainerProps>(
     display: 'flex',
     flexWrap: 'wrap',
     gap: theme.spacing(1.5),
-    maxWidth: 1550,
     '& > div': {
       flex: '1 0 320px',
     },
