@@ -8,8 +8,8 @@ import { Badge, Link as MUILink } from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { MouseEvent } from 'react'
 
+import { LikedTableCell } from '@/components/likedTableCell/likedTableCell'
 import { StyledTableCell } from '@/components/tables/cell'
 import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
@@ -65,8 +65,7 @@ export const PlayersTableRow = ({
     _count: count,
   } = data
 
-  const cellChangeLikedClick = (e: MouseEvent) => {
-    e.stopPropagation()
+  const cellChangeLikedClick = () => {
     if (likes.length) onUnlikeClick(id)
     else onLikeClick(id)
   }
@@ -107,16 +106,10 @@ export const PlayersTableRow = ({
           )}
         </TableMenu>
       </StyledTableCell>
-      <StyledTableCell
-        onClick={cellChangeLikedClick}
-        sx={theme => ({ paddingLeft: theme.spacing(2) })}
-      >
-        {likes.length ? (
-          <UnlikeIcon fontSize="small" />
-        ) : (
-          <LikeIcon fontSize="small" />
-        )}
-      </StyledTableCell>
+      <LikedTableCell
+        isLiked={!!likes.length}
+        onClicked={cellChangeLikedClick}
+      />
       <StyledTableCell>{lastName}</StyledTableCell>
       <StyledTableCell>{firstName}</StyledTableCell>
       <StyledTableCell sx={{ minWidth: 100 }}>{`${getFlagEmoji(country.code)} ${

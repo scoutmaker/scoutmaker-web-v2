@@ -16,6 +16,7 @@ import {
   LikeIcon,
   UnlikeIcon,
 } from '@/components/icons'
+import { LikedTableCell } from '@/components/likedTableCell/likedTableCell'
 import { RatingChip } from '@/components/rating-chip/rating-chip'
 import { StyledTableCell } from '@/components/tables/cell'
 import { CellWithLink } from '@/components/tables/cell-with-link'
@@ -76,6 +77,11 @@ export const NotesTableRow = ({
     meta,
   } = data
 
+  const cellChangeLikedClick = () => {
+    if (likes.length) onUnlikeClick(id)
+    else onLikeClick(id)
+  }
+
   return (
     <>
       <StyledTableRow
@@ -128,6 +134,10 @@ export const NotesTableRow = ({
             )}
           </TableMenu>
         </StyledTableCell>
+        <LikedTableCell
+          isLiked={!!likes.length}
+          onClicked={cellChangeLikedClick}
+        />
         {player ? (
           <CellWithLink
             href={getSinglePlayerRoute(player.slug)}
