@@ -6,17 +6,19 @@ interface IContainerProps {
 
 export const Container = styled('div')<IContainerProps>(
   ({ theme, fullwidth }) => ({
-    display: 'grid',
-    margin: theme.spacing(0, 'auto', 2),
-    gap: theme.spacing(2),
-
-    // [theme.breakpoints.up('sm')]: {
-    //   width: '50%',
-    // },
-
-    gridTemplateColumns: '1fr 1fr 1fr',
-    [theme.breakpoints.down('lg')]: {
-      gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: theme.spacing(1.5),
+    maxWidth: 1550,
+    '& > div': {
+      flex: '1 0 500px',
     },
+
+    [theme.breakpoints.down('sm')]: {
+      '& > div': {
+        flex: '1 0 200px',
+      },
+    },
+    width: fullwidth ? '100%' : 'auto',
   }),
 )
