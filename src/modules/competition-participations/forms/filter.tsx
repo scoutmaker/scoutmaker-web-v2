@@ -44,21 +44,29 @@ export const CompetitionParticipationsFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <Container>
-            <TeamsCombo name="teamId" data={teamsData} label={t('TEAM')} />
+            <TeamsCombo
+              name="teamId"
+              data={teamsData}
+              label={t('TEAM')}
+              size="small"
+            />
             <CompetitionsCombo
               name="competitionId"
               data={competitionsData}
               label={t('COMPETITION')}
+              size="small"
             />
             <CompetitionGroupsCombo
               name="groupId"
               data={groupsData}
               label={t('COMPETITION_GROUP')}
+              size="small"
             />
             <SeasonsCombo
               name="seasonId"
               data={seasonsData}
               label={t('SEASON')}
+              size="small"
             />
             <FilterFormActions handleClearFilter={onClearFilters} />
           </Container>

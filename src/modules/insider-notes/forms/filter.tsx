@@ -59,29 +59,34 @@ export const InsiderNotesFilterForm = ({
               data={playersData}
               label={t('PLAYERS')}
               name="playerIds"
+              size="small"
               multiple
             />
             <PlayersPositionCombo
               data={playerPositionsData}
               label={t('POSITIONS')}
               name="positionIds"
+              size="small"
               multiple
             />
             <TeamsCombo
               data={teamsData}
               label={t('TEAMS')}
               name="teamIds"
+              size="small"
               multiple
             />
             <CompetitionsCombo
               data={competitionsData}
               label={t('COMPETITIONS')}
               name="competitionIds"
+              size="small"
               multiple
             />
             <CompetitionGroupsCombo
               data={competitionGroupsData}
               label={t('COMPETITION_GROUPS')}
+              size="small"
               name="competitionGroupIds"
             />
             <StyledCheckboxContainer>
@@ -90,6 +95,7 @@ export const InsiderNotesFilterForm = ({
                 type="checkbox"
                 name="isLiked"
                 Label={{ label: t('ONLY_LIKED') }}
+                size="small"
               />
             </StyledCheckboxContainer>
             <FilterFormActions handleClearFilter={onClearFilters} />

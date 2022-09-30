@@ -43,18 +43,21 @@ export const OrganizationSubscriptionsFilterForm = ({
             <OrganizationsCombo
               data={organizationsData}
               name="organizationId"
+              size="small"
             />
             <CompetitionsCombo
               data={competitionsData}
               name="competitionIds"
               multiple
               label={t('COMPETITIONS')}
+              size="small"
             />
             <CompetitionGroupsCombo
               data={competitionGroupsData}
               name="competitionGroupIds"
               multiple
               label={t('COMPETITION_GROUPS')}
+              size="small"
             />
             <FilterFormActions handleClearFilter={onClearFilters} />
           </Container>

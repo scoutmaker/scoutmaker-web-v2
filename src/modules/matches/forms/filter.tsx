@@ -50,23 +50,31 @@ export const MatchesFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <Container>
-            <TeamsCombo data={teamsData} name="teamId" label={t('TEAM')} />
+            <TeamsCombo
+              data={teamsData}
+              name="teamId"
+              label={t('TEAM')}
+              size="small"
+            />
             <CompetitionsCombo
               name="competitionIds"
               data={competitionsData}
               label={t('COMPETITIONS')}
               multiple
+              size="small"
             />
             <CompetitionGroupsCombo
               name="groupIds"
               data={competitionGroupsData}
               label={t('COMPETITION_GROUPS')}
               multiple
+              size="small"
             />
             <SeasonsCombo
               data={seasonsData}
               name="seasonId"
               label={t('SEASON')}
+              size="small"
             />
             <StyledCheckboxContainer>
               <Field
@@ -74,6 +82,7 @@ export const MatchesFilterForm = ({
                 type="checkbox"
                 name="hasVideo"
                 Label={{ label: t('matches:WITH_VIDEO_ONLY') }}
+                size="small"
               />
             </StyledCheckboxContainer>
             <FilterFormActions handleClearFilter={onClearFilters} />

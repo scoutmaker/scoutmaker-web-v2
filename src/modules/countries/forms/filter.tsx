@@ -40,6 +40,7 @@ export const CountriesFilterForm = ({
                 type="checkbox"
                 name="isEuMember"
                 Label={{ label: t('countries:IS_EU_MEMBER') }}
+                size="small"
               />
             </StyledCheckboxContainer>
             <FilterFormActions handleClearFilter={onClearFilters} />

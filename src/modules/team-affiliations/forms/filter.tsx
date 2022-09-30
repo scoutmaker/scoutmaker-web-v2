@@ -40,8 +40,14 @@ export const TeamAffiliationFilterForm = ({
               name="playerId"
               data={playersData}
               label={t('PLAYER')}
+              size="small"
             />
-            <TeamsCombo name="teamId" data={teamsData} label={t('TEAM')} />
+            <TeamsCombo
+              name="teamId"
+              data={teamsData}
+              label={t('TEAM')}
+              size="small"
+            />
             <FilterFormActions handleClearFilter={onClearFilters} />
           </Container>
         </Form>

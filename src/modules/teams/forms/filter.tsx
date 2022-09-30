@@ -67,12 +67,14 @@ export const TeamsFilterForm = ({
               data={countriesData}
               label={t('COUNTRIES')}
               multiple
+              size="small"
             />
             <RegionsCombo
               name="regionIds"
               data={regionsData}
               label={t('REGIONS')}
               multiple
+              size="small"
             />
             <ClubsCombo
               data={clubsData}
@@ -85,12 +87,14 @@ export const TeamsFilterForm = ({
               data={competitionsData}
               label={t('COMPETITIONS')}
               multiple
+              size="small"
             />
             <CompetitionGroupsCombo
               name="competitionGroupIds"
               data={competitionGroupsData}
               label={t('COMPETITION_GROUPS')}
               multiple
+              size="small"
             />
             <StyledCheckboxContainer>
               <Field
@@ -98,6 +102,7 @@ export const TeamsFilterForm = ({
                 type="checkbox"
                 name="isLiked"
                 Label={{ label: 'Tylko polubione' }}
+                size="small"
               />
             </StyledCheckboxContainer>
             <FilterFormActions handleClearFilter={onClearFilters} />
