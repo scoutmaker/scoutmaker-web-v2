@@ -36,16 +36,18 @@ export const UserSubscriptionsFilterForm = ({
     {() => (
       <Form autoComplete="off">
         <Container>
-          <UsersCombo data={usersData} name="userId" />
+          <UsersCombo data={usersData} name="userId" size="small" />
           <CompetitionsCombo
             data={competitionsData}
             name="competitionIds"
             multiple
+            size="small"
           />
           <CompetitionGroupsCombo
             data={competitionGroupsData}
             name="competitionGroupIds"
             multiple
+            size="small"
           />
           <FilterFormActions handleClearFilter={onClearFilters} />
         </Container>

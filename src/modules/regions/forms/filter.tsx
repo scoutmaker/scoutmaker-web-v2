@@ -44,6 +44,7 @@ export const RegionsFilterForm = ({
               name="countryId"
               data={countriesData}
               label={t('COUNTRY')}
+              size="small"
             />
             <FilterFormActions handleClearFilter={onClearFilters} />
           </Container>
