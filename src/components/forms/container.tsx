@@ -11,12 +11,12 @@ export const Container = styled('div')<IContainerProps>(
     gap: theme.spacing(1.5),
     maxWidth: 1550,
     '& > div': {
-      flex: '1 0 500px',
+      flex: '1 0 320px',
     },
 
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.up(1640)]: {
       '& > div': {
-        flex: '1 0 200px',
+        flex: '1 0 400px',
       },
     },
     width: fullwidth ? '100%' : 'auto',
