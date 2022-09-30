@@ -4,8 +4,8 @@ import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
+import { FilterFormContainer } from '@/components/forms/filter-form-container'
 import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { CompetitionsCombo } from '@/modules/competitions/combo'
@@ -56,7 +56,7 @@ export const PlayersFilterForm = ({
     >
       {() => (
         <Form autoComplete="off">
-          <Container>
+          <FilterFormContainer>
             <Field
               name="name"
               as={TextField}
@@ -123,7 +123,7 @@ export const PlayersFilterForm = ({
               size="small"
               multiple
             />
-          </Container>
+          </FilterFormContainer>
           <StyledCheckboxContainer>
             <Field
               component={CheckboxWithLabel}
