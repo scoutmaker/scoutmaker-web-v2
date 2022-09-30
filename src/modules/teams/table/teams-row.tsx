@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
+import { LikedTableCell } from '@/components/likedTableCell/likedTableCell'
 import { StyledTableCell } from '@/components/tables/cell'
 import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
@@ -46,6 +47,11 @@ export const TeamsTableRow = ({
 
   const { id, name, slug, club, competitions, likes } = data
 
+  const cellChangeLikedClick = () => {
+    if (likes.length) onUnlikeClick(id)
+    else onLikeClick(id)
+  }
+
   return (
     <StyledTableRow
       hover
@@ -82,6 +88,10 @@ export const TeamsTableRow = ({
           )}
         </TableMenu>
       </StyledTableCell>
+      <LikedTableCell
+        isLiked={!!likes.length}
+        onClicked={cellChangeLikedClick}
+      />
       <StyledTableCell>{name}</StyledTableCell>
       <StyledTableCell>
         <Link href={`/clubs/${club.slug}`} passHref>

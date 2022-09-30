@@ -65,36 +65,42 @@ export const NotesFilterForm = ({
               data={playersData}
               label={t('PLAYERS')}
               multiple
+              size="small"
             />
             <PlayersPositionCombo
               name="positionIds"
               data={positionsData}
               label={t('POSITIONS')}
               multiple
+              size="small"
             />
             <TeamsCombo
               data={teamsData}
               name="teamIds"
               label={t('TEAMS')}
               multiple
+              size="small"
             />
             <MatchesCombo
               data={matchesData}
               name="matchIds"
               label={t('MATCHES')}
               multiple
+              size="small"
             />
             <CompetitionsCombo
               name="competitionIds"
               data={competitionsData}
               label={t('COMPETITIONS')}
               multiple
+              size="small"
             />
             <CompetitionGroupsCombo
               name="competitionGroupIds"
               data={competitionGroupsData}
               label={t('COMPETITION_GROUPS')}
               multiple
+              size="small"
             />
             <Grid container spacing={2}>
               <Grid item xs={6}>
@@ -154,6 +160,7 @@ export const NotesFilterForm = ({
                 type="checkbox"
                 name="isLiked"
                 Label={{ label: t('notes:LIKED_ONLY') }}
+                size="small"
               />
             </StyledCheckboxContainer>
             <FilterFormActions handleClearFilter={onClearFilters} />

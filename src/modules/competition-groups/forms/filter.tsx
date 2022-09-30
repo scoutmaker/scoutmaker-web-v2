@@ -50,12 +50,14 @@ export const CompetitionGroupsFilterForm = ({
               data={competitionsData}
               name="competitionIds"
               label={t('COMPETITIONS')}
+              size="small"
             />
             <RegionsCombo
               multiple
               data={regionsData}
               name="regionIds"
               label={t('REGIONS')}
+              size="small"
             />
             <FilterFormActions handleClearFilter={onClearFilters} />
           </Container>
