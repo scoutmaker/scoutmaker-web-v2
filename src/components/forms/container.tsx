@@ -18,7 +18,5 @@ export const Container = styled('div')<IContainerProps>(
     [theme.breakpoints.down('lg')]: {
       gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
     },
-
-    width: fullwidth ? '100%' : 'auto',
   }),
 )

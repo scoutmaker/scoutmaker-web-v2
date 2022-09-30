@@ -10,6 +10,7 @@ interface IReportsTableProps extends ICommonTableProps {
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
+    { id: 'favourite', label: '' },
     { id: 'player', label: t('PLAYER') },
     { id: 'positionPlayed', label: t('POSITION') },
     { id: 'percentageRating', label: t('RATING') },

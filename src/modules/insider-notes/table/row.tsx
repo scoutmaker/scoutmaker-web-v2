@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { LikeIcon, UnlikeIcon } from '@/components/icons'
+import { LikedTableCell } from '@/components/likedTableCell/likedTableCell'
 import { StyledTableCell } from '@/components/tables/cell'
 import { CellWithLink } from '@/components/tables/cell-with-link'
 import { TableMenu } from '@/components/tables/menu'
@@ -45,6 +46,11 @@ export const InsiderNotesTableRow = ({
 
   const { player, createdAt, informant, id, likes, meta } = data
 
+  const cellChangeLikedClick = () => {
+    if (likes.length) onUnlikeClick(id)
+    else onLikeClick(id)
+  }
+
   return (
     <StyledTableRow
       hover
@@ -83,6 +89,10 @@ export const InsiderNotesTableRow = ({
           )}
         </TableMenu>
       </StyledTableCell>
+      <LikedTableCell
+        isLiked={!!likes.length}
+        onClicked={cellChangeLikedClick}
+      />
       <CellWithLink
         href={getSinglePlayerRoute(player.slug || '')}
         label={`${player.firstName} ${player.lastName}`}

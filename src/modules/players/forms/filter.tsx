@@ -95,30 +95,35 @@ export const PlayersFilterForm = ({
               name="countryIds"
               data={countriesData}
               label={t('COUNTRIES')}
+              size="small"
               multiple
             />
             <PlayersPositionCombo
               name="positionIds"
               data={positionsData}
               label={t('POSITIONS')}
+              size="small"
               multiple
             />
             <TeamsCombo
               data={teamsData}
               name="teamIds"
               label={t('TEAM')}
+              size="small"
               multiple
             />
             <CompetitionsCombo
               name="competitionIds"
               data={competitionsData}
               label={t('COMPETITIONS')}
+              size="small"
               multiple
             />
             <CompetitionGroupsCombo
               name="competitionGroupIds"
               data={competitionGroupsData}
               label={t('COMPETITION_GROUPS')}
+              size="small"
               multiple
             />
             <StyledCheckboxContainer>
@@ -127,6 +132,7 @@ export const PlayersFilterForm = ({
                 type="checkbox"
                 name="isLiked"
                 Label={{ label: t('players:LIKED_ONLY') }}
+                size="small"
               />
             </StyledCheckboxContainer>
           </Container>
