@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -8,7 +7,6 @@ import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { ClubsFilterForm } from '@/modules/clubs/forms/filter'
 import { useClubs, useDeleteClub } from '@/modules/clubs/hooks'
-import { ClubsTableRow } from '@/modules/clubs/table/row'
 import { ClubsTable } from '@/modules/clubs/table/table'
 import { ClubsFiltersDto, ClubsSortBy } from '@/modules/clubs/types'
 import { useCountriesList } from '@/modules/countries/hooks'
@@ -32,7 +30,6 @@ interface IClubToDeleteData {
 
 const ClubsPage = () => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
@@ -85,6 +82,7 @@ const ClubsPage = () => {
         onClearFilters={() => handleSetFilters(initialFilters)}
       />
       <ClubsTable
+        data={clubs?.docs || []}
         page={page}
         rowsPerPage={rowsPerPage}
         sortBy={sortBy}
@@ -94,25 +92,11 @@ const ClubsPage = () => {
         handleSort={handleSort}
         total={clubs?.totalDocs || 0}
         actions
-      >
-        {clubs
-          ? clubs.docs.map(club => (
-              <ClubsTableRow
-                key={club.id}
-                data={club}
-                onEditClick={() => {
-                  router.push(`/clubs/edit/${club.slug}`)
-                }}
-                onDeleteClick={() => {
-                  setClubToDeleteData({ id: club.id, name: club.name })
-                  setIsDeleteConfirmationModalOpen(true)
-                }}
-                isEditOptionEnabled
-                isDeleteOptionEnabled
-              />
-            ))
-          : null}
-      </ClubsTable>
+        onDeleteClick={(id, name) => {
+          setClubToDeleteData({ id, name })
+          setIsDeleteConfirmationModalOpen(true)
+        }}
+      />
       <Fab href="/clubs/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

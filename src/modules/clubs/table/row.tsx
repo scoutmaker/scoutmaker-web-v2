@@ -1,62 +1,36 @@
 import { useRouter } from 'next/router'
 
+import { BasicTableRow } from '@/components/basicTable/row'
 import { StyledTableCell } from '@/components/tables/cell'
-import { TableMenu } from '@/components/tables/menu'
-import { StyledTableRow } from '@/components/tables/row'
 import { ClubDto } from '@/modules/clubs/types'
 import { getFlagEmoji } from '@/utils/get-flag-emoji'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
 interface IClubsTableRowProps {
   data: ClubDto
-  onEditClick: () => void
-  onDeleteClick: () => void
-  isEditOptionEnabled: boolean
-  isDeleteOptionEnabled: boolean
+  onDeleteClick: (id: string, name: string) => void
 }
 
-export const ClubsTableRow = ({
-  data,
-  onEditClick,
-  onDeleteClick,
-  isEditOptionEnabled,
-  isDeleteOptionEnabled,
-}: IClubsTableRowProps) => {
+export const ClubsTableRow = ({ data, onDeleteClick }: IClubsTableRowProps) => {
   const router = useRouter()
-
-  const {
-    menuAnchorEl,
-    isMenuOpen,
-    handleMenuClick,
-    handleMenuClose,
-    handleMenuAction,
-  } = useTableMenu()
-
+  const tableMenuFns = useTableMenu()
   const { id, name, slug, region, country } = data
 
   return (
-    <StyledTableRow
-      hover
+    <BasicTableRow
       key={id}
-      onClick={isMenuOpen ? undefined : () => router.push(`/clubs/${slug}`)}
+      href={`/clubs/${slug}`}
+      isDeleteOptionEnabled
+      isEditOptionEnabled
+      onEditClick={() => router.push(`/clubs/edit/${slug}`)}
+      onDeleteClick={() => onDeleteClick(id, name)}
+      {...tableMenuFns}
     >
-      <StyledTableCell padding="checkbox">
-        <TableMenu
-          menuAnchorEl={menuAnchorEl}
-          isMenuOpen={isMenuOpen}
-          onMenuClick={handleMenuClick}
-          onMenuClose={handleMenuClose}
-          isDeleteOptionEnabled={isDeleteOptionEnabled}
-          isEditOptionEnabled={isEditOptionEnabled}
-          onDeleteClick={() => handleMenuAction(onDeleteClick)}
-          onEditClick={() => handleMenuAction(onEditClick)}
-        />
-      </StyledTableCell>
       <StyledTableCell>{name}</StyledTableCell>
       <StyledTableCell>{`${getFlagEmoji(country.code)} ${
         country.name
       }`}</StyledTableCell>
       <StyledTableCell>{region?.name}</StyledTableCell>
-    </StyledTableRow>
+    </BasicTableRow>
   )
 }

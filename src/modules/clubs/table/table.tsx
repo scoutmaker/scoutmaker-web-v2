@@ -1,56 +1,30 @@
-import { TFunction, useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
+import { useTranslation } from 'next-i18next'
 
-import { Table } from '@/components/tables/table'
+import { generateBasicTable } from '@/components/basicTable/table'
 import { ICommonTableProps } from '@/types/tables'
 
-import { ClubsSortBy } from '../types'
+import { ClubDto } from '../types'
+import { ClubsTableRow } from './row'
 
 interface IClubsTableProps extends ICommonTableProps {
-  children: ReactNode
+  data: ClubDto[]
+  onDeleteClick: (id: string, name: string) => void
 }
 
-interface IHeadCell {
-  id: ClubsSortBy
-  label: string
-}
-
-function generateHeadCells(t: TFunction): IHeadCell[] {
-  return [
+export const ClubsTable = (props: IClubsTableProps) => {
+  const { t } = useTranslation()
+  const Table = generateBasicTable([
     { id: 'name', label: t('NAME') },
     { id: 'countryId', label: t('COUNTRY') },
     { id: 'regionId', label: t('REGION') },
-  ]
-}
+  ])
 
-export const ClubsTable = ({
-  page,
-  rowsPerPage,
-  sortBy,
-  order,
-  handleChangePage,
-  handleChangeRowsPerPage,
-  handleSort,
-  total,
-  actions,
-  children,
-}: IClubsTableProps) => {
-  const { t } = useTranslation()
-
+  const { data, onDeleteClick } = props
   return (
-    <Table
-      page={page}
-      rowsPerPage={rowsPerPage}
-      sortBy={sortBy}
-      order={order}
-      handleChangePage={handleChangePage}
-      handleChangeRowsPerPage={handleChangeRowsPerPage}
-      handleSort={handleSort}
-      total={total}
-      headCells={generateHeadCells(t)}
-      actions={actions}
-    >
-      {children}
+    <Table {...props}>
+      {data.map(club => (
+        <ClubsTableRow data={club} onDeleteClick={onDeleteClick} />
+      ))}
     </Table>
   )
 }
