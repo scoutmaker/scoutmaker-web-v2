@@ -76,7 +76,7 @@ export const UsersTableRow = ({
       <StyledTableCell>{firstName}</StyledTableCell>
       <StyledTableCell>{email}</StyledTableCell>
       <StyledTableCell>{role}</StyledTableCell>
-      <StyledTableCell>{region.name}</StyledTableCell>
+      <StyledTableCell>{region?.name}</StyledTableCell>
       <StyledTableCell>{city || '-'}</StyledTableCell>
     </StyledTableRow>
   )
