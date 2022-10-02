@@ -43,16 +43,16 @@ const DashboardPage = () => {
     userId,
   })
   const { data: latestReport, isLoading: latestReportLoading } = useReports({
-    limit: 2,
+    limit: 1,
     sortBy: 'createdAt',
   })
   const { data: highestRatedReport, isLoading: highestRatedReportLoading } =
     useReports({
-      limit: 2,
+      limit: 1,
       sortBy: 'percentageRating',
     })
   const { data: latestNote, isLoading: latestNoteLoading } = useNotes({
-    limit: 2,
+    limit: 1,
     sortBy: 'createdAt',
   })
 
