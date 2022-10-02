@@ -1,4 +1,5 @@
-export type ReportTemplateBasicDataDto = Components.Schemas.ReportTemplateDto
+export type ReportTemplateBasicDataDto =
+  Components.Schemas.ReportTemplateBasicDataDto
 
 export type ReportTemplateDto = Components.Schemas.ReportTemplateDto
 
