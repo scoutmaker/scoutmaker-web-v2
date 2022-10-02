@@ -75,6 +75,7 @@
     "styles",
     ".next",
     "coverage",
-    "dist"
+    "dist",
+    "src/types/generated.d.ts"
   ]
 }

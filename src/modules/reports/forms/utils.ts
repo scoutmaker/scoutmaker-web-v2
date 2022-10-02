@@ -203,7 +203,7 @@ export function getInitialStateFromCurrent(report: ReportDto): UpdateReportDto {
     yellowCards,
     assists,
     goals,
-    template,
+    maxRatingScore,
     status,
     skills,
     ...rest
