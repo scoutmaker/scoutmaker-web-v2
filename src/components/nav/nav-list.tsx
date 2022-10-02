@@ -118,7 +118,7 @@ export const NavList = () => {
         />
         <NavElement
           icon={<ReportTemplatesIcon color="error" />}
-          to="/reporttemplates"
+          to="/report-templates"
           text={t('REPORT_TEMPLATES_CREATOR')}
         />
       </ExpandeableNavElement>
