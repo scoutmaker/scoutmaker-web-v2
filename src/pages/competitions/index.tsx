@@ -37,7 +37,8 @@ const initialFilters: CompetitionsFiltersDto = {
   countryId: '',
   gender: undefined,
   juniorLevelId: '',
-  level: 0,
+  // @ts-ignore for empty field | with 0 form doesnt submit
+  level: '',
   typeId: '',
 }
 
