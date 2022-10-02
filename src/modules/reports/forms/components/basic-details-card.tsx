@@ -30,7 +30,7 @@ export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
     player,
     shirtNo,
     avgRating,
-    template,
+    maxRatingScore,
     status,
     meta,
     author,
@@ -75,7 +75,7 @@ export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
           <CardItemBasic title={t('SHIRT_NO')} value={shirtNo} />
           <CardItemBasic
             title={t('reports:AVERAGE_RATING')}
-            value={`${avgRating}/${template.maxRatingScore}`}
+            value={`${avgRating}/${maxRatingScore}`}
           />
           <CardItemBasic
             title={t('PERCENTAGE_RATING')}
