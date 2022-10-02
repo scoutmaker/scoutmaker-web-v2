@@ -1,3 +1,5 @@
+import { RatingRange } from '@/types/rating-range'
+
 export type ReportBasicDataDto = Components.Schemas.ReportBasicDataDto
 
 export type FindAllReportsParams = Pick<
@@ -25,13 +27,6 @@ export type ReportsFiltersDto = Omit<
   FindAllReportsParams,
   'limit' | 'page' | 'sortBy' | 'sortingOrder'
 >
-
-export type RatingRange =
-  | 'ALL'
-  | 'NEGATIVE_SELECTION'
-  | 'NO_DECISION'
-  | 'TO_OBSERVE'
-  | 'POSITIVE_SELECTION'
 
 export type ReportsFilterFormData = Omit<
   ReportsFiltersDto,
