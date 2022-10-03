@@ -196,5 +196,8 @@
   "RED_CARDS": "Czerwone kartki",
   "AVG_RATING": "Średnia ocen",
   "ORGANIZATION_SUBSCRIPTION": "Subskrypcja organizacji",
-  "ORGANIZATION_SUBSCRIPTIONS": "Subskrypcje organizacji"
+  "ORGANIZATION_SUBSCRIPTIONS": "Subskrypcje organizacji",
+  "GO_TO_MATCH": "Jedź na mecz",
+  "LEAVE_MATCH": "Opuść mecz",
+  "MATCH_ATTENDANCE_INFO": "Jesteś na meczu {{homeTeam}} - {{awayTeam}}"
 }
