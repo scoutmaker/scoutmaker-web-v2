@@ -68,7 +68,7 @@ export const EditReportForm = ({
             <Box sx={{ my: 2 }}>
               <SkillAssessmentsCard
                 skills={current.skills}
-                maxRatingScore={current.template.maxRatingScore}
+                maxRatingScore={current.maxRatingScore}
               />
             </Box>
             <Box sx={{ my: 2 }}>

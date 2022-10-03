@@ -6,6 +6,7 @@ import { useTranslation } from 'next-i18next'
 
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
+import { RatingRangeSelect } from '@/components/rating-range-select/rating-range-select'
 import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { CompetitionsCombo } from '@/modules/competitions/combo'
@@ -19,7 +20,7 @@ import { PlayerBasicDataDto } from '@/modules/players/types'
 import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
-import { NotesFiltersDto } from '../types'
+import { NotesFilterFormData } from '../types'
 
 const StyledCheckboxContainer = styled('div')(() => ({
   display: 'flex',
@@ -33,8 +34,8 @@ interface INotesFilterFormProps {
   matchesData: MatchBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
-  filters: NotesFiltersDto
-  onFilter: (data: NotesFiltersDto) => void
+  filters: NotesFilterFormData
+  onFilter: (data: NotesFilterFormData) => void
   onClearFilters: () => void
 }
 
@@ -102,32 +103,11 @@ export const NotesFilterForm = ({
               multiple
               size="small"
             />
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <Field
-                  name="percentageRatingRangeStart"
-                  as={TextField}
-                  type="number"
-                  variant="outlined"
-                  fullWidth
-                  label={t('PERCENTAGE_RATING_RANGE_START')}
-                  size="small"
-                  inputProps={{ min: 0, max: 100, pattern: '/d+', step: 1 }}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <Field
-                  name="percentageRatingRangeEnd"
-                  as={TextField}
-                  type="number"
-                  variant="outlined"
-                  fullWidth
-                  label={t('PERCENTAGE_RATING_RANGE_END')}
-                  size="small"
-                  inputProps={{ min: 0, max: 100, pattern: '/d+', step: 1 }}
-                />
-              </Grid>
-            </Grid>
+            <RatingRangeSelect
+              name="ratingRange"
+              label={t('RATING_RANGE')}
+              size="small"
+            />
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <Field
