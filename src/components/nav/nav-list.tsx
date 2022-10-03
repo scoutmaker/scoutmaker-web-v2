@@ -122,6 +122,11 @@ export const NavList = () => {
           text={t('REPORT_TEMPLATES_CREATOR')}
         />
       </ExpandeableNavElement>
+      <NavElement
+        icon={<NotesIcon color="error" />}
+        to="/notes/create"
+        text={t('QUICK_NOTE')}
+      />
       {isPrivilegedUser(user) ? (
         <NavElement
           icon={<OrdersIcon color="error" />}
