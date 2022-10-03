@@ -15,6 +15,7 @@ import {
   CompetitionIcon,
   CountryIcon,
   DatabaseIcon,
+  GoToMatchIcon,
   HomeIcon,
   InsiderNotesIcon,
   MatchesIcon,
@@ -45,13 +46,11 @@ import { LogoutButton } from './logout-button'
 import { NavElement } from './nav-element'
 import { StyledDivider, StyledList } from './styles'
 
-// interface NavListProps {
-//   handleQuickNoteClick: () => void
-//   handleMatchClick: () => void
-//   isAtTheMatch: boolean
-// }
+interface INavListProps {
+  isAtTheMatch: boolean
+}
 
-export const NavList = () => {
+export const NavList = ({ isAtTheMatch }: INavListProps) => {
   const { t } = useTranslation()
   const { data: user } = useUser()
 
@@ -129,6 +128,11 @@ export const NavList = () => {
           text={t('ORDERS')}
         />
       ) : null}
+      <NavElement
+        icon={<GoToMatchIcon color="error" />}
+        to="/go-to-match"
+        text={isAtTheMatch ? t('LEAVE_MATCH') : t('GO_TO_MATCH')}
+      />
       <ExpandeableNavElement
         icon={<TemplatesIcon color="error" />}
         handleClick={() => setTemplatesListOpen(!isTemplatesListOpen)}
