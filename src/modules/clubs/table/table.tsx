@@ -1,13 +1,21 @@
+import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
 
 import { Table } from '@/components/tables/table'
 import { ICommonTableProps } from '@/types/tables'
 
-import { ClubsSortBy } from '../types'
+import { ClubDto, ClubsSortBy } from '../types'
+import { ClubsTableRow } from './row'
+
+// This should be generic, we just need the id and display name for every module
+interface IClubToDeleteData {
+  id: string
+  name: string
+}
 
 interface IClubsTableProps extends ICommonTableProps {
-  children: ReactNode
+  data: ClubDto[]
+  handleDeleteItemClick: (data: IClubToDeleteData) => void
 }
 
 interface IHeadCell {
@@ -33,9 +41,11 @@ export const ClubsTable = ({
   handleSort,
   total,
   actions,
-  children,
+  data,
+  handleDeleteItemClick,
 }: IClubsTableProps) => {
   const { t } = useTranslation()
+  const router = useRouter()
 
   return (
     <Table
@@ -50,7 +60,20 @@ export const ClubsTable = ({
       headCells={generateHeadCells(t)}
       actions={actions}
     >
-      {children}
+      {data.map(club => (
+        <ClubsTableRow
+          key={club.id}
+          data={club}
+          onEditClick={() => {
+            router.push(`/clubs/edit/${club.slug}`)
+          }}
+          onDeleteClick={() =>
+            handleDeleteItemClick({ id: club.id, name: club.name })
+          }
+          isEditOptionEnabled
+          isDeleteOptionEnabled
+        />
+      ))}
     </Table>
   )
 }
