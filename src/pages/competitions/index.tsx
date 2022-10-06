@@ -20,6 +20,7 @@ import { CompetitionsTable } from '@/modules/competitions/table/table'
 import {
   CompetitionsFiltersDto,
   CompetitionsSortBy,
+  FindAllCompetitionsParams,
 } from '@/modules/competitions/types'
 import { useCountriesList } from '@/modules/countries/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
@@ -37,7 +38,6 @@ const initialFilters: CompetitionsFiltersDto = {
   countryId: '',
   gender: undefined,
   juniorLevelId: '',
-  // @ts-ignore for empty field | with 0 form doesnt submit
   level: '',
   typeId: '',
 }
@@ -90,7 +90,7 @@ const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
       limit: rowsPerPage,
       sortBy: sortBy as CompetitionsSortBy,
       sortingOrder: order,
-      ...filters,
+      ...(filters as FindAllCompetitionsParams),
     })
 
   const { mutate: deleteCompetition, isLoading: deleteCompetitionLoading } =
