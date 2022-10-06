@@ -27,6 +27,7 @@ import {
   PlayerPositionIcon,
   PlayersIcon,
   ProfileIcon,
+  QuickNoteIcon,
   RegionIcon,
   ReportBackgroundImagesIcon,
   ReportsIcon,
@@ -132,6 +133,11 @@ export const NavList = ({ isAtTheMatch }: INavListProps) => {
         icon={<GoToMatchIcon color="error" />}
         to="/go-to-match"
         text={isAtTheMatch ? t('LEAVE_MATCH') : t('GO_TO_MATCH')}
+      />
+      <NavElement
+        icon={<QuickNoteIcon color="error" />}
+        to="/notes/create"
+        text={t('QUICK_NOTE')}
       />
       <ExpandeableNavElement
         icon={<TemplatesIcon color="error" />}
