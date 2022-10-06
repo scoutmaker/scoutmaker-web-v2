@@ -197,5 +197,8 @@
   "AVG_RATING": "Average rating",
   "ORGANIZATION_SUBSCRIPTION": "Organization subscription",
   "ORGANIZATION_SUBSCRIPTIONS": "Organization subscriptions",
+  "GO_TO_MATCH": "Go to the match",
+  "LEAVE_MATCH": "Leave the match",
+  "MATCH_ATTENDANCE_INFO": "You're at the match {{homeTeam}} - {{awayTeam}}",
   "QUICK_NOTE": "Quick note"
 }

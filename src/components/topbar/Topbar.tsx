@@ -1,12 +1,15 @@
 import { Menu as MenuIcon } from '@mui/icons-material'
-import { AppBar, IconButton } from '@mui/material'
+import { AppBar, IconButton, Tooltip } from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { useEffect, useRef, useState } from 'react'
 
+import { MatchAttendanceDto } from '@/modules/match-attendances/types'
+
+import { MatchesIcon } from '../icons'
 import { Logo } from '../logo/Logo'
 import { NavList } from '../nav/nav-list'
-// import { Match } from '../../types/matches';
 import {
   StyledButtonsContainer,
   StyledMenu,
@@ -14,16 +17,15 @@ import {
   StyledToolbar,
 } from './styles'
 
-// interface ITopbarProps {
-//   handleQuickNoteClick: () => void
-//   handleMatchClick: () => void
-//   // match: Match | null;
-// }
+interface ITopbarProps {
+  matchAttendance?: MatchAttendanceDto | null
+}
 
-export const Topbar = () => {
+export const Topbar = ({ matchAttendance }: ITopbarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const ref = useRef<HTMLButtonElement>(null)
   const router = useRouter()
+  const { t } = useTranslation()
 
   useEffect(() => {
     setIsMenuOpen(false)
@@ -38,13 +40,17 @@ export const Topbar = () => {
           </StyledTitle>
         </Link>
         <StyledButtonsContainer>
-          {/* {match ? (
+          {!!matchAttendance && (
             <Tooltip
-              title={`Jesteś na meczu ${match.homeTeam.name} - ${match.awayTeam.name}`}
+              title={t('MATCH_ATTENDANCE_INFO', {
+                homeTeam: matchAttendance.match.homeTeam.name,
+                awayTeam: matchAttendance.match.awayTeam.name,
+              })}
+              sx={theme => ({ marginRight: theme.spacing(1.5) })}
             >
-              <StyledMatchIcon color="secondary" />
+              <MatchesIcon color="secondary" />
             </Tooltip>
-          ) : null} */}
+          )}
           <div>
             <IconButton
               edge="end"
@@ -64,11 +70,7 @@ export const Topbar = () => {
               open={isMenuOpen}
               onClose={() => setIsMenuOpen(false)}
             >
-              <NavList
-              // handleMatchClick={handleMatchClick}
-              // handleQuickNoteClick={handleQuickNoteClick}
-              // isAtTheMatch={!!match}
-              />
+              <NavList isAtTheMatch={!!matchAttendance} />
             </StyledMenu>
           </div>
         </StyledButtonsContainer>

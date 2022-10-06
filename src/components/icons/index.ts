@@ -11,6 +11,7 @@ export {
   Delete as DeleteIcon,
   Edit as EditIcon,
   ExpandMore as ExpandMoreIcon,
+  DriveEta as GoToMatchIcon,
   Home as HomeIcon,
   Newspaper as InsiderNotesIcon,
   KeyboardArrowDown as KeyboardArrowDownIcon,
