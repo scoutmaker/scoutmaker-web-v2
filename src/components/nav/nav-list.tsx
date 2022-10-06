@@ -26,6 +26,7 @@ import {
   PlayerPositionIcon,
   PlayersIcon,
   ProfileIcon,
+  QuickNoteIcon,
   RegionIcon,
   ReportBackgroundImagesIcon,
   ReportsIcon,
@@ -129,6 +130,11 @@ export const NavList = () => {
           text={t('ORDERS')}
         />
       ) : null}
+      <NavElement
+        icon={<QuickNoteIcon color="error" />}
+        to="/notes/create"
+        text={t('QUICK_NOTE')}
+      />
       <ExpandeableNavElement
         icon={<TemplatesIcon color="error" />}
         handleClick={() => setTemplatesListOpen(!isTemplatesListOpen)}

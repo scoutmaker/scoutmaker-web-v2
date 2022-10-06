@@ -26,6 +26,7 @@ export {
   Place as PlayerPositionIcon,
   DirectionsRun as PlayersIcon,
   AccountCircle as ProfileIcon,
+  NoteAdd as QuickNoteIcon,
   SouthAmerica as RegionIcon,
   CancelOutlined as RejectIcon,
   Landscape as ReportBackgroundImagesIcon,
