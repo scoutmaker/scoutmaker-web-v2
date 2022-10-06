@@ -1,20 +1,21 @@
 import { Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
+import { Combo } from '@/components/combo/combo'
+import { mapGenericNameToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
-import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
+import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { OrganizationsCombo } from '@/modules/organizations/combo'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { OrganizationBasicDataDto } from '@/modules/organizations/types'
 
-import { OrganizationSubscriptionsFiltersDto } from '../types'
+import { OrganizationSubscriptionsFiltersState } from '../types'
 
 interface IFormProps {
-  filters: OrganizationSubscriptionsFiltersDto
-  onFilter: (data: OrganizationSubscriptionsFiltersDto) => void
+  filters: OrganizationSubscriptionsFiltersState
+  onFilter: (data: OrganizationSubscriptionsFiltersState) => void
   onClearFilters: () => void
   organizationsData: OrganizationBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
@@ -40,20 +41,23 @@ export const OrganizationSubscriptionsFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <Container>
-            <OrganizationsCombo
-              data={organizationsData}
+            <Combo
+              data={mapGenericNameToComboOptions(organizationsData)}
               name="organizationId"
               size="small"
+              label={t('ORGANIZATION')}
             />
-            <CompetitionsCombo
-              data={competitionsData}
+            <Combo
+              data={mapCompetitionsListToComboOptions(competitionsData)}
               name="competitionIds"
               multiple
               label={t('COMPETITIONS')}
               size="small"
             />
-            <CompetitionGroupsCombo
-              data={competitionGroupsData}
+            <Combo
+              data={mapCompetitionGroupsListToComboOptions(
+                competitionGroupsData,
+              )}
               name="competitionGroupIds"
               multiple
               label={t('COMPETITION_GROUPS')}

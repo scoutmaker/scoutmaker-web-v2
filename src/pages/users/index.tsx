@@ -1,5 +1,6 @@
 import { useTranslation } from 'next-i18next'
 
+import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -14,12 +15,12 @@ import {
 } from '@/modules/users/hooks'
 import { UsersTableRow } from '@/modules/users/table/row'
 import { UsersTable } from '@/modules/users/table/table'
-import { UsersFiltersDto, UsersSortBy } from '@/modules/users/types'
+import { UsersFiltersState, UsersSortBy } from '@/modules/users/types'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-const initialFilters: UsersFiltersDto = {
+const initialFilters: UsersFiltersState = {
   clubIds: [],
   footballRoleIds: [],
   name: '',
@@ -43,12 +44,12 @@ const UsersPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     handleSort,
   } = useTable('usersTable')
 
-  const [filters, setFilters] = useLocalStorage<UsersFiltersDto>({
+  const [filters, setFilters] = useLocalStorage<UsersFiltersState>({
     key: 'users-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: UsersFiltersDto) {
+  function handleSetFilters(newFilters: UsersFiltersState) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -58,7 +59,7 @@ const UsersPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     limit: rowsPerPage,
     sortBy: sortBy as UsersSortBy,
     sortingOrder: order,
-    ...filters,
+    ...mapFiltersStateToDto(filters),
   })
 
   const { data: clubs, isLoading: clubsLoading } = useClubsList()

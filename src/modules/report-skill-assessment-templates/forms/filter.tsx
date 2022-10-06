@@ -2,16 +2,17 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
+import { Combo } from '@/components/combo/combo'
+import { mapGenericNameToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
-import { ReportSkillAssessmentCategoriesCombo } from '@/modules/report-skill-assessment-categories/combo'
 import { ReportSkillAssessmentCategoryDto } from '@/modules/report-skill-assessment-categories/types'
 
-import { ReportSkillAssessmentTemplatesFiltersDto } from '../types'
+import { ReportSkillAssessmentTemplatesFiltersState } from '../types'
 
 interface IFormProps {
-  filters: ReportSkillAssessmentTemplatesFiltersDto
-  onFilter: (data: ReportSkillAssessmentTemplatesFiltersDto) => void
+  filters: ReportSkillAssessmentTemplatesFiltersState
+  onFilter: (data: ReportSkillAssessmentTemplatesFiltersState) => void
   onClearFilters: () => void
   categoriesData: ReportSkillAssessmentCategoryDto[]
 }
@@ -41,9 +42,9 @@ export const ReportSkillAssessmentTemplatesFilterForm = ({
               label={t('NAME')}
               size="small"
             />
-            <ReportSkillAssessmentCategoriesCombo
+            <Combo
               name="categoryIds"
-              data={categoriesData}
+              data={mapGenericNameToComboOptions(categoriesData)}
               multiple
               label={t('CATEGORIES')}
               size="small"

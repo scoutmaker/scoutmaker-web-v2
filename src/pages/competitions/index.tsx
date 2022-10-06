@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
+import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
 import { Loader } from '@/components/loader/loader'
@@ -18,7 +19,7 @@ import {
 import { CompetitionsTableRow } from '@/modules/competitions/table/row'
 import { CompetitionsTable } from '@/modules/competitions/table/table'
 import {
-  CompetitionsFiltersDto,
+  CompetitionsFiltersState,
   CompetitionsSortBy,
 } from '@/modules/competitions/types'
 import { useCountriesList } from '@/modules/countries/hooks'
@@ -31,14 +32,14 @@ export const getServerSideProps = withSessionSsrRole(
   ['ADMIN'],
 )
 
-const initialFilters: CompetitionsFiltersDto = {
+const initialFilters: CompetitionsFiltersState = {
   name: '',
-  ageCategoryId: '',
-  countryId: '',
-  gender: undefined,
-  juniorLevelId: '',
+  ageCategoryId: null,
+  countryId: null,
+  gender: '',
+  juniorLevelId: null,
   level: 0,
-  typeId: '',
+  typeId: null,
 }
 
 interface IToDeleteData {
@@ -61,12 +62,12 @@ const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
     handleSort,
   } = useTable('competitions-table')
 
-  const [filters, setFilters] = useLocalStorage<CompetitionsFiltersDto>({
+  const [filters, setFilters] = useLocalStorage<CompetitionsFiltersState>({
     key: 'competitions-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: CompetitionsFiltersDto) {
+  function handleSetFilters(newFilters: CompetitionsFiltersState) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -89,7 +90,7 @@ const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
       limit: rowsPerPage,
       sortBy: sortBy as CompetitionsSortBy,
       sortingOrder: order,
-      ...filters,
+      ...mapFiltersStateToDto(filters),
     })
 
   const { mutate: deleteCompetition, isLoading: deleteCompetitionLoading } =

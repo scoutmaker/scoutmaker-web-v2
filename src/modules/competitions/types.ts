@@ -1,3 +1,5 @@
+import { IComboOptions } from '@/components/combo/types'
+
 export type CompetitionBasicDataDto = Components.Schemas.CompetitionBasicDataDto
 export type CompetitionParticipationWithoutTeamDto =
   Components.Schemas.CompetitionParticipationWithoutTeamDto
@@ -33,6 +35,17 @@ export type CompetitionsFiltersDto = Pick<
   | 'name'
   | 'typeId'
 >
+
+export type CompetitionsFiltersState = Omit<
+  CompetitionsFiltersDto,
+  'ageCategoryId' | 'countryId' | 'juniorLevelId' | 'typeId' | 'gender'
+> & {
+  ageCategoryId: IComboOptions | null
+  countryId: IComboOptions | null
+  juniorLevelId: IComboOptions | null
+  typeId: IComboOptions | null
+  gender: Paths.CompetitionsControllerFindAll.Parameters.Gender | ''
+}
 
 export type CompetitionsSortBy =
   Paths.CompetitionsControllerFindAll.Parameters.SortBy

@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
+import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
 import { Loader } from '@/components/loader/loader'
@@ -16,14 +17,14 @@ import {
 import { ReportSkillAssessmentTemplatesTableRow } from '@/modules/report-skill-assessment-templates/table/row'
 import { ReportSkillAssessmentTemplatesTable } from '@/modules/report-skill-assessment-templates/table/table'
 import {
-  ReportSkillAssessmentTemplatesFiltersDto,
+  ReportSkillAssessmentTemplatesFiltersState,
   ReportSkillAssessmentTemplatesSortBy,
 } from '@/modules/report-skill-assessment-templates/types'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-const initialFilters: ReportSkillAssessmentTemplatesFiltersDto = {
+const initialFilters: ReportSkillAssessmentTemplatesFiltersState = {
   name: '',
   categoryIds: [],
 }
@@ -57,13 +58,13 @@ const ReportSkillAssessmentTemplatesPage = ({
   } = useTable('ReportSkillAssessmentTemplatesTable')
 
   const [filters, setFilters] =
-    useLocalStorage<ReportSkillAssessmentTemplatesFiltersDto>({
+    useLocalStorage<ReportSkillAssessmentTemplatesFiltersState>({
       key: 'report-skill-assessment-templates-filters',
       initialValue: initialFilters,
     })
 
   function handleSetFilters(
-    newFilters: ReportSkillAssessmentTemplatesFiltersDto,
+    newFilters: ReportSkillAssessmentTemplatesFiltersState,
   ) {
     setFilters(newFilters)
     handleChangePage(null, 0)
@@ -75,7 +76,7 @@ const ReportSkillAssessmentTemplatesPage = ({
       limit: rowsPerPage,
       sortBy: sortBy as ReportSkillAssessmentTemplatesSortBy,
       sortingOrder: order,
-      ...filters,
+      ...mapFiltersStateToDto(filters),
     })
 
   const { mutate: deleteReport, isLoading: deleteLoading } =

@@ -1,3 +1,5 @@
+import { IComboOptions } from '@/components/combo/types'
+
 import { CompetitionGroupBasicDataDto } from '../competition-groups/types'
 import { CompetitionBasicDataDto } from '../competitions/types'
 
@@ -31,6 +33,15 @@ export type UserSubscriptionsFiltersDto = Pick<
   FindAllUserSubscriptionsParams,
   'competitionGroupIds' | 'competitionIds' | 'userId'
 >
+
+export type UserSubscriptionsFiltersState = Omit<
+  UserSubscriptionsFiltersDto,
+  'competitionGroupIds' | 'competitionIds' | 'userId'
+> & {
+  competitionGroupIds: IComboOptions[]
+  competitionIds: IComboOptions[]
+  userId: IComboOptions | null
+}
 
 export type UserSubscriptionsSortBy =
   Paths.UserSubscriptionsControllerFindAll.Parameters.SortBy

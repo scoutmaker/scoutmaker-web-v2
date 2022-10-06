@@ -3,20 +3,20 @@ import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
+import { Combo } from '@/components/combo/combo'
+import { mapGenericNameToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
-import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
+import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { PlayersPositionCombo } from '@/modules/player-positions/combo'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
-import { PlayersCombo } from '@/modules/players/combo'
 import { PlayerBasicDataDto } from '@/modules/players/types'
-import { TeamsCombo } from '@/modules/teams/combo'
+import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
-import { InsiderNotesFiltersDto } from '../types'
+import { InsiderNotesFiltersState } from '../types'
 
 const StyledCheckboxContainer = styled('div')(() => ({
   display: 'flex',
@@ -24,8 +24,8 @@ const StyledCheckboxContainer = styled('div')(() => ({
 }))
 
 interface IFilterFormProps {
-  filters: InsiderNotesFiltersDto
-  onFilter: (data: InsiderNotesFiltersDto) => void
+  filters: InsiderNotesFiltersState
+  onFilter: (data: InsiderNotesFiltersState) => void
   onClearFilters: () => void
   playersData: PlayerBasicDataDto[]
   teamsData: TeamBasicDataDto[]
@@ -55,39 +55,42 @@ export const InsiderNotesFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <Container>
-            <PlayersCombo
-              data={playersData}
+            <Combo
+              data={mapPlayersListToComboOptions(playersData)}
               label={t('PLAYERS')}
               name="playerIds"
               size="small"
               multiple
             />
-            <PlayersPositionCombo
-              data={playerPositionsData}
+            <Combo
+              data={mapGenericNameToComboOptions(playerPositionsData)}
               label={t('POSITIONS')}
               name="positionIds"
               size="small"
               multiple
             />
-            <TeamsCombo
-              data={teamsData}
+            <Combo
+              data={mapGenericNameToComboOptions(teamsData)}
               label={t('TEAMS')}
               name="teamIds"
               size="small"
               multiple
             />
-            <CompetitionsCombo
-              data={competitionsData}
+            <Combo
+              data={mapCompetitionsListToComboOptions(competitionsData)}
               label={t('COMPETITIONS')}
               name="competitionIds"
               size="small"
               multiple
             />
-            <CompetitionGroupsCombo
-              data={competitionGroupsData}
+            <Combo
+              data={mapCompetitionGroupsListToComboOptions(
+                competitionGroupsData,
+              )}
               label={t('COMPETITION_GROUPS')}
               size="small"
               name="competitionGroupIds"
+              multiple
             />
             <StyledCheckboxContainer>
               <Field

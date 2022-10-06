@@ -3,17 +3,18 @@ import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
+import { Combo } from '@/components/combo/combo'
+import { mapGenericNameToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
-import { MatchesCombo } from '@/modules/matches/combo'
 import { MatchBasicDataDto } from '@/modules/matches/types'
-import { PlayersCombo } from '@/modules/players/combo'
+import { mapMatchesListToComboOptions } from '@/modules/matches/utils'
 import { PlayerBasicDataDto } from '@/modules/players/types'
-import { TeamsCombo } from '@/modules/teams/combo'
+import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { StatusSelect } from '../status-select'
-import { OrdersFiltersDto } from '../types'
+import { OrdersFiltersState } from '../types'
 
 const StyledCheckboxContainer = styled('div')(() => ({
   display: 'flex',
@@ -21,8 +22,8 @@ const StyledCheckboxContainer = styled('div')(() => ({
 }))
 
 type IFilterFormProps = {
-  filters: OrdersFiltersDto
-  onFilter: (data: OrdersFiltersDto) => void
+  filters: OrdersFiltersState
+  onFilter: (data: OrdersFiltersState) => void
   onClearFilters: () => void
   playersData: PlayerBasicDataDto[]
   teamsData: TeamBasicDataDto[]
@@ -48,22 +49,22 @@ export const OrdersFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <Container>
-            <PlayersCombo
-              data={playersData}
+            <Combo
+              data={mapPlayersListToComboOptions(playersData)}
               name="playerIds"
               label={t('PLAYERS')}
               multiple
               size="small"
             />
-            <TeamsCombo
-              data={teamsData}
+            <Combo
+              data={mapGenericNameToComboOptions(teamsData)}
               name="teamIds"
               label={t('TEAMS')}
               multiple
               size="small"
             />
-            <MatchesCombo
-              data={matchesData}
+            <Combo
+              data={mapMatchesListToComboOptions(matchesData)}
               name="matchIds"
               label={t('MATCHES')}
               multiple

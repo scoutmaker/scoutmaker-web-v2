@@ -4,20 +4,20 @@ import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
+import { Combo } from '@/components/combo/combo'
+import { mapGenericNameToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
-import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
+import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { CountriesCombo } from '@/modules/countries/combo'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { CountryDto } from '@/modules/countries/types'
-import { PlayersPositionCombo } from '@/modules/player-positions/combo'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { FootedSelect } from '@/modules/players/footed-select'
-import { PlayersFiltersDto } from '@/modules/players/types'
-import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
+
+import { PlayersFiltersState } from '../types'
 
 const StyledCheckboxContainer = styled('div')(() => ({
   display: 'flex',
@@ -30,8 +30,8 @@ interface IPlayersFilterFormProps {
   teamsData: TeamBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
-  filters: PlayersFiltersDto
-  onFilter: (data: PlayersFiltersDto) => void
+  filters: PlayersFiltersState
+  onFilter: (data: PlayersFiltersState) => void
   onClearFilters: () => void
 }
 
@@ -91,37 +91,39 @@ export const PlayersFilterForm = ({
               </Grid>
             </Grid>
             <FootedSelect name="footed" label={t('FOOTED')} size="small" />
-            <CountriesCombo
+            <Combo
               name="countryIds"
-              data={countriesData}
+              data={mapGenericNameToComboOptions(countriesData)}
               label={t('COUNTRIES')}
               size="small"
               multiple
             />
-            <PlayersPositionCombo
+            <Combo
               name="positionIds"
-              data={positionsData}
+              data={mapGenericNameToComboOptions(positionsData)}
               label={t('POSITIONS')}
               size="small"
               multiple
             />
-            <TeamsCombo
-              data={teamsData}
+            <Combo
               name="teamIds"
+              data={mapGenericNameToComboOptions(teamsData)}
               label={t('TEAM')}
               size="small"
               multiple
             />
-            <CompetitionsCombo
+            <Combo
               name="competitionIds"
-              data={competitionsData}
+              data={mapCompetitionsListToComboOptions(competitionsData)}
               label={t('COMPETITIONS')}
               size="small"
               multiple
             />
-            <CompetitionGroupsCombo
+            <Combo
               name="competitionGroupIds"
-              data={competitionGroupsData}
+              data={mapCompetitionGroupsListToComboOptions(
+                competitionGroupsData,
+              )}
               label={t('COMPETITION_GROUPS')}
               size="small"
               multiple

@@ -1,3 +1,5 @@
+import { IComboOptions } from '@/components/combo/types'
+
 export type OrderDto = Components.Schemas.OrderDto
 export type OrderBasicDataDto = Components.Schemas.OrderBasicDataDto
 
@@ -30,6 +32,15 @@ export interface OrdersFiltersDto
     | 'userId'
   > {
   onlyMine?: boolean
+}
+
+export type OrdersFiltersState = Omit<
+  OrdersFiltersDto,
+  'playerIds' | 'matchIds' | 'teamIds'
+> & {
+  playerIds: IComboOptions[]
+  matchIds: IComboOptions[]
+  teamIds: IComboOptions[]
 }
 
 export interface OrdersBasicFiltersDto

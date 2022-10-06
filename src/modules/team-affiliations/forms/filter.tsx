@@ -1,18 +1,19 @@
 import { Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
+import { Combo } from '@/components/combo/combo'
+import { mapGenericNameToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
-import { PlayersCombo } from '@/modules/players/combo'
 import { PlayerBasicDataDto } from '@/modules/players/types'
-import { TeamsCombo } from '@/modules/teams/combo'
+import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
-import { TeamAffiliationsFilterDto } from '../types'
+import { TeamAffiliationsFiltersState } from '../types'
 
 interface IFormProps {
-  filters: TeamAffiliationsFilterDto
-  onFilter: (data: TeamAffiliationsFilterDto) => void
+  filters: TeamAffiliationsFiltersState
+  onFilter: (data: TeamAffiliationsFiltersState) => void
   onClearFilters: () => void
   playersData: PlayerBasicDataDto[]
   teamsData: TeamBasicDataDto[]
@@ -36,15 +37,15 @@ export const TeamAffiliationFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <Container>
-            <PlayersCombo
+            <Combo
               name="playerId"
-              data={playersData}
+              data={mapPlayersListToComboOptions(playersData)}
               label={t('PLAYER')}
               size="small"
             />
-            <TeamsCombo
+            <Combo
               name="teamId"
-              data={teamsData}
+              data={mapGenericNameToComboOptions(teamsData)}
               label={t('TEAM')}
               size="small"
             />

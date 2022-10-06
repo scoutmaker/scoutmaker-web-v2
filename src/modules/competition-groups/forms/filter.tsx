@@ -2,18 +2,19 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
+import { Combo } from '@/components/combo/combo'
+import { mapGenericNameToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { RegionsCombo } from '@/modules/regions/combo'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { RegionDto } from '@/modules/regions/types'
 
-import { CompetitionGroupsFiltersDto } from '../types'
+import { CompetitionGroupsFiltersState } from '../types'
 
 interface IFormProps {
-  filters: CompetitionGroupsFiltersDto
-  onFilter: (data: CompetitionGroupsFiltersDto) => void
+  filters: CompetitionGroupsFiltersState
+  onFilter: (data: CompetitionGroupsFiltersState) => void
   onClearFilters: () => void
   competitionsData: CompetitionBasicDataDto[]
   regionsData: RegionDto[]
@@ -45,19 +46,19 @@ export const CompetitionGroupsFilterForm = ({
               label={t('NAME')}
               size="small"
             />
-            <CompetitionsCombo
+            <Combo
               multiple
-              data={competitionsData}
+              data={mapCompetitionsListToComboOptions(competitionsData)}
               name="competitionIds"
               label={t('COMPETITIONS')}
               size="small"
             />
-            <RegionsCombo
-              multiple
-              data={regionsData}
+            <Combo
+              data={mapGenericNameToComboOptions(regionsData)}
               name="regionIds"
               label={t('REGIONS')}
               size="small"
+              multiple
             />
             <FilterFormActions handleClearFilter={onClearFilters} />
           </Container>

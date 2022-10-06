@@ -4,23 +4,23 @@ import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
+import { Combo } from '@/components/combo/combo'
+import { mapGenericNameToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { RatingRangeSelect } from '@/components/rating-range-select/rating-range-select'
-import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
+import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { MatchesCombo } from '@/modules/matches/combo'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { MatchBasicDataDto } from '@/modules/matches/types'
-import { PlayersPositionCombo } from '@/modules/player-positions/combo'
+import { mapMatchesListToComboOptions } from '@/modules/matches/utils'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
-import { PlayersCombo } from '@/modules/players/combo'
 import { PlayerBasicDataDto } from '@/modules/players/types'
-import { TeamsCombo } from '@/modules/teams/combo'
+import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
-import { NotesFilterFormData } from '../types'
+import { NotesFiltersState } from '../types'
 
 const StyledCheckboxContainer = styled('div')(() => ({
   display: 'flex',
@@ -34,8 +34,8 @@ interface INotesFilterFormProps {
   matchesData: MatchBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
-  filters: NotesFilterFormData
-  onFilter: (data: NotesFilterFormData) => void
+  filters: NotesFiltersState
+  onFilter: (data: NotesFiltersState) => void
   onClearFilters: () => void
 }
 
@@ -61,44 +61,46 @@ export const NotesFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <Container>
-            <PlayersCombo
+            <Combo
               name="playerIds"
-              data={playersData}
+              data={mapPlayersListToComboOptions(playersData)}
               label={t('PLAYERS')}
               multiple
               size="small"
             />
-            <PlayersPositionCombo
+            <Combo
               name="positionIds"
-              data={positionsData}
+              data={mapGenericNameToComboOptions(positionsData)}
               label={t('POSITIONS')}
               multiple
               size="small"
             />
-            <TeamsCombo
-              data={teamsData}
+            <Combo
+              data={mapGenericNameToComboOptions(teamsData)}
               name="teamIds"
               label={t('TEAMS')}
               multiple
               size="small"
             />
-            <MatchesCombo
-              data={matchesData}
+            <Combo
+              data={mapMatchesListToComboOptions(matchesData)}
               name="matchIds"
               label={t('MATCHES')}
               multiple
               size="small"
             />
-            <CompetitionsCombo
+            <Combo
               name="competitionIds"
-              data={competitionsData}
+              data={mapCompetitionsListToComboOptions(competitionsData)}
               label={t('COMPETITIONS')}
               multiple
               size="small"
             />
-            <CompetitionGroupsCombo
+            <Combo
               name="competitionGroupIds"
-              data={competitionGroupsData}
+              data={mapCompetitionGroupsListToComboOptions(
+                competitionGroupsData,
+              )}
               label={t('COMPETITION_GROUPS')}
               multiple
               size="small"

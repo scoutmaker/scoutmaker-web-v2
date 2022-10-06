@@ -2,23 +2,21 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
+import { Combo } from '@/components/combo/combo'
+import { mapGenericNameToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
-import { CompetitionAgeCategoriesCombo } from '@/modules/competition-age-categories/combo'
 import { CompetitionAgeCategortyDto } from '@/modules/competition-age-categories/types'
-import { CompetitionJuniorLevelsCombo } from '@/modules/competition-junior-levels/combo'
 import { CompetitionJuniorLevelDto } from '@/modules/competition-junior-levels/types'
-import { CompetitionTypesCombo } from '@/modules/competition-types/combo'
 import { CompetitionTypeDto } from '@/modules/competition-types/types'
-import { CompetitionsFiltersDto } from '@/modules/competitions/types'
-import { CountriesCombo } from '@/modules/countries/combo'
+import { CompetitionsFiltersState } from '@/modules/competitions/types'
 import { CountryDto } from '@/modules/countries/types'
 
 import { GendersSelect } from '../genders-select'
 
 type IFilterFormProps = {
-  filters: CompetitionsFiltersDto
-  onFilter: (data: CompetitionsFiltersDto) => void
+  filters: CompetitionsFiltersState
+  onFilter: (data: CompetitionsFiltersState) => void
   onClearFilters: () => void
   competitionAgeCategoriesData: CompetitionAgeCategortyDto[]
   countriesData: CountryDto[]
@@ -65,27 +63,27 @@ export const CompetitionsFilterForm = ({
               inputProps={{ min: 1, max: 15, step: 1, pattern: '[1-9]|1[0-5]' }}
             />
             <GendersSelect name="gender" label={t('GENDER')} size="small" />
-            <CountriesCombo
+            <Combo
               name="countryId"
-              data={countriesData}
+              data={mapGenericNameToComboOptions(countriesData)}
               label={t('COUNTRY')}
               size="small"
             />
-            <CompetitionAgeCategoriesCombo
+            <Combo
               name="ageCategoryId"
-              data={competitionAgeCategoriesData}
+              data={mapGenericNameToComboOptions(competitionAgeCategoriesData)}
               label={t('COMPETITION_AGE_CATEGORY')}
               size="small"
             />
-            <CompetitionTypesCombo
+            <Combo
               name="typeId"
-              data={competitionTypesData}
+              data={mapGenericNameToComboOptions(competitionTypesData)}
               label={t('COMPETITION_TYPE')}
               size="small"
             />
-            <CompetitionJuniorLevelsCombo
+            <Combo
               name="juniorLevelId"
-              data={competitionJuniorLevelsData}
+              data={mapGenericNameToComboOptions(competitionJuniorLevelsData)}
               label={t('COMPETITION_JUNIOR_LEVEL')}
               size="small"
             />

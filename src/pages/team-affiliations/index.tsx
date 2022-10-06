@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
+import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
 import { Loader } from '@/components/loader/loader'
@@ -16,7 +17,7 @@ import {
 import { TeamAffiliationsTableRow } from '@/modules/team-affiliations/table/row'
 import { TeamAffiliationsTable } from '@/modules/team-affiliations/table/team'
 import {
-  TeamAffiliationsFilterDto,
+  TeamAffiliationsFiltersState,
   TeamAffiliationsSortBy,
 } from '@/modules/team-affiliations/types'
 import { useTeamsList } from '@/modules/teams/hooks'
@@ -24,9 +25,9 @@ import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-const initialFilters: TeamAffiliationsFilterDto = {
-  playerId: '',
-  teamId: '',
+const initialFilters: TeamAffiliationsFiltersState = {
+  playerId: null,
+  teamId: null,
 }
 
 export const getServerSideProps = withSessionSsrRole(
@@ -53,12 +54,12 @@ const TeamAffiliationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     handleSort,
   } = useTable('teamAffiliationsTable')
 
-  const [filters, setFilters] = useLocalStorage<TeamAffiliationsFilterDto>({
+  const [filters, setFilters] = useLocalStorage<TeamAffiliationsFiltersState>({
     key: 'team-affiliations-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: TeamAffiliationsFilterDto) {
+  function handleSetFilters(newFilters: TeamAffiliationsFiltersState) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -68,7 +69,7 @@ const TeamAffiliationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     limit: rowsPerPage,
     sortBy: sortBy as TeamAffiliationsSortBy,
     sortingOrder: order,
-    ...filters,
+    ...mapFiltersStateToDto(filters),
   })
 
   const { mutate: deleteTeamAffiliation, isLoading: deleteLoading } =

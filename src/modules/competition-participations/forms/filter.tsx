@@ -1,22 +1,22 @@
 import { Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
+import { Combo } from '@/components/combo/combo'
+import { mapGenericNameToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
-import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
+import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { SeasonsCombo } from '@/modules/seasons/combo'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { SeasonDto } from '@/modules/seasons/types'
-import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
-import { CompetitionParticipationsFilterDto } from '../types'
+import { CompetitionParticipationsFiltersState } from '../types'
 
 interface IFormProps {
-  filters: CompetitionParticipationsFilterDto
-  onFilter: (data: CompetitionParticipationsFilterDto) => void
+  filters: CompetitionParticipationsFiltersState
+  onFilter: (data: CompetitionParticipationsFiltersState) => void
   onClearFilters: () => void
   teamsData: TeamBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
@@ -44,27 +44,27 @@ export const CompetitionParticipationsFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <Container>
-            <TeamsCombo
+            <Combo
               name="teamId"
-              data={teamsData}
+              data={mapGenericNameToComboOptions(teamsData)}
               label={t('TEAM')}
               size="small"
             />
-            <CompetitionsCombo
+            <Combo
               name="competitionId"
-              data={competitionsData}
+              data={mapCompetitionsListToComboOptions(competitionsData)}
               label={t('COMPETITION')}
               size="small"
             />
-            <CompetitionGroupsCombo
+            <Combo
               name="groupId"
-              data={groupsData}
+              data={mapCompetitionGroupsListToComboOptions(groupsData)}
               label={t('COMPETITION_GROUP')}
               size="small"
             />
-            <SeasonsCombo
+            <Combo
               name="seasonId"
-              data={seasonsData}
+              data={mapGenericNameToComboOptions(seasonsData)}
               label={t('SEASON')}
               size="small"
             />
