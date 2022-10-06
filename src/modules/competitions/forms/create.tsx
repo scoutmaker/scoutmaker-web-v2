@@ -3,16 +3,14 @@ import { Field, Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
+import { BasicCombo } from '@/components/combo/basicCombo'
+import { mapGenericNameToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { CompetitionAgeCategoriesCombo } from '@/modules/competition-age-categories/combo'
 import { CompetitionAgeCategortyDto } from '@/modules/competition-age-categories/types'
-import { CompetitionJuniorLevelsCombo } from '@/modules/competition-junior-levels/combo'
 import { CompetitionJuniorLevelDto } from '@/modules/competition-junior-levels/types'
-import { CompetitionTypesCombo } from '@/modules/competition-types/combo'
 import { CompetitionTypeDto } from '@/modules/competition-types/types'
-import { CountriesCombo } from '@/modules/countries/combo'
 import { CountryDto } from '@/modules/countries/types'
 
 import { GendersSelect } from '../genders-select'
@@ -64,8 +62,8 @@ export const CreateCompetitionForm = ({
               error={touched.name && !!errors.name}
               helperText={touched.name && errors.name}
             />
-            <CompetitionAgeCategoriesCombo
-              data={competitionAgeCategoriesData}
+            <BasicCombo
+              data={mapGenericNameToComboOptions(competitionAgeCategoriesData)}
               name="ageCategoryId"
               label={t('COMPETITION_AGE_CATEGORY')}
               error={touched.ageCategoryId && !!errors.ageCategoryId}
@@ -73,8 +71,8 @@ export const CreateCompetitionForm = ({
                 touched.ageCategoryId ? errors.ageCategoryId : undefined
               }
             />
-            <CountriesCombo
-              data={countriesData}
+            <BasicCombo
+              data={mapGenericNameToComboOptions(countriesData)}
               name="countryId"
               label={t('COUNTRY')}
               error={touched.countryId && !!errors.countryId}
@@ -90,8 +88,8 @@ export const CreateCompetitionForm = ({
               error={touched.level && !!errors.level}
               helperText={touched.level && errors.level}
             />
-            <CompetitionTypesCombo
-              data={competitionTypesData}
+            <BasicCombo
+              data={mapGenericNameToComboOptions(competitionTypesData)}
               name="typeId"
               label={t('COMPETITION_TYPE')}
               error={touched.typeId && !!errors.typeId}
@@ -103,9 +101,9 @@ export const CreateCompetitionForm = ({
               error={touched.gender && !!errors.gender}
               helperText={touched.gender ? errors.gender : undefined}
             />
-            <CompetitionJuniorLevelsCombo
+            <BasicCombo
               name="juniorLevelId"
-              data={competitionJuniorLevelsData}
+              data={mapGenericNameToComboOptions(competitionJuniorLevelsData)}
               label={t('COMPETITION_JUNIOR_LEVEL')}
               error={touched.juniorLevelId && !!errors.juniorLevelId}
               helperText={
