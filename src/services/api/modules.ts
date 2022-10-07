@@ -27,3 +27,4 @@ export type TModuleName =
   | 'user-subscriptions'
   | 'organizations'
   | 'organization-subscriptions'
+  | 'match-attendances'

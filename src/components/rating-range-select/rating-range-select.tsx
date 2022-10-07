@@ -4,7 +4,7 @@ import { Select } from 'formik-mui'
 import { TFunction, useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { RatingRange } from '../../modules/reports/types'
+import { RatingRange } from '@/types/rating-range'
 
 function getOptions(
   t: TFunction,

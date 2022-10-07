@@ -38,7 +38,7 @@ export const UsersCombo = ({
         if (!option) return ''
 
         const user = members.find(u => u.id === option)
-        if (user) return `${user.firstName} ${user.lastName}`
+        if (user) return `${user.firstName} ${user.lastName} (${user.email})`
 
         return t('NONE')
       }}
