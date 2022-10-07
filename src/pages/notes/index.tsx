@@ -19,7 +19,8 @@ import {
 } from '@/modules/notes/hooks'
 import { NotesTableRow } from '@/modules/notes/table/row'
 import { NotesTable } from '@/modules/notes/table/table'
-import { NotesFiltersDto, NotesSortBy } from '@/modules/notes/types'
+import { NotesFilterFormData, NotesSortBy } from '@/modules/notes/types'
+import { mapFilterFormDataToFiltersDto } from '@/modules/notes/utils'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
@@ -30,18 +31,17 @@ import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(['common', 'notes'], false)
 
-const initialFilters: NotesFiltersDto = {
+const initialFilters: NotesFilterFormData = {
   competitionGroupIds: [],
   competitionIds: [],
   isLiked: false,
   matchIds: [],
-  percentageRatingRangeEnd: 100,
-  percentageRatingRangeStart: 0,
   playerBornAfter: 1980,
   playerBornBefore: 2005,
   playerIds: [],
   positionIds: [],
   teamIds: [],
+  ratingRange: 'ALL',
 }
 
 interface INoteToDeleteData {
@@ -66,12 +66,12 @@ const NotesPage = () => {
     handleSort,
   } = useTable('notes-table')
 
-  const [filters, setFilters] = useLocalStorage<NotesFiltersDto>({
+  const [filters, setFilters] = useLocalStorage<NotesFilterFormData>({
     key: 'notes-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: NotesFiltersDto) {
+  function handleSetFilters(newFilters: NotesFilterFormData) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -91,7 +91,7 @@ const NotesPage = () => {
     limit: rowsPerPage,
     sortBy: sortBy as NotesSortBy,
     sortingOrder: order,
-    ...filters,
+    ...mapFilterFormDataToFiltersDto(filters),
   })
 
   const { mutate: deleteNote, isLoading: deleteNoteLoading } = useDeleteNote()
