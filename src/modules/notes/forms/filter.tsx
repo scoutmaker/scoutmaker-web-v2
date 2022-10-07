@@ -84,25 +84,6 @@ export const NotesFilterForm = ({
               multiple
               size="small"
             />
-            <CompetitionsCombo
-              name="competitionIds"
-              data={competitionsData}
-              label={t('COMPETITIONS')}
-              multiple
-              size="small"
-            />
-            <CompetitionGroupsCombo
-              name="competitionGroupIds"
-              data={competitionGroupsData}
-              label={t('COMPETITION_GROUPS')}
-              multiple
-              size="small"
-            />
-            <RatingRangeSelect
-              name="ratingRange"
-              label={t('RATING_RANGE')}
-              size="small"
-            />
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <Field
@@ -129,6 +110,25 @@ export const NotesFilterForm = ({
                 />
               </Grid>
             </Grid>
+            <CompetitionsCombo
+              name="competitionIds"
+              data={competitionsData}
+              label={t('COMPETITIONS')}
+              multiple
+              size="small"
+            />
+            <CompetitionGroupsCombo
+              name="competitionGroupIds"
+              data={competitionGroupsData}
+              label={t('COMPETITION_GROUPS')}
+              multiple
+              size="small"
+            />
+            <RatingRangeSelect
+              name="ratingRange"
+              label={t('RATING_RANGE')}
+              size="small"
+            />
           </FilterFormContainer>
           <FilterCheckboxContainer>
             <Field
