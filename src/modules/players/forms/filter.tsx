@@ -1,9 +1,9 @@
 import { Box, TextField } from '@mui/material'
-import { styled } from '@mui/material/styles'
 import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
+import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
 import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
@@ -18,12 +18,6 @@ import { FootedSelect } from '@/modules/players/footed-select'
 import { PlayersFiltersDto } from '@/modules/players/types'
 import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
-
-const StyledCheckboxContainer = styled('div')(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  margin: theme.spacing(1, 0),
-}))
 
 interface IPlayersFilterFormProps {
   countriesData: CountryDto[]
@@ -124,7 +118,7 @@ export const PlayersFilterForm = ({
               multiple
             />
           </FilterFormContainer>
-          <StyledCheckboxContainer>
+          <FilterCheckboxContainer>
             <Field
               component={CheckboxWithLabel}
               type="checkbox"
@@ -132,7 +126,7 @@ export const PlayersFilterForm = ({
               Label={{ label: t('players:LIKED_ONLY') }}
               size="small"
             />
-          </StyledCheckboxContainer>
+          </FilterCheckboxContainer>
           <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>
       )}

@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -120,17 +121,19 @@ const ReportsPage = () => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('reports:INDEX_PAGE_TITLE')} />
-      <ReportsFilterForm
-        filters={filters}
-        matchesData={matches || []}
-        playersData={players || []}
-        positionsData={positions || []}
-        teamsData={teams || []}
-        competitionsData={competitions || []}
-        competitionGroupsData={competitionGroups || []}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <ReportsFilterForm
+          filters={filters}
+          matchesData={matches || []}
+          playersData={players || []}
+          positionsData={positions || []}
+          teamsData={teams || []}
+          competitionsData={competitions || []}
+          competitionGroupsData={competitionGroups || []}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <ReportsTable
         page={page}
         rowsPerPage={rowsPerPage}

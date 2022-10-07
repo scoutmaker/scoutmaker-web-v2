@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -110,15 +111,17 @@ const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('competitions:INDEX_PAGE_TITLE')} />
-      <CompetitionsFilterForm
-        filters={filters}
-        competitionAgeCategoriesData={ageCategoriesData || []}
-        competitionJuniorLevelsData={juniorLevelsData || []}
-        competitionTypesData={competitionTypesData || []}
-        countriesData={countriesData || []}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <CompetitionsFilterForm
+          filters={filters}
+          competitionAgeCategoriesData={ageCategoriesData || []}
+          competitionJuniorLevelsData={juniorLevelsData || []}
+          competitionTypesData={competitionTypesData || []}
+          countriesData={countriesData || []}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <CompetitionsTable
         page={page}
         rowsPerPage={rowsPerPage}

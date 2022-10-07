@@ -1,10 +1,10 @@
-import { styled } from '@mui/material/styles'
 import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { Container } from '@/components/forms/container'
+import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
+import { FilterFormContainer } from '@/components/forms/filter-form-container'
 import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { CompetitionsCombo } from '@/modules/competitions/combo'
@@ -14,11 +14,6 @@ import { SeasonsCombo } from '@/modules/seasons/combo'
 import { SeasonDto } from '@/modules/seasons/types'
 import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
-
-const StyledCheckboxContainer = styled('div')(() => ({
-  display: 'flex',
-  justifyContent: 'center',
-}))
 
 interface IMatchesFilterFormProps {
   teamsData: TeamBasicDataDto[]
@@ -49,7 +44,7 @@ export const MatchesFilterForm = ({
     >
       {() => (
         <Form autoComplete="off">
-          <Container>
+          <FilterFormContainer>
             <TeamsCombo
               data={teamsData}
               name="teamId"
@@ -76,17 +71,17 @@ export const MatchesFilterForm = ({
               label={t('SEASON')}
               size="small"
             />
-            <StyledCheckboxContainer>
-              <Field
-                component={CheckboxWithLabel}
-                type="checkbox"
-                name="hasVideo"
-                Label={{ label: t('matches:WITH_VIDEO_ONLY') }}
-                size="small"
-              />
-            </StyledCheckboxContainer>
-            <FilterFormActions handleClearFilter={onClearFilters} />
-          </Container>
+          </FilterFormContainer>
+          <FilterCheckboxContainer>
+            <Field
+              component={CheckboxWithLabel}
+              type="checkbox"
+              name="hasVideo"
+              Label={{ label: t('matches:WITH_VIDEO_ONLY') }}
+              size="small"
+            />
+          </FilterCheckboxContainer>
+          <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>
       )}
     </Formik>

@@ -1,11 +1,11 @@
 import { Grid, TextField } from '@mui/material'
-import { styled } from '@mui/material/styles'
 import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { Container } from '@/components/forms/container'
+import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
+import { FilterFormContainer } from '@/components/forms/filter-form-container'
 import { RatingRangeSelect } from '@/components/rating-range-select/rating-range-select'
 import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
@@ -21,11 +21,6 @@ import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { ReportsFilterFormData } from '../types'
-
-const StyledCheckboxContainer = styled('div')(() => ({
-  display: 'flex',
-  justifyContent: 'center',
-}))
 
 interface IReportsFilterFormProps {
   playersData: PlayerBasicDataDto[]
@@ -60,7 +55,7 @@ export const ReportsFilterForm = ({
     >
       {() => (
         <Form autoComplete="off">
-          <Container>
+          <FilterFormContainer>
             <PlayersCombo
               name="playerIds"
               data={playersData}
@@ -134,32 +129,32 @@ export const ReportsFilterForm = ({
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <StyledCheckboxContainer>
-                  <Field
-                    component={CheckboxWithLabel}
-                    type="checkbox"
-                    name="isLiked"
-                    Label={{ label: t('reports:LIKED_ONLY') }}
-                    size="small"
-                  />
-                </StyledCheckboxContainer>
-              </Grid>
-              <Grid item xs={6}>
-                <StyledCheckboxContainer>
-                  <Field
-                    component={CheckboxWithLabel}
-                    type="checkbox"
-                    name="hasVideo"
-                    Label={{ label: t('reports:WITH_VIDEO_ONLY') }}
-                    size="small"
-                  />
-                </StyledCheckboxContainer>
-              </Grid>
+          </FilterFormContainer>
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <FilterCheckboxContainer>
+                <Field
+                  component={CheckboxWithLabel}
+                  type="checkbox"
+                  name="isLiked"
+                  Label={{ label: t('reports:LIKED_ONLY') }}
+                  size="small"
+                />
+              </FilterCheckboxContainer>
             </Grid>
-            <FilterFormActions handleClearFilter={onClearFilters} />
-          </Container>
+            <Grid item xs={6}>
+              <FilterCheckboxContainer>
+                <Field
+                  component={CheckboxWithLabel}
+                  type="checkbox"
+                  name="hasVideo"
+                  Label={{ label: t('reports:WITH_VIDEO_ONLY') }}
+                  size="small"
+                />
+              </FilterCheckboxContainer>
+            </Grid>
+          </Grid>
+          <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>
       )}
     </Formik>

@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -86,13 +87,15 @@ const TeamAffiliationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('team-affiliations:INDEX_PAGE_TITLE')} />
-      <TeamAffiliationFilterForm
-        filters={filters}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-        playersData={playersData || []}
-        teamsData={teamsData || []}
-      />
+      <FilterAccordion>
+        <TeamAffiliationFilterForm
+          filters={filters}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+          playersData={playersData || []}
+          teamsData={teamsData || []}
+        />
+      </FilterAccordion>
       <TeamAffiliationsTable
         page={page}
         rowsPerPage={rowsPerPage}

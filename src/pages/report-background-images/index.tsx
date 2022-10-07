@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -80,11 +81,13 @@ const ReportBgImagesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('report-bg-images:INDEX_PAGE_TITLE')} />
-      <ReportBgImagesFilterForm
-        filters={filters}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <ReportBgImagesFilterForm
+          filters={filters}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <ReportBgImagesTable
         page={page}
         rowsPerPage={rowsPerPage}

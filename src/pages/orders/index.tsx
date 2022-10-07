@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -119,14 +120,16 @@ const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('orders:INDEX_PAGE_TITLE')} />
-      <OrdersFilterForm
-        matchesData={matchesData || []}
-        playersData={playersData || []}
-        teamsData={teamsData || []}
-        filters={filters}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <OrdersFilterForm
+          matchesData={matchesData || []}
+          playersData={playersData || []}
+          teamsData={teamsData || []}
+          filters={filters}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <OrdersTable
         page={page}
         rowsPerPage={rowsPerPage}

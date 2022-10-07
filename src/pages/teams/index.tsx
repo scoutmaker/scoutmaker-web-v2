@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -103,16 +104,18 @@ const TeamsPage = () => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('teams:INDEX_PAGE_TITLE')} />
-      <TeamsFilterForm
-        filters={filters}
-        countriesData={countries || []}
-        regionsData={regions || []}
-        competitionsData={competitions || []}
-        competitionGroupsData={competitionGroups || []}
-        clubsData={clubs || []}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <TeamsFilterForm
+          filters={filters}
+          countriesData={countries || []}
+          regionsData={regions || []}
+          competitionsData={competitions || []}
+          competitionGroupsData={competitionGroups || []}
+          clubsData={clubs || []}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <TeamsTable
         page={page}
         rowsPerPage={rowsPerPage}

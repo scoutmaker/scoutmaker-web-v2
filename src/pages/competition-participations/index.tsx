@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -104,15 +105,17 @@ const CompetitionParticipationsPage = ({
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('comp-participations:INDEX_PAGE_TITLE')} />
-      <CompetitionParticipationsFilterForm
-        filters={filters}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-        competitionsData={competitionsData || []}
-        groupsData={groupsData || []}
-        seasonsData={seasonsData || []}
-        teamsData={teamsData || []}
-      />
+      <FilterAccordion>
+        <CompetitionParticipationsFilterForm
+          filters={filters}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+          competitionsData={competitionsData || []}
+          groupsData={groupsData || []}
+          seasonsData={seasonsData || []}
+          teamsData={teamsData || []}
+        />
+      </FilterAccordion>
       <CompetitionParticipationsTable
         page={page}
         rowsPerPage={rowsPerPage}

@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
 
 import { ErrorContent } from '@/components/error/error-content'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { useClubsList } from '@/modules/clubs/hooks'
@@ -85,14 +86,16 @@ const UsersPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('users:INDEX_PAGE_TITLE')} />
-      <UsersFilterForm
-        filters={filters}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-        clubsData={clubs || []}
-        regionsData={regions || []}
-        userFootballRolesData={userFootballRoles || []}
-      />
+      <FilterAccordion>
+        <UsersFilterForm
+          filters={filters}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+          clubsData={clubs || []}
+          regionsData={regions || []}
+          userFootballRolesData={userFootballRoles || []}
+        />
+      </FilterAccordion>
       <UsersTable
         page={page}
         rowsPerPage={rowsPerPage}

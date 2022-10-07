@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -83,11 +84,13 @@ const CompetitionAgeCategoriesPage = ({
     <>
       {(dataLoading || deleteLoading) && <Loader />}
       <PageHeading title={t('comp-age-categ:INDEX_PAGE_TITLE')} />
-      <CompetitionAgeCategoriesFilterForm
-        filters={filters}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <CompetitionAgeCategoriesFilterForm
+          filters={filters}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <CompetitionAgeCategoriesTable
         page={page}
         rowsPerPage={rowsPerPage}
