@@ -14,8 +14,8 @@ interface IProps {
 
 const FilterAccordion = ({ children }: IProps) => (
   <StyledAccordion disableGutters>
-    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-      <StyledAccordinText>Filtry</StyledAccordinText>
+    <AccordionSummary expandIcon={<StyledExpandMoreIcon />}>
+      <StyledAccordionText>Filtry</StyledAccordionText>
     </AccordionSummary>
     <StyledAccordionDetails>{children}</StyledAccordionDetails>
   </StyledAccordion>
@@ -23,17 +23,23 @@ const FilterAccordion = ({ children }: IProps) => (
 
 export default FilterAccordion
 
+const StyledExpandMoreIcon = styled(ExpandMoreIcon)(({ theme }) => ({
+  color: theme.palette.primary.contrastText,
+}))
+
 const StyledAccordion = styled(Accordion)(({ theme }) => ({
   margin: theme.spacing(2, 0),
-  background: 'none',
+  background: theme.palette.primary.main,
 }))
 
 const StyledAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
   paddingTop: theme.spacing(2),
+  background: theme.palette.primary.contrastText,
 }))
 
-const StyledAccordinText = styled(Typography)({
+const StyledAccordionText = styled(Typography)(({ theme }) => ({
   fontWeight: 'bold',
   textAlign: 'center',
   width: '100%',
-})
+  color: theme.palette.primary.contrastText,
+}))
