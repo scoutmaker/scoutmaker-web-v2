@@ -51,21 +51,6 @@ export const OrdersFilterForm = ({
               multiple
               size="small"
             />
-            <TeamsCombo
-              data={teamsData}
-              name="teamIds"
-              label={t('TEAMS')}
-              multiple
-              size="small"
-            />
-            <MatchesCombo
-              data={matchesData}
-              name="matchIds"
-              label={t('MATCHES')}
-              multiple
-              size="small"
-            />
-            <StatusSelect name="status" label={t('STATUS')} size="small" />
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <Field
@@ -90,6 +75,21 @@ export const OrdersFilterForm = ({
                 />
               </Grid>
             </Grid>
+            <TeamsCombo
+              data={teamsData}
+              name="teamIds"
+              label={t('TEAMS')}
+              multiple
+              size="small"
+            />
+            <MatchesCombo
+              data={matchesData}
+              name="matchIds"
+              label={t('MATCHES')}
+              multiple
+              size="small"
+            />
+            <StatusSelect name="status" label={t('STATUS')} size="small" />
           </FilterFormContainer>
           <FilterCheckboxContainer>
             <Field

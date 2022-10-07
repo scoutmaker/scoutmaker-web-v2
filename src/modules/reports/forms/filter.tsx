@@ -63,6 +63,32 @@ export const ReportsFilterForm = ({
               multiple
               size="small"
             />
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <Field
+                  name="playerBornAfter"
+                  as={TextField}
+                  type="number"
+                  variant="outlined"
+                  fullWidth
+                  label={t('BORN_AFTER')}
+                  size="small"
+                  inputProps={{ min: 1980, max: 2020, pattern: '/d+', step: 1 }}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Field
+                  name="playerBornBefore"
+                  as={TextField}
+                  type="number"
+                  variant="outlined"
+                  fullWidth
+                  label={t('BORN_BEFORE')}
+                  size="small"
+                  inputProps={{ min: 1980, max: 2020, pattern: '/d+', step: 1 }}
+                />
+              </Grid>
+            </Grid>
             <PlayersPositionCombo
               name="positionIds"
               data={positionsData}
@@ -103,32 +129,6 @@ export const ReportsFilterForm = ({
               label={t('RATING_RANGE')}
               size="small"
             />
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <Field
-                  name="playerBornAfter"
-                  as={TextField}
-                  type="number"
-                  variant="outlined"
-                  fullWidth
-                  label={t('BORN_AFTER')}
-                  size="small"
-                  inputProps={{ min: 1980, max: 2020, pattern: '/d+', step: 1 }}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <Field
-                  name="playerBornBefore"
-                  as={TextField}
-                  type="number"
-                  variant="outlined"
-                  fullWidth
-                  label={t('BORN_BEFORE')}
-                  size="small"
-                  inputProps={{ min: 1980, max: 2020, pattern: '/d+', step: 1 }}
-                />
-              </Grid>
-            </Grid>
           </FilterFormContainer>
           <Grid container spacing={2}>
             <Grid item xs={6}>
