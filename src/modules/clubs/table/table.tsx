@@ -64,14 +64,10 @@ export const ClubsTable = ({
         <ClubsTableRow
           key={club.id}
           data={club}
-          onEditClick={() => {
-            router.push(`/clubs/edit/${club.slug}`)
-          }}
+          onEditClick={() => router.push(`/clubs/edit/${club.slug}`)}
           onDeleteClick={() =>
             handleDeleteItemClick({ id: club.id, name: club.name })
           }
-          isEditOptionEnabled
-          isDeleteOptionEnabled
         />
       ))}
     </Table>

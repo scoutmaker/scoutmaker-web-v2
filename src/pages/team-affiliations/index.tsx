@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -13,7 +12,6 @@ import {
   useDeleteTeamAffiliation,
   useTeamAffiliations,
 } from '@/modules/team-affiliations/hooks'
-import { TeamAffiliationsTableRow } from '@/modules/team-affiliations/table/row'
 import { TeamAffiliationsTable } from '@/modules/team-affiliations/table/team'
 import {
   TeamAffiliationsFilterDto,
@@ -40,7 +38,6 @@ interface IToDeleteData {
 
 const TeamAffiliationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
@@ -80,6 +77,11 @@ const TeamAffiliationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const isLoading =
     dataLoading || deleteLoading || teamsLoading || playersLoading
 
+  const handleDeleteItemClick = (data: { id: string }) => {
+    setToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   if (errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
@@ -104,26 +106,9 @@ const TeamAffiliationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
         total={affiliations?.totalDocs || 0}
         actions
         shouldDisplayPlayerName
-      >
-        {!!affiliations &&
-          affiliations.docs.map(affiliation => (
-            <TeamAffiliationsTableRow
-              key={affiliation.id}
-              data={affiliation}
-              onEditClick={() => {
-                router.push(`/team-affiliations/edit/${affiliation.id}`)
-              }}
-              onDeleteClick={() => {
-                setToDeleteData({ id: affiliation.id })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-              actions
-              shouldDisplayPlayerName
-            />
-          ))}
-      </TeamAffiliationsTable>
+        data={affiliations?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/team-affiliations/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

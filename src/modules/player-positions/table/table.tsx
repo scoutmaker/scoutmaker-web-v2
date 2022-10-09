@@ -1,11 +1,15 @@
+import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
 
 import { Table } from '@/components/tables/table'
-import { ICommonTableProps, IHeadCell } from '@/types/tables'
+import { ICommonTableProps, IHeadCell, INameToDeleteData } from '@/types/tables'
+
+import { PlayerPositionDto } from '../types'
+import { PlayerPositionsTableRow } from './row'
 
 interface ITableProps extends ICommonTableProps {
-  children: ReactNode
+  data: PlayerPositionDto[]
+  handleDeleteItemClick: (data: INameToDeleteData) => void
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
@@ -25,9 +29,11 @@ export const PlayerPositionsTable = ({
   handleSort,
   total,
   actions,
-  children,
+  data,
+  handleDeleteItemClick,
 }: ITableProps) => {
   const { t } = useTranslation()
+  const router = useRouter()
 
   return (
     <Table
@@ -42,7 +48,18 @@ export const PlayerPositionsTable = ({
       headCells={generateHeadCells(t)}
       actions={actions}
     >
-      {children}
+      {data.map(position => (
+        <PlayerPositionsTableRow
+          key={position.id}
+          data={position}
+          onEditClick={() =>
+            router.push(`/player-positions/edit/${position.id}`)
+          }
+          onDeleteClick={() =>
+            handleDeleteItemClick({ id: position.id, name: position.name })
+          }
+        />
+      ))}
     </Table>
   )
 }

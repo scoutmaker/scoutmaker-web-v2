@@ -11,16 +11,12 @@ interface IClubsTableRowProps {
   data: ClubDto
   onEditClick: () => void
   onDeleteClick: () => void
-  isEditOptionEnabled: boolean
-  isDeleteOptionEnabled: boolean
 }
 
 export const ClubsTableRow = ({
   data,
   onEditClick,
   onDeleteClick,
-  isEditOptionEnabled,
-  isDeleteOptionEnabled,
 }: IClubsTableRowProps) => {
   const router = useRouter()
 
@@ -46,8 +42,6 @@ export const ClubsTableRow = ({
           isMenuOpen={isMenuOpen}
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
-          isDeleteOptionEnabled={isDeleteOptionEnabled}
-          isEditOptionEnabled={isEditOptionEnabled}
           onDeleteClick={() => handleMenuAction(onDeleteClick)}
           onEditClick={() => handleMenuAction(onEditClick)}
         />

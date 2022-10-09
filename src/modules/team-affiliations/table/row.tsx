@@ -13,10 +13,8 @@ import { TeamAffiliationDto } from '../types'
 interface ITeamAffiliationsTableRowProps {
   data: TeamAffiliationDto
   shouldDisplayPlayerName?: boolean
-  onEditClick: () => void
-  onDeleteClick: () => void
-  isEditOptionEnabled: boolean
-  isDeleteOptionEnabled: boolean
+  onEditClick?: () => void
+  onDeleteClick?: () => void
   actions?: boolean
 }
 
@@ -25,8 +23,6 @@ export const TeamAffiliationsTableRow = ({
   shouldDisplayPlayerName,
   onEditClick,
   onDeleteClick,
-  isEditOptionEnabled,
-  isDeleteOptionEnabled,
   actions,
 }: ITeamAffiliationsTableRowProps) => {
   const { id, player, team, startDate, endDate } = data
@@ -55,10 +51,12 @@ export const TeamAffiliationsTableRow = ({
             isMenuOpen={isMenuOpen}
             onMenuClick={handleMenuClick}
             onMenuClose={handleMenuClose}
-            isDeleteOptionEnabled={isDeleteOptionEnabled}
-            isEditOptionEnabled={isEditOptionEnabled}
-            onDeleteClick={() => handleMenuAction(onDeleteClick)}
-            onEditClick={() => handleMenuAction(onEditClick)}
+            onDeleteClick={
+              onDeleteClick ? () => handleMenuAction(onDeleteClick) : undefined
+            }
+            onEditClick={
+              onEditClick ? () => handleMenuAction(onEditClick) : undefined
+            }
           />
         </StyledTableCell>
       )}

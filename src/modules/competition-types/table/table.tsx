@@ -1,11 +1,15 @@
+import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
 
 import { Table } from '@/components/tables/table'
-import { ICommonTableProps, IHeadCell } from '@/types/tables'
+import { ICommonTableProps, IHeadCell, INameToDeleteData } from '@/types/tables'
+
+import { CompetitionTypeDto } from '../types'
+import { CompetitionTypesTableRow } from './row'
 
 interface ITableProps extends ICommonTableProps {
-  children: ReactNode
+  data: CompetitionTypeDto[]
+  handleDeleteItemClick: (data: INameToDeleteData) => void
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
@@ -22,9 +26,11 @@ export const CompetitionTypesTable = ({
   handleSort,
   total,
   actions,
-  children,
+  data,
+  handleDeleteItemClick,
 }: ITableProps) => {
   const { t } = useTranslation()
+  const router = useRouter()
 
   return (
     <Table
@@ -39,7 +45,18 @@ export const CompetitionTypesTable = ({
       headCells={generateHeadCells(t)}
       actions={actions}
     >
-      {children}
+      {data.map(compType => (
+        <CompetitionTypesTableRow
+          key={compType.id}
+          data={compType}
+          onEditClick={() =>
+            router.push(`/competition-types/edit/${compType.id}`)
+          }
+          onDeleteClick={() =>
+            handleDeleteItemClick({ id: compType.id, name: compType.name })
+          }
+        />
+      ))}
     </Table>
   )
 }

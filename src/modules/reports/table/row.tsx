@@ -47,8 +47,6 @@ interface IReportsTableRowProps {
   onDeleteClick: () => void
   onLikeClick: (id: string) => void
   onUnlikeClick: (id: string) => void
-  isEditOptionEnabled: boolean
-  isDeleteOptionEnabled: boolean
 }
 
 export const ReportsTableRow = ({
@@ -57,8 +55,6 @@ export const ReportsTableRow = ({
   onDeleteClick,
   onLikeClick,
   onUnlikeClick,
-  isEditOptionEnabled,
-  isDeleteOptionEnabled,
 }: IReportsTableRowProps) => {
   const { t } = useTranslation()
   const router = useRouter()
@@ -122,8 +118,6 @@ export const ReportsTableRow = ({
             isMenuOpen={isMenuOpen}
             onMenuClick={handleMenuClick}
             onMenuClose={handleMenuClose}
-            isDeleteOptionEnabled={isDeleteOptionEnabled}
-            isEditOptionEnabled={isEditOptionEnabled}
             onDeleteClick={() => handleMenuAction(onDeleteClick)}
             onEditClick={() => handleMenuAction(onEditClick)}
           >

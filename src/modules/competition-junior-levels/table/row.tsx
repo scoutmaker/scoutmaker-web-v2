@@ -11,16 +11,12 @@ interface ITableRowProps {
   data: CompetitionJuniorLevelDto
   onEditClick: () => void
   onDeleteClick: () => void
-  isEditOptionEnabled: boolean
-  isDeleteOptionEnabled: boolean
 }
 
 export const CompetitionJuniorLevelsTableRow = ({
   data,
   onEditClick,
   onDeleteClick,
-  isEditOptionEnabled,
-  isDeleteOptionEnabled,
 }: ITableRowProps) => {
   const router = useRouter()
 
@@ -50,8 +46,6 @@ export const CompetitionJuniorLevelsTableRow = ({
           isMenuOpen={isMenuOpen}
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
-          isDeleteOptionEnabled={isDeleteOptionEnabled}
-          isEditOptionEnabled={isEditOptionEnabled}
           onDeleteClick={() => handleMenuAction(onDeleteClick)}
           onEditClick={() => handleMenuAction(onEditClick)}
         />

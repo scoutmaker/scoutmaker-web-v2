@@ -1,11 +1,15 @@
+import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
 
 import { Table } from '@/components/tables/table'
-import { ICommonTableProps, IHeadCell } from '@/types/tables'
+import { ICommonTableProps, IHeadCell, INameToDeleteData } from '@/types/tables'
+
+import { ReportTemplateDto } from '../types'
+import { ReportTemplatesTableRow } from './row'
 
 interface ITableProps extends ICommonTableProps {
-  children: ReactNode
+  data: ReportTemplateDto[]
+  handleDeleteItemClick: (data: INameToDeleteData) => void
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
@@ -29,9 +33,11 @@ export const ReportTemplatesTable = ({
   handleSort,
   total,
   actions,
-  children,
+  data,
+  handleDeleteItemClick,
 }: ITableProps) => {
   const { t } = useTranslation()
+  const router = useRouter()
 
   return (
     <Table
@@ -46,7 +52,18 @@ export const ReportTemplatesTable = ({
       headCells={generateHeadCells(t)}
       actions={actions}
     >
-      {children}
+      {data.map(template => (
+        <ReportTemplatesTableRow
+          key={template.id}
+          data={template}
+          onEditClick={() =>
+            router.push(`/report-templates/edit/${template.id}`)
+          }
+          onDeleteClick={() =>
+            handleDeleteItemClick({ id: template.id, name: template.name })
+          }
+        />
+      ))}
     </Table>
   )
 }
