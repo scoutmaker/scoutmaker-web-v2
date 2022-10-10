@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -8,7 +7,6 @@ import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { ClubsFilterForm } from '@/modules/clubs/forms/filter'
 import { useClubs, useDeleteClub } from '@/modules/clubs/hooks'
-import { ClubsTableRow } from '@/modules/clubs/table/row'
 import { ClubsTable } from '@/modules/clubs/table/table'
 import { ClubsFiltersDto, ClubsSortBy } from '@/modules/clubs/types'
 import { useCountriesList } from '@/modules/countries/hooks'
@@ -25,6 +23,7 @@ const initialFilters: ClubsFiltersDto = {
   regionId: '',
 }
 
+// This should be generic, we just need the id and display name for every module
 interface IClubToDeleteData {
   id: string
   name: string
@@ -32,7 +31,6 @@ interface IClubToDeleteData {
 
 const ClubsPage = () => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
@@ -54,6 +52,11 @@ const ClubsPage = () => {
   function handleSetFilters(newFilters: ClubsFiltersDto) {
     setFilters(newFilters)
     handleChangePage(null, 0)
+  }
+
+  function handleDeleteItemClick(data: IClubToDeleteData) {
+    setClubToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
   }
 
   const { data: countries, isLoading: countriesLoading } = useCountriesList()
@@ -94,25 +97,10 @@ const ClubsPage = () => {
         handleSort={handleSort}
         total={clubs?.totalDocs || 0}
         actions
-      >
-        {clubs
-          ? clubs.docs.map(club => (
-              <ClubsTableRow
-                key={club.id}
-                data={club}
-                onEditClick={() => {
-                  router.push(`/clubs/edit/${club.slug}`)
-                }}
-                onDeleteClick={() => {
-                  setClubToDeleteData({ id: club.id, name: club.name })
-                  setIsDeleteConfirmationModalOpen(true)
-                }}
-                isEditOptionEnabled
-                isDeleteOptionEnabled
-              />
-            ))
-          : null}
-      </ClubsTable>
+        data={clubs?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
+
       <Fab href="/clubs/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

@@ -1,11 +1,15 @@
 import { TFunction, useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
 
 import { Table } from '@/components/tables/table'
 import { ICommonTableProps, IHeadCell } from '@/types/tables'
 
+import { UserDto } from '../types'
+import { UsersTableRow } from './row'
+
 interface ITableProps extends ICommonTableProps {
-  children: ReactNode
+  data: UserDto[]
+  onSetPlaymakerScoutClick: (id: string) => void
+  onSetScoutClick: (id: string) => void
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
@@ -29,7 +33,9 @@ export const UsersTable = ({
   handleSort,
   total,
   actions,
-  children,
+  data,
+  onSetPlaymakerScoutClick,
+  onSetScoutClick,
 }: ITableProps) => {
   const { t } = useTranslation()
 
@@ -46,7 +52,14 @@ export const UsersTable = ({
       headCells={generateHeadCells(t)}
       actions={actions}
     >
-      {children}
+      {data.map(user => (
+        <UsersTableRow
+          key={user.id}
+          data={user}
+          onSetPlaymakerScoutClick={() => onSetPlaymakerScoutClick(user.id)}
+          onSetScoutClick={() => onSetScoutClick(user.id)}
+        />
+      ))}
     </Table>
   )
 }

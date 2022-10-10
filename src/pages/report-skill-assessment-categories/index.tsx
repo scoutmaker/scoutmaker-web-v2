@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
 
@@ -13,14 +12,14 @@ import {
   useReportSkillAssessmentCategories,
 } from '@/modules/report-skill-assessment-categories/hooks'
 import { ReportSkillAssessmentCategoriesTable } from '@/modules/report-skill-assessment-categories/table/report-skill-assessment-categories'
-import { ReportSkillAssessmentCategoriesTableRow } from '@/modules/report-skill-assessment-categories/table/report-skill-assessment-categories-row'
 import {
   ReportSkillAssessmentCategoriesFiltersDto,
   ReportSkillAssessmentCategoriesSortBy,
 } from '@/modules/report-skill-assessment-categories/types'
+import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
-import { getCreateRoute, getEditRoute, Routes } from '@/utils/routes'
+import { getCreateRoute, Routes } from '@/utils/routes'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(
@@ -37,14 +36,11 @@ const ReportSkillAssessmentCategoriesPage = ({
   errorMessage,
 }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [categoryToDeleteData, setCategoryToDeleteData] = useState<{
-    id: string
-    name: string
-  }>()
+  const [categoryToDeleteData, setCategoryToDeleteData] =
+    useState<INameToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -78,6 +74,11 @@ const ReportSkillAssessmentCategoriesPage = ({
   const { mutate: deleteCategory, isLoading: deleteCategoryLoading } =
     useDeleteReportSkillAssessmentCategory()
 
+  const handleDeleteItemClick = (data: INameToDeleteData) => {
+    setCategoryToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading = categoriesLoading || deleteCategoryLoading
 
   if (errorStatus)
@@ -103,32 +104,9 @@ const ReportSkillAssessmentCategoriesPage = ({
         handleSort={handleSort}
         total={categories?.totalDocs || 0}
         actions
-      >
-        {!categoriesLoading &&
-          categories?.docs.map(category => (
-            <ReportSkillAssessmentCategoriesTableRow
-              key={category.id}
-              data={category}
-              onEditClick={() =>
-                router.push(
-                  getEditRoute(
-                    Routes.REPORT_SKILL_ASSESSMENT_CATEGORIES,
-                    category.id,
-                  ),
-                )
-              }
-              onDeleteClick={() => {
-                setCategoryToDeleteData({
-                  id: category.id,
-                  name: category.name,
-                })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))}
-      </ReportSkillAssessmentCategoriesTable>
+        data={categories?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href={getCreateRoute(Routes.REPORT_SKILL_ASSESSMENT_CATEGORIES)} />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

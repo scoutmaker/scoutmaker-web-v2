@@ -1,11 +1,15 @@
+import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
 
 import { Table } from '@/components/tables/table'
-import { ICommonTableProps, IHeadCell } from '@/types/tables'
+import { ICommonTableProps, IHeadCell, INameToDeleteData } from '@/types/tables'
+
+import { CompetitionAgeCategortyDto } from '../types'
+import { CompetitionAgeCategoriesTableRow } from './row'
 
 interface ITableProps extends ICommonTableProps {
-  children: ReactNode
+  data: CompetitionAgeCategortyDto[]
+  handleDeleteItemClick: (data: INameToDeleteData) => void
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
@@ -22,9 +26,11 @@ export const CompetitionAgeCategoriesTable = ({
   handleSort,
   total,
   actions,
-  children,
+  data,
+  handleDeleteItemClick,
 }: ITableProps) => {
   const { t } = useTranslation()
+  const router = useRouter()
 
   return (
     <Table
@@ -39,7 +45,18 @@ export const CompetitionAgeCategoriesTable = ({
       headCells={generateHeadCells(t)}
       actions={actions}
     >
-      {children}
+      {data.map(item => (
+        <CompetitionAgeCategoriesTableRow
+          key={item.id}
+          data={item}
+          onEditClick={() =>
+            router.push(`/competition-age-categories/edit/${item.id}`)
+          }
+          onDeleteClick={() =>
+            handleDeleteItemClick({ id: item.id, name: item.name })
+          }
+        />
+      ))}
     </Table>
   )
 }

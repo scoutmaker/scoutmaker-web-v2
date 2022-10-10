@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -14,7 +13,6 @@ import {
   useDeleteUserSubscription,
   useUserSubscriptions,
 } from '@/modules/user-subscriptions/hooks'
-import { UserSubscriptionsTableRow } from '@/modules/user-subscriptions/table/row'
 import { UserSubscriptionsTable } from '@/modules/user-subscriptions/table/table'
 import {
   UserSubscriptionsFiltersDto,
@@ -42,7 +40,6 @@ interface IToDeleteData {
 
 const UserSubscriptionsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
@@ -82,6 +79,11 @@ const UserSubscriptionsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { data: compsData, isLoading: compsLoading } = useCompetitionsList()
   const { data: usersData, isLoading: usersLoading } = useUsersList()
 
+  const handleDeleteItemClick = (data: { id: string }) => {
+    setToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading =
     dataLoading ||
     deleteLoading ||
@@ -113,24 +115,9 @@ const UserSubscriptionsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
         handleSort={handleSort}
         total={userSubscriptions?.totalDocs || 0}
         actions
-      >
-        {!!userSubscriptions &&
-          userSubscriptions.docs.map(season => (
-            <UserSubscriptionsTableRow
-              key={season.id}
-              data={season}
-              onEditClick={() => {
-                router.push(`/user-subscriptions/edit/${season.id}`)
-              }}
-              onDeleteClick={() => {
-                setToDeleteData({ id: season.id })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))}
-      </UserSubscriptionsTable>
+        data={userSubscriptions?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/user-subscriptions/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

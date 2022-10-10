@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
 
@@ -10,8 +9,8 @@ import { PageHeading } from '@/components/page-heading/page-heading'
 import { CountriesFilterForm } from '@/modules/countries/forms/filter'
 import { useCountries, useDeleteCountry } from '@/modules/countries/hooks'
 import { CountriesTable } from '@/modules/countries/table/countries'
-import { CountriesTableRow } from '@/modules/countries/table/countries-row'
 import { CountriesFiltersDto, CountriesSortBy } from '@/modules/countries/types'
+import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -27,14 +26,11 @@ const initialFilters: CountriesFiltersDto = {
 
 const CountriesPage = ({ errorStatus, errorMessage }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [countryToDeleteData, setcCountryToDeleteData] = useState<{
-    id: string
-    name: string
-  }>()
+  const [countryToDeleteData, setcCountryToDeleteData] =
+    useState<INameToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -64,6 +60,11 @@ const CountriesPage = ({ errorStatus, errorMessage }: TSsrRole) => {
   const { mutate: deleteCountry, isLoading: deleteCountryLoading } =
     useDeleteCountry()
 
+  const handleDeleteItemClick = (data: INameToDeleteData) => {
+    setcCountryToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading = countriesLoading || deleteCountryLoading
 
   if (errorStatus)
@@ -87,22 +88,9 @@ const CountriesPage = ({ errorStatus, errorMessage }: TSsrRole) => {
         handleSort={handleSort}
         total={countries?.totalDocs || 0}
         actions
-      >
-        {!countriesLoading &&
-          countries?.docs.map(country => (
-            <CountriesTableRow
-              key={country.id}
-              data={country}
-              onEditClick={() => router.push(`/countries/edit/${country.id}`)}
-              onDeleteClick={() => {
-                setcCountryToDeleteData({ id: country.id, name: country.name })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))}
-      </CountriesTable>
+        data={countries?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/countries/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

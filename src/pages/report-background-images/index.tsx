@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -12,12 +11,12 @@ import {
   useDeleteReportBgImage,
   useReportBgImages,
 } from '@/modules/report-background-images/hooks'
-import { ReportBgImagesTableRow } from '@/modules/report-background-images/table/row'
 import { ReportBgImagesTable } from '@/modules/report-background-images/table/table'
 import {
   ReportBgImagesFiltersDto,
   ReportBgImagesSortBy,
 } from '@/modules/report-background-images/types'
+import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -31,18 +30,12 @@ export const getServerSideProps = withSessionSsrRole(
   ['ADMIN'],
 )
 
-interface IToDeleteData {
-  id: string
-  name: string
-}
-
 const ReportBgImagesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<INameToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -74,6 +67,11 @@ const ReportBgImagesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
 
   const isLoading = dataLoading || deleteLoading
 
+  const handleDeleteItemClick = (data: INameToDeleteData) => {
+    setToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   if (errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
@@ -95,24 +93,9 @@ const ReportBgImagesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
         handleSort={handleSort}
         total={reportBgImages?.totalDocs || 0}
         actions
-      >
-        {!!reportBgImages &&
-          reportBgImages.docs.map(repImg => (
-            <ReportBgImagesTableRow
-              key={repImg.id}
-              data={repImg}
-              onEditClick={() => {
-                router.push(`/report-background-images/edit/${repImg.id}`)
-              }}
-              onDeleteClick={() => {
-                setToDeleteData({ id: repImg.id, name: repImg.name })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))}
-      </ReportBgImagesTable>
+        data={reportBgImages?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/report-background-images/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

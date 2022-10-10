@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -15,13 +14,13 @@ import {
   useCompetitions,
   useDeleteCompetition,
 } from '@/modules/competitions/hooks'
-import { CompetitionsTableRow } from '@/modules/competitions/table/row'
 import { CompetitionsTable } from '@/modules/competitions/table/table'
 import {
   CompetitionsFiltersDto,
   CompetitionsSortBy,
 } from '@/modules/competitions/types'
 import { useCountriesList } from '@/modules/countries/hooks'
+import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -41,18 +40,12 @@ const initialFilters: CompetitionsFiltersDto = {
   typeId: '',
 }
 
-interface IToDeleteData {
-  id: string
-  name: string
-}
-
 const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<INameToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -95,6 +88,11 @@ const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
   const { mutate: deleteCompetition, isLoading: deleteCompetitionLoading } =
     useDeleteCompetition()
 
+  const handleDeleteItemClick = (data: INameToDeleteData) => {
+    setToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading =
     juniorLevelsLoading ||
     ageCategLoading ||
@@ -129,24 +127,9 @@ const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
         handleSort={handleSort}
         total={competitions?.totalDocs || 0}
         actions
-      >
-        {!!competitions &&
-          competitions.docs.map(comp => (
-            <CompetitionsTableRow
-              key={comp.id}
-              data={comp}
-              onEditClick={() => {
-                router.push(`/competitions/edit/${comp.id}`)
-              }}
-              onDeleteClick={() => {
-                setToDeleteData({ id: comp.id, name: comp.name })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))}
-      </CompetitionsTable>
+        data={competitions?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/competitions/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

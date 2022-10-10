@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -12,12 +11,12 @@ import {
   useCompetitionJuniorLevels,
   useDeleteCompetitionJuniorLevel,
 } from '@/modules/competition-junior-levels/hooks'
-import { CompetitionJuniorLevelsTableRow } from '@/modules/competition-junior-levels/table/row'
 import { CompetitionJuniorLevelsTable } from '@/modules/competition-junior-levels/table/table'
 import {
   CompetitionJuniorLevelsFiltersDto,
   CompetitionJuniorLevelsSortBy,
 } from '@/modules/competition-junior-levels/types'
+import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -33,21 +32,15 @@ export const getServerSideProps = withSessionSsrRole(
   ['ADMIN'],
 )
 
-interface IToDeleteData {
-  id: string
-  name: string
-}
-
 const CompetitionJuniorLevelsPage = ({
   errorMessage,
   errorStatus,
 }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<INameToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -79,6 +72,11 @@ const CompetitionJuniorLevelsPage = ({
   const { mutate: deleteCompJuniorLevel, isLoading: deleteLoading } =
     useDeleteCompetitionJuniorLevel()
 
+  const handleDeleteItemClick = (data: INameToDeleteData) => {
+    setToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading = dataLoading || deleteLoading
 
   if (errorStatus)
@@ -102,24 +100,9 @@ const CompetitionJuniorLevelsPage = ({
         handleSort={handleSort}
         total={compJuniorLevels?.totalDocs || 0}
         actions
-      >
-        {!!compJuniorLevels &&
-          compJuniorLevels.docs.map(comp => (
-            <CompetitionJuniorLevelsTableRow
-              key={comp.id}
-              data={comp}
-              onEditClick={() => {
-                router.push(`/competition-junior-levels/edit/${comp.id}`)
-              }}
-              onDeleteClick={() => {
-                setToDeleteData({ id: comp.id, name: comp.name })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))}
-      </CompetitionJuniorLevelsTable>
+        data={compJuniorLevels?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/competition-junior-levels/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

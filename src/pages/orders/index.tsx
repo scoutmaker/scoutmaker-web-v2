@@ -15,7 +15,6 @@ import {
   useOrders,
   useRejectOrder,
 } from '@/modules/orders/hooks'
-import { OrdersTableRow } from '@/modules/orders/table/row'
 import { OrdersTable } from '@/modules/orders/table/table'
 import { OrdersFiltersDto, OrdersSortBy } from '@/modules/orders/types'
 import { usePlayersList } from '@/modules/players/hooks'
@@ -103,6 +102,11 @@ const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
   const { mutate: rejectOrder, isLoading: rejectLoading } = useRejectOrder()
   const { mutate: closeOrder, isLoading: closeLoading } = useCloseOrder()
 
+  const handleDeleteItemClick = (deleteData: ItoDeleteData) => {
+    setToDeleteData(deleteData)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading =
     deleteLoading ||
     ordersLoading ||
@@ -137,23 +141,12 @@ const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
         handleSort={handleSort}
         total={orders?.totalDocs || 0}
         actions
-      >
-        {!!orders &&
-          orders.docs.map(order => (
-            <OrdersTableRow
-              onAcceptOrderClick={acceptOrder}
-              onCloseOrderClick={closeOrder}
-              onRejectOrderClick={rejectOrder}
-              key={order.id}
-              data={order}
-              onDeleteClick={() => {
-                setToDeleteData({ id: order.id })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isDeleteOptionEnabled
-            />
-          ))}
-      </OrdersTable>
+        data={orders?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+        onAcceptOrderClick={acceptOrder}
+        onCloseOrderClick={closeOrder}
+        onRejectOrderClick={rejectOrder}
+      />
       <Fab href="/orders/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}
