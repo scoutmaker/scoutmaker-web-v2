@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import {
@@ -41,7 +41,7 @@ export const useDeleteCompetitionParticipation = () => {
         msg: data.message,
         type: 'success',
       })
-      queryClient.invalidateQueries(moduleName)
+      queryClient.invalidateQueries([moduleName])
     },
     onError: (err: ApiError) =>
       setAlert({
@@ -76,7 +76,7 @@ export const useCopyCompetitionParticipation = () => {
           msg: data.message,
           type: 'success',
         })
-        queryClient.invalidateQueries(moduleName)
+        queryClient.invalidateQueries([moduleName])
       },
       onError: (err: ApiError) =>
         setAlert({
