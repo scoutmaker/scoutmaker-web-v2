@@ -1,11 +1,15 @@
+import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
 
 import { Table } from '@/components/tables/table'
-import { ICommonTableProps, IHeadCell } from '@/types/tables'
+import { ICommonTableProps, IHeadCell, INameToDeleteData } from '@/types/tables'
+
+import { ReportSkillAssessmentTemplateDto } from '../types'
+import { ReportSkillAssessmentTemplatesTableRow } from './row'
 
 interface ITableProps extends ICommonTableProps {
-  children: ReactNode
+  data: ReportSkillAssessmentTemplateDto[]
+  handleDeleteItemClick: (data: INameToDeleteData) => void
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
@@ -30,9 +34,11 @@ export const ReportSkillAssessmentTemplatesTable = ({
   handleSort,
   total,
   actions,
-  children,
+  data,
+  handleDeleteItemClick,
 }: ITableProps) => {
   const { t } = useTranslation()
+  const router = useRouter()
 
   return (
     <Table
@@ -47,7 +53,18 @@ export const ReportSkillAssessmentTemplatesTable = ({
       headCells={generateHeadCells(t)}
       actions={actions}
     >
-      {children}
+      {data.map(report => (
+        <ReportSkillAssessmentTemplatesTableRow
+          key={report.id}
+          data={report}
+          onEditClick={() =>
+            router.push(`/report-skill-assessment-templates/edit/${report.id}`)
+          }
+          onDeleteClick={() =>
+            handleDeleteItemClick({ id: report.id, name: report.name })
+          }
+        />
+      ))}
     </Table>
   )
 }

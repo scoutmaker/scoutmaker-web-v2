@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -13,12 +12,12 @@ import {
   useCompetitionAgeCategories,
   useDeleteCompetitionAgeCategory,
 } from '@/modules/competition-age-categories/hooks'
-import { CompetitionAgeCategoriesTableRow } from '@/modules/competition-age-categories/table/row'
 import { CompetitionAgeCategoriesTable } from '@/modules/competition-age-categories/table/table'
 import {
   CompetitionAgeCategoriesFiltersDto,
   CompetitionAgeCategoriesSortBy,
 } from '@/modules/competition-age-categories/types'
+import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -32,21 +31,15 @@ export const getServerSideProps = withSessionSsrRole(
   ['ADMIN'],
 )
 
-interface IToDeleteData {
-  id: string
-  name: string
-}
-
 const CompetitionAgeCategoriesPage = ({
   errorMessage,
   errorStatus,
 }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<INameToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -78,6 +71,11 @@ const CompetitionAgeCategoriesPage = ({
   const { mutate: deleteCompAgeCateg, isLoading: deleteLoading } =
     useDeleteCompetitionAgeCategory()
 
+  const handleDeleteItemClick = (data: INameToDeleteData) => {
+    setToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   if (errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
@@ -101,24 +99,9 @@ const CompetitionAgeCategoriesPage = ({
         handleSort={handleSort}
         total={compAgeCateg?.totalDocs || 0}
         actions
-      >
-        {!!compAgeCateg &&
-          compAgeCateg.docs.map(item => (
-            <CompetitionAgeCategoriesTableRow
-              key={item.id}
-              data={item}
-              onEditClick={() => {
-                router.push(`/competition-age-categories/edit/${item.id}`)
-              }}
-              onDeleteClick={() => {
-                setToDeleteData({ id: item.id, name: item.name })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))}
-      </CompetitionAgeCategoriesTable>
+        data={compAgeCateg?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/competition-age-categories/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

@@ -1,11 +1,15 @@
+import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
 
 import { Table } from '@/components/tables/table'
-import { ICommonTableProps, IHeadCell } from '@/types/tables'
+import { ICommonTableProps, IHeadCell, INameToDeleteData } from '@/types/tables'
+
+import { MatchDto } from '../types'
+import { MatchesTableRow } from './row'
 
 interface IMatchesTableProps extends ICommonTableProps {
-  children: ReactNode
+  data: MatchDto[]
+  handleDeleteItemClick: (data: INameToDeleteData) => void
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
@@ -33,9 +37,11 @@ export const MatchesTable = ({
   handleSort,
   total,
   actions,
-  children,
+  data,
+  handleDeleteItemClick,
 }: IMatchesTableProps) => {
   const { t } = useTranslation()
+  const router = useRouter()
 
   return (
     <Table
@@ -50,7 +56,19 @@ export const MatchesTable = ({
       headCells={generateHeadCells(t)}
       actions={actions}
     >
-      {children}
+      {data.map(match => (
+        <MatchesTableRow
+          key={match.id}
+          data={match}
+          onEditClick={() => router.push(`/matches/edit/${match.id}`)}
+          onDeleteClick={() =>
+            handleDeleteItemClick({
+              id: match.id,
+              name: `${match.homeTeam.name} vs. ${match.awayTeam.name}`,
+            })
+          }
+        />
+      ))}
     </Table>
   )
 }

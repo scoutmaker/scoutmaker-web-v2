@@ -13,7 +13,6 @@ import {
   useSetScoutRoleUser,
   useUsers,
 } from '@/modules/users/hooks'
-import { UsersTableRow } from '@/modules/users/table/row'
 import { UsersTable } from '@/modules/users/table/table'
 import { UsersFiltersDto, UsersSortBy } from '@/modules/users/types'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
@@ -106,17 +105,10 @@ const UsersPage = ({ errorMessage, errorStatus }: TSsrRole) => {
         handleSort={handleSort}
         total={users?.totalDocs || 0}
         actions
-      >
-        {!!users &&
-          users.docs.map(user => (
-            <UsersTableRow
-              key={user.id}
-              data={user}
-              onSetPlaymakerScoutClick={() => setPMScoutRole(user.id)}
-              onSetScoutClick={() => setScoutRole(user.id)}
-            />
-          ))}
-      </UsersTable>
+        data={users?.docs || []}
+        onSetPlaymakerScoutClick={setPMScoutRole}
+        onSetScoutClick={setScoutRole}
+      />
     </>
   )
 }

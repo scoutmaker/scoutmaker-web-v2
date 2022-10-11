@@ -19,8 +19,6 @@ interface ITableRowProps {
   data: SeasonDto
   onEditClick: () => void
   onDeleteClick: () => void
-  isEditOptionEnabled: boolean
-  isDeleteOptionEnabled: boolean
   onSetActiveClick: (id: string) => void
   onUnSetActiveClick: (id: string) => void
 }
@@ -29,8 +27,6 @@ export const SeasonsTableRow = ({
   data,
   onEditClick,
   onDeleteClick,
-  isEditOptionEnabled,
-  isDeleteOptionEnabled,
   onSetActiveClick,
   onUnSetActiveClick,
 }: ITableRowProps) => {
@@ -59,8 +55,6 @@ export const SeasonsTableRow = ({
           isMenuOpen={isMenuOpen}
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
-          isDeleteOptionEnabled={isDeleteOptionEnabled}
-          isEditOptionEnabled={isEditOptionEnabled}
           onDeleteClick={() => handleMenuAction(onDeleteClick)}
           onEditClick={() => handleMenuAction(onEditClick)}
         >

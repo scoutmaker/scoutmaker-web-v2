@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -14,7 +13,6 @@ import {
   useCompetitionParticipations,
   useDeleteCompetitionParticipation,
 } from '@/modules/competition-participations/hooks'
-import { CompetitionParticipationsTableRow } from '@/modules/competition-participations/table/row'
 import { CompetitionParticipationsTable } from '@/modules/competition-participations/table/table'
 import {
   CompetitionParticipationsFilterDto,
@@ -48,7 +46,6 @@ const CompetitionParticipationsPage = ({
   errorStatus,
 }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
@@ -91,6 +88,11 @@ const CompetitionParticipationsPage = ({
   const { data: groupsData, isLoading: groupsLoading } =
     useCompetitionGroupsList()
 
+  const handleDeleteItemClick = (data: IToDeleteData) => {
+    setToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading =
     dataLoading ||
     deleteLoading ||
@@ -127,28 +129,9 @@ const CompetitionParticipationsPage = ({
         total={compParticipations?.totalDocs || 0}
         actions
         shouldDisplayTeamName
-      >
-        {!!compParticipations &&
-          compParticipations.docs.map(participation => (
-            <CompetitionParticipationsTableRow
-              key={participation.id}
-              data={participation}
-              onEditClick={() => {
-                router.push(
-                  `/competition-participations/edit/${participation.id}`,
-                )
-              }}
-              onDeleteClick={() => {
-                setToDeleteData({ id: participation.id })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-              shouldDisplayTeamName
-              actions
-            />
-          ))}
-      </CompetitionParticipationsTable>
+        data={compParticipations?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/competition-participations/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

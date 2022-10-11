@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -13,12 +12,12 @@ import {
   useDeleteReportTemplate,
   useReportTemplates,
 } from '@/modules/report-templates/hooks'
-import { ReportTemplatesTableRow } from '@/modules/report-templates/table/row'
 import { ReportTemplatesTable } from '@/modules/report-templates/table/table'
 import {
   ReportTemplatesFiltersDto,
   ReportTemplatesSortBy,
 } from '@/modules/report-templates/types'
+import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -32,18 +31,12 @@ export const getServerSideProps = withSessionSsrRole(
   false,
 )
 
-interface IToDeleteData {
-  id: string
-  name: string
-}
-
 const ReportTemplatesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<INameToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -73,6 +66,11 @@ const ReportTemplatesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { mutate: deleteTemplate, isLoading: deleteLoading } =
     useDeleteReportTemplate()
 
+  const handleDeleteItemClick = (data: INameToDeleteData) => {
+    setToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading = dataLoading || deleteLoading
 
   if (errorStatus)
@@ -98,24 +96,9 @@ const ReportTemplatesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
         handleSort={handleSort}
         total={reportTemplates?.totalDocs || 0}
         actions
-      >
-        {!!reportTemplates &&
-          reportTemplates.docs.map(template => (
-            <ReportTemplatesTableRow
-              key={template.id}
-              data={template}
-              onEditClick={() => {
-                router.push(`/report-templates/edit/${template.id}`)
-              }}
-              onDeleteClick={() => {
-                setToDeleteData({ id: template.id, name: template.name })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))}
-      </ReportTemplatesTable>
+        data={reportTemplates?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/report-templates/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

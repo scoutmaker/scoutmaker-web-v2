@@ -29,7 +29,6 @@ import { OrderDto } from '../types'
 interface ITableRowProps {
   data: OrderDto
   onDeleteClick: () => void
-  isDeleteOptionEnabled: boolean
   onAcceptOrderClick: (id: string) => void
   onRejectOrderClick: (id: string) => void
   onCloseOrderClick: (id: string) => void
@@ -38,7 +37,6 @@ interface ITableRowProps {
 export const OrdersTableRow = ({
   data,
   onDeleteClick,
-  isDeleteOptionEnabled,
   onAcceptOrderClick,
   onRejectOrderClick,
   onCloseOrderClick,
@@ -77,8 +75,6 @@ export const OrdersTableRow = ({
           isMenuOpen={isMenuOpen}
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
-          isDeleteOptionEnabled={isDeleteOptionEnabled}
-          isEditOptionEnabled={false}
           onDeleteClick={() => handleMenuAction(onDeleteClick)}
         >
           {status === 'OPEN' ? (

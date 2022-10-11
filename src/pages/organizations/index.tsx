@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -13,12 +12,12 @@ import {
   useDeleteOrganization,
   useOrganizations,
 } from '@/modules/organizations/hooks'
-import { OrganizationsTableRow } from '@/modules/organizations/table/row'
 import { OrganizationsTable } from '@/modules/organizations/table/table'
 import {
   OrganizationsFiltersDto,
   OrganizationsSortBy,
 } from '@/modules/organizations/types'
+import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -32,18 +31,12 @@ export const getServerSideProps = withSessionSsrRole(
   ['ADMIN'],
 )
 
-interface IToDeleteData {
-  id: string
-  name: string
-}
-
 const OrganizationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<INameToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -73,6 +66,11 @@ const OrganizationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { mutate: deleteOrganization, isLoading: deleteLoading } =
     useDeleteOrganization()
 
+  const handleDeleteItemClick = (data: INameToDeleteData) => {
+    setToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading = dataLoading || deleteLoading
 
   if (errorStatus)
@@ -98,24 +96,9 @@ const OrganizationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
         handleSort={handleSort}
         total={organizations?.totalDocs || 0}
         actions
-      >
-        {!!organizations &&
-          organizations.docs.map(org => (
-            <OrganizationsTableRow
-              key={org.id}
-              data={org}
-              onEditClick={() => {
-                router.push(`/organizations/edit/${org.id}`)
-              }}
-              onDeleteClick={() => {
-                setToDeleteData({ id: org.id, name: org.name })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))}
-      </OrganizationsTable>
+        data={organizations?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/organizations/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

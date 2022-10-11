@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -19,7 +18,6 @@ import {
   useReports,
   useUnlikeReport,
 } from '@/modules/reports/hooks'
-import { ReportsTableRow } from '@/modules/reports/table/row'
 import { ReportsTable } from '@/modules/reports/table/table'
 import { ReportsFilterFormData, ReportsSortBy } from '@/modules/reports/types'
 import { mapFilterFormDataToFiltersDto } from '@/modules/reports/utils'
@@ -27,7 +25,7 @@ import { useTeamsList } from '@/modules/teams/hooks'
 import { getDocumentNumber } from '@/utils/get-document-number'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
-import { getCreateRoute, getEditRoute, Routes } from '@/utils/routes'
+import { getCreateRoute, Routes } from '@/utils/routes'
 import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(
@@ -57,12 +55,11 @@ interface IReportToDeleteData {
 
 const ReportsPage = () => {
   const { t } = useTranslation(['common', 'reports'])
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
   const [reportToDeleteData, setReportToDeleteData] =
-    useState<IReportToDeleteData | null>(null)
+    useState<IReportToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -105,6 +102,11 @@ const ReportsPage = () => {
   const { mutate: unlikeReport, isLoading: unlikeReportLoading } =
     useUnlikeReport()
 
+  const handleDeleteItemClick = (data: IReportToDeleteData) => {
+    setReportToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading =
     teamsLoading ||
     competitionsLoading ||
@@ -144,31 +146,11 @@ const ReportsPage = () => {
         handleSort={handleSort}
         total={reports?.totalDocs || 0}
         actions
-      >
-        {reports
-          ? reports.docs.map(report => (
-              <ReportsTableRow
-                key={report.id}
-                data={report}
-                onEditClick={() => {
-                  router.push(getEditRoute(Routes.REPORTS, report.id))
-                }}
-                onDeleteClick={() => {
-                  setReportToDeleteData({
-                    id: report.id,
-                    docNumber: report.docNumber,
-                    createdAt: report.createdAt,
-                  })
-                  setIsDeleteConfirmationModalOpen(true)
-                }}
-                onLikeClick={(id: string) => likeReport(id)}
-                onUnlikeClick={(id: string) => unlikeReport(id)}
-                isEditOptionEnabled
-                isDeleteOptionEnabled
-              />
-            ))
-          : null}
-      </ReportsTable>
+        data={reports?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+        onLikeClick={likeReport}
+        onUnLikeClick={unlikeReport}
+      />
       <Fab href={getCreateRoute(Routes.REPORTS)} />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}
@@ -184,11 +166,11 @@ const ReportsPage = () => {
           if (reportToDeleteData) {
             deleteReport(reportToDeleteData.id)
           }
-          setReportToDeleteData(null)
+          setReportToDeleteData(undefined)
         }}
         handleClose={() => {
           setIsDeleteConfirmationModalOpen(false)
-          setReportToDeleteData(null)
+          setReportToDeleteData(undefined)
         }}
       />
     </>

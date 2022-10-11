@@ -39,8 +39,6 @@ interface INotesTableRowProps {
   onDeleteClick: () => void
   onLikeClick: (id: string) => void
   onUnlikeClick: (id: string) => void
-  isEditOptionEnabled: boolean
-  isDeleteOptionEnabled: boolean
 }
 
 export const NotesTableRow = ({
@@ -49,8 +47,6 @@ export const NotesTableRow = ({
   onDeleteClick,
   onLikeClick,
   onUnlikeClick,
-  isEditOptionEnabled,
-  isDeleteOptionEnabled,
 }: INotesTableRowProps) => {
   const { t } = useTranslation()
   const router = useRouter()
@@ -110,8 +106,6 @@ export const NotesTableRow = ({
             isMenuOpen={isMenuOpen}
             onMenuClick={handleMenuClick}
             onMenuClose={handleMenuClose}
-            isDeleteOptionEnabled={isDeleteOptionEnabled}
-            isEditOptionEnabled={isEditOptionEnabled}
             onDeleteClick={() => handleMenuAction(onDeleteClick)}
             onEditClick={() => handleMenuAction(onEditClick)}
           >

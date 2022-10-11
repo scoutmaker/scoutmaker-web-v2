@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -14,12 +13,12 @@ import {
   useDeleteReportSkillAssessmentTemplate,
   useReportSkillAssessmentTemplates,
 } from '@/modules/report-skill-assessment-templates/hooks'
-import { ReportSkillAssessmentTemplatesTableRow } from '@/modules/report-skill-assessment-templates/table/row'
 import { ReportSkillAssessmentTemplatesTable } from '@/modules/report-skill-assessment-templates/table/table'
 import {
   ReportSkillAssessmentTemplatesFiltersDto,
   ReportSkillAssessmentTemplatesSortBy,
 } from '@/modules/report-skill-assessment-templates/types'
+import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -34,21 +33,15 @@ export const getServerSideProps = withSessionSsrRole(
   false,
 )
 
-interface IToDeleteData {
-  id: string
-  name: string
-}
-
 const ReportSkillAssessmentTemplatesPage = ({
   errorMessage,
   errorStatus,
 }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<INameToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -87,6 +80,11 @@ const ReportSkillAssessmentTemplatesPage = ({
 
   const isLoading = dataLoading || deleteLoading || categoriesLoading
 
+  const handleDeleteItemClick = (data: INameToDeleteData) => {
+    setToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   if (errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
@@ -113,26 +111,9 @@ const ReportSkillAssessmentTemplatesPage = ({
         handleSort={handleSort}
         total={reports?.totalDocs || 0}
         actions
-      >
-        {!!reports &&
-          reports.docs.map(report => (
-            <ReportSkillAssessmentTemplatesTableRow
-              key={report.id}
-              data={report}
-              onEditClick={() => {
-                router.push(
-                  `/report-skill-assessment-templates/edit/${report.id}`,
-                )
-              }}
-              onDeleteClick={() => {
-                setToDeleteData({ id: report.id, name: report.name })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))}
-      </ReportSkillAssessmentTemplatesTable>
+        data={reports?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/report-skill-assessment-templates/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}
