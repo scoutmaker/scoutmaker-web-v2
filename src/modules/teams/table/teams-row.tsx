@@ -21,8 +21,6 @@ interface ITeamsTableRowProps {
   onDeleteClick: () => void
   onLikeClick: (id: string) => void
   onUnlikeClick: (id: string) => void
-  isEditOptionEnabled: boolean
-  isDeleteOptionEnabled: boolean
 }
 
 export const TeamsTableRow = ({
@@ -31,8 +29,6 @@ export const TeamsTableRow = ({
   onDeleteClick,
   onLikeClick,
   onUnlikeClick,
-  isEditOptionEnabled,
-  isDeleteOptionEnabled,
 }: ITeamsTableRowProps) => {
   const { t } = useTranslation()
   const router = useRouter()
@@ -64,8 +60,6 @@ export const TeamsTableRow = ({
           isMenuOpen={isMenuOpen}
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
-          isDeleteOptionEnabled={isDeleteOptionEnabled}
-          isEditOptionEnabled={isEditOptionEnabled}
           onDeleteClick={() => handleMenuAction(onDeleteClick)}
           onEditClick={() => handleMenuAction(onEditClick)}
         >

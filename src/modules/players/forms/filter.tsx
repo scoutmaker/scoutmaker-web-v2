@@ -1,11 +1,11 @@
-import { Grid, TextField } from '@mui/material'
-import { styled } from '@mui/material/styles'
+import { Box, TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { Container } from '@/components/forms/container'
+import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
+import { FilterFormContainer } from '@/components/forms/filter-form-container'
 import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { CompetitionsCombo } from '@/modules/competitions/combo'
@@ -18,11 +18,6 @@ import { FootedSelect } from '@/modules/players/footed-select'
 import { PlayersFiltersDto } from '@/modules/players/types'
 import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
-
-const StyledCheckboxContainer = styled('div')(() => ({
-  display: 'flex',
-  justifyContent: 'center',
-}))
 
 interface IPlayersFilterFormProps {
   countriesData: CountryDto[]
@@ -58,7 +53,7 @@ export const PlayersFilterForm = ({
     >
       {() => (
         <Form autoComplete="off">
-          <Container>
+          <FilterFormContainer>
             <Field
               name="name"
               as={TextField}
@@ -67,32 +62,28 @@ export const PlayersFilterForm = ({
               label={t('NAME_OR_SURNAME')}
               size="small"
             />
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <Field
-                  name="bornAfter"
-                  as={TextField}
-                  type="number"
-                  variant="outlined"
-                  fullWidth
-                  label={t('BORN_AFTER')}
-                  size="small"
-                  inputProps={{ min: 1980, max: 2020 }}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <Field
-                  name="bornBefore"
-                  as={TextField}
-                  type="number"
-                  variant="outlined"
-                  fullWidth
-                  label={t('BORN_BEFORE')}
-                  size="small"
-                  inputProps={{ min: 1980, max: 2020 }}
-                />
-              </Grid>
-            </Grid>
+            <Box display="grid" gridTemplateColumns="1fr 1fr" gap={2}>
+              <Field
+                name="bornAfter"
+                as={TextField}
+                type="number"
+                variant="outlined"
+                fullWidth
+                label={t('BORN_AFTER')}
+                size="small"
+                inputProps={{ min: 1980, max: 2020 }}
+              />
+              <Field
+                name="bornBefore"
+                as={TextField}
+                type="number"
+                variant="outlined"
+                fullWidth
+                label={t('BORN_BEFORE')}
+                size="small"
+                inputProps={{ min: 1980, max: 2020 }}
+              />
+            </Box>
             <FootedSelect name="footed" label={t('FOOTED')} size="small" />
             <CountriesCombo
               name="countryIds"
@@ -129,17 +120,17 @@ export const PlayersFilterForm = ({
               size="small"
               multiple
             />
-            <StyledCheckboxContainer>
-              <Field
-                component={CheckboxWithLabel}
-                type="checkbox"
-                name="isLiked"
-                Label={{ label: t('players:LIKED_ONLY') }}
-                size="small"
-              />
-            </StyledCheckboxContainer>
-            <FilterFormActions handleClearFilter={onClearFilters} />
-          </Container>
+          </FilterFormContainer>
+          <FilterCheckboxContainer>
+            <Field
+              component={CheckboxWithLabel}
+              type="checkbox"
+              name="isLiked"
+              Label={{ label: t('players:LIKED_ONLY') }}
+              size="small"
+            />
+          </FilterCheckboxContainer>
+          <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>
       )}
     </Formik>

@@ -25,8 +25,6 @@ interface IPlayersTableRowProps {
   onDeleteClick: () => void
   onLikeClick: (id: string) => void
   onUnlikeClick: (id: string) => void
-  isEditOptionEnabled: boolean
-  isDeleteOptionEnabled: boolean
 }
 
 export const PlayersTableRow = ({
@@ -35,8 +33,6 @@ export const PlayersTableRow = ({
   onDeleteClick,
   onLikeClick,
   onUnlikeClick,
-  isEditOptionEnabled,
-  isDeleteOptionEnabled,
 }: IPlayersTableRowProps) => {
   const { t } = useTranslation()
   const router = useRouter()
@@ -82,8 +78,6 @@ export const PlayersTableRow = ({
           isMenuOpen={isMenuOpen}
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
-          isDeleteOptionEnabled={isDeleteOptionEnabled}
-          isEditOptionEnabled={isEditOptionEnabled}
           onDeleteClick={() => handleMenuAction(onDeleteClick)}
           onEditClick={() => handleMenuAction(onEditClick)}
         >

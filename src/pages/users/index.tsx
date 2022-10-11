@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
 
 import { ErrorContent } from '@/components/error/error-content'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { useClubsList } from '@/modules/clubs/hooks'
@@ -12,7 +13,6 @@ import {
   useSetScoutRoleUser,
   useUsers,
 } from '@/modules/users/hooks'
-import { UsersTableRow } from '@/modules/users/table/row'
 import { UsersTable } from '@/modules/users/table/table'
 import { UsersFiltersDto, UsersSortBy } from '@/modules/users/types'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
@@ -85,14 +85,16 @@ const UsersPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('users:INDEX_PAGE_TITLE')} />
-      <UsersFilterForm
-        filters={filters}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-        clubsData={clubs || []}
-        regionsData={regions || []}
-        userFootballRolesData={userFootballRoles || []}
-      />
+      <FilterAccordion>
+        <UsersFilterForm
+          filters={filters}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+          clubsData={clubs || []}
+          regionsData={regions || []}
+          userFootballRolesData={userFootballRoles || []}
+        />
+      </FilterAccordion>
       <UsersTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -103,17 +105,10 @@ const UsersPage = ({ errorMessage, errorStatus }: TSsrRole) => {
         handleSort={handleSort}
         total={users?.totalDocs || 0}
         actions
-      >
-        {!!users &&
-          users.docs.map(user => (
-            <UsersTableRow
-              key={user.id}
-              data={user}
-              onSetPlaymakerScoutClick={() => setPMScoutRole(user.id)}
-              onSetScoutClick={() => setScoutRole(user.id)}
-            />
-          ))}
-      </UsersTable>
+        data={users?.docs || []}
+        onSetPlaymakerScoutClick={setPMScoutRole}
+        onSetScoutClick={setScoutRole}
+      />
     </>
   )
 }

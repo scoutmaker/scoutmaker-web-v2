@@ -15,7 +15,7 @@ export const ReportDetails = ({ report }: IReportDetailsProps) => (
     <BasicDetailsCard report={report} />
     <SummaryCard report={report} />
     <SkillAssessmentsCard
-      maxRatingScore={report.template.maxRatingScore}
+      maxRatingScore={report.maxRatingScore}
       skills={report.skills}
       readOnly
     />

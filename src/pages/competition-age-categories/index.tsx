@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -12,12 +12,12 @@ import {
   useCompetitionAgeCategories,
   useDeleteCompetitionAgeCategory,
 } from '@/modules/competition-age-categories/hooks'
-import { CompetitionAgeCategoriesTableRow } from '@/modules/competition-age-categories/table/row'
 import { CompetitionAgeCategoriesTable } from '@/modules/competition-age-categories/table/table'
 import {
   CompetitionAgeCategoriesFiltersDto,
   CompetitionAgeCategoriesSortBy,
 } from '@/modules/competition-age-categories/types'
+import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -31,21 +31,15 @@ export const getServerSideProps = withSessionSsrRole(
   ['ADMIN'],
 )
 
-interface IToDeleteData {
-  id: string
-  name: string
-}
-
 const CompetitionAgeCategoriesPage = ({
   errorMessage,
   errorStatus,
 }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<INameToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -77,17 +71,24 @@ const CompetitionAgeCategoriesPage = ({
   const { mutate: deleteCompAgeCateg, isLoading: deleteLoading } =
     useDeleteCompetitionAgeCategory()
 
+  const handleDeleteItemClick = (data: INameToDeleteData) => {
+    setToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   if (errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {(dataLoading || deleteLoading) && <Loader />}
       <PageHeading title={t('comp-age-categ:INDEX_PAGE_TITLE')} />
-      <CompetitionAgeCategoriesFilterForm
-        filters={filters}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <CompetitionAgeCategoriesFilterForm
+          filters={filters}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <CompetitionAgeCategoriesTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -98,24 +99,9 @@ const CompetitionAgeCategoriesPage = ({
         handleSort={handleSort}
         total={compAgeCateg?.totalDocs || 0}
         actions
-      >
-        {!!compAgeCateg &&
-          compAgeCateg.docs.map(item => (
-            <CompetitionAgeCategoriesTableRow
-              key={item.id}
-              data={item}
-              onEditClick={() => {
-                router.push(`/competition-age-categories/edit/${item.id}`)
-              }}
-              onDeleteClick={() => {
-                setToDeleteData({ id: item.id, name: item.name })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))}
-      </CompetitionAgeCategoriesTable>
+        data={compAgeCateg?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/competition-age-categories/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

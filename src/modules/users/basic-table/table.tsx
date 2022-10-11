@@ -1,11 +1,14 @@
 import { TFunction, useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
 
 import { Table } from '@/components/tables/table'
 import { ICommonTableProps, IHeadCell } from '@/types/tables'
 
+import { UserBasicDataDto } from '../types'
+import { BasicUsersTableRow } from './row'
+
 interface ITableProps extends ICommonTableProps {
-  children: ReactNode
+  data: UserBasicDataDto[]
+  onRemoveFromOrganization: (memberId: string) => void
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
@@ -25,7 +28,8 @@ export const BasicUsersTable = ({
   handleSort,
   total,
   actions,
-  children,
+  data,
+  onRemoveFromOrganization,
 }: ITableProps) => {
   const { t } = useTranslation()
 
@@ -42,7 +46,12 @@ export const BasicUsersTable = ({
       headCells={generateHeadCells(t)}
       actions={actions}
     >
-      {children}
+      {data.map(member => (
+        <BasicUsersTableRow
+          data={member}
+          onRemoveFromOrganization={() => onRemoveFromOrganization(member.id)}
+        />
+      ))}
     </Table>
   )
 }

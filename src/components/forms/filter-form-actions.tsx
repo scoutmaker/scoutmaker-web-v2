@@ -5,6 +5,8 @@ import { useTranslation } from 'next-i18next'
 export const StyledContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(2),
+  maxWidth: 1200,
+  margin: '0 auto',
 }))
 
 interface IFilterFormActionsProps {

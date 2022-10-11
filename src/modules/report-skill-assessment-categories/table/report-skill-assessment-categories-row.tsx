@@ -12,16 +12,12 @@ interface IReportSkillAssessmentCategoriesTableRowProps {
   data: ReportSkillAssessmentCategoryDto
   onEditClick: () => void
   onDeleteClick: () => void
-  isEditOptionEnabled: boolean
-  isDeleteOptionEnabled: boolean
 }
 
 export const ReportSkillAssessmentCategoriesTableRow = ({
   data,
   onEditClick,
   onDeleteClick,
-  isEditOptionEnabled,
-  isDeleteOptionEnabled,
 }: IReportSkillAssessmentCategoriesTableRowProps) => {
   const router = useRouter()
 
@@ -51,8 +47,6 @@ export const ReportSkillAssessmentCategoriesTableRow = ({
           isMenuOpen={isMenuOpen}
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
-          isDeleteOptionEnabled={isDeleteOptionEnabled}
-          isEditOptionEnabled={isEditOptionEnabled}
           onDeleteClick={() => handleMenuAction(onDeleteClick)}
           onEditClick={() => handleMenuAction(onEditClick)}
         />

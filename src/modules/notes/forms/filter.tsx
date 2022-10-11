@@ -1,11 +1,12 @@
 import { Grid, TextField } from '@mui/material'
-import { styled } from '@mui/material/styles'
 import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { Container } from '@/components/forms/container'
+import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
+import { FilterFormContainer } from '@/components/forms/filter-form-container'
+import { RatingRangeSelect } from '@/components/rating-range-select/rating-range-select'
 import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { CompetitionsCombo } from '@/modules/competitions/combo'
@@ -19,12 +20,7 @@ import { PlayerBasicDataDto } from '@/modules/players/types'
 import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
-import { NotesFiltersDto } from '../types'
-
-const StyledCheckboxContainer = styled('div')(() => ({
-  display: 'flex',
-  justifyContent: 'center',
-}))
+import { NotesFilterFormData } from '../types'
 
 interface INotesFilterFormProps {
   playersData: PlayerBasicDataDto[]
@@ -33,8 +29,8 @@ interface INotesFilterFormProps {
   matchesData: MatchBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
-  filters: NotesFiltersDto
-  onFilter: (data: NotesFiltersDto) => void
+  filters: NotesFilterFormData
+  onFilter: (data: NotesFilterFormData) => void
   onClearFilters: () => void
 }
 
@@ -62,7 +58,7 @@ export const NotesFilterForm = ({
     >
       {() => (
         <Form autoComplete="off">
-          <Container>
+          <FilterFormContainer>
             <PlayersCombo
               name="playerIds"
               data={playersData}
@@ -91,46 +87,6 @@ export const NotesFilterForm = ({
               multiple
               size="small"
             />
-            <CompetitionsCombo
-              name="competitionIds"
-              data={competitionsData}
-              label={t('COMPETITIONS')}
-              multiple
-              size="small"
-            />
-            <CompetitionGroupsCombo
-              name="competitionGroupIds"
-              data={competitionGroupsData}
-              label={t('COMPETITION_GROUPS')}
-              multiple
-              size="small"
-            />
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <Field
-                  name="percentageRatingRangeStart"
-                  as={TextField}
-                  type="number"
-                  variant="outlined"
-                  fullWidth
-                  label={t('PERCENTAGE_RATING_RANGE_START')}
-                  size="small"
-                  inputProps={{ min: 0, max: 100, pattern: '/d+', step: 1 }}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <Field
-                  name="percentageRatingRangeEnd"
-                  as={TextField}
-                  type="number"
-                  variant="outlined"
-                  fullWidth
-                  label={t('PERCENTAGE_RATING_RANGE_END')}
-                  size="small"
-                  inputProps={{ min: 0, max: 100, pattern: '/d+', step: 1 }}
-                />
-              </Grid>
-            </Grid>
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <Field
@@ -157,17 +113,36 @@ export const NotesFilterForm = ({
                 />
               </Grid>
             </Grid>
-            <StyledCheckboxContainer>
-              <Field
-                component={CheckboxWithLabel}
-                type="checkbox"
-                name="isLiked"
-                Label={{ label: t('notes:LIKED_ONLY') }}
-                size="small"
-              />
-            </StyledCheckboxContainer>
-            <FilterFormActions handleClearFilter={onClearFilters} />
-          </Container>
+            <CompetitionsCombo
+              name="competitionIds"
+              data={competitionsData}
+              label={t('COMPETITIONS')}
+              multiple
+              size="small"
+            />
+            <CompetitionGroupsCombo
+              name="competitionGroupIds"
+              data={competitionGroupsData}
+              label={t('COMPETITION_GROUPS')}
+              multiple
+              size="small"
+            />
+            <RatingRangeSelect
+              name="ratingRange"
+              label={t('RATING_RANGE')}
+              size="small"
+            />
+          </FilterFormContainer>
+          <FilterCheckboxContainer>
+            <Field
+              component={CheckboxWithLabel}
+              type="checkbox"
+              name="isLiked"
+              Label={{ label: t('notes:LIKED_ONLY') }}
+              size="small"
+            />
+          </FilterCheckboxContainer>
+          <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>
       )}
     </Formik>

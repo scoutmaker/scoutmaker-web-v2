@@ -1,8 +1,8 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -16,9 +16,9 @@ import {
   useNotes,
   useUnlikeNote,
 } from '@/modules/notes/hooks'
-import { NotesTableRow } from '@/modules/notes/table/row'
 import { NotesTable } from '@/modules/notes/table/table'
-import { NotesFiltersDto, NotesSortBy } from '@/modules/notes/types'
+import { NotesFilterFormData, NotesSortBy } from '@/modules/notes/types'
+import { mapFilterFormDataToFiltersDto } from '@/modules/notes/utils'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
@@ -29,18 +29,17 @@ import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(['common', 'notes'], false)
 
-const initialFilters: NotesFiltersDto = {
+const initialFilters: NotesFilterFormData = {
   competitionGroupIds: [],
   competitionIds: [],
   isLiked: false,
   matchIds: [],
-  percentageRatingRangeEnd: 100,
-  percentageRatingRangeStart: 0,
   playerBornAfter: 1980,
   playerBornBefore: 2005,
   playerIds: [],
   positionIds: [],
   teamIds: [],
+  ratingRange: 'ALL',
 }
 
 interface INoteToDeleteData {
@@ -51,12 +50,10 @@ interface INoteToDeleteData {
 
 const NotesPage = () => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [noteToDeleteData, setNoteToDeleteData] =
-    useState<INoteToDeleteData | null>(null)
+  const [noteToDeleteData, setNoteToDeleteData] = useState<INoteToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -65,12 +62,12 @@ const NotesPage = () => {
     handleSort,
   } = useTable('notes-table')
 
-  const [filters, setFilters] = useLocalStorage<NotesFiltersDto>({
+  const [filters, setFilters] = useLocalStorage<NotesFilterFormData>({
     key: 'notes-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: NotesFiltersDto) {
+  function handleSetFilters(newFilters: NotesFilterFormData) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -90,12 +87,17 @@ const NotesPage = () => {
     limit: rowsPerPage,
     sortBy: sortBy as NotesSortBy,
     sortingOrder: order,
-    ...filters,
+    ...mapFilterFormDataToFiltersDto(filters),
   })
 
   const { mutate: deleteNote, isLoading: deleteNoteLoading } = useDeleteNote()
   const { mutate: likeNote, isLoading: likeNoteLoading } = useLikeNote()
   const { mutate: unlikeNote, isLoading: unlikeNoteLoading } = useUnlikeNote()
+
+  const handleDeleteItemClick = (data: INoteToDeleteData) => {
+    setNoteToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
 
   const isLoading =
     teamsLoading ||
@@ -113,17 +115,19 @@ const NotesPage = () => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('notes:INDEX_PAGE_TITLE')} />
-      <NotesFilterForm
-        filters={filters}
-        matchesData={matches || []}
-        playersData={players || []}
-        positionsData={positions || []}
-        teamsData={teams || []}
-        competitionsData={competitions || []}
-        competitionGroupsData={competitionGroups || []}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <NotesFilterForm
+          filters={filters}
+          matchesData={matches || []}
+          playersData={players || []}
+          positionsData={positions || []}
+          teamsData={teams || []}
+          competitionsData={competitions || []}
+          competitionGroupsData={competitionGroups || []}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <NotesTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -134,31 +138,11 @@ const NotesPage = () => {
         handleSort={handleSort}
         total={notes?.totalDocs || 0}
         actions
-      >
-        {notes
-          ? notes.docs.map(note => (
-              <NotesTableRow
-                key={note.id}
-                data={note}
-                onEditClick={() => {
-                  router.push(`/notes/edit/${note.id}`)
-                }}
-                onDeleteClick={() => {
-                  setNoteToDeleteData({
-                    id: note.id,
-                    docNumber: note.docNumber,
-                    createdAt: note.createdAt,
-                  })
-                  setIsDeleteConfirmationModalOpen(true)
-                }}
-                onLikeClick={(id: string) => likeNote(id)}
-                onUnlikeClick={(id: string) => unlikeNote(id)}
-                isEditOptionEnabled
-                isDeleteOptionEnabled
-              />
-            ))
-          : null}
-      </NotesTable>
+        data={notes?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+        onLikeClick={likeNote}
+        onUnLikeClick={unlikeNote}
+      />
       <Fab href="/notes/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}
@@ -174,11 +158,11 @@ const NotesPage = () => {
           if (noteToDeleteData) {
             deleteNote(noteToDeleteData.id)
           }
-          setNoteToDeleteData(null)
+          setNoteToDeleteData(undefined)
         }}
         handleClose={() => {
           setIsDeleteConfirmationModalOpen(false)
-          setNoteToDeleteData(null)
+          setNoteToDeleteData(undefined)
         }}
       />
     </>

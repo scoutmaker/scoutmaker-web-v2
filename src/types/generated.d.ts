@@ -29,7 +29,7 @@ declare namespace Components {
       message: string
     }
     export interface ChangeRoleDto {
-      role: 'ADMIN' | 'PLAYMAKER_SCOUT' | 'SCOUT'
+      role: 'ADMIN' | 'PLAYMAKER_SCOUT' | 'PLAYMAKER_SCOUT_MANAGER' | 'SCOUT'
     }
     export interface ClubBasicDataDto {
       id: string
@@ -383,7 +383,7 @@ declare namespace Components {
     }
     export interface CreateUserDto {
       id?: string
-      role?: 'ADMIN' | 'PLAYMAKER_SCOUT' | 'SCOUT'
+      role?: 'ADMIN' | 'PLAYMAKER_SCOUT' | 'PLAYMAKER_SCOUT_MANAGER' | 'SCOUT'
       status?: 'PENDING' | 'ACTIVE' | 'BLOCKED'
       email: string
       firstName: string
@@ -666,8 +666,8 @@ declare namespace Components {
       startDate: string // date-time
       endDate: string // date-time
       organization: OrganizationBasicDataDto
-      competitions: CompetitionBasicDataDto
-      competitionGroups: CompetitionGroupBasicDataDto
+      competitions: CompetitionBasicDataDto[]
+      competitionGroups: CompetitionGroupBasicDataDto[]
     }
     export interface PasswordResetDto {
       password: string // [object Object]
@@ -780,6 +780,7 @@ declare namespace Components {
       status: 'IN_PROGRESS' | 'FINISHED'
       id: string
       docNumber: number
+      maxRatingScore: number
       shirtNo?: number
       minutesPlayed?: number
       goals?: number
@@ -793,7 +794,6 @@ declare namespace Components {
       avgRating?: number
       percentageRating?: number
       createdAt: string // date-time
-      template: ReportTemplateBasicDataDto
       player: PlayerSuperBasicDataDto
       match?: MatchBasicDataDto
       author: UserBasicDataDto
@@ -1175,9 +1175,10 @@ declare namespace Components {
       id: string
       firstName: string
       lastName: string
+      email: string
     }
     export interface UserDto {
-      role: 'SCOUT' | 'PLAYMAKER_SCOUT' | 'ADMIN'
+      role: 'SCOUT' | 'PLAYMAKER_SCOUT' | 'PLAYMAKER_SCOUT_MANAGER' | 'ADMIN'
       status: 'PENDING' | 'ACTIVE' | 'BLOCKED'
       id: string
       email: string
@@ -1228,8 +1229,8 @@ declare namespace Components {
       startDate: string // date-time
       endDate: string // date-time
       user: UserBasicDataDto
-      competitions: CompetitionBasicDataDto
-      competitionGroups: CompetitionGroupBasicDataDto
+      competitions: CompetitionBasicDataDto[]
+      competitionGroups: CompetitionGroupBasicDataDto[]
     }
   }
 }
@@ -4701,7 +4702,7 @@ declare namespace Paths {
       export interface $200 {
         success: boolean
         message: string
-        data?: Components.Schemas.ReportTemplateDto
+        data?: Components.Schemas.ReportTemplateBasicDataDto
       }
     }
   }
@@ -5817,7 +5818,11 @@ declare namespace Paths {
       export type Name = string
       export type Page = number
       export type RegionIds = string[]
-      export type Role = 'ADMIN' | 'PLAYMAKER_SCOUT' | 'SCOUT'
+      export type Role =
+        | 'ADMIN'
+        | 'PLAYMAKER_SCOUT'
+        | 'PLAYMAKER_SCOUT_MANAGER'
+        | 'SCOUT'
       export type SortBy =
         | 'id'
         | 'firstName'

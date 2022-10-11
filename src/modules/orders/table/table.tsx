@@ -1,11 +1,17 @@
 import { TFunction, useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
 
 import { Table } from '@/components/tables/table'
 import { ICommonTableProps, IHeadCell } from '@/types/tables'
 
+import { OrderDto } from '../types'
+import { OrdersTableRow } from './row'
+
 interface ITableProps extends ICommonTableProps {
-  children: ReactNode
+  data: OrderDto[]
+  handleDeleteItemClick: (data: { id: string }) => void
+  onAcceptOrderClick: (id: string) => void
+  onRejectOrderClick: (id: string) => void
+  onCloseOrderClick: (id: string) => void
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
@@ -32,7 +38,11 @@ export const OrdersTable = ({
   handleSort,
   total,
   actions,
-  children,
+  data,
+  handleDeleteItemClick,
+  onAcceptOrderClick,
+  onCloseOrderClick,
+  onRejectOrderClick,
 }: ITableProps) => {
   const { t } = useTranslation()
 
@@ -49,7 +59,16 @@ export const OrdersTable = ({
       headCells={generateHeadCells(t)}
       actions={actions}
     >
-      {children}
+      {data.map(orderData => (
+        <OrdersTableRow
+          onAcceptOrderClick={onAcceptOrderClick}
+          onCloseOrderClick={onCloseOrderClick}
+          onRejectOrderClick={onRejectOrderClick}
+          key={orderData.id}
+          data={orderData}
+          onDeleteClick={() => handleDeleteItemClick({ id: orderData.id })}
+        />
+      ))}
     </Table>
   )
 }

@@ -18,8 +18,6 @@ interface ITableRowProps {
   data: InsiderNoteDto
   onEditClick: () => void
   onDeleteClick: () => void
-  isEditOptionEnabled: boolean
-  isDeleteOptionEnabled: boolean
   onUnlikeClick: (id: string) => void
   onLikeClick: (id: string) => void
 }
@@ -28,8 +26,6 @@ export const InsiderNotesTableRow = ({
   data,
   onEditClick,
   onDeleteClick,
-  isEditOptionEnabled,
-  isDeleteOptionEnabled,
   onUnlikeClick,
   onLikeClick,
 }: ITableRowProps) => {
@@ -65,8 +61,6 @@ export const InsiderNotesTableRow = ({
           isMenuOpen={isMenuOpen}
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
-          isDeleteOptionEnabled={isDeleteOptionEnabled}
-          isEditOptionEnabled={isEditOptionEnabled}
           onDeleteClick={() => handleMenuAction(onDeleteClick)}
           onEditClick={() => handleMenuAction(onEditClick)}
         >
