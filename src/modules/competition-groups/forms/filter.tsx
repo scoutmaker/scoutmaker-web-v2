@@ -2,8 +2,8 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
-import { Combo } from '@/components/combo/combo'
-import { mapGenericNameToComboOptions } from '@/components/combo/utils'
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
@@ -46,15 +46,15 @@ export const CompetitionGroupsFilterForm = ({
               label={t('NAME')}
               size="small"
             />
-            <Combo
+            <FilterCombo
               multiple
               data={mapCompetitionsListToComboOptions(competitionsData)}
               name="competitionIds"
               label={t('COMPETITIONS')}
               size="small"
             />
-            <Combo
-              data={mapGenericNameToComboOptions(regionsData)}
+            <FilterCombo
+              data={mapListDataToComboOptions(regionsData)}
               name="regionIds"
               label={t('REGIONS')}
               size="small"

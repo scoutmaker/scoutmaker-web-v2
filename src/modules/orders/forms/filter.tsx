@@ -3,8 +3,8 @@ import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { Combo } from '@/components/combo/combo'
-import { mapGenericNameToComboOptions } from '@/components/combo/utils'
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { MatchBasicDataDto } from '@/modules/matches/types'
@@ -49,21 +49,21 @@ export const OrdersFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <Container>
-            <Combo
+            <FilterCombo
               data={mapPlayersListToComboOptions(playersData)}
               name="playerIds"
               label={t('PLAYERS')}
               multiple
               size="small"
             />
-            <Combo
-              data={mapGenericNameToComboOptions(teamsData)}
+            <FilterCombo
+              data={mapListDataToComboOptions(teamsData)}
               name="teamIds"
               label={t('TEAMS')}
               multiple
               size="small"
             />
-            <Combo
+            <FilterCombo
               data={mapMatchesListToComboOptions(matchesData)}
               name="matchIds"
               label={t('MATCHES')}

@@ -3,8 +3,8 @@ import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { Combo } from '@/components/combo/combo'
-import { mapGenericNameToComboOptions } from '@/components/combo/utils'
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
@@ -50,20 +50,20 @@ export const MatchesFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <Container>
-            <Combo
-              data={mapGenericNameToComboOptions(teamsData)}
+            <FilterCombo
+              data={mapListDataToComboOptions(teamsData)}
               name="teamId"
               label={t('TEAM')}
               size="small"
             />
-            <Combo
+            <FilterCombo
               name="competitionIds"
               data={mapCompetitionsListToComboOptions(competitionsData)}
               label={t('COMPETITIONS')}
               multiple
               size="small"
             />
-            <Combo
+            <FilterCombo
               name="groupIds"
               data={mapCompetitionGroupsListToComboOptions(
                 competitionGroupsData,
@@ -72,8 +72,8 @@ export const MatchesFilterForm = ({
               multiple
               size="small"
             />
-            <Combo
-              data={mapGenericNameToComboOptions(seasonsData)}
+            <FilterCombo
+              data={mapListDataToComboOptions(seasonsData)}
               name="seasonId"
               label={t('SEASON')}
               size="small"

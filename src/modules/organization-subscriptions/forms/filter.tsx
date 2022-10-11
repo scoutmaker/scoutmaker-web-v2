@@ -1,8 +1,8 @@
 import { Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
-import { Combo } from '@/components/combo/combo'
-import { mapGenericNameToComboOptions } from '@/components/combo/utils'
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
@@ -41,20 +41,20 @@ export const OrganizationSubscriptionsFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <Container>
-            <Combo
-              data={mapGenericNameToComboOptions(organizationsData)}
+            <FilterCombo
+              data={mapListDataToComboOptions(organizationsData)}
               name="organizationId"
               size="small"
               label={t('ORGANIZATION')}
             />
-            <Combo
+            <FilterCombo
               data={mapCompetitionsListToComboOptions(competitionsData)}
               name="competitionIds"
               multiple
               label={t('COMPETITIONS')}
               size="small"
             />
-            <Combo
+            <FilterCombo
               data={mapCompetitionGroupsListToComboOptions(
                 competitionGroupsData,
               )}

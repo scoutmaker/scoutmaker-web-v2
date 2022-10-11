@@ -4,8 +4,8 @@ import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { Combo } from '@/components/combo/combo'
-import { mapGenericNameToComboOptions } from '@/components/combo/utils'
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { RatingRangeSelect } from '@/components/rating-range-select/rating-range-select'
@@ -61,42 +61,42 @@ export const ReportsFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <Container>
-            <Combo
+            <FilterCombo
               name="playerIds"
               data={mapPlayersListToComboOptions(playersData)}
               label={t('PLAYERS')}
               multiple
               size="small"
             />
-            <Combo
+            <FilterCombo
               name="positionIds"
-              data={mapGenericNameToComboOptions(positionsData)}
+              data={mapListDataToComboOptions(positionsData)}
               label={t('POSITIONS')}
               multiple
               size="small"
             />
-            <Combo
-              data={mapGenericNameToComboOptions(teamsData)}
+            <FilterCombo
+              data={mapListDataToComboOptions(teamsData)}
               name="teamIds"
               label={t('TEAMS')}
               multiple
               size="small"
             />
-            <Combo
+            <FilterCombo
               data={mapMatchesListToComboOptions(matchesData)}
               name="matchIds"
               label={t('MATCHES')}
               multiple
               size="small"
             />
-            <Combo
+            <FilterCombo
               name="competitionIds"
               data={mapCompetitionsListToComboOptions(competitionsData)}
               label={t('COMPETITIONS')}
               multiple
               size="small"
             />
-            <Combo
+            <FilterCombo
               name="competitionGroupIds"
               data={mapCompetitionGroupsListToComboOptions(
                 competitionGroupsData,

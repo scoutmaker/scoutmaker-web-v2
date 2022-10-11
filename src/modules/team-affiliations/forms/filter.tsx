@@ -1,8 +1,8 @@
 import { Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
-import { Combo } from '@/components/combo/combo'
-import { mapGenericNameToComboOptions } from '@/components/combo/utils'
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { PlayerBasicDataDto } from '@/modules/players/types'
@@ -37,15 +37,15 @@ export const TeamAffiliationFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <Container>
-            <Combo
+            <FilterCombo
               name="playerId"
               data={mapPlayersListToComboOptions(playersData)}
               label={t('PLAYER')}
               size="small"
             />
-            <Combo
+            <FilterCombo
               name="teamId"
-              data={mapGenericNameToComboOptions(teamsData)}
+              data={mapListDataToComboOptions(teamsData)}
               label={t('TEAM')}
               size="small"
             />

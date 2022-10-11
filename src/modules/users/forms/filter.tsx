@@ -2,8 +2,8 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
-import { Combo } from '@/components/combo/combo'
-import { mapGenericNameToComboOptions } from '@/components/combo/utils'
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { ClubBasicDataDto } from '@/modules/clubs/types'
@@ -50,22 +50,22 @@ export const UsersFilterForm = ({
               size="small"
             />
             <RoleSelect name="role" label={t('ROLE')} size="small" />
-            <Combo
-              data={mapGenericNameToComboOptions(regionsData)}
+            <FilterCombo
+              data={mapListDataToComboOptions(regionsData)}
               name="regionIds"
               multiple
               size="small"
               label={t('REGIONS')}
             />
-            <Combo
-              data={mapGenericNameToComboOptions(clubsData)}
+            <FilterCombo
+              data={mapListDataToComboOptions(clubsData)}
               name="clubIds"
               multiple
               size="small"
               label={t('CLUBS')}
             />
-            <Combo
-              data={mapGenericNameToComboOptions(userFootballRolesData)}
+            <FilterCombo
+              data={mapListDataToComboOptions(userFootballRolesData)}
               name="footballRoleIds"
               multiple
               size="small"

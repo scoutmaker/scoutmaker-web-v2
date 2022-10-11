@@ -2,8 +2,8 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
-import { Combo } from '@/components/combo/combo'
-import { mapGenericNameToComboOptions } from '@/components/combo/utils'
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { ReportSkillAssessmentCategoryDto } from '@/modules/report-skill-assessment-categories/types'
@@ -42,9 +42,9 @@ export const ReportSkillAssessmentTemplatesFilterForm = ({
               label={t('NAME')}
               size="small"
             />
-            <Combo
+            <FilterCombo
               name="categoryIds"
-              data={mapGenericNameToComboOptions(categoriesData)}
+              data={mapListDataToComboOptions(categoriesData)}
               multiple
               label={t('CATEGORIES')}
               size="small"

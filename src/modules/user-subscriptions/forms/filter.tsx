@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
-import { Combo } from '@/components/combo/combo'
+import { FilterCombo } from '@/components/combo/combo'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
@@ -39,20 +39,20 @@ export const UserSubscriptionsFilterForm = ({
     >
       <Form autoComplete="off">
         <Container>
-          <Combo
+          <FilterCombo
             data={mapUsersListToComboOptions(usersData)}
             name="userId"
             size="small"
             label={t('USER')}
           />
-          <Combo
+          <FilterCombo
             data={mapCompetitionsListToComboOptions(competitionsData)}
             name="competitionIds"
             multiple
             size="small"
             label={t('COMPETITIONS')}
           />
-          <Combo
+          <FilterCombo
             data={mapCompetitionGroupsListToComboOptions(competitionGroupsData)}
             name="competitionGroupIds"
             multiple

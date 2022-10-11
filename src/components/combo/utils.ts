@@ -1,13 +1,12 @@
 import { IComboOptions } from './types'
 
-interface IGenericData {
+interface IStandardListData {
   id: string
   name: string
-  [index: string]: any
 }
 
-export function mapGenericNameToComboOptions(
-  data: IGenericData[],
+export function mapListDataToComboOptions(
+  data: IStandardListData[],
 ): IComboOptions[] {
   return data.map(({ id, name }) => ({
     id,

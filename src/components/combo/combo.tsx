@@ -14,7 +14,7 @@ interface IComboProps {
   helperText?: string
 }
 
-export const Combo = ({
+export const FilterCombo = ({
   data,
   name,
   label,
@@ -36,7 +36,7 @@ export const Combo = ({
       option.id === value.id
     }
     renderOption={(props: any, option: IComboOptions) => (
-      <Box component="li" {...props} key={option.label + option.id}>
+      <Box component="li" {...props} key={option.id}>
         {option.label}
       </Box>
     )}

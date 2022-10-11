@@ -3,8 +3,8 @@ import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { Combo } from '@/components/combo/combo'
-import { mapGenericNameToComboOptions } from '@/components/combo/utils'
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
@@ -55,35 +55,35 @@ export const InsiderNotesFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <Container>
-            <Combo
+            <FilterCombo
               data={mapPlayersListToComboOptions(playersData)}
               label={t('PLAYERS')}
               name="playerIds"
               size="small"
               multiple
             />
-            <Combo
-              data={mapGenericNameToComboOptions(playerPositionsData)}
+            <FilterCombo
+              data={mapListDataToComboOptions(playerPositionsData)}
               label={t('POSITIONS')}
               name="positionIds"
               size="small"
               multiple
             />
-            <Combo
-              data={mapGenericNameToComboOptions(teamsData)}
+            <FilterCombo
+              data={mapListDataToComboOptions(teamsData)}
               label={t('TEAMS')}
               name="teamIds"
               size="small"
               multiple
             />
-            <Combo
+            <FilterCombo
               data={mapCompetitionsListToComboOptions(competitionsData)}
               label={t('COMPETITIONS')}
               name="competitionIds"
               size="small"
               multiple
             />
-            <Combo
+            <FilterCombo
               data={mapCompetitionGroupsListToComboOptions(
                 competitionGroupsData,
               )}

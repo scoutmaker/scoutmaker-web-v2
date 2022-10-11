@@ -2,8 +2,8 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
-import { Combo } from '@/components/combo/combo'
-import { mapGenericNameToComboOptions } from '@/components/combo/utils'
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { ClubsFiltersState } from '@/modules/clubs/types'
@@ -44,15 +44,15 @@ export const ClubsFilterForm = ({
               label={t('NAME')}
               size="small"
             />
-            <Combo
+            <FilterCombo
               name="regionId"
-              data={mapGenericNameToComboOptions(regionsData)}
+              data={mapListDataToComboOptions(regionsData)}
               size="small"
               label={t('REGION')}
             />
-            <Combo
+            <FilterCombo
               name="countryId"
-              data={mapGenericNameToComboOptions(countriesData)}
+              data={mapListDataToComboOptions(countriesData)}
               size="small"
               label={t('COUNTRY')}
             />

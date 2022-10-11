@@ -4,8 +4,8 @@ import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { Combo } from '@/components/combo/combo'
-import { mapGenericNameToComboOptions } from '@/components/combo/utils'
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { ClubBasicDataDto } from '@/modules/clubs/types'
@@ -63,34 +63,34 @@ export const TeamsFilterForm = ({
               label={t('NAME')}
               size="small"
             />
-            <Combo
+            <FilterCombo
               name="countryIds"
-              data={mapGenericNameToComboOptions(countriesData)}
+              data={mapListDataToComboOptions(countriesData)}
               label={t('COUNTRIES')}
               multiple
               size="small"
             />
-            <Combo
+            <FilterCombo
               name="regionIds"
-              data={mapGenericNameToComboOptions(regionsData)}
+              data={mapListDataToComboOptions(regionsData)}
               label={t('REGIONS')}
               multiple
               size="small"
             />
-            <Combo
-              data={mapGenericNameToComboOptions(clubsData)}
+            <FilterCombo
+              data={mapListDataToComboOptions(clubsData)}
               name="clubId"
               label={t('CLUB')}
               size="small"
             />
-            <Combo
+            <FilterCombo
               name="competitionIds"
               data={mapCompetitionsListToComboOptions(competitionsData)}
               label={t('COMPETITIONS')}
               multiple
               size="small"
             />
-            <Combo
+            <FilterCombo
               name="competitionGroupIds"
               data={mapCompetitionGroupsListToComboOptions(
                 competitionGroupsData,

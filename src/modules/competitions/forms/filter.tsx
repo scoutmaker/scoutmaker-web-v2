@@ -2,8 +2,8 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
-import { Combo } from '@/components/combo/combo'
-import { mapGenericNameToComboOptions } from '@/components/combo/utils'
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { CompetitionAgeCategortyDto } from '@/modules/competition-age-categories/types'
@@ -63,27 +63,27 @@ export const CompetitionsFilterForm = ({
               inputProps={{ min: 1, max: 15, step: 1, pattern: '[1-9]|1[0-5]' }}
             />
             <GendersSelect name="gender" label={t('GENDER')} size="small" />
-            <Combo
+            <FilterCombo
               name="countryId"
-              data={mapGenericNameToComboOptions(countriesData)}
+              data={mapListDataToComboOptions(countriesData)}
               label={t('COUNTRY')}
               size="small"
             />
-            <Combo
+            <FilterCombo
               name="ageCategoryId"
-              data={mapGenericNameToComboOptions(competitionAgeCategoriesData)}
+              data={mapListDataToComboOptions(competitionAgeCategoriesData)}
               label={t('COMPETITION_AGE_CATEGORY')}
               size="small"
             />
-            <Combo
+            <FilterCombo
               name="typeId"
-              data={mapGenericNameToComboOptions(competitionTypesData)}
+              data={mapListDataToComboOptions(competitionTypesData)}
               label={t('COMPETITION_TYPE')}
               size="small"
             />
-            <Combo
+            <FilterCombo
               name="juniorLevelId"
-              data={mapGenericNameToComboOptions(competitionJuniorLevelsData)}
+              data={mapListDataToComboOptions(competitionJuniorLevelsData)}
               label={t('COMPETITION_JUNIOR_LEVEL')}
               size="small"
             />

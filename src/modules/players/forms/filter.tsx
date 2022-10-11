@@ -4,8 +4,8 @@ import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { Combo } from '@/components/combo/combo'
-import { mapGenericNameToComboOptions } from '@/components/combo/utils'
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
@@ -91,35 +91,35 @@ export const PlayersFilterForm = ({
               </Grid>
             </Grid>
             <FootedSelect name="footed" label={t('FOOTED')} size="small" />
-            <Combo
+            <FilterCombo
               name="countryIds"
-              data={mapGenericNameToComboOptions(countriesData)}
+              data={mapListDataToComboOptions(countriesData)}
               label={t('COUNTRIES')}
               size="small"
               multiple
             />
-            <Combo
+            <FilterCombo
               name="positionIds"
-              data={mapGenericNameToComboOptions(positionsData)}
+              data={mapListDataToComboOptions(positionsData)}
               label={t('POSITIONS')}
               size="small"
               multiple
             />
-            <Combo
+            <FilterCombo
               name="teamIds"
-              data={mapGenericNameToComboOptions(teamsData)}
+              data={mapListDataToComboOptions(teamsData)}
               label={t('TEAM')}
               size="small"
               multiple
             />
-            <Combo
+            <FilterCombo
               name="competitionIds"
               data={mapCompetitionsListToComboOptions(competitionsData)}
               label={t('COMPETITIONS')}
               size="small"
               multiple
             />
-            <Combo
+            <FilterCombo
               name="competitionGroupIds"
               data={mapCompetitionGroupsListToComboOptions(
                 competitionGroupsData,
