@@ -36,6 +36,10 @@ export function mapMatchesListToComboOptions(
 ): IComboOptions[] {
   return data.map(({ id, homeTeam, awayTeam, competition }) => ({
     id,
-    label: `${homeTeam.name} vs. ${awayTeam.name} (${competition.name})`,
+    label: getMatchDisplayName({
+      homeTeamName: homeTeam.name,
+      awayTeamName: awayTeam.name,
+      competitionName: competition.name,
+    }),
   }))
 }
