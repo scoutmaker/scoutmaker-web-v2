@@ -19,6 +19,7 @@ import { CompetitionsTable } from '@/modules/competitions/table/table'
 import {
   CompetitionsFiltersDto,
   CompetitionsSortBy,
+  FindAllCompetitionsParams,
 } from '@/modules/competitions/types'
 import { useCountriesList } from '@/modules/countries/hooks'
 import { INameToDeleteData } from '@/types/tables'
@@ -37,7 +38,7 @@ const initialFilters: CompetitionsFiltersDto = {
   countryId: '',
   gender: undefined,
   juniorLevelId: '',
-  level: 0,
+  level: '',
   typeId: '',
 }
 
@@ -83,7 +84,7 @@ const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
       limit: rowsPerPage,
       sortBy: sortBy as CompetitionsSortBy,
       sortingOrder: order,
-      ...filters,
+      ...(filters as FindAllCompetitionsParams),
     })
 
   const { mutate: deleteCompetition, isLoading: deleteCompetitionLoading } =

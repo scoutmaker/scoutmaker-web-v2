@@ -116,11 +116,6 @@ export const NavList = ({ isAtTheMatch }: INavListProps) => {
           to="/insider-notes"
           text={t('INSIDER_NOTES')}
         />
-        <NavElement
-          icon={<ReportTemplatesIcon color="error" />}
-          to="/reporttemplates"
-          text={t('REPORT_TEMPLATES_CREATOR')}
-        />
       </ExpandeableNavElement>
       {isPrivilegedUser(user) ? (
         <NavElement
