@@ -10,11 +10,7 @@ import { PageHeading } from '@/components/page-heading/page-heading'
 import { ClubsFilterForm } from '@/modules/clubs/forms/filter'
 import { useClubs, useDeleteClub } from '@/modules/clubs/hooks'
 import { ClubsTable } from '@/modules/clubs/table/table'
-import {
-  ClubsFiltersDto,
-  ClubsFiltersState,
-  ClubsSortBy,
-} from '@/modules/clubs/types'
+import { ClubsFiltersState, ClubsSortBy } from '@/modules/clubs/types'
 import { useCountriesList } from '@/modules/countries/hooks'
 import { useRegionsList } from '@/modules/regions/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'

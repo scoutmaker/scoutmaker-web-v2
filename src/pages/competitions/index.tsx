@@ -20,7 +20,6 @@ import { CompetitionsTable } from '@/modules/competitions/table/table'
 import {
   CompetitionsFiltersState,
   CompetitionsSortBy,
-  FindAllCompetitionsParams,
 } from '@/modules/competitions/types'
 import { useCountriesList } from '@/modules/countries/hooks'
 import { INameToDeleteData } from '@/types/tables'

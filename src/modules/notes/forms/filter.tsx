@@ -115,14 +115,16 @@ export const NotesFilterForm = ({
             </Grid>
             <FilterCombo
               name="competitionIds"
-              data={competitionsData}
+              data={mapCompetitionsListToComboOptions(competitionsData)}
               label={t('COMPETITIONS')}
               multiple
               size="small"
             />
             <FilterCombo
               name="competitionGroupIds"
-              data={competitionGroupsData}
+              data={mapCompetitionGroupsListToComboOptions(
+                competitionGroupsData,
+              )}
               label={t('COMPETITION_GROUPS')}
               multiple
               size="small"

@@ -19,7 +19,6 @@ import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { PlayersFiltersState } from '../types'
 
-
 interface IPlayersFilterFormProps {
   countriesData: CountryDto[]
   positionsData: PlayerPositionDto[]
