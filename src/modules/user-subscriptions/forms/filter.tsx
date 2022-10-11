@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik'
 
-import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
+import { FilterFormContainer } from '@/components/forms/filter-form-container'
 import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { CompetitionsCombo } from '@/modules/competitions/combo'
@@ -35,7 +35,7 @@ export const UserSubscriptionsFilterForm = ({
   >
     {() => (
       <Form autoComplete="off">
-        <Container>
+        <FilterFormContainer>
           <UsersCombo data={usersData} name="userId" size="small" />
           <CompetitionsCombo
             data={competitionsData}
@@ -49,8 +49,8 @@ export const UserSubscriptionsFilterForm = ({
             multiple
             size="small"
           />
-          <FilterFormActions handleClearFilter={onClearFilters} />
-        </Container>
+        </FilterFormContainer>
+        <FilterFormActions handleClearFilter={onClearFilters} />
       </Form>
     )}
   </Formik>

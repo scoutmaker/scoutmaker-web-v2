@@ -1,11 +1,11 @@
 import { Grid, TextField } from '@mui/material'
-import { styled } from '@mui/material/styles'
 import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { Container } from '@/components/forms/container'
+import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
+import { FilterFormContainer } from '@/components/forms/filter-form-container'
 import { RatingRangeSelect } from '@/components/rating-range-select/rating-range-select'
 import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
@@ -21,11 +21,6 @@ import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { ReportsFilterFormData } from '../types'
-
-const StyledCheckboxContainer = styled('div')(() => ({
-  display: 'flex',
-  justifyContent: 'center',
-}))
 
 interface IReportsFilterFormProps {
   playersData: PlayerBasicDataDto[]
@@ -60,7 +55,7 @@ export const ReportsFilterForm = ({
     >
       {() => (
         <Form autoComplete="off">
-          <Container>
+          <FilterFormContainer>
             <PlayersCombo
               name="playerIds"
               data={playersData}
@@ -68,6 +63,32 @@ export const ReportsFilterForm = ({
               multiple
               size="small"
             />
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <Field
+                  name="playerBornAfter"
+                  as={TextField}
+                  type="number"
+                  variant="outlined"
+                  fullWidth
+                  label={t('BORN_AFTER')}
+                  size="small"
+                  inputProps={{ min: 1980, max: 2020, pattern: '/d+', step: 1 }}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Field
+                  name="playerBornBefore"
+                  as={TextField}
+                  type="number"
+                  variant="outlined"
+                  fullWidth
+                  label={t('BORN_BEFORE')}
+                  size="small"
+                  inputProps={{ min: 1980, max: 2020, pattern: '/d+', step: 1 }}
+                />
+              </Grid>
+            </Grid>
             <PlayersPositionCombo
               name="positionIds"
               data={positionsData}
@@ -108,58 +129,32 @@ export const ReportsFilterForm = ({
               label={t('RATING_RANGE')}
               size="small"
             />
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
+          </FilterFormContainer>
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <FilterCheckboxContainer>
                 <Field
-                  name="playerBornAfter"
-                  as={TextField}
-                  type="number"
-                  variant="outlined"
-                  fullWidth
-                  label={t('BORN_AFTER')}
+                  component={CheckboxWithLabel}
+                  type="checkbox"
+                  name="isLiked"
+                  Label={{ label: t('reports:LIKED_ONLY') }}
                   size="small"
-                  inputProps={{ min: 1980, max: 2020, pattern: '/d+', step: 1 }}
                 />
-              </Grid>
-              <Grid item xs={6}>
+              </FilterCheckboxContainer>
+            </Grid>
+            <Grid item xs={6}>
+              <FilterCheckboxContainer>
                 <Field
-                  name="playerBornBefore"
-                  as={TextField}
-                  type="number"
-                  variant="outlined"
-                  fullWidth
-                  label={t('BORN_BEFORE')}
+                  component={CheckboxWithLabel}
+                  type="checkbox"
+                  name="hasVideo"
+                  Label={{ label: t('reports:WITH_VIDEO_ONLY') }}
                   size="small"
-                  inputProps={{ min: 1980, max: 2020, pattern: '/d+', step: 1 }}
                 />
-              </Grid>
+              </FilterCheckboxContainer>
             </Grid>
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <StyledCheckboxContainer>
-                  <Field
-                    component={CheckboxWithLabel}
-                    type="checkbox"
-                    name="isLiked"
-                    Label={{ label: t('reports:LIKED_ONLY') }}
-                    size="small"
-                  />
-                </StyledCheckboxContainer>
-              </Grid>
-              <Grid item xs={6}>
-                <StyledCheckboxContainer>
-                  <Field
-                    component={CheckboxWithLabel}
-                    type="checkbox"
-                    name="hasVideo"
-                    Label={{ label: t('reports:WITH_VIDEO_ONLY') }}
-                    size="small"
-                  />
-                </StyledCheckboxContainer>
-              </Grid>
-            </Grid>
-            <FilterFormActions handleClearFilter={onClearFilters} />
-          </Container>
+          </Grid>
+          <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>
       )}
     </Formik>

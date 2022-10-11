@@ -1,10 +1,10 @@
-import { styled } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { Container } from '@/components/forms/container'
+import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
+import { FilterFormContainer } from '@/components/forms/filter-form-container'
 import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { CompetitionsCombo } from '@/modules/competitions/combo'
@@ -17,11 +17,6 @@ import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { InsiderNotesFiltersDto } from '../types'
-
-const StyledCheckboxContainer = styled('div')(() => ({
-  display: 'flex',
-  justifyContent: 'center',
-}))
 
 interface IFilterFormProps {
   filters: InsiderNotesFiltersDto
@@ -54,7 +49,7 @@ export const InsiderNotesFilterForm = ({
     >
       {() => (
         <Form autoComplete="off">
-          <Container>
+          <FilterFormContainer>
             <PlayersCombo
               data={playersData}
               label={t('PLAYERS')}
@@ -89,17 +84,17 @@ export const InsiderNotesFilterForm = ({
               size="small"
               name="competitionGroupIds"
             />
-            <StyledCheckboxContainer>
-              <Field
-                component={CheckboxWithLabel}
-                type="checkbox"
-                name="isLiked"
-                Label={{ label: t('ONLY_LIKED') }}
-                size="small"
-              />
-            </StyledCheckboxContainer>
-            <FilterFormActions handleClearFilter={onClearFilters} />
-          </Container>
+          </FilterFormContainer>
+          <FilterCheckboxContainer>
+            <Field
+              component={CheckboxWithLabel}
+              type="checkbox"
+              name="isLiked"
+              Label={{ label: t('ONLY_LIKED') }}
+              size="small"
+            />
+          </FilterCheckboxContainer>
+          <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>
       )}
     </Formik>

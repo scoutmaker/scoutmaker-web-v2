@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -77,12 +78,14 @@ const RegionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('regions:INDEX_PAGE_TITLE')} />
-      <RegionsFilterForm
-        filters={filters}
-        countriesData={countries || []}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <RegionsFilterForm
+          filters={filters}
+          countriesData={countries || []}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <RegionsTable
         page={page}
         rowsPerPage={rowsPerPage}

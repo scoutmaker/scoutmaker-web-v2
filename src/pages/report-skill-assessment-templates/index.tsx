@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -92,12 +93,14 @@ const ReportSkillAssessmentTemplatesPage = ({
       <PageHeading
         title={t('report-skill-assessment-templates:INDEX_PAGE_TITLE')}
       />
-      <ReportSkillAssessmentTemplatesFilterForm
-        filters={filters}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-        categoriesData={categories || []}
-      />
+      <FilterAccordion>
+        <ReportSkillAssessmentTemplatesFilterForm
+          filters={filters}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+          categoriesData={categories || []}
+        />
+      </FilterAccordion>
       <ReportSkillAssessmentTemplatesTable
         page={page}
         rowsPerPage={rowsPerPage}

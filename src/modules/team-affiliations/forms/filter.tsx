@@ -1,8 +1,8 @@
 import { Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
-import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
+import { FilterFormContainer } from '@/components/forms/filter-form-container'
 import { PlayersCombo } from '@/modules/players/combo'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { TeamsCombo } from '@/modules/teams/combo'
@@ -35,7 +35,7 @@ export const TeamAffiliationFilterForm = ({
     >
       {() => (
         <Form autoComplete="off">
-          <Container>
+          <FilterFormContainer>
             <PlayersCombo
               name="playerId"
               data={playersData}
@@ -48,8 +48,8 @@ export const TeamAffiliationFilterForm = ({
               label={t('TEAM')}
               size="small"
             />
-            <FilterFormActions handleClearFilter={onClearFilters} />
-          </Container>
+          </FilterFormContainer>
+          <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>
       )}
     </Formik>

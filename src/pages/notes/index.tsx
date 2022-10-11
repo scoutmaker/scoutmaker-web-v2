@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -114,17 +115,19 @@ const NotesPage = () => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('notes:INDEX_PAGE_TITLE')} />
-      <NotesFilterForm
-        filters={filters}
-        matchesData={matches || []}
-        playersData={players || []}
-        positionsData={positions || []}
-        teamsData={teams || []}
-        competitionsData={competitions || []}
-        competitionGroupsData={competitionGroups || []}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <NotesFilterForm
+          filters={filters}
+          matchesData={matches || []}
+          playersData={players || []}
+          positionsData={positions || []}
+          teamsData={teams || []}
+          competitionsData={competitions || []}
+          competitionGroupsData={competitionGroups || []}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <NotesTable
         page={page}
         rowsPerPage={rowsPerPage}

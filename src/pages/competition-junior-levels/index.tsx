@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -85,11 +86,13 @@ const CompetitionJuniorLevelsPage = ({
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('comp-junior-levels:INDEX_PAGE_TITLE')} />
-      <CompetitionJuniorLevelsFilterForm
-        filters={filters}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <CompetitionJuniorLevelsFilterForm
+          filters={filters}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <CompetitionJuniorLevelsTable
         page={page}
         rowsPerPage={rowsPerPage}

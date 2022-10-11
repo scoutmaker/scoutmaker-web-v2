@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -80,13 +81,15 @@ const ClubsPage = () => {
         regionsLoading ||
         deleteClubLoading) && <Loader />}
       <PageHeading title={t('clubs:INDEX_PAGE_TITLE')} />
-      <ClubsFilterForm
-        filters={filters}
-        countriesData={countries || []}
-        regionsData={regions || []}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <ClubsFilterForm
+          filters={filters}
+          countriesData={countries || []}
+          regionsData={regions || []}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <ClubsTable
         page={page}
         rowsPerPage={rowsPerPage}
