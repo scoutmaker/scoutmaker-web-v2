@@ -17,8 +17,6 @@ interface ITableMenuProps {
   onMenuClose: () => void
   onEditClick?: () => void
   onDeleteClick?: () => void
-  isEditOptionEnabled?: boolean
-  isDeleteOptionEnabled?: boolean
 }
 
 export const TableMenu = ({
@@ -27,8 +25,6 @@ export const TableMenu = ({
   isMenuOpen,
   onMenuClick,
   onMenuClose,
-  isDeleteOptionEnabled,
-  isEditOptionEnabled,
   onDeleteClick,
   onEditClick,
 }: ITableMenuProps) => {
@@ -59,7 +55,6 @@ export const TableMenu = ({
               icon={<EditIcon fontSize="small" />}
               text={t('EDIT')}
               onClick={onEditClick}
-              disabled={!isEditOptionEnabled}
             />
           )}
           {!!onDeleteClick && (
@@ -67,7 +62,6 @@ export const TableMenu = ({
               icon={<DeleteIcon fontSize="small" />}
               text={t('DELETE')}
               onClick={onDeleteClick}
-              disabled={!isDeleteOptionEnabled}
             />
           )}
           {children}

@@ -12,10 +12,8 @@ import { CompetitionParticipationDto } from '../types'
 interface ICompetitionParticipationsTableRowProps {
   data: CompetitionParticipationDto
   shouldDisplayTeamName?: boolean
-  onEditClick: () => void
-  onDeleteClick: () => void
-  isEditOptionEnabled: boolean
-  isDeleteOptionEnabled: boolean
+  onEditClick?: () => void
+  onDeleteClick?: () => void
   actions?: boolean
 }
 
@@ -24,8 +22,6 @@ export const CompetitionParticipationsTableRow = ({
   shouldDisplayTeamName,
   onEditClick,
   onDeleteClick,
-  isEditOptionEnabled,
-  isDeleteOptionEnabled,
   actions,
 }: ICompetitionParticipationsTableRowProps) => {
   const { competition, group, season, team, id } = data
@@ -56,10 +52,12 @@ export const CompetitionParticipationsTableRow = ({
             isMenuOpen={isMenuOpen}
             onMenuClick={handleMenuClick}
             onMenuClose={handleMenuClose}
-            isDeleteOptionEnabled={isDeleteOptionEnabled}
-            isEditOptionEnabled={isEditOptionEnabled}
-            onDeleteClick={() => handleMenuAction(onDeleteClick)}
-            onEditClick={() => handleMenuAction(onEditClick)}
+            onDeleteClick={
+              onDeleteClick ? () => handleMenuAction(onDeleteClick) : undefined
+            }
+            onEditClick={
+              onEditClick ? () => handleMenuAction(onEditClick) : undefined
+            }
           />
         </StyledTableCell>
       )}

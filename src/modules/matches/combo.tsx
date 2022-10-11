@@ -7,7 +7,9 @@ import { IComboProps } from '@/types/combo'
 
 import { MatchBasicDataDto } from './types'
 
-interface IMatchesComboProps extends IComboProps<MatchBasicDataDto> {}
+interface IMatchesComboProps extends IComboProps<MatchBasicDataDto> {
+  disabled?: boolean
+}
 
 export const MatchesCombo = ({
   data,
@@ -17,11 +19,13 @@ export const MatchesCombo = ({
   size,
   error,
   helperText,
+  disabled,
 }: IMatchesComboProps) => {
   const { t } = useTranslation()
 
   return (
     <Field
+      disabled={disabled}
       name={name}
       component={Autocomplete}
       multiple={multiple}

@@ -20,16 +20,12 @@ interface IMatchesTableRowProps {
   data: MatchDto
   onEditClick: () => void
   onDeleteClick: () => void
-  isEditOptionEnabled: boolean
-  isDeleteOptionEnabled: boolean
 }
 
 export const MatchesTableRow = ({
   data,
   onEditClick,
   onDeleteClick,
-  isEditOptionEnabled,
-  isDeleteOptionEnabled,
 }: IMatchesTableRowProps) => {
   const router = useRouter()
 
@@ -67,8 +63,6 @@ export const MatchesTableRow = ({
           isMenuOpen={isMenuOpen}
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
-          isDeleteOptionEnabled={isDeleteOptionEnabled}
-          isEditOptionEnabled={isEditOptionEnabled}
           onDeleteClick={() => handleMenuAction(onDeleteClick)}
           onEditClick={() => handleMenuAction(onEditClick)}
         />

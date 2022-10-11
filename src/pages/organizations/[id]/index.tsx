@@ -9,7 +9,6 @@ import { PageHeading } from '@/components/page-heading/page-heading'
 import { OrganizationDetailsCard } from '@/modules/organizations/details-card'
 import { useRemoveMemberOrganization } from '@/modules/organizations/hooks'
 import { OrganizationDto } from '@/modules/organizations/types'
-import { BasicUsersTableRow } from '@/modules/users/basic-table/row'
 import { BasicUsersTable } from '@/modules/users/basic-table/table'
 import { getOrganizationById } from '@/services/api/methods/organizations'
 import { ApiError } from '@/services/api/types'
@@ -79,16 +78,11 @@ const OrganizationPage = ({
           handleSort={() => {}}
           total={data.members.length}
           actions
-        >
-          {data.members.map(member => (
-            <BasicUsersTableRow
-              data={member}
-              onRemoveFromOrganization={() =>
-                removeMember({ memberId: member.id, organizationId: data.id })
-              }
-            />
-          ))}
-        </BasicUsersTable>
+          data={data.members}
+          onRemoveFromOrganization={memberId =>
+            removeMember({ memberId, organizationId: data.id })
+          }
+        />
       </section>
     </>
   )

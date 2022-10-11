@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -17,7 +17,6 @@ import {
   useNotes,
   useUnlikeNote,
 } from '@/modules/notes/hooks'
-import { NotesTableRow } from '@/modules/notes/table/row'
 import { NotesTable } from '@/modules/notes/table/table'
 import { NotesFiltersState, NotesSortBy } from '@/modules/notes/types'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
@@ -51,12 +50,10 @@ interface INoteToDeleteData {
 
 const NotesPage = () => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [noteToDeleteData, setNoteToDeleteData] =
-    useState<INoteToDeleteData | null>(null)
+  const [noteToDeleteData, setNoteToDeleteData] = useState<INoteToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -97,6 +94,11 @@ const NotesPage = () => {
   const { mutate: likeNote, isLoading: likeNoteLoading } = useLikeNote()
   const { mutate: unlikeNote, isLoading: unlikeNoteLoading } = useUnlikeNote()
 
+  const handleDeleteItemClick = (data: INoteToDeleteData) => {
+    setNoteToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading =
     teamsLoading ||
     competitionsLoading ||
@@ -113,17 +115,19 @@ const NotesPage = () => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('notes:INDEX_PAGE_TITLE')} />
-      <NotesFilterForm
-        filters={filters}
-        matchesData={matches || []}
-        playersData={players || []}
-        positionsData={positions || []}
-        teamsData={teams || []}
-        competitionsData={competitions || []}
-        competitionGroupsData={competitionGroups || []}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <NotesFilterForm
+          filters={filters}
+          matchesData={matches || []}
+          playersData={players || []}
+          positionsData={positions || []}
+          teamsData={teams || []}
+          competitionsData={competitions || []}
+          competitionGroupsData={competitionGroups || []}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <NotesTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -134,31 +138,11 @@ const NotesPage = () => {
         handleSort={handleSort}
         total={notes?.totalDocs || 0}
         actions
-      >
-        {notes
-          ? notes.docs.map(note => (
-              <NotesTableRow
-                key={note.id}
-                data={note}
-                onEditClick={() => {
-                  router.push(`/notes/edit/${note.id}`)
-                }}
-                onDeleteClick={() => {
-                  setNoteToDeleteData({
-                    id: note.id,
-                    docNumber: note.docNumber,
-                    createdAt: note.createdAt,
-                  })
-                  setIsDeleteConfirmationModalOpen(true)
-                }}
-                onLikeClick={(id: string) => likeNote(id)}
-                onUnlikeClick={(id: string) => unlikeNote(id)}
-                isEditOptionEnabled
-                isDeleteOptionEnabled
-              />
-            ))
-          : null}
-      </NotesTable>
+        data={notes?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+        onLikeClick={likeNote}
+        onUnLikeClick={unlikeNote}
+      />
       <Fab href="/notes/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}
@@ -174,11 +158,11 @@ const NotesPage = () => {
           if (noteToDeleteData) {
             deleteNote(noteToDeleteData.id)
           }
-          setNoteToDeleteData(null)
+          setNoteToDeleteData(undefined)
         }}
         handleClose={() => {
           setIsDeleteConfirmationModalOpen(false)
-          setNoteToDeleteData(null)
+          setNoteToDeleteData(undefined)
         }}
       />
     </>

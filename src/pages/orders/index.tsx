@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -16,7 +17,6 @@ import {
   useOrders,
   useRejectOrder,
 } from '@/modules/orders/hooks'
-import { OrdersTableRow } from '@/modules/orders/table/row'
 import { OrdersTable } from '@/modules/orders/table/table'
 import { OrdersFiltersState, OrdersSortBy } from '@/modules/orders/types'
 import { usePlayersList } from '@/modules/players/hooks'
@@ -102,6 +102,11 @@ const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
   const { mutate: rejectOrder, isLoading: rejectLoading } = useRejectOrder()
   const { mutate: closeOrder, isLoading: closeLoading } = useCloseOrder()
 
+  const handleDeleteItemClick = (deleteData: ItoDeleteData) => {
+    setToDeleteData(deleteData)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading =
     deleteLoading ||
     ordersLoading ||
@@ -118,14 +123,16 @@ const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('orders:INDEX_PAGE_TITLE')} />
-      <OrdersFilterForm
-        matchesData={matchesData || []}
-        playersData={playersData || []}
-        teamsData={teamsData || []}
-        filters={filters}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <OrdersFilterForm
+          matchesData={matchesData || []}
+          playersData={playersData || []}
+          teamsData={teamsData || []}
+          filters={filters}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <OrdersTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -136,23 +143,12 @@ const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
         handleSort={handleSort}
         total={orders?.totalDocs || 0}
         actions
-      >
-        {!!orders &&
-          orders.docs.map(order => (
-            <OrdersTableRow
-              onAcceptOrderClick={acceptOrder}
-              onCloseOrderClick={closeOrder}
-              onRejectOrderClick={rejectOrder}
-              key={order.id}
-              data={order}
-              onDeleteClick={() => {
-                setToDeleteData({ id: order.id })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isDeleteOptionEnabled
-            />
-          ))}
-      </OrdersTable>
+        data={orders?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+        onAcceptOrderClick={acceptOrder}
+        onCloseOrderClick={closeOrder}
+        onRejectOrderClick={rejectOrder}
+      />
       <Fab href="/orders/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

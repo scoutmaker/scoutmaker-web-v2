@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -12,12 +12,12 @@ import {
   useDeletePlayerPosition,
   usePlayerPositions,
 } from '@/modules/player-positions/hooks'
-import { PlayerPositionsTableRow } from '@/modules/player-positions/table/row'
 import { PlayerPositionsTable } from '@/modules/player-positions/table/table'
 import {
   PlayerPositionsFiltersDto,
   PlayerPositionsSortBy,
 } from '@/modules/player-positions/types'
+import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -32,18 +32,12 @@ const initialFilters: PlayerPositionsFiltersDto = {
   code: '',
 }
 
-interface IToDeleteData {
-  id: string
-  name: string
-}
-
 const PlayerPositionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<INameToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -73,6 +67,11 @@ const PlayerPositionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
   const { mutate: deletePlayerPosition, isLoading: deleteLoading } =
     useDeletePlayerPosition()
 
+  const handleDeleteItemClick = (data: INameToDeleteData) => {
+    setToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading = dataLoading || deleteLoading
 
   if (errorStatus)
@@ -81,11 +80,13 @@ const PlayerPositionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('player-positions:INDEX_PAGE_TITLE')} />
-      <PlayerPositionsFilterForm
-        filters={filters}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <PlayerPositionsFilterForm
+          filters={filters}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <PlayerPositionsTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -96,24 +97,9 @@ const PlayerPositionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
         handleSort={handleSort}
         total={playerPositions?.totalDocs || 0}
         actions
-      >
-        {!!playerPositions &&
-          playerPositions.docs.map(position => (
-            <PlayerPositionsTableRow
-              key={position.id}
-              data={position}
-              onEditClick={() => {
-                router.push(`/player-positions/edit/${position.id}`)
-              }}
-              onDeleteClick={() => {
-                setToDeleteData({ id: position.id, name: position.name })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))}
-      </PlayerPositionsTable>
+        data={playerPositions?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/player-positions/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

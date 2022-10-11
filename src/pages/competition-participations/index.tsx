@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -14,7 +14,6 @@ import {
   useCompetitionParticipations,
   useDeleteCompetitionParticipation,
 } from '@/modules/competition-participations/hooks'
-import { CompetitionParticipationsTableRow } from '@/modules/competition-participations/table/row'
 import { CompetitionParticipationsTable } from '@/modules/competition-participations/table/table'
 import {
   CompetitionParticipationsFiltersState,
@@ -48,7 +47,6 @@ const CompetitionParticipationsPage = ({
   errorStatus,
 }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
@@ -91,6 +89,11 @@ const CompetitionParticipationsPage = ({
   const { data: groupsData, isLoading: groupsLoading } =
     useCompetitionGroupsList()
 
+  const handleDeleteItemClick = (data: IToDeleteData) => {
+    setToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading =
     dataLoading ||
     deleteLoading ||
@@ -105,15 +108,17 @@ const CompetitionParticipationsPage = ({
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('comp-participations:INDEX_PAGE_TITLE')} />
-      <CompetitionParticipationsFilterForm
-        filters={filters}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-        competitionsData={competitionsData || []}
-        groupsData={groupsData || []}
-        seasonsData={seasonsData || []}
-        teamsData={teamsData || []}
-      />
+      <FilterAccordion>
+        <CompetitionParticipationsFilterForm
+          filters={filters}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+          competitionsData={competitionsData || []}
+          groupsData={groupsData || []}
+          seasonsData={seasonsData || []}
+          teamsData={teamsData || []}
+        />
+      </FilterAccordion>
       <CompetitionParticipationsTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -125,28 +130,9 @@ const CompetitionParticipationsPage = ({
         total={compParticipations?.totalDocs || 0}
         actions
         shouldDisplayTeamName
-      >
-        {!!compParticipations &&
-          compParticipations.docs.map(participation => (
-            <CompetitionParticipationsTableRow
-              key={participation.id}
-              data={participation}
-              onEditClick={() => {
-                router.push(
-                  `/competition-participations/edit/${participation.id}`,
-                )
-              }}
-              onDeleteClick={() => {
-                setToDeleteData({ id: participation.id })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-              shouldDisplayTeamName
-              actions
-            />
-          ))}
-      </CompetitionParticipationsTable>
+        data={compParticipations?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/competition-participations/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

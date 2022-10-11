@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
 
 import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -17,7 +17,6 @@ import {
   useLikeInsiderNote,
   useUnLikeInsiderNote,
 } from '@/modules/insider-notes/hooks'
-import { InsiderNotesTableRow } from '@/modules/insider-notes/table/row'
 import { InsiderNotesTable } from '@/modules/insider-notes/table/table'
 import {
   InsiderNotesFiltersState,
@@ -45,17 +44,18 @@ const initialFilters: InsiderNotesFiltersState = {
   teamIds: [],
 }
 
+interface IToDeleteData {
+  id: string
+  docNumber: number
+  date: string
+}
+
 const InsiderNotesPage = ({ errorStatus, errorMessage }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] = useState<{
-    id: string
-    docNumber: number
-    date: string
-  }>()
+  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -100,6 +100,11 @@ const InsiderNotesPage = ({ errorStatus, errorMessage }: TSsrRole) => {
   const { mutate: unLikeInsiderNote, isLoading: unLikeLoading } =
     useUnLikeInsiderNote()
 
+  const handleDeleteItemClick = (data: IToDeleteData) => {
+    setToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading =
     insiderNotesLoading ||
     deleteLoading ||
@@ -117,16 +122,18 @@ const InsiderNotesPage = ({ errorStatus, errorMessage }: TSsrRole) => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('insider-notes:INDEX_PAGE_TITLE')} />
-      <InsiderNotesFilterForm
-        filters={filters}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-        competitionGroupsData={competitionGroupsData || []}
-        competitionsData={competitionsData || []}
-        playerPositionsData={playerPositionsData || []}
-        playersData={playersData || []}
-        teamsData={teamsData || []}
-      />
+      <FilterAccordion>
+        <InsiderNotesFilterForm
+          filters={filters}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+          competitionGroupsData={competitionGroupsData || []}
+          competitionsData={competitionsData || []}
+          playerPositionsData={playerPositionsData || []}
+          playersData={playersData || []}
+          teamsData={teamsData || []}
+        />
+      </FilterAccordion>
       <InsiderNotesTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -137,30 +144,11 @@ const InsiderNotesPage = ({ errorStatus, errorMessage }: TSsrRole) => {
         handleSort={handleSort}
         total={insiderNotes?.totalDocs || 0}
         actions
-      >
-        {!!insiderNotes &&
-          insiderNotes?.docs.map(insNote => (
-            <InsiderNotesTableRow
-              key={insNote.id}
-              data={insNote}
-              onEditClick={() =>
-                router.push(`/insider-notes/edit/${insNote.id}`)
-              }
-              onDeleteClick={() => {
-                setToDeleteData({
-                  id: insNote.id,
-                  date: insNote.createdAt,
-                  docNumber: insNote.docNumber,
-                })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-              onLikeClick={likeInsiderNote}
-              onUnlikeClick={unLikeInsiderNote}
-            />
-          ))}
-      </InsiderNotesTable>
+        data={insiderNotes?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+        likeInsiderNoteClick={likeInsiderNote}
+        unLikeInsiderNoteClick={unLikeInsiderNote}
+      />
       <Fab href="/insider-notes/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

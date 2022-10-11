@@ -1,11 +1,15 @@
+import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
 
 import { Table } from '@/components/tables/table'
 import { ICommonTableProps, IHeadCell } from '@/types/tables'
 
+import { UserSubscriptionDto } from '../types'
+import { UserSubscriptionsTableRow } from './row'
+
 interface ITableProps extends ICommonTableProps {
-  children: ReactNode
+  data: UserSubscriptionDto[]
+  handleDeleteItemClick: (data: { id: string }) => void
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
@@ -26,9 +30,11 @@ export const UserSubscriptionsTable = ({
   handleSort,
   total,
   actions,
-  children,
+  data,
+  handleDeleteItemClick,
 }: ITableProps) => {
   const { t } = useTranslation()
+  const router = useRouter()
 
   return (
     <Table
@@ -43,7 +49,16 @@ export const UserSubscriptionsTable = ({
       headCells={generateHeadCells(t)}
       actions={actions}
     >
-      {children}
+      {data.map(season => (
+        <UserSubscriptionsTableRow
+          key={season.id}
+          data={season}
+          onEditClick={() =>
+            router.push(`/user-subscriptions/edit/${season.id}`)
+          }
+          onDeleteClick={() => handleDeleteItemClick({ id: season.id })}
+        />
+      ))}
     </Table>
   )
 }

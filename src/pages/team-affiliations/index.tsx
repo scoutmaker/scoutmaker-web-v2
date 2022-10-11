@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -14,7 +14,6 @@ import {
   useDeleteTeamAffiliation,
   useTeamAffiliations,
 } from '@/modules/team-affiliations/hooks'
-import { TeamAffiliationsTableRow } from '@/modules/team-affiliations/table/row'
 import { TeamAffiliationsTable } from '@/modules/team-affiliations/table/team'
 import {
   TeamAffiliationsFiltersState,
@@ -41,7 +40,6 @@ interface IToDeleteData {
 
 const TeamAffiliationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
@@ -81,19 +79,26 @@ const TeamAffiliationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const isLoading =
     dataLoading || deleteLoading || teamsLoading || playersLoading
 
+  const handleDeleteItemClick = (data: { id: string }) => {
+    setToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   if (errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('team-affiliations:INDEX_PAGE_TITLE')} />
-      <TeamAffiliationFilterForm
-        filters={filters}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-        playersData={playersData || []}
-        teamsData={teamsData || []}
-      />
+      <FilterAccordion>
+        <TeamAffiliationFilterForm
+          filters={filters}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+          playersData={playersData || []}
+          teamsData={teamsData || []}
+        />
+      </FilterAccordion>
       <TeamAffiliationsTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -105,26 +110,9 @@ const TeamAffiliationsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
         total={affiliations?.totalDocs || 0}
         actions
         shouldDisplayPlayerName
-      >
-        {!!affiliations &&
-          affiliations.docs.map(affiliation => (
-            <TeamAffiliationsTableRow
-              key={affiliation.id}
-              data={affiliation}
-              onEditClick={() => {
-                router.push(`/team-affiliations/edit/${affiliation.id}`)
-              }}
-              onDeleteClick={() => {
-                setToDeleteData({ id: affiliation.id })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-              actions
-              shouldDisplayPlayerName
-            />
-          ))}
-      </TeamAffiliationsTable>
+        data={affiliations?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/team-affiliations/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

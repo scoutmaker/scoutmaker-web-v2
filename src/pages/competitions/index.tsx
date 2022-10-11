@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -16,13 +16,14 @@ import {
   useCompetitions,
   useDeleteCompetition,
 } from '@/modules/competitions/hooks'
-import { CompetitionsTableRow } from '@/modules/competitions/table/row'
 import { CompetitionsTable } from '@/modules/competitions/table/table'
 import {
   CompetitionsFiltersState,
   CompetitionsSortBy,
+  FindAllCompetitionsParams,
 } from '@/modules/competitions/types'
 import { useCountriesList } from '@/modules/countries/hooks'
+import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -42,18 +43,12 @@ const initialFilters: CompetitionsFiltersState = {
   typeId: null,
 }
 
-interface IToDeleteData {
-  id: string
-  name: string
-}
-
 const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<INameToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -96,6 +91,11 @@ const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
   const { mutate: deleteCompetition, isLoading: deleteCompetitionLoading } =
     useDeleteCompetition()
 
+  const handleDeleteItemClick = (data: INameToDeleteData) => {
+    setToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading =
     juniorLevelsLoading ||
     ageCategLoading ||
@@ -111,15 +111,17 @@ const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('competitions:INDEX_PAGE_TITLE')} />
-      <CompetitionsFilterForm
-        filters={filters}
-        competitionAgeCategoriesData={ageCategoriesData || []}
-        competitionJuniorLevelsData={juniorLevelsData || []}
-        competitionTypesData={competitionTypesData || []}
-        countriesData={countriesData || []}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <CompetitionsFilterForm
+          filters={filters}
+          competitionAgeCategoriesData={ageCategoriesData || []}
+          competitionJuniorLevelsData={juniorLevelsData || []}
+          competitionTypesData={competitionTypesData || []}
+          countriesData={countriesData || []}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <CompetitionsTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -130,24 +132,9 @@ const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
         handleSort={handleSort}
         total={competitions?.totalDocs || 0}
         actions
-      >
-        {!!competitions &&
-          competitions.docs.map(comp => (
-            <CompetitionsTableRow
-              key={comp.id}
-              data={comp}
-              onEditClick={() => {
-                router.push(`/competitions/edit/${comp.id}`)
-              }}
-              onDeleteClick={() => {
-                setToDeleteData({ id: comp.id, name: comp.name })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))}
-      </CompetitionsTable>
+        data={competitions?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/competitions/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}
