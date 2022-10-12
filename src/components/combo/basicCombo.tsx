@@ -1,13 +1,20 @@
-import { AutocompleteRenderInputParams, TextField } from '@mui/material'
+import { AutocompleteRenderInputParams, Box, TextField } from '@mui/material'
 import { Field } from 'formik'
 import { Autocomplete } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { IComboProps } from '@/types/combo'
-
 import { IComboOptions } from './types'
 
-interface IBasicComboProps extends IComboProps<IComboOptions> {}
+interface IBasicComboProps {
+  data: IComboOptions[]
+  name: string
+  label: string
+  multiple?: boolean
+  size?: 'medium' | 'small'
+  error?: boolean
+  helperText?: string
+  disabled?: boolean
+}
 
 export const BasicCombo = ({
   data,
@@ -17,6 +24,7 @@ export const BasicCombo = ({
   size,
   error,
   helperText,
+  disabled,
 }: IBasicComboProps) => {
   const { t } = useTranslation()
 
@@ -33,6 +41,17 @@ export const BasicCombo = ({
         return data.find(el => el.id === option)?.label || t('NONE')
       }}
       filterSelectedOptions
+      disabled={disabled}
+      renderOption={(props: any, option: string) => {
+        if (option === '') return ''
+        const optionLabel =
+          data.find(el => el.id === option)?.label || t('NONE')
+        return (
+          <Box component="li" {...props} key={option}>
+            {optionLabel}
+          </Box>
+        )
+      }}
       renderInput={(params: AutocompleteRenderInputParams) => (
         <TextField
           {...params}
