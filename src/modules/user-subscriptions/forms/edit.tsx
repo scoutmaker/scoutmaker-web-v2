@@ -2,13 +2,14 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
+import { BasicCombo } from '@/components/combo/basicCombo'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
+import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 
 import { UpdateUserSubscriptionDto, UserSubscriptionDto } from '../types'
 import {
@@ -48,9 +49,9 @@ export const EditUserSubscriptionForm = ({
       {({ handleReset, touched, errors }) => (
         <Form>
           <Container fullwidth={fullwidth}>
-            <CompetitionsCombo
+            <BasicCombo
               name="competitionIds"
-              data={competitionsData}
+              data={mapCompetitionsListToComboOptions(competitionsData)}
               multiple
               error={touched.competitionIds && !!errors.competitionIds}
               helperText={
@@ -60,9 +61,11 @@ export const EditUserSubscriptionForm = ({
               }
               label={t('COMPETITIONS')}
             />
-            <CompetitionGroupsCombo
+            <BasicCombo
               name="competitionGroupIds"
-              data={competitionGroupsData}
+              data={mapCompetitionGroupsListToComboOptions(
+                competitionGroupsData,
+              )}
               multiple
               error={touched.competitionIds && !!errors.competitionIds}
               helperText={

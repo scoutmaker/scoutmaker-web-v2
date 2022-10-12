@@ -4,7 +4,7 @@ import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
 import { BasicCombo } from '@/components/combo/basicCombo'
-import { mapGenericNameToComboOptions } from '@/components/combo/utils'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
@@ -63,7 +63,7 @@ export const CreateCompetitionForm = ({
               helperText={touched.name && errors.name}
             />
             <BasicCombo
-              data={mapGenericNameToComboOptions(competitionAgeCategoriesData)}
+              data={mapListDataToComboOptions(competitionAgeCategoriesData)}
               name="ageCategoryId"
               label={t('COMPETITION_AGE_CATEGORY')}
               error={touched.ageCategoryId && !!errors.ageCategoryId}
@@ -72,7 +72,7 @@ export const CreateCompetitionForm = ({
               }
             />
             <BasicCombo
-              data={mapGenericNameToComboOptions(countriesData)}
+              data={mapListDataToComboOptions(countriesData)}
               name="countryId"
               label={t('COUNTRY')}
               error={touched.countryId && !!errors.countryId}
@@ -89,7 +89,7 @@ export const CreateCompetitionForm = ({
               helperText={touched.level && errors.level}
             />
             <BasicCombo
-              data={mapGenericNameToComboOptions(competitionTypesData)}
+              data={mapListDataToComboOptions(competitionTypesData)}
               name="typeId"
               label={t('COMPETITION_TYPE')}
               error={touched.typeId && !!errors.typeId}
@@ -103,7 +103,7 @@ export const CreateCompetitionForm = ({
             />
             <BasicCombo
               name="juniorLevelId"
-              data={mapGenericNameToComboOptions(competitionJuniorLevelsData)}
+              data={mapListDataToComboOptions(competitionJuniorLevelsData)}
               label={t('COMPETITION_JUNIOR_LEVEL')}
               error={touched.juniorLevelId && !!errors.juniorLevelId}
               helperText={

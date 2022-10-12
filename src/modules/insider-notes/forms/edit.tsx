@@ -4,16 +4,16 @@ import { Field, Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
+import { BasicCombo } from '@/components/combo/basicCombo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
+import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { PlayersCombo } from '@/modules/players/combo'
 import { PlayerBasicDataDto } from '@/modules/players/types'
-import { TeamsCombo } from '@/modules/teams/combo'
+import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { InsiderNoteDto, UpdateInsiderNoteDto } from '../types'
@@ -82,22 +82,22 @@ export const EditInsiderNoteForm = ({
               error={touched.informant && !!errors.informant}
               helperText={touched.informant && errors.informant}
             />
-            <PlayersCombo
-              data={playersData}
+            <BasicCombo
+              data={mapPlayersListToComboOptions(playersData)}
               name="playerId"
               label={t('PLAYER')}
               error={touched.playerId && !!errors.playerId}
               helperText={touched.playerId ? errors.playerId : undefined}
             />
-            <TeamsCombo
-              data={teamsData}
+            <BasicCombo
+              data={mapListDataToComboOptions(teamsData)}
               name="teamId"
               label={t('TEAM')}
               error={touched.teamId && !!errors.teamId}
               helperText={touched.teamId ? errors.teamId : undefined}
             />
-            <CompetitionsCombo
-              data={competitionsData}
+            <BasicCombo
+              data={mapListDataToComboOptions(competitionsData)}
               name="competitionId"
               label={t('COMPETITION')}
               error={touched.competitionId && !!errors.competitionId}
@@ -105,8 +105,10 @@ export const EditInsiderNoteForm = ({
                 touched.competitionId ? errors.competitionId : undefined
               }
             />
-            <CompetitionGroupsCombo
-              data={competitionGroupsData}
+            <BasicCombo
+              data={mapCompetitionGroupsListToComboOptions(
+                competitionGroupsData,
+              )}
               name="competitionGroupId"
               label={t('COMPETITION_GROUP')}
               error={touched.competitionGroupId && !!errors.competitionGroupId}

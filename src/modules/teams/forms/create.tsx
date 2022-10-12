@@ -3,15 +3,16 @@ import { Field, Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
+import { BasicCombo } from '@/components/combo/basicCombo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { ClubsCombo } from '@/modules/clubs/combo'
 import { ClubBasicDataDto } from '@/modules/clubs/types'
-import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
+import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { CreateTeamDto } from '@/modules/teams/types'
 
 import { generateCreateTeamValidationSchema, initialValues } from './utils'
@@ -59,15 +60,15 @@ export const CreateTeamForm = ({
               error={touched.name && !!errors.name}
               helperText={touched.name && errors.name}
             />
-            <ClubsCombo
-              data={clubsData}
+            <BasicCombo
+              data={mapListDataToComboOptions(clubsData)}
               name="clubId"
               label={t('CLUB')}
               error={touched.clubId && !!errors.clubId}
               helperText={touched.clubId ? errors.clubId : undefined}
             />
-            <CompetitionsCombo
-              data={competitionsData}
+            <BasicCombo
+              data={mapCompetitionsListToComboOptions(competitionsData)}
               name="competitionId"
               label={t('COMPETITION')}
               error={touched.competitionId && !!errors.competitionId}
@@ -75,8 +76,10 @@ export const CreateTeamForm = ({
                 touched.competitionId ? errors.competitionId : undefined
               }
             />
-            <CompetitionGroupsCombo
-              data={competitionGroupsData}
+            <BasicCombo
+              data={mapCompetitionGroupsListToComboOptions(
+                competitionGroupsData,
+              )}
               name="groupId"
               label={t('COMPETITION_GROUP')}
               error={touched.groupId && !!errors.groupId}

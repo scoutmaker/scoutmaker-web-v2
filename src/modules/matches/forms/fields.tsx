@@ -2,14 +2,14 @@ import { Grid, TextField } from '@mui/material'
 import { Field, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 
-import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
+import { BasicCombo } from '@/components/combo/basicCombo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
+import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { CreateMatchDto, UpdateMatchDto } from '@/modules/matches/types'
-import { SeasonsCombo } from '@/modules/seasons/combo'
 import { SeasonDto } from '@/modules/seasons/types'
-import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 interface IFieldsProps {
@@ -33,36 +33,36 @@ export const Fields = ({
 
   return (
     <>
-      <TeamsCombo
-        data={teamsData}
+      <BasicCombo
+        data={mapListDataToComboOptions(teamsData)}
         name="homeTeamId"
         label={t('HOME_TEAM')}
         error={touched.homeTeamId && !!errors.homeTeamId}
         helperText={touched.homeTeamId ? errors.homeTeamId : undefined}
       />
-      <TeamsCombo
-        data={teamsData}
+      <BasicCombo
+        data={mapListDataToComboOptions(teamsData)}
         name="awayTeamId"
         label={t('AWAY_TEAM')}
         error={touched.awayTeamId && !!errors.awayTeamId}
         helperText={touched.awayTeamId ? errors.awayTeamId : undefined}
       />
-      <CompetitionsCombo
-        data={competitionsData}
+      <BasicCombo
+        data={mapCompetitionsListToComboOptions(competitionsData)}
         name="competitionId"
         label={t('COMPETITION')}
         error={touched.competitionId && !!errors.competitionId}
         helperText={touched.competitionId ? errors.competitionId : undefined}
       />
-      <CompetitionGroupsCombo
-        data={competitionGroupsData}
+      <BasicCombo
+        data={mapCompetitionGroupsListToComboOptions(competitionGroupsData)}
         name="groupId"
         label={t('COMPETITION_GROUP')}
         error={touched.groupId && !!errors.groupId}
         helperText={touched.groupId ? errors.groupId : undefined}
       />
-      <SeasonsCombo
-        data={seasonsData}
+      <BasicCombo
+        data={mapListDataToComboOptions(seasonsData)}
         name="seasonId"
         label={t('SEASON')}
         error={touched.seasonId && !!errors.seasonId}

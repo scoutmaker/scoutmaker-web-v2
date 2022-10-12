@@ -3,15 +3,16 @@ import { Field, Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
+import { BasicCombo } from '@/components/combo/basicCombo'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
+import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { UsersCombo } from '@/modules/users/combo'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { UserBasicDataDto } from '@/modules/users/types'
+import { mapUsersListToComboOptions } from '@/modules/users/utils'
 
 import { CreateUserSubscriptionDto } from '../types'
 import { generateCreateValidationSchema, initialValues } from './utils'
@@ -50,15 +51,16 @@ export const CreateUserSubscriptionForm = ({
       {({ handleReset, touched, errors }) => (
         <Form>
           <Container fullwidth={fullwidth}>
-            <UsersCombo
+            <BasicCombo
               name="userId"
-              data={usersData}
+              data={mapUsersListToComboOptions(usersData)}
               error={touched.userId && !!errors.userId}
               helperText={touched.userId ? errors.userId : undefined}
+              label={t('USER')}
             />
-            <CompetitionsCombo
+            <BasicCombo
               name="competitionIds"
-              data={competitionsData}
+              data={mapCompetitionsListToComboOptions(competitionsData)}
               multiple
               error={touched.competitionIds && !!errors.competitionIds}
               helperText={
@@ -66,10 +68,13 @@ export const CreateUserSubscriptionForm = ({
                   ? (errors.competitionIds as string)
                   : undefined
               }
+              label={t('COMPETITIONS')}
             />
-            <CompetitionGroupsCombo
+            <BasicCombo
               name="competitionGroupIds"
-              data={competitionGroupsData}
+              data={mapCompetitionGroupsListToComboOptions(
+                competitionGroupsData,
+              )}
               multiple
               error={touched.competitionIds && !!errors.competitionIds}
               helperText={
@@ -77,6 +82,7 @@ export const CreateUserSubscriptionForm = ({
                   ? (errors.competitionIds as string)
                   : undefined
               }
+              label={t('COMPETITION_GROUPS')}
             />
             <Field
               name="startDate"

@@ -3,13 +3,12 @@ import { Field, FormikErrors, FormikTouched, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
-import { CountriesCombo } from '@/modules/countries/combo'
+import { BasicCombo } from '@/components/combo/basicCombo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { CountryDto } from '@/modules/countries/types'
-import { PlayersPositionCombo } from '@/modules/player-positions/combo'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { FootedSelect } from '@/modules/players/footed-select'
 import { CreatePlayerDto, UpdatePlayerDto } from '@/modules/players/types'
-import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 interface IFieldsProps {
@@ -51,8 +50,8 @@ export const Fields = ({
         error={touched.lastName && !!errors.lastName}
         helperText={touched.lastName && errors.lastName}
       />
-      <CountriesCombo
-        data={countriesData}
+      <BasicCombo
+        data={mapListDataToComboOptions(countriesData)}
         name="countryId"
         label={t('COUNTRY')}
         error={touched.countryId && !!errors.countryId}
@@ -98,8 +97,8 @@ export const Fields = ({
         label={t('FOOTED')}
       />
       {editForm ? null : (
-        <TeamsCombo
-          data={teamsData}
+        <BasicCombo
+          data={mapListDataToComboOptions(teamsData)}
           name="teamId"
           label={t('players:CURRENT_TEAM')}
           error={
@@ -113,8 +112,8 @@ export const Fields = ({
           }
         />
       )}
-      <PlayersPositionCombo
-        data={positionsData}
+      <BasicCombo
+        data={mapListDataToComboOptions(positionsData)}
         name="primaryPositionId"
         label={t('PRIMARY_POSITION')}
         error={touched.primaryPositionId && !!errors.primaryPositionId}
@@ -122,9 +121,9 @@ export const Fields = ({
           touched.primaryPositionId ? errors.primaryPositionId : undefined
         }
       />
-      <PlayersPositionCombo
+      <BasicCombo
         multiple
-        data={positionsData}
+        data={mapListDataToComboOptions(positionsData)}
         name="secondaryPositionIds"
         label={t('SECONDARY_POSITIONS')}
         error={touched.secondaryPositionIds && !!errors.secondaryPositionIds}

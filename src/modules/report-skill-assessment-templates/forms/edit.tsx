@@ -5,10 +5,11 @@ import { CheckboxWithLabel } from 'formik-mui'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
+import { BasicCombo } from '@/components/combo/basicCombo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { ReportSkillAssessmentCategoriesCombo } from '@/modules/report-skill-assessment-categories/combo'
 import { ReportSkillAssessmentCategoryDto } from '@/modules/report-skill-assessment-categories/types'
 
 import {
@@ -74,8 +75,8 @@ export const EditReportSkillAssessmentTemplateForm = ({
               error={touched.shortName && !!errors.shortName}
               helperText={touched.shortName && errors.shortName}
             />
-            <ReportSkillAssessmentCategoriesCombo
-              data={categoriesData}
+            <BasicCombo
+              data={mapListDataToComboOptions(categoriesData)}
               name="categoryId"
               label={t('REPORT_SKILL_ASSESSMENT_CATEGORY')}
               error={touched.categoryId && !!errors.categoryId}

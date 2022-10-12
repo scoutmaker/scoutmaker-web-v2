@@ -3,11 +3,12 @@ import { Field, Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
+import { BasicCombo } from '@/components/combo/basicCombo'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { UsersCombo } from '@/modules/users/combo'
 import { UserBasicDataDto } from '@/modules/users/types'
+import { mapUsersListToComboOptions } from '@/modules/users/utils'
 
 import { CreateOrganizationDto } from '../types'
 import { generateCreateValidationSchema, initialValues } from './utils'
@@ -51,8 +52,8 @@ export const CreateOrganizationForm = ({
               error={touched.name && !!errors.name}
               helperText={touched.name && errors.name}
             />
-            <UsersCombo
-              data={usersData}
+            <BasicCombo
+              data={mapUsersListToComboOptions(usersData)}
               name="memberIds"
               multiple
               error={touched.memberIds && !!errors.memberIds}
