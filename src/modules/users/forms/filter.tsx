@@ -72,7 +72,7 @@ export const UsersFilterForm = ({
               name="footballRoleIds"
               multiple
               size="small"
-              label={t('FOOTBAL_ROLES')}
+              label={t('FOOTBALL_ROLES')}
             />
           </FilterFormContainer>
           <FilterFormActions handleClearFilter={onClearFilters} />
