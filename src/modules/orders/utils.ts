@@ -1,3 +1,4 @@
+import { IComboOptions } from '@/components/combo/types'
 import { getMatchDisplayName } from '@/modules/matches/utils'
 import { getPlayerFullName } from '@/modules/players/utils'
 import { getDocumentNumber } from '@/utils/get-document-number'
@@ -38,4 +39,18 @@ export function getOrderDisplayName({
   }
 
   return displayName
+}
+
+export function mapOrdersListToComboOptions(
+  data: OrderBasicDataDto[],
+): IComboOptions[] {
+  return data.map(({ id, createdAt, docNumber, match, player }) => ({
+    id,
+    label: getOrderDisplayName({
+      docNumber,
+      createdAt,
+      match,
+      player,
+    }),
+  }))
 }
