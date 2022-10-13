@@ -29,7 +29,12 @@ export const mapFiltersStateToDto = (data: TFiltersStateData) => {
       filtersDto[key] = value.map(el => el.id)
       return
     }
-    if (typeof value === 'object' && value?.id) filtersDto[key] = value.id
+    if (
+      value &&
+      typeof value === 'object' &&
+      Object.prototype.hasOwnProperty.call(value, 'id')
+    )
+      filtersDto[key] = (value as IComboOptions).id || ''
   })
   return filtersDto
 }
