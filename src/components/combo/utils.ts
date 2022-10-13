@@ -26,6 +26,10 @@ export const mapFiltersStateToDto = (data: TFiltersStateData) => {
     const value = data[key]
 
     if (Array.isArray(value)) {
+      if (value.length && typeof value[0] === 'string') {
+        filtersDto[key] = []
+        return
+      }
       filtersDto[key] = value.map(el => el.id)
       return
     }
