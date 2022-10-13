@@ -12,7 +12,7 @@ import { CompetitionTypeDto } from '@/modules/competition-types/types'
 import { CompetitionsFiltersState } from '@/modules/competitions/types'
 import { CountryDto } from '@/modules/countries/types'
 
-import { GendersSelect } from '../genders-select'
+import { getGendersComboData } from '../GendersComboData'
 
 type IFilterFormProps = {
   filters: CompetitionsFiltersState
@@ -34,6 +34,7 @@ export const CompetitionsFilterForm = ({
   competitionJuniorLevelsData,
 }: IFilterFormProps) => {
   const { t } = useTranslation()
+  const gendersComboData = getGendersComboData(t)
 
   return (
     <Formik
@@ -65,7 +66,12 @@ export const CompetitionsFilterForm = ({
               size="small"
               inputProps={{ min: 1, max: 15, step: 1, pattern: '[1-9]|1[0-5]' }}
             />
-            <GendersSelect name="gender" label={t('GENDER')} size="small" />
+            <FilterCombo
+              data={gendersComboData}
+              name="gender"
+              label={t('GENDER')}
+              size="small"
+            />
             <FilterCombo
               name="countryId"
               data={mapListDataToComboOptions(countriesData)}

@@ -50,7 +50,7 @@ export type CompetitionsFiltersState = Omit<
   countryId: IComboOptions | null
   juniorLevelId: IComboOptions | null
   typeId: IComboOptions | null
-  gender: Paths.CompetitionsControllerFindAll.Parameters.Gender | ''
+  gender: IComboOptions | null
 }
 
 export type CompetitionsSortBy =

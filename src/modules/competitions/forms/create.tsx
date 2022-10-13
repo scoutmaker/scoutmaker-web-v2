@@ -13,7 +13,7 @@ import { CompetitionJuniorLevelDto } from '@/modules/competition-junior-levels/t
 import { CompetitionTypeDto } from '@/modules/competition-types/types'
 import { CountryDto } from '@/modules/countries/types'
 
-import { GendersSelect } from '../genders-select'
+import { getGendersComboData } from '../GendersComboData'
 import { CreateCompetitonDto } from '../types'
 import { generateCreateValidationSchema, initialValues } from './utils'
 
@@ -38,6 +38,7 @@ export const CreateCompetitionForm = ({
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
+  const gendersComboData = getGendersComboData(t)
 
   return (
     <Formik
@@ -95,7 +96,8 @@ export const CreateCompetitionForm = ({
               error={touched.typeId && !!errors.typeId}
               helperText={touched.typeId ? errors.typeId : undefined}
             />
-            <GendersSelect
+            <BasicCombo
+              data={gendersComboData}
               name="gender"
               label={t('GENDER')}
               error={touched.gender && !!errors.gender}

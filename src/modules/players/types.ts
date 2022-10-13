@@ -32,12 +32,14 @@ export type PlayersFiltersState = Omit<
   | 'teamIds'
   | 'competitionIds'
   | 'competitionGroupIds'
+  | 'footed'
 > & {
   countryIds: IComboOptions[]
   positionIds: IComboOptions[]
   teamIds: IComboOptions[]
   competitionIds: IComboOptions[]
   competitionGroupIds: IComboOptions[]
+  footed: IComboOptions | null
 }
 
 export type PlayersSortBy = Paths.PlayersControllerFindAll.Parameters.SortBy

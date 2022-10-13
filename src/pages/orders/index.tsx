@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next'
+import { TFunction, useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { mapFiltersStateToDto } from '@/components/combo/utils'
@@ -17,6 +17,7 @@ import {
   useOrders,
   useRejectOrder,
 } from '@/modules/orders/hooks'
+import { getStatusComboData } from '@/modules/orders/StatusComboData'
 import { OrdersTable } from '@/modules/orders/table/table'
 import { OrdersFiltersState, OrdersSortBy } from '@/modules/orders/types'
 import { usePlayersList } from '@/modules/players/hooks'
@@ -39,15 +40,15 @@ export const getServerSideProps = withSessionSsrRole<IData>(
 const date = new Date()
 date.setFullYear(date.getFullYear() + 1)
 
-const initialFilters: OrdersFiltersState = {
+const getInitialFilters = (t: TFunction): OrdersFiltersState => ({
   createdAfter: formatDate('01-01-1999'),
   createdBefore: formatDate(date.toString()),
   matchIds: [],
   playerIds: [],
-  status: 'OPEN',
+  status: getStatusComboData(t).find(e => e.id === 'OPEN') || null,
   teamIds: [],
   onlyMine: false,
-}
+})
 
 interface ItoDeleteData {
   id: string
@@ -55,6 +56,7 @@ interface ItoDeleteData {
 
 const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
   const { t } = useTranslation()
+  const initialFilters = getInitialFilters(t)
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)

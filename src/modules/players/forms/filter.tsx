@@ -14,9 +14,9 @@ import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { CountryDto } from '@/modules/countries/types'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
-import { FootedSelect } from '@/modules/players/footed-select'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
+import { getFootedComboData } from '../footed-select'
 import { PlayersFiltersState } from '../types'
 
 interface IPlayersFilterFormProps {
@@ -41,6 +41,7 @@ export const PlayersFilterForm = ({
   onClearFilters,
 }: IPlayersFilterFormProps) => {
   const { t } = useTranslation(['common', 'players'])
+  const footedComboData = getFootedComboData(t)
 
   return (
     <Formik
@@ -84,7 +85,12 @@ export const PlayersFilterForm = ({
                 inputProps={{ min: 1980, max: 2020 }}
               />
             </Box>
-            <FootedSelect name="footed" label={t('FOOTED')} size="small" />
+            <FilterCombo
+              data={footedComboData}
+              name="footed"
+              label={t('FOOTED')}
+              size="small"
+            />
             <FilterCombo
               name="countryIds"
               data={mapListDataToComboOptions(countriesData)}

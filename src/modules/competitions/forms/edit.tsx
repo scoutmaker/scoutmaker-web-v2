@@ -14,7 +14,7 @@ import { CompetitionJuniorLevelDto } from '@/modules/competition-junior-levels/t
 import { CompetitionTypeDto } from '@/modules/competition-types/types'
 import { CountryDto } from '@/modules/countries/types'
 
-import { GendersSelect } from '../genders-select'
+import { getGendersComboData } from '../GendersComboData'
 import { CompetitionDto, UpdateCompetitionDto } from '../types'
 import {
   generateUpdateValidationSchema,
@@ -44,6 +44,7 @@ export const EditCompetitionForm = ({
 }: IEditFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
+  const genderComboData = getGendersComboData(t)
 
   const initialValues = getInitialStateFromCurrent(current)
 
@@ -105,7 +106,8 @@ export const EditCompetitionForm = ({
               error={touched.typeId && !!errors.typeId}
               helperText={touched.typeId ? errors.typeId : undefined}
             />
-            <GendersSelect
+            <BasicCombo
+              data={genderComboData}
               name="gender"
               label={t('GENDER')}
               error={touched.gender && !!errors.gender}

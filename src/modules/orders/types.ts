@@ -36,11 +36,12 @@ export interface OrdersFiltersDto
 
 export type OrdersFiltersState = Omit<
   OrdersFiltersDto,
-  'playerIds' | 'matchIds' | 'teamIds'
+  'playerIds' | 'matchIds' | 'teamIds' | 'status'
 > & {
   playerIds: IComboOptions[]
   matchIds: IComboOptions[]
   teamIds: IComboOptions[]
+  status: IComboOptions | null
 }
 
 export interface OrdersBasicFiltersDto

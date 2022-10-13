@@ -14,7 +14,7 @@ import { PlayerBasicDataDto } from '@/modules/players/types'
 import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
-import { StatusSelect } from '../status-select'
+import { getStatusComboData } from '../StatusComboData'
 import { OrdersFiltersState } from '../types'
 
 type IFilterFormProps = {
@@ -35,6 +35,7 @@ export const OrdersFilterForm = ({
   matchesData,
 }: IFilterFormProps) => {
   const { t } = useTranslation()
+  const statusComboData = getStatusComboData(t)
 
   return (
     <Formik
@@ -93,7 +94,12 @@ export const OrdersFilterForm = ({
               multiple
               size="small"
             />
-            <StatusSelect name="status" label={t('STATUS')} size="small" />
+            <FilterCombo
+              data={statusComboData}
+              name="status"
+              label={t('STATUS')}
+              size="small"
+            />
           </FilterFormContainer>
           <FilterCheckboxContainer>
             <Field

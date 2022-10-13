@@ -35,7 +35,7 @@ const initialFilters: PlayersFiltersState = {
   name: '',
   bornAfter: 1980,
   bornBefore: 2005,
-  footed: '',
+  footed: null,
   competitionGroupIds: [],
   competitionIds: [],
   countryIds: [],

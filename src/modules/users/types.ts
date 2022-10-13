@@ -23,11 +23,12 @@ export type UsersFiltersDto = Pick<
 
 export type UsersFiltersState = Omit<
   UsersFiltersDto,
-  'clubIds' | 'footballRoleIds' | 'regionIds'
+  'clubIds' | 'footballRoleIds' | 'regionIds' | 'role'
 > & {
   clubIds: IComboOptions[]
   footballRoleIds: IComboOptions[]
   regionIds: IComboOptions[]
+  role: IComboOptions | null
 }
 
 export type UsersSortBy = Paths.UsersControllerFindAll.Parameters.SortBy

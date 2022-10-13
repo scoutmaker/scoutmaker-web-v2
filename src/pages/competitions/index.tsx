@@ -36,9 +36,9 @@ const initialFilters: CompetitionsFiltersState = {
   name: '',
   ageCategoryId: null,
   countryId: null,
-  gender: '',
+  gender: null,
   juniorLevelId: null,
-  level: 0,
+  level: '',
   typeId: null,
 }
 

@@ -7,9 +7,10 @@ import { BasicCombo } from '@/components/combo/basicCombo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { CountryDto } from '@/modules/countries/types'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
-import { FootedSelect } from '@/modules/players/footed-select'
 import { CreatePlayerDto, UpdatePlayerDto } from '@/modules/players/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
+
+import { getFootedComboData } from '../footed-select'
 
 interface IFieldsProps {
   positionsData: PlayerPositionDto[]
@@ -25,6 +26,7 @@ export const Fields = ({
   editForm,
 }: IFieldsProps) => {
   const { t } = useTranslation()
+  const footedComboData = getFootedComboData(t)
 
   const { touched, errors } = useFormikContext<
     CreatePlayerDto | UpdatePlayerDto
@@ -90,7 +92,8 @@ export const Fields = ({
         error={touched.weight && !!errors.weight}
         helperText={(touched.weight && errors.weight) || t('OPTIONAL_FIELD')}
       />
-      <FootedSelect
+      <BasicCombo
+        data={footedComboData}
         name="footed"
         error={touched.footed && !!errors.footed}
         helperText={(touched.footed && errors.footed) || t('OPTIONAL_FIELD')}
