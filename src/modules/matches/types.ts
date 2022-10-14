@@ -1,5 +1,8 @@
 import { IComboOptions } from '@/components/combo/types'
 
+import { CompetitionBasicDataDto } from '../competitions/types'
+import { TeamBasicDataDto } from '../teams/types'
+
 export type MatchBasicDataDto = Components.Schemas.MatchBasicDataDto
 export type FindAllMatchesParams = Pick<
   Paths.MatchesControllerFindAll.QueryParameters,
@@ -35,3 +38,10 @@ export type MatchDto = Omit<Components.Schemas.MatchDto, '_count'> & {
 }
 export type CreateMatchDto = Components.Schemas.CreateMatchDto
 export type UpdateMatchDto = Components.Schemas.UpdateMatchDto
+
+export interface IMatchComboOptions extends IComboOptions {
+  date: string
+  homeTeam: TeamBasicDataDto
+  awayTeam: TeamBasicDataDto
+  competition: CompetitionBasicDataDto
+}

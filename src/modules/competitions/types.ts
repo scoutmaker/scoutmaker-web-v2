@@ -1,5 +1,7 @@
 import { IComboOptions } from '@/components/combo/types'
 
+import { CountryDto } from '../countries/types'
+
 export type CompetitionBasicDataDto = Components.Schemas.CompetitionBasicDataDto
 export type CompetitionParticipationWithoutTeamDto =
   Components.Schemas.CompetitionParticipationWithoutTeamDto
@@ -55,3 +57,9 @@ export type CompetitionsFiltersState = Omit<
 
 export type CompetitionsSortBy =
   Paths.CompetitionsControllerFindAll.Parameters.SortBy
+
+export interface ICompetitionComboOptions extends IComboOptions {
+  name: string
+  level: number
+  country: CountryDto
+}

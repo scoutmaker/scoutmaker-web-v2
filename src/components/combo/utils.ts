@@ -5,12 +5,17 @@ interface IStandardListData {
   name: string
 }
 
+interface IStandardListComboOptions extends IComboOptions {
+  name: string
+}
+
 export function mapListDataToComboOptions(
   data: IStandardListData[],
-): IComboOptions[] {
+): IStandardListComboOptions[] {
   return data.map(({ id, name }) => ({
     id,
     label: name,
+    name,
   }))
 }
 type BasicTypes = string | number | boolean

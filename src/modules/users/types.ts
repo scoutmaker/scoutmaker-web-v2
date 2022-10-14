@@ -32,3 +32,8 @@ export type UsersFiltersState = Omit<
 }
 
 export type UsersSortBy = Paths.UsersControllerFindAll.Parameters.SortBy
+
+export interface IUsersComboOptions extends IComboOptions {
+  firstName: string
+  lastName: string
+}

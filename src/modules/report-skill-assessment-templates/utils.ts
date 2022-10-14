@@ -1,12 +1,15 @@
-import { IComboOptions } from '@/components/combo/types'
-
-import { ReportSkillAssessmentTemplateDto } from './types'
+import {
+  IReportSkillAssessmentTemplateComboOptions,
+  ReportSkillAssessmentTemplateDto,
+} from './types'
 
 export function mapReportSkillAssessmentTemplatesListToComboOptions(
   data: ReportSkillAssessmentTemplateDto[],
-): IComboOptions[] {
+): IReportSkillAssessmentTemplateComboOptions[] {
   return data.map(({ id, name, category }) => ({
     id,
     label: `${name} (${category.name})`,
+    name,
+    category,
   }))
 }

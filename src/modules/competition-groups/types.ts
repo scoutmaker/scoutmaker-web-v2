@@ -1,5 +1,7 @@
 import { IComboOptions } from '@/components/combo/types'
 
+import { CompetitionBasicDataDto } from '../competitions/types'
+
 export type CompetitionGroupBasicDataDto =
   Components.Schemas.CompetitionGroupBasicDataDto
 
@@ -37,3 +39,8 @@ export type CompetitionGroupsFiltersState = Omit<
 
 export type CompetitionGroupsSortBy =
   Paths.CompetitionGroupsControllerFindAll.Parameters.SortBy
+
+export interface ICompetitionGroupComboOptions extends IComboOptions {
+  name: string
+  competition: CompetitionBasicDataDto
+}

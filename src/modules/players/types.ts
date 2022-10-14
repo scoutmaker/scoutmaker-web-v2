@@ -51,3 +51,8 @@ export type PlayerDto = Omit<Components.Schemas.PlayerDto, '_count'> & {
 export type CreatePlayerDto = Components.Schemas.CreatePlayerDto
 
 export type UpdatePlayerDto = Components.Schemas.UpdatePlayerDto
+
+export interface IPlayerComboOptions extends IComboOptions {
+  firstName: string
+  lastName: string
+}
