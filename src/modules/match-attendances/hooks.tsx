@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import {
@@ -31,7 +31,7 @@ function useChangeAttendance(
         msg: data.message,
         type: 'success',
       })
-      queryClient.invalidateQueries(moduleName)
+      queryClient.invalidateQueries([moduleName])
     },
     onError: (err: ApiError) =>
       setAlert({
