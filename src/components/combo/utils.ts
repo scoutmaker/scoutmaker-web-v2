@@ -1,17 +1,13 @@
-import { IComboOptions } from './types'
+import { IComboOptions, IStandardComboOptions } from './types'
 
 interface IStandardListData {
   id: string
   name: string
 }
 
-interface IStandardListComboOptions extends IComboOptions {
-  name: string
-}
-
 export function mapListDataToComboOptions(
   data: IStandardListData[],
-): IStandardListComboOptions[] {
+): IStandardComboOptions[] {
   return data.map(({ id, name }) => ({
     id,
     label: name,
