@@ -1,16 +1,11 @@
-import { styled } from '@mui/material/styles'
 import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { Container } from '@/components/forms/container'
+import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
+import { FilterFormContainer } from '@/components/forms/filter-form-container'
 import { CountriesFiltersDto } from '@/modules/countries/types'
-
-const StyledCheckboxContainer = styled('div')(() => ({
-  display: 'flex',
-  justifyContent: 'center',
-}))
 
 type ICountriesFilterFormProps = {
   filters: CountriesFiltersDto
@@ -28,13 +23,16 @@ export const CountriesFilterForm = ({
   return (
     <Formik
       initialValues={filters}
-      onSubmit={data => onFilter(data)}
+      onSubmit={(data, form) => {
+        onFilter(data)
+        form.setSubmitting(false)
+      }}
       enableReinitialize
     >
       {() => (
         <Form autoComplete="off">
-          <Container>
-            <StyledCheckboxContainer>
+          <FilterFormContainer>
+            <FilterCheckboxContainer>
               <Field
                 component={CheckboxWithLabel}
                 type="checkbox"
@@ -42,9 +40,9 @@ export const CountriesFilterForm = ({
                 Label={{ label: t('countries:IS_EU_MEMBER') }}
                 size="small"
               />
-            </StyledCheckboxContainer>
-            <FilterFormActions handleClearFilter={onClearFilters} />
-          </Container>
+            </FilterCheckboxContainer>
+          </FilterFormContainer>
+          <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>
       )}
     </Formik>

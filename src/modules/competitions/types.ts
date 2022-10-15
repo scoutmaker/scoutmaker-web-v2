@@ -23,16 +23,22 @@ export type FindAllCompetitionsParams = Pick<
   | 'typeId'
 >
 
-export type CompetitionsFiltersDto = Pick<
-  FindAllCompetitionsParams,
-  | 'ageCategoryId'
-  | 'countryId'
-  | 'gender'
-  | 'juniorLevelId'
-  | 'level'
-  | 'name'
-  | 'typeId'
->
+export interface CompetitionsFiltersDto
+  extends Omit<
+    Pick<
+      FindAllCompetitionsParams,
+      | 'ageCategoryId'
+      | 'countryId'
+      | 'gender'
+      | 'juniorLevelId'
+      | 'level'
+      | 'name'
+      | 'typeId'
+    >,
+    'level'
+  > {
+  level?: number | ''
+}
 
 export type CompetitionsSortBy =
   Paths.CompetitionsControllerFindAll.Parameters.SortBy

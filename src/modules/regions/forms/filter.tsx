@@ -2,8 +2,8 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
-import { Container } from '@/components/forms/container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
+import { FilterFormContainer } from '@/components/forms/filter-form-container'
 import { CountriesCombo } from '@/modules/countries/combo'
 import { CountryDto } from '@/modules/countries/types'
 import { RegionsFilterDto } from '@/modules/regions/types'
@@ -26,12 +26,15 @@ export const RegionsFilterForm = ({
   return (
     <Formik
       initialValues={filters}
-      onSubmit={data => onFilter(data)}
+      onSubmit={(data, form) => {
+        onFilter(data)
+        form.setSubmitting(false)
+      }}
       enableReinitialize
     >
       {() => (
         <Form autoComplete="off">
-          <Container>
+          <FilterFormContainer>
             <Field
               name="name"
               as={TextField}
@@ -46,8 +49,8 @@ export const RegionsFilterForm = ({
               label={t('COUNTRY')}
               size="small"
             />
-            <FilterFormActions handleClearFilter={onClearFilters} />
-          </Container>
+          </FilterFormContainer>
+          <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>
       )}
     </Formik>

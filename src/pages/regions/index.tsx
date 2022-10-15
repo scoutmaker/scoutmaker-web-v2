@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -11,8 +11,8 @@ import { useCountriesList } from '@/modules/countries/hooks'
 import { RegionsFilterForm } from '@/modules/regions/forms/filter'
 import { useDeleteRegion, useRegions } from '@/modules/regions/hooks'
 import { RegionsTable } from '@/modules/regions/table/regions'
-import { RegionsTableRow } from '@/modules/regions/table/regions-row'
 import { RegionsFilterDto, RegionsSortBy } from '@/modules/regions/types'
+import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -27,19 +27,13 @@ const initialFilters: RegionsFilterDto = {
   countryId: '',
 }
 
-interface IRegionToDeleteData {
-  id: string
-  name: string
-}
-
 const RegionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
   const [regionToDeleteData, setRegionToDeleteData] =
-    useState<IRegionToDeleteData>()
+    useState<INameToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -71,6 +65,11 @@ const RegionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
   const { mutate: deleteRegion, isLoading: deleteRegionLoading } =
     useDeleteRegion()
 
+  const handleDeleteItemClick = (data: INameToDeleteData) => {
+    setRegionToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading = countriesLoading || regionsLoading || deleteRegionLoading
 
   if (errorStatus)
@@ -79,12 +78,14 @@ const RegionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('regions:INDEX_PAGE_TITLE')} />
-      <RegionsFilterForm
-        filters={filters}
-        countriesData={countries || []}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <RegionsFilterForm
+          filters={filters}
+          countriesData={countries || []}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <RegionsTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -95,24 +96,9 @@ const RegionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
         handleSort={handleSort}
         total={regions?.totalDocs || 0}
         actions
-      >
-        {!!regions &&
-          regions.docs.map(region => (
-            <RegionsTableRow
-              key={region.id}
-              data={region}
-              onEditClick={() => {
-                router.push(`/regions/edit/${region.id}`)
-              }}
-              onDeleteClick={() => {
-                setRegionToDeleteData({ id: region.id, name: region.name })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))}
-      </RegionsTable>
+        data={regions?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/regions/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

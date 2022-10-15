@@ -1,10 +1,11 @@
-import { Grid, styled, TextField } from '@mui/material'
+import { Grid, TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { Container } from '@/components/forms/container'
+import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
+import { FilterFormContainer } from '@/components/forms/filter-form-container'
 import { MatchesCombo } from '@/modules/matches/combo'
 import { MatchBasicDataDto } from '@/modules/matches/types'
 import { PlayersCombo } from '@/modules/players/combo'
@@ -14,11 +15,6 @@ import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { StatusSelect } from '../status-select'
 import { OrdersFiltersDto } from '../types'
-
-const StyledCheckboxContainer = styled('div')(() => ({
-  display: 'flex',
-  justifyContent: 'center',
-}))
 
 type IFilterFormProps = {
   filters: OrdersFiltersDto
@@ -42,12 +38,15 @@ export const OrdersFilterForm = ({
   return (
     <Formik
       initialValues={filters}
-      onSubmit={data => onFilter(data)}
+      onSubmit={(data, form) => {
+        onFilter(data)
+        form.setSubmitting(false)
+      }}
       enableReinitialize
     >
       {() => (
         <Form autoComplete="off">
-          <Container>
+          <FilterFormContainer>
             <PlayersCombo
               data={playersData}
               name="playerIds"
@@ -55,21 +54,6 @@ export const OrdersFilterForm = ({
               multiple
               size="small"
             />
-            <TeamsCombo
-              data={teamsData}
-              name="teamIds"
-              label={t('TEAMS')}
-              multiple
-              size="small"
-            />
-            <MatchesCombo
-              data={matchesData}
-              name="matchIds"
-              label={t('MATCHES')}
-              multiple
-              size="small"
-            />
-            <StatusSelect name="status" label={t('STATUS')} size="small" />
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <Field
@@ -94,17 +78,32 @@ export const OrdersFilterForm = ({
                 />
               </Grid>
             </Grid>
-            <StyledCheckboxContainer>
-              <Field
-                component={CheckboxWithLabel}
-                type="checkbox"
-                name="onlyMine"
-                Label={{ label: t('ONLY_MINE') }}
-                size="small"
-              />
-            </StyledCheckboxContainer>
-            <FilterFormActions handleClearFilter={onClearFilters} />
-          </Container>
+            <TeamsCombo
+              data={teamsData}
+              name="teamIds"
+              label={t('TEAMS')}
+              multiple
+              size="small"
+            />
+            <MatchesCombo
+              data={matchesData}
+              name="matchIds"
+              label={t('MATCHES')}
+              multiple
+              size="small"
+            />
+            <StatusSelect name="status" label={t('STATUS')} size="small" />
+          </FilterFormContainer>
+          <FilterCheckboxContainer>
+            <Field
+              component={CheckboxWithLabel}
+              type="checkbox"
+              name="onlyMine"
+              Label={{ label: t('ONLY_MINE') }}
+              size="small"
+            />
+          </FilterCheckboxContainer>
+          <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>
       )}
     </Formik>

@@ -1,11 +1,22 @@
+import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
 
 import { Table } from '@/components/tables/table'
 import { ICommonTableProps, IHeadCell } from '@/types/tables'
+import { getEditRoute, Routes } from '@/utils/routes'
+
+import { ReportPaginatedDataDto } from '../types'
+import { ReportsTableRow } from './row'
 
 interface IReportsTableProps extends ICommonTableProps {
-  children: ReactNode
+  data: ReportPaginatedDataDto[]
+  handleDeleteItemClick: (data: {
+    id: string
+    docNumber: number
+    createdAt: string
+  }) => void
+  onLikeClick: (id: string) => void
+  onUnLikeClick: (id: string) => void
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
@@ -33,9 +44,13 @@ export const ReportsTable = ({
   handleSort,
   total,
   actions,
-  children,
+  data,
+  handleDeleteItemClick,
+  onLikeClick,
+  onUnLikeClick,
 }: IReportsTableProps) => {
   const { t } = useTranslation()
+  const router = useRouter()
 
   return (
     <Table
@@ -51,7 +66,24 @@ export const ReportsTable = ({
       actions={actions}
       collapsible
     >
-      {children}
+      {data.map(report => (
+        <ReportsTableRow
+          key={report.id}
+          data={report}
+          onEditClick={() =>
+            router.push(getEditRoute(Routes.REPORTS, report.id))
+          }
+          onDeleteClick={() =>
+            handleDeleteItemClick({
+              id: report.id,
+              docNumber: report.docNumber,
+              createdAt: report.createdAt,
+            })
+          }
+          onLikeClick={onLikeClick}
+          onUnlikeClick={onUnLikeClick}
+        />
+      ))}
     </Table>
   )
 }

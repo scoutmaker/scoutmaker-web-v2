@@ -6,7 +6,6 @@ import { useTranslation } from 'next-i18next'
 import { ErrorContent } from '@/components/error/error-content'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { useCompetitionParticipations } from '@/modules/competition-participations/hooks'
-import { CompetitionParticipationsTableRow } from '@/modules/competition-participations/table/row'
 import { CompetitionParticipationsTable } from '@/modules/competition-participations/table/table'
 import { CompetitionParticipationsSortBy } from '@/modules/competition-participations/types'
 import { TeamDetailsCard } from '@/modules/teams/details-card'
@@ -104,19 +103,8 @@ const TeamPage = ({
           handleChangeRowsPerPage={handleChangeRowsPerPage}
           handleSort={handleSort}
           total={participations?.totalDocs || 0}
-        >
-          {!!participations &&
-            participations.docs.map(participation => (
-              <CompetitionParticipationsTableRow
-                key={team.id}
-                data={participation}
-                isDeleteOptionEnabled={false}
-                isEditOptionEnabled={false}
-                onDeleteClick={() => {}}
-                onEditClick={() => {}}
-              />
-            ))}
-        </CompetitionParticipationsTable>
+          data={participations?.docs || []}
+        />
       </section>
     </>
   )

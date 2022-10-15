@@ -25,3 +25,8 @@ export interface IHeadCell {
   label: string
   isSortingDisabled?: boolean
 }
+
+export interface INameToDeleteData {
+  id: string
+  name: string
+}

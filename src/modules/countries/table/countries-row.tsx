@@ -12,16 +12,12 @@ interface ICountriesTableRowProps {
   data: CountryDto
   onEditClick: () => void
   onDeleteClick: () => void
-  isEditOptionEnabled: boolean
-  isDeleteOptionEnabled: boolean
 }
 
 export const CountriesTableRow = ({
   data,
   onEditClick,
   onDeleteClick,
-  isEditOptionEnabled,
-  isDeleteOptionEnabled,
 }: ICountriesTableRowProps) => {
   const { t } = useTranslation()
   const router = useRouter()
@@ -48,8 +44,6 @@ export const CountriesTableRow = ({
           isMenuOpen={isMenuOpen}
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
-          isDeleteOptionEnabled={isDeleteOptionEnabled}
-          isEditOptionEnabled={isEditOptionEnabled}
           onDeleteClick={() => handleMenuAction(onDeleteClick)}
           onEditClick={() => handleMenuAction(onEditClick)}
         />

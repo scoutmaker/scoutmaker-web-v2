@@ -8,7 +8,6 @@ import { PageHeading } from '@/components/page-heading/page-heading'
 import { PlayerDetialsCard } from '@/modules/players/details-card'
 import { PlayerDto } from '@/modules/players/types'
 import { useTeamAffiliations } from '@/modules/team-affiliations/hooks'
-import { TeamAffiliationsTableRow } from '@/modules/team-affiliations/table/row'
 import { TeamAffiliationsTable } from '@/modules/team-affiliations/table/team'
 import { TeamAffiliationsSortBy } from '@/modules/team-affiliations/types'
 import { getPlayerBySlug } from '@/services/api/methods/players'
@@ -97,20 +96,8 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
           handleChangeRowsPerPage={handleChangeRowsPerPage}
           handleSort={handleSort}
           total={affiliations?.totalDocs || 0}
-        >
-          {affiliations
-            ? affiliations.docs.map(affiliation => (
-                <TeamAffiliationsTableRow
-                  key={affiliation.id}
-                  data={affiliation}
-                  isDeleteOptionEnabled={false}
-                  isEditOptionEnabled={false}
-                  onDeleteClick={() => {}}
-                  onEditClick={() => {}}
-                />
-              ))
-            : null}
-        </TeamAffiliationsTable>
+          data={affiliations?.docs || []}
+        />
       </section>
     </>
   )

@@ -1,12 +1,18 @@
+import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
 
 import { Table } from '@/components/tables/table'
-import { CompetitionParticipationsSortBy } from '@/modules/competition-participations/types'
+import {
+  CompetitionParticipationDto,
+  CompetitionParticipationsSortBy,
+} from '@/modules/competition-participations/types'
 import { ICommonTableProps } from '@/types/tables'
 
+import { CompetitionParticipationsTableRow } from './row'
+
 interface ICompetitionParticipationsTableProps extends ICommonTableProps {
-  children: ReactNode
+  data: CompetitionParticipationDto[]
+  handleDeleteItemClick?: (data: { id: string }) => void
   shouldDisplayTeamName?: boolean
 }
 
@@ -47,10 +53,12 @@ export const CompetitionParticipationsTable = ({
   handleSort,
   total,
   actions,
-  children,
+  data,
+  handleDeleteItemClick,
   shouldDisplayTeamName,
 }: ICompetitionParticipationsTableProps) => {
   const { t } = useTranslation()
+  const router = useRouter()
 
   return (
     <Table
@@ -65,7 +73,22 @@ export const CompetitionParticipationsTable = ({
       headCells={generateHeadCells({ t, shouldDisplayTeamName })}
       actions={actions}
     >
-      {children}
+      {data.map(participation => (
+        <CompetitionParticipationsTableRow
+          key={participation.id}
+          data={participation}
+          onEditClick={() =>
+            router.push(`/competition-participations/edit/${participation.id}`)
+          }
+          onDeleteClick={
+            handleDeleteItemClick
+              ? () => handleDeleteItemClick({ id: participation.id })
+              : undefined
+          }
+          shouldDisplayTeamName={shouldDisplayTeamName}
+          actions={actions}
+        />
+      ))}
     </Table>
   )
 }

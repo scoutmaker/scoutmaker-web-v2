@@ -1,11 +1,21 @@
+import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
 
 import { Table } from '@/components/tables/table'
 import { ICommonTableProps, IHeadCell } from '@/types/tables'
 
+import { NoteDto } from '../types'
+import { NotesTableRow } from './row'
+
 interface IMatchesTableProps extends ICommonTableProps {
-  children: ReactNode
+  data: NoteDto[]
+  handleDeleteItemClick: (data: {
+    id: string
+    docNumber: number
+    createdAt: string
+  }) => void
+  onLikeClick: (id: string) => void
+  onUnLikeClick: (id: string) => void
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
@@ -31,9 +41,13 @@ export const NotesTable = ({
   handleSort,
   total,
   actions,
-  children,
+  data,
+  handleDeleteItemClick,
+  onLikeClick,
+  onUnLikeClick,
 }: IMatchesTableProps) => {
   const { t } = useTranslation()
+  const router = useRouter()
 
   return (
     <Table
@@ -49,7 +63,22 @@ export const NotesTable = ({
       actions={actions}
       collapsible
     >
-      {children}
+      {data.map(note => (
+        <NotesTableRow
+          key={note.id}
+          data={note}
+          onEditClick={() => router.push(`/notes/edit/${note.id}`)}
+          onDeleteClick={() =>
+            handleDeleteItemClick({
+              id: note.id,
+              createdAt: note.createdAt,
+              docNumber: note.docNumber,
+            })
+          }
+          onLikeClick={onLikeClick}
+          onUnlikeClick={onUnLikeClick}
+        />
+      ))}
     </Table>
   )
 }

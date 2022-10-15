@@ -1,8 +1,8 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -10,11 +10,11 @@ import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { MatchesFilterForm } from '@/modules/matches/forms/filter'
 import { useDeleteMatch, useMatches } from '@/modules/matches/hooks'
-import { MatchesTableRow } from '@/modules/matches/table/row'
 import { MatchesTable } from '@/modules/matches/table/table'
 import { MatchesFiltersDto, MatchesSortBy } from '@/modules/matches/types'
 import { useSeasonsList } from '@/modules/seasons/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
+import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -32,19 +32,13 @@ const initialFilters: MatchesFiltersDto = {
   teamId: '',
 }
 
-interface IMatchToDeleteData {
-  id: string
-  name: string
-}
-
 const MatchesPage = () => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
   const [matchToDeleteData, setMatchToDeleteData] =
-    useState<IMatchToDeleteData | null>(null)
+    useState<INameToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -81,6 +75,11 @@ const MatchesPage = () => {
   const { mutate: deleteMatch, isLoading: deleteMatchLoading } =
     useDeleteMatch()
 
+  const handleDeleteItemClick = (data: INameToDeleteData) => {
+    setMatchToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading =
     teamsLoading ||
     competitionsLoading ||
@@ -93,15 +92,17 @@ const MatchesPage = () => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('matches:INDEX_PAGE_TITLE')} />
-      <MatchesFilterForm
-        filters={filters}
-        teamsData={teams || []}
-        competitionsData={competitions || []}
-        competitionGroupsData={competitionGroups || []}
-        seasonsData={seasons || []}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <MatchesFilterForm
+          filters={filters}
+          teamsData={teams || []}
+          competitionsData={competitions || []}
+          competitionGroupsData={competitionGroups || []}
+          seasonsData={seasons || []}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <MatchesTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -112,28 +113,9 @@ const MatchesPage = () => {
         handleSort={handleSort}
         total={matches?.totalDocs || 0}
         actions
-      >
-        {matches
-          ? matches.docs.map(match => (
-              <MatchesTableRow
-                key={match.id}
-                data={match}
-                onEditClick={() => {
-                  router.push(`/matches/edit/${match.id}`)
-                }}
-                onDeleteClick={() => {
-                  setMatchToDeleteData({
-                    id: match.id,
-                    name: `${match.homeTeam.name} vs. ${match.awayTeam.name}`,
-                  })
-                  setIsDeleteConfirmationModalOpen(true)
-                }}
-                isEditOptionEnabled
-                isDeleteOptionEnabled
-              />
-            ))
-          : null}
-      </MatchesTable>
+        data={matches?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/matches/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}
@@ -144,11 +126,11 @@ const MatchesPage = () => {
           if (matchToDeleteData) {
             deleteMatch(matchToDeleteData.id)
           }
-          setMatchToDeleteData(null)
+          setMatchToDeleteData(undefined)
         }}
         handleClose={() => {
           setIsDeleteConfirmationModalOpen(false)
-          setMatchToDeleteData(null)
+          setMatchToDeleteData(undefined)
         }}
       />
     </>

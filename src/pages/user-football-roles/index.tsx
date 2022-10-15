@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -12,12 +12,12 @@ import {
   useDeleteUserFootballRole,
   useUserFootballRoles,
 } from '@/modules/user-football-roles/hooks'
-import { UserFootballRolesTableRow } from '@/modules/user-football-roles/table/row'
 import { UserFootballRolesTable } from '@/modules/user-football-roles/table/table'
 import {
   UserFootballRolesFiltersDto,
   UserFootballRolesSortBy,
 } from '@/modules/user-football-roles/types'
+import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -31,18 +31,12 @@ export const getServerSideProps = withSessionSsrRole(
   ['ADMIN'],
 )
 
-interface IToDeleteData {
-  id: string
-  name: string
-}
-
 const UserFootballRolesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<INameToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -73,6 +67,11 @@ const UserFootballRolesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { mutate: deleteRole, isLoading: deleteLoading } =
     useDeleteUserFootballRole()
 
+  const handleDeleteItemClick = (data: INameToDeleteData) => {
+    setToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading = dataLoading || deleteLoading
 
   if (errorStatus)
@@ -81,11 +80,13 @@ const UserFootballRolesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('user-football-roles:INDEX_PAGE_TITLE')} />
-      <SeasonsFilterForm
-        filters={filters}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <SeasonsFilterForm
+          filters={filters}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <UserFootballRolesTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -96,24 +97,9 @@ const UserFootballRolesPage = ({ errorMessage, errorStatus }: TSsrRole) => {
         handleSort={handleSort}
         total={userFootballRoles?.totalDocs || 0}
         actions
-      >
-        {!!userFootballRoles &&
-          userFootballRoles.docs.map(role => (
-            <UserFootballRolesTableRow
-              key={role.id}
-              data={role}
-              onEditClick={() => {
-                router.push(`/user-football-roles/edit/${role.id}`)
-              }}
-              onDeleteClick={() => {
-                setToDeleteData({ id: role.id, name: role.name })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))}
-      </UserFootballRolesTable>
+        data={userFootballRoles?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/user-football-roles/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

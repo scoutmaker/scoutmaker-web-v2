@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -12,7 +12,6 @@ import {
   useCompetitionGroups,
   useDeleteCompetitionGroup,
 } from '@/modules/competition-groups/hooks'
-import { CompetitionGroupsTableRow } from '@/modules/competition-groups/table/row'
 import { CompetitionGroupsTable } from '@/modules/competition-groups/table/table'
 import {
   CompetitionGroupsFiltersDto,
@@ -21,6 +20,7 @@ import {
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { useRegionsList } from '@/modules/regions/hooks'
 import { SeasonsFiltersDto } from '@/modules/seasons/types'
+import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -36,18 +36,12 @@ export const getServerSideProps = withSessionSsrRole(
   ['ADMIN'],
 )
 
-interface IToDeleteData {
-  id: string
-  name: string
-}
-
 const CompetitionGroupsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<INameToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -81,6 +75,11 @@ const CompetitionGroupsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { mutate: deleteCompGroup, isLoading: deleteLoading } =
     useDeleteCompetitionGroup()
 
+  const handleDeleteItemClick = (data: INameToDeleteData) => {
+    setToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading =
     dataLoading || deleteLoading || competitionsLoading || regionsLoading
 
@@ -90,13 +89,15 @@ const CompetitionGroupsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('comp-groups:INDEX_PAGE_TITLE')} />
-      <CompetitionGroupsFilterForm
-        filters={filters}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-        competitionsData={competitionsData || []}
-        regionsData={regionsData || []}
-      />
+      <FilterAccordion>
+        <CompetitionGroupsFilterForm
+          filters={filters}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+          competitionsData={competitionsData || []}
+          regionsData={regionsData || []}
+        />
+      </FilterAccordion>
       <CompetitionGroupsTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -107,24 +108,9 @@ const CompetitionGroupsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
         handleSort={handleSort}
         total={compGroups?.totalDocs || 0}
         actions
-      >
-        {!!compGroups &&
-          compGroups.docs.map(group => (
-            <CompetitionGroupsTableRow
-              key={group.id}
-              data={group}
-              onEditClick={() => {
-                router.push(`/competition-groups/edit/${group.id}`)
-              }}
-              onDeleteClick={() => {
-                setToDeleteData({ id: group.id, name: group.name })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))}
-      </CompetitionGroupsTable>
+        data={compGroups?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/competition-groups/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -14,13 +14,13 @@ import {
   useDeleteOrganizationSubscription,
   useOrganizationSubscriptions,
 } from '@/modules/organization-subscriptions/hooks'
-import { OrganizationSubscriptionsTableRow } from '@/modules/organization-subscriptions/table/row'
 import { OrganizationSubscriptionsTable } from '@/modules/organization-subscriptions/table/table'
 import {
   OrganizationSubscriptionsFiltersDto,
   OrganizationSubscriptionsSortBy,
 } from '@/modules/organization-subscriptions/types'
 import { useOrganizationsList } from '@/modules/organizations/hooks'
+import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -36,21 +36,15 @@ export const getServerSideProps = withSessionSsrRole(
   ['ADMIN'],
 )
 
-interface IToDeleteData {
-  id: string
-  name: string
-}
-
 const OrganizationSubscriptionsPage = ({
   errorMessage,
   errorStatus,
 }: TSsrRole) => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [toDeleteData, setToDeleteData] = useState<IToDeleteData>()
+  const [toDeleteData, setToDeleteData] = useState<INameToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -89,6 +83,11 @@ const OrganizationSubscriptionsPage = ({
   const { data: competitions, isLoading: competitionsLoading } =
     useCompetitionsList()
 
+  const handleDeleteItemClick = (data: INameToDeleteData) => {
+    setToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading =
     dataLoading ||
     deleteLoading ||
@@ -101,14 +100,16 @@ const OrganizationSubscriptionsPage = ({
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('organization-subs:INDEX_PAGE_TITLE')} />
-      <OrganizationSubscriptionsFilterForm
-        filters={filters}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-        competitionGroupsData={compGroups || []}
-        competitionsData={competitions || []}
-        organizationsData={organizations || []}
-      />
+      <FilterAccordion>
+        <OrganizationSubscriptionsFilterForm
+          filters={filters}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+          competitionGroupsData={compGroups || []}
+          competitionsData={competitions || []}
+          organizationsData={organizations || []}
+        />
+      </FilterAccordion>
       <OrganizationSubscriptionsTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -119,24 +120,9 @@ const OrganizationSubscriptionsPage = ({
         handleSort={handleSort}
         total={orgSubs?.totalDocs || 0}
         actions
-      >
-        {!!orgSubs &&
-          orgSubs.docs.map(sub => (
-            <OrganizationSubscriptionsTableRow
-              key={sub.id}
-              data={sub}
-              onEditClick={() => {
-                router.push(`/organization-subscriptions/edit/${sub.id}`)
-              }}
-              onDeleteClick={() => {
-                setToDeleteData({ id: sub.id, name: sub.organization.name })
-                setIsDeleteConfirmationModalOpen(true)
-              }}
-              isEditOptionEnabled
-              isDeleteOptionEnabled
-            />
-          ))}
-      </OrganizationSubscriptionsTable>
+        data={orgSubs?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
       <Fab href="/organization-subscriptions/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

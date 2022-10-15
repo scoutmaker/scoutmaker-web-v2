@@ -1,11 +1,15 @@
+import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
 
 import { Table } from '@/components/tables/table'
-import { ICommonTableProps, IHeadCell } from '@/types/tables'
+import { ICommonTableProps, IHeadCell, INameToDeleteData } from '@/types/tables'
+
+import { CountryDto } from '../types'
+import { CountriesTableRow } from './countries-row'
 
 interface ICountriesTableProps extends ICommonTableProps {
-  children: ReactNode
+  data: CountryDto[]
+  handleDeleteItemClick: (data: INameToDeleteData) => void
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
@@ -26,9 +30,11 @@ export const CountriesTable = ({
   handleSort,
   total,
   actions,
-  children,
+  data,
+  handleDeleteItemClick,
 }: ICountriesTableProps) => {
   const { t } = useTranslation()
+  const router = useRouter()
 
   return (
     <Table
@@ -43,7 +49,16 @@ export const CountriesTable = ({
       headCells={generateHeadCells(t)}
       actions={actions}
     >
-      {children}
+      {data.map(country => (
+        <CountriesTableRow
+          key={country.id}
+          data={country}
+          onEditClick={() => router.push(`/countries/edit/${country.id}`)}
+          onDeleteClick={() =>
+            handleDeleteItemClick({ id: country.id, name: country.name })
+          }
+        />
+      ))}
     </Table>
   )
 }
