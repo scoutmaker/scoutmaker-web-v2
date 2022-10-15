@@ -1,17 +1,20 @@
 import { Box, TextField } from '@mui/material'
-import { Field, Form, Formik } from 'formik'
+import { Field, Form, Formik, FormikProps } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
+import { useRef } from 'react'
 
 import { FilterCombo } from '@/components/combo/combo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
+import FilteredCompetitionGroups from '@/components/filteredCompetitionGroups/filteredCompetitionGroups'
 import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
-import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
+import {
+  CompetitionBasicDataDto,
+  ICompetitionComboOptions,
+} from '@/modules/competitions/types'
 import { CountryDto } from '@/modules/countries/types'
 import { mapCountriesListToComboOptions } from '@/modules/countries/utils'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
@@ -44,9 +47,11 @@ export const PlayersFilterForm = ({
 }: IPlayersFilterFormProps) => {
   const { t } = useTranslation(['common', 'players'])
   const footedComboData = getFootedComboData(t)
+  const formRef = useRef<FormikProps<PlayersFiltersState>>(null)
 
   return (
     <Formik
+      innerRef={formRef}
       initialValues={filters}
       onSubmit={(data, form) => {
         onFilter(data)
@@ -114,21 +119,15 @@ export const PlayersFilterForm = ({
               size="small"
               multiple
             />
-            <FilterCombo
-              name="competitionIds"
-              data={mapCompetitionsListToComboOptions(competitionsData)}
-              label={t('COMPETITIONS')}
-              size="small"
-              multiple
-            />
-            <FilterCombo
-              name="competitionGroupIds"
-              data={mapCompetitionGroupsListToComboOptions(
-                competitionGroupsData,
-              )}
-              label={t('COMPETITION_GROUPS')}
-              size="small"
-              multiple
+            <FilteredCompetitionGroups
+              competitionsFormValues={
+                formRef.current?.values
+                  .competitionIds as ICompetitionComboOptions[]
+              }
+              competitionGroupsData={competitionGroupsData}
+              competitionsData={competitionsData}
+              competitionsMultiple
+              groupsMultiple
             />
           </FilterFormContainer>
           <FilterCheckboxContainer>
