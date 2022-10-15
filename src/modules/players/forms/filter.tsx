@@ -11,10 +11,7 @@ import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-cont
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import {
-  CompetitionBasicDataDto,
-  ICompetitionComboOptions,
-} from '@/modules/competitions/types'
+import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { CountryDto } from '@/modules/countries/types'
 import { mapCountriesListToComboOptions } from '@/modules/countries/utils'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
@@ -120,10 +117,7 @@ export const PlayersFilterForm = ({
               multiple
             />
             <FilteredCompetitionGroups
-              competitionsFormValues={
-                formRef.current?.values
-                  .competitionIds as ICompetitionComboOptions[]
-              }
+              competitionsFormValues={formRef.current?.values.competitionIds}
               competitionGroupsData={competitionGroupsData}
               competitionsData={competitionsData}
               competitionsMultiple
