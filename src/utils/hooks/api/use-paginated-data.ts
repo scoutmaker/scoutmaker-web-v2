@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from 'react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { ApiError, TPaginatedData } from '@/services/api/types'
@@ -18,7 +18,7 @@ export function usePaginatedData<
   return useQuery([key, { ...params }], () => queryFn(params), {
     keepPreviousData: true,
     onSuccess: data => {
-      queryClient.setQueryData('players', data.docs)
+      queryClient.setQueryData(['players'], data.docs)
     },
     onError: (err: ApiError) =>
       setAlert({
