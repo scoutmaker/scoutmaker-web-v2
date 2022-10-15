@@ -1,19 +1,21 @@
 import { Form, Formik } from 'formik'
+import { useTranslation } from 'next-i18next'
 
+import { FilterCombo } from '@/components/combo/combo'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
-import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
+import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { UsersCombo } from '@/modules/users/combo'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { UserBasicDataDto } from '@/modules/users/types'
+import { mapUsersListToComboOptions } from '@/modules/users/utils'
 
-import { UserSubscriptionsFiltersDto } from '../types'
+import { UserSubscriptionsFiltersState } from '../types'
 
 interface IFormProps {
-  filters: UserSubscriptionsFiltersDto
-  onFilter: (data: UserSubscriptionsFiltersDto) => void
+  filters: UserSubscriptionsFiltersState
+  onFilter: (data: UserSubscriptionsFiltersState) => void
   onClearFilters: () => void
   usersData: UserBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
@@ -27,34 +29,42 @@ export const UserSubscriptionsFilterForm = ({
   competitionGroupsData,
   competitionsData,
   usersData,
-}: IFormProps) => (
-  <Formik
-    initialValues={filters}
-    onSubmit={(data, form) => {
-      onFilter(data)
-      form.setSubmitting(false)
-    }}
-    enableReinitialize
-  >
-    {() => (
+}: IFormProps) => {
+  const { t } = useTranslation()
+  return (
+    <Formik
+      initialValues={filters}
+      onSubmit={(data, form) => {
+        onFilter(data)
+        form.setSubmitting(false)
+      }}
+      enableReinitialize
+    >
       <Form autoComplete="off">
         <FilterFormContainer>
-          <UsersCombo data={usersData} name="userId" size="small" />
-          <CompetitionsCombo
-            data={competitionsData}
+          <FilterCombo
+            data={mapUsersListToComboOptions(usersData)}
+            name="userId"
+            size="small"
+            label={t('USER')}
+          />
+          <FilterCombo
+            data={mapCompetitionsListToComboOptions(competitionsData)}
             name="competitionIds"
             multiple
             size="small"
+            label={t('COMPETITIONS')}
           />
-          <CompetitionGroupsCombo
-            data={competitionGroupsData}
+          <FilterCombo
+            data={mapCompetitionGroupsListToComboOptions(competitionGroupsData)}
             name="competitionGroupIds"
             multiple
             size="small"
+            label={t('COMPETITION_GROUPS')}
           />
         </FilterFormContainer>
         <FilterFormActions handleClearFilter={onClearFilters} />
       </Form>
-    )}
-  </Formik>
-)
+    </Formik>
+  )
+}

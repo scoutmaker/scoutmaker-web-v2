@@ -1,3 +1,5 @@
+import { IComboOptions } from '@/components/combo/types'
+
 export type FindAllCompetitionParticipationsParams = Pick<
   Paths.CompetitionParticipationsControllerFindAll.QueryParameters,
   | 'competitionId'
@@ -13,6 +15,17 @@ export type CompetitionParticipationsFilterDto = Pick<
   FindAllCompetitionParticipationsParams,
   'competitionId' | 'groupId' | 'seasonId' | 'teamId'
 >
+
+export type CompetitionParticipationsFiltersState = Omit<
+  CompetitionParticipationsFilterDto,
+  'competitionId' | 'groupId' | 'seasonId' | 'teamId'
+> & {
+  competitionId: IComboOptions | null
+  groupId: IComboOptions | null
+  seasonId: IComboOptions | null
+  teamId: IComboOptions | null
+}
+
 export type CompetitionParticipationsSortBy =
   Paths.CompetitionParticipationsControllerFindAll.Parameters.SortBy
 export type CompetitionParticipationDto =

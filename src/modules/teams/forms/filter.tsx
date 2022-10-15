@@ -3,19 +3,20 @@ import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
-import { ClubsCombo } from '@/modules/clubs/combo'
-import { ClubBasicDataDto, ClubsFiltersDto } from '@/modules/clubs/types'
-import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
+import { ClubBasicDataDto } from '@/modules/clubs/types'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
+import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { CountriesCombo } from '@/modules/countries/combo'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { CountryDto } from '@/modules/countries/types'
-import { RegionsCombo } from '@/modules/regions/combo'
 import { RegionDto } from '@/modules/regions/types'
+
+import { TeamsFiltersState } from '../types'
 
 type ITeamsFilterFormProps = {
   regionsData: RegionDto[]
@@ -23,8 +24,8 @@ type ITeamsFilterFormProps = {
   clubsData: ClubBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
-  filters: ClubsFiltersDto
-  onFilter: (data: ClubsFiltersDto) => void
+  filters: TeamsFiltersState
+  onFilter: (data: TeamsFiltersState) => void
   onClearFilters: () => void
 }
 
@@ -60,36 +61,38 @@ export const TeamsFilterForm = ({
               label={t('NAME')}
               size="small"
             />
-            <CountriesCombo
+            <FilterCombo
               name="countryIds"
-              data={countriesData}
+              data={mapListDataToComboOptions(countriesData)}
               label={t('COUNTRIES')}
               multiple
               size="small"
             />
-            <RegionsCombo
+            <FilterCombo
               name="regionIds"
-              data={regionsData}
+              data={mapListDataToComboOptions(regionsData)}
               label={t('REGIONS')}
               multiple
               size="small"
             />
-            <ClubsCombo
-              data={clubsData}
+            <FilterCombo
+              data={mapListDataToComboOptions(clubsData)}
               name="clubId"
               label={t('CLUB')}
               size="small"
             />
-            <CompetitionsCombo
+            <FilterCombo
               name="competitionIds"
-              data={competitionsData}
+              data={mapCompetitionsListToComboOptions(competitionsData)}
               label={t('COMPETITIONS')}
               multiple
               size="small"
             />
-            <CompetitionGroupsCombo
+            <FilterCombo
               name="competitionGroupIds"
-              data={competitionGroupsData}
+              data={mapCompetitionGroupsListToComboOptions(
+                competitionGroupsData,
+              )}
               label={t('COMPETITION_GROUPS')}
               multiple
               size="small"

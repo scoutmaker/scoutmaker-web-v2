@@ -1,3 +1,5 @@
+import { IComboOptions } from '@/components/combo/types'
+
 export type ClubBasicDataDto = Components.Schemas.ClubBasicDataDto
 export type FindAllClubsParams = Pick<
   Paths.ClubsControllerFindAll.QueryParameters,
@@ -13,6 +15,14 @@ export type ClubsFiltersDto = Pick<
   FindAllClubsParams,
   'name' | 'countryId' | 'regionId'
 >
+export type ClubsFiltersState = Omit<
+  ClubsFiltersDto,
+  'countryId' | 'regionId'
+> & {
+  countryId: IComboOptions | null
+  regionId: IComboOptions | null
+}
+
 export type ClubsSortBy = Paths.ClubsControllerFindAll.Parameters.SortBy
 export type ClubDto = Components.Schemas.ClubDto
 export type CreateClubDto = Components.Schemas.CreateClubDto

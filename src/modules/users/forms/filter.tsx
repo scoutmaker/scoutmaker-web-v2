@@ -2,21 +2,20 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
-import { ClubsCombo } from '@/modules/clubs/combo'
 import { ClubBasicDataDto } from '@/modules/clubs/types'
-import { RegionsCombo } from '@/modules/regions/combo'
 import { RegionDto } from '@/modules/regions/types'
-import { UserFootballRolesCombo } from '@/modules/user-football-roles/combo'
 import { UserFootballRoleDto } from '@/modules/user-football-roles/types'
 
-import { RoleSelect } from '../role-select'
-import { UsersFiltersDto } from '../types'
+import { getRolesComboData } from '../role-select'
+import { UsersFiltersState } from '../types'
 
 interface IFormProps {
-  filters: UsersFiltersDto
-  onFilter: (data: UsersFiltersDto) => void
+  filters: UsersFiltersState
+  onFilter: (data: UsersFiltersState) => void
   onClearFilters: () => void
   regionsData: RegionDto[]
   clubsData: ClubBasicDataDto[]
@@ -32,6 +31,7 @@ export const UsersFilterForm = ({
   userFootballRolesData,
 }: IFormProps) => {
   const { t } = useTranslation()
+  const rolesComboData = getRolesComboData(t)
 
   return (
     <Formik
@@ -53,19 +53,32 @@ export const UsersFilterForm = ({
               label={t('NAME')}
               size="small"
             />
-            <RoleSelect name="role" label={t('ROLE')} size="small" />
-            <RegionsCombo
-              data={regionsData}
+            <FilterCombo
+              data={rolesComboData}
+              name="role"
+              label={t('ROLE')}
+              size="small"
+            />
+            <FilterCombo
+              data={mapListDataToComboOptions(regionsData)}
               name="regionIds"
               multiple
               size="small"
+              label={t('REGIONS')}
             />
-            <ClubsCombo data={clubsData} name="clubIds" multiple size="small" />
-            <UserFootballRolesCombo
-              data={userFootballRolesData}
+            <FilterCombo
+              data={mapListDataToComboOptions(clubsData)}
+              name="clubIds"
+              multiple
+              size="small"
+              label={t('CLUBS')}
+            />
+            <FilterCombo
+              data={mapListDataToComboOptions(userFootballRolesData)}
               name="footballRoleIds"
               multiple
               size="small"
+              label={t('FOOTBALL_ROLES')}
             />
           </FilterFormContainer>
           <FilterFormActions handleClearFilter={onClearFilters} />

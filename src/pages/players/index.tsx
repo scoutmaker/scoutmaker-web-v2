@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
+import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { Fab } from '@/components/fab/fab'
 import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
@@ -18,7 +19,7 @@ import {
   useUnlikePlayer,
 } from '@/modules/players/hooks'
 import { PlayersTable } from '@/modules/players/table/table'
-import { PlayersFiltersDto, PlayersSortBy } from '@/modules/players/types'
+import { PlayersFiltersState, PlayersSortBy } from '@/modules/players/types'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
@@ -30,11 +31,11 @@ export const getServerSideProps = withSessionSsrRole(
   false,
 )
 
-const initialFilters: PlayersFiltersDto = {
+const initialFilters: PlayersFiltersState = {
   name: '',
   bornAfter: 1980,
   bornBefore: 2005,
-  footed: '',
+  footed: null,
   competitionGroupIds: [],
   competitionIds: [],
   countryIds: [],
@@ -58,12 +59,12 @@ const PlayersPage = () => {
     handleSort,
   } = useTable('players-table')
 
-  const [filters, setFilters] = useLocalStorage<PlayersFiltersDto>({
+  const [filters, setFilters] = useLocalStorage<PlayersFiltersState>({
     key: 'players-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: PlayersFiltersDto) {
+  function handleSetFilters(newFilters: PlayersFiltersState) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -82,7 +83,7 @@ const PlayersPage = () => {
     limit: rowsPerPage,
     sortBy: sortBy as PlayersSortBy,
     sortingOrder: order,
-    ...filters,
+    ...mapFiltersStateToDto(filters),
   })
 
   const { mutate: deletePlayer, isLoading: deletePlayerLoading } =

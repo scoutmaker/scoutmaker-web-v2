@@ -3,12 +3,13 @@ import { Field, Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
+import { BasicCombo } from '@/components/combo/basicCombo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { PlayersCombo } from '@/modules/players/combo'
 import { PlayerBasicDataDto } from '@/modules/players/types'
-import { TeamsCombo } from '@/modules/teams/combo'
+import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { CreateTeamAffiliationDto } from '../types'
@@ -51,16 +52,16 @@ export const CreateTeamAffiliationForm = ({
       {({ handleReset, touched, errors }) => (
         <Form>
           <Container fullwidth={fullwidth}>
-            <PlayersCombo
+            <BasicCombo
               name="playerId"
-              data={playersData}
+              data={mapPlayersListToComboOptions(playersData)}
               label={t('PLAYER')}
               error={touched.playerId && !!errors.playerId}
               helperText={touched.playerId ? errors.playerId : undefined}
             />
-            <TeamsCombo
+            <BasicCombo
               name="teamId"
-              data={teamsData}
+              data={mapListDataToComboOptions(teamsData)}
               label={t('TEAM')}
               error={touched.teamId && !!errors.teamId}
               helperText={touched.teamId ? errors.teamId : undefined}

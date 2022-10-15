@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
+import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
 import FilterAccordion from '@/components/filter-accordion/filter-accordion'
@@ -16,7 +17,7 @@ import {
 } from '@/modules/user-subscriptions/hooks'
 import { UserSubscriptionsTable } from '@/modules/user-subscriptions/table/table'
 import {
-  UserSubscriptionsFiltersDto,
+  UserSubscriptionsFiltersState,
   UserSubscriptionsSortBy,
 } from '@/modules/user-subscriptions/types'
 import { useUsersList } from '@/modules/users/hooks'
@@ -24,10 +25,10 @@ import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-const initialFilters: UserSubscriptionsFiltersDto = {
+const initialFilters: UserSubscriptionsFiltersState = {
   competitionGroupIds: [],
   competitionIds: [],
-  userId: '',
+  userId: null,
 }
 
 export const getServerSideProps = withSessionSsrRole(
@@ -53,12 +54,12 @@ const UserSubscriptionsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     handleSort,
   } = useTable('userSubsTable')
 
-  const [filters, setFilters] = useLocalStorage<UserSubscriptionsFiltersDto>({
+  const [filters, setFilters] = useLocalStorage<UserSubscriptionsFiltersState>({
     key: 'user-subs-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: UserSubscriptionsFiltersDto) {
+  function handleSetFilters(newFilters: UserSubscriptionsFiltersState) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -69,7 +70,7 @@ const UserSubscriptionsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
       limit: rowsPerPage,
       sortBy: sortBy as UserSubscriptionsSortBy,
       sortingOrder: order,
-      ...filters,
+      ...mapFiltersStateToDto(filters),
     })
 
   const { mutate: deleteUserSub, isLoading: deleteLoading } =

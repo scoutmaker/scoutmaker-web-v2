@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
+import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { Fab } from '@/components/fab/fab'
 import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
@@ -19,8 +20,7 @@ import {
   useUnlikeReport,
 } from '@/modules/reports/hooks'
 import { ReportsTable } from '@/modules/reports/table/table'
-import { ReportsFilterFormData, ReportsSortBy } from '@/modules/reports/types'
-import { mapFilterFormDataToFiltersDto } from '@/modules/reports/utils'
+import { ReportsFiltersState, ReportsSortBy } from '@/modules/reports/types'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { getDocumentNumber } from '@/utils/get-document-number'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
@@ -33,7 +33,7 @@ export const getServerSideProps = withSessionSsrRole(
   false,
 )
 
-const initialFilters: ReportsFilterFormData = {
+const initialFilters: ReportsFiltersState = {
   competitionGroupIds: [],
   competitionIds: [],
   isLiked: false,
@@ -68,12 +68,12 @@ const ReportsPage = () => {
     handleSort,
   } = useTable('reports-table')
 
-  const [filters, setFilters] = useLocalStorage<ReportsFilterFormData>({
+  const [filters, setFilters] = useLocalStorage<ReportsFiltersState>({
     key: 'reports-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: ReportsFilterFormData) {
+  function handleSetFilters(newFilters: ReportsFiltersState) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -93,7 +93,7 @@ const ReportsPage = () => {
     limit: rowsPerPage,
     sortBy: sortBy as ReportsSortBy,
     sortingOrder: order,
-    ...mapFilterFormDataToFiltersDto(filters),
+    ...mapFiltersStateToDto(filters),
   })
 
   const { mutate: deleteReport, isLoading: deleteReportLoading } =

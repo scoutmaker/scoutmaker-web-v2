@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
+import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { Fab } from '@/components/fab/fab'
 import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
@@ -17,8 +18,7 @@ import {
   useUnlikeNote,
 } from '@/modules/notes/hooks'
 import { NotesTable } from '@/modules/notes/table/table'
-import { NotesFilterFormData, NotesSortBy } from '@/modules/notes/types'
-import { mapFilterFormDataToFiltersDto } from '@/modules/notes/utils'
+import { NotesFiltersState, NotesSortBy } from '@/modules/notes/types'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
@@ -29,7 +29,7 @@ import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(['common', 'notes'], false)
 
-const initialFilters: NotesFilterFormData = {
+const initialFilters: NotesFiltersState = {
   competitionGroupIds: [],
   competitionIds: [],
   isLiked: false,
@@ -62,12 +62,12 @@ const NotesPage = () => {
     handleSort,
   } = useTable('notes-table')
 
-  const [filters, setFilters] = useLocalStorage<NotesFilterFormData>({
+  const [filters, setFilters] = useLocalStorage<NotesFiltersState>({
     key: 'notes-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: NotesFilterFormData) {
+  function handleSetFilters(newFilters: NotesFiltersState) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -87,7 +87,7 @@ const NotesPage = () => {
     limit: rowsPerPage,
     sortBy: sortBy as NotesSortBy,
     sortingOrder: order,
-    ...mapFilterFormDataToFiltersDto(filters),
+    ...mapFiltersStateToDto(filters),
   })
 
   const { mutate: deleteNote, isLoading: deleteNoteLoading } = useDeleteNote()

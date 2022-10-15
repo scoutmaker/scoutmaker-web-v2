@@ -2,19 +2,19 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
-import { ClubsFiltersDto } from '@/modules/clubs/types'
-import { CountriesCombo } from '@/modules/countries/combo'
+import { ClubsFiltersState } from '@/modules/clubs/types'
 import { CountryDto } from '@/modules/countries/types'
-import { RegionsCombo } from '@/modules/regions/combo'
 import { RegionDto } from '@/modules/regions/types'
 
 type IClubsFilterFormProps = {
   regionsData: RegionDto[]
   countriesData: CountryDto[]
-  filters: ClubsFiltersDto
-  onFilter: (data: ClubsFiltersDto) => void
+  filters: ClubsFiltersState
+  onFilter: (data: ClubsFiltersState) => void
   onClearFilters: () => void
 }
 
@@ -47,15 +47,15 @@ export const ClubsFilterForm = ({
               label={t('NAME')}
               size="small"
             />
-            <RegionsCombo
+            <FilterCombo
               name="regionId"
-              data={regionsData}
+              data={mapListDataToComboOptions(regionsData)}
               size="small"
               label={t('REGION')}
             />
-            <CountriesCombo
+            <FilterCombo
               name="countryId"
-              data={countriesData}
+              data={mapListDataToComboOptions(countriesData)}
               size="small"
               label={t('COUNTRY')}
             />

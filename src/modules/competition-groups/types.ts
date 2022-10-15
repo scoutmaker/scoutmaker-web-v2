@@ -1,3 +1,5 @@
+import { IComboOptions } from '@/components/combo/types'
+
 export type CompetitionGroupBasicDataDto =
   Components.Schemas.CompetitionGroupBasicDataDto
 
@@ -24,6 +26,14 @@ export type CompetitionGroupsFiltersDto = Pick<
   FindAllCompetitionGroupsParams,
   'competitionIds' | 'regionIds' | 'name'
 >
+
+export type CompetitionGroupsFiltersState = Omit<
+  CompetitionGroupsFiltersDto,
+  'competitionIds' | 'regionIds'
+> & {
+  competitionIds: IComboOptions[]
+  regionIds: IComboOptions[]
+}
 
 export type CompetitionGroupsSortBy =
   Paths.CompetitionGroupsControllerFindAll.Parameters.SortBy

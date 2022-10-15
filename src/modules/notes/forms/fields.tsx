@@ -10,19 +10,19 @@ import { Field, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
+import { BasicCombo } from '@/components/combo/basicCombo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { ExpandMoreIcon } from '@/components/icons'
 import { RatingInput } from '@/components/rating-input/rating-input'
-import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
+import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { MatchesCombo } from '@/modules/matches/combo'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { MatchBasicDataDto } from '@/modules/matches/types'
-import { PlayersPositionCombo } from '@/modules/player-positions/combo'
+import { mapMatchesListToComboOptions } from '@/modules/matches/utils'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
-import { PlayersCombo } from '@/modules/players/combo'
 import { PlayerBasicDataDto } from '@/modules/players/types'
-import { TeamsCombo } from '@/modules/teams/combo'
+import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { CreateNoteDto, UpdateNoteDto } from '../types'
@@ -59,8 +59,8 @@ export const Fields = ({
 
   return (
     <>
-      <PlayersCombo
-        data={playersData}
+      <BasicCombo
+        data={mapPlayersListToComboOptions(playersData)}
         name="playerId"
         label={t('PLAYER')}
         error={touched.playerId && !!errors.playerId}
@@ -77,8 +77,8 @@ export const Fields = ({
         error={touched.shirtNo && !!errors.shirtNo}
         helperText={touched.shirtNo && errors.shirtNo}
       />
-      <MatchesCombo
-        data={matchesData}
+      <BasicCombo
+        data={mapMatchesListToComboOptions(matchesData)}
         name="matchId"
         label={t('MATCH')}
         error={touched.matchId && !!errors.matchId}
@@ -117,8 +117,8 @@ export const Fields = ({
         <AccordionDetails>
           <AccordionInnerContainer>
             <Typography>{t('notes:META_DATA_DISCLAIMER')}</Typography>
-            <PlayersPositionCombo
-              data={positionsData}
+            <BasicCombo
+              data={mapListDataToComboOptions(positionsData)}
               name="positionPlayedId"
               label={t('PLAYER_POSITION')}
               error={touched.positionPlayedId && !!errors.positionPlayedId}
@@ -126,15 +126,15 @@ export const Fields = ({
                 touched.positionPlayedId ? errors.positionPlayedId : undefined
               }
             />
-            <TeamsCombo
-              data={teamsData}
+            <BasicCombo
+              data={mapListDataToComboOptions(teamsData)}
               name="teamId"
               label={t('TEAM')}
               error={touched.teamId && !!errors.teamId}
               helperText={touched.teamId ? errors.teamId : undefined}
             />
-            <CompetitionsCombo
-              data={competitionsData}
+            <BasicCombo
+              data={mapCompetitionsListToComboOptions(competitionsData)}
               name="competitionId"
               label={t('COMPETITION')}
               error={touched.competitionId && !!errors.competitionId}
@@ -142,8 +142,10 @@ export const Fields = ({
                 touched.competitionId ? errors.competitionId : undefined
               }
             />
-            <CompetitionGroupsCombo
-              data={competitionGroupsData}
+            <BasicCombo
+              data={mapCompetitionGroupsListToComboOptions(
+                competitionGroupsData,
+              )}
               name="competitionGroupId"
               label={t('COMPETITION_GROUP')}
               error={touched.competitionGroupId && !!errors.competitionGroupId}

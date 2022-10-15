@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
+import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
 import FilterAccordion from '@/components/filter-accordion/filter-accordion'
@@ -17,9 +18,8 @@ import {
 } from '@/modules/competitions/hooks'
 import { CompetitionsTable } from '@/modules/competitions/table/table'
 import {
-  CompetitionsFiltersDto,
+  CompetitionsFiltersState,
   CompetitionsSortBy,
-  FindAllCompetitionsParams,
 } from '@/modules/competitions/types'
 import { useCountriesList } from '@/modules/countries/hooks'
 import { INameToDeleteData } from '@/types/tables'
@@ -32,14 +32,14 @@ export const getServerSideProps = withSessionSsrRole(
   ['ADMIN'],
 )
 
-const initialFilters: CompetitionsFiltersDto = {
+const initialFilters: CompetitionsFiltersState = {
   name: '',
-  ageCategoryId: '',
-  countryId: '',
-  gender: undefined,
-  juniorLevelId: '',
+  ageCategoryId: null,
+  countryId: null,
+  gender: null,
+  juniorLevelId: null,
   level: '',
-  typeId: '',
+  typeId: null,
 }
 
 const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
@@ -56,12 +56,12 @@ const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
     handleSort,
   } = useTable('competitions-table')
 
-  const [filters, setFilters] = useLocalStorage<CompetitionsFiltersDto>({
+  const [filters, setFilters] = useLocalStorage<CompetitionsFiltersState>({
     key: 'competitions-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: CompetitionsFiltersDto) {
+  function handleSetFilters(newFilters: CompetitionsFiltersState) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -84,7 +84,7 @@ const CompetitionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
       limit: rowsPerPage,
       sortBy: sortBy as CompetitionsSortBy,
       sortingOrder: order,
-      ...(filters as FindAllCompetitionsParams),
+      ...mapFiltersStateToDto(filters),
     })
 
   const { mutate: deleteCompetition, isLoading: deleteCompetitionLoading } =

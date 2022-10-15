@@ -1,3 +1,5 @@
+import { IComboOptions } from '@/components/combo/types'
+
 export type InsiderNoteDto = Components.Schemas.InsiderNoteDto
 
 export type CreateInsiderNoteDto = Components.Schemas.CreateInsiderNoteDto
@@ -27,6 +29,21 @@ export type InsiderNotesFiltersDto = Pick<
   | 'positionIds'
   | 'teamIds'
 >
+
+export type InsiderNotesFiltersState = Omit<
+  InsiderNotesFiltersDto,
+  | 'competitionGroupIds'
+  | 'competitionIds'
+  | 'playerIds'
+  | 'positionIds'
+  | 'teamIds'
+> & {
+  competitionGroupIds: IComboOptions[]
+  competitionIds: IComboOptions[]
+  playerIds: IComboOptions[]
+  positionIds: IComboOptions[]
+  teamIds: IComboOptions[]
+}
 
 export type InsiderNotesSortBy =
   Paths.InsiderNotesControllerFindAll.Parameters.SortBy

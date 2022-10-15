@@ -1,4 +1,7 @@
+import { IComboOptions } from '@/components/combo/types'
 import { Routes } from '@/utils/routes'
+
+import { MatchBasicDataDto } from './types'
 
 interface IGetMatchDisplayNameArgs {
   homeTeamName: string
@@ -26,4 +29,17 @@ export function getMatchResult(homeGoals?: number, awayGoals?: number) {
 
 export function getSingleMatchRoute(id: string) {
   return `${Routes.MATCHES}/${id}`
+}
+
+export function mapMatchesListToComboOptions(
+  data: MatchBasicDataDto[],
+): IComboOptions[] {
+  return data.map(({ id, homeTeam, awayTeam, competition }) => ({
+    id,
+    label: getMatchDisplayName({
+      homeTeamName: homeTeam.name,
+      awayTeamName: awayTeam.name,
+      competitionName: competition.name,
+    }),
+  }))
 }

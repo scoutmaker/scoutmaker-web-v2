@@ -2,16 +2,17 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
-import { CountriesCombo } from '@/modules/countries/combo'
 import { CountryDto } from '@/modules/countries/types'
-import { RegionsFilterDto } from '@/modules/regions/types'
+import { RegionsFiltersState } from '@/modules/regions/types'
 
 type IRegionsFilterFormProps = {
   countriesData: CountryDto[]
-  filters: RegionsFilterDto
-  onFilter: (data: RegionsFilterDto) => void
+  filters: RegionsFiltersState
+  onFilter: (data: RegionsFiltersState) => void
   onClearFilters: () => void
 }
 
@@ -43,9 +44,9 @@ export const RegionsFilterForm = ({
               label={t('NAME')}
               size="small"
             />
-            <CountriesCombo
+            <FilterCombo
               name="countryId"
-              data={countriesData}
+              data={mapListDataToComboOptions(countriesData)}
               label={t('COUNTRY')}
               size="small"
             />

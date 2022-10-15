@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
+import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { Fab } from '@/components/fab/fab'
 import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
@@ -9,7 +10,7 @@ import { PageHeading } from '@/components/page-heading/page-heading'
 import { ClubsFilterForm } from '@/modules/clubs/forms/filter'
 import { useClubs, useDeleteClub } from '@/modules/clubs/hooks'
 import { ClubsTable } from '@/modules/clubs/table/table'
-import { ClubsFiltersDto, ClubsSortBy } from '@/modules/clubs/types'
+import { ClubsFiltersState, ClubsSortBy } from '@/modules/clubs/types'
 import { useCountriesList } from '@/modules/countries/hooks'
 import { useRegionsList } from '@/modules/regions/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
@@ -18,10 +19,10 @@ import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(['common', 'clubs'], false)
 
-const initialFilters: ClubsFiltersDto = {
+const initialFilters: ClubsFiltersState = {
   name: '',
-  countryId: '',
-  regionId: '',
+  countryId: null,
+  regionId: null,
 }
 
 // This should be generic, we just need the id and display name for every module
@@ -45,12 +46,12 @@ const ClubsPage = () => {
     handleSort,
   } = useTable('clubs-table')
 
-  const [filters, setFilters] = useLocalStorage<ClubsFiltersDto>({
+  const [filters, setFilters] = useLocalStorage<ClubsFiltersState>({
     key: 'clubs-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: ClubsFiltersDto) {
+  function handleSetFilters(newFilters: ClubsFiltersState) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -69,7 +70,7 @@ const ClubsPage = () => {
     limit: rowsPerPage,
     sortBy: sortBy as ClubsSortBy,
     sortingOrder: order,
-    ...filters,
+    ...mapFiltersStateToDto(filters),
   })
 
   const { mutate: deleteClub, isLoading: deleteClubLoading } = useDeleteClub()

@@ -3,21 +3,21 @@ import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
-import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
+import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { CountriesCombo } from '@/modules/countries/combo'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { CountryDto } from '@/modules/countries/types'
-import { PlayersPositionCombo } from '@/modules/player-positions/combo'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
-import { FootedSelect } from '@/modules/players/footed-select'
-import { PlayersFiltersDto } from '@/modules/players/types'
-import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
+
+import { getFootedComboData } from '../footed-select'
+import { PlayersFiltersState } from '../types'
 
 interface IPlayersFilterFormProps {
   countriesData: CountryDto[]
@@ -25,8 +25,8 @@ interface IPlayersFilterFormProps {
   teamsData: TeamBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
-  filters: PlayersFiltersDto
-  onFilter: (data: PlayersFiltersDto) => void
+  filters: PlayersFiltersState
+  onFilter: (data: PlayersFiltersState) => void
   onClearFilters: () => void
 }
 
@@ -41,6 +41,7 @@ export const PlayersFilterForm = ({
   onClearFilters,
 }: IPlayersFilterFormProps) => {
   const { t } = useTranslation(['common', 'players'])
+  const footedComboData = getFootedComboData(t)
 
   return (
     <Formik
@@ -84,38 +85,45 @@ export const PlayersFilterForm = ({
                 inputProps={{ min: 1980, max: 2020 }}
               />
             </Box>
-            <FootedSelect name="footed" label={t('FOOTED')} size="small" />
-            <CountriesCombo
+            <FilterCombo
+              data={footedComboData}
+              name="footed"
+              label={t('FOOTED')}
+              size="small"
+            />
+            <FilterCombo
               name="countryIds"
-              data={countriesData}
+              data={mapListDataToComboOptions(countriesData)}
               label={t('COUNTRIES')}
               size="small"
               multiple
             />
-            <PlayersPositionCombo
+            <FilterCombo
               name="positionIds"
-              data={positionsData}
+              data={mapListDataToComboOptions(positionsData)}
               label={t('POSITIONS')}
               size="small"
               multiple
             />
-            <TeamsCombo
-              data={teamsData}
+            <FilterCombo
               name="teamIds"
+              data={mapListDataToComboOptions(teamsData)}
               label={t('TEAM')}
               size="small"
               multiple
             />
-            <CompetitionsCombo
+            <FilterCombo
               name="competitionIds"
-              data={competitionsData}
+              data={mapCompetitionsListToComboOptions(competitionsData)}
               label={t('COMPETITIONS')}
               size="small"
               multiple
             />
-            <CompetitionGroupsCombo
+            <FilterCombo
               name="competitionGroupIds"
-              data={competitionGroupsData}
+              data={mapCompetitionGroupsListToComboOptions(
+                competitionGroupsData,
+              )}
               label={t('COMPETITION_GROUPS')}
               size="small"
               multiple

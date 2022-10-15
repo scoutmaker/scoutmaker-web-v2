@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
+import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
 import FilterAccordion from '@/components/filter-accordion/filter-accordion'
@@ -15,7 +16,7 @@ import {
 } from '@/modules/competition-participations/hooks'
 import { CompetitionParticipationsTable } from '@/modules/competition-participations/table/table'
 import {
-  CompetitionParticipationsFilterDto,
+  CompetitionParticipationsFiltersState,
   CompetitionParticipationsSortBy,
 } from '@/modules/competition-participations/types'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
@@ -25,11 +26,11 @@ import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-const initialFilters: CompetitionParticipationsFilterDto = {
-  competitionId: '',
-  groupId: '',
-  seasonId: '',
-  teamId: '',
+const initialFilters: CompetitionParticipationsFiltersState = {
+  competitionId: null,
+  groupId: null,
+  seasonId: null,
+  teamId: null,
 }
 
 export const getServerSideProps = withSessionSsrRole(
@@ -59,12 +60,12 @@ const CompetitionParticipationsPage = ({
   } = useTable('compParticipationsTable')
 
   const [filters, setFilters] =
-    useLocalStorage<CompetitionParticipationsFilterDto>({
+    useLocalStorage<CompetitionParticipationsFiltersState>({
       key: 'comp-participations-filters',
       initialValue: initialFilters,
     })
 
-  function handleSetFilters(newFilters: CompetitionParticipationsFilterDto) {
+  function handleSetFilters(newFilters: CompetitionParticipationsFiltersState) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -75,7 +76,7 @@ const CompetitionParticipationsPage = ({
       limit: rowsPerPage,
       sortBy: sortBy as CompetitionParticipationsSortBy,
       sortingOrder: order,
-      ...filters,
+      ...mapFiltersStateToDto(filters),
     })
 
   const { mutate: deleteCompParticipation, isLoading: deleteLoading } =

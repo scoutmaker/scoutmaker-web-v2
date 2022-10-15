@@ -4,11 +4,12 @@ import { CheckboxWithLabel } from 'formik-mui'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
+import { BasicCombo } from '@/components/combo/basicCombo'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { ReportSkillAssessmentTemplatesCombo } from '@/modules/report-skill-assessment-templates/combo'
 import { ReportSkillAssessmentTemplateDto } from '@/modules/report-skill-assessment-templates/types'
+import { mapReportSkillAssessmentTemplatesListToComboOptions } from '@/modules/report-skill-assessment-templates/utils'
 
 import { CreateReportTemplateDto } from '../types'
 import { generateCreateValidationSchema, initialValues } from './utils'
@@ -63,8 +64,10 @@ export const CreateReportTemplateForm = ({
               error={touched.maxRatingScore && !!errors.maxRatingScore}
               helperText={touched.maxRatingScore && errors.maxRatingScore}
             />
-            <ReportSkillAssessmentTemplatesCombo
-              data={skillTemplatesData}
+            <BasicCombo
+              data={mapReportSkillAssessmentTemplatesListToComboOptions(
+                skillTemplatesData,
+              )}
               name="skillAssessmentTemplateIds"
               multiple
               label={t('REPORT_SKILL_ASSESSMENT_TEMPLATES')}

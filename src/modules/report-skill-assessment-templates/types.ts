@@ -1,3 +1,5 @@
+import { IComboOptions } from '@/components/combo/types'
+
 export type ReportSkillAssessmentTemplateDto =
   Components.Schemas.ReportSkillAssessmentTemplateDto
 
@@ -16,6 +18,13 @@ export type ReportSkillAssessmentTemplatesFiltersDto = Pick<
   FindAllReportSkillAssessmentTemplatesParams,
   'categoryIds' | 'name'
 >
+
+export type ReportSkillAssessmentTemplatesFiltersState = Omit<
+  ReportSkillAssessmentTemplatesFiltersDto,
+  'categoryIds'
+> & {
+  categoryIds: IComboOptions[]
+}
 
 export type ReportSkillAssessmentTemplatesSortBy =
   Paths.ReportSkillAssessmentTemplatesControllerFindAll.Parameters.SortBy

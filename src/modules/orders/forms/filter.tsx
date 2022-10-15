@@ -3,22 +3,23 @@ import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
-import { MatchesCombo } from '@/modules/matches/combo'
 import { MatchBasicDataDto } from '@/modules/matches/types'
-import { PlayersCombo } from '@/modules/players/combo'
+import { mapMatchesListToComboOptions } from '@/modules/matches/utils'
 import { PlayerBasicDataDto } from '@/modules/players/types'
-import { TeamsCombo } from '@/modules/teams/combo'
+import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
-import { StatusSelect } from '../status-select'
-import { OrdersFiltersDto } from '../types'
+import { getStatusComboData } from '../StatusComboData'
+import { OrdersFiltersState } from '../types'
 
 type IFilterFormProps = {
-  filters: OrdersFiltersDto
-  onFilter: (data: OrdersFiltersDto) => void
+  filters: OrdersFiltersState
+  onFilter: (data: OrdersFiltersState) => void
   onClearFilters: () => void
   playersData: PlayerBasicDataDto[]
   teamsData: TeamBasicDataDto[]
@@ -34,6 +35,7 @@ export const OrdersFilterForm = ({
   matchesData,
 }: IFilterFormProps) => {
   const { t } = useTranslation()
+  const statusComboData = getStatusComboData(t)
 
   return (
     <Formik
@@ -47,8 +49,8 @@ export const OrdersFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <FilterFormContainer>
-            <PlayersCombo
-              data={playersData}
+            <FilterCombo
+              data={mapPlayersListToComboOptions(playersData)}
               name="playerIds"
               label={t('PLAYERS')}
               multiple
@@ -78,21 +80,26 @@ export const OrdersFilterForm = ({
                 />
               </Grid>
             </Grid>
-            <TeamsCombo
-              data={teamsData}
+            <FilterCombo
+              data={mapListDataToComboOptions(teamsData)}
               name="teamIds"
               label={t('TEAMS')}
               multiple
               size="small"
             />
-            <MatchesCombo
-              data={matchesData}
+            <FilterCombo
+              data={mapMatchesListToComboOptions(matchesData)}
               name="matchIds"
               label={t('MATCHES')}
               multiple
               size="small"
             />
-            <StatusSelect name="status" label={t('STATUS')} size="small" />
+            <FilterCombo
+              data={statusComboData}
+              name="status"
+              label={t('STATUS')}
+              size="small"
+            />
           </FilterFormContainer>
           <FilterCheckboxContainer>
             <Field

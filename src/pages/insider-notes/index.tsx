@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
 
+import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
 import FilterAccordion from '@/components/filter-accordion/filter-accordion'
@@ -18,7 +19,7 @@ import {
 } from '@/modules/insider-notes/hooks'
 import { InsiderNotesTable } from '@/modules/insider-notes/table/table'
 import {
-  InsiderNotesFiltersDto,
+  InsiderNotesFiltersState,
   InsiderNotesSortBy,
 } from '@/modules/insider-notes/types'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
@@ -34,7 +35,7 @@ export const getServerSideProps = withSessionSsrRole(
   false,
 )
 
-const initialFilters: InsiderNotesFiltersDto = {
+const initialFilters: InsiderNotesFiltersState = {
   competitionGroupIds: [],
   competitionIds: [],
   isLiked: false,
@@ -63,12 +64,12 @@ const InsiderNotesPage = ({ errorStatus, errorMessage }: TSsrRole) => {
     handleSort,
   } = useTable('insider-notes-table')
 
-  const [filters, setFilters] = useLocalStorage<InsiderNotesFiltersDto>({
+  const [filters, setFilters] = useLocalStorage<InsiderNotesFiltersState>({
     key: 'insider-notes-filters',
     initialValue: initialFilters,
   })
 
-  const handleSetFilters = (newFilters: InsiderNotesFiltersDto) => {
+  const handleSetFilters = (newFilters: InsiderNotesFiltersState) => {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -79,7 +80,7 @@ const InsiderNotesPage = ({ errorStatus, errorMessage }: TSsrRole) => {
       limit: rowsPerPage,
       sortBy: sortBy as InsiderNotesSortBy,
       sortingOrder: order,
-      ...filters,
+      ...mapFiltersStateToDto(filters),
     })
 
   const { mutate: deleteInsiderNote, isLoading: deleteLoading } =

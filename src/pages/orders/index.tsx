@@ -1,6 +1,7 @@
-import { useTranslation } from 'next-i18next'
+import { TFunction, useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
+import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
 import FilterAccordion from '@/components/filter-accordion/filter-accordion'
@@ -16,8 +17,9 @@ import {
   useOrders,
   useRejectOrder,
 } from '@/modules/orders/hooks'
+import { getStatusComboData } from '@/modules/orders/StatusComboData'
 import { OrdersTable } from '@/modules/orders/table/table'
-import { OrdersFiltersDto, OrdersSortBy } from '@/modules/orders/types'
+import { OrdersFiltersState, OrdersSortBy } from '@/modules/orders/types'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { formatDate } from '@/utils/format-date'
@@ -38,17 +40,15 @@ export const getServerSideProps = withSessionSsrRole<IData>(
 const date = new Date()
 date.setFullYear(date.getFullYear() + 1)
 
-const initialFilters: OrdersFiltersDto = {
+const getInitialFilters = (t: TFunction): OrdersFiltersState => ({
   createdAfter: formatDate('01-01-1999'),
   createdBefore: formatDate(date.toString()),
   matchIds: [],
   playerIds: [],
-  status: 'OPEN',
+  status: getStatusComboData(t).find(e => e.id === 'OPEN') || null,
   teamIds: [],
-  // @ts-ignore
-  userId: false,
   onlyMine: false,
-}
+})
 
 interface ItoDeleteData {
   id: string
@@ -56,6 +56,7 @@ interface ItoDeleteData {
 
 const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
   const { t } = useTranslation()
+  const initialFilters = getInitialFilters(t)
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
@@ -68,12 +69,12 @@ const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
     handleSort,
   } = useTable('orders-table')
 
-  const [filters, setFilters] = useLocalStorage<OrdersFiltersDto>({
+  const [filters, setFilters] = useLocalStorage<OrdersFiltersState>({
     key: 'orders-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: OrdersFiltersDto) {
+  function handleSetFilters(newFilters: OrdersFiltersState) {
     const filtersRS = newFilters // for eslint
 
     if (filtersRS.onlyMine) filtersRS.userId = data?.userId
@@ -94,7 +95,7 @@ const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
     limit: rowsPerPage,
     sortBy: sortBy as OrdersSortBy,
     sortingOrder: tableOrder,
-    ...filters,
+    ...mapFiltersStateToDto(filters),
   })
 
   const { mutate: deleteOrder, isLoading: deleteLoading } = useDeleteOrder()

@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
+import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
 import FilterAccordion from '@/components/filter-accordion/filter-accordion'
@@ -11,7 +12,7 @@ import { useCountriesList } from '@/modules/countries/hooks'
 import { RegionsFilterForm } from '@/modules/regions/forms/filter'
 import { useDeleteRegion, useRegions } from '@/modules/regions/hooks'
 import { RegionsTable } from '@/modules/regions/table/regions'
-import { RegionsFilterDto, RegionsSortBy } from '@/modules/regions/types'
+import { RegionsFiltersState, RegionsSortBy } from '@/modules/regions/types'
 import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
@@ -22,9 +23,9 @@ export const getServerSideProps = withSessionSsrRole(
   ['ADMIN'],
 )
 
-const initialFilters: RegionsFilterDto = {
+const initialFilters: RegionsFiltersState = {
   name: '',
-  countryId: '',
+  countryId: null,
 }
 
 const RegionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
@@ -42,12 +43,12 @@ const RegionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
     handleSort,
   } = useTable('regions-table')
 
-  const [filters, setFilters] = useLocalStorage<RegionsFilterDto>({
+  const [filters, setFilters] = useLocalStorage<RegionsFiltersState>({
     key: 'regions-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: RegionsFilterDto) {
+  function handleSetFilters(newFilters: RegionsFiltersState) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -59,7 +60,7 @@ const RegionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
     limit: rowsPerPage,
     sortBy: sortBy as RegionsSortBy,
     sortingOrder: order,
-    ...filters,
+    ...mapFiltersStateToDto(filters),
   })
 
   const { mutate: deleteRegion, isLoading: deleteRegionLoading } =

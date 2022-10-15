@@ -3,24 +3,24 @@ import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
 import { RatingRangeSelect } from '@/components/rating-range-select/rating-range-select'
-import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
+import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { MatchesCombo } from '@/modules/matches/combo'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { MatchBasicDataDto } from '@/modules/matches/types'
-import { PlayersPositionCombo } from '@/modules/player-positions/combo'
+import { mapMatchesListToComboOptions } from '@/modules/matches/utils'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
-import { PlayersCombo } from '@/modules/players/combo'
 import { PlayerBasicDataDto } from '@/modules/players/types'
-import { TeamsCombo } from '@/modules/teams/combo'
+import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
-import { ReportsFilterFormData } from '../types'
+import { ReportsFiltersState } from '../types'
 
 interface IReportsFilterFormProps {
   playersData: PlayerBasicDataDto[]
@@ -29,8 +29,8 @@ interface IReportsFilterFormProps {
   matchesData: MatchBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
-  filters: ReportsFilterFormData
-  onFilter: (data: ReportsFilterFormData) => void
+  filters: ReportsFiltersState
+  onFilter: (data: ReportsFiltersState) => void
   onClearFilters: () => void
 }
 
@@ -59,9 +59,9 @@ export const ReportsFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <FilterFormContainer>
-            <PlayersCombo
+            <FilterCombo
               name="playerIds"
-              data={playersData}
+              data={mapPlayersListToComboOptions(playersData)}
               label={t('PLAYERS')}
               multiple
               size="small"
@@ -92,37 +92,39 @@ export const ReportsFilterForm = ({
                 />
               </Grid>
             </Grid>
-            <PlayersPositionCombo
+            <FilterCombo
               name="positionIds"
-              data={positionsData}
+              data={mapListDataToComboOptions(positionsData)}
               label={t('POSITIONS')}
               multiple
               size="small"
             />
-            <TeamsCombo
-              data={teamsData}
+            <FilterCombo
+              data={mapListDataToComboOptions(teamsData)}
               name="teamIds"
               label={t('TEAMS')}
               multiple
               size="small"
             />
-            <MatchesCombo
-              data={matchesData}
+            <FilterCombo
+              data={mapMatchesListToComboOptions(matchesData)}
               name="matchIds"
               label={t('MATCHES')}
               multiple
               size="small"
             />
-            <CompetitionsCombo
+            <FilterCombo
               name="competitionIds"
-              data={competitionsData}
+              data={mapCompetitionsListToComboOptions(competitionsData)}
               label={t('COMPETITIONS')}
               multiple
               size="small"
             />
-            <CompetitionGroupsCombo
+            <FilterCombo
               name="competitionGroupIds"
-              data={competitionGroupsData}
+              data={mapCompetitionGroupsListToComboOptions(
+                competitionGroupsData,
+              )}
               label={t('COMPETITION_GROUPS')}
               multiple
               size="small"

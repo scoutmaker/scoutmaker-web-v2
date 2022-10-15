@@ -2,9 +2,10 @@ import { Button } from '@mui/material'
 import { Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
+import { BasicCombo } from '@/components/combo/basicCombo'
 import { Container } from '@/components/forms/container'
+import { mapMatchesListToComboOptions } from '@/modules/matches/utils'
 
-import { MatchesCombo } from '../../matches/combo'
 import { MatchBasicDataDto } from '../../matches/types'
 import { MatchAttendanceDto } from '../types'
 import { generateValidationSchema, getInitialStateFromCurrent } from './utils'
@@ -38,8 +39,8 @@ export const GoToMatchForm = ({
       {({ handleReset, touched, errors }) => (
         <Form>
           <Container fullwidth={fullwidth}>
-            <MatchesCombo
-              data={matchesData}
+            <BasicCombo
+              data={mapMatchesListToComboOptions(matchesData)}
               name="matchId"
               label={t('MATCH')}
               error={touched.matchId && !!errors.matchId}

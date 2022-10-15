@@ -3,10 +3,11 @@ import { Field, Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
+import { BasicCombo } from '@/components/combo/basicCombo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { CountriesCombo } from '@/modules/countries/combo'
 import { CountryDto } from '@/modules/countries/types'
 
 import { CreateRegionDto } from '../types'
@@ -51,8 +52,8 @@ export const CreateRegionForm = ({
               error={touched.name && !!errors.name}
               helperText={touched.name && errors.name}
             />
-            <CountriesCombo
-              data={countriesData}
+            <BasicCombo
+              data={mapListDataToComboOptions(countriesData)}
               name="countryId"
               label={t('COUNTRY')}
               error={touched.countryId && !!errors.countryId}

@@ -2,12 +2,12 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
+import { BasicCombo } from '@/components/combo/basicCombo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { RegionsCombo } from '@/modules/regions/combo'
 import { RegionDto } from '@/modules/regions/types'
 
 import { CompetitionGroupDto, UpdateCompetitionGroupDto } from '../types'
@@ -57,8 +57,8 @@ export const EditCompetitionGroupForm = ({
               error={touched.name && !!errors.name}
               helperText={touched.name && errors.name}
             />
-            <CompetitionsCombo
-              data={competitionsData}
+            <BasicCombo
+              data={mapListDataToComboOptions(competitionsData)}
               name="competitionId"
               label={t('COMPETITION')}
               error={touched.competitionId && !!errors.competitionId}
@@ -66,9 +66,9 @@ export const EditCompetitionGroupForm = ({
                 touched.competitionId ? errors.competitionId : undefined
               }
             />
-            <RegionsCombo
+            <BasicCombo
               multiple
-              data={regionsData}
+              data={mapListDataToComboOptions(regionsData)}
               name="regionIds"
               label={t('REGIONS')}
               error={touched.regionIds && !!errors.regionIds}

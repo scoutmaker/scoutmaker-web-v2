@@ -2,18 +2,19 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { RegionsCombo } from '@/modules/regions/combo'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { RegionDto } from '@/modules/regions/types'
 
-import { CompetitionGroupsFiltersDto } from '../types'
+import { CompetitionGroupsFiltersState } from '../types'
 
 interface IFormProps {
-  filters: CompetitionGroupsFiltersDto
-  onFilter: (data: CompetitionGroupsFiltersDto) => void
+  filters: CompetitionGroupsFiltersState
+  onFilter: (data: CompetitionGroupsFiltersState) => void
   onClearFilters: () => void
   competitionsData: CompetitionBasicDataDto[]
   regionsData: RegionDto[]
@@ -48,19 +49,19 @@ export const CompetitionGroupsFilterForm = ({
               label={t('NAME')}
               size="small"
             />
-            <CompetitionsCombo
+            <FilterCombo
               multiple
-              data={competitionsData}
+              data={mapCompetitionsListToComboOptions(competitionsData)}
               name="competitionIds"
               label={t('COMPETITIONS')}
               size="small"
             />
-            <RegionsCombo
-              multiple
-              data={regionsData}
+            <FilterCombo
+              data={mapListDataToComboOptions(regionsData)}
               name="regionIds"
               label={t('REGIONS')}
               size="small"
+              multiple
             />
           </FilterFormContainer>
           <FilterFormActions handleClearFilter={onClearFilters} />

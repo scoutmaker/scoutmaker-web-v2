@@ -2,12 +2,13 @@ import { Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
+import { BasicCombo } from '@/components/combo/basicCombo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { CopyCompetitionParticipationsDto } from '@/modules/competition-participations/types'
 
-import { SeasonsCombo } from '../../seasons/combo'
 import { SeasonDto } from '../../seasons/types'
 import { generateCopyValidationSchema } from './utils'
 
@@ -50,18 +51,18 @@ export const CopyParticipationsForm = ({
       {({ handleReset, touched, errors }) => (
         <Form>
           <Container fullwidth={fullwidth}>
-            <SeasonsCombo
+            <BasicCombo
               name="fromSeasonId"
-              data={seasonsData}
+              data={mapListDataToComboOptions(seasonsData)}
               label={t('comp-participations:COPY_FROM')}
               error={touched.fromSeasonId && !!errors.fromSeasonId}
               helperText={
                 touched.fromSeasonId ? errors.fromSeasonId : undefined
               }
             />
-            <SeasonsCombo
+            <BasicCombo
               name="toSeasonId"
-              data={seasonsData}
+              data={mapListDataToComboOptions(seasonsData)}
               label={t('comp-participations:COPY_TO')}
               error={touched.toSeasonId && !!errors.toSeasonId}
               helperText={touched.toSeasonId ? errors.toSeasonId : undefined}

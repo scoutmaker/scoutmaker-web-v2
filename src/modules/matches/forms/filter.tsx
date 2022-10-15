@@ -2,17 +2,17 @@ import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
-import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
+import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { MatchesFiltersDto } from '@/modules/matches/types'
-import { SeasonsCombo } from '@/modules/seasons/combo'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
+import { MatchesFiltersState } from '@/modules/matches/types'
 import { SeasonDto } from '@/modules/seasons/types'
-import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 interface IMatchesFilterFormProps {
@@ -20,8 +20,8 @@ interface IMatchesFilterFormProps {
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
   seasonsData: SeasonDto[]
-  filters: MatchesFiltersDto
-  onFilter: (data: MatchesFiltersDto) => void
+  filters: MatchesFiltersState
+  onFilter: (data: MatchesFiltersState) => void
   onClearFilters: () => void
 }
 
@@ -48,28 +48,30 @@ export const MatchesFilterForm = ({
       {() => (
         <Form autoComplete="off">
           <FilterFormContainer>
-            <TeamsCombo
-              data={teamsData}
+            <FilterCombo
+              data={mapListDataToComboOptions(teamsData)}
               name="teamId"
               label={t('TEAM')}
               size="small"
             />
-            <CompetitionsCombo
+            <FilterCombo
               name="competitionIds"
-              data={competitionsData}
+              data={mapCompetitionsListToComboOptions(competitionsData)}
               label={t('COMPETITIONS')}
               multiple
               size="small"
             />
-            <CompetitionGroupsCombo
+            <FilterCombo
               name="groupIds"
-              data={competitionGroupsData}
+              data={mapCompetitionGroupsListToComboOptions(
+                competitionGroupsData,
+              )}
               label={t('COMPETITION_GROUPS')}
               multiple
               size="small"
             />
-            <SeasonsCombo
-              data={seasonsData}
+            <FilterCombo
+              data={mapListDataToComboOptions(seasonsData)}
               name="seasonId"
               label={t('SEASON')}
               size="small"

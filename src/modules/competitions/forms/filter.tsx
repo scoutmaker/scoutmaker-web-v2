@@ -2,23 +2,21 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
-import { CompetitionAgeCategoriesCombo } from '@/modules/competition-age-categories/combo'
 import { CompetitionAgeCategortyDto } from '@/modules/competition-age-categories/types'
-import { CompetitionJuniorLevelsCombo } from '@/modules/competition-junior-levels/combo'
 import { CompetitionJuniorLevelDto } from '@/modules/competition-junior-levels/types'
-import { CompetitionTypesCombo } from '@/modules/competition-types/combo'
 import { CompetitionTypeDto } from '@/modules/competition-types/types'
-import { CompetitionsFiltersDto } from '@/modules/competitions/types'
-import { CountriesCombo } from '@/modules/countries/combo'
+import { CompetitionsFiltersState } from '@/modules/competitions/types'
 import { CountryDto } from '@/modules/countries/types'
 
-import { GendersSelect } from '../genders-select'
+import { getGendersComboData } from '../GendersComboData'
 
 type IFilterFormProps = {
-  filters: CompetitionsFiltersDto
-  onFilter: (data: CompetitionsFiltersDto) => void
+  filters: CompetitionsFiltersState
+  onFilter: (data: CompetitionsFiltersState) => void
   onClearFilters: () => void
   competitionAgeCategoriesData: CompetitionAgeCategortyDto[]
   countriesData: CountryDto[]
@@ -36,6 +34,7 @@ export const CompetitionsFilterForm = ({
   competitionJuniorLevelsData,
 }: IFilterFormProps) => {
   const { t } = useTranslation()
+  const gendersComboData = getGendersComboData(t)
 
   return (
     <Formik
@@ -67,28 +66,33 @@ export const CompetitionsFilterForm = ({
               size="small"
               inputProps={{ min: 1, max: 15, step: 1, pattern: '[1-9]|1[0-5]' }}
             />
-            <GendersSelect name="gender" label={t('GENDER')} size="small" />
-            <CountriesCombo
+            <FilterCombo
+              data={gendersComboData}
+              name="gender"
+              label={t('GENDER')}
+              size="small"
+            />
+            <FilterCombo
               name="countryId"
-              data={countriesData}
+              data={mapListDataToComboOptions(countriesData)}
               label={t('COUNTRY')}
               size="small"
             />
-            <CompetitionAgeCategoriesCombo
+            <FilterCombo
               name="ageCategoryId"
-              data={competitionAgeCategoriesData}
+              data={mapListDataToComboOptions(competitionAgeCategoriesData)}
               label={t('COMPETITION_AGE_CATEGORY')}
               size="small"
             />
-            <CompetitionTypesCombo
+            <FilterCombo
               name="typeId"
-              data={competitionTypesData}
+              data={mapListDataToComboOptions(competitionTypesData)}
               label={t('COMPETITION_TYPE')}
               size="small"
             />
-            <CompetitionJuniorLevelsCombo
+            <FilterCombo
               name="juniorLevelId"
-              data={competitionJuniorLevelsData}
+              data={mapListDataToComboOptions(competitionJuniorLevelsData)}
               label={t('COMPETITION_JUNIOR_LEVEL')}
               size="small"
             />

@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
+import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
 import FilterAccordion from '@/components/filter-accordion/filter-accordion'
@@ -16,7 +17,7 @@ import {
 } from '@/modules/organization-subscriptions/hooks'
 import { OrganizationSubscriptionsTable } from '@/modules/organization-subscriptions/table/table'
 import {
-  OrganizationSubscriptionsFiltersDto,
+  OrganizationSubscriptionsFiltersState,
   OrganizationSubscriptionsSortBy,
 } from '@/modules/organization-subscriptions/types'
 import { useOrganizationsList } from '@/modules/organizations/hooks'
@@ -25,10 +26,10 @@ import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-const initialFilters: OrganizationSubscriptionsFiltersDto = {
+const initialFilters: OrganizationSubscriptionsFiltersState = {
   competitionGroupIds: [],
   competitionIds: [],
-  organizationId: '',
+  organizationId: null,
 }
 
 export const getServerSideProps = withSessionSsrRole(
@@ -54,12 +55,12 @@ const OrganizationSubscriptionsPage = ({
   } = useTable('orgSubsTable')
 
   const [filters, setFilters] =
-    useLocalStorage<OrganizationSubscriptionsFiltersDto>({
+    useLocalStorage<OrganizationSubscriptionsFiltersState>({
       key: 'organization-subs-filters',
       initialValue: initialFilters,
     })
 
-  function handleSetFilters(newFilters: OrganizationSubscriptionsFiltersDto) {
+  function handleSetFilters(newFilters: OrganizationSubscriptionsFiltersState) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -70,7 +71,7 @@ const OrganizationSubscriptionsPage = ({
       limit: rowsPerPage,
       sortBy: sortBy as OrganizationSubscriptionsSortBy,
       sortingOrder: order,
-      ...filters,
+      ...mapFiltersStateToDto(filters),
     })
 
   const { mutate: deleteOrgSub, isLoading: deleteLoading } =

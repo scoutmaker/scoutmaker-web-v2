@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
+import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { Fab } from '@/components/fab/fab'
 import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
@@ -11,7 +12,7 @@ import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { MatchesFilterForm } from '@/modules/matches/forms/filter'
 import { useDeleteMatch, useMatches } from '@/modules/matches/hooks'
 import { MatchesTable } from '@/modules/matches/table/table'
-import { MatchesFiltersDto, MatchesSortBy } from '@/modules/matches/types'
+import { MatchesFiltersState, MatchesSortBy } from '@/modules/matches/types'
 import { useSeasonsList } from '@/modules/seasons/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { INameToDeleteData } from '@/types/tables'
@@ -24,12 +25,12 @@ export const getServerSideProps = withSessionSsrRole(
   false,
 )
 
-const initialFilters: MatchesFiltersDto = {
+const initialFilters: MatchesFiltersState = {
   competitionIds: [],
   groupIds: [],
   hasVideo: false,
-  seasonId: '',
-  teamId: '',
+  seasonId: null,
+  teamId: null,
 }
 
 const MatchesPage = () => {
@@ -47,12 +48,12 @@ const MatchesPage = () => {
     handleSort,
   } = useTable('matches-table')
 
-  const [filters, setFilters] = useLocalStorage<MatchesFiltersDto>({
+  const [filters, setFilters] = useLocalStorage<MatchesFiltersState>({
     key: 'matches-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: MatchesFiltersDto) {
+  function handleSetFilters(newFilters: MatchesFiltersState) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -69,7 +70,7 @@ const MatchesPage = () => {
     limit: rowsPerPage,
     sortBy: sortBy as MatchesSortBy,
     sortingOrder: order,
-    ...filters,
+    ...mapFiltersStateToDto(filters),
   })
 
   const { mutate: deleteMatch, isLoading: deleteMatchLoading } =
