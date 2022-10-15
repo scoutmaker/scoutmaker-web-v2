@@ -8,7 +8,7 @@ export function generatePasswordValidationSchema(t: TFunction) {
     .string()
     .min(6, t('PASSWORD_TOO_SHORT_ERROR'))
     .matches(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/, t('PASSWORD_REGEX_ERROR'))
-    .required(t('NO_PASSWORD_ERROR'));
+    .required(t('NO_PASSWORD_ERROR'))
 }
 
 export function generateLoginFormValidationSchema(
