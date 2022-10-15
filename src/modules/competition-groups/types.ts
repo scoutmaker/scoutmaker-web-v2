@@ -1,6 +1,9 @@
-import { IComboOptions } from '@/components/combo/types'
+import { IComboOptions, IStandardComboOptions } from '@/components/combo/types'
 
-import { CompetitionBasicDataDto } from '../competitions/types'
+import {
+  CompetitionBasicDataDto,
+  ICompetitionComboOptions,
+} from '../competitions/types'
 
 export type CompetitionGroupBasicDataDto =
   Components.Schemas.CompetitionGroupBasicDataDto
@@ -33,8 +36,8 @@ export type CompetitionGroupsFiltersState = Omit<
   CompetitionGroupsFiltersDto,
   'competitionIds' | 'regionIds'
 > & {
-  competitionIds: IComboOptions[]
-  regionIds: IComboOptions[]
+  competitionIds: ICompetitionComboOptions[]
+  regionIds: IStandardComboOptions[]
 }
 
 export type CompetitionGroupsSortBy =

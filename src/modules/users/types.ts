@@ -1,4 +1,4 @@
-import { IComboOptions } from '@/components/combo/types'
+import { IComboOptions, IStandardComboOptions } from '@/components/combo/types'
 
 export type UserDto = Components.Schemas.UserDto
 export type UserBasicDataDto = Components.Schemas.UserBasicDataDto
@@ -25,9 +25,9 @@ export type UsersFiltersState = Omit<
   UsersFiltersDto,
   'clubIds' | 'footballRoleIds' | 'regionIds' | 'role'
 > & {
-  clubIds: IComboOptions[]
-  footballRoleIds: IComboOptions[]
-  regionIds: IComboOptions[]
+  clubIds: IStandardComboOptions[]
+  footballRoleIds: IStandardComboOptions[]
+  regionIds: IStandardComboOptions[]
   role: IComboOptions | null
 }
 
