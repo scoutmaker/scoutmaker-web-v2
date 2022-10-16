@@ -52,6 +52,7 @@ export const CreateOrganizationSubscriptionForm = ({
         <Form>
           <Container fullwidth={fullwidth}>
             <BasicCombo
+              label={t('ORGANIZATION')}
               data={mapListDataToComboOptions(organizationsData)}
               name="organizationId"
               error={touched.organizationId && !!errors.organizationId}

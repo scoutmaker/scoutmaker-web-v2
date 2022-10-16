@@ -3,8 +3,9 @@ import { Field, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
-import { MatchesCombo } from '@/modules/matches/combo'
+import { BasicCombo } from '@/components/combo/basicCombo'
 import { MatchBasicDataDto } from '@/modules/matches/types'
+import { mapMatchesListToComboOptions } from '@/modules/matches/utils'
 
 import { CreateReportDto } from '../../types'
 
@@ -18,8 +19,8 @@ export const MatchStep = ({ matchesData }: IMatchStepProps) => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <MatchesCombo
-        data={matchesData}
+      <BasicCombo
+        data={mapMatchesListToComboOptions(matchesData)}
         name="matchId"
         label={t('MATCH')}
         error={touched.matchId && !!errors.matchId}

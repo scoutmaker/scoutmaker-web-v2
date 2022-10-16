@@ -2,12 +2,13 @@ import { Box, TextField } from '@mui/material'
 import { Field, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 
+import { BasicCombo } from '@/components/combo/basicCombo'
 import { Loader } from '@/components/loader/loader'
 import { useUser } from '@/modules/auth/hooks'
-import { OrdersCombo } from '@/modules/orders/combo'
 import { useOrdersList } from '@/modules/orders/hooks'
-import { PlayersCombo } from '@/modules/players/combo'
+import { mapOrdersListToComboOptions } from '@/modules/orders/utils'
 import { usePlayersList } from '@/modules/players/hooks'
+import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 
 import { CreateReportDto } from '../../types'
 
@@ -30,15 +31,15 @@ export const OrderStep = () => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       {isLoading && <Loader />}
-      <OrdersCombo
-        data={orders || []}
+      <BasicCombo
+        data={orders ? mapOrdersListToComboOptions(orders) : []}
         name="orderId"
         label={t('ORDER')}
         error={touched.orderId && !!errors.orderId}
         helperText={touched.orderId ? errors.orderId : undefined}
       />
-      <PlayersCombo
-        data={players || []}
+      <BasicCombo
+        data={players ? mapPlayersListToComboOptions(players) : []}
         name="playerId"
         label={t('PLAYER')}
         error={touched.playerId && !!errors.playerId}

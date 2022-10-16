@@ -3,13 +3,13 @@ import { useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
-import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
+import { BasicCombo } from '@/components/combo/basicCombo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
+import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { PlayersPositionCombo } from '@/modules/player-positions/combo'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
-import { TeamsCombo } from '@/modules/teams/combo'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { CreateReportDto } from '../../types'
@@ -33,8 +33,8 @@ export const MetaStep = ({
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       <Typography>{t('reports:META_DATA_DISCLAIMER')}</Typography>
-      <PlayersPositionCombo
-        data={positionsData}
+      <BasicCombo
+        data={mapListDataToComboOptions(positionsData)}
         name="positionPlayedId"
         label={t('POSITION')}
         error={touched.positionPlayedId && !!errors.positionPlayedId}
@@ -42,22 +42,22 @@ export const MetaStep = ({
           touched.positionPlayedId ? errors.positionPlayedId : undefined
         }
       />
-      <TeamsCombo
-        data={teamsData}
+      <BasicCombo
+        data={mapListDataToComboOptions(teamsData)}
         name="teamId"
         label={t('TEAM')}
         error={touched.teamId && !!errors.teamId}
         helperText={touched.teamId ? errors.teamId : undefined}
       />
-      <CompetitionsCombo
-        data={competitionsData}
+      <BasicCombo
+        data={mapCompetitionsListToComboOptions(competitionsData)}
         name="competitionId"
         label={t('COMPETITION')}
         error={touched.competitionId && !!errors.competitionId}
         helperText={touched.competitionId ? errors.competitionId : undefined}
       />
-      <CompetitionGroupsCombo
-        data={competitionGroupsData}
+      <BasicCombo
+        data={mapCompetitionGroupsListToComboOptions(competitionGroupsData)}
         name="competitionGroupId"
         label={t('COMPETITION_GROUP')}
         error={touched.competitionGroupId && !!errors.competitionGroupId}
