@@ -1,4 +1,12 @@
-import { IComboOptions } from '@/components/combo/types'
+import { IComboOptions, IStandardComboOptions } from '@/components/combo/types'
+
+import { ICompetitionGroupComboOptions } from '../competition-groups/types'
+import {
+  CompetitionBasicDataDto,
+  ICompetitionComboOptions,
+} from '../competitions/types'
+import { ISeasonComboOptions } from '../seasons/types'
+import { TeamBasicDataDto } from '../teams/types'
 
 export type MatchBasicDataDto = Components.Schemas.MatchBasicDataDto
 export type FindAllMatchesParams = Pick<
@@ -23,10 +31,10 @@ export type MatchesFiltersState = Omit<
   MatchesFiltersDto,
   'competitionIds' | 'groupIds' | 'seasonId' | 'teamId'
 > & {
-  competitionIds: IComboOptions[]
-  groupIds: IComboOptions[]
-  seasonId: IComboOptions | null
-  teamId: IComboOptions | null
+  competitionIds: ICompetitionComboOptions[]
+  groupIds: ICompetitionGroupComboOptions[]
+  seasonId: ISeasonComboOptions | null
+  teamId: IStandardComboOptions | null
 }
 
 export type MatchesSortBy = Paths.MatchesControllerFindAll.Parameters.SortBy
@@ -35,3 +43,10 @@ export type MatchDto = Omit<Components.Schemas.MatchDto, '_count'> & {
 }
 export type CreateMatchDto = Components.Schemas.CreateMatchDto
 export type UpdateMatchDto = Components.Schemas.UpdateMatchDto
+
+export interface IMatchComboOptions extends IComboOptions {
+  date: string
+  homeTeam: TeamBasicDataDto
+  awayTeam: TeamBasicDataDto
+  competition: CompetitionBasicDataDto
+}

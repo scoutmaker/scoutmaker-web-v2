@@ -10,6 +10,7 @@ import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-gr
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { SeasonDto } from '@/modules/seasons/types'
+import { mapSeasonsListToComboOptions } from '@/modules/seasons/utils'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { CompetitionParticipationsFiltersState } from '../types'
@@ -67,7 +68,7 @@ export const CompetitionParticipationsFilterForm = ({
             />
             <FilterCombo
               name="seasonId"
-              data={mapListDataToComboOptions(seasonsData)}
+              data={mapSeasonsListToComboOptions(seasonsData)}
               label={t('SEASON')}
               size="small"
             />

@@ -3,10 +3,10 @@ import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
 import { FilterCombo } from '@/components/combo/combo'
-import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
 import { CountryDto } from '@/modules/countries/types'
+import { mapCountriesListToComboOptions } from '@/modules/countries/utils'
 import { RegionsFiltersState } from '@/modules/regions/types'
 
 type IRegionsFilterFormProps = {
@@ -46,7 +46,7 @@ export const RegionsFilterForm = ({
             />
             <FilterCombo
               name="countryId"
-              data={mapListDataToComboOptions(countriesData)}
+              data={mapCountriesListToComboOptions(countriesData)}
               label={t('COUNTRY')}
               size="small"
             />
