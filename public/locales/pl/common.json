@@ -200,5 +200,7 @@
   "GO_TO_MATCH": "Jedź na mecz",
   "LEAVE_MATCH": "Opuść mecz",
   "MATCH_ATTENDANCE_INFO": "Jesteś na meczu {{homeTeam}} - {{awayTeam}}",
-  "QUICK_NOTE": "Szybka notatka"
+  "QUICK_NOTE": "Szybka notatka",
+  "PLAYER_STATS": "Statystyki zawodnika",
+  "PLAYERS_STATS": "Statystyki zawodników"
 }
