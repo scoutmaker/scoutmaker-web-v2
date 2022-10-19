@@ -28,3 +28,4 @@ export type TModuleName =
   | 'organizations'
   | 'organization-subscriptions'
   | 'match-attendances'
+  | 'user-player-acl'
