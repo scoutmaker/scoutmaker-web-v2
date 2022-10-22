@@ -1,0 +1,8 @@
+{
+  "INDEX_PAGE_TITLE": "Baza ACL insajderskich notatek użytkowników",
+  "CREATE_PAGE_TITLE": "Utwórz nowy ACE insajderskiej notatki użytkownika",
+  "NO_USER_ERROR": "Wybierz użytkownika ACE",
+  "NO_INSIDER_NOTE_ERROR": "Wybierz insajderską notatkę ACE",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć ACE insajderskiej notatki użytkownika?",
+  "EDIT_PAGE_TITLE": "Edycja danych ACE insajderskiej notatki użytkownika"
+}
