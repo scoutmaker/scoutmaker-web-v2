@@ -1,4 +1,4 @@
-import { Box, styled, Tab, Tabs, Typography } from '@mui/material'
+import { AppBar, Box, Grid, Tab, Tabs, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -102,20 +102,74 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
       />
       <MatchDetailsCard match={data} />
 
-      <Box width="100%" marginTop={theme => theme.spacing(2)}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Grid
+        container
+        sx={theme => ({
+          bgcolor: theme.palette.primary.main,
+          marginTop: theme.spacing(2),
+          paddingTop: theme.spacing(1),
+          borderTopLeftRadius: 5,
+          borderTopRightRadius: 5,
+        })}
+      >
+        <Grid item xs={6}>
+          <Typography
+            sx={theme => ({
+              fontSize: 22,
+              color: theme.palette.primary.contrastText,
+              textAlign: 'center',
+              [theme.breakpoints.down('sm')]: {
+                fontSize: 18,
+              },
+            })}
+          >
+            {data.homeTeam.name}
+          </Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <Typography
+            sx={theme => ({
+              fontSize: 22,
+              color: theme.palette.primary.contrastText,
+              textAlign: 'center',
+              [theme.breakpoints.down('sm')]: {
+                fontSize: 18,
+              },
+            })}
+          >
+            {data.awayTeam.name}
+          </Typography>
+        </Grid>
+      </Grid>
+      <Box width="100%">
+        <AppBar
+          position="static"
+          sx={theme => ({
+            marginBottom: theme.spacing(1),
+            borderBottomLeftRadius: 5,
+            borderBottomRightRadius: 5,
+          })}
+        >
           <Tabs
             value={tabValue}
             onChange={handleTabChange}
             aria-label="teams-notes-reports-tab"
+            indicatorColor="secondary"
+            textColor="inherit"
+            variant="fullWidth"
             centered
           >
-            <Tab label={data.homeTeam.name} />
-            <Tab label={data.awayTeam.name} />
+            <Tab label={`${t('NOTES')} (${homeTeamNotes?.totalDocs || 0})`} />
+            <Tab
+              label={`${t('REPORTS')} (${homeTeamReports?.totalDocs || 0})`}
+            />
+            <Tab label={`${t('NOTES')} (${awayTeamNotes?.totalDocs || 0})`} />
+            <Tab
+              label={`${t('REPORTS')} (${awayTeamReports?.totalDocs || 0})`}
+            />
           </Tabs>
-        </Box>
-        <TabPanel value={tabValue} index={0} title="home-team" noPadding>
-          <SectionHeading title={t('NOTES')} />
+        </AppBar>
+        <TabPanel value={tabValue} index={0} title="home-team-notes" noPadding>
           <NotesTable
             {...homeNoteTableSettings}
             {...homeNotesTableProps}
@@ -124,7 +178,13 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
             onLikeClick={likeNote}
             onUnLikeClick={unLikeNote}
           />
-          <SectionHeading title={t('REPORTS')} />
+        </TabPanel>
+        <TabPanel
+          value={tabValue}
+          index={1}
+          title="home-team-reports"
+          noPadding
+        >
           <ReportsTable
             {...homeReportsTableSettings}
             {...homeReportsTableProps}
@@ -134,8 +194,7 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
             onUnLikeClick={unLikeReport}
           />
         </TabPanel>
-        <TabPanel value={tabValue} index={1} title="away-team" noPadding>
-          <SectionHeading title={t('NOTES')} />
+        <TabPanel value={tabValue} index={2} title="away-team-notes" noPadding>
           <NotesTable
             {...awayNoteTableSettings}
             {...awayNotesTableProps}
@@ -144,7 +203,13 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
             onLikeClick={likeNote}
             onUnLikeClick={unLikeNote}
           />
-          <SectionHeading title={t('REPORTS')} />
+        </TabPanel>
+        <TabPanel
+          value={tabValue}
+          index={3}
+          title="away-team-reports"
+          noPadding
+        >
           <ReportsTable
             {...awayReportsTableSettings}
             {...awayReportsTableProps}
@@ -159,10 +224,10 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
   )
 }
 
-const SectionHeading = ({ title }: { title: string }) => (
-  <Typography variant="h3" align="center" paddingY={theme => theme.spacing(2)}>
-    {title}
-  </Typography>
-)
+// const SectionHeading = ({ title }: { title: string }) => (
+//   <Typography variant="h3" align="center" paddingY={theme => theme.spacing(2)}>
+//     {title}
+//   </Typography>
+// )
 
 export default MatchPage
