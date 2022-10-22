@@ -9,17 +9,17 @@ import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 import { UserBasicDataDto } from '@/modules/users/types'
 import { mapUsersListToComboOptions } from '@/modules/users/utils'
 
-import { UserPlayerAceFiltersState } from '../types'
+import { UserPlayerAclFiltersState } from '../types'
 
 interface IFormProps {
-  filters: UserPlayerAceFiltersState
-  onFilter: (data: UserPlayerAceFiltersState) => void
+  filters: UserPlayerAclFiltersState
+  onFilter: (data: UserPlayerAclFiltersState) => void
   onClearFilters: () => void
   usersData: UserBasicDataDto[]
   playersData: PlayerBasicDataDto[]
 }
 
-export const UserPlayerAceFilterForm = ({
+export const UserPlayerAclFilterForm = ({
   filters,
   onFilter,
   onClearFilters,

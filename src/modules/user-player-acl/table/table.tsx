@@ -4,11 +4,11 @@ import { TFunction, useTranslation } from 'next-i18next'
 import { Table } from '@/components/tables/table'
 import { ICommonTableProps, IHeadCell } from '@/types/tables'
 
-import { UserPlayerAceDto } from '../types'
-import { UserPlayerAceTableRow } from './row'
+import { UserPlayerAclDto } from '../types'
+import { UserPlayerAclTableRow } from './row'
 
 interface ITableProps extends ICommonTableProps {
-  data: UserPlayerAceDto[]
+  data: UserPlayerAclDto[]
   handleDeleteItemClick: (data: { id: string }) => void
 }
 
@@ -25,7 +25,7 @@ function generateHeadCells(t: TFunction): IHeadCell[] {
   ]
 }
 
-export const UserPlayerAceTable = ({
+export const UserPlayerAclTable = ({
   page,
   rowsPerPage,
   sortBy,
@@ -54,12 +54,12 @@ export const UserPlayerAceTable = ({
       headCells={generateHeadCells(t)}
       actions={actions}
     >
-      {data.map(ace => (
-        <UserPlayerAceTableRow
-          key={ace.id}
-          data={ace}
-          onEditClick={() => router.push(`/user-player-acl/edit/${ace.id}`)}
-          onDeleteClick={() => handleDeleteItemClick({ id: ace.id })}
+      {data.map(acl => (
+        <UserPlayerAclTableRow
+          key={acl.id}
+          data={acl}
+          onEditClick={() => router.push(`/user-player-acl/edit/${acl.id}`)}
+          onDeleteClick={() => handleDeleteItemClick({ id: acl.id })}
         />
       ))}
     </Table>

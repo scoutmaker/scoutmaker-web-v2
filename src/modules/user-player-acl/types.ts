@@ -1,29 +1,29 @@
 import { IPlayerComboOptions } from '../players/types'
 import { IUsersComboOptions } from '../users/types'
 
-export type UserPlayerAceDto = Components.Schemas.UserPlayerAceDto
+export type UserPlayerAclDto = Components.Schemas.UserPlayerAceDto
 
-export interface CreateUserPlayerAceDto
+export interface CreateUserPlayerAclDto
   extends Omit<Components.Schemas.CreateUserPlayerAceDto, 'permissionLevel'> {
   permissionLevel:
     | Components.Schemas.CreateUserPlayerAceDto['permissionLevel']
     | ''
 }
 
-export type UpdateUserPlayerAceDto = Components.Schemas.UpdateUserPlayerAceDto
+export type UpdateUserPlayerAclDto = Components.Schemas.UpdateUserPlayerAceDto
 
-export type FindAllUserPlayerAcesParams = Pick<
+export type FindAllUserPlayerAclsParams = Pick<
   Paths.UserPlayerAclControllerFindAll.QueryParameters,
   'limit' | 'page' | 'playerId' | 'sortBy' | 'sortingOrder' | 'userId'
 >
 
-export type UserPlayerAceFiltersDto = Pick<
-  FindAllUserPlayerAcesParams,
+export type UserPlayerAclFiltersDto = Pick<
+  FindAllUserPlayerAclsParams,
   'playerId' | 'userId'
 >
 
-export type UserPlayerAceFiltersState = Omit<
-  UserPlayerAceFiltersDto,
+export type UserPlayerAclFiltersState = Omit<
+  UserPlayerAclFiltersDto,
   'playerId' | 'userId'
 > & {
   playerId: IPlayerComboOptions | null

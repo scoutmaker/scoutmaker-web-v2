@@ -5,12 +5,12 @@ import * as yup from 'yup'
 import { validateId } from '@/utils/validation-helpers'
 
 import {
-  CreateUserPlayerAceDto,
-  UpdateUserPlayerAceDto,
-  UserPlayerAceDto,
+  CreateUserPlayerAclDto,
+  UpdateUserPlayerAclDto,
+  UserPlayerAclDto,
 } from '../types'
 
-export const initialValues: CreateUserPlayerAceDto = {
+export const initialValues: CreateUserPlayerAclDto = {
   playerId: '',
   userId: '',
   permissionLevel: '',
@@ -39,8 +39,8 @@ export function generateUpdateValidationSchema() {
 }
 
 export function getInitialStateFromCurrent(
-  ace: UserPlayerAceDto,
-): UpdateUserPlayerAceDto {
+  ace: UserPlayerAclDto,
+): UpdateUserPlayerAclDto {
   const { permissionLevel, player, user } = ace
 
   const values = {

@@ -2,13 +2,13 @@ import { Avatar, Card, CardContent, CardHeader, Grid } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { CardItemBasic } from '@/components/details-card/details-card-item'
-import { OrganizationsIcon } from '@/components/icons'
+import { GeneralAclIcon } from '@/components/icons'
 import { formatDate } from '@/utils/format-date'
 
-import { getPlayerFullName } from '../players/utils'
-import { UserPlayerAceDto } from './types'
+import { getPlayerFullName, getSinglePlayerRoute } from '../players/utils'
+import { UserPlayerAclDto } from './types'
 
-export const UserPlayerAceDetailsCard = ({ data }: IDetailsCard) => {
+export const UserPlayerAclDetailsCard = ({ data }: IDetailsCard) => {
   const { t } = useTranslation()
 
   const { createdAt, permissionLevel, player, user } = data
@@ -21,10 +21,10 @@ export const UserPlayerAceDetailsCard = ({ data }: IDetailsCard) => {
             aria-label="user player ace icon"
             sx={{ backgroundColor: 'secondary.main', width: 50, height: 50 }}
           >
-            <OrganizationsIcon />
+            <GeneralAclIcon />
           </Avatar>
         }
-        title={t('USER_PLAYER_ACL')}
+        title={t('USER_PLAYER_ACE')}
         titleTypographyProps={{ variant: 'h3' }}
       />
       <CardContent>
@@ -32,14 +32,16 @@ export const UserPlayerAceDetailsCard = ({ data }: IDetailsCard) => {
           <CardItemBasic
             title={t('USER')}
             value={`${user.firstName} ${user.lastName} (${user.email})`}
+            href={`/users/${user.id}`}
           />
           <CardItemBasic
             title={t('PLAYER')}
             value={getPlayerFullName(player)}
+            href={getSinglePlayerRoute(player.slug)}
           />
           <CardItemBasic
             title={t('PERMISSION_LEVEL')}
-            value={permissionLevel}
+            value={t(`permissions:${permissionLevel}`)}
           />
           <CardItemBasic
             title={t('CREATED_AT')}
@@ -52,5 +54,5 @@ export const UserPlayerAceDetailsCard = ({ data }: IDetailsCard) => {
 }
 
 interface IDetailsCard {
-  data: UserPlayerAceDto
+  data: UserPlayerAclDto
 }

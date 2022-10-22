@@ -9,28 +9,28 @@ import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { usePlayersList } from '@/modules/players/hooks'
-import { UserPlayerAceFilterForm } from '@/modules/user-player-acl/forms/filter'
+import { UserPlayerAclFilterForm } from '@/modules/user-player-acl/forms/filter'
 import {
-  useDeleteUserPlayerAce,
-  useUserPlayerAces,
+  useDeleteUserPlayerAcl,
+  useUserPlayerAcls,
 } from '@/modules/user-player-acl/hooks'
-import { UserPlayerAceTable } from '@/modules/user-player-acl/table/table'
+import { UserPlayerAclTable } from '@/modules/user-player-acl/table/table'
 import {
-  UserPlayerAceFiltersState,
   UserPlayerAceSortBy,
+  UserPlayerAclFiltersState,
 } from '@/modules/user-player-acl/types'
 import { useUsersList } from '@/modules/users/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-const initialFilters: UserPlayerAceFiltersState = {
+const initialFilters: UserPlayerAclFiltersState = {
   playerId: null,
   userId: null,
 }
 
 export const getServerSideProps = withSessionSsrRole(
-  ['common', 'user-player-acl'],
+  ['common', 'user-player-acl', 'permissions'],
   ['ADMIN'],
 )
 
@@ -48,17 +48,17 @@ const UserPlayerAclsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     handleSort,
   } = useTable('userPlayerAclTable')
 
-  const [filters, setFilters] = useLocalStorage<UserPlayerAceFiltersState>({
+  const [filters, setFilters] = useLocalStorage<UserPlayerAclFiltersState>({
     key: 'user-player-acl-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: UserPlayerAceFiltersState) {
+  function handleSetFilters(newFilters: UserPlayerAclFiltersState) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
 
-  const { data: userPlayerAcls, isLoading: dataLoading } = useUserPlayerAces({
+  const { data: userPlayerAcls, isLoading: dataLoading } = useUserPlayerAcls({
     page: page + 1,
     limit: rowsPerPage,
     sortBy: sortBy as UserPlayerAceSortBy,
@@ -70,7 +70,7 @@ const UserPlayerAclsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { data: playersData, isLoading: playersLoading } = usePlayersList()
 
   const { mutate: deleteUserPlayerAcl, isLoading: deleteLoading } =
-    useDeleteUserPlayerAce()
+    useDeleteUserPlayerAcl()
 
   const handleDeleteItemClick = (data: { id: string }) => {
     setToDeleteData(data)
@@ -87,7 +87,7 @@ const UserPlayerAclsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
       {isLoading && <Loader />}
       <PageHeading title={t('user-player-acl:INDEX_PAGE_TITLE')} />
       <FilterAccordion>
-        <UserPlayerAceFilterForm
+        <UserPlayerAclFilterForm
           filters={filters}
           onFilter={handleSetFilters}
           onClearFilters={() => handleSetFilters(initialFilters)}
@@ -95,7 +95,7 @@ const UserPlayerAclsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
           usersData={usersData || []}
         />
       </FilterAccordion>
-      <UserPlayerAceTable
+      <UserPlayerAclTable
         page={page}
         rowsPerPage={rowsPerPage}
         sortBy={sortBy}

@@ -1,8 +1,8 @@
 import {
-  createUserPlayerAce,
-  deleteUserPlayerAce,
-  getUserPlayerAces,
-  updateUserPlayerAce,
+  createUserPlayerAcl,
+  deleteUserPlayerAcl,
+  getUserPlayerAcls,
+  updateUserPlayerAcl,
 } from '@/services/api/methods/user-player-acl'
 import { TModuleName } from '@/services/api/modules'
 import { useCreateDocument } from '@/utils/hooks/api/use-create-document'
@@ -11,33 +11,33 @@ import { usePaginatedData } from '@/utils/hooks/api/use-paginated-data'
 import { useUpdateDocument } from '@/utils/hooks/api/use-update-document'
 
 import {
-  CreateUserPlayerAceDto,
-  FindAllUserPlayerAcesParams,
-  UpdateUserPlayerAceDto,
-  UserPlayerAceDto,
+  CreateUserPlayerAclDto,
+  FindAllUserPlayerAclsParams,
+  UpdateUserPlayerAclDto,
+  UserPlayerAclDto,
 } from './types'
 
 const moduleName: TModuleName = 'user-player-acl'
 
-export const useUserPlayerAces = (params: FindAllUserPlayerAcesParams) =>
-  usePaginatedData<FindAllUserPlayerAcesParams, UserPlayerAceDto>(
+export const useUserPlayerAcls = (params: FindAllUserPlayerAclsParams) =>
+  usePaginatedData<FindAllUserPlayerAclsParams, UserPlayerAclDto>(
     moduleName,
     params,
-    getUserPlayerAces,
+    getUserPlayerAcls,
   )
 
-export const useDeleteUserPlayerAce = () =>
-  useDeleteDocument<UserPlayerAceDto>(moduleName, deleteUserPlayerAce)
+export const useDeleteUserPlayerAcl = () =>
+  useDeleteDocument<UserPlayerAclDto>(moduleName, deleteUserPlayerAcl)
 
-export const useUpdateUserPlayerAce = (id: string) =>
-  useUpdateDocument<UpdateUserPlayerAceDto, UserPlayerAceDto>(
+export const useUpdateUserPlayerAcl = (id: string) =>
+  useUpdateDocument<UpdateUserPlayerAclDto, UserPlayerAclDto>(
     moduleName,
     id,
-    updateUserPlayerAce,
+    updateUserPlayerAcl,
   )
 
-export const useCreateUserPlayerAce = () =>
-  useCreateDocument<CreateUserPlayerAceDto, UserPlayerAceDto>(
+export const useCreateUserPlayerAcl = () =>
+  useCreateDocument<CreateUserPlayerAclDto, UserPlayerAclDto>(
     moduleName,
-    createUserPlayerAce,
+    createUserPlayerAcl,
   )

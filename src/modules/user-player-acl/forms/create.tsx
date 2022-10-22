@@ -11,12 +11,12 @@ import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 import { UserBasicDataDto } from '@/modules/users/types'
 import { mapUsersListToComboOptions } from '@/modules/users/utils'
 
-import { permissionLevelComboData } from '../PermissionLevelComboData'
-import { CreateUserPlayerAceDto } from '../types'
+import { getPermissionLevelComboData } from '../../../components/acl/PermissionLevelComboData'
+import { CreateUserPlayerAclDto } from '../types'
 import { generateCreateValidationSchema, initialValues } from './utils'
 
 interface ICreateFormProps {
-  onSubmit: (data: CreateUserPlayerAceDto) => void
+  onSubmit: (data: CreateUserPlayerAclDto) => void
   onCancelClick?: () => void
   fullwidth?: boolean
   usersData: UserBasicDataDto[]
@@ -32,6 +32,7 @@ export const CreateUserPlayerAclForm = ({
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
+  const permissionLevelComboData = getPermissionLevelComboData(t)
 
   return (
     <Formik
@@ -40,7 +41,7 @@ export const CreateUserPlayerAclForm = ({
       enableReinitialize
       onSubmit={(data, { resetForm }) => {
         const dataToSubmit = filter(data, (_, value) => value)
-        onSubmit(dataToSubmit as CreateUserPlayerAceDto)
+        onSubmit(dataToSubmit as CreateUserPlayerAclDto)
         resetForm()
       }}
     >
@@ -71,7 +72,7 @@ export const CreateUserPlayerAclForm = ({
               }
             />
             <MainFormActions
-              label={t('USER_PLAYER_ACL')}
+              label={t('USER_PLAYER_ACE')}
               onCancelClick={() => {
                 if (onCancelClick) {
                   onCancelClick()

@@ -1,26 +1,32 @@
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 import { StyledTableCell } from '@/components/tables/cell'
+import { CellWithLink } from '@/components/tables/cell-with-link'
 import { TableMenu } from '@/components/tables/menu'
 import { StyledTableRow } from '@/components/tables/row'
-import { getPlayerFullName } from '@/modules/players/utils'
+import {
+  getPlayerFullName,
+  getSinglePlayerRoute,
+} from '@/modules/players/utils'
 import { formatDate } from '@/utils/format-date'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
-import { UserPlayerAceDto } from '../types'
+import { UserPlayerAclDto } from '../types'
 
 interface ITableRowProps {
-  data: UserPlayerAceDto
+  data: UserPlayerAclDto
   onEditClick: () => void
   onDeleteClick: () => void
 }
 
-export const UserPlayerAceTableRow = ({
+export const UserPlayerAclTableRow = ({
   data,
   onEditClick,
   onDeleteClick,
 }: ITableRowProps) => {
   const router = useRouter()
+  const { t } = useTranslation()
 
   const {
     menuAnchorEl,
@@ -50,9 +56,15 @@ export const UserPlayerAceTableRow = ({
           onEditClick={() => handleMenuAction(onEditClick)}
         />
       </StyledTableCell>
-      <StyledTableCell>{`${user.firstName} ${user.lastName} (${user.email})`}</StyledTableCell>
-      <StyledTableCell>{getPlayerFullName(player)}</StyledTableCell>
-      <StyledTableCell>{permissionLevel}</StyledTableCell>
+      <CellWithLink
+        href={`/users/${user.id}`}
+        label={`${user.firstName} ${user.lastName} (${user.email})`}
+      />
+      <CellWithLink
+        href={getSinglePlayerRoute(player.slug)}
+        label={getPlayerFullName(player)}
+      />
+      <StyledTableCell>{t(`permissions:${permissionLevel}`)}</StyledTableCell>
       <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
     </StyledTableRow>
   )

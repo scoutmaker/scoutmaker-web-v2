@@ -3,19 +3,19 @@ import { useTranslation } from 'next-i18next'
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { EditOrganizationForm } from '@/modules/organizations/forms/edit'
-import { useUpdateOrganization } from '@/modules/organizations/hooks'
-import { OrganizationDto } from '@/modules/organizations/types'
-import { getOrganizationById } from '@/services/api/methods/organizations'
+import { EditUserPlayerAclForm } from '@/modules/user-player-acl/forms/edit'
+import { useUpdateUserPlayerAcl } from '@/modules/user-player-acl/hooks'
+import { UserPlayerAclDto } from '@/modules/user-player-acl/types'
+import { getUserPlayerAclById } from '@/services/api/methods/user-player-acl'
 import { ApiError } from '@/services/api/types'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsrRole<OrganizationDto>(
-  ['common', 'organizations'],
+export const getServerSideProps = withSessionSsrRole<UserPlayerAclDto>(
+  ['common', 'user-player-acl', 'permissions'],
   ['ADMIN'],
   async (token, params) => {
     try {
-      const data = await getOrganizationById(params?.id as string, token)
+      const data = await getUserPlayerAclById(params?.id as string, token)
       return { data }
     } catch (error) {
       return {
@@ -26,25 +26,25 @@ export const getServerSideProps = withSessionSsrRole<OrganizationDto>(
   },
 )
 
-const EditOrganizationPage = ({
+const EditUserPlayerAclPage = ({
   data,
   errorMessage,
   errorStatus,
-}: TSsrRole<OrganizationDto>) => {
+}: TSsrRole<UserPlayerAclDto>) => {
   const { t } = useTranslation()
 
-  const { mutate: updateOrganization, isLoading: updateLoading } =
-    useUpdateOrganization(data?.id || '0')
+  const { mutate: updateAcl, isLoading: updateLoading } =
+    useUpdateUserPlayerAcl(data?.id || '0')
 
   if (!data || errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {updateLoading && <Loader />}
-      <PageHeading title={t('organizations:EDIT_PAGE_TITLE')} />
-      <EditOrganizationForm current={data} onSubmit={updateOrganization} />
+      <PageHeading title={t('user-player-acl:EDIT_PAGE_TITLE')} />
+      <EditUserPlayerAclForm current={data} onSubmit={updateAcl} />
     </>
   )
 }
 
-export default EditOrganizationPage
+export default EditUserPlayerAclPage

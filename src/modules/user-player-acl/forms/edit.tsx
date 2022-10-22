@@ -8,21 +8,21 @@ import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 
-import { permissionLevelComboData } from '../PermissionLevelComboData'
-import { UpdateUserPlayerAceDto, UserPlayerAceDto } from '../types'
+import { getPermissionLevelComboData } from '../../../components/acl/PermissionLevelComboData'
+import { UpdateUserPlayerAclDto, UserPlayerAclDto } from '../types'
 import {
   generateUpdateValidationSchema,
   getInitialStateFromCurrent,
 } from './utils'
 
 interface IEditFormProps {
-  current: UserPlayerAceDto
-  onSubmit: (data: UpdateUserPlayerAceDto) => void
+  current: UserPlayerAclDto
+  onSubmit: (data: UpdateUserPlayerAclDto) => void
   onCancelClick?: () => void
   fullwidth?: boolean
 }
 
-export const EditUserPlayerAceForm = ({
+export const EditUserPlayerAclForm = ({
   current,
   onSubmit,
   onCancelClick,
@@ -30,6 +30,7 @@ export const EditUserPlayerAceForm = ({
 }: IEditFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
+  const permissionLevelComboData = getPermissionLevelComboData(t)
 
   const initialValues = getInitialStateFromCurrent(current)
 
