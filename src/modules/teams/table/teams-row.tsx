@@ -21,6 +21,7 @@ interface ITeamsTableRowProps {
   onDeleteClick: () => void
   onLikeClick: (id: string) => void
   onUnlikeClick: (id: string) => void
+  actions?: boolean
 }
 
 export const TeamsTableRow = ({
@@ -29,6 +30,7 @@ export const TeamsTableRow = ({
   onDeleteClick,
   onLikeClick,
   onUnlikeClick,
+  actions,
 }: ITeamsTableRowProps) => {
   const { t } = useTranslation()
   const router = useRouter()
@@ -54,34 +56,35 @@ export const TeamsTableRow = ({
       key={id}
       onClick={isMenuOpen ? undefined : () => router.push(`/teams/${slug}`)}
     >
-      <StyledTableCell padding="checkbox">
-        <TableMenu
-          menuAnchorEl={menuAnchorEl}
-          isMenuOpen={isMenuOpen}
-          onMenuClick={handleMenuClick}
-          onMenuClose={handleMenuClose}
-          onDeleteClick={() => handleMenuAction(onDeleteClick)}
-          onEditClick={() => handleMenuAction(onEditClick)}
-        >
-          {likes.length === 0 ? (
-            <TableMenuItem
-              icon={<LikeIcon fontSize="small" />}
-              text={t('ADD_TO_FAVOURITES')}
-              onClick={() => {
-                handleMenuAction(() => onLikeClick(id))
-              }}
-            />
-          ) : (
-            <TableMenuItem
-              icon={<UnlikeIcon fontSize="small" />}
-              text={t('REMOVE_FROM_FAVOURITES')}
-              onClick={() => {
-                handleMenuAction(() => onUnlikeClick(id))
-              }}
-            />
-          )}
-        </TableMenu>
-      </StyledTableCell>
+      {actions &&
+        <StyledTableCell padding="checkbox">
+          <TableMenu
+            menuAnchorEl={menuAnchorEl}
+            isMenuOpen={isMenuOpen}
+            onMenuClick={handleMenuClick}
+            onMenuClose={handleMenuClose}
+            onDeleteClick={() => handleMenuAction(onDeleteClick)}
+            onEditClick={() => handleMenuAction(onEditClick)}
+          >
+            {likes.length === 0 ? (
+              <TableMenuItem
+                icon={<LikeIcon fontSize="small" />}
+                text={t('ADD_TO_FAVOURITES')}
+                onClick={() => {
+                  handleMenuAction(() => onLikeClick(id))
+                }}
+              />
+            ) : (
+              <TableMenuItem
+                icon={<UnlikeIcon fontSize="small" />}
+                text={t('REMOVE_FROM_FAVOURITES')}
+                onClick={() => {
+                  handleMenuAction(() => onUnlikeClick(id))
+                }}
+              />
+            )}
+          </TableMenu>
+        </StyledTableCell>}
       <LikedTableCell
         isLiked={!!likes.length}
         onClicked={cellChangeLikedClick}
