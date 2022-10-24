@@ -1,12 +1,32 @@
 import { Add as AddIcon } from '@mui/icons-material'
-import { Box, Button, Typography } from '@mui/material'
+import { AppBar, Box, Tab, Tabs } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import React, { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
+import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
+import { TabPanel } from '@/components/tab-panel/tab-panel'
+import {
+  useInsiderNotes,
+  useLikeInsiderNote,
+  useUnLikeInsiderNote,
+} from '@/modules/insider-notes/hooks'
+import { InsiderNotesTable } from '@/modules/insider-notes/table/table'
+import { InsiderNotesSortBy } from '@/modules/insider-notes/types'
+import { useLikeNote, useNotes, useUnlikeNote } from '@/modules/notes/hooks'
+import { NotesTable } from '@/modules/notes/table/table'
+import { NotesSortBy } from '@/modules/notes/types'
 import { PlayerDetialsCard } from '@/modules/players/details-card'
 import { PlayerDto } from '@/modules/players/types'
+import {
+  useLikeReport,
+  useReports,
+  useUnlikeReport,
+} from '@/modules/reports/hooks'
+import { ReportsTable } from '@/modules/reports/table/table'
+import { ReportsSortBy } from '@/modules/reports/types'
 import { useTeamAffiliations } from '@/modules/team-affiliations/hooks'
 import { TeamAffiliationsTable } from '@/modules/team-affiliations/table/team'
 import { TeamAffiliationsSortBy } from '@/modules/team-affiliations/types'
@@ -36,23 +56,86 @@ export const getServerSideProps = withSessionSsrRole<TData>(
 const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
   const { t } = useTranslation()
   const router = useRouter()
+  const [tabValue, setTabValue] = useState(0)
+
+  const handleTabChange = (event: any, newValue: number) =>
+    setTabValue(newValue)
 
   const { isAdmin, player } = data as TData
 
   const {
-    tableSettings: { page, rowsPerPage, sortBy, order },
-    handleChangePage,
-    handleChangeRowsPerPage,
-    handleSort,
+    tableSettings: TeamAffiliationsTableSettings,
+    ...TeamAffiliationsTableProps
   } = useTable(`team-affiliations-table-player:${player?.id}`, 'endDate')
 
-  const { data: affiliations } = useTeamAffiliations({
-    page: page + 1,
-    limit: rowsPerPage,
-    sortBy: sortBy as TeamAffiliationsSortBy,
-    sortingOrder: order,
-    playerId: player?.id,
+  const { tableSettings: NotesTableSettings, ...NotesTableProps } =
+    useTable(`notes-table-player`)
+
+  const { tableSettings: ReportsTableSettings, ...ReportsTableProps } =
+    useTable(`reports-table-player`)
+
+  const {
+    tableSettings: InsiderNotesTableSettings,
+    ...InsiderNotesTableProps
+  } = useTable(`insider-notes-table-player`)
+
+  const { data: affiliations, isLoading: teamAffiliationsLoading } =
+    useTeamAffiliations({
+      page: TeamAffiliationsTableSettings.page + 1,
+      limit: TeamAffiliationsTableSettings.rowsPerPage,
+      sortBy: TeamAffiliationsTableSettings.sortBy as TeamAffiliationsSortBy,
+      sortingOrder: TeamAffiliationsTableSettings.order,
+      playerId: player?.id,
+    })
+
+  const { data: notes, isLoading: notesLoading } = useNotes({
+    page: NotesTableSettings.page + 1,
+    limit: NotesTableSettings.rowsPerPage,
+    sortBy: NotesTableSettings.sortBy as NotesSortBy,
+    sortingOrder: NotesTableSettings.order,
+    playerIds: [player?.id || ''],
   })
+
+  const { data: reports, isLoading: reportsLoading } = useReports({
+    page: ReportsTableSettings.page + 1,
+    limit: ReportsTableSettings.rowsPerPage,
+    sortBy: ReportsTableSettings.sortBy as ReportsSortBy,
+    sortingOrder: ReportsTableSettings.order,
+    playerIds: [player?.id || ''],
+  })
+
+  const { data: insiderNotes, isLoading: insiderNotesLoading } =
+    useInsiderNotes({
+      page: InsiderNotesTableSettings.page + 1,
+      limit: InsiderNotesTableSettings.rowsPerPage,
+      sortBy: InsiderNotesTableSettings.sortBy as InsiderNotesSortBy,
+      sortingOrder: InsiderNotesTableSettings.order,
+      playerIds: [player?.id || ''],
+    })
+
+  const { mutate: likeNote, isLoading: likeNoteLoading } = useLikeNote()
+  const { mutate: unLikeNote, isLoading: unLikeNoteLoading } = useUnlikeNote()
+
+  const { mutate: likeReport, isLoading: likeReportLoading } = useLikeReport()
+  const { mutate: unLikeReport, isLoading: unLikeReportLoading } =
+    useUnlikeReport()
+
+  const { mutate: likeInsiderNote, isLoading: likeInsiderNoteLoading } =
+    useLikeInsiderNote()
+  const { mutate: unLikeInsiderNote, isLoading: unLikeInsiderNoteLoading } =
+    useUnLikeInsiderNote()
+
+  const isLoading =
+    likeNoteLoading ||
+    unLikeNoteLoading ||
+    likeReportLoading ||
+    unLikeReportLoading ||
+    likeInsiderNoteLoading ||
+    unLikeInsiderNoteLoading ||
+    teamAffiliationsLoading ||
+    notesLoading ||
+    reportsLoading ||
+    insiderNotesLoading
 
   if (!player) {
     return <ErrorContent message={errorMessage} status={errorStatus} />
@@ -60,45 +143,125 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
 
   return (
     <>
+      {isLoading && <Loader />}
       <PageHeading title={`${player.firstName} ${player.lastName}`} />
       <PlayerDetialsCard player={player} />
-      <section>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column',
-            marginY: 3,
-            gap: 1,
-          }}
+      <Box width="100%" marginTop={theme => theme.spacing(4)}>
+        <AppBar
+          position="static"
+          sx={theme => ({
+            marginBottom: theme.spacing(1),
+            borderBottomLeftRadius: 5,
+            borderBottomRightRadius: 5,
+          })}
         >
-          <Typography variant="h3" align="center">
-            {t('players:TEAM_AFFILIATIONS_HEADING')}
-          </Typography>
-          {isAdmin && (
-            <Button
-              variant="contained"
-              onClick={() =>
-                router.push(`/team-affiliations/create?playerId=${player.id}`)
+          <Tabs
+            value={tabValue}
+            onChange={handleTabChange}
+            aria-label="teams-notes-reports-tab"
+            indicatorColor="secondary"
+            textColor="inherit"
+            variant="fullWidth"
+            sx={theme => ({
+              '& .MuiTab-root': {
+                [theme.breakpoints.down('sm')]: {
+                  fontSize: 10,
+                },
+              },
+            })}
+            centered
+          >
+            <Tab label={t('NOTES')} />
+            <Tab label={t('INSIDER_NOTES')} />
+            <Tab label={t('REPORTS')} />
+            <Tab
+              // icon in label instead of mui icon props because even with small icon, tab height was increasing like 3 times
+              label={
+                <Box
+                  sx={theme => ({
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 0.5,
+                    [theme.breakpoints.down('sm')]: {
+                      flexDirection: 'column-reverse',
+                    },
+                  })}
+                >
+                  {t('TEAM_AFFILIATIONS')}
+                  {isAdmin && (
+                    <AddIcon
+                      onClick={() =>
+                        router.push(
+                          `/team-affiliations/create?playerId=${player.id}`,
+                        )
+                      }
+                      sx={theme => ({
+                        [theme.breakpoints.down('sm')]: {
+                          height: 15,
+                          width: 15,
+                        },
+                      })}
+                    />
+                  )}
+                </Box>
               }
-            >
-              {t('ADD')} <AddIcon />
-            </Button>
-          )}
-        </Box>
-        <TeamAffiliationsTable
-          page={page}
-          rowsPerPage={rowsPerPage}
-          sortBy={sortBy}
-          order={order}
-          handleChangePage={handleChangePage}
-          handleChangeRowsPerPage={handleChangeRowsPerPage}
-          handleSort={handleSort}
-          total={affiliations?.totalDocs || 0}
-          data={affiliations?.docs || []}
-        />
-      </section>
+            />
+          </Tabs>
+        </AppBar>
+        <TabPanel value={tabValue} index={0} title="notes" noPadding>
+          <NotesTable
+            {...NotesTableSettings}
+            {...NotesTableProps}
+            total={notes?.totalDocs || 0}
+            data={notes?.docs || []}
+            onLikeClick={likeNote}
+            onUnLikeClick={unLikeNote}
+          />
+        </TabPanel>
+        <TabPanel value={tabValue} index={1} title="insider-notes" noPadding>
+          <InsiderNotesTable
+            {...InsiderNotesTableProps}
+            {...InsiderNotesTableSettings}
+            total={insiderNotes?.totalDocs || 0}
+            data={insiderNotes?.docs || []}
+            likeInsiderNoteClick={likeInsiderNote}
+            unLikeInsiderNoteClick={unLikeInsiderNote}
+          />
+        </TabPanel>
+        <TabPanel value={tabValue} index={2} title="reports" noPadding>
+          <ReportsTable
+            {...ReportsTableSettings}
+            {...ReportsTableProps}
+            total={reports?.totalDocs || 0}
+            data={reports?.docs || []}
+            onLikeClick={likeReport}
+            onUnLikeClick={unLikeReport}
+          />
+        </TabPanel>
+        <TabPanel
+          value={tabValue}
+          index={3}
+          title="team-affiliations"
+          noPadding
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              gap: 1,
+            }}
+          >
+            <TeamAffiliationsTable
+              {...TeamAffiliationsTableProps}
+              {...TeamAffiliationsTableSettings}
+              total={affiliations?.totalDocs || 0}
+              data={affiliations?.docs || []}
+            />
+          </Box>
+        </TabPanel>
+      </Box>
     </>
   )
 }
