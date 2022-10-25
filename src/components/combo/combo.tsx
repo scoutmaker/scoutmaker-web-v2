@@ -1,4 +1,9 @@
-import { AutocompleteRenderInputParams, Box, TextField } from '@mui/material'
+import {
+  AutocompleteRenderInputParams,
+  Box,
+  createFilterOptions,
+  TextField,
+} from '@mui/material'
 import { Field } from 'formik'
 import { Autocomplete } from 'formik-mui'
 
@@ -12,7 +17,12 @@ interface IComboProps {
   size?: 'medium' | 'small'
   error?: boolean
   helperText?: string
+  filterBeforeComma?: boolean
 }
+
+const filterOptions = createFilterOptions({
+  stringify: (option: IComboOptions) => option.label.split(', ')[0],
+})
 
 export const FilterCombo = ({
   data,
@@ -22,6 +32,7 @@ export const FilterCombo = ({
   size,
   error,
   helperText,
+  filterBeforeComma,
 }: IComboProps) => (
   <Field
     name={name}
@@ -32,6 +43,7 @@ export const FilterCombo = ({
     size={size}
     options={data}
     filterSelectedOptions
+    filterOptions={filterBeforeComma ? filterOptions : undefined}
     isOptionEqualToValue={(option: IComboOptions, value: IComboOptions) =>
       option.id === value.id
     }
