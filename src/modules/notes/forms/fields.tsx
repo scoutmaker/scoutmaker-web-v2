@@ -65,6 +65,7 @@ export const Fields = ({
         label={t('PLAYER')}
         error={touched.playerId && !!errors.playerId}
         helperText={touched.playerId ? errors.playerId : undefined}
+        filterBeforeComma
       />
       <Field
         name="shirtNo"
