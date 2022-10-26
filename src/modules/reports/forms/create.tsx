@@ -1,5 +1,6 @@
 import { Box, Step, StepContent, StepLabel, Stepper } from '@mui/material'
 import { Form, Formik } from 'formik'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -61,6 +62,8 @@ export const CreateReportForm = ({
   const { setAlert } = useAlertsState()
   const { t } = useTranslation(['common', 'reports'])
   const { activeStep, handleNext, handleBack } = useStepper()
+  const router = useRouter()
+  const formInitialValues = createReportFormInitialValues
 
   // TODO: handle this
   const activeOrderId = 0
@@ -68,6 +71,18 @@ export const CreateReportForm = ({
   const [reportType, setReportType] = useState<ReportType>(
     activeOrderId ? 'order' : 'custom',
   )
+
+  const queryDataFields: Array<keyof CreateReportDto> = [
+    'playerId',
+    'matchId',
+    'shirtNo',
+    'finalRating',
+    'summary',
+  ]
+  queryDataFields.forEach(query => {
+    formInitialValues[query] =
+      (router.query[query] as never) || formInitialValues[query]
+  })
 
   const steps: TStep[] = [
     {
@@ -150,7 +165,7 @@ export const CreateReportForm = ({
 
   return (
     <Formik
-      initialValues={createReportFormInitialValues}
+      initialValues={formInitialValues}
       validationSchema={generateCreateReportFormValidationSchema(t)}
       enableReinitialize
       onSubmit={(data, { resetForm }) => {

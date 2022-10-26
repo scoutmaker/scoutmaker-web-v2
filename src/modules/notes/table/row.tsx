@@ -28,6 +28,7 @@ import {
   getSingleMatchRoute,
 } from '@/modules/matches/utils'
 import { getSinglePlayerRoute } from '@/modules/players/utils'
+import { CreateReportDto } from '@/modules/reports/types'
 import { formatDate } from '@/utils/format-date'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
@@ -71,12 +72,21 @@ export const NotesTableRow = ({
     player,
     shirtNo,
     meta,
+    rating,
   } = data
 
   const cellChangeLikedClick = () => {
     if (likes.length) onUnlikeClick(id)
     else onLikeClick(id)
   }
+
+  const createReportQueryData = {
+    playerId: player?.id || '',
+    matchId: match?.id,
+    shirtNo,
+    finalRating: rating,
+    summary: description,
+  } as CreateReportDto
 
   return (
     <>
@@ -126,6 +136,16 @@ export const NotesTableRow = ({
                 }}
               />
             )}
+            <TableMenuItem
+              icon={<UnlikeIcon fontSize="small" />}
+              text={t('notes:CREATE_REPORT')}
+              onClick={() =>
+                router.push({
+                  pathname: '/reports/create',
+                  query: createReportQueryData as Record<string, any>,
+                })
+              }
+            />
           </TableMenu>
         </StyledTableCell>
         <LikedTableCell
