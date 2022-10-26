@@ -11,6 +11,7 @@ import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import {
+  CreateReportIcon,
   KeyboardArrowDownIcon,
   KeyboardArrowUpIcon,
   LikeIcon,
@@ -137,7 +138,7 @@ export const NotesTableRow = ({
               />
             )}
             <TableMenuItem
-              icon={<UnlikeIcon fontSize="small" />}
+              icon={<CreateReportIcon fontSize="small" />}
               text={t('notes:CREATE_REPORT')}
               onClick={() =>
                 router.push({
