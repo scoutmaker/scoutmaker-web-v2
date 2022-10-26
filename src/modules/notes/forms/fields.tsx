@@ -41,6 +41,7 @@ interface IFieldsProps {
   teamsData: TeamBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
+  matchDisabled?: boolean
 }
 
 export const Fields = ({
@@ -50,6 +51,7 @@ export const Fields = ({
   competitionsData,
   competitionGroupsData,
   teamsData,
+  matchDisabled,
 }: IFieldsProps) => {
   const { t } = useTranslation()
 
@@ -83,6 +85,7 @@ export const Fields = ({
         label={t('MATCH')}
         error={touched.matchId && !!errors.matchId}
         helperText={touched.matchId ? errors.matchId : undefined}
+        disabled={matchDisabled}
       />
       <Field
         name="maxRatingScore"
