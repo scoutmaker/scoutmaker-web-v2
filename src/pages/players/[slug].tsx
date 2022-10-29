@@ -37,7 +37,7 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
   const { t } = useTranslation()
   const router = useRouter()
 
-  const { isAdmin, player } = (data as TData) || {}
+  const { isAdmin, player } = data || {}
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
