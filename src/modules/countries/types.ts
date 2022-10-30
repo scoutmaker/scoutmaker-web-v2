@@ -1,3 +1,5 @@
+import { IComboOptions } from '@/components/combo/types'
+
 export type CountryDto = Components.Schemas.CountryDto
 
 export type CountriesFiltersDto = Pick<
@@ -14,3 +16,9 @@ export type FindAllCountriesParams = Pick<
   Paths.CountriesControllerFindAll.QueryParameters,
   'isEuMember' | 'limit' | 'page' | 'sortBy' | 'sortingOrder'
 >
+
+export interface ICountryComboOptions extends IComboOptions {
+  isEuMember: boolean
+  code: string
+  name: string
+}
