@@ -59,7 +59,13 @@ export const OrderDetailsCard = ({ order }: IDetailsCard) => {
               title={t('PLAYER')}
               value={
                 player
-                  ? `${player?.firstName} ${player?.lastName}, ${player?.primaryPosition.name} (${player?.teams[0].team.name})`
+                  ? `${player?.firstName} ${player?.lastName}, ${
+                      player?.primaryPosition.name
+                    } ${
+                      player?.teams?.length
+                        ? `(${player.teams[0].team.name})`
+                        : ''
+                    }`
                   : ''
               }
             />

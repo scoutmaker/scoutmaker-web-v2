@@ -1,4 +1,9 @@
-import { IComboOptions } from '@/components/combo/types'
+import { IComboOptions, IStandardComboOptions } from '@/components/combo/types'
+
+import { ICompetitionGroupComboOptions } from '../competition-groups/types'
+import { ICompetitionComboOptions } from '../competitions/types'
+import { ICountryComboOptions } from '../countries/types'
+import { IPlayerPositionComboOptions } from '../player-positions/types'
 
 export type PlayerBasicDataDto = Components.Schemas.PlayerBasicDataDto
 export type PlayerSuperBasicDataDto = Components.Schemas.PlayerSuperBasicDataDto
@@ -34,11 +39,11 @@ export type PlayersFiltersState = Omit<
   | 'competitionGroupIds'
   | 'footed'
 > & {
-  countryIds: IComboOptions[]
-  positionIds: IComboOptions[]
-  teamIds: IComboOptions[]
-  competitionIds: IComboOptions[]
-  competitionGroupIds: IComboOptions[]
+  countryIds: ICountryComboOptions[]
+  positionIds: IPlayerPositionComboOptions[]
+  teamIds: IStandardComboOptions[]
+  competitionIds: ICompetitionComboOptions[]
+  competitionGroupIds: ICompetitionGroupComboOptions[]
   footed: IComboOptions | null
 }
 
@@ -51,3 +56,8 @@ export type PlayerDto = Omit<Components.Schemas.PlayerDto, '_count'> & {
 export type CreatePlayerDto = Components.Schemas.CreatePlayerDto
 
 export type UpdatePlayerDto = Components.Schemas.UpdatePlayerDto
+
+export interface IPlayerComboOptions extends IComboOptions {
+  firstName: string
+  lastName: string
+}

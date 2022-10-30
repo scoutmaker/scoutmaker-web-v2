@@ -1,7 +1,13 @@
-import { IComboOptions } from '@/components/combo/types'
+import { IStandardComboOptions } from '@/components/combo/types'
 
-import { CompetitionGroupBasicDataDto } from '../competition-groups/types'
-import { CompetitionBasicDataDto } from '../competitions/types'
+import {
+  CompetitionGroupBasicDataDto,
+  ICompetitionGroupComboOptions,
+} from '../competition-groups/types'
+import {
+  CompetitionBasicDataDto,
+  ICompetitionComboOptions,
+} from '../competitions/types'
 
 export interface OrganizationSubscriptionDto
   extends Omit<
@@ -38,9 +44,9 @@ export type OrganizationSubscriptionsFiltersState = Omit<
   OrganizationSubscriptionsFiltersDto,
   'competitionGroupIds' | 'competitionIds' | 'organizationId'
 > & {
-  competitionGroupIds: IComboOptions[]
-  competitionIds: IComboOptions[]
-  organizationId: IComboOptions | null
+  competitionGroupIds: ICompetitionGroupComboOptions[]
+  competitionIds: ICompetitionComboOptions[]
+  organizationId: IStandardComboOptions | null
 }
 
 export type OrganizationSubscriptionsSortBy =
