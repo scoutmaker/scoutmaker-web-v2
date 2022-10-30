@@ -224,10 +224,4 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
   )
 }
 
-// const SectionHeading = ({ title }: { title: string }) => (
-//   <Typography variant="h3" align="center" paddingY={theme => theme.spacing(2)}>
-//     {title}
-//   </Typography>
-// )
-
 export default MatchPage
