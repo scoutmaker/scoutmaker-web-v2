@@ -9,7 +9,7 @@ import { NotesTableRow } from './row'
 
 interface IMatchesTableProps extends ICommonTableProps {
   data: NoteDto[]
-  handleDeleteItemClick: (data: {
+  handleDeleteItemClick?: (data: {
     id: string
     docNumber: number
     createdAt: string
@@ -68,15 +68,19 @@ export const NotesTable = ({
           key={note.id}
           data={note}
           onEditClick={() => router.push(`/notes/edit/${note.id}`)}
-          onDeleteClick={() =>
-            handleDeleteItemClick({
-              id: note.id,
-              createdAt: note.createdAt,
-              docNumber: note.docNumber,
-            })
+          onDeleteClick={
+            handleDeleteItemClick
+              ? () =>
+                  handleDeleteItemClick({
+                    id: note.id,
+                    createdAt: note.createdAt,
+                    docNumber: note.docNumber,
+                  })
+              : undefined
           }
           onLikeClick={onLikeClick}
           onUnlikeClick={onUnLikeClick}
+          withoutActions={!actions}
         />
       ))}
     </Table>

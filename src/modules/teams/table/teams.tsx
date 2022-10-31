@@ -9,7 +9,7 @@ import { TeamsTableRow } from './teams-row'
 
 interface ITeamsTableProps extends ICommonTableProps {
   data: TeamDto[]
-  handleDeleteItemClick: (data: INameToDeleteData) => void
+  handleDeleteItemClick?: (data: INameToDeleteData) => void
   onLikeClick: (id: string) => void
   onUnLikeClick: (id: string) => void
 }
@@ -67,10 +67,13 @@ export const TeamsTable = ({
             router.push(`/teams/edit/${team.slug}`)
           }}
           onDeleteClick={() =>
-            handleDeleteItemClick({ id: team.id, name: team.name })
+            handleDeleteItemClick
+              ? handleDeleteItemClick({ id: team.id, name: team.name })
+              : undefined
           }
           onLikeClick={onLikeClick}
           onUnlikeClick={onUnLikeClick}
+          actions={actions}
         />
       ))}
     </Table>
