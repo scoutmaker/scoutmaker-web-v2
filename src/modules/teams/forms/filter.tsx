@@ -14,6 +14,7 @@ import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-gr
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { CountryDto } from '@/modules/countries/types'
+import { mapCountriesListToComboOptions } from '@/modules/countries/utils'
 import { RegionDto } from '@/modules/regions/types'
 
 import { TeamsFiltersState } from '../types'
@@ -63,7 +64,7 @@ export const TeamsFilterForm = ({
             />
             <FilterCombo
               name="countryIds"
-              data={mapListDataToComboOptions(countriesData)}
+              data={mapCountriesListToComboOptions(countriesData)}
               label={t('COUNTRIES')}
               multiple
               size="small"

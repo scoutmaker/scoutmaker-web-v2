@@ -1,12 +1,13 @@
-import { IComboOptions } from '@/components/combo/types'
-
-import { CompetitionBasicDataDto } from './types'
+import { CompetitionBasicDataDto, ICompetitionComboOptions } from './types'
 
 export function mapCompetitionsListToComboOptions(
   data: CompetitionBasicDataDto[],
-): IComboOptions[] {
-  return data.map(({ id, name, country }) => ({
+): ICompetitionComboOptions[] {
+  return data.map(({ id, name, country, level }) => ({
     id,
     label: `${name} (${country.code})`,
+    name,
+    country,
+    level,
   }))
 }

@@ -1,3 +1,5 @@
+import { IComboOptions } from '@/components/combo/types'
+
 export type PlayerPositionDto = Components.Schemas.PlayerPositionDto
 
 export type CreatePlayerPostitionDto =
@@ -18,3 +20,8 @@ export type PlayerPositionsFiltersDto = Pick<
 
 export type PlayerPositionsSortBy =
   Paths.PlayerPositionsControllerFindAll.Parameters.SortBy
+
+export interface IPlayerPositionComboOptions extends IComboOptions {
+  name: string
+  code: string
+}

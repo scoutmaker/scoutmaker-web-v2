@@ -8,6 +8,7 @@ import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
 import { ClubsFiltersState } from '@/modules/clubs/types'
 import { CountryDto } from '@/modules/countries/types'
+import { mapCountriesListToComboOptions } from '@/modules/countries/utils'
 import { RegionDto } from '@/modules/regions/types'
 
 type IClubsFilterFormProps = {
@@ -55,7 +56,7 @@ export const ClubsFilterForm = ({
             />
             <FilterCombo
               name="countryId"
-              data={mapListDataToComboOptions(countriesData)}
+              data={mapCountriesListToComboOptions(countriesData)}
               size="small"
               label={t('COUNTRY')}
             />
