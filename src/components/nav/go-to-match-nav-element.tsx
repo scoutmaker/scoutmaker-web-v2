@@ -1,6 +1,5 @@
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-import React from 'react'
 
 import { useRemoveMatchAttendance } from '@/modules/match-attendances/hooks'
 
