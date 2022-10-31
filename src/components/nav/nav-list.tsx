@@ -127,7 +127,9 @@ export const NavList = ({ currentMatchId }: INavListProps) => {
       <GoToMachNavElement currentMatchId={currentMatchId} />
       <NavElement
         icon={<QuickNoteIcon color="error" />}
-        to="/notes/create?useMatchAttendance=true"
+        to={`/notes/create${
+          currentMatchId ? `?matchId=${currentMatchId}` : ''
+        }`}
         text={t('QUICK_NOTE')}
       />
       <ExpandeableNavElement

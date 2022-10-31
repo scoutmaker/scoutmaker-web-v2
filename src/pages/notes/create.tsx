@@ -5,12 +5,11 @@ import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
-import { useActiveMatchAttendance } from '@/modules/match-attendances/hooks'
-import { useMatchesList } from '@/modules/matches/hooks'
+import { useMatchById, useMatchesList } from '@/modules/matches/hooks'
 import { CreateNoteForm } from '@/modules/notes/forms/create'
 import { useCreateNote } from '@/modules/notes/hooks'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
-import { usePlayers } from '@/modules/players/hooks'
+import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
@@ -19,7 +18,7 @@ export const getServerSideProps = withSessionSsrRole(['common', 'notes'], false)
 const CreateNotePage = () => {
   const { t } = useTranslation()
   const router = useRouter()
-  const useMatchAttendanceEnabled = router.query?.useMatchAttendance === 'true'
+  const matchId = (router.query?.matchId || '') as string
 
   const { data: positions, isLoading: positionsLoading } =
     usePlayerPositionsList()
@@ -32,17 +31,14 @@ const CreateNotePage = () => {
 
   const { mutate: createNote, isLoading: createNoteLoading } = useCreateNote()
 
-  const { data: activeMatchAttendance, isLoading: matchAttendanceLoading } =
-    useActiveMatchAttendance(useMatchAttendanceEnabled)
+  const { data: match, isLoading: matchLoading } = useMatchById(
+    matchId as string,
+    !!matchId,
+  )
 
-  const { data: players, isLoading: playersLoading } = usePlayers({
+  const { data: players, isLoading: playersLoading } = usePlayersList({
     teamIds:
-      useMatchAttendanceEnabled && activeMatchAttendance
-        ? [
-            activeMatchAttendance.match.homeTeam.id,
-            activeMatchAttendance.match.awayTeam.id,
-          ]
-        : undefined,
+      matchId && match ? [match.homeTeam.id, match.awayTeam.id] : undefined,
   })
 
   const isLoading =
@@ -53,7 +49,7 @@ const CreateNotePage = () => {
     matchesLoading ||
     playersLoading ||
     createNoteLoading ||
-    matchAttendanceLoading
+    (matchId && matchLoading)
 
   return (
     <>
@@ -65,11 +61,9 @@ const CreateNotePage = () => {
         competitionGroupsData={competitionGroups || []}
         competitionsData={competitions || []}
         matchesData={matches || []}
-        playersData={players?.docs || []}
+        playersData={players || []}
         onSubmit={createNote}
-        matchAttendance={
-          useMatchAttendanceEnabled ? activeMatchAttendance : undefined
-        }
+        match={matchId && match ? match : undefined}
       />
     </>
   )
