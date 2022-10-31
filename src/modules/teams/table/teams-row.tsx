@@ -56,7 +56,7 @@ export const TeamsTableRow = ({
       key={id}
       onClick={isMenuOpen ? undefined : () => router.push(`/teams/${slug}`)}
     >
-      {actions &&
+      {actions && (
         <StyledTableCell padding="checkbox">
           <TableMenu
             menuAnchorEl={menuAnchorEl}
@@ -84,7 +84,8 @@ export const TeamsTableRow = ({
               />
             )}
           </TableMenu>
-        </StyledTableCell>}
+        </StyledTableCell>
+      )}
       <LikedTableCell
         isLiked={!!likes.length}
         onClicked={cellChangeLikedClick}

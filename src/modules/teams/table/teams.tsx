@@ -67,7 +67,9 @@ export const TeamsTable = ({
             router.push(`/teams/edit/${team.slug}`)
           }}
           onDeleteClick={() =>
-            handleDeleteItemClick ? handleDeleteItemClick({ id: team.id, name: team.name }) : undefined
+            handleDeleteItemClick
+              ? handleDeleteItemClick({ id: team.id, name: team.name })
+              : undefined
           }
           onLikeClick={onLikeClick}
           onUnlikeClick={onUnLikeClick}

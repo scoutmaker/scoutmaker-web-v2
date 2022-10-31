@@ -1,3 +1,6 @@
+import { Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
+
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -9,8 +12,6 @@ import { getClubBySlug } from '@/services/api/methods/clubs'
 import { ApiError } from '@/services/api/types'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
-import { Typography } from '@mui/material'
-import { useTranslation } from 'next-i18next'
 
 export const getServerSideProps = withSessionSsrRole<ClubDto>(
   ['common', 'clubs'],
@@ -36,7 +37,7 @@ const ClubPage = ({ data, errorMessage, errorStatus }: TSsrRole<ClubDto>) => {
   } = useTable(`club-teams-table`)
 
   const { data: teamsData, isLoading: teamsLoading } = useTeams({
-    clubId: data?.id || ''
+    clubId: data?.id || '',
   })
   const { mutate: likeTeam, isLoading: likeTeamLoading } = useLikeTeam()
   const { mutate: unLikeTeam, isLoading: unLikeTeamLoading } = useUnlikeTeam()
@@ -49,7 +50,11 @@ const ClubPage = ({ data, errorMessage, errorStatus }: TSsrRole<ClubDto>) => {
         {isLoading && <Loader />}
         <PageHeading title={data.name} />
         <ClubDetailsCard club={data} />
-        <Typography variant="h3" align="center" paddingY={theme => theme.spacing(2.2)}>
+        <Typography
+          variant="h3"
+          align="center"
+          paddingY={theme => theme.spacing(2.2)}
+        >
           {t('TEAMS')}
         </Typography>
         <TeamsTable
