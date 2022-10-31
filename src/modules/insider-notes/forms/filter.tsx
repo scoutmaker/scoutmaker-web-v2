@@ -12,6 +12,7 @@ import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-gr
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
+import { mapPlayerPositionsToComboOptions } from '@/modules/player-positions/utils'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 import { TeamBasicDataDto } from '@/modules/teams/types'
@@ -61,7 +62,7 @@ export const InsiderNotesFilterForm = ({
               multiple
             />
             <FilterCombo
-              data={mapListDataToComboOptions(playerPositionsData)}
+              data={mapPlayerPositionsToComboOptions(playerPositionsData)}
               label={t('POSITIONS')}
               name="positionIds"
               size="small"

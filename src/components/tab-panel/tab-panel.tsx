@@ -15,15 +15,26 @@ interface ITabPanelProps {
   index: number
   value: number
   title: string
+  noPadding?: boolean
 }
 
-export const TabPanel = ({ children, index, value, title }: ITabPanelProps) => (
+export const TabPanel = ({
+  children,
+  index,
+  value,
+  title,
+  noPadding,
+}: ITabPanelProps) => (
   <div
     role="tabpanel"
     hidden={value !== index}
     id={`${title}-${index}`}
     aria-labelledby={`${title}-${index}`}
   >
-    {value === index && <StyledBox>{children}</StyledBox>}
+    {value === index && noPadding ? (
+      children
+    ) : (
+      <StyledBox>{children}</StyledBox>
+    )}
   </div>
 )

@@ -1,12 +1,12 @@
-import { IComboOptions } from '@/components/combo/types'
-
-import { UserBasicDataDto } from './types'
+import { IUsersComboOptions, UserBasicDataDto } from './types'
 
 export function mapUsersListToComboOptions(
   data: UserBasicDataDto[],
-): IComboOptions[] {
+): IUsersComboOptions[] {
   return data.map(({ id, firstName, email, lastName }) => ({
     id,
     label: `${firstName} ${lastName} (${email})`,
+    firstName,
+    lastName,
   }))
 }
