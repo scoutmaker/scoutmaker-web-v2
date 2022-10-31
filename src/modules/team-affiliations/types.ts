@@ -1,4 +1,6 @@
-import { IComboOptions } from '@/components/combo/types'
+import { IStandardComboOptions } from '@/components/combo/types'
+
+import { IPlayerComboOptions } from '../players/types'
 
 export type FindAllTeamAffiliationsParams = Pick<
   Paths.TeamAffiliationsControllerFindAll.QueryParameters,
@@ -14,8 +16,8 @@ export type TeamAffiliationsFiltersState = Omit<
   TeamAffiliationsFilterDto,
   'playerId' | 'teamId'
 > & {
-  playerId: IComboOptions | null
-  teamId: IComboOptions | null
+  playerId: IPlayerComboOptions | null
+  teamId: IStandardComboOptions | null
 }
 
 export type TeamAffiliationsSortBy =
