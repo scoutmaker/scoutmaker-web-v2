@@ -1,10 +1,11 @@
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
-import { useMatchesList } from '@/modules/matches/hooks'
+import { useMatchById, useMatchesList } from '@/modules/matches/hooks'
 import { CreateNoteForm } from '@/modules/notes/forms/create'
 import { useCreateNote } from '@/modules/notes/hooks'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
@@ -16,6 +17,8 @@ export const getServerSideProps = withSessionSsrRole(['common', 'notes'], false)
 
 const CreateNotePage = () => {
   const { t } = useTranslation()
+  const router = useRouter()
+  const matchId = (router.query?.matchId || '') as string
 
   const { data: positions, isLoading: positionsLoading } =
     usePlayerPositionsList()
@@ -25,9 +28,18 @@ const CreateNotePage = () => {
   const { data: competitionGroups, isLoading: competitionGroupsLoading } =
     useCompetitionGroupsList()
   const { data: matches, isLoading: matchesLoading } = useMatchesList()
-  const { data: players, isLoading: playersLoading } = usePlayersList()
 
   const { mutate: createNote, isLoading: createNoteLoading } = useCreateNote()
+
+  const { data: match, isLoading: matchLoading } = useMatchById(
+    matchId as string,
+    !!matchId,
+  )
+
+  const { data: players, isLoading: playersLoading } = usePlayersList({
+    teamIds:
+      matchId && match ? [match.homeTeam.id, match.awayTeam.id] : undefined,
+  })
 
   const isLoading =
     positionsLoading ||
@@ -36,7 +48,8 @@ const CreateNotePage = () => {
     competitionGroupsLoading ||
     matchesLoading ||
     playersLoading ||
-    createNoteLoading
+    createNoteLoading ||
+    (matchId && matchLoading)
 
   return (
     <>
@@ -50,6 +63,7 @@ const CreateNotePage = () => {
         matchesData={matches || []}
         playersData={players || []}
         onSubmit={createNote}
+        match={matchId && match ? match : undefined}
       />
     </>
   )
