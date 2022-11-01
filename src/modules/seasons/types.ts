@@ -1,3 +1,5 @@
+import { IComboOptions } from '@/components/combo/types'
+
 export type SeasonDto = Components.Schemas.SeasonDto
 
 export type CreateSeasonDto = Components.Schemas.CreateSeasonDto
@@ -12,3 +14,10 @@ export type FindAllSeasonsParams = Pick<
 export type SeasonsFiltersDto = Pick<FindAllSeasonsParams, 'name'>
 
 export type SeasonsSortBy = Paths.SeasonsControllerFindAll.Parameters.SortBy
+
+export interface ISeasonComboOptions extends IComboOptions {
+  name: string
+  isActive: boolean
+  startDate: string
+  endDate: string
+}

@@ -1,4 +1,8 @@
-import { IComboOptions } from '@/components/combo/types'
+import { IStandardComboOptions } from '@/components/combo/types'
+
+import { ICompetitionGroupComboOptions } from '../competition-groups/types'
+import { ICompetitionComboOptions } from '../competitions/types'
+import { ICountryComboOptions } from '../countries/types'
 
 export type TeamBasicDataDto = Components.Schemas.TeamBasicDataDto
 export type FindAllTeamsParams = Pick<
@@ -34,11 +38,11 @@ export type TeamsFiltersState = Omit<
   | 'countryIds'
   | 'regionIds'
 > & {
-  clubId: IComboOptions | null
-  competitionGroupIds: IComboOptions[]
-  competitionIds: IComboOptions[]
-  countryIds: IComboOptions[]
-  regionIds: IComboOptions[]
+  clubId: IStandardComboOptions | null
+  competitionGroupIds: ICompetitionGroupComboOptions[]
+  competitionIds: ICompetitionComboOptions[]
+  countryIds: ICountryComboOptions[]
+  regionIds: IStandardComboOptions[]
 }
 
 export type TeamsSortBy = Paths.TeamsControllerFindAll.Parameters.SortBy

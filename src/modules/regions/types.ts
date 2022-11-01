@@ -1,4 +1,4 @@
-import { IComboOptions } from '@/components/combo/types'
+import { ICountryComboOptions } from '../countries/types'
 
 export type RegionDto = Components.Schemas.RegionDto
 export type CreateRegionDto = Components.Schemas.CreateRegionDto
@@ -9,7 +9,7 @@ export type RegionsFilterDto = Pick<
 >
 
 export type RegionsFiltersState = Omit<RegionsFilterDto, 'countryId'> & {
-  countryId: IComboOptions | null
+  countryId: ICountryComboOptions | null
 }
 
 export type FindAllRegionsParams = Pick<
