@@ -55,6 +55,7 @@ export const OrdersFilterForm = ({
               label={t('PLAYERS')}
               multiple
               size="small"
+              filterBeforeComma
             />
             <Grid container spacing={2}>
               <Grid item xs={6}>

@@ -1,6 +1,7 @@
 import {
   autocompleteClasses,
   AutocompleteRenderInputParams,
+  createFilterOptions,
   ListSubheader,
   Popper,
   styled,
@@ -24,8 +25,12 @@ interface IComboProps {
   size?: 'medium' | 'small'
   error?: boolean
   helperText?: string
+  filterBeforeComma?: boolean
 }
 
+const filterOptions = createFilterOptions({
+  stringify: (option: IComboOptions) => option.label.split(', ')[0],
+})
 const LISTBOX_PADDING = 8 // px
 
 function renderRow(props: ListChildComponentProps) {
@@ -122,7 +127,7 @@ const ListboxComponent = React.forwardRef<
           ref={gridRef}
           outerElementType={OuterElementType}
           innerElementType="ul"
-          itemSize={index => getChildSize(itemData[index])}
+          itemSize={(index: number) => getChildSize(itemData[index])}
           overscanCount={5}
           itemCount={itemCount}
         >
@@ -151,6 +156,7 @@ export const FilterCombo = ({
   size,
   error,
   helperText,
+  filterBeforeComma,
 }: IComboProps) => (
   <Field
     name={name}
@@ -164,6 +170,7 @@ export const FilterCombo = ({
     size={size}
     options={data}
     filterSelectedOptions
+    filterOptions={filterBeforeComma ? filterOptions : undefined}
     isOptionEqualToValue={(option: IComboOptions, value: IComboOptions) =>
       option.id === value.id
     }

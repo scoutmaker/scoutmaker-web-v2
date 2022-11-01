@@ -66,6 +66,7 @@ export const NotesFilterForm = ({
               label={t('PLAYERS')}
               multiple
               size="small"
+              filterBeforeComma
             />
             <FilterCombo
               name="positionIds"

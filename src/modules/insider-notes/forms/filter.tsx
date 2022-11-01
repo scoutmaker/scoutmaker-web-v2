@@ -60,6 +60,7 @@ export const InsiderNotesFilterForm = ({
               name="playerIds"
               size="small"
               multiple
+              filterBeforeComma
             />
             <FilterCombo
               data={mapPlayerPositionsToComboOptions(playerPositionsData)}

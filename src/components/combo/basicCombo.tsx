@@ -1,6 +1,7 @@
 import {
   autocompleteClasses,
   AutocompleteRenderInputParams,
+  createFilterOptions,
   ListSubheader,
   Popper,
   styled,
@@ -26,6 +27,7 @@ interface IBasicComboProps {
   error?: boolean
   helperText?: string
   disabled?: boolean
+  filterBeforeComma?: boolean
 }
 
 const LISTBOX_PADDING = 8 // px
@@ -131,7 +133,7 @@ const ListboxComponent = React.forwardRef<
           ref={gridRef}
           outerElementType={OuterElementType}
           innerElementType="ul"
-          itemSize={index => getChildSize(itemData[index])}
+          itemSize={(index: number) => getChildSize(itemData[index])}
           overscanCount={5}
           itemCount={itemCount}
         >
@@ -161,9 +163,13 @@ export const BasicCombo = ({
   error,
   helperText,
   disabled,
+  filterBeforeComma,
 }: IBasicComboProps) => {
   const { t } = useTranslation()
-
+  const filterOptions = createFilterOptions({
+    stringify: (option: string) =>
+      data.find(e => e.id === option)?.label.split(', ')[0] || '',
+  })
   return (
     <Field
       name={name}
@@ -180,6 +186,7 @@ export const BasicCombo = ({
         return data.find(el => el.id === option)?.label || t('NONE')
       }}
       filterSelectedOptions
+      filterOptions={filterBeforeComma ? filterOptions : undefined}
       disabled={disabled}
       renderOption={(props: any, option: IComboOptions) =>
         [props, option, data] as React.ReactNode
