@@ -42,16 +42,16 @@ const FilteredCompetitionGroups = ({
   return (
     <>
       <FilterCombo
-        name="competitionIds"
         data={mapCompetitionsListToComboOptions(competitionsData)}
+        name={competitionsMultiple ? 'competitionIds' : 'competitionId'}
         label={competitionsMultiple ? t('COMPETITIONS') : t('COMPETITION')}
         size="small"
         multiple={competitionsMultiple}
       />
       {!!filteredGroupsData?.length && (
         <FilterCombo
-          name="competitionGroupIds"
           data={filteredGroupsData}
+          name={groupsMultiple ? 'competitionGroupIds' : 'competitionGroupId'}
           label={
             groupsMultiple ? t('COMPETITION_GROUPS') : t('COMPETITION_GROUP')
           }
