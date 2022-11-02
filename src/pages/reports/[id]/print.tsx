@@ -1,5 +1,6 @@
-import { Box } from '@mui/material'
-import React, { useEffect, useRef } from 'react'
+import { Box, Button } from '@mui/material'
+import { useTranslation } from 'next-i18next'
+import React, { useRef } from 'react'
 import { useReactToPrint } from 'react-to-print'
 
 import { ErrorContent } from '@/components/error/error-content'
@@ -41,6 +42,7 @@ const PrintReportPage = ({
   errorMessage,
   errorStatus,
 }: TSsrRole<IData>) => {
+  const { t } = useTranslation()
   const ref = useRef<HTMLDivElement | null>(null)
 
   // TODO: SUPPORT BG
@@ -54,18 +56,19 @@ const PrintReportPage = ({
     // }),
   })
 
-  useEffect(() => {
-    if (ref.current) handlePrint()
-  }, [handlePrint])
-
   if (!data || errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
-    <Box height={0} overflow="hidden">
-      <div ref={ref}>
-        <PrinteableReport {...data} />
-      </div>
-    </Box>
+    <>
+      <Button onClick={handlePrint} variant="contained" fullWidth>
+        {t('reports:PRINT')}
+      </Button>
+      <Box sx={{ background: 'white' }}>
+        <div ref={ref}>
+          <PrinteableReport {...data} />
+        </div>
+      </Box>
+    </>
   )
 }
 
