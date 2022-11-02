@@ -1,5 +1,5 @@
 import { Add as AddIcon } from '@mui/icons-material'
-import { AppBar, Box, Tab, Tabs } from '@mui/material'
+import { AppBar, Box, Button, Tab, Tabs } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
@@ -174,38 +174,7 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
             <Tab label={t('NOTES')} />
             <Tab label={t('INSIDER_NOTES')} />
             <Tab label={t('REPORTS')} />
-            <Tab
-              // icon in label instead of mui icon props because even with small icon, tab height was increasing like 3 times
-              label={
-                <Box
-                  sx={theme => ({
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 0.5,
-                    [theme.breakpoints.down('sm')]: {
-                      flexDirection: 'column-reverse',
-                    },
-                  })}
-                >
-                  {t('TEAM_AFFILIATIONS')}
-                  {isAdmin && (
-                    <AddIcon
-                      onClick={() =>
-                        router.push(
-                          `/team-affiliations/create?playerId=${player.id}`,
-                        )
-                      }
-                      sx={theme => ({
-                        [theme.breakpoints.down('sm')]: {
-                          height: 15,
-                          width: 15,
-                        },
-                      })}
-                    />
-                  )}
-                </Box>
-              }
-            />
+            <Tab label={t('TEAM_AFFILIATIONS')} />
           </Tabs>
         </AppBar>
         <TabPanel value={tabValue} index={0} title="notes" noPadding>
@@ -244,22 +213,32 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
           title="team-affiliations"
           noPadding
         >
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexDirection: 'column',
-              gap: 1,
-            }}
-          >
-            <TeamAffiliationsTable
-              {...TeamAffiliationsTableProps}
-              {...TeamAffiliationsTableSettings}
-              total={affiliations?.totalDocs || 0}
-              data={affiliations?.docs || []}
-            />
-          </Box>
+          {isAdmin && (
+            <Button
+              variant="contained"
+              disableElevation
+              sx={theme => ({
+                borderBottomLeftRadius: 0,
+                borderBottomRightRadius: 0,
+                marginBottom: -1,
+                [theme.breakpoints.down('sm')]: {
+                  fontSize: 11,
+                },
+              })}
+              fullWidth
+              onClick={() =>
+                router.push(`/team-affiliations/create?playerId=${player.id}`)
+              }
+            >
+              {t('ADD')} <AddIcon />
+            </Button>
+          )}
+          <TeamAffiliationsTable
+            {...TeamAffiliationsTableProps}
+            {...TeamAffiliationsTableSettings}
+            total={affiliations?.totalDocs || 0}
+            data={affiliations?.docs || []}
+          />
         </TabPanel>
       </Box>
     </>
