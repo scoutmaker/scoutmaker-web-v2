@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 import { StyledTableCell } from '@/components/tables/cell'
 import { CellWithLink } from '@/components/tables/cell-with-link'
@@ -21,6 +22,7 @@ export const UserInsiderNoteAclTableRow = ({
   onEditClick,
   onDeleteClick,
 }: ITableRowProps) => {
+  const { t } = useTranslation()
   const router = useRouter()
 
   const {
@@ -61,7 +63,7 @@ export const UserInsiderNoteAclTableRow = ({
         href={`/users/${user.id}`}
         label={`${user.firstName} ${user.lastName}`}
       />
-      <StyledTableCell>{permissionLevel}</StyledTableCell>
+      <StyledTableCell>{t(`permissions:${permissionLevel}`)}</StyledTableCell>
       <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
     </StyledTableRow>
   )
