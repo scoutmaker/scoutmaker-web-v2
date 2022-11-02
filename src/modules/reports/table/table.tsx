@@ -10,7 +10,7 @@ import { ReportsTableRow } from './row'
 
 interface IReportsTableProps extends ICommonTableProps {
   data: ReportPaginatedDataDto[]
-  handleDeleteItemClick: (data: {
+  handleDeleteItemClick?: (data: {
     id: string
     docNumber: number
     createdAt: string
@@ -73,15 +73,19 @@ export const ReportsTable = ({
           onEditClick={() =>
             router.push(getEditRoute(Routes.REPORTS, report.id))
           }
-          onDeleteClick={() =>
-            handleDeleteItemClick({
-              id: report.id,
-              docNumber: report.docNumber,
-              createdAt: report.createdAt,
-            })
+          onDeleteClick={
+            handleDeleteItemClick
+              ? () =>
+                  handleDeleteItemClick({
+                    id: report.id,
+                    docNumber: report.docNumber,
+                    createdAt: report.createdAt,
+                  })
+              : undefined
           }
           onLikeClick={onLikeClick}
           onUnlikeClick={onUnLikeClick}
+          withoutActions={!actions}
         />
       ))}
     </Table>

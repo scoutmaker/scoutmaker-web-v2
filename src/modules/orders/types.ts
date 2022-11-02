@@ -1,4 +1,7 @@
-import { IComboOptions } from '@/components/combo/types'
+import { IComboOptions, IStandardComboOptions } from '@/components/combo/types'
+
+import { IMatchComboOptions } from '../matches/types'
+import { IPlayerComboOptions } from '../players/types'
 
 export type OrderDto = Components.Schemas.OrderDto
 export type OrderBasicDataDto = Components.Schemas.OrderBasicDataDto
@@ -38,9 +41,9 @@ export type OrdersFiltersState = Omit<
   OrdersFiltersDto,
   'playerIds' | 'matchIds' | 'teamIds' | 'status'
 > & {
-  playerIds: IComboOptions[]
-  matchIds: IComboOptions[]
-  teamIds: IComboOptions[]
+  playerIds: IPlayerComboOptions[]
+  matchIds: IMatchComboOptions[]
+  teamIds: IStandardComboOptions[]
   status: IComboOptions | null
 }
 

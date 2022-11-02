@@ -11,6 +11,7 @@ import { CompetitionJuniorLevelDto } from '@/modules/competition-junior-levels/t
 import { CompetitionTypeDto } from '@/modules/competition-types/types'
 import { CompetitionsFiltersState } from '@/modules/competitions/types'
 import { CountryDto } from '@/modules/countries/types'
+import { mapCountriesListToComboOptions } from '@/modules/countries/utils'
 
 import { getGendersComboData } from '../GendersComboData'
 
@@ -74,7 +75,7 @@ export const CompetitionsFilterForm = ({
             />
             <FilterCombo
               name="countryId"
-              data={mapListDataToComboOptions(countriesData)}
+              data={mapCountriesListToComboOptions(countriesData)}
               label={t('COUNTRY')}
               size="small"
             />

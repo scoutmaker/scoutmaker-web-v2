@@ -1,6 +1,8 @@
 import map from 'just-map-values'
 import * as yup from 'yup'
 
+import { validateId } from '@/utils/validation-helpers'
+
 import { CreateNoteDto, NoteDto, UpdateNoteDto } from '../types'
 
 export const initialValues: CreateNoteDto = {
@@ -19,16 +21,16 @@ export const initialValues: CreateNoteDto = {
 export function generateNoteFormValidationSchema() {
   return yup
     .object({
-      playerId: yup.number().notRequired(),
+      playerId: validateId(),
       shirtNo: yup.number().notRequired(),
-      matchId: yup.number().notRequired(),
+      matchId: validateId(),
       maxRatingScore: yup.number().notRequired(),
       rating: yup.number().notRequired(),
       description: yup.string().notRequired(),
-      competitionGroupId: yup.number().notRequired(),
-      competitionId: yup.number().notRequired(),
-      positionPlayedId: yup.number().notRequired(),
-      teamId: yup.number().notRequired(),
+      competitionGroupId: validateId(),
+      competitionId: validateId(),
+      positionPlayedId: validateId(),
+      teamId: validateId(),
     })
     .defined()
 }
