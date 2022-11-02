@@ -88,6 +88,7 @@ export const EditInsiderNoteForm = ({
               label={t('PLAYER')}
               error={touched.playerId && !!errors.playerId}
               helperText={touched.playerId ? errors.playerId : undefined}
+              filterBeforeComma
             />
             <BasicCombo
               data={mapListDataToComboOptions(teamsData)}

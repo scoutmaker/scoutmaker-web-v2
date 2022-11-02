@@ -3,7 +3,8 @@ import { useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
-import { ReportTemplatesCombo } from '@/modules/report-templates/combo'
+import { BasicCombo } from '@/components/combo/basicCombo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { ReportTemplateBasicDataDto } from '@/modules/report-templates/types'
 
 import { CreateReportDto } from '../../types'
@@ -18,8 +19,8 @@ export const TemplateStep = ({ templatesData }: ITemplateStepProps) => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <ReportTemplatesCombo
-        data={templatesData}
+      <BasicCombo
+        data={mapListDataToComboOptions(templatesData)}
         name="templateId"
         label={t('REPORT_TEMPLATES')}
         error={touched.templateId && !!errors.templateId}

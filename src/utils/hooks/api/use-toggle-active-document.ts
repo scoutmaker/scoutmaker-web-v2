@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { ApiError, ApiResponse } from '@/services/api/types'
@@ -16,7 +16,7 @@ export function useToggleActiveDocument<DataType>(
         msg: data.message,
         type: 'success',
       })
-      queryClient.invalidateQueries(key)
+      queryClient.invalidateQueries([key])
     },
     onError: (err: ApiError) =>
       setAlert({

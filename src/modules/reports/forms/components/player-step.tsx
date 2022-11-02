@@ -2,8 +2,9 @@ import { Box, TextField } from '@mui/material'
 import { Field, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 
-import { PlayersCombo } from '@/modules/players/combo'
+import { BasicCombo } from '@/components/combo/basicCombo'
 import { PlayerBasicDataDto } from '@/modules/players/types'
+import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 
 import { CreateReportDto } from '../../types'
 
@@ -17,12 +18,13 @@ export const PlayerStep = ({ playersData }: IPlayerStepProps) => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <PlayersCombo
-        data={playersData}
+      <BasicCombo
+        data={mapPlayersListToComboOptions(playersData)}
         name="playerId"
         label={t('PLAYER')}
         error={touched.playerId && !!errors.playerId}
         helperText={touched.playerId ? errors.playerId : undefined}
+        filterBeforeComma
       />
       <Field
         name="shirtNo"

@@ -15,7 +15,6 @@ import {
   CompetitionIcon,
   CountryIcon,
   DatabaseIcon,
-  GoToMatchIcon,
   HomeIcon,
   InsiderNotesIcon,
   MatchesIcon,
@@ -43,15 +42,16 @@ import {
   UserSubscriptionsIcon,
 } from '../icons'
 import { ExpandeableNavElement } from './expandeable-nav-element'
+import GoToMachNavElement from './go-to-match-nav-element'
 import { LogoutButton } from './logout-button'
 import { NavElement } from './nav-element'
 import { StyledDivider, StyledList } from './styles'
 
 interface INavListProps {
-  isAtTheMatch: boolean
+  currentMatchId: string | null
 }
 
-export const NavList = ({ isAtTheMatch }: INavListProps) => {
+export const NavList = ({ currentMatchId }: INavListProps) => {
   const { t } = useTranslation()
   const { data: user } = useUser()
 
@@ -124,14 +124,12 @@ export const NavList = ({ isAtTheMatch }: INavListProps) => {
           text={t('ORDERS')}
         />
       ) : null}
-      <NavElement
-        icon={<GoToMatchIcon color="error" />}
-        to="/go-to-match"
-        text={isAtTheMatch ? t('LEAVE_MATCH') : t('GO_TO_MATCH')}
-      />
+      <GoToMachNavElement currentMatchId={currentMatchId} />
       <NavElement
         icon={<QuickNoteIcon color="error" />}
-        to="/notes/create"
+        to={`/notes/create${
+          currentMatchId ? `?matchId=${currentMatchId}` : ''
+        }`}
         text={t('QUICK_NOTE')}
       />
       <ExpandeableNavElement

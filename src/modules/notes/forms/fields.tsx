@@ -41,6 +41,7 @@ interface IFieldsProps {
   teamsData: TeamBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
+  matchDisabled?: boolean
 }
 
 export const Fields = ({
@@ -50,6 +51,7 @@ export const Fields = ({
   competitionsData,
   competitionGroupsData,
   teamsData,
+  matchDisabled,
 }: IFieldsProps) => {
   const { t } = useTranslation()
 
@@ -65,6 +67,7 @@ export const Fields = ({
         label={t('PLAYER')}
         error={touched.playerId && !!errors.playerId}
         helperText={touched.playerId ? errors.playerId : undefined}
+        filterBeforeComma
       />
       <Field
         name="shirtNo"
@@ -83,6 +86,7 @@ export const Fields = ({
         label={t('MATCH')}
         error={touched.matchId && !!errors.matchId}
         helperText={touched.matchId ? errors.matchId : undefined}
+        disabled={matchDisabled}
       />
       <Field
         name="maxRatingScore"
