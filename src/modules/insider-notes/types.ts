@@ -1,4 +1,9 @@
-import { IComboOptions } from '@/components/combo/types'
+import { IStandardComboOptions } from '@/components/combo/types'
+
+import { ICompetitionGroupComboOptions } from '../competition-groups/types'
+import { ICompetitionComboOptions } from '../competitions/types'
+import { IPlayerPositionComboOptions } from '../player-positions/types'
+import { IPlayerComboOptions } from '../players/types'
 
 export type InsiderNoteDto = Components.Schemas.InsiderNoteDto
 
@@ -38,11 +43,11 @@ export type InsiderNotesFiltersState = Omit<
   | 'positionIds'
   | 'teamIds'
 > & {
-  competitionGroupIds: IComboOptions[]
-  competitionIds: IComboOptions[]
-  playerIds: IComboOptions[]
-  positionIds: IComboOptions[]
-  teamIds: IComboOptions[]
+  competitionGroupIds: ICompetitionGroupComboOptions[]
+  competitionIds: ICompetitionComboOptions[]
+  playerIds: IPlayerComboOptions[]
+  positionIds: IPlayerPositionComboOptions[]
+  teamIds: IStandardComboOptions[]
 }
 
 export type InsiderNotesSortBy =

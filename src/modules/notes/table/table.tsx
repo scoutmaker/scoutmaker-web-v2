@@ -68,18 +68,19 @@ export const NotesTable = ({
           key={note.id}
           data={note}
           onEditClick={() => router.push(`/notes/edit/${note.id}`)}
-          onDeleteClick={() =>
+          onDeleteClick={
             handleDeleteItemClick
-              ? handleDeleteItemClick({
-                  id: note.id,
-                  createdAt: note.createdAt,
-                  docNumber: note.docNumber,
-                })
+              ? () =>
+                  handleDeleteItemClick({
+                    id: note.id,
+                    createdAt: note.createdAt,
+                    docNumber: note.docNumber,
+                  })
               : undefined
           }
           onLikeClick={onLikeClick}
           onUnlikeClick={onUnLikeClick}
-          actions={actions}
+          withoutActions={!actions}
         />
       ))}
     </Table>

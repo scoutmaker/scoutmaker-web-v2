@@ -61,7 +61,7 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
   const handleTabChange = (event: any, newValue: number) =>
     setTabValue(newValue)
 
-  const { isAdmin, player } = data as TData
+  const { isAdmin, player } = data || {}
 
   const {
     tableSettings: TeamAffiliationsTableSettings,
@@ -137,10 +137,8 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
     reportsLoading ||
     insiderNotesLoading
 
-  if (!player) {
+  if (!player)
     return <ErrorContent message={errorMessage} status={errorStatus} />
-  }
-
   return (
     <>
       {isLoading && <Loader />}

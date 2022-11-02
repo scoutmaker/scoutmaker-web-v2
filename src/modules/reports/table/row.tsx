@@ -44,10 +44,10 @@ import { getSingleReportRoute } from '../utils'
 interface IReportsTableRowProps {
   data: ReportPaginatedDataDto
   onEditClick: () => void
-  onDeleteClick: () => void
+  onDeleteClick?: () => void
   onLikeClick: (id: string) => void
   onUnlikeClick: (id: string) => void
-  actions?: boolean
+  withoutActions?: boolean
 }
 
 export const ReportsTableRow = ({
@@ -56,7 +56,7 @@ export const ReportsTableRow = ({
   onDeleteClick,
   onLikeClick,
   onUnlikeClick,
-  actions,
+  withoutActions,
 }: IReportsTableRowProps) => {
   const { t } = useTranslation()
   const router = useRouter()
@@ -114,14 +114,18 @@ export const ReportsTableRow = ({
             )}
           </IconButton>
         </StyledTableCell>
-        {actions && (
+        {!withoutActions && (
           <StyledTableCell padding="checkbox">
             <TableMenu
               menuAnchorEl={menuAnchorEl}
               isMenuOpen={isMenuOpen}
               onMenuClick={handleMenuClick}
               onMenuClose={handleMenuClose}
-              onDeleteClick={() => handleMenuAction(onDeleteClick)}
+              onDeleteClick={
+                onDeleteClick
+                  ? () => handleMenuAction(onDeleteClick)
+                  : undefined
+              }
               onEditClick={() => handleMenuAction(onEditClick)}
             >
               {likes.length === 0 ? (

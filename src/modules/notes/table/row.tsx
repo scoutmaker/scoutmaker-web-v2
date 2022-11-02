@@ -36,10 +36,10 @@ import { NoteDto } from '../types'
 interface INotesTableRowProps {
   data: NoteDto
   onEditClick: () => void
-  onDeleteClick: () => void
+  onDeleteClick?: () => void
   onLikeClick: (id: string) => void
   onUnlikeClick: (id: string) => void
-  actions?: boolean
+  withoutActions?: boolean
 }
 
 export const NotesTableRow = ({
@@ -48,7 +48,7 @@ export const NotesTableRow = ({
   onDeleteClick,
   onLikeClick,
   onUnlikeClick,
-  actions,
+  withoutActions,
 }: INotesTableRowProps) => {
   const { t } = useTranslation()
   const router = useRouter()
@@ -102,14 +102,18 @@ export const NotesTableRow = ({
             )}
           </IconButton>
         </StyledTableCell>
-        {actions && (
+        {!withoutActions && (
           <StyledTableCell padding="checkbox">
             <TableMenu
               menuAnchorEl={menuAnchorEl}
               isMenuOpen={isMenuOpen}
               onMenuClick={handleMenuClick}
               onMenuClose={handleMenuClose}
-              onDeleteClick={() => handleMenuAction(onDeleteClick)}
+              onDeleteClick={
+                onDeleteClick
+                  ? () => handleMenuAction(onDeleteClick)
+                  : undefined
+              }
               onEditClick={() => handleMenuAction(onEditClick)}
             >
               {likes.length === 0 ? (
@@ -175,9 +179,8 @@ export const NotesTableRow = ({
           <Collapse in={isRowExpanded} timeout="auto" unmountOnExit>
             <Box margin={1}>
               <Typography variant="h6" gutterBottom>
-                {`Nr ${shirtNo || 'N/A'}, ${
-                  meta?.position && meta.position.name
-                } (${meta?.team && meta.team.name})`}
+                {`Nr ${shirtNo || 'N/A'}, ${meta?.position && meta.position.name
+                  } (${meta?.team && meta.team.name})`}
               </Typography>
               <Typography gutterBottom variant="body2">
                 {description}

@@ -97,7 +97,7 @@ export const InsiderNotesTableRow = ({
       />
       <StyledTableCell> {player.primaryPosition.name}</StyledTableCell>
       <CellWithLink
-        href={`/teams/${meta?.team.slug}`}
+        href={`/teams/${meta?.team?.slug}`}
         label={meta?.team ? meta.team.name : ''}
       />
       <StyledTableCell>{informant || ''}</StyledTableCell>

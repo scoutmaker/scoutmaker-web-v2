@@ -73,9 +73,10 @@ export const ReportsTable = ({
           onEditClick={() =>
             router.push(getEditRoute(Routes.REPORTS, report.id))
           }
-          onDeleteClick={() =>
+          onDeleteClick={
             handleDeleteItemClick
-              ? handleDeleteItemClick({
+              ? () =>
+                handleDeleteItemClick({
                   id: report.id,
                   docNumber: report.docNumber,
                   createdAt: report.createdAt,
@@ -84,7 +85,7 @@ export const ReportsTable = ({
           }
           onLikeClick={onLikeClick}
           onUnlikeClick={onUnLikeClick}
-          actions={actions}
+          withoutActions={!actions}
         />
       ))}
     </Table>
