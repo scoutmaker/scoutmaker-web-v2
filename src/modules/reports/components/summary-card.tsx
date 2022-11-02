@@ -23,6 +23,10 @@ export const SummaryCard = ({ report }: ISummaryCardProps) => {
     videoDescription,
   } = report
 
+  const filteredSkills = report.skills.filter(
+    skill => typeof skill.rating === 'number',
+  )
+
   return (
     <Card>
       <CardHeader title={t('reports:SUMMARY_CARD_TITLE')} />
@@ -50,14 +54,14 @@ export const SummaryCard = ({ report }: ISummaryCardProps) => {
           />
         </Grid>
         <div>
-          <SkillsChart
-            skills={report.skills.filter(
-              skill => typeof skill.rating === 'number',
-            )}
-            width={250}
-            height={250}
-            maxRatingScore={report.maxRatingScore}
-          />
+          {!!filteredSkills.length && (
+            <SkillsChart
+              skills={filteredSkills}
+              width={250}
+              height={250}
+              maxRatingScore={report.maxRatingScore}
+            />
+          )}
         </div>
       </CardContent>
     </Card>
