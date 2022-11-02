@@ -64,3 +64,8 @@ export type UpdateReportDto = Components.Schemas.UpdateReportDto
 export type ReportStatus = ReportDto['status']
 
 export type ReportType = 'order' | 'custom'
+
+export type IReportFromNoteQuery = Pick<
+  CreateReportDto,
+  'playerId' | 'matchId' | 'shirtNo' | 'finalRating' | 'summary'
+>

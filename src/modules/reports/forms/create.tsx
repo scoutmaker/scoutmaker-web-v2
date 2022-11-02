@@ -15,7 +15,7 @@ import { ReportTemplateBasicDataDto } from '@/modules/report-templates/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 import { useStepper } from '@/utils/hooks/use-stepper'
 
-import { CreateReportDto, ReportType } from '../types'
+import { CreateReportDto, IReportFromNoteQuery, ReportType } from '../types'
 import { MatchStep } from './components/match-step'
 import { MetaStep } from './components/meta-step'
 import { OrderStep } from './components/order-step'
@@ -63,7 +63,7 @@ export const CreateReportForm = ({
   const { t } = useTranslation(['common', 'reports'])
   const { activeStep, handleNext, handleBack } = useStepper()
   const router = useRouter()
-  const formInitialValues = createReportFormInitialValues
+  const formInitialValues = { ...createReportFormInitialValues }
 
   // TODO: handle this
   const activeOrderId = 0
@@ -72,7 +72,7 @@ export const CreateReportForm = ({
     activeOrderId ? 'order' : 'custom',
   )
 
-  const queryDataFields: Array<keyof CreateReportDto> = [
+  const queryDataFields: Array<keyof IReportFromNoteQuery> = [
     'playerId',
     'matchId',
     'shirtNo',
@@ -80,8 +80,10 @@ export const CreateReportForm = ({
     'summary',
   ]
   queryDataFields.forEach(query => {
-    formInitialValues[query] =
-      (router.query[query] as never) || formInitialValues[query]
+    const data = router.query[query] as string | undefined
+
+    if (query === 'shirtNo' && data) formInitialValues[query] = +data
+    else if (data) formInitialValues[query] = data as never
   })
 
   const steps: TStep[] = [

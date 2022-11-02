@@ -29,7 +29,7 @@ import {
   getSingleMatchRoute,
 } from '@/modules/matches/utils'
 import { getSinglePlayerRoute } from '@/modules/players/utils'
-import { CreateReportDto } from '@/modules/reports/types'
+import { IReportFromNoteQuery } from '@/modules/reports/types'
 import { formatDate } from '@/utils/format-date'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
@@ -81,13 +81,13 @@ export const NotesTableRow = ({
     else onLikeClick(id)
   }
 
-  const createReportQueryData = {
+  const createReportQueryData: IReportFromNoteQuery = {
     playerId: player?.id || '',
     matchId: match?.id,
     shirtNo,
     finalRating: rating,
     summary: description,
-  } as CreateReportDto
+  }
 
   return (
     <>
