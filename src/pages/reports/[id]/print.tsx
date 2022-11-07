@@ -58,9 +58,22 @@ const PrintReportPage = ({
 
   if (!data || errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
+
   return (
-    <>
-      <Button onClick={handlePrint} variant="contained" fullWidth>
+    <Box
+      sx={{
+        maxWidth: 1000,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        margin: '0 auto',
+      }}
+    >
+      <Button
+        onClick={handlePrint}
+        variant="contained"
+        sx={{ marginBottom: 2 }}
+      >
         {t('reports:PRINT')}
       </Button>
       <Box sx={{ background: 'white' }}>
@@ -68,7 +81,7 @@ const PrintReportPage = ({
           <PrinteableReport {...data} />
         </div>
       </Box>
-    </>
+    </Box>
   )
 }
 
