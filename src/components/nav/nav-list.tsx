@@ -15,7 +15,6 @@ import {
   CompetitionIcon,
   CountryIcon,
   DatabaseIcon,
-  GeneralAclIcon,
   GoToMatchIcon,
   HomeIcon,
   InsiderNotesIcon,
@@ -250,46 +249,6 @@ export const NavList = ({ isAtTheMatch }: INavListProps) => {
             icon={<OrganizationSubscriptionsIcon color="error" />}
             to="/organization-subscriptions"
             text={t('ORGANIZATION_SUBSCRIPTIONS')}
-          />
-          <NavElement
-            icon={<GeneralAclIcon color="error" />}
-            to="/user-player-acl"
-            text={t('USER_PLAYER_ACL')}
-          />
-          <NavElement
-            icon={<GeneralAclIcon color="error" />}
-            to="/organization-player-acl"
-            text={t('ORGANIZATION_PLAYER_ACL')}
-          />
-          <NavElement
-            icon={<GeneralAclIcon color="error" />}
-            to="/user-report-acl"
-            text={t('USER_REPORT_ACL')}
-          />
-          <NavElement
-            icon={<GeneralAclIcon color="error" />}
-            to="/organization-report-acl"
-            text={t('ORGANIZATION_REPORT_ACL')}
-          />
-          <NavElement
-            icon={<GeneralAclIcon color="error" />}
-            to="/user-note-acl"
-            text={t('USER_NOTE_ACL')}
-          />
-          <NavElement
-            icon={<GeneralAclIcon color="error" />}
-            to="/organization-note-acl"
-            text={t('ORGANIZATION_NOTE_ACL')}
-          />
-          <NavElement
-            icon={<GeneralAclIcon color="error" />}
-            to="/user-insider-note-acl"
-            text={t('USER_INSIDER_NOTE_ACL')}
-          />
-          <NavElement
-            icon={<GeneralAclIcon color="error" />}
-            to="/organization-insider-note-acl"
-            text={t('ORGANIZATION_INSIDER_NOTE_ACL')}
           />
         </ExpandeableNavElement>
       )}
