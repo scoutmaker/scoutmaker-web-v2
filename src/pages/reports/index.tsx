@@ -21,6 +21,7 @@ import {
 } from '@/modules/reports/hooks'
 import { ReportsTable } from '@/modules/reports/table/table'
 import { ReportsFiltersState, ReportsSortBy } from '@/modules/reports/types'
+import { mapFilterFormDataToFiltersDto } from '@/modules/reports/utils'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { getDocumentNumber } from '@/utils/get-document-number'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
@@ -93,7 +94,11 @@ const ReportsPage = () => {
     limit: rowsPerPage,
     sortBy: sortBy as ReportsSortBy,
     sortingOrder: order,
-    ...mapFiltersStateToDto(filters),
+    ...mapFiltersStateToDto(
+      mapFilterFormDataToFiltersDto(
+        filters as any,
+      ) as unknown as ReportsFiltersState,
+    ),
   })
 
   const { mutate: deleteReport, isLoading: deleteReportLoading } =
