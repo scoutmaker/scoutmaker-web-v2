@@ -1,5 +1,6 @@
 import { Box, Step, StepContent, StepLabel, Stepper } from '@mui/material'
 import { Form, Formik } from 'formik'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -14,7 +15,7 @@ import { ReportTemplateBasicDataDto } from '@/modules/report-templates/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 import { useStepper } from '@/utils/hooks/use-stepper'
 
-import { CreateReportDto, ReportType } from '../types'
+import { CreateReportDto, IReportFromNoteQuery, ReportType } from '../types'
 import { MatchStep } from './components/match-step'
 import { MetaStep } from './components/meta-step'
 import { OrderStep } from './components/order-step'
@@ -61,6 +62,8 @@ export const CreateReportForm = ({
   const { setAlert } = useAlertsState()
   const { t } = useTranslation(['common', 'reports'])
   const { activeStep, handleNext, handleBack } = useStepper()
+  const router = useRouter()
+  const formInitialValues = { ...createReportFormInitialValues }
 
   // TODO: handle this
   const activeOrderId = 0
@@ -68,6 +71,20 @@ export const CreateReportForm = ({
   const [reportType, setReportType] = useState<ReportType>(
     activeOrderId ? 'order' : 'custom',
   )
+
+  const queryDataFields: Array<keyof IReportFromNoteQuery> = [
+    'playerId',
+    'matchId',
+    'shirtNo',
+    'finalRating',
+    'summary',
+  ]
+  queryDataFields.forEach(query => {
+    const data = router.query[query] as string | undefined
+
+    if (query === 'shirtNo' && data) formInitialValues[query] = +data
+    else if (data) formInitialValues[query] = data as never
+  })
 
   const steps: TStep[] = [
     {
@@ -150,7 +167,7 @@ export const CreateReportForm = ({
 
   return (
     <Formik
-      initialValues={createReportFormInitialValues}
+      initialValues={formInitialValues}
       validationSchema={generateCreateReportFormValidationSchema(t)}
       enableReinitialize
       onSubmit={(data, { resetForm }) => {
