@@ -52,7 +52,7 @@
   "MATCH": "Mecz",
   "MATCHES": "Mecze",
   "SCOUTING": "Obserwacje",
-  "REPORT": "Report",
+  "REPORT": "Raport",
   "REPORTS": "Raporty",
   "NOTES": "Notatki",
   "REPORT_TEMPLATES_CREATOR": "Kreator szablonów",
@@ -200,5 +200,8 @@
   "GO_TO_MATCH": "Jedź na mecz",
   "LEAVE_MATCH": "Opuść mecz",
   "MATCH_ATTENDANCE_INFO": "Jesteś na meczu {{homeTeam}} - {{awayTeam}}",
-  "QUICK_NOTE": "Szybka notatka"
+  "QUICK_NOTE": "Szybka notatka",
+  "OBSERVATION": "Obserwacja",
+  "OBSERVATION_TYPE": "Typ obserwacji",
+  "LIVE": "Na żywo"
 }

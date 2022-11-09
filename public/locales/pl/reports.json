@@ -34,5 +34,6 @@
   "REPORT_PAGE_TITLE": "Raport nr {{number}}",
   "SUMMARY_CARD_TITLE": "Podsumowanie",
   "FINAL_RATING": "Ocena końcowa",
-  "STATS_CARD_TITLE": "Statystyki"
+  "STATS_CARD_TITLE": "Statystyki",
+  "NO_OBSERVATION_TYPE_ERROR": "Wybierz typ obserwacji raportu"
 }

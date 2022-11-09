@@ -7,5 +7,6 @@
   "META_DATA_DISCLAIMER": "You don't have to fill out these fields. These are values of position, team, competition and competition group, your note will be related to. If you leave them blank, they will be filled out automatically based on current player relations.",
   "CREATE_NOTE_PAGE_TITLE": "Create new note",
   "EDIT_NOTE_PAGE_TITLE": "Edit note no. {{number}}",
-  "DELETE_NOTE_CONFIRM_QUESTION": "Are you sure you want to delete note no. {{number}}?"
+  "DELETE_NOTE_CONFIRM_QUESTION": "Are you sure you want to delete note no. {{number}}?",
+  "NO_OBSERVATION_TYPE_ERROR": "Please choose note observation type"
 }

@@ -7,5 +7,6 @@
   "META_DATA_DISCLAIMER": "Ponizsze pola to relacje do pozycji boiskowej, zespołu, rozgrywek oraz grup rozgrywkowych, jakie Twoja notatka będzie posiadać. Pola te są opcjonalne. Jeśli ich nie wypełnisz, powiązania zostaną utworzone automatycznie na podstawie aktualnych danych zawodnika.",
   "CREATE_NOTE_PAGE_TITLE": "Utwórz nową notatkę",
   "EDIT_NOTE_PAGE_TITLE": "Edycja notatki nr {{number}}",
-  "DELETE_NOTE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć notatkę nr {{number}}?"
+  "DELETE_NOTE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć notatkę nr {{number}}?",
+  "NO_OBSERVATION_TYPE_ERROR": "Wybierz typ obserwacji notatki"
 }
