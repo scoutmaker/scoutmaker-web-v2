@@ -1,0 +1,8 @@
+{
+  "INDEX_PAGE_TITLE": "Baza ACL zawodników organizacji",
+  "CREATE_PAGE_TITLE": "Utwórz nowy ACE zawodnika organizacji",
+  "NO_ORGANIZATION_ERROR": "Wybierz organizację ACE",
+  "NO_PLAYER_ERROR": "Wybierz zawodnika ACE",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć ACE zawodnika organizacji?",
+  "EDIT_PAGE_TITLE": "Edycja danych ACE zawodnika organizacji"
+}

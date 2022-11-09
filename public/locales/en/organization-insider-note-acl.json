@@ -1,0 +1,8 @@
+{
+  "INDEX_PAGE_TITLE": "Organizations insider notes ACL database",
+  "CREATE_PAGE_TITLE": "Create new organization insider note ACE",
+  "NO_ORGANIZATION_ERROR": "Please choose ACE organization",
+  "NO_INSIDER_NOTE_ERROR": "Please choose ACE insider note",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete this organization insider note ACE?",
+  "EDIT_PAGE_TITLE": "Edit organization insider note ACE"
+}

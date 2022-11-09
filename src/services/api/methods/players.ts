@@ -11,6 +11,7 @@ import { TModuleName } from '@/services/api/modules'
 import {
   createDocument,
   deleteDocument,
+  getAssetById,
   getAssetBySlug,
   getDataList,
   getPaginatedData,
@@ -23,6 +24,9 @@ const moduleName: TModuleName = 'players'
 
 export const getPlayerBySlug = (slug: string, token?: string) =>
   getAssetBySlug<PlayerDto>({ moduleName, slug, token })
+
+export const getPlayerById = (id: string, token?: string) =>
+  getAssetById<PlayerDto>({ moduleName, id, token })
 
 export const getPlayersList = (params?: PlayersFiltersDto) =>
   getDataList<PlayerBasicDataDto, PlayersFiltersDto>(moduleName, params)
