@@ -7,7 +7,7 @@ import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { MatchBasicDataDto } from '@/modules/matches/types'
+import { MatchBasicDataDto, MatchDto } from '@/modules/matches/types'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { CreatePlayerDto, PlayerBasicDataDto } from '@/modules/players/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
@@ -25,6 +25,7 @@ interface ICreateNoteFormProps {
   onSubmit: (data: CreatePlayerDto) => void
   onCancelClick?: () => void
   fullwidth?: boolean
+  match?: MatchDto
 }
 
 export const CreateNoteForm = ({
@@ -37,13 +38,17 @@ export const CreateNoteForm = ({
   competitionsData,
   competitionGroupsData,
   teamsData,
+  match,
 }: ICreateNoteFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation(['common', 'notes'])
+  const initValues = { ...initialValues }
+
+  if (match) initValues.matchId = match.id
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={initValues}
       validationSchema={() => generateNoteFormValidationSchema()}
       enableReinitialize
       onSubmit={async (data, { resetForm }) => {
@@ -68,6 +73,7 @@ export const CreateNoteForm = ({
               competitionsData={competitionsData}
               matchesData={matchesData}
               playersData={playersData}
+              matchDisabled={!!match}
             />
             <MainFormActions
               label={t('NOTE')}
