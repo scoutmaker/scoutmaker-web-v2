@@ -13,7 +13,9 @@ import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-gr
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { CountryDto } from '@/modules/countries/types'
+import { mapCountriesListToComboOptions } from '@/modules/countries/utils'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
+import { mapPlayerPositionsToComboOptions } from '@/modules/player-positions/utils'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { getFootedComboData } from '../footed-select'
@@ -93,14 +95,14 @@ export const PlayersFilterForm = ({
             />
             <FilterCombo
               name="countryIds"
-              data={mapListDataToComboOptions(countriesData)}
+              data={mapCountriesListToComboOptions(countriesData)}
               label={t('COUNTRIES')}
               size="small"
               multiple
             />
             <FilterCombo
               name="positionIds"
-              data={mapListDataToComboOptions(positionsData)}
+              data={mapPlayerPositionsToComboOptions(positionsData)}
               label={t('POSITIONS')}
               size="small"
               multiple

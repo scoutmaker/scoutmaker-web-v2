@@ -1,5 +1,11 @@
-import { IComboOptions } from '@/components/combo/types'
+import { IStandardComboOptions } from '@/components/combo/types'
 import { RatingRange } from '@/types/rating-range'
+
+import { ICompetitionGroupComboOptions } from '../competition-groups/types'
+import { ICompetitionComboOptions } from '../competitions/types'
+import { IMatchComboOptions } from '../matches/types'
+import { IPlayerPositionComboOptions } from '../player-positions/types'
+import { IPlayerComboOptions } from '../players/types'
 
 export type ReportBasicDataDto = Components.Schemas.ReportBasicDataDto
 
@@ -43,12 +49,12 @@ export type ReportsFiltersState = Omit<
   | 'positionIds'
   | 'teamIds'
 > & {
-  competitionGroupIds: IComboOptions[]
-  competitionIds: IComboOptions[]
-  matchIds: IComboOptions[]
-  playerIds: IComboOptions[]
-  positionIds: IComboOptions[]
-  teamIds: IComboOptions[]
+  competitionGroupIds: ICompetitionGroupComboOptions[]
+  competitionIds: ICompetitionComboOptions[]
+  matchIds: IMatchComboOptions[]
+  playerIds: IPlayerComboOptions[]
+  positionIds: IPlayerPositionComboOptions[]
+  teamIds: IStandardComboOptions[]
 }
 
 export type ReportsSortBy = Paths.ReportsControllerFindAll.Parameters.SortBy
@@ -64,3 +70,8 @@ export type UpdateReportDto = Components.Schemas.UpdateReportDto
 export type ReportStatus = ReportDto['status']
 
 export type ReportType = 'order' | 'custom'
+
+export type IReportFromNoteQuery = Pick<
+  CreateReportDto,
+  'playerId' | 'matchId' | 'shirtNo' | 'finalRating' | 'summary'
+>

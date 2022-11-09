@@ -41,7 +41,7 @@ function useChangeAttendance(
   })
 }
 
-export const useActiveMatchAttendance = () => {
+export const useActiveMatchAttendance = (enabled: boolean = true) => {
   const { setAlert } = useAlertsState()
 
   return useQuery(['match-attendances'], getActiveMatchAttendance, {
@@ -50,5 +50,6 @@ export const useActiveMatchAttendance = () => {
         msg: err.response.data.message,
         type: 'error',
       }),
+    enabled,
   })
 }
