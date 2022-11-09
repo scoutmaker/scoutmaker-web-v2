@@ -1,6 +1,6 @@
 import {
   CreateUserReportAclDto,
-  FindAllUserReportAclsParams,
+  FindAllUserReportAclParams,
   UpdateUserReportAclDto,
   UserReportAclDto,
 } from '@/modules/user-report-acl/types'
@@ -15,8 +15,8 @@ import { TModuleName } from '@/services/api/modules'
 
 const moduleName: TModuleName = 'user-report-acl'
 
-export const getUserReportAcls = (params: FindAllUserReportAclsParams) =>
-  getPaginatedData<FindAllUserReportAclsParams, UserReportAclDto>(
+export const getUserReportAcls = (params: FindAllUserReportAclParams) =>
+  getPaginatedData<FindAllUserReportAclParams, UserReportAclDto>(
     params,
     moduleName,
   )
