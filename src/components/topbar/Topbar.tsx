@@ -70,7 +70,7 @@ export const Topbar = ({ matchAttendance }: ITopbarProps) => {
               open={isMenuOpen}
               onClose={() => setIsMenuOpen(false)}
             >
-              <NavList currentMatchId={matchAttendance?.match.id || null} />
+              <NavList matchAttendance={matchAttendance || null} />
             </StyledMenu>
           </div>
         </StyledButtonsContainer>

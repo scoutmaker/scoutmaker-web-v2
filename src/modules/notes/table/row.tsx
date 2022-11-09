@@ -14,7 +14,9 @@ import {
   KeyboardArrowDownIcon,
   KeyboardArrowUpIcon,
   LikeIcon,
+  LiveObservationIcon,
   UnlikeIcon,
+  VideoIcon,
 } from '@/components/icons'
 import { LikedTableCell } from '@/components/likedTableCell/likedTableCell'
 import { RatingChip } from '@/components/rating-chip/rating-chip'
@@ -73,6 +75,7 @@ export const NotesTableRow = ({
     player,
     shirtNo,
     meta,
+    observationType,
   } = data
 
   const cellChangeLikedClick = () => {
@@ -173,6 +176,9 @@ export const NotesTableRow = ({
         </StyledTableCell>
         <StyledTableCell>{`${author.firstName} ${author.lastName}`}</StyledTableCell>
         <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
+        <StyledTableCell padding="checkbox" align="center">
+          {observationType === 'LIVE' ? <LiveObservationIcon /> : <VideoIcon />}
+        </StyledTableCell>
       </StyledTableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={10}>

@@ -4,6 +4,7 @@ import { useAlertsState } from '@/context/alerts/useAlertsState'
 import {
   addMatchAttendance,
   getActiveMatchAttendance,
+  IAddMatchAttendance,
   removeMatchAttendance,
 } from '@/services/api/methods/match-attendances'
 import { TModuleName } from '@/services/api/modules'
@@ -13,13 +14,37 @@ import { MatchAttendanceDto } from './types'
 
 const moduleName: TModuleName = 'match-attendances'
 
-export const useAddMatchAttendance = () =>
-  useChangeAttendance(addMatchAttendance)
+export const useAddMatchAttendance = () => useAddAttendance(addMatchAttendance)
 
 export const useRemoveMatchAttendance = () =>
-  useChangeAttendance(removeMatchAttendance)
+  useRemoveAttendance(removeMatchAttendance)
 
-function useChangeAttendance(
+function useAddAttendance(
+  mutationFn: ({
+    matchId,
+    observationType,
+  }: IAddMatchAttendance) => Promise<ApiResponse<MatchAttendanceDto>>,
+) {
+  const queryClient = useQueryClient()
+  const { setAlert } = useAlertsState()
+
+  return useMutation((data: IAddMatchAttendance) => mutationFn(data), {
+    onSuccess: data => {
+      setAlert({
+        msg: data.message,
+        type: 'success',
+      })
+      queryClient.invalidateQueries([moduleName])
+    },
+    onError: (err: ApiError) =>
+      setAlert({
+        msg: err.response.data.message,
+        type: 'error',
+      }),
+  })
+}
+
+function useRemoveAttendance(
   mutationFn: (matchId: string) => Promise<ApiResponse<MatchAttendanceDto>>,
 ) {
   const queryClient = useQueryClient()

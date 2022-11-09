@@ -24,6 +24,11 @@ function generateHeadCells(t: TFunction): IHeadCell[] {
     { id: 'videoUrl', label: t('VIDEO') },
     { id: 'reportsCount', label: t('REPORTS_COUNT') },
     { id: 'notesCount', label: t('NOTES_COUNT') },
+    {
+      id: 'observations',
+      label: t('OBSERVATIONS'),
+      isSortingDisabled: true,
+    },
   ]
 }
 

@@ -16,6 +16,7 @@ import {
   KeyboardArrowDownIcon,
   KeyboardArrowUpIcon,
   LikeIcon,
+  LiveObservationIcon,
   UnlikeIcon,
   VideoIcon,
 } from '@/components/icons'
@@ -83,6 +84,7 @@ export const ReportsTableRow = ({
     videoUrl,
     summary,
     meta,
+    observationType,
   } = data
 
   const cellChangeLikedClick = () => {
@@ -207,6 +209,9 @@ export const ReportsTableRow = ({
         <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
         <StyledTableCell>
           <StatusChip status={status} />
+        </StyledTableCell>
+        <StyledTableCell padding="checkbox" align="center">
+          {observationType === 'LIVE' ? <LiveObservationIcon /> : <VideoIcon />}
         </StyledTableCell>
       </StyledTableRow>
       <TableRow>

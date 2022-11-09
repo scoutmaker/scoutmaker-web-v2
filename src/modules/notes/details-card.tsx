@@ -37,6 +37,7 @@ export const NoteDetailsCard = ({ note }: INoteDetailsCard) => {
     player,
     shirtNo,
     meta,
+    observationType,
   } = note
 
   return (
@@ -112,6 +113,10 @@ export const NoteDetailsCard = ({ note }: INoteDetailsCard) => {
             value={percentageRating ? `${percentageRating.toFixed(1)}%` : '-'}
           />
           <CardItemBasic title={t('TEXT')} value={description} />
+          <CardItemBasic
+            title={t('OBSERVATION_TYPE')}
+            value={t(observationType)}
+          />
         </Grid>
       </CardContent>
     </Card>

@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { useUser } from '@/modules/auth/hooks'
+import { MatchAttendanceDto } from '@/modules/match-attendances/types'
 import { Routes } from '@/utils/routes'
 import { isAdmin, isPrivilegedUser } from '@/utils/user-roles'
 
@@ -48,10 +49,10 @@ import { NavElement } from './nav-element'
 import { StyledDivider, StyledList } from './styles'
 
 interface INavListProps {
-  currentMatchId: string | null
+  matchAttendance: MatchAttendanceDto | null
 }
 
-export const NavList = ({ currentMatchId }: INavListProps) => {
+export const NavList = ({ matchAttendance }: INavListProps) => {
   const { t } = useTranslation()
   const { data: user } = useUser()
 
@@ -124,11 +125,13 @@ export const NavList = ({ currentMatchId }: INavListProps) => {
           text={t('ORDERS')}
         />
       ) : null}
-      <GoToMachNavElement currentMatchId={currentMatchId} />
+      <GoToMachNavElement currentMatchId={matchAttendance?.match?.id || null} />
       <NavElement
         icon={<QuickNoteIcon color="error" />}
         to={`/notes/create${
-          currentMatchId ? `?matchId=${currentMatchId}` : ''
+          matchAttendance
+            ? `?matchId=${matchAttendance.match.id}&observationType=${matchAttendance.observationType}`
+            : ''
         }`}
         text={t('QUICK_NOTE')}
       />

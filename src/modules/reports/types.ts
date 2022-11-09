@@ -1,4 +1,4 @@
-import { IStandardComboOptions } from '@/components/combo/types'
+import { IComboOptions, IStandardComboOptions } from '@/components/combo/types'
 import { RatingRange } from '@/types/rating-range'
 
 import { ICompetitionGroupComboOptions } from '../competition-groups/types'
@@ -28,6 +28,7 @@ export type FindAllReportsParams = Pick<
   | 'teamIds'
   | 'hasVideo'
   | 'userId'
+  | 'observationType'
 >
 
 export type ReportsFiltersDto = Omit<
@@ -48,6 +49,7 @@ export type ReportsFiltersState = Omit<
   | 'playerIds'
   | 'positionIds'
   | 'teamIds'
+  | 'observationType'
 > & {
   competitionGroupIds: ICompetitionGroupComboOptions[]
   competitionIds: ICompetitionComboOptions[]
@@ -55,6 +57,7 @@ export type ReportsFiltersState = Omit<
   playerIds: IPlayerComboOptions[]
   positionIds: IPlayerPositionComboOptions[]
   teamIds: IStandardComboOptions[]
+  observationType: IComboOptions | null
 }
 
 export type ReportsSortBy = Paths.ReportsControllerFindAll.Parameters.SortBy

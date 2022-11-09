@@ -1,4 +1,5 @@
 import map from 'just-map-values'
+import { TFunction } from 'next-i18next'
 import * as yup from 'yup'
 
 import { validateId } from '@/utils/validation-helpers'
@@ -16,9 +17,10 @@ export const initialValues: CreateNoteDto = {
   competitionId: '',
   positionPlayedId: '',
   teamId: '',
+  observationType: 'VIDEO',
 }
 
-export function generateNoteFormValidationSchema() {
+export function generateNoteFormValidationSchema(t: TFunction) {
   return yup
     .object({
       playerId: validateId(),
@@ -31,6 +33,9 @@ export function generateNoteFormValidationSchema() {
       competitionId: validateId(),
       positionPlayedId: validateId(),
       teamId: validateId(),
+      observationType: yup
+        .string()
+        .required(t('notes:NO_OBSERVATION_TYPE_ERROR')),
     })
     .defined()
 }

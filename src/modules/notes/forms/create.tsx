@@ -9,9 +9,10 @@ import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { MatchBasicDataDto, MatchDto } from '@/modules/matches/types'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
-import { CreatePlayerDto, PlayerBasicDataDto } from '@/modules/players/types'
+import { PlayerBasicDataDto } from '@/modules/players/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
+import { CreateNoteDto } from '../types'
 import { Fields } from './fields'
 import { generateNoteFormValidationSchema, initialValues } from './utils'
 
@@ -22,10 +23,11 @@ interface ICreateNoteFormProps {
   teamsData: TeamBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
-  onSubmit: (data: CreatePlayerDto) => void
+  onSubmit: (data: CreateNoteDto) => void
   onCancelClick?: () => void
   fullwidth?: boolean
   match?: MatchDto
+  observationType?: 'LIVE' | 'VIDEO'
 }
 
 export const CreateNoteForm = ({
@@ -39,17 +41,19 @@ export const CreateNoteForm = ({
   competitionGroupsData,
   teamsData,
   match,
+  observationType,
 }: ICreateNoteFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation(['common', 'notes'])
   const initValues = { ...initialValues }
 
   if (match) initValues.matchId = match.id
+  if (observationType) initValues.observationType = observationType
 
   return (
     <Formik
       initialValues={initValues}
-      validationSchema={() => generateNoteFormValidationSchema()}
+      validationSchema={() => generateNoteFormValidationSchema(t)}
       enableReinitialize
       onSubmit={async (data, { resetForm }) => {
         const { rating, ...rest } = data
@@ -59,7 +63,7 @@ export const CreateNoteForm = ({
           { ...rest, rating: parsedRating },
           (_, value) => value,
         )
-        onSubmit(dataToSubmit as CreatePlayerDto)
+        onSubmit(dataToSubmit as CreateNoteDto)
         resetForm()
       }}
     >

@@ -1,4 +1,4 @@
-import { IStandardComboOptions } from '@/components/combo/types'
+import { IComboOptions, IStandardComboOptions } from '@/components/combo/types'
 import { RatingRange } from '@/types/rating-range'
 
 import { ICompetitionGroupComboOptions } from '../competition-groups/types'
@@ -27,6 +27,7 @@ export type FindAllNotesParams = Pick<
   | 'sortingOrder'
   | 'teamIds'
   | 'userId'
+  | 'observationType'
 >
 
 export type NotesFiltersDto = Omit<
@@ -47,6 +48,7 @@ export type NotesFiltersState = Omit<
   | 'playerIds'
   | 'positionIds'
   | 'teamIds'
+  | 'observationType'
 > & {
   competitionGroupIds: ICompetitionGroupComboOptions[]
   competitionIds: ICompetitionComboOptions[]
@@ -54,6 +56,7 @@ export type NotesFiltersState = Omit<
   playerIds: IPlayerComboOptions[]
   positionIds: IPlayerPositionComboOptions[]
   teamIds: IStandardComboOptions[]
+  observationType: IComboOptions | null
 }
 
 export type NotesSortBy = Paths.NotesControllerFindAll.Parameters.SortBy

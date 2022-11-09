@@ -53,7 +53,7 @@ export const EditNoteForm = ({
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={generateNoteFormValidationSchema()}
+      validationSchema={generateNoteFormValidationSchema(t)}
       enableReinitialize
       onSubmit={data => {
         const { rating, ...rest } = data
@@ -64,7 +64,7 @@ export const EditNoteForm = ({
           initialValues,
           filter({ ...rest, rating: parsedRating }, (_, value) => value),
         )
-        onSubmit(dataToSubmit)
+        onSubmit(dataToSubmit as CreateNoteDto)
       }}
     >
       {({ handleReset }) => (

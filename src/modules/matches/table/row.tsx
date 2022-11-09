@@ -6,6 +6,7 @@ import {
 import { Badge, Link } from '@mui/material'
 import { useRouter } from 'next/router'
 
+import { LiveObservationIcon, VideoIcon } from '@/components/icons'
 import { StyledTableCell } from '@/components/tables/cell'
 import { CellWithLink } from '@/components/tables/cell-with-link'
 import { TableMenu } from '@/components/tables/menu'
@@ -49,6 +50,7 @@ export const MatchesTableRow = ({
     homeGoals,
     videoUrl,
     _count: count,
+    observationType,
   } = data
 
   return (
@@ -97,6 +99,14 @@ export const MatchesTableRow = ({
         <Badge badgeContent={count.notes || '0'} color="secondary">
           <ReportsIcon />
         </Badge>
+      </StyledTableCell>
+      <StyledTableCell align="center">
+        {(observationType === 'LIVE' || observationType === 'BOTH') && (
+          <LiveObservationIcon />
+        )}
+        {(observationType === 'VIDEO' || observationType === 'BOTH') && (
+          <VideoIcon />
+        )}
       </StyledTableCell>
     </StyledTableRow>
   )

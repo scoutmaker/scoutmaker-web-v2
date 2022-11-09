@@ -40,6 +40,7 @@ const initialFilters: NotesFiltersState = {
   positionIds: [],
   teamIds: [],
   ratingRange: 'ALL',
+  observationType: null,
 }
 
 interface INoteToDeleteData {

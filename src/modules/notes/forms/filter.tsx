@@ -5,6 +5,7 @@ import { useTranslation } from 'next-i18next'
 
 import { FilterCombo } from '@/components/combo/combo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
+import { getObservationTypeComboData } from '@/components/combos-data/observation-type'
 import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
@@ -134,6 +135,12 @@ export const NotesFilterForm = ({
             <RatingRangeSelect
               name="ratingRange"
               label={t('RATING_RANGE')}
+              size="small"
+            />
+            <FilterCombo
+              name="observationType"
+              data={getObservationTypeComboData(t)}
+              label={t('OBSERVATION_TYPE')}
               size="small"
             />
           </FilterFormContainer>
