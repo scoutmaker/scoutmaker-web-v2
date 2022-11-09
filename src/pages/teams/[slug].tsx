@@ -1,6 +1,6 @@
 import { Add as AddIcon } from '@mui/icons-material'
 import { AppBar, Box, Button, Tab, Tabs } from '@mui/material'
-import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -48,7 +48,6 @@ const TeamPage = ({
   data,
 }: TSsrRole<TTeamPageProps>) => {
   const { t } = useTranslation()
-  const router = useRouter()
   const [tabValue, setTabValue] = useState(0)
 
   const handleTabChange = (event: any, newValue: number) =>
@@ -137,7 +136,7 @@ const TeamPage = ({
             })}
             centered
           >
-            <Tab label={t('TEAM_AFFILIATIONS')} />
+            <Tab label={t('COMPETITION_PARTICIPATIONS')} />
             <Tab label={t('PLAYERS')} />
             <Tab label={t('MATCHES')} />
           </Tabs>
@@ -148,34 +147,27 @@ const TeamPage = ({
           title="competition-participations"
           noPadding
         >
-          {isAdmin && (
-            <Button
-              variant="contained"
-              disableElevation
-              sx={theme => ({
-                borderBottomLeftRadius: 0,
-                borderBottomRightRadius: 0,
-                marginBottom: -1,
-                [theme.breakpoints.down('sm')]: {
-                  fontSize: 11,
-                },
-              })}
-              fullWidth
-              onClick={() =>
-                router.push(
-                  `/competition-participations/create?teamId=${team.id}`,
-                )
-              }
-            >
-              {t('ADD')} <AddIcon sx={{ height: '0.8em' }} />
-            </Button>
-          )}
-          <CompetitionParticipationsTable
-            {...CompetitionParticipationTableSettings}
-            {...CompetitionParticipationTableProps}
-            total={participations?.totalDocs || 0}
-            data={participations?.docs || []}
-          />
+          <Box display="flex" flexDirection="column" alignItems="center">
+            {isAdmin && (
+              <Link
+                href={`/competition-participations/create?teamId=${team.id}`}
+                passHref
+              >
+                <Button
+                  variant="contained"
+                  sx={theme => ({ marginBottom: theme.spacing(1) })}
+                >
+                  {t('ADD')} <AddIcon />
+                </Button>
+              </Link>
+            )}
+            <CompetitionParticipationsTable
+              {...CompetitionParticipationTableSettings}
+              {...CompetitionParticipationTableProps}
+              total={participations?.totalDocs || 0}
+              data={participations?.docs || []}
+            />
+          </Box>
         </TabPanel>
         <TabPanel value={tabValue} index={1} title="players" noPadding>
           <PlayersBasicTable
