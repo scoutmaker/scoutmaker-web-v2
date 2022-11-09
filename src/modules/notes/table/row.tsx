@@ -179,8 +179,9 @@ export const NotesTableRow = ({
           <Collapse in={isRowExpanded} timeout="auto" unmountOnExit>
             <Box margin={1}>
               <Typography variant="h6" gutterBottom>
-                {`Nr ${shirtNo || 'N/A'}, ${meta?.position && meta.position.name
-                  } (${meta?.team && meta.team.name})`}
+                {`Nr ${shirtNo || 'N/A'}, ${
+                  meta?.position && meta.position.name
+                } (${meta?.team && meta.team.name})`}
               </Typography>
               <Typography gutterBottom variant="body2">
                 {description}

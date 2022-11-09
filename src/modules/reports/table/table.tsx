@@ -76,11 +76,11 @@ export const ReportsTable = ({
           onDeleteClick={
             handleDeleteItemClick
               ? () =>
-                handleDeleteItemClick({
-                  id: report.id,
-                  docNumber: report.docNumber,
-                  createdAt: report.createdAt,
-                })
+                  handleDeleteItemClick({
+                    id: report.id,
+                    docNumber: report.docNumber,
+                    createdAt: report.createdAt,
+                  })
               : undefined
           }
           onLikeClick={onLikeClick}
