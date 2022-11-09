@@ -34,5 +34,6 @@
   "NOTE_PAGE_TITLE": "Report no. {{number}}",
   "SUMMARY_CARD_TITLE": "Summary",
   "FINAL_RATING": "Final rating",
-  "STATS_CARD_TITLE": "Stats"
+  "STATS_CARD_TITLE": "Stats",
+  "PRINT": "Print"
 }
