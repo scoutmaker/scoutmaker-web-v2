@@ -7,6 +7,7 @@ export {
   Security as ClubsIcon,
   SportsMma as CompetitionIcon,
   Flag as CountryIcon,
+  NoteAdd as CreateReportIcon,
   Storage as DatabaseIcon,
   Delete as DeleteIcon,
   Edit as EditIcon,

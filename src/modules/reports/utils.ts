@@ -9,6 +9,7 @@ import {
   ReportBasicDataDto,
   ReportsFilterFormData,
   ReportsFiltersDto,
+  ReportDto,
 } from './types'
 
 export function getSingleReportRoute(id: string) {
@@ -38,4 +39,19 @@ export function mapReportsListToComboOptions(
     player,
     status,
   }))
+
+type GroupedReportSkills = Partial<Record<string, ReportDto['skills']>>
+
+export function groupSkillsByCategory(skills: ReportDto['skills']) {
+  const groupedSkills: GroupedReportSkills = {}
+
+  skills?.forEach(skill => {
+    if (groupedSkills[skill.template.category.name]) {
+      groupedSkills[skill.template.category.name]?.push(skill)
+    } else {
+      groupedSkills[skill.template.category.name] = [skill]
+    }
+  })
+
+  return groupedSkills
 }

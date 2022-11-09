@@ -78,3 +78,8 @@ export interface IReportsComboOptions extends IComboOptions {
   player: PlayerSuperBasicDataDto
   author: UserBasicDataDto
 }
+
+export type IReportFromNoteQuery = Pick<
+  CreateReportDto,
+  'playerId' | 'matchId' | 'shirtNo' | 'finalRating' | 'summary'
+>

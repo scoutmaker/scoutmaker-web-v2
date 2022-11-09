@@ -37,7 +37,7 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
   const { t } = useTranslation()
   const router = useRouter()
 
-  const { isAdmin, player } = data as TData
+  const { isAdmin, player } = data || {}
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -51,13 +51,11 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
     limit: rowsPerPage,
     sortBy: sortBy as TeamAffiliationsSortBy,
     sortingOrder: order,
-    playerId: player?.id,
+    playerId: player?.id || '',
   })
 
-  if (!player) {
+  if (!player)
     return <ErrorContent message={errorMessage} status={errorStatus} />
-  }
-
   return (
     <>
       <PageHeading title={`${player.firstName} ${player.lastName}`} />

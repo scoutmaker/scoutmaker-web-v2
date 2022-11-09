@@ -5,6 +5,7 @@ import { CardItemBasic } from '@/components/details-card/details-card-item'
 import { RatingChip } from '@/components/rating-chip/rating-chip'
 
 import { ReportDto } from '../types'
+import { SkillsChart } from './skillsChart'
 
 interface ISummaryCardProps {
   report: ReportDto
@@ -21,6 +22,10 @@ export const SummaryCard = ({ report }: ISummaryCardProps) => {
     videoUrl,
     videoDescription,
   } = report
+
+  const filteredSkills = report.skills.filter(
+    skill => typeof skill.rating === 'number',
+  )
 
   return (
     <Card>
@@ -48,6 +53,16 @@ export const SummaryCard = ({ report }: ISummaryCardProps) => {
             }
           />
         </Grid>
+        <div>
+          {!!filteredSkills.length && (
+            <SkillsChart
+              skills={filteredSkills}
+              width={250}
+              height={250}
+              maxRatingScore={report.maxRatingScore}
+            />
+          )}
+        </div>
       </CardContent>
     </Card>
   )

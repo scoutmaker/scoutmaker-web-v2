@@ -45,6 +45,7 @@ export const TeamAffiliationFilterForm = ({
               data={mapPlayersListToComboOptions(playersData)}
               label={t('PLAYER')}
               size="small"
+              filterBeforeComma
             />
             <FilterCombo
               name="teamId"

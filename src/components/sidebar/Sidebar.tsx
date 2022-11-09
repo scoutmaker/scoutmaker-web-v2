@@ -4,13 +4,13 @@ import { NavList } from '../nav/nav-list'
 import { StyledDrawer } from './styles'
 
 interface IProps {
-  isAtTheMatch: boolean
+  currentMatchId: string | null
 }
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar)
 
-export const Sidebar = ({ isAtTheMatch }: IProps) => (
+export const Sidebar = ({ currentMatchId }: IProps) => (
   <StyledDrawer variant="permanent" anchor="left">
     <Offset />
-    <NavList isAtTheMatch={isAtTheMatch} />
+    <NavList currentMatchId={currentMatchId} />
   </StyledDrawer>
 )
