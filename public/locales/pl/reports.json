@@ -24,7 +24,7 @@
   "EDIT_REPORT_PAGE_TITLE": "Edycja raportu nr {{number}}",
   "BASIC_INFO": "Informacje podstawowe",
   "POSITION_PLAYED": "Pozycja w meczu",
-  "AVERAGE_RATING": "Srednia ocena",
+  "AVERAGE_RATING": "Średnia ocena",
   "STATUS": "Status",
   "EDIT_VIDEO_CARD": "Video",
   "EDIT_SUMMARY_CARD": "Podsumowanie",
@@ -34,5 +34,6 @@
   "REPORT_PAGE_TITLE": "Raport nr {{number}}",
   "SUMMARY_CARD_TITLE": "Podsumowanie",
   "FINAL_RATING": "Ocena końcowa",
-  "STATS_CARD_TITLE": "Statystyki"
+  "STATS_CARD_TITLE": "Statystyki",
+  "PRINT": "Drukuj"
 }

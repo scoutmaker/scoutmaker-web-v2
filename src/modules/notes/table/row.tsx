@@ -11,6 +11,7 @@ import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import {
+  CreateReportIcon,
   KeyboardArrowDownIcon,
   KeyboardArrowUpIcon,
   LikeIcon,
@@ -28,6 +29,7 @@ import {
   getSingleMatchRoute,
 } from '@/modules/matches/utils'
 import { getSinglePlayerRoute } from '@/modules/players/utils'
+import { IReportFromNoteQuery } from '@/modules/reports/types'
 import { formatDate } from '@/utils/format-date'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
@@ -73,11 +75,20 @@ export const NotesTableRow = ({
     player,
     shirtNo,
     meta,
+    rating,
   } = data
 
   const cellChangeLikedClick = () => {
     if (likes.length) onUnlikeClick(id)
     else onLikeClick(id)
+  }
+
+  const createReportQueryData: IReportFromNoteQuery = {
+    playerId: player?.id || '',
+    matchId: match?.id,
+    shirtNo,
+    finalRating: rating,
+    summary: description,
   }
 
   return (
@@ -133,6 +144,16 @@ export const NotesTableRow = ({
                   }}
                 />
               )}
+              <TableMenuItem
+                icon={<CreateReportIcon fontSize="small" />}
+                text={t('notes:CREATE_REPORT')}
+                onClick={() =>
+                  router.push({
+                    pathname: '/reports/create',
+                    query: createReportQueryData as Record<string, any>,
+                  })
+                }
+              />
             </TableMenu>
           </StyledTableCell>
         )}

@@ -1,4 +1,4 @@
-import { IStandardComboOptions } from '@/components/combo/types'
+import { IComboOptions, IStandardComboOptions } from '@/components/combo/types'
 import { RatingRange } from '@/types/rating-range'
 
 import { ICompetitionGroupComboOptions } from '../competition-groups/types'
@@ -63,3 +63,10 @@ export type NoteDto = Components.Schemas.NoteDto
 export type CreateNoteDto = Components.Schemas.CreateNoteDto
 
 export type UpdateNoteDto = Components.Schemas.UpdateNoteDto
+
+export interface INotesComboOptions extends IComboOptions {
+  player?: Components.Schemas.PlayerBasicDataWithoutTeamsDto
+  description?: string
+  rating?: number
+  shirtNo?: number
+}
