@@ -15,7 +15,7 @@ import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole<PlayerStatsDto>(
   ['common', 'player-stats'],
-  false,
+  ['ADMIN'],
   async (token, params) => {
     try {
       const data = await getPlayerStatsById(params?.id as string, token)

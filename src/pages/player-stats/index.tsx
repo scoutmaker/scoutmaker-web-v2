@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { mapFiltersStateToDto } from '@/components/combo/utils'
+import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
 import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
@@ -22,7 +23,7 @@ import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
-import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 const initialFilters: PlayerStatsFiltersState = {
   matchId: null,
@@ -32,14 +33,14 @@ const initialFilters: PlayerStatsFiltersState = {
 
 export const getServerSideProps = withSessionSsrRole(
   ['common', 'player-stats'],
-  false,
+  ['ADMIN'],
 )
 
 interface IToDeleteData {
   id: string
 }
 
-const PlayerStatsPage = () => {
+const PlayerStatsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
@@ -90,6 +91,8 @@ const PlayerStatsPage = () => {
     playersLoading ||
     teamsLoading
 
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}

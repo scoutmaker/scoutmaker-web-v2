@@ -10,7 +10,7 @@ import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole<PlayerStatsDto>(
   ['common', 'player-stats'],
-  false,
+  ['ADMIN'],
   async (token, params) => {
     try {
       const data = await getPlayerStatsById(params?.id as string, token)
@@ -31,7 +31,8 @@ const PlayerStatsPage = ({
 }: TSsrRole<PlayerStatsDto>) => {
   const { t } = useTranslation()
 
-  if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (!data || errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       <PageHeading title={t('PLAYER_STATS')} />

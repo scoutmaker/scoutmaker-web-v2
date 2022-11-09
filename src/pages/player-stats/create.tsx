@@ -1,5 +1,6 @@
 import { useTranslation } from 'next-i18next'
 
+import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { useMatchesList } from '@/modules/matches/hooks'
@@ -7,14 +8,14 @@ import { CreatePlayerStatsForm } from '@/modules/player-stats/forms/create'
 import { useCreatePlayerStats } from '@/modules/player-stats/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
-import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(
   ['common', 'player-stats'],
-  false,
+  ['ADMIN'],
 )
 
-const CreatePlayerStatsPage = () => {
+const CreatePlayerStatsPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { t } = useTranslation()
 
   const { mutate: createPlayerStat, isLoading: createLoading } =
@@ -27,6 +28,8 @@ const CreatePlayerStatsPage = () => {
   const isLoading =
     createLoading || teamsLoading || playersLoading || matchesLoading
 
+  if (errorStatus)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
