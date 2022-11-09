@@ -1,7 +1,9 @@
-import { Box, Card, CardContent, CardHeader } from '@mui/material'
+import { Box, Card, CardContent, CardHeader, styled } from '@mui/material'
 import { Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
+import { BasicCombo } from '@/components/combo/basicCombo'
+import { getObservationTypeComboData } from '@/components/combos-data/observation-type'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
@@ -51,27 +53,45 @@ export const EditReportForm = ({
       <BasicDetailsCard report={current} />
       <Formik
         initialValues={initialValues}
-        validationSchema={generateEditReportFormValidationSchema()}
+        validationSchema={generateEditReportFormValidationSchema(t)}
         enableReinitialize
         onSubmit={data =>
           onSubmit(formatUpdateReportDto({ data, initialValues }))
         }
       >
-        {({ handleReset }) => (
+        {({ handleReset, touched, errors }) => (
           <Form>
-            <Box sx={{ my: 2 }}>
+            <MarginBox>
+              <Card>
+                <CardHeader title={t('OBSERVATION_TYPE')} />
+                <CardContent>
+                  <BasicCombo
+                    data={getObservationTypeComboData(t)}
+                    name="observationType"
+                    label={t('OBSERVATION_TYPE')}
+                    error={touched.observationType && !!errors.observationType}
+                    helperText={
+                      touched.observationType
+                        ? errors.observationType
+                        : undefined
+                    }
+                  />
+                </CardContent>
+              </Card>
+            </MarginBox>
+            <MarginBox>
               <VideoCard />
-            </Box>
-            <Box sx={{ my: 2 }}>
+            </MarginBox>
+            <MarginBox>
               <SummaryCard />
-            </Box>
-            <Box sx={{ my: 2 }}>
+            </MarginBox>
+            <MarginBox>
               <SkillAssessmentsCard
                 skills={current.skills}
                 maxRatingScore={current.maxRatingScore}
               />
-            </Box>
-            <Box sx={{ my: 2 }}>
+            </MarginBox>
+            <MarginBox>
               <Card>
                 <CardHeader title={t('reports:EDIT_STATS_CARD')} />
                 <CardContent
@@ -80,8 +100,8 @@ export const EditReportForm = ({
                   <StatsStep />
                 </CardContent>
               </Card>
-            </Box>
-            <Box sx={{ my: 2 }}>
+            </MarginBox>
+            <MarginBox>
               <Card>
                 <CardHeader title={t('reports:EDIT_META_CARD')} />
                 <CardContent
@@ -95,7 +115,7 @@ export const EditReportForm = ({
                   />
                 </CardContent>
               </Card>
-            </Box>
+            </MarginBox>
             <MainFormActions
               label={t('REPORT')}
               isEditState
@@ -113,3 +133,7 @@ export const EditReportForm = ({
     </>
   )
 }
+
+const MarginBox = styled(Box)(({ theme }) => ({
+  margin: theme.spacing(2, 0),
+}))

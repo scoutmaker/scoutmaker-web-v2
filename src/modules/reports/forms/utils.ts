@@ -66,10 +66,13 @@ export function generateCreateReportFormValidationSchema(t: TFunction) {
     .defined()
 }
 
-export function generateEditReportFormValidationSchema() {
+export function generateEditReportFormValidationSchema(t: TFunction) {
   return yup
     .object({
       ...commonReportFormValidationSchemaFields,
+      observationType: yup
+        .string()
+        .required(t('reports:NO_OBSERVATION_TYPE_ERROR')),
     })
     .defined()
 }
