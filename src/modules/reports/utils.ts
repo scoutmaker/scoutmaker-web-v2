@@ -7,9 +7,9 @@ import { Routes } from '@/utils/routes'
 import {
   IReportsComboOptions,
   ReportBasicDataDto,
+  ReportDto,
   ReportsFilterFormData,
   ReportsFiltersDto,
-  ReportDto,
 } from './types'
 
 export function getSingleReportRoute(id: string) {
@@ -39,6 +39,7 @@ export function mapReportsListToComboOptions(
     player,
     status,
   }))
+}
 
 type GroupedReportSkills = Partial<Record<string, ReportDto['skills']>>
 
