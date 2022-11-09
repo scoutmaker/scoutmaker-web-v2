@@ -26,7 +26,7 @@ function generateHeadCells(t: TFunction): IHeadCell[] {
     { id: 'notesCount', label: t('NOTES_COUNT') },
     {
       id: 'observations',
-      label: t('OBSERVATIONS'),
+      label: t('OBSERVATION_TYPE'),
       isSortingDisabled: true,
     },
   ]
