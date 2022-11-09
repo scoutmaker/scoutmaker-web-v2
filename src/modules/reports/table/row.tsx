@@ -146,13 +146,13 @@ export const ReportsTableRow = ({
                   }}
                 />
               )}
-             <TableMenuItem
-              icon={<PrintIcon fontSize="small" />}
-              text={t('reports:PRINT')}
-              onClick={() => {
-                handleMenuAction(() => router.push(`/reports/${id}/print`))
-              }}
-            />
+              <TableMenuItem
+                icon={<PrintIcon fontSize="small" />}
+                text={t('reports:PRINT')}
+                onClick={() => {
+                  handleMenuAction(() => router.push(`/reports/${id}/print`))
+                }}
+              />
             </TableMenu>
           </StyledTableCell>
         )}
