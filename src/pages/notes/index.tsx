@@ -40,6 +40,8 @@ const initialFilters: NotesFiltersState = {
   positionIds: [],
   teamIds: [],
   ratingRange: 'ALL',
+  likedPlayers: false,
+  likedTeams: false,
 }
 
 interface INoteToDeleteData {
@@ -55,6 +57,9 @@ const NotesPage = () => {
     useState(false)
   const [noteToDeleteData, setNoteToDeleteData] = useState<INoteToDeleteData>()
 
+  const [filterLikedTeams, setLikedTeams] = useState(false)
+  const [filterLikedPlayers, setLikedPlayers] = useState(false)
+
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
     handleChangePage,
@@ -68,17 +73,23 @@ const NotesPage = () => {
   })
 
   function handleSetFilters(newFilters: NotesFiltersState) {
+    setLikedTeams(!!newFilters.likedTeams)
+    setLikedPlayers(!!newFilters.likedPlayers)
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
 
-  const { data: teams, isLoading: teamsLoading } = useTeamsList()
+  const { data: teams, isLoading: teamsLoading } = useTeamsList({
+    isLiked: filterLikedTeams,
+  })
   const { data: competitions, isLoading: competitionsLoading } =
     useCompetitionsList()
   const { data: competitionGroups, isLoading: competitionGroupsLoading } =
     useCompetitionGroupsList()
   const { data: matches, isLoading: matchesLoading } = useMatchesList()
-  const { data: players, isLoading: playersLoading } = usePlayersList()
+  const { data: players, isLoading: playersLoading } = usePlayersList({
+    isLiked: filterLikedPlayers,
+  })
   const { data: positions, isLoading: positionsLoading } =
     usePlayerPositionsList()
 

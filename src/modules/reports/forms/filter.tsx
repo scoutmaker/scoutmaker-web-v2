@@ -1,4 +1,4 @@
-import { Grid, TextField } from '@mui/material'
+import { Box, Grid, TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
@@ -137,30 +137,44 @@ export const ReportsFilterForm = ({
               size="small"
             />
           </FilterFormContainer>
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <FilterCheckboxContainer>
-                <Field
-                  component={CheckboxWithLabel}
-                  type="checkbox"
-                  name="isLiked"
-                  Label={{ label: t('reports:LIKED_ONLY') }}
-                  size="small"
-                />
-              </FilterCheckboxContainer>
-            </Grid>
-            <Grid item xs={6}>
-              <FilterCheckboxContainer>
-                <Field
-                  component={CheckboxWithLabel}
-                  type="checkbox"
-                  name="hasVideo"
-                  Label={{ label: t('reports:WITH_VIDEO_ONLY') }}
-                  size="small"
-                />
-              </FilterCheckboxContainer>
-            </Grid>
-          </Grid>
+          <Box display="flex" flexWrap="wrap" justifyContent="center">
+            <FilterCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="isLiked"
+                Label={{ label: t('LIKED_REPORTS') }}
+                size="small"
+              />
+            </FilterCheckboxContainer>
+            <FilterCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="likedTeams"
+                Label={{ label: t('LIKED_TEAMS') }}
+                size="small"
+              />
+            </FilterCheckboxContainer>
+            <FilterCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="likedPlayers"
+                Label={{ label: t('LIKED_PLAYERS') }}
+                size="small"
+              />
+            </FilterCheckboxContainer>
+            <FilterCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="hasVideo"
+                Label={{ label: t('reports:WITH_VIDEO_ONLY') }}
+                size="small"
+              />
+            </FilterCheckboxContainer>
+          </Box>
           <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>
       )}

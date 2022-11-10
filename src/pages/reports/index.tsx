@@ -45,6 +45,8 @@ const initialFilters: ReportsFiltersState = {
   teamIds: [],
   hasVideo: false,
   ratingRange: 'ALL',
+  likedPlayers: false,
+  likedTeams: false,
 }
 
 interface IReportToDeleteData {
@@ -61,6 +63,9 @@ const ReportsPage = () => {
   const [reportToDeleteData, setReportToDeleteData] =
     useState<IReportToDeleteData>()
 
+  const [filterLikedTeams, setLikedTeams] = useState(false)
+  const [filterLikedPlayers, setLikedPlayers] = useState(false)
+
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
     handleChangePage,
@@ -74,17 +79,23 @@ const ReportsPage = () => {
   })
 
   function handleSetFilters(newFilters: ReportsFiltersState) {
+    setLikedTeams(!!newFilters.likedTeams)
+    setLikedPlayers(!!newFilters.likedPlayers)
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
 
-  const { data: teams, isLoading: teamsLoading } = useTeamsList()
+  const { data: teams, isLoading: teamsLoading } = useTeamsList({
+    isLiked: filterLikedTeams,
+  })
   const { data: competitions, isLoading: competitionsLoading } =
     useCompetitionsList()
   const { data: competitionGroups, isLoading: competitionGroupsLoading } =
     useCompetitionGroupsList()
   const { data: matches, isLoading: matchesLoading } = useMatchesList()
-  const { data: players, isLoading: playersLoading } = usePlayersList()
+  const { data: players, isLoading: playersLoading } = usePlayersList({
+    isLiked: filterLikedPlayers,
+  })
   const { data: positions, isLoading: positionsLoading } =
     usePlayerPositionsList()
 
