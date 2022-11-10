@@ -218,5 +218,6 @@
   "ORGANIZATION_INSIDER_NOTE_ACE": "Organization insider note ACE",
   "NOTE": "Note",
   "WITH_NOTE": "With note",
-  "WITH_REPORT": "With report"
+  "WITH_REPORT": "With report",
+  "WITH_OBSERVATION": "With observation"
 }
