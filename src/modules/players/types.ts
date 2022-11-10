@@ -30,6 +30,7 @@ export type PlayersFiltersDto = Pick<
   | 'orderId'
   | 'hasNote'
   | 'hasReport'
+  | 'hasAnyObservation'
 >
 
 export type PlayersFiltersState = Omit<

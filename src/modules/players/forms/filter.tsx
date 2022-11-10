@@ -131,7 +131,7 @@ export const PlayersFilterForm = ({
               multiple
             />
           </FilterFormContainer>
-          <Box display="flex" justifyContent="center">
+          <Box display="flex" flexWrap="wrap" justifyContent="center">
             <FilterCheckboxContainer>
               <Field
                 component={CheckboxWithLabel}
@@ -154,13 +154,21 @@ export const PlayersFilterForm = ({
               <Field
                 component={CheckboxWithLabel}
                 type="checkbox"
+                name="hasAnyObservation"
+                Label={{ label: t('WITH_OBSERVATION') }}
+                size="small"
+              />
+            </FilterCheckboxContainer>
+            <FilterCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
                 name="isLiked"
                 Label={{ label: t('players:LIKED_ONLY') }}
                 size="small"
               />
             </FilterCheckboxContainer>
           </Box>
-
           <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>
       )}

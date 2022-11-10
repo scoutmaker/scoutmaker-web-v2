@@ -44,6 +44,7 @@ const initialFilters: PlayersFiltersState = {
   isLiked: false,
   hasNote: false,
   hasReport: false,
+  hasAnyObservation: false,
 }
 
 const PlayersPage = () => {
