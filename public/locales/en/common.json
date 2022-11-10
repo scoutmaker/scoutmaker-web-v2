@@ -216,5 +216,9 @@
   "USER_INSIDER_NOTE_ACE": "User insider note ACE",
   "ORGANIZATION_INSIDER_NOTE_ACL": "Organization insider note ACL",
   "ORGANIZATION_INSIDER_NOTE_ACE": "Organization insider note ACE",
-  "NOTE": "Note"
+  "NOTE": "Note",
+  "LIKED_REPORTS": "Liked reports",
+  "LIKED_NOTES": "Liked notes",
+  "LIKED_TEAMS": "Liked teams",
+  "LIKED_PLAYERS": "Liked players"
 }
