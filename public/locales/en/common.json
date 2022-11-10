@@ -216,5 +216,7 @@
   "USER_INSIDER_NOTE_ACE": "User insider note ACE",
   "ORGANIZATION_INSIDER_NOTE_ACL": "Organization insider note ACL",
   "ORGANIZATION_INSIDER_NOTE_ACE": "Organization insider note ACE",
-  "NOTE": "Note"
+  "NOTE": "Note",
+  "WITH_NOTE": "With note",
+  "WITH_REPORT": "With report"
 }
