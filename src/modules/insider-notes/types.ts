@@ -1,4 +1,5 @@
 import { IComboOptions, IStandardComboOptions } from '@/components/combo/types'
+
 import { ICompetitionGroupComboOptions } from '../competition-groups/types'
 import { ICompetitionComboOptions } from '../competitions/types'
 import { IPlayerPositionComboOptions } from '../player-positions/types'

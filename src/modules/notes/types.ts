@@ -1,5 +1,6 @@
 import { IComboOptions, IStandardComboOptions } from '@/components/combo/types'
 import { RatingRange } from '@/types/rating-range'
+
 import { ICompetitionGroupComboOptions } from '../competition-groups/types'
 import { ICompetitionComboOptions } from '../competitions/types'
 import { IMatchComboOptions } from '../matches/types'
