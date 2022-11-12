@@ -1,0 +1,8 @@
+{
+  "INDEX_PAGE_TITLE": "Baza ACL notatek użytkowników",
+  "CREATE_PAGE_TITLE": "Utwórz nowy ACE notatki użytkownika",
+  "NO_USER_ERROR": "Wybierz użytkownika ACE",
+  "NO_NOTE_ERROR": "Wybierz notatkę ACE",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć ACE notatki użytkownika?",
+  "EDIT_PAGE_TITLE": "Edycja danych ACE notatki użytkownika"
+}

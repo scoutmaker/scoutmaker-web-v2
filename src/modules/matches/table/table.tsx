@@ -9,7 +9,7 @@ import { MatchesTableRow } from './row'
 
 interface IMatchesTableProps extends ICommonTableProps {
   data: MatchDto[]
-  handleDeleteItemClick: (data: INameToDeleteData) => void
+  handleDeleteItemClick?: (data: INameToDeleteData) => void
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
@@ -61,12 +61,16 @@ export const MatchesTable = ({
           key={match.id}
           data={match}
           onEditClick={() => router.push(`/matches/edit/${match.id}`)}
-          onDeleteClick={() =>
-            handleDeleteItemClick({
-              id: match.id,
-              name: `${match.homeTeam.name} vs. ${match.awayTeam.name}`,
-            })
+          onDeleteClick={
+            handleDeleteItemClick
+              ? () =>
+                  handleDeleteItemClick({
+                    id: match.id,
+                    name: `${match.homeTeam.name} vs. ${match.awayTeam.name}`,
+                  })
+              : undefined
           }
+          actions={actions}
         />
       ))}
     </Table>
