@@ -2333,6 +2333,11 @@ declare namespace Paths {
             }
         }
     }
+    namespace DashboardControllerFindAll {
+        namespace Responses {
+            export type $200 = string;
+        }
+    }
     namespace FollowAgenciesControllerCreate {
         namespace Parameters {
             export type AgencyId = string;
@@ -2911,10 +2916,10 @@ declare namespace Paths {
             export type CompetitionGroupIds = string[];
             export type CompetitionIds = string[];
             export type IsLiked = boolean;
-            export type LikedPlayers = boolean;
-            export type LikedTeams = boolean;
             export type Limit = number;
             export type MatchIds = string[];
+            export type OnlyLikedPlayers = boolean;
+            export type OnlyLikedTeams = boolean;
             export type Page = number;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
@@ -2940,8 +2945,8 @@ declare namespace Paths {
             playerBornBefore?: Parameters.PlayerBornBefore;
             isLiked?: Parameters.IsLiked;
             userId?: Parameters.UserId;
-            likedTeams?: Parameters.LikedTeams;
-            likedPlayers?: Parameters.LikedPlayers;
+            onlyLikedTeams?: Parameters.OnlyLikedTeams;
+            onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -4741,10 +4746,10 @@ declare namespace Paths {
             export type CompetitionIds = string[];
             export type HasVideo = boolean;
             export type IsLiked = boolean;
-            export type LikedPlayers = boolean;
-            export type LikedTeams = boolean;
             export type Limit = number;
             export type MatchIds = string[];
+            export type OnlyLikedPlayers = boolean;
+            export type OnlyLikedTeams = boolean;
             export type Page = number;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
@@ -4771,8 +4776,8 @@ declare namespace Paths {
             hasVideo?: Parameters.HasVideo;
             isLiked?: Parameters.IsLiked;
             userId?: Parameters.UserId;
-            likedTeams?: Parameters.LikedTeams;
-            likedPlayers?: Parameters.LikedPlayers;
+            onlyLikedTeams?: Parameters.OnlyLikedTeams;
+            onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -4817,9 +4822,9 @@ declare namespace Paths {
             export type CompetitionIds = string[];
             export type HasVideo = boolean;
             export type IsLiked = boolean;
-            export type LikedPlayers = boolean;
-            export type LikedTeams = boolean;
             export type MatchIds = string[];
+            export type OnlyLikedPlayers = boolean;
+            export type OnlyLikedTeams = boolean;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
             export type PlayerBornAfter = number;
@@ -4843,8 +4848,8 @@ declare namespace Paths {
             hasVideo?: Parameters.HasVideo;
             isLiked?: Parameters.IsLiked;
             userId?: Parameters.UserId;
-            likedTeams?: Parameters.LikedTeams;
-            likedPlayers?: Parameters.LikedPlayers;
+            onlyLikedTeams?: Parameters.OnlyLikedTeams;
+            onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
         }
         namespace Responses {
             export interface $200 {
