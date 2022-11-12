@@ -1,0 +1,8 @@
+{
+  "INDEX_PAGE_TITLE": "Baza ACL insajderskich notatek organizacji",
+  "CREATE_PAGE_TITLE": "Utwórz nowy ACE insajderskiej notatki organizacji",
+  "NO_ORGANIZATION_ERROR": "Wybierz organizację ACE",
+  "NO_INSIDER_NOTE_ERROR": "Wybierz insajderską notatkę ACE",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć ACE insajderskiej notatki organizacji?",
+  "EDIT_PAGE_TITLE": "Edycja danych ACE insajderskiej notatki organizacji"
+}

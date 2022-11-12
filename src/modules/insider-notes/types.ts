@@ -1,11 +1,13 @@
-import { IStandardComboOptions } from '@/components/combo/types'
+import { IComboOptions, IStandardComboOptions } from '@/components/combo/types'
 
 import { ICompetitionGroupComboOptions } from '../competition-groups/types'
 import { ICompetitionComboOptions } from '../competitions/types'
 import { IPlayerPositionComboOptions } from '../player-positions/types'
 import { IPlayerComboOptions } from '../players/types'
+import { UserBasicDataDto } from '../users/types'
 
 export type InsiderNoteDto = Components.Schemas.InsiderNoteDto
+export type InsiderNoteBasicDataDto = Components.Schemas.InsiderNoteBasicDataDto
 
 export type CreateInsiderNoteDto = Components.Schemas.CreateInsiderNoteDto
 
@@ -52,3 +54,9 @@ export type InsiderNotesFiltersState = Omit<
 
 export type InsiderNotesSortBy =
   Paths.InsiderNotesControllerFindAll.Parameters.SortBy
+
+export interface IInsiderNoteComboOptions extends IComboOptions {
+  docNumber: number
+  player: Components.Schemas.PlayerBasicDataWithoutTeamsDto
+  author: UserBasicDataDto
+}

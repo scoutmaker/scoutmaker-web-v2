@@ -1,0 +1,8 @@
+{
+  "INDEX_PAGE_TITLE": "Users report ACL database",
+  "CREATE_PAGE_TITLE": "Create new user report ACE",
+  "NO_USER_ERROR": "Please choose ACE user",
+  "NO_REPORT_ERROR": "Please choose ACE report",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete this user report ACE?",
+  "EDIT_PAGE_TITLE": "Edit user report ACE"
+}
