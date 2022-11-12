@@ -27,8 +27,8 @@ export type FindAllNotesParams = Pick<
   | 'sortingOrder'
   | 'teamIds'
   | 'userId'
-  | 'likedPlayers'
-  | 'likedTeams'
+  | 'onlyLikedPlayers'
+  | 'onlyLikedTeams'
 >
 
 export type NotesFiltersDto = Omit<

@@ -45,8 +45,8 @@ const initialFilters: ReportsFiltersState = {
   teamIds: [],
   hasVideo: false,
   ratingRange: 'ALL',
-  likedPlayers: false,
-  likedTeams: false,
+  onlyLikedPlayers: false,
+  onlyLikedTeams: false,
 }
 
 interface IReportToDeleteData {
@@ -79,8 +79,8 @@ const ReportsPage = () => {
   })
 
   function handleSetFilters(newFilters: ReportsFiltersState) {
-    setLikedTeams(!!newFilters.likedTeams)
-    setLikedPlayers(!!newFilters.likedPlayers)
+    setLikedTeams(!!newFilters.onlyLikedTeams)
+    setLikedPlayers(!!newFilters.onlyLikedPlayers)
     setFilters(newFilters)
     handleChangePage(null, 0)
   }

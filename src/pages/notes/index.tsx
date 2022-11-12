@@ -40,8 +40,8 @@ const initialFilters: NotesFiltersState = {
   positionIds: [],
   teamIds: [],
   ratingRange: 'ALL',
-  likedPlayers: false,
-  likedTeams: false,
+  onlyLikedPlayers: false,
+  onlyLikedTeams: false,
 }
 
 interface INoteToDeleteData {
@@ -73,8 +73,8 @@ const NotesPage = () => {
   })
 
   function handleSetFilters(newFilters: NotesFiltersState) {
-    setLikedTeams(!!newFilters.likedTeams)
-    setLikedPlayers(!!newFilters.likedPlayers)
+    setLikedTeams(!!newFilters.onlyLikedTeams)
+    setLikedPlayers(!!newFilters.onlyLikedPlayers)
     setFilters(newFilters)
     handleChangePage(null, 0)
   }

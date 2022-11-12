@@ -151,7 +151,7 @@ export const ReportsFilterForm = ({
               <Field
                 component={CheckboxWithLabel}
                 type="checkbox"
-                name="likedTeams"
+                name="onlyLikedTeams"
                 Label={{ label: t('LIKED_TEAMS') }}
                 size="small"
               />
@@ -160,7 +160,7 @@ export const ReportsFilterForm = ({
               <Field
                 component={CheckboxWithLabel}
                 type="checkbox"
-                name="likedPlayers"
+                name="onlyLikedPlayers"
                 Label={{ label: t('LIKED_PLAYERS') }}
                 size="small"
               />
