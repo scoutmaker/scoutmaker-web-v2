@@ -1,25 +1,24 @@
+import { TFiltersStateData } from '@/components/combo/utils'
 import {
   RATING_RANGE_END_MAP,
   RATING_RANGE_START_MAP,
 } from '@/utils/rating-range-maps'
 import { Routes } from '@/utils/routes'
 
-import { ReportDto, ReportsFilterFormData, ReportsFiltersDto } from './types'
+import { ReportDto, ReportsFiltersState } from './types'
 
 export function getSingleReportRoute(id: string) {
   return `${Routes.REPORTS}/${id}`
 }
 
-export function mapFilterFormDataToFiltersDto(
-  data: ReportsFilterFormData,
-): ReportsFiltersDto {
+export function mapFilterFormDataToFiltersDto(data: ReportsFiltersState) {
   const { ratingRange, ...rest } = data
 
   return {
     ...rest,
     percentageRatingRangeStart: RATING_RANGE_START_MAP[ratingRange],
     percentageRatingRangeEnd: RATING_RANGE_END_MAP[ratingRange],
-  }
+  } as TFiltersStateData
 }
 
 type GroupedReportSkills = Partial<Record<string, ReportDto['skills']>>

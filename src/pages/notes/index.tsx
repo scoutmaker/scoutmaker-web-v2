@@ -88,11 +88,7 @@ const NotesPage = () => {
     limit: rowsPerPage,
     sortBy: sortBy as NotesSortBy,
     sortingOrder: order,
-    ...mapFiltersStateToDto(
-      mapFilterFormDataToFiltersDto(
-        filters as any,
-      ) as unknown as NotesFiltersState,
-    ),
+    ...mapFiltersStateToDto(mapFilterFormDataToFiltersDto(filters)),
   })
 
   const { mutate: deleteNote, isLoading: deleteNoteLoading } = useDeleteNote()

@@ -94,11 +94,7 @@ const ReportsPage = () => {
     limit: rowsPerPage,
     sortBy: sortBy as ReportsSortBy,
     sortingOrder: order,
-    ...mapFiltersStateToDto(
-      mapFilterFormDataToFiltersDto(
-        filters as any,
-      ) as unknown as ReportsFiltersState,
-    ),
+    ...mapFiltersStateToDto(mapFilterFormDataToFiltersDto(filters)),
   })
 
   const { mutate: deleteReport, isLoading: deleteReportLoading } =
