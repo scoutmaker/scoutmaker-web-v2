@@ -28,6 +28,7 @@ export {
   Subscriptions as OrganizationSubscriptionsIcon,
   Place as PlayerPositionIcon,
   DirectionsRun as PlayersIcon,
+  Analytics as PlayerStatsIcon,
   AccountCircle as ProfileIcon,
   NoteAdd as QuickNoteIcon,
   SouthAmerica as RegionIcon,
