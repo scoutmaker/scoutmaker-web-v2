@@ -86,12 +86,12 @@ const ListboxComponent = React.forwardRef<
 >((props, ref) => {
   const { children, ...other } = props
   const itemData: React.ReactElement[] = []
-    ; (children as React.ReactElement[]).forEach(
-      (item: React.ReactElement & { children?: React.ReactElement[] }) => {
-        itemData.push(item)
-        itemData.push(...(item.children || []))
-      },
-    )
+  ;(children as React.ReactElement[]).forEach(
+    (item: React.ReactElement & { children?: React.ReactElement[] }) => {
+      itemData.push(item)
+      itemData.push(...(item.children || []))
+    },
+  )
 
   const theme = useTheme()
   const smUp = useMediaQuery(theme.breakpoints.up('sm'), {
