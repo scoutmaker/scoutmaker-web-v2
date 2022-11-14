@@ -63,9 +63,6 @@ const ReportsPage = () => {
   const [reportToDeleteData, setReportToDeleteData] =
     useState<IReportToDeleteData>()
 
-  const [filterLikedTeams, setLikedTeams] = useState(false)
-  const [filterLikedPlayers, setLikedPlayers] = useState(false)
-
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
     handleChangePage,
@@ -79,14 +76,12 @@ const ReportsPage = () => {
   })
 
   function handleSetFilters(newFilters: ReportsFiltersState) {
-    setLikedTeams(!!newFilters.onlyLikedTeams)
-    setLikedPlayers(!!newFilters.onlyLikedPlayers)
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
 
   const { data: teams, isLoading: teamsLoading } = useTeamsList({
-    isLiked: filterLikedTeams,
+    isLiked: filters.onlyLikedTeams,
   })
   const { data: competitions, isLoading: competitionsLoading } =
     useCompetitionsList()
@@ -94,7 +89,7 @@ const ReportsPage = () => {
     useCompetitionGroupsList()
   const { data: matches, isLoading: matchesLoading } = useMatchesList()
   const { data: players, isLoading: playersLoading } = usePlayersList({
-    isLiked: filterLikedPlayers,
+    isLiked: filters.onlyLikedPlayers,
   })
   const { data: positions, isLoading: positionsLoading } =
     usePlayerPositionsList()
