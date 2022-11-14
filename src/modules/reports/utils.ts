@@ -11,14 +11,16 @@ export function getSingleReportRoute(id: string) {
   return `${Routes.REPORTS}/${id}`
 }
 
-export function mapFilterFormDataToFiltersDto(data: ReportsFiltersState) {
+export function mapFilterFormDataToFiltersDto(
+  data: ReportsFiltersState,
+): TFiltersStateData {
   const { ratingRange, ...rest } = data
 
   return {
     ...rest,
     percentageRatingRangeStart: RATING_RANGE_START_MAP[ratingRange],
     percentageRatingRangeEnd: RATING_RANGE_END_MAP[ratingRange],
-  } as TFiltersStateData
+  }
 }
 
 type GroupedReportSkills = Partial<Record<string, ReportDto['skills']>>
