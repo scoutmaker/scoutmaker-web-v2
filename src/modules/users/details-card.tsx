@@ -29,7 +29,7 @@ export const UserDetailsCard = ({ user }: IDetailsCard) => {
         <Grid container spacing={1}>
           <CardItemBasic title={t('EMAIL')} value={email} />
           <CardItemBasic title={t('PHONE_NUMBER')} value={phone} />
-          <CardItemBasic title={t('REGION')} value={region.name} />
+          <CardItemBasic title={t('REGION')} value={region?.name} />
           <CardItemBasic title={t('CITY')} value={city || '-'} />
           <CardItemBasic title={t('CLUB')} value={club?.name || '-'} />
         </Grid>

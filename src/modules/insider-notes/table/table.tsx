@@ -9,7 +9,7 @@ import { InsiderNotesTableRow } from './row'
 
 interface ITableProps extends ICommonTableProps {
   data: InsiderNoteDto[]
-  handleDeleteItemClick: (data: {
+  handleDeleteItemClick?: (data: {
     id: string
     docNumber: number
     date: string
@@ -66,14 +66,17 @@ export const InsiderNotesTable = ({
           data={insNote}
           onEditClick={() => router.push(`/insider-notes/edit/${insNote.id}`)}
           onDeleteClick={() =>
-            handleDeleteItemClick({
-              id: insNote.id,
-              date: insNote.createdAt,
-              docNumber: insNote.docNumber,
-            })
+            handleDeleteItemClick
+              ? handleDeleteItemClick({
+                  id: insNote.id,
+                  date: insNote.createdAt,
+                  docNumber: insNote.docNumber,
+                })
+              : undefined
           }
           onLikeClick={likeInsiderNoteClick}
           onUnlikeClick={unLikeInsiderNoteClick}
+          actions={actions}
         />
       ))}
     </Table>

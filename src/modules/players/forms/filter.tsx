@@ -5,6 +5,7 @@ import { useTranslation } from 'next-i18next'
 
 import { FilterCombo } from '@/components/combo/combo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
+import FilteredCompetitonGroups from '@/components/filteredCompetitionGroups/filteredCompetitonGroups'
 import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
@@ -44,6 +45,9 @@ export const PlayersFilterForm = ({
 }: IPlayersFilterFormProps) => {
   const { t } = useTranslation(['common', 'players'])
   const footedComboData = getFootedComboData(t)
+  const groupsComboData = mapCompetitionGroupsListToComboOptions(
+    competitionGroupsData,
+  )
 
   return (
     <Formik
@@ -54,7 +58,7 @@ export const PlayersFilterForm = ({
       }}
       enableReinitialize
     >
-      {() => (
+      {({ values }) => (
         <Form autoComplete="off">
           <FilterFormContainer>
             <Field
@@ -115,18 +119,17 @@ export const PlayersFilterForm = ({
               multiple
             />
             <FilterCombo
-              name="competitionIds"
               data={mapCompetitionsListToComboOptions(competitionsData)}
+              name="competitionIds"
               label={t('COMPETITIONS')}
               size="small"
               multiple
             />
-            <FilterCombo
-              name="competitionGroupIds"
-              data={mapCompetitionGroupsListToComboOptions(
-                competitionGroupsData,
-              )}
-              label={t('COMPETITION_GROUPS')}
+            <FilteredCompetitonGroups
+              competitionGroupsData={groupsComboData}
+              competitionsFormValues={values.competitionIds}
+              name="competitionGroupsIds"
+              label={t('COMPETITIONS')}
               size="small"
               multiple
             />
