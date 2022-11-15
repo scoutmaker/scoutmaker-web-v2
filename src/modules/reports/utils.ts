@@ -1,3 +1,4 @@
+import { TFiltersStateData } from '@/components/combo/utils'
 import {
   RATING_RANGE_END_MAP,
   RATING_RANGE_START_MAP,
@@ -8,8 +9,7 @@ import {
   IReportsComboOptions,
   ReportBasicDataDto,
   ReportDto,
-  ReportsFilterFormData,
-  ReportsFiltersDto,
+  ReportsFiltersState,
 } from './types'
 
 export function getSingleReportRoute(id: string) {
@@ -17,8 +17,8 @@ export function getSingleReportRoute(id: string) {
 }
 
 export function mapFilterFormDataToFiltersDto(
-  data: ReportsFilterFormData,
-): ReportsFiltersDto {
+  data: ReportsFiltersState,
+): TFiltersStateData {
   const { ratingRange, ...rest } = data
 
   return {

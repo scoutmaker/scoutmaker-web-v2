@@ -15,7 +15,7 @@ export function mapListDataToComboOptions(
   }))
 }
 type BasicTypes = string | number | boolean
-type TFiltersStateData = Record<
+export type TFiltersStateData = Record<
   string,
   BasicTypes | IComboOptions[] | IComboOptions | null
 >

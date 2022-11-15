@@ -1,8 +1,8 @@
+import { TFiltersStateData } from '@/components/combo/utils'
 import {
   INotesComboOptions,
   NoteBasicDataDto,
-  NotesFilterFormData,
-  NotesFiltersDto,
+  NotesFiltersState,
 } from '@/modules/notes/types'
 import { getDocumentNumber } from '@/utils/get-document-number'
 import {
@@ -13,8 +13,8 @@ import {
 import { getPlayerFullName } from '../players/utils'
 
 export function mapFilterFormDataToFiltersDto(
-  data: NotesFilterFormData,
-): NotesFiltersDto {
+  data: NotesFiltersState,
+): TFiltersStateData {
   const { ratingRange, ...rest } = data
 
   return {
