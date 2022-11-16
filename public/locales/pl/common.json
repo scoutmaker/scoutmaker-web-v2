@@ -201,6 +201,8 @@
   "LEAVE_MATCH": "Opuść mecz",
   "MATCH_ATTENDANCE_INFO": "Jesteś na meczu {{homeTeam}} - {{awayTeam}}",
   "QUICK_NOTE": "Szybka notatka",
+  "PLAYER_STATS": "Statystyki zawodnika",
+  "PLAYERS_STATS": "Statystyki zawodników",
   "PERMISSION_LEVEL": "Poziom uprawnień",
   "USER_PLAYER_ACL": "ACL Zawodników użytkowników",
   "ORGANIZATION_PLAYER_ACL": "ACL Zawodników organizacji",
@@ -221,5 +223,9 @@
   "NOTE": "Notatka",
   "WITH_NOTE": "Z notatką",
   "WITH_REPORT": "Z raportem",
-  "WITH_OBSERVATION": "Z obserwacją"
+  "WITH_OBSERVATION": "Z obserwacją",
+  "LIKED_REPORTS": "Polubione raporty",
+  "LIKED_NOTES": "Polubione notatki",
+  "LIKED_TEAMS": "Polubione zespoły",
+  "LIKED_PLAYERS": "Polubieni zawodnicy"
 }

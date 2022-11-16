@@ -4,30 +4,22 @@ import { TFunction, useTranslation } from 'next-i18next'
 import { Table } from '@/components/tables/table'
 import { ICommonTableProps, IHeadCell, INameToDeleteData } from '@/types/tables'
 
-import { MatchDto } from '../types'
-import { MatchesTableRow } from './row'
+import { PlayerSuperBasicDataDto } from '../types'
+import { PlayersBasicTableRow } from './row'
 
-interface IMatchesTableProps extends ICommonTableProps {
-  data: MatchDto[]
+interface IPlayersBasicTableProps extends ICommonTableProps {
+  data: PlayerSuperBasicDataDto[]
   handleDeleteItemClick?: (data: INameToDeleteData) => void
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
-    { id: 'homeTeam', label: t('HOME_TEAM') },
-    { id: 'awayTeam', label: t('AWAY_TEAM') },
-    { id: 'date', label: t('DATE') },
-    { id: 'competition', label: t('COMPETITION') },
-    { id: 'group', label: t('COMPETITION_GROUP') },
-    { id: 'season', label: t('SEASON') },
-    { id: 'result', label: t('RESULT'), isSortingDisabled: true },
-    { id: 'videoUrl', label: t('VIDEO') },
-    { id: 'reportsCount', label: t('REPORTS_COUNT') },
-    { id: 'notesCount', label: t('NOTES_COUNT') },
+    { id: 'lastName', label: t('LAST_NAME'), isSortingDisabled: true },
+    { id: 'firstName', label: t('FIRST_NAME'), isSortingDisabled: true },
   ]
 }
 
-export const MatchesTable = ({
+export const PlayersBasicTable = ({
   page,
   rowsPerPage,
   sortBy,
@@ -39,7 +31,7 @@ export const MatchesTable = ({
   actions,
   data,
   handleDeleteItemClick,
-}: IMatchesTableProps) => {
+}: IPlayersBasicTableProps) => {
   const { t } = useTranslation()
   const router = useRouter()
 
@@ -56,17 +48,17 @@ export const MatchesTable = ({
       headCells={generateHeadCells(t)}
       actions={actions}
     >
-      {data.map(match => (
-        <MatchesTableRow
-          key={match.id}
-          data={match}
-          onEditClick={() => router.push(`/matches/edit/${match.id}`)}
+      {data.map(player => (
+        <PlayersBasicTableRow
+          key={player.id}
+          data={player}
+          onEditClick={() => router.push(`/players/edit/${player.slug}`)}
           onDeleteClick={
             handleDeleteItemClick
               ? () =>
                   handleDeleteItemClick({
-                    id: match.id,
-                    name: `${match.homeTeam.name} vs. ${match.awayTeam.name}`,
+                    id: player.id,
+                    name: `${player.firstName} ${player.lastName}`,
                   })
               : undefined
           }

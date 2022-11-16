@@ -17,7 +17,7 @@ import { ListChildComponentProps, VariableSizeList } from 'react-window'
 
 import { IComboOptions } from './types'
 
-interface IComboProps {
+export interface IComboProps {
   data: IComboOptions[]
   name: string
   label: string

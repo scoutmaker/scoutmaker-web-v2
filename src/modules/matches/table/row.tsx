@@ -19,13 +19,15 @@ import { getMatchResult } from '../utils'
 interface IMatchesTableRowProps {
   data: MatchDto
   onEditClick: () => void
-  onDeleteClick: () => void
+  onDeleteClick?: () => void
+  actions?: boolean
 }
 
 export const MatchesTableRow = ({
   data,
   onEditClick,
   onDeleteClick,
+  actions,
 }: IMatchesTableRowProps) => {
   const router = useRouter()
 
@@ -57,16 +59,20 @@ export const MatchesTableRow = ({
       key={id}
       onClick={isMenuOpen ? undefined : () => router.push(`/matches/${id}`)}
     >
-      <StyledTableCell padding="checkbox">
-        <TableMenu
-          menuAnchorEl={menuAnchorEl}
-          isMenuOpen={isMenuOpen}
-          onMenuClick={handleMenuClick}
-          onMenuClose={handleMenuClose}
-          onDeleteClick={() => handleMenuAction(onDeleteClick)}
-          onEditClick={() => handleMenuAction(onEditClick)}
-        />
-      </StyledTableCell>
+      {actions && (
+        <StyledTableCell padding="checkbox">
+          <TableMenu
+            menuAnchorEl={menuAnchorEl}
+            isMenuOpen={isMenuOpen}
+            onMenuClick={handleMenuClick}
+            onMenuClose={handleMenuClose}
+            onDeleteClick={
+              onDeleteClick ? () => handleMenuAction(onDeleteClick) : undefined
+            }
+            onEditClick={() => handleMenuAction(onEditClick)}
+          />
+        </StyledTableCell>
+      )}
       <CellWithLink href={`/teams/${homeTeam.slug}`} label={homeTeam.name} />
       <CellWithLink href={`/teams/${awayTeam.slug}`} label={awayTeam.name} />
       <StyledTableCell sx={{ minWidth: 150 }}>

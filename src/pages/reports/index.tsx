@@ -21,6 +21,7 @@ import {
 } from '@/modules/reports/hooks'
 import { ReportsTable } from '@/modules/reports/table/table'
 import { ReportsFiltersState, ReportsSortBy } from '@/modules/reports/types'
+import { mapFilterFormDataToFiltersDto } from '@/modules/reports/utils'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { getDocumentNumber } from '@/utils/get-document-number'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
@@ -45,6 +46,8 @@ const initialFilters: ReportsFiltersState = {
   teamIds: [],
   hasVideo: false,
   ratingRange: 'ALL',
+  onlyLikedPlayers: false,
+  onlyLikedTeams: false,
 }
 
 interface IReportToDeleteData {
@@ -78,13 +81,17 @@ const ReportsPage = () => {
     handleChangePage(null, 0)
   }
 
-  const { data: teams, isLoading: teamsLoading } = useTeamsList()
+  const { data: teams, isLoading: teamsLoading } = useTeamsList({
+    isLiked: filters.onlyLikedTeams,
+  })
   const { data: competitions, isLoading: competitionsLoading } =
     useCompetitionsList()
   const { data: competitionGroups, isLoading: competitionGroupsLoading } =
     useCompetitionGroupsList()
   const { data: matches, isLoading: matchesLoading } = useMatchesList()
-  const { data: players, isLoading: playersLoading } = usePlayersList()
+  const { data: players, isLoading: playersLoading } = usePlayersList({
+    isLiked: filters.onlyLikedPlayers,
+  })
   const { data: positions, isLoading: positionsLoading } =
     usePlayerPositionsList()
 
@@ -93,7 +100,7 @@ const ReportsPage = () => {
     limit: rowsPerPage,
     sortBy: sortBy as ReportsSortBy,
     sortingOrder: order,
-    ...mapFiltersStateToDto(filters),
+    ...mapFiltersStateToDto(mapFilterFormDataToFiltersDto(filters)),
   })
 
   const { mutate: deleteReport, isLoading: deleteReportLoading } =

@@ -28,6 +28,7 @@ export type TModuleName =
   | 'organizations'
   | 'organization-subscriptions'
   | 'match-attendances'
+  | 'player-stats'
   | 'user-player-acl'
   | 'organization-player-acl'
   | 'user-report-acl'
