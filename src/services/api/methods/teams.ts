@@ -3,6 +3,7 @@ import {
   FindAllTeamsParams,
   TeamBasicDataDto,
   TeamDto,
+  TeamsFiltersDto,
   UpdateTeamDto,
 } from '@/modules/teams/types'
 import { TModuleName } from '@/services/api/modules'
@@ -23,7 +24,8 @@ const moduleName: TModuleName = 'teams'
 export const getTeamBySlug = (slug: string, token?: string) =>
   getAssetBySlug<TeamDto>({ moduleName, slug, token })
 
-export const getTeamsList = () => getDataList<TeamBasicDataDto>(moduleName)
+export const getTeamsList = (params?: FindAllTeamsParams) =>
+  getDataList<TeamBasicDataDto, TeamsFiltersDto>(moduleName, params)
 
 export const getTeams = (params: FindAllTeamsParams) =>
   getPaginatedData<FindAllTeamsParams, TeamDto>(params, moduleName)
