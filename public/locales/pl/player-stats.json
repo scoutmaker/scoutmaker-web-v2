@@ -1,0 +1,8 @@
+{
+  "NO_PLAYER_ERROR": "Wybierz zawodnika statystyk",
+  "NO_MATCH_ERROR": "Wybierz mecz statystyk",
+  "INDEX_PAGE_TITLE": "Baza statystyk zawodników",
+  "CREATE_PAGE_TITLE": "Utwórz nowe statystyki zawodnika",
+  "EDIT_PAGE_TITLE": "Edytuj dane statystyk zawodnika",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć te statystyki?"
+}

@@ -201,6 +201,8 @@
   "LEAVE_MATCH": "Leave the match",
   "MATCH_ATTENDANCE_INFO": "You're at the match {{homeTeam}} - {{awayTeam}}",
   "QUICK_NOTE": "Quick note",
+  "PLAYER_STATS": "Player statisctics",
+  "PLAYERS_STATS": "Players statisctics",
   "PERMISSION_LEVEL": "Permission level",
   "USER_PLAYER_ACL": "User player ACL",
   "ORGANIZATION_PLAYER_ACL": "Organization player ACL",
