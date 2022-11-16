@@ -53,7 +53,7 @@ export const CreateNoteForm = ({
   return (
     <Formik
       initialValues={initValues}
-      validationSchema={() => generateNoteFormValidationSchema(t)}
+      validationSchema={generateNoteFormValidationSchema()}
       enableReinitialize
       onSubmit={async (data, { resetForm }) => {
         const { rating, ...rest } = data

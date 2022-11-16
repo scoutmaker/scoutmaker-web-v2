@@ -59,20 +59,16 @@ export function generateCreateReportFormValidationSchema(t: TFunction) {
         required: true,
         message: t('reports:NO_PLAYER_ERROR'),
       }),
-      observationType: yup
-        .string()
-        .required(t('reports:NO_OBSERVATION_TYPE_ERROR')),
+      observationType: yup.string().notRequired(),
     })
     .defined()
 }
 
-export function generateEditReportFormValidationSchema(t: TFunction) {
+export function generateEditReportFormValidationSchema() {
   return yup
     .object({
       ...commonReportFormValidationSchemaFields,
-      observationType: yup
-        .string()
-        .required(t('reports:NO_OBSERVATION_TYPE_ERROR')),
+      observationType: yup.string().notRequired(),
     })
     .defined()
 }

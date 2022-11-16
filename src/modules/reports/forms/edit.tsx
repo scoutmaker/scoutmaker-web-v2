@@ -53,7 +53,7 @@ export const EditReportForm = ({
       <BasicDetailsCard report={current} />
       <Formik
         initialValues={initialValues}
-        validationSchema={generateEditReportFormValidationSchema(t)}
+        validationSchema={generateEditReportFormValidationSchema()}
         enableReinitialize
         onSubmit={data =>
           onSubmit(formatUpdateReportDto({ data, initialValues }))
