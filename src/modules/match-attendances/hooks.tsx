@@ -45,12 +45,12 @@ function useAddAttendance(
 }
 
 function useRemoveAttendance(
-  mutationFn: (matchId: string) => Promise<ApiResponse<MatchAttendanceDto>>,
+  mutationFn: () => Promise<ApiResponse<MatchAttendanceDto>>,
 ) {
   const queryClient = useQueryClient()
   const { setAlert } = useAlertsState()
 
-  return useMutation((matchId: string) => mutationFn(matchId), {
+  return useMutation(mutationFn, {
     onSuccess: data => {
       setAlert({
         msg: data.message,

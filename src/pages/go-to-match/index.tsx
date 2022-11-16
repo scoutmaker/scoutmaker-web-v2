@@ -43,9 +43,7 @@ const GoToMatchPage = () => {
       <GoToMatchForm
         activeMatch={activeMatch}
         matchesData={matches || []}
-        onLeaveMatchClick={() =>
-          removeMatchAttendance(activeMatch?.match.id as string)
-        }
+        onLeaveMatchClick={removeMatchAttendance}
         onSubmit={data => addMatchAttendance(data)}
       />
     </>

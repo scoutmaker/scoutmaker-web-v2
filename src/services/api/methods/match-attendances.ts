@@ -22,15 +22,15 @@ export const addMatchAttendance = async ({
   matchId,
 }: IAddMatchAttendance) => {
   const { data } = await client.post<ApiResponse<MatchAttendanceDto>>(
-    `/${moduleName}/${matchId}`,
-    { observationType },
+    `/${moduleName}`,
+    { observationType, matchId },
   )
   return data
 }
 
-export const removeMatchAttendance = async (matchId: string) => {
+export const removeMatchAttendance = async () => {
   const { data } = await client.patch<ApiResponse<MatchAttendanceDto>>(
-    `/${moduleName}/${matchId}`,
+    `/${moduleName}`,
   )
   return data
 }

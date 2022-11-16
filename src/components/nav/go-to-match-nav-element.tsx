@@ -27,7 +27,7 @@ const GoToMachNavElement = ({ currentMatchId }: IProps) => {
               backgroundColor: 'primary.light',
             },
           }}
-          onClick={() => removeMatchAttendance(currentMatchId)}
+          onClick={() => removeMatchAttendance()}
         >
           <ListItemIcon>
             <GoToMatchIcon color="error" />
