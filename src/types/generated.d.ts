@@ -2333,11 +2333,6 @@ declare namespace Paths {
             }
         }
     }
-    namespace DashboardControllerFindAll {
-        namespace Responses {
-            export type $200 = string;
-        }
-    }
     namespace FollowAgenciesControllerCreate {
         namespace Parameters {
             export type AgencyId = string;
@@ -4015,6 +4010,9 @@ declare namespace Paths {
             export type CompetitionIds = string[];
             export type CountryIds = string[];
             export type Footed = "LEFT" | "RIGHT" | "BOTH";
+            export type HasAnyObservation = boolean;
+            export type HasNote = boolean;
+            export type HasReport = boolean;
             export type IsLiked = boolean;
             export type Limit = number;
             export type Name = string;
@@ -4037,6 +4035,9 @@ declare namespace Paths {
             competitionGroupIds?: Parameters.CompetitionGroupIds;
             orderId?: Parameters.OrderId;
             isLiked?: Parameters.IsLiked;
+            hasNote?: Parameters.HasNote;
+            hasReport?: Parameters.HasReport;
+            hasAnyObservation?: Parameters.HasAnyObservation;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -4098,6 +4099,9 @@ declare namespace Paths {
             export type CompetitionIds = string[];
             export type CountryIds = string[];
             export type Footed = "LEFT" | "RIGHT" | "BOTH";
+            export type HasAnyObservation = boolean;
+            export type HasNote = boolean;
+            export type HasReport = boolean;
             export type IsLiked = boolean;
             export type Name = string;
             export type OrderId = string;
@@ -4116,6 +4120,9 @@ declare namespace Paths {
             competitionGroupIds?: Parameters.CompetitionGroupIds;
             orderId?: Parameters.OrderId;
             isLiked?: Parameters.IsLiked;
+            hasNote?: Parameters.HasNote;
+            hasReport?: Parameters.HasReport;
+            hasAnyObservation?: Parameters.HasAnyObservation;
         }
         namespace Responses {
             export interface $200 {
