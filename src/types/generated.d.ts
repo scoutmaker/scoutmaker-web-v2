@@ -430,6 +430,46 @@ declare namespace Components {
             competitionIds: string[];
             competitionGroupIds: string[];
         }
+        export interface DashboardDto {
+            user: UserDashboardDto;
+            reports?: number;
+            reportsRatio?: number;
+            notes?: number;
+            notesRatio?: number;
+            observedMatches?: number;
+            observedMatchesRatio?: number;
+            organizations?: OrganizationInfoDto[];
+            scouts?: number;
+            observerdPlayers?: number;
+            topNotes?: DashboardNoteDto[];
+            topReports?: DashboardReportDto[];
+            topPlayers?: DashboardPlayerDto[];
+        }
+        export interface DashboardNoteDto {
+            player?: PlayerSuperBasicDataDto;
+            id: string;
+            docNumber: number;
+            description?: string;
+            rating?: number;
+            createdAt: string; // date-time
+            shirtNo?: number;
+            match?: MatchBasicDataDto;
+        }
+        export interface DashboardPlayerDto {
+            id: string;
+            firstName: string;
+            lastName: string;
+            slug: string;
+            averageRating: number;
+        }
+        export interface DashboardReportDto {
+            id: string;
+            player: PlayerSuperBasicDataDto;
+            createdAt: string; // date-time
+            finalRating?: number;
+            match?: MatchBasicDataDto;
+            docNumber: number;
+        }
         export interface FollowAgencyDto {
             agency: AgencyBasicInfoDto;
             follower: UserBasicDataDto;
@@ -635,6 +675,10 @@ declare namespace Components {
             name: string;
             members: UserBasicDataDto[];
             createdAt: string; // date-time
+        }
+        export interface OrganizationInfoDto {
+            name: string;
+            sharedInfo: number;
         }
         export interface OrganizationInsiderNoteAceDto {
             id: string;
@@ -1182,6 +1226,11 @@ declare namespace Components {
             firstName: string;
             lastName: string;
             email: string;
+        }
+        export interface UserDashboardDto {
+            role: "SCOUT" | "PLAYMAKER_SCOUT" | "PLAYMAKER_SCOUT_MANAGER" | "ADMIN";
+            organizationId: string;
+            id: string;
         }
         export interface UserDto {
             role: "SCOUT" | "PLAYMAKER_SCOUT" | "PLAYMAKER_SCOUT_MANAGER" | "ADMIN";
@@ -2330,6 +2379,15 @@ declare namespace Paths {
         }
         namespace Responses {
             export interface $201 {
+            }
+        }
+    }
+    namespace DashboardControllerGetData {
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.DashboardDto;
             }
         }
     }
