@@ -5,9 +5,10 @@ import {
   styled,
   Typography,
 } from '@mui/material'
-import Link from 'next/link'
 import { ReactElement } from 'react'
 import CountUp from 'react-countup'
+
+import { OptionalLink } from '@/components/links/optional-link'
 
 import { StyledAvatar } from './StyledAvatar'
 
@@ -15,12 +16,19 @@ interface ICountCardProps {
   title: string
   count?: number
   icon: ReactElement
-  linkTo: string
+  linkTo?: string
+  text?: string | JSX.Element
 }
 
-export const CountCard = ({ icon, linkTo, title, count }: ICountCardProps) => (
+export const CountCard = ({
+  icon,
+  linkTo,
+  title,
+  count,
+  text,
+}: ICountCardProps) => (
   <Card>
-    <Link href={linkTo}>
+    <OptionalLink href={linkTo}>
       <CardActionArea>
         <CardContentContainer>
           <div>
@@ -28,7 +36,7 @@ export const CountCard = ({ icon, linkTo, title, count }: ICountCardProps) => (
               {title}
             </Typography>
             <Typography color="textPrimary" variant="h3" component="p">
-              {count ? <CountUp end={count} useEasing /> : 0}
+              {count ? <CountUp end={count} useEasing /> : 0} {text}
             </Typography>
           </div>
           <div>
@@ -36,7 +44,7 @@ export const CountCard = ({ icon, linkTo, title, count }: ICountCardProps) => (
           </div>
         </CardContentContainer>
       </CardActionArea>
-    </Link>
+    </OptionalLink>
   </Card>
 )
 
