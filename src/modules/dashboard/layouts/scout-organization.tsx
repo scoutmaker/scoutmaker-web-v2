@@ -79,7 +79,7 @@ const ScoutOrganizationDashboardLayout = ({ data }: IProps) => {
                   docNumber,
                   createdAt,
                 })})`}
-                href={`/notes/${id}`}
+                href={`/reports/${id}`}
               />
             ),
           ) || 'ERROR: NO DATA'
