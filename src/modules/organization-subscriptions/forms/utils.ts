@@ -25,7 +25,7 @@ export function generateCreateValidationSchema(t: TFunction) {
       organizationId: yup
         .string()
         .required(t('organization-subs:NO_ORGANIZATION_ERROR')),
-      competitionGroupIds: validateIdsArray().min(1).required(),
+      competitionGroupIds: validateIdsArray().notRequired(),
       competitionIds: validateIdsArray().min(1).required(),
       startDate: yup
         .date()
