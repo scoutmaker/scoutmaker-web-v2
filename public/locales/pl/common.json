@@ -220,5 +220,12 @@
   "USER_INSIDER_NOTE_ACE": "ACE Insajderskiej notatki użytkownika",
   "ORGANIZATION_INSIDER_NOTE_ACL": "ACL Insajderskich notatek organizacji",
   "ORGANIZATION_INSIDER_NOTE_ACE": "ACE Insajderskiej notatki organizacji",
-  "NOTE": "Notatka"
+  "NOTE": "Notatka",
+  "WITH_NOTE": "Z notatką",
+  "WITH_REPORT": "Z raportem",
+  "WITH_OBSERVATION": "Z obserwacją",
+  "LIKED_REPORTS": "Polubione raporty",
+  "LIKED_NOTES": "Polubione notatki",
+  "LIKED_TEAMS": "Polubione zespoły",
+  "LIKED_PLAYERS": "Polubieni zawodnicy"
 }

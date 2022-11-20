@@ -134,15 +134,44 @@ export const PlayersFilterForm = ({
               multiple
             />
           </FilterFormContainer>
-          <FilterCheckboxContainer>
-            <Field
-              component={CheckboxWithLabel}
-              type="checkbox"
-              name="isLiked"
-              Label={{ label: t('players:LIKED_ONLY') }}
-              size="small"
-            />
-          </FilterCheckboxContainer>
+          <Box display="flex" flexWrap="wrap" justifyContent="center">
+            <FilterCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="hasNote"
+                Label={{ label: t('WITH_NOTE') }}
+                size="small"
+              />
+            </FilterCheckboxContainer>
+            <FilterCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="hasReport"
+                Label={{ label: t('WITH_REPORT') }}
+                size="small"
+              />
+            </FilterCheckboxContainer>
+            <FilterCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="hasAnyObservation"
+                Label={{ label: t('WITH_OBSERVATION') }}
+                size="small"
+              />
+            </FilterCheckboxContainer>
+            <FilterCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="isLiked"
+                Label={{ label: t('players:LIKED_ONLY') }}
+                size="small"
+              />
+            </FilterCheckboxContainer>
+          </Box>
           <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>
       )}

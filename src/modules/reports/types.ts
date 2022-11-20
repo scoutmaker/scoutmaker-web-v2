@@ -29,6 +29,8 @@ export type FindAllReportsParams = Pick<
   | 'teamIds'
   | 'hasVideo'
   | 'userId'
+  | 'onlyLikedPlayers'
+  | 'onlyLikedTeams'
 >
 
 export type ReportsFiltersDto = Omit<

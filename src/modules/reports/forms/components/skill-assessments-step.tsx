@@ -23,7 +23,9 @@ export const SkillAssessmentsStep = () => {
   const { t } = useTranslation()
   const { values, setFieldValue } = useFormikContext<CreateReportDto>()
 
-  const { data: template, isLoading } = useReportTemplate(values.templateId)
+  const { data: template, isLoading } = useReportTemplate(
+    values?.templateId || '',
+  )
 
   const groupedSkills = groupSkillsByCategory(
     template?.skillAssessmentTemplates || [],
