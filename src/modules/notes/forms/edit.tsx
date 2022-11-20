@@ -13,7 +13,7 @@ import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
-import { CreateNoteDto, NoteDto } from '../types'
+import { NoteDto, UpdateNoteDto } from '../types'
 import { Fields } from './fields'
 import {
   generateNoteFormValidationSchema,
@@ -28,7 +28,7 @@ interface EditNoteFormProps {
   teamsData: TeamBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
-  onSubmit: (data: CreateNoteDto) => void
+  onSubmit: (data: UpdateNoteDto) => void
   onCancelClick?: () => void
   fullwidth?: boolean
 }
@@ -64,7 +64,7 @@ export const EditNoteForm = ({
           initialValues,
           filter({ ...rest, rating: parsedRating }, (_, value) => value),
         )
-        onSubmit(dataToSubmit as CreateNoteDto)
+        onSubmit(dataToSubmit)
       }}
     >
       {({ handleReset }) => (
