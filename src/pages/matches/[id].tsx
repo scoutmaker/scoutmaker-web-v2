@@ -1,6 +1,5 @@
 import { AppBar, Box, Grid, Tab, Tabs, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
@@ -22,6 +21,7 @@ import { ReportPaginatedDataDto } from '@/modules/reports/types'
 import { getMatchById } from '@/services/api/methods/matches'
 import { ApiError } from '@/services/api/types'
 import { useTable } from '@/utils/hooks/use-table'
+import { useTabs } from '@/utils/hooks/use-tabs'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 type CommonTabData = {
@@ -58,11 +58,7 @@ export const getServerSideProps = withSessionSsrRole<MatchDto>(
 
 const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
   const { t } = useTranslation()
-  const [tabValue, setTabValue] = useState(0)
-
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    setTabValue(newValue)
-  }
+  const { activeTab, handleTabChange } = useTabs()
 
   const { tableSettings: homeNoteTableSettings, ...homeNotesTableProps } =
     useTable(`matches-notes-table-home`)
@@ -219,7 +215,7 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
           })}
         >
           <Tabs
-            value={tabValue}
+            value={activeTab}
             onChange={handleTabChange}
             aria-label="teams-notes-reports-tab"
             indicatorColor="secondary"
@@ -243,7 +239,7 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
           ) => (
             <TabPanel
               key={name}
-              value={tabValue}
+              value={activeTab}
               index={idx}
               title={name}
               noPadding
