@@ -6,42 +6,15 @@ import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { TabPanel } from '@/components/tab-panel/tab-panel'
 import { MatchDetailsCard } from '@/modules/matches/details-card'
+import { useSingleMatchPageData } from '@/modules/matches/hooks/use-single-match-page-data'
 import { MatchDto } from '@/modules/matches/types'
 import { getMatchDisplayName } from '@/modules/matches/utils'
-import { useLikeNote, useNotes, useUnlikeNote } from '@/modules/notes/hooks'
 import { NotesTable } from '@/modules/notes/table/table'
-import { NoteDto } from '@/modules/notes/types'
-import {
-  useLikeReport,
-  useReports,
-  useUnlikeReport,
-} from '@/modules/reports/hooks'
 import { ReportsTable } from '@/modules/reports/table/table'
-import { ReportPaginatedDataDto } from '@/modules/reports/types'
 import { getMatchById } from '@/services/api/methods/matches'
 import { ApiError } from '@/services/api/types'
-import { useTable } from '@/utils/hooks/use-table'
 import { useTabs } from '@/utils/hooks/use-tabs'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
-
-type CommonTabData = {
-  name: string
-  docCount: number
-  tableSettings: ReturnType<typeof useTable>['tableSettings']
-  tableHandlers: Omit<ReturnType<typeof useTable>, 'tableSettings'>
-}
-
-type NoteTabData = {
-  type: 'note'
-  data: NoteDto[]
-} & CommonTabData
-
-type ReportTabData = {
-  type: 'report'
-  data: ReportPaginatedDataDto[]
-} & CommonTabData
-
-type TabData = NoteTabData | ReportTabData
 
 export const getServerSideProps = withSessionSsrRole<MatchDto>(
   ['common', 'matches'],
@@ -60,106 +33,14 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
   const { t } = useTranslation()
   const { activeTab, handleTabChange } = useTabs()
 
-  const { tableSettings: homeNoteTableSettings, ...homeNotesTableProps } =
-    useTable(`matches-notes-table-home`)
-  const { data: homeTeamNotes, isLoading: homeTeamNotesLoading } = useNotes({
-    matchIds: [data?.id || ''],
-    teamIds: [data?.homeTeam.id || ''],
-  })
-
-  const { tableSettings: awayNoteTableSettings, ...awayNotesTableProps } =
-    useTable(`matches-notes-table-away`)
-  const { data: awayTeamNotes, isLoading: awayTeamNotesLoading } = useNotes({
-    matchIds: [data?.id || ''],
-    teamIds: [data?.awayTeam.id || ''],
-  })
-
-  const { tableSettings: homeReportsTableSettings, ...homeReportsTableProps } =
-    useTable(`matches-reports-table-home`)
-  const { data: homeTeamReports, isLoading: homeTeamReportsLoading } =
-    useReports({
-      matchIds: [data?.id || ''],
-      teamIds: [data?.homeTeam.id || ''],
+  const { tabs, likeNote, likeReport, unlikeNote, unlikeReport, isLoading } =
+    useSingleMatchPageData({
+      matchId: data?.id || '',
+      homeTeamId: data?.homeTeam.id || '',
+      awayTeamId: data?.awayTeam.id || '',
     })
-
-  const { tableSettings: awayReportsTableSettings, ...awayReportsTableProps } =
-    useTable(`matches-reports-table-away`)
-  const { data: awayTeamReports, isLoading: awayTeamReportsLoading } =
-    useReports({
-      matchIds: [data?.id || ''],
-      teamIds: [data?.awayTeam.id || ''],
-    })
-
-  const {
-    tableSettings: unassignedNotesTableSettings,
-    ...unassignedNotesTableProps
-  } = useTable(`match-notes-table-unassigned:${data?.id}`)
-
-  const { data: unassignedNotes, isLoading: unassignedNotesLoading } = useNotes(
-    { matchIds: [data?.id || ''], onlyNullPlayers: true },
-  )
-
-  const { mutate: likeNote, isLoading: likeNoteLoading } = useLikeNote()
-  const { mutate: unLikeNote, isLoading: unLikeNoteLoading } = useUnlikeNote()
-
-  const { mutate: likeReport, isLoading: likeReportLoading } = useLikeReport()
-  const { mutate: unLikeReport, isLoading: unLikeReportLoading } =
-    useUnlikeReport()
 
   const headings = [data?.homeTeam.name, data?.awayTeam.name, t('UNASSIGNED')]
-  const tabs: TabData[] = [
-    {
-      name: 'home-team-notes',
-      type: 'note',
-      data: homeTeamNotes?.docs || [],
-      docCount: homeTeamNotes?.totalDocs || 0,
-      tableSettings: homeNoteTableSettings,
-      tableHandlers: homeNotesTableProps,
-    },
-    {
-      name: 'home-team-reports',
-      type: 'report',
-      data: homeTeamReports?.docs || [],
-      docCount: homeTeamReports?.totalDocs || 0,
-      tableSettings: homeReportsTableSettings,
-      tableHandlers: homeReportsTableProps,
-    },
-    {
-      name: 'away-team-notes',
-      type: 'note',
-      data: awayTeamNotes?.docs || [],
-      docCount: awayTeamNotes?.totalDocs || 0,
-      tableSettings: awayNoteTableSettings,
-      tableHandlers: awayNotesTableProps,
-    },
-    {
-      name: 'away-team-reports',
-      type: 'report',
-      data: awayTeamReports?.docs || [],
-      docCount: awayTeamReports?.totalDocs || 0,
-      tableSettings: awayReportsTableSettings,
-      tableHandlers: awayReportsTableProps,
-    },
-    {
-      name: 'unassigned-notes',
-      type: 'note',
-      data: unassignedNotes?.docs || [],
-      docCount: unassignedNotes?.totalDocs || 0,
-      tableSettings: unassignedNotesTableSettings,
-      tableHandlers: unassignedNotesTableProps,
-    },
-  ]
-
-  const isLoading =
-    homeTeamNotesLoading ||
-    likeNoteLoading ||
-    unLikeNoteLoading ||
-    awayTeamNotesLoading ||
-    homeTeamReportsLoading ||
-    awayTeamReportsLoading ||
-    likeReportLoading ||
-    unLikeReportLoading ||
-    unassignedNotesLoading
 
   if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />
 
@@ -251,7 +132,7 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
                   data={docs}
                   total={docCount}
                   onLikeClick={likeNote}
-                  onUnLikeClick={unLikeNote}
+                  onUnLikeClick={unlikeNote}
                 />
               ) : (
                 <ReportsTable
@@ -260,7 +141,7 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
                   data={docs}
                   total={docCount}
                   onLikeClick={likeReport}
-                  onUnLikeClick={unLikeReport}
+                  onUnLikeClick={unlikeReport}
                 />
               )}
             </TabPanel>
