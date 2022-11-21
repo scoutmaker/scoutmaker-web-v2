@@ -225,5 +225,6 @@
   "LIKED_REPORTS": "Liked reports",
   "LIKED_NOTES": "Liked notes",
   "LIKED_TEAMS": "Liked teams",
-  "LIKED_PLAYERS": "Liked players"
+  "LIKED_PLAYERS": "Liked players",
+  "UNASSIGNED": "Unassigned"
 }

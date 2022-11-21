@@ -73,6 +73,15 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
       teamIds: [data?.awayTeam.id || ''],
     })
 
+  const {
+    tableSettings: unassignedNotesTableSettings,
+    ...unassignedNotesTableProps
+  } = useTable(`match-notes-table-unassigned:${data?.id}`)
+
+  const { data: unassignedNotes, isLoading: unassignedNotesLoading } = useNotes(
+    { matchIds: [data?.id || ''], onlyNullPlayers: true },
+  )
+
   const { mutate: likeNote, isLoading: likeNoteLoading } = useLikeNote()
   const { mutate: unLikeNote, isLoading: unLikeNoteLoading } = useUnlikeNote()
 
@@ -88,9 +97,11 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
     homeTeamReportsLoading ||
     awayTeamReportsLoading ||
     likeReportLoading ||
-    unLikeReportLoading
+    unLikeReportLoading ||
+    unassignedNotesLoading
 
   if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />
+
   return (
     <>
       {isLoading && <Loader />}
@@ -112,32 +123,47 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
           borderTopRightRadius: 5,
         })}
       >
-        <Grid item xs={6}>
+        <Box sx={{ width: '40%' }}>
           <Typography
             sx={theme => ({
               fontSize: 22,
               color: theme.palette.primary.contrastText,
               textAlign: 'center',
               [theme.breakpoints.down('sm')]: {
-                fontSize: 18,
+                fontSize: 16,
               },
             })}
           >
             {data.homeTeam.name}
           </Typography>
-        </Grid>
-        <Grid item xs={6}>
+        </Box>
+        <Box sx={{ width: '40%' }}>
           <Typography
             sx={theme => ({
               fontSize: 22,
               color: theme.palette.primary.contrastText,
               textAlign: 'center',
               [theme.breakpoints.down('sm')]: {
-                fontSize: 18,
+                fontSize: 16,
               },
             })}
           >
             {data.awayTeam.name}
+          </Typography>
+        </Box>
+        <Grid sx={{ width: '20%' }}>
+          <Typography
+            sx={theme => ({
+              fontSize: 22,
+              color: theme.palette.primary.contrastText,
+              textAlign: 'center',
+              overflowWrap: 'break-word',
+              [theme.breakpoints.down('sm')]: {
+                fontSize: 16,
+              },
+            })}
+          >
+            {t('UNASSIGNED')}
           </Typography>
         </Grid>
       </Grid>
@@ -157,7 +183,6 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
             indicatorColor="secondary"
             textColor="inherit"
             variant="fullWidth"
-            centered
           >
             <Tab label={`${t('NOTES')} (${homeTeamNotes?.totalDocs || 0})`} />
             <Tab
@@ -167,6 +192,7 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
             <Tab
               label={`${t('REPORTS')} (${awayTeamReports?.totalDocs || 0})`}
             />
+            <Tab label={`${t('NOTES')} (${unassignedNotes?.totalDocs || 0})`} />
           </Tabs>
         </AppBar>
         <TabPanel value={tabValue} index={0} title="home-team-notes" noPadding>
@@ -217,6 +243,16 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
             total={awayTeamReports?.totalDocs || 0}
             onLikeClick={likeReport}
             onUnLikeClick={unLikeReport}
+          />
+        </TabPanel>
+        <TabPanel value={tabValue} index={4} title="unassigned-notes" noPadding>
+          <NotesTable
+            {...unassignedNotesTableSettings}
+            {...unassignedNotesTableProps}
+            data={unassignedNotes?.docs || []}
+            total={unassignedNotes?.totalDocs || 0}
+            onLikeClick={likeNote}
+            onUnLikeClick={unLikeNote}
           />
         </TabPanel>
       </Box>
