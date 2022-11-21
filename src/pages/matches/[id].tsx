@@ -11,16 +11,37 @@ import { MatchDto } from '@/modules/matches/types'
 import { getMatchDisplayName } from '@/modules/matches/utils'
 import { useLikeNote, useNotes, useUnlikeNote } from '@/modules/notes/hooks'
 import { NotesTable } from '@/modules/notes/table/table'
+import { NoteDto } from '@/modules/notes/types'
 import {
   useLikeReport,
   useReports,
   useUnlikeReport,
 } from '@/modules/reports/hooks'
 import { ReportsTable } from '@/modules/reports/table/table'
+import { ReportPaginatedDataDto } from '@/modules/reports/types'
 import { getMatchById } from '@/services/api/methods/matches'
 import { ApiError } from '@/services/api/types'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
+
+type CommonTabData = {
+  name: string
+  docCount: number
+  tableSettings: ReturnType<typeof useTable>['tableSettings']
+  tableHandlers: Omit<ReturnType<typeof useTable>, 'tableSettings'>
+}
+
+type NoteTabData = {
+  type: 'note'
+  data: NoteDto[]
+} & CommonTabData
+
+type ReportTabData = {
+  type: 'report'
+  data: ReportPaginatedDataDto[]
+} & CommonTabData
+
+type TabData = NoteTabData | ReportTabData
 
 export const getServerSideProps = withSessionSsrRole<MatchDto>(
   ['common', 'matches'],
@@ -89,6 +110,50 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
   const { mutate: unLikeReport, isLoading: unLikeReportLoading } =
     useUnlikeReport()
 
+  const headings = [data?.homeTeam.name, data?.awayTeam.name, t('UNASSIGNED')]
+  const tabs: TabData[] = [
+    {
+      name: 'home-team-notes',
+      type: 'note',
+      data: homeTeamNotes?.docs || [],
+      docCount: homeTeamNotes?.totalDocs || 0,
+      tableSettings: homeNoteTableSettings,
+      tableHandlers: homeNotesTableProps,
+    },
+    {
+      name: 'home-team-reports',
+      type: 'report',
+      data: homeTeamReports?.docs || [],
+      docCount: homeTeamReports?.totalDocs || 0,
+      tableSettings: homeReportsTableSettings,
+      tableHandlers: homeReportsTableProps,
+    },
+    {
+      name: 'away-team-notes',
+      type: 'note',
+      data: awayTeamNotes?.docs || [],
+      docCount: awayTeamNotes?.totalDocs || 0,
+      tableSettings: awayNoteTableSettings,
+      tableHandlers: awayNotesTableProps,
+    },
+    {
+      name: 'away-team-reports',
+      type: 'report',
+      data: awayTeamReports?.docs || [],
+      docCount: awayTeamReports?.totalDocs || 0,
+      tableSettings: awayReportsTableSettings,
+      tableHandlers: awayReportsTableProps,
+    },
+    {
+      name: 'unassigned-notes',
+      type: 'note',
+      data: unassignedNotes?.docs || [],
+      docCount: unassignedNotes?.totalDocs || 0,
+      tableSettings: unassignedNotesTableSettings,
+      tableHandlers: unassignedNotesTableProps,
+    },
+  ]
+
   const isLoading =
     homeTeamNotesLoading ||
     likeNoteLoading ||
@@ -123,49 +188,26 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
           borderTopRightRadius: 5,
         })}
       >
-        <Box sx={{ width: '40%' }}>
-          <Typography
-            sx={theme => ({
-              fontSize: 22,
-              color: theme.palette.primary.contrastText,
-              textAlign: 'center',
-              [theme.breakpoints.down('sm')]: {
-                fontSize: 16,
-              },
-            })}
+        {headings.map((heading, idx) => (
+          <Box
+            key={heading}
+            sx={idx !== 2 ? { width: '40%' } : { width: '20%' }}
           >
-            {data.homeTeam.name}
-          </Typography>
-        </Box>
-        <Box sx={{ width: '40%' }}>
-          <Typography
-            sx={theme => ({
-              fontSize: 22,
-              color: theme.palette.primary.contrastText,
-              textAlign: 'center',
-              [theme.breakpoints.down('sm')]: {
-                fontSize: 16,
-              },
-            })}
-          >
-            {data.awayTeam.name}
-          </Typography>
-        </Box>
-        <Grid sx={{ width: '20%' }}>
-          <Typography
-            sx={theme => ({
-              fontSize: 22,
-              color: theme.palette.primary.contrastText,
-              textAlign: 'center',
-              overflowWrap: 'break-word',
-              [theme.breakpoints.down('sm')]: {
-                fontSize: 16,
-              },
-            })}
-          >
-            {t('UNASSIGNED')}
-          </Typography>
-        </Grid>
+            <Typography
+              sx={theme => ({
+                fontSize: 22,
+                color: theme.palette.primary.contrastText,
+                textAlign: 'center',
+                overflowWrap: 'break-word',
+                [theme.breakpoints.down('sm')]: {
+                  fontSize: 16,
+                },
+              })}
+            >
+              {heading}
+            </Typography>
+          </Box>
+        ))}
       </Grid>
       <Box width="100%">
         <AppBar
@@ -184,77 +226,50 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
             textColor="inherit"
             variant="fullWidth"
           >
-            <Tab label={`${t('NOTES')} (${homeTeamNotes?.totalDocs || 0})`} />
-            <Tab
-              label={`${t('REPORTS')} (${homeTeamReports?.totalDocs || 0})`}
-            />
-            <Tab label={`${t('NOTES')} (${awayTeamNotes?.totalDocs || 0})`} />
-            <Tab
-              label={`${t('REPORTS')} (${awayTeamReports?.totalDocs || 0})`}
-            />
-            <Tab label={`${t('NOTES')} (${unassignedNotes?.totalDocs || 0})`} />
+            {tabs.map(({ name, type, docCount }) => (
+              <Tab
+                key={name}
+                label={`${
+                  type === 'note' ? t('NOTES') : t('REPORTS')
+                } (${docCount})`}
+              />
+            ))}
           </Tabs>
         </AppBar>
-        <TabPanel value={tabValue} index={0} title="home-team-notes" noPadding>
-          <NotesTable
-            {...homeNoteTableSettings}
-            {...homeNotesTableProps}
-            data={homeTeamNotes?.docs || []}
-            total={homeTeamNotes?.totalDocs || 0}
-            onLikeClick={likeNote}
-            onUnLikeClick={unLikeNote}
-          />
-        </TabPanel>
-        <TabPanel
-          value={tabValue}
-          index={1}
-          title="home-team-reports"
-          noPadding
-        >
-          <ReportsTable
-            {...homeReportsTableSettings}
-            {...homeReportsTableProps}
-            data={homeTeamReports?.docs || []}
-            total={homeTeamReports?.totalDocs || 0}
-            onLikeClick={likeReport}
-            onUnLikeClick={unLikeReport}
-          />
-        </TabPanel>
-        <TabPanel value={tabValue} index={2} title="away-team-notes" noPadding>
-          <NotesTable
-            {...awayNoteTableSettings}
-            {...awayNotesTableProps}
-            data={awayTeamNotes?.docs || []}
-            total={awayTeamNotes?.totalDocs || 0}
-            onLikeClick={likeNote}
-            onUnLikeClick={unLikeNote}
-          />
-        </TabPanel>
-        <TabPanel
-          value={tabValue}
-          index={3}
-          title="away-team-reports"
-          noPadding
-        >
-          <ReportsTable
-            {...awayReportsTableSettings}
-            {...awayReportsTableProps}
-            data={awayTeamReports?.docs || []}
-            total={awayTeamReports?.totalDocs || 0}
-            onLikeClick={likeReport}
-            onUnLikeClick={unLikeReport}
-          />
-        </TabPanel>
-        <TabPanel value={tabValue} index={4} title="unassigned-notes" noPadding>
-          <NotesTable
-            {...unassignedNotesTableSettings}
-            {...unassignedNotesTableProps}
-            data={unassignedNotes?.docs || []}
-            total={unassignedNotes?.totalDocs || 0}
-            onLikeClick={likeNote}
-            onUnLikeClick={unLikeNote}
-          />
-        </TabPanel>
+        {tabs.map(
+          (
+            { name, type, data: docs, docCount, tableSettings, tableHandlers },
+            idx,
+          ) => (
+            <TabPanel
+              key={name}
+              value={tabValue}
+              index={idx}
+              title={name}
+              noPadding
+            >
+              {type === 'note' ? (
+                <NotesTable
+                  {...tableSettings}
+                  {...tableHandlers}
+                  data={docs}
+                  total={docCount}
+                  onLikeClick={likeNote}
+                  onUnLikeClick={unLikeNote}
+                />
+              ) : (
+                <ReportsTable
+                  {...tableSettings}
+                  {...tableHandlers}
+                  data={docs}
+                  total={docCount}
+                  onLikeClick={likeReport}
+                  onUnLikeClick={unLikeReport}
+                />
+              )}
+            </TabPanel>
+          ),
+        )}
       </Box>
     </>
   )
