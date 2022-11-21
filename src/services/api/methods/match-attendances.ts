@@ -30,7 +30,7 @@ export const addMatchAttendance = async ({
 
 export const removeMatchAttendance = async () => {
   const { data } = await client.patch<ApiResponse<MatchAttendanceDto>>(
-    `/${moduleName}`,
+    `/${moduleName}/leave-active`,
   )
   return data
 }
