@@ -28,6 +28,8 @@ export type FindAllNotesParams = Pick<
   | 'teamIds'
   | 'userId'
   | 'observationType'
+  | 'onlyLikedPlayers'
+  | 'onlyLikedTeams'
 >
 
 export type NotesFiltersDto = Omit<
@@ -66,3 +68,10 @@ export type NoteDto = Components.Schemas.NoteDto
 export type CreateNoteDto = Components.Schemas.CreateNoteDto
 
 export type UpdateNoteDto = Components.Schemas.UpdateNoteDto
+
+export interface INotesComboOptions extends IComboOptions {
+  player?: Components.Schemas.PlayerBasicDataWithoutTeamsDto
+  description?: string
+  rating?: number
+  shirtNo?: number
+}

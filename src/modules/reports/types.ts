@@ -5,7 +5,8 @@ import { ICompetitionGroupComboOptions } from '../competition-groups/types'
 import { ICompetitionComboOptions } from '../competitions/types'
 import { IMatchComboOptions } from '../matches/types'
 import { IPlayerPositionComboOptions } from '../player-positions/types'
-import { IPlayerComboOptions } from '../players/types'
+import { IPlayerComboOptions, PlayerSuperBasicDataDto } from '../players/types'
+import { UserBasicDataDto } from '../users/types'
 
 export type ReportBasicDataDto = Components.Schemas.ReportBasicDataDto
 
@@ -29,6 +30,8 @@ export type FindAllReportsParams = Pick<
   | 'hasVideo'
   | 'userId'
   | 'observationType'
+  | 'onlyLikedPlayers'
+  | 'onlyLikedTeams'
 >
 
 export type ReportsFiltersDto = Omit<
@@ -73,3 +76,15 @@ export type UpdateReportDto = Components.Schemas.UpdateReportDto
 export type ReportStatus = ReportDto['status']
 
 export type ReportType = 'order' | 'custom'
+
+export interface IReportsComboOptions extends IComboOptions {
+  status: 'IN_PROGRESS' | 'FINISHED'
+  docNumber: number
+  player: PlayerSuperBasicDataDto
+  author: UserBasicDataDto
+}
+
+export type IReportFromNoteQuery = Pick<
+  CreateReportDto,
+  'playerId' | 'matchId' | 'shirtNo' | 'finalRating' | 'summary'
+>

@@ -8,5 +8,6 @@
   "CREATE_NOTE_PAGE_TITLE": "Utwórz nową notatkę",
   "EDIT_NOTE_PAGE_TITLE": "Edycja notatki nr {{number}}",
   "DELETE_NOTE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć notatkę nr {{number}}?",
-  "NO_OBSERVATION_TYPE_ERROR": "Wybierz typ obserwacji notatki"
+  "NO_OBSERVATION_TYPE_ERROR": "Wybierz typ obserwacji notatki",
+  "CREATE_REPORT": "Utwórz raport"
 }

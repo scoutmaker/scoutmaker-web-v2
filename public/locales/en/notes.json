@@ -8,5 +8,6 @@
   "CREATE_NOTE_PAGE_TITLE": "Create new note",
   "EDIT_NOTE_PAGE_TITLE": "Edit note no. {{number}}",
   "DELETE_NOTE_CONFIRM_QUESTION": "Are you sure you want to delete note no. {{number}}?",
-  "NO_OBSERVATION_TYPE_ERROR": "Please choose note observation type"
+  "NO_OBSERVATION_TYPE_ERROR": "Please choose note observation type",
+  "CREATE_REPORT": "Create report"
 }

@@ -5,6 +5,7 @@ import { useTranslation } from 'next-i18next'
 
 import { FilterCombo } from '@/components/combo/combo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
+import FilteredCompetitonGroups from '@/components/filteredCompetitionGroups/filteredCompetitonGroups'
 import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
@@ -44,6 +45,9 @@ export const PlayersFilterForm = ({
 }: IPlayersFilterFormProps) => {
   const { t } = useTranslation(['common', 'players'])
   const footedComboData = getFootedComboData(t)
+  const groupsComboData = mapCompetitionGroupsListToComboOptions(
+    competitionGroupsData,
+  )
 
   return (
     <Formik
@@ -54,7 +58,7 @@ export const PlayersFilterForm = ({
       }}
       enableReinitialize
     >
-      {() => (
+      {({ values }) => (
         <Form autoComplete="off">
           <FilterFormContainer>
             <Field
@@ -115,31 +119,59 @@ export const PlayersFilterForm = ({
               multiple
             />
             <FilterCombo
-              name="competitionIds"
               data={mapCompetitionsListToComboOptions(competitionsData)}
+              name="competitionIds"
               label={t('COMPETITIONS')}
               size="small"
               multiple
             />
-            <FilterCombo
+            <FilteredCompetitonGroups
+              competitionGroupsData={groupsComboData}
+              competitionsFormValues={values.competitionIds}
               name="competitionGroupIds"
-              data={mapCompetitionGroupsListToComboOptions(
-                competitionGroupsData,
-              )}
               label={t('COMPETITION_GROUPS')}
               size="small"
               multiple
             />
           </FilterFormContainer>
-          <FilterCheckboxContainer>
-            <Field
-              component={CheckboxWithLabel}
-              type="checkbox"
-              name="isLiked"
-              Label={{ label: t('players:LIKED_ONLY') }}
-              size="small"
-            />
-          </FilterCheckboxContainer>
+          <Box display="flex" flexWrap="wrap" justifyContent="center">
+            <FilterCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="hasNote"
+                Label={{ label: t('WITH_NOTE') }}
+                size="small"
+              />
+            </FilterCheckboxContainer>
+            <FilterCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="hasReport"
+                Label={{ label: t('WITH_REPORT') }}
+                size="small"
+              />
+            </FilterCheckboxContainer>
+            <FilterCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="hasAnyObservation"
+                Label={{ label: t('WITH_OBSERVATION') }}
+                size="small"
+              />
+            </FilterCheckboxContainer>
+            <FilterCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="isLiked"
+                Label={{ label: t('players:LIKED_ONLY') }}
+                size="small"
+              />
+            </FilterCheckboxContainer>
+          </Box>
           <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>
       )}

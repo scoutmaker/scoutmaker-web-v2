@@ -1,0 +1,8 @@
+{
+  "INDEX_PAGE_TITLE": "Baza ACL raportów organizacji",
+  "CREATE_PAGE_TITLE": "Utwórz nowy ACE raportu organizacji",
+  "NO_ORGANIZATION_ERROR": "Wybierz organizację ACE",
+  "NO_REPORT_ERROR": "Wybierz raport ACE",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć ACE raportu organizacji?",
+  "EDIT_PAGE_TITLE": "Edycja danych ACE raportu organizacji"
+}

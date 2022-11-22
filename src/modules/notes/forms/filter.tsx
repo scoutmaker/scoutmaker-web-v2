@@ -1,4 +1,4 @@
-import { Grid, TextField } from '@mui/material'
+import { Box, Grid, TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
@@ -6,6 +6,7 @@ import { useTranslation } from 'next-i18next'
 import { FilterCombo } from '@/components/combo/combo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { getObservationTypeComboData } from '@/components/combos-data/observation-type'
+import FilteredCompetitonGroups from '@/components/filteredCompetitionGroups/filteredCompetitonGroups'
 import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
@@ -48,6 +49,9 @@ export const NotesFilterForm = ({
   onClearFilters,
 }: INotesFilterFormProps) => {
   const { t } = useTranslation(['common', 'notes'])
+  const groupsComboData = mapCompetitionGroupsListToComboOptions(
+    competitionGroupsData,
+  )
 
   return (
     <Formik
@@ -58,7 +62,7 @@ export const NotesFilterForm = ({
       }}
       enableReinitialize
     >
-      {() => (
+      {({ values }) => (
         <Form autoComplete="off">
           <FilterFormContainer>
             <FilterCombo
@@ -123,14 +127,13 @@ export const NotesFilterForm = ({
               multiple
               size="small"
             />
-            <FilterCombo
+            <FilteredCompetitonGroups
+              competitionGroupsData={groupsComboData}
+              competitionsFormValues={values.competitionIds}
               name="competitionGroupIds"
-              data={mapCompetitionGroupsListToComboOptions(
-                competitionGroupsData,
-              )}
               label={t('COMPETITION_GROUPS')}
-              multiple
               size="small"
+              multiple
             />
             <RatingRangeSelect
               name="ratingRange"
@@ -144,15 +147,35 @@ export const NotesFilterForm = ({
               size="small"
             />
           </FilterFormContainer>
-          <FilterCheckboxContainer>
-            <Field
-              component={CheckboxWithLabel}
-              type="checkbox"
-              name="isLiked"
-              Label={{ label: t('notes:LIKED_ONLY') }}
-              size="small"
-            />
-          </FilterCheckboxContainer>
+          <Box display="flex" flexWrap="wrap" justifyContent="center">
+            <FilterCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="isLiked"
+                Label={{ label: t('LIKED_NOTES') }}
+                size="small"
+              />
+            </FilterCheckboxContainer>
+            <FilterCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="onlyLikedTeams"
+                Label={{ label: t('LIKED_TEAMS') }}
+                size="small"
+              />
+            </FilterCheckboxContainer>
+            <FilterCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="onlyLikedPlayers"
+                Label={{ label: t('LIKED_PLAYERS') }}
+                size="small"
+              />
+            </FilterCheckboxContainer>
+          </Box>
           <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>
       )}

@@ -19,6 +19,7 @@ import {
 } from '@/modules/notes/hooks'
 import { NotesTable } from '@/modules/notes/table/table'
 import { NotesFiltersState, NotesSortBy } from '@/modules/notes/types'
+import { mapFilterFormDataToFiltersDto } from '@/modules/notes/utils'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
@@ -41,6 +42,8 @@ const initialFilters: NotesFiltersState = {
   teamIds: [],
   ratingRange: 'ALL',
   observationType: null,
+  onlyLikedPlayers: false,
+  onlyLikedTeams: false,
 }
 
 interface INoteToDeleteData {
@@ -73,13 +76,17 @@ const NotesPage = () => {
     handleChangePage(null, 0)
   }
 
-  const { data: teams, isLoading: teamsLoading } = useTeamsList()
+  const { data: teams, isLoading: teamsLoading } = useTeamsList({
+    isLiked: filters.onlyLikedTeams,
+  })
   const { data: competitions, isLoading: competitionsLoading } =
     useCompetitionsList()
   const { data: competitionGroups, isLoading: competitionGroupsLoading } =
     useCompetitionGroupsList()
   const { data: matches, isLoading: matchesLoading } = useMatchesList()
-  const { data: players, isLoading: playersLoading } = usePlayersList()
+  const { data: players, isLoading: playersLoading } = usePlayersList({
+    isLiked: filters.onlyLikedPlayers,
+  })
   const { data: positions, isLoading: positionsLoading } =
     usePlayerPositionsList()
 
@@ -88,7 +95,7 @@ const NotesPage = () => {
     limit: rowsPerPage,
     sortBy: sortBy as NotesSortBy,
     sortingOrder: order,
-    ...mapFiltersStateToDto(filters),
+    ...mapFiltersStateToDto(mapFilterFormDataToFiltersDto(filters)),
   })
 
   const { mutate: deleteNote, isLoading: deleteNoteLoading } = useDeleteNote()

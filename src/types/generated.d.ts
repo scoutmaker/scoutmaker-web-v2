@@ -199,6 +199,10 @@ declare namespace Components {
             competitionId?: string;
             competitionGroupId?: string;
         }
+        export interface CreateMatchAttendanceDto {
+            matchId: string;
+            observationType: "LIVE" | "VIDEO";
+        }
         export interface CreateMatchDto {
             id?: string;
             date: string;
@@ -223,7 +227,7 @@ declare namespace Components {
             teamId?: string;
             competitionId?: string;
             competitionGroupId?: string;
-            observationType: "LIVE" | "VIDEO";
+            observationType?: "LIVE" | "VIDEO";
         }
         export interface CreateOrderDto {
             id?: string;
@@ -333,7 +337,7 @@ declare namespace Components {
             competitionGroupId?: string;
             matchId?: string;
             skillAssessments?: CreateReportSkillAssessmentDto[];
-            observationType: "LIVE" | "VIDEO";
+            observationType?: "LIVE" | "VIDEO";
         }
         export interface CreateReportSkillAssessmentCategoryDto {
             id?: string;
@@ -450,9 +454,6 @@ declare namespace Components {
         }
         export interface ForgotPasswordDto {
             email: string;
-        }
-        export interface GoToMatchBodyDto {
-            observationType: "LIVE" | "VIDEO";
         }
         export interface InsiderNoteBasicDataDto {
             id: string;
@@ -2749,13 +2750,7 @@ declare namespace Paths {
         }
     }
     namespace MatchAttendancesControllerGoToMatch {
-        namespace Parameters {
-            export type MatchId = string;
-        }
-        export interface PathParameters {
-            matchId: Parameters.MatchId;
-        }
-        export type RequestBody = Components.Schemas.GoToMatchBodyDto;
+        export type RequestBody = Components.Schemas.CreateMatchAttendanceDto;
         namespace Responses {
             export interface $201 {
                 success: boolean;
@@ -2765,12 +2760,6 @@ declare namespace Paths {
         }
     }
     namespace MatchAttendancesControllerLeaveTheMatch {
-        namespace Parameters {
-            export type MatchId = string;
-        }
-        export interface PathParameters {
-            matchId: Parameters.MatchId;
-        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
@@ -2930,6 +2919,8 @@ declare namespace Paths {
             export type Limit = number;
             export type MatchIds = string[];
             export type ObservationType = "LIVE" | "VIDEO";
+            export type OnlyLikedPlayers = boolean;
+            export type OnlyLikedTeams = boolean;
             export type Page = number;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
@@ -2956,6 +2947,8 @@ declare namespace Paths {
             isLiked?: Parameters.IsLiked;
             userId?: Parameters.UserId;
             observationType?: Parameters.ObservationType;
+            onlyLikedTeams?: Parameters.OnlyLikedTeams;
+            onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -4024,6 +4017,9 @@ declare namespace Paths {
             export type CompetitionIds = string[];
             export type CountryIds = string[];
             export type Footed = "LEFT" | "RIGHT" | "BOTH";
+            export type HasAnyObservation = boolean;
+            export type HasNote = boolean;
+            export type HasReport = boolean;
             export type IsLiked = boolean;
             export type Limit = number;
             export type Name = string;
@@ -4046,6 +4042,9 @@ declare namespace Paths {
             competitionGroupIds?: Parameters.CompetitionGroupIds;
             orderId?: Parameters.OrderId;
             isLiked?: Parameters.IsLiked;
+            hasNote?: Parameters.HasNote;
+            hasReport?: Parameters.HasReport;
+            hasAnyObservation?: Parameters.HasAnyObservation;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -4107,6 +4106,9 @@ declare namespace Paths {
             export type CompetitionIds = string[];
             export type CountryIds = string[];
             export type Footed = "LEFT" | "RIGHT" | "BOTH";
+            export type HasAnyObservation = boolean;
+            export type HasNote = boolean;
+            export type HasReport = boolean;
             export type IsLiked = boolean;
             export type Name = string;
             export type OrderId = string;
@@ -4125,6 +4127,9 @@ declare namespace Paths {
             competitionGroupIds?: Parameters.CompetitionGroupIds;
             orderId?: Parameters.OrderId;
             isLiked?: Parameters.IsLiked;
+            hasNote?: Parameters.HasNote;
+            hasReport?: Parameters.HasReport;
+            hasAnyObservation?: Parameters.HasAnyObservation;
         }
         namespace Responses {
             export interface $200 {
@@ -4758,6 +4763,8 @@ declare namespace Paths {
             export type Limit = number;
             export type MatchIds = string[];
             export type ObservationType = "LIVE" | "VIDEO";
+            export type OnlyLikedPlayers = boolean;
+            export type OnlyLikedTeams = boolean;
             export type Page = number;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
@@ -4785,6 +4792,8 @@ declare namespace Paths {
             isLiked?: Parameters.IsLiked;
             userId?: Parameters.UserId;
             observationType?: Parameters.ObservationType;
+            onlyLikedTeams?: Parameters.OnlyLikedTeams;
+            onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -4831,6 +4840,8 @@ declare namespace Paths {
             export type IsLiked = boolean;
             export type MatchIds = string[];
             export type ObservationType = "LIVE" | "VIDEO";
+            export type OnlyLikedPlayers = boolean;
+            export type OnlyLikedTeams = boolean;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
             export type PlayerBornAfter = number;
@@ -4855,6 +4866,8 @@ declare namespace Paths {
             isLiked?: Parameters.IsLiked;
             userId?: Parameters.UserId;
             observationType?: Parameters.ObservationType;
+            onlyLikedTeams?: Parameters.OnlyLikedTeams;
+            onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
         }
         namespace Responses {
             export interface $200 {
@@ -5222,6 +5235,24 @@ declare namespace Paths {
         }
     }
     namespace TeamsControllerGetList {
+        namespace Parameters {
+            export type ClubId = string;
+            export type CompetitionGroupIds = string[];
+            export type CompetitionIds = string[];
+            export type CountryIds = string[];
+            export type IsLiked = boolean;
+            export type Name = string;
+            export type RegionIds = string[];
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            clubId?: Parameters.ClubId;
+            regionIds?: Parameters.RegionIds;
+            countryIds?: Parameters.CountryIds;
+            competitionIds?: Parameters.CompetitionIds;
+            competitionGroupIds?: Parameters.CompetitionGroupIds;
+            isLiked?: Parameters.IsLiked;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
