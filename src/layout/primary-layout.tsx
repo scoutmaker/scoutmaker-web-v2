@@ -35,7 +35,7 @@ export const PrimaryLayout = ({ children }: IPrimaryLayoutProps) => {
   return (
     <div>
       <Topbar matchAttendance={activeMatchAttendance} />
-      <Sidebar currentMatchId={activeMatchAttendance?.match.id || null} />
+      <Sidebar matchAttendance={activeMatchAttendance || null} />
       <StyledContentContainer>
         <Offset />
         {router.route !== '/dashboard' ? <Breadcrumbs /> : null}

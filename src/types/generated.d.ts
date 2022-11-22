@@ -199,6 +199,10 @@ declare namespace Components {
             competitionId?: string;
             competitionGroupId?: string;
         }
+        export interface CreateMatchAttendanceDto {
+            matchId: string;
+            observationType: "LIVE" | "VIDEO";
+        }
         export interface CreateMatchDto {
             id?: string;
             date: string;
@@ -223,6 +227,7 @@ declare namespace Components {
             teamId?: string;
             competitionId?: string;
             competitionGroupId?: string;
+            observationType?: "LIVE" | "VIDEO";
         }
         export interface CreateOrderDto {
             id?: string;
@@ -332,6 +337,7 @@ declare namespace Components {
             competitionGroupId?: string;
             matchId?: string;
             skillAssessments?: CreateReportSkillAssessmentDto[];
+            observationType?: "LIVE" | "VIDEO";
         }
         export interface CreateReportSkillAssessmentCategoryDto {
             id?: string;
@@ -565,6 +571,7 @@ declare namespace Components {
             isActive: boolean;
             user: UserBasicDataDto;
             match: MatchBasicDataDto;
+            observationType: "LIVE" | "VIDEO";
         }
         export interface MatchBasicDataDto {
             id: string;
@@ -574,6 +581,7 @@ declare namespace Components {
             competition: CompetitionBasicDataDto;
         }
         export interface MatchDto {
+            observationType?: "LIVE" | "VIDEO" | "BOTH";
             id: string;
             date: string; // date-time
             homeGoals?: number;
@@ -587,6 +595,7 @@ declare namespace Components {
             _count: Count;
         }
         export interface NoteBasicDataDto {
+            observationType: "LIVE" | "VIDEO";
             id: string;
             docNumber: number;
             player?: PlayerBasicDataWithoutTeamsDto;
@@ -596,6 +605,7 @@ declare namespace Components {
             shirtNo?: number;
         }
         export interface NoteDto {
+            observationType: "LIVE" | "VIDEO";
             id: string;
             docNumber: number;
             shirtNo?: number;
@@ -623,6 +633,7 @@ declare namespace Components {
             competitionGroup: CompetitionGroupBasicDataDto;
         }
         export interface NotePaginatedDataDto {
+            observationType: "LIVE" | "VIDEO";
             player?: PlayerSuperBasicDataDto;
             meta?: NoteMetaBasicDataDto;
             id: string;
@@ -818,6 +829,7 @@ declare namespace Components {
         }
         export interface ReportBasicDataDto {
             status: "IN_PROGRESS" | "FINISHED";
+            observationType: "LIVE" | "VIDEO";
             id: string;
             docNumber: number;
             player: PlayerSuperBasicDataDto;
@@ -825,6 +837,7 @@ declare namespace Components {
         }
         export interface ReportDto {
             status: "IN_PROGRESS" | "FINISHED";
+            observationType: "LIVE" | "VIDEO";
             id: string;
             docNumber: number;
             maxRatingScore: number;
@@ -862,6 +875,7 @@ declare namespace Components {
         }
         export interface ReportPaginatedDataDto {
             status: "IN_PROGRESS" | "FINISHED";
+            observationType: "LIVE" | "VIDEO";
             meta?: ReportMetaBasicDataDto;
             id: string;
             docNumber: number;
@@ -1065,6 +1079,7 @@ declare namespace Components {
             teamId?: string;
             competitionId?: string;
             competitionGroupId?: string;
+            observationType?: "LIVE" | "VIDEO";
         }
         export interface UpdateOrganizationDto {
             name?: string;
@@ -1154,6 +1169,7 @@ declare namespace Components {
             competitionGroupId?: string;
             matchId?: string;
             skillAssessments?: CreateReportSkillAssessmentDto[];
+            observationType?: "LIVE" | "VIDEO";
         }
         export interface UpdateReportSkillAssessmentCategoryDto {
             name?: string;
@@ -2792,12 +2808,7 @@ declare namespace Paths {
         }
     }
     namespace MatchAttendancesControllerGoToMatch {
-        namespace Parameters {
-            export type MatchId = string;
-        }
-        export interface PathParameters {
-            matchId: Parameters.MatchId;
-        }
+        export type RequestBody = Components.Schemas.CreateMatchAttendanceDto;
         namespace Responses {
             export interface $201 {
                 success: boolean;
@@ -2807,12 +2818,6 @@ declare namespace Paths {
         }
     }
     namespace MatchAttendancesControllerLeaveTheMatch {
-        namespace Parameters {
-            export type MatchId = string;
-        }
-        export interface PathParameters {
-            matchId: Parameters.MatchId;
-        }
         namespace Responses {
             export interface $200 {
                 success: boolean;
@@ -2971,6 +2976,7 @@ declare namespace Paths {
             export type IsLiked = boolean;
             export type Limit = number;
             export type MatchIds = string[];
+            export type ObservationType = "LIVE" | "VIDEO";
             export type OnlyLikedPlayers = boolean;
             export type OnlyLikedTeams = boolean;
             export type Page = number;
@@ -2998,6 +3004,7 @@ declare namespace Paths {
             playerBornBefore?: Parameters.PlayerBornBefore;
             isLiked?: Parameters.IsLiked;
             userId?: Parameters.UserId;
+            observationType?: Parameters.ObservationType;
             onlyLikedTeams?: Parameters.OnlyLikedTeams;
             onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
             sortBy?: Parameters.SortBy;
@@ -4813,6 +4820,7 @@ declare namespace Paths {
             export type IsLiked = boolean;
             export type Limit = number;
             export type MatchIds = string[];
+            export type ObservationType = "LIVE" | "VIDEO";
             export type OnlyLikedPlayers = boolean;
             export type OnlyLikedTeams = boolean;
             export type Page = number;
@@ -4841,6 +4849,7 @@ declare namespace Paths {
             hasVideo?: Parameters.HasVideo;
             isLiked?: Parameters.IsLiked;
             userId?: Parameters.UserId;
+            observationType?: Parameters.ObservationType;
             onlyLikedTeams?: Parameters.OnlyLikedTeams;
             onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
             sortBy?: Parameters.SortBy;
@@ -4888,6 +4897,7 @@ declare namespace Paths {
             export type HasVideo = boolean;
             export type IsLiked = boolean;
             export type MatchIds = string[];
+            export type ObservationType = "LIVE" | "VIDEO";
             export type OnlyLikedPlayers = boolean;
             export type OnlyLikedTeams = boolean;
             export type PercentageRatingRangeEnd = number;
@@ -4913,6 +4923,7 @@ declare namespace Paths {
             hasVideo?: Parameters.HasVideo;
             isLiked?: Parameters.IsLiked;
             userId?: Parameters.UserId;
+            observationType?: Parameters.ObservationType;
             onlyLikedTeams?: Parameters.OnlyLikedTeams;
             onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
         }

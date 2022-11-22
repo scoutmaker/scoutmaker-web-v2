@@ -32,6 +32,7 @@ export const createReportFormInitialValues: CreateReportDto = {
   videoDescription: '',
   videoUrl: '',
   yellowCards: 0,
+  observationType: 'VIDEO',
 }
 
 const commonReportFormValidationSchemaFields = {
@@ -58,6 +59,7 @@ export function generateCreateReportFormValidationSchema(t: TFunction) {
         required: true,
         message: t('reports:NO_PLAYER_ERROR'),
       }),
+      observationType: yup.string().notRequired(),
     })
     .defined()
 }
@@ -66,6 +68,7 @@ export function generateEditReportFormValidationSchema() {
   return yup
     .object({
       ...commonReportFormValidationSchemaFields,
+      observationType: yup.string().notRequired(),
     })
     .defined()
 }

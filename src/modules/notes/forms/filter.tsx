@@ -5,6 +5,8 @@ import { useTranslation } from 'next-i18next'
 
 import { FilterCombo } from '@/components/combo/combo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
+import { getObservationTypeComboData } from '@/components/combos-data/observation-type'
+import FilteredCompetitonGroups from '@/components/filteredCompetitionGroups/filteredCompetitonGroups'
 import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
@@ -47,6 +49,9 @@ export const NotesFilterForm = ({
   onClearFilters,
 }: INotesFilterFormProps) => {
   const { t } = useTranslation(['common', 'notes'])
+  const groupsComboData = mapCompetitionGroupsListToComboOptions(
+    competitionGroupsData,
+  )
 
   return (
     <Formik
@@ -57,7 +62,7 @@ export const NotesFilterForm = ({
       }}
       enableReinitialize
     >
-      {() => (
+      {({ values }) => (
         <Form autoComplete="off">
           <FilterFormContainer>
             <FilterCombo
@@ -122,18 +127,23 @@ export const NotesFilterForm = ({
               multiple
               size="small"
             />
-            <FilterCombo
+            <FilteredCompetitonGroups
+              competitionGroupsData={groupsComboData}
+              competitionsFormValues={values.competitionIds}
               name="competitionGroupIds"
-              data={mapCompetitionGroupsListToComboOptions(
-                competitionGroupsData,
-              )}
               label={t('COMPETITION_GROUPS')}
-              multiple
               size="small"
+              multiple
             />
             <RatingRangeSelect
               name="ratingRange"
               label={t('RATING_RANGE')}
+              size="small"
+            />
+            <FilterCombo
+              name="observationType"
+              data={getObservationTypeComboData(t)}
+              label={t('OBSERVATION_TYPE')}
               size="small"
             />
           </FilterFormContainer>

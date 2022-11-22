@@ -12,6 +12,7 @@ import React from 'react'
 
 import { BasicCombo } from '@/components/combo/basicCombo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
+import { getObservationTypeComboData } from '@/components/combos-data/observation-type'
 import { ExpandMoreIcon } from '@/components/icons'
 import { RatingInput } from '@/components/rating-input/rating-input'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
@@ -109,6 +110,15 @@ export const Fields = ({
         label={t('TEXT')}
         error={touched.description && !!errors.description}
         helperText={touched.description && errors.description}
+      />
+      <BasicCombo
+        data={getObservationTypeComboData(t)}
+        name="observationType"
+        label={t('OBSERVATION_TYPE')}
+        error={touched.observationType && !!errors.observationType}
+        helperText={
+          touched.observationType ? errors.observationType : undefined
+        }
       />
       <Accordion sx={{ background: 'none' }}>
         <AccordionSummary
