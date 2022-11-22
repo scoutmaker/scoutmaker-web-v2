@@ -23,22 +23,31 @@ interface IProps {
 
 const ScoutOrganizationDashboardLayout = ({ data }: IProps) => {
   const { t } = useTranslation()
-  const { scouts, observerdPlayers, observedMatches, topNotes, topReports } =
-    data
+  const {
+    scoutsCount,
+    observerdPlayersCount,
+    observedMatchesCount,
+    topNotes,
+    topReports,
+  } = data
 
   return (
     <>
-      <CountCard icon={<UsersIcon />} title="Liczba skautów" count={scouts} />
+      <CountCard
+        icon={<UsersIcon />}
+        title="Liczba skautów"
+        count={scoutsCount}
+      />
       <CountCard
         icon={<PlayersIcon />}
         title="Liczba piłkarzy"
-        count={observerdPlayers}
+        count={observerdPlayersCount}
         linkTo="/players"
       />
       <CountCard
         icon={<MatchesIcon />}
         title="Liczba obejrzanych meczy"
-        count={observedMatches}
+        count={observedMatchesCount}
         linkTo="/matches"
       />
       <ListDataCard

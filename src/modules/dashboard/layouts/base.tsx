@@ -27,12 +27,12 @@ const BaseDashboardLayout = ({
 }: IBaseDashboardProps) => {
   const { t } = useTranslation()
   const {
-    notes,
-    notesRatio,
-    reports,
-    reportsRatio,
-    observedMatches,
-    observedMatchesRatio,
+    notesCount,
+    recentNotesRatio,
+    reportsCount,
+    recentReportsRatio,
+    observedMatchesCount,
+    recentObservedMatchesRatio,
   } = data || {}
 
   return (
@@ -61,22 +61,22 @@ const BaseDashboardLayout = ({
         linkTo="/reports"
         title="Liczba raportów"
         icon={<ReportsIcon />}
-        count={reports}
-        text={precentageCountUp(reportsRatio)}
+        count={reportsCount}
+        text={precentageCountUp(recentReportsRatio)}
       />
       <CountCard
         linkTo="/notes"
         title="Liczba notatek"
         icon={<NotesIcon />}
-        count={notes}
-        text={precentageCountUp(notesRatio)}
+        count={notesCount}
+        text={precentageCountUp(recentNotesRatio)}
       />
       <CountCard
         linkTo="/matches"
         title="Liczba meczów"
         icon={<MatchesIcon />}
-        count={observedMatches}
-        text={precentageCountUp(observedMatchesRatio)}
+        count={observedMatchesCount}
+        text={precentageCountUp(recentObservedMatchesRatio)}
       />
     </>
   )

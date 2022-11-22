@@ -28,8 +28,8 @@ const PMScoutDashboardLayout = (props: IBaseDashboardProps) => {
         subheader="Udostępnione mecze"
         linkTo=""
         items={
-          organizations?.map(({ name, sharedInfo }) => (
-            <CardItemBasic title={name} value={sharedInfo} />
+          organizations?.map(({ name, sharedMatchesCount }) => (
+            <CardItemBasic title={name} value={sharedMatchesCount} />
           )) || 'ERROR: DATA NOT RECIVED'
         }
       />

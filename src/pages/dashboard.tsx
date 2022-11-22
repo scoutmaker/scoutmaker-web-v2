@@ -48,18 +48,14 @@ const DashboardPage = () => {
         {(userRole === 'ADMIN' || userRole === 'PLAYMAKER_SCOUT_MANAGER') && (
           <PMScoutManagerDashboardLayout
             data={dashboardData as DashboardDto}
-            leaveMatchClick={() =>
-              leaveMatchAttendance(matchAttendance?.match.id || '')
-            }
+            leaveMatchClick={leaveMatchAttendance}
             matchAttendance={matchAttendance}
           />
         )}
         {userRole === 'PLAYMAKER_SCOUT' && (
           <PMScoutDashboardLayout
             data={dashboardData as DashboardDto}
-            leaveMatchClick={() =>
-              leaveMatchAttendance(matchAttendance?.match.id || '')
-            }
+            leaveMatchClick={leaveMatchAttendance}
             matchAttendance={matchAttendance}
           />
         )}
@@ -71,9 +67,7 @@ const DashboardPage = () => {
           ) : (
             <ScoutDashboardLayout
               data={dashboardData as DashboardDto}
-              leaveMatchClick={() =>
-                leaveMatchAttendance(matchAttendance?.match.id || '')
-              }
+              leaveMatchClick={leaveMatchAttendance}
               matchAttendance={matchAttendance}
             />
           ))}
