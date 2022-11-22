@@ -16,6 +16,7 @@ export const initialValues: CreateNoteDto = {
   competitionId: '',
   positionPlayedId: '',
   teamId: '',
+  observationType: 'VIDEO',
 }
 
 export function generateNoteFormValidationSchema() {
@@ -31,6 +32,7 @@ export function generateNoteFormValidationSchema() {
       competitionId: validateId(),
       positionPlayedId: validateId(),
       teamId: validateId(),
+      observationType: yup.string().notRequired(),
     })
     .defined()
 }

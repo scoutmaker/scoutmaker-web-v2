@@ -29,6 +29,7 @@ export type FindAllReportsParams = Pick<
   | 'teamIds'
   | 'hasVideo'
   | 'userId'
+  | 'observationType'
   | 'onlyLikedPlayers'
   | 'onlyLikedTeams'
 >
@@ -51,6 +52,7 @@ export type ReportsFiltersState = Omit<
   | 'playerIds'
   | 'positionIds'
   | 'teamIds'
+  | 'observationType'
 > & {
   competitionGroupIds: ICompetitionGroupComboOptions[]
   competitionIds: ICompetitionComboOptions[]
@@ -58,6 +60,7 @@ export type ReportsFiltersState = Omit<
   playerIds: IPlayerComboOptions[]
   positionIds: IPlayerPositionComboOptions[]
   teamIds: IStandardComboOptions[]
+  observationType: IComboOptions | null
 }
 
 export type ReportsSortBy = Paths.ReportsControllerFindAll.Parameters.SortBy

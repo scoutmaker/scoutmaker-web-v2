@@ -35,5 +35,6 @@
   "SUMMARY_CARD_TITLE": "Summary",
   "FINAL_RATING": "Final rating",
   "STATS_CARD_TITLE": "Stats",
+  "NO_OBSERVATION_TYPE_ERROR": "Please choose report observation type",
   "PRINT": "Print"
 }

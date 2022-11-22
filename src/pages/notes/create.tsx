@@ -20,6 +20,11 @@ const CreateNotePage = () => {
   const router = useRouter()
   const matchId = (router.query?.matchId || '') as string
 
+  let observationType: 'LIVE' | 'VIDEO' | undefined
+  const routerObservationType = router.query?.observationType
+  if (routerObservationType === 'LIVE' || routerObservationType === 'VIDEO')
+    observationType = routerObservationType
+
   const { data: positions, isLoading: positionsLoading } =
     usePlayerPositionsList()
   const { data: teams, isLoading: teamsLoading } = useTeamsList()
@@ -64,6 +69,7 @@ const CreateNotePage = () => {
         playersData={players || []}
         onSubmit={createNote}
         match={matchId && match ? match : undefined}
+        observationType={observationType}
       />
     </>
   )

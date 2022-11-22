@@ -41,6 +41,7 @@ const initialFilters: NotesFiltersState = {
   positionIds: [],
   teamIds: [],
   ratingRange: 'ALL',
+  observationType: null,
   onlyLikedPlayers: false,
   onlyLikedTeams: false,
 }

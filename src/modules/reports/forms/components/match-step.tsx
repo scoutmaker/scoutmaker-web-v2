@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import { BasicCombo } from '@/components/combo/basicCombo'
+import { getObservationTypeComboData } from '@/components/combos-data/observation-type'
 import { MatchBasicDataDto } from '@/modules/matches/types'
 import { mapMatchesListToComboOptions } from '@/modules/matches/utils'
 
@@ -47,6 +48,15 @@ export const MatchStep = ({ matchesData }: IMatchStepProps) => {
         helperText={
           (touched.videoDescription && errors.videoDescription) ||
           t('OPTIONAL_FIELD')
+        }
+      />
+      <BasicCombo
+        data={getObservationTypeComboData(t)}
+        name="observationType"
+        label={t('OBSERVATION_TYPE')}
+        error={touched.observationType && !!errors.observationType}
+        helperText={
+          touched.observationType ? errors.observationType : undefined
         }
       />
     </Box>

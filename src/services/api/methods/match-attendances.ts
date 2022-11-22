@@ -13,16 +13,24 @@ export const getActiveMatchAttendance = async () => {
   return data.data
 }
 
-export const addMatchAttendance = async (id: string) => {
+export interface IAddMatchAttendance {
+  matchId: string
+  observationType: 'LIVE' | 'VIDEO'
+}
+export const addMatchAttendance = async ({
+  observationType,
+  matchId,
+}: IAddMatchAttendance) => {
   const { data } = await client.post<ApiResponse<MatchAttendanceDto>>(
-    `/${moduleName}/${id}`,
+    `/${moduleName}`,
+    { observationType, matchId },
   )
   return data
 }
 
-export const removeMatchAttendance = async (id: string) => {
+export const removeMatchAttendance = async () => {
   const { data } = await client.patch<ApiResponse<MatchAttendanceDto>>(
-    `/${moduleName}/${id}`,
+    `/${moduleName}/leave-active`,
   )
   return data
 }

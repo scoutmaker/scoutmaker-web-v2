@@ -1,7 +1,7 @@
 import { TFunction } from 'next-i18next'
 import * as yup from 'yup'
 
-import { MatchAttendanceDto } from '../types'
+import { AddMatchAttendanceDto, MatchAttendanceDto } from '../types'
 
 export function generateValidationSchema(t: TFunction) {
   return yup
@@ -10,19 +10,22 @@ export function generateValidationSchema(t: TFunction) {
         .string()
         .nullable()
         .required(t('go-to-match:NO_MATCH_ERROR')),
+      observationType: yup
+        .string()
+        .nullable()
+        .required(t('go-to-match:NO_OBSERVATION_TYPE_ERROR')),
     })
     .defined()
 }
 
 export function getInitialStateFromCurrent(
   attendance: MatchAttendanceDto | undefined | null,
-): {
-  matchId: string
-} {
-  if (!attendance) return { matchId: '' }
+): AddMatchAttendanceDto {
+  if (!attendance) return { matchId: '', observationType: 'VIDEO' }
 
-  const { match } = attendance
+  const { match, observationType } = attendance
   return {
     matchId: match.id,
+    observationType,
   }
 }

@@ -1,16 +1,18 @@
 import { styled } from '@mui/material/styles'
 
+import { MatchAttendanceDto } from '@/modules/match-attendances/types'
+
 import { NavList } from '../nav/nav-list'
 import { StyledDrawer } from './styles'
 
 interface IProps {
-  currentMatchId: string | null
+  matchAttendance: MatchAttendanceDto | null
 }
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar)
 
-export const Sidebar = ({ currentMatchId }: IProps) => (
+export const Sidebar = ({ matchAttendance }: IProps) => (
   <StyledDrawer variant="permanent" anchor="left">
     <Offset />
-    <NavList currentMatchId={currentMatchId} />
+    <NavList matchAttendance={matchAttendance} />
   </StyledDrawer>
 )

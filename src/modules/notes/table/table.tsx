@@ -28,6 +28,11 @@ function generateHeadCells(t: TFunction): IHeadCell[] {
     { id: 'matchDate', label: t('MATCH_DATE'), isSortingDisabled: true },
     { id: 'author', label: t('AUTHOR') },
     { id: 'createdAt', label: t('CREATED_AT') },
+    {
+      id: 'observationType',
+      label: t('OBSERVATION'),
+      isSortingDisabled: true,
+    },
   ]
 }
 
