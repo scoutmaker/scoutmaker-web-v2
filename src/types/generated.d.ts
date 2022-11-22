@@ -438,15 +438,15 @@ declare namespace Components {
         }
         export interface DashboardDto {
             user: UserDashboardDto;
-            reports?: number;
-            reportsRatio?: number;
-            notes?: number;
-            notesRatio?: number;
-            observedMatches?: number;
-            observedMatchesRatio?: number;
+            reportsCount?: number;
+            recentReportsRatio?: number;
+            notesCount?: number;
+            recentNotesRatio?: number;
+            observedMatchesCount?: number;
+            recentObservedMatchesRatio?: number;
             organizations?: OrganizationInfoDto[];
-            scouts?: number;
-            observerdPlayers?: number;
+            scoutsCount?: number;
+            observerdPlayersCount?: number;
             topNotes?: DashboardNoteDto[];
             topReports?: DashboardReportDto[];
             topPlayers?: DashboardPlayerDto[];
@@ -689,7 +689,7 @@ declare namespace Components {
         }
         export interface OrganizationInfoDto {
             name: string;
-            sharedInfo: number;
+            sharedMatchesCount: number;
         }
         export interface OrganizationInsiderNoteAceDto {
             id: string;
