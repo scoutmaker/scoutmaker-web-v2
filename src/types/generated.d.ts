@@ -2915,7 +2915,7 @@ declare namespace Paths {
             export type MatchIds = string[];
             export type OnlyLikedPlayers = boolean;
             export type OnlyLikedTeams = boolean;
-            export type OnlyNullPlayers = boolean;
+            export type OnlyWithoutPlayers = boolean;
             export type Page = number;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
@@ -2943,7 +2943,7 @@ declare namespace Paths {
             userId?: Parameters.UserId;
             onlyLikedTeams?: Parameters.OnlyLikedTeams;
             onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
-            onlyNullPlayers?: Parameters.OnlyNullPlayers;
+            onlyWithoutPlayers?: Parameters.OnlyWithoutPlayers;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;

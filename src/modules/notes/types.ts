@@ -29,7 +29,7 @@ export type FindAllNotesParams = Pick<
   | 'userId'
   | 'onlyLikedPlayers'
   | 'onlyLikedTeams'
-  | 'onlyNullPlayers'
+  | 'onlyWithoutPlayers'
 >
 
 export type NotesFiltersDto = Omit<

@@ -100,7 +100,7 @@ export function useSingleMatchPageData({
   const { data: unassignedNotes, isLoading: unassignedNotesLoading } = useNotes(
     {
       matchIds: [matchId],
-      onlyNullPlayers: true,
+      onlyWithoutPlayers: true,
       ...unassignedNotesTableSettings,
       sortBy: unassignedNotesTableSettings.sortBy as NotesSortBy,
     },
