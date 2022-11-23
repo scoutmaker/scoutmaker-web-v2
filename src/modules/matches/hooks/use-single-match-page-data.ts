@@ -10,6 +10,7 @@ import { useTable } from '@/utils/hooks/use-table'
 
 type CommonTabData = {
   name: string
+  titleI18nKey: string
   docCount: number
   tableSettings: ReturnType<typeof useTable>['tableSettings']
   tableHandlers: Omit<ReturnType<typeof useTable>, 'tableSettings'>
@@ -129,6 +130,7 @@ export function useSingleMatchPageData({
     {
       name: 'home-team-notes',
       type: 'note',
+      titleI18nKey: 'matches:HOME_TEAM_NOTES',
       data: homeTeamNotes?.docs || [],
       docCount: homeTeamNotes?.totalDocs || 0,
       tableSettings: homeTeamNotesTableSettings,
@@ -137,6 +139,7 @@ export function useSingleMatchPageData({
     {
       name: 'home-team-reports',
       type: 'report',
+      titleI18nKey: 'matches:HOME_TEAM_REPORTS',
       data: homeTeamReports?.docs || [],
       docCount: homeTeamReports?.totalDocs || 0,
       tableSettings: homeTeamReportsTableSettings,
@@ -145,6 +148,7 @@ export function useSingleMatchPageData({
     {
       name: 'away-team-notes',
       type: 'note',
+      titleI18nKey: 'matches:AWAY_TEAM_NOTES',
       data: awayTeamNotes?.docs || [],
       docCount: awayTeamNotes?.totalDocs || 0,
       tableSettings: awayTeamNotesTableSettings,
@@ -153,6 +157,7 @@ export function useSingleMatchPageData({
     {
       name: 'away-team-reports',
       type: 'report',
+      titleI18nKey: 'matches:AWAY_TEAM_REPORTS',
       data: awayTeamReports?.docs || [],
       docCount: awayTeamReports?.totalDocs || 0,
       tableSettings: awayTeamReportsTableSettings,
@@ -161,6 +166,7 @@ export function useSingleMatchPageData({
     {
       name: 'unassigned-notes',
       type: 'note',
+      titleI18nKey: 'matches:UNASSIGNED_NOTES',
       data: unassignedNotes?.docs || [],
       docCount: unassignedNotes?.totalDocs || 0,
       tableSettings: unassignedNotesTableSettings,

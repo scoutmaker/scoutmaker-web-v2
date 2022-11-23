@@ -1,4 +1,4 @@
-import { AppBar, Box, Grid, Tab, Tabs, Typography } from '@mui/material'
+import { AppBar, Box, Tab, Tabs, useMediaQuery, useTheme } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { ErrorContent } from '@/components/error/error-content'
@@ -33,14 +33,15 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
   const { t } = useTranslation()
   const { activeTab, handleTabChange } = useTabs()
 
+  const customTheme = useTheme()
+  const isMobile = useMediaQuery(customTheme.breakpoints.down('sm'))
+
   const { tabs, likeNote, likeReport, unlikeNote, unlikeReport, isLoading } =
     useSingleMatchPageData({
       matchId: data?.id || '',
       homeTeamId: data?.homeTeam.id || '',
       awayTeamId: data?.awayTeam.id || '',
     })
-
-  const headings = [data?.homeTeam.name, data?.awayTeam.name, t('UNASSIGNED')]
 
   if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />
 
@@ -55,45 +56,14 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
       />
       <MatchDetailsCard match={data} />
 
-      <Grid
-        container
-        sx={theme => ({
-          bgcolor: theme.palette.primary.main,
-          marginTop: theme.spacing(2),
-          paddingTop: theme.spacing(1),
-          borderTopLeftRadius: 5,
-          borderTopRightRadius: 5,
-        })}
-      >
-        {headings.map((heading, idx) => (
-          <Box
-            key={heading}
-            sx={idx !== 2 ? { width: '40%' } : { width: '20%' }}
-          >
-            <Typography
-              sx={theme => ({
-                fontSize: 22,
-                color: theme.palette.primary.contrastText,
-                textAlign: 'center',
-                overflowWrap: 'break-word',
-                [theme.breakpoints.down('sm')]: {
-                  fontSize: 16,
-                },
-              })}
-            >
-              {heading}
-            </Typography>
-          </Box>
-        ))}
-      </Grid>
       <Box width="100%">
         <AppBar
           position="static"
-          sx={theme => ({
-            marginBottom: theme.spacing(1),
-            borderBottomLeftRadius: 5,
-            borderBottomRightRadius: 5,
-          })}
+          sx={{
+            marginTop: 3,
+            marginBottom: 1,
+            borderRadius: 1,
+          }}
         >
           <Tabs
             value={activeTab}
@@ -101,15 +71,11 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
             aria-label="teams-notes-reports-tab"
             indicatorColor="secondary"
             textColor="inherit"
-            variant="fullWidth"
+            variant={isMobile ? 'scrollable' : 'fullWidth'}
+            scrollButtons="auto"
           >
-            {tabs.map(({ name, type, docCount }) => (
-              <Tab
-                key={name}
-                label={`${
-                  type === 'note' ? t('NOTES') : t('REPORTS')
-                } (${docCount})`}
-              />
+            {tabs.map(({ name, docCount, titleI18nKey }) => (
+              <Tab key={name} label={t(titleI18nKey, { count: docCount })} />
             ))}
           </Tabs>
         </AppBar>

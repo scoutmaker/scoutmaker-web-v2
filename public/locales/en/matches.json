@@ -9,5 +9,10 @@
   "NO_HOME_TEAM_ERROR": "Please select home team",
   "NO_AWAY_TEAM_ERROR": "Please select away team",
   "NO_COMPETITION_ERROR": "Please select competition",
-  "NO_SEASON_ERROR": "Please select season"
+  "NO_SEASON_ERROR": "Please select season",
+  "HOME_TEAM_NOTES": "Home team - notes ({{count}})",
+  "AWAY_TEAM_NOTES": "Away team - notes ({{count}})",
+  "HOME_TEAM_REPORTS": "Home team - reports ({{count}})",
+  "AWAY_TEAM_REPORTS": "Away team - reports ({{count}})",
+  "UNASSIGNED_NOTES": "Unassigned notes ({{count}})"
 }
