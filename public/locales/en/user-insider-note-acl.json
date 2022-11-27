@@ -1,0 +1,8 @@
+{
+  "INDEX_PAGE_TITLE": "Users insider notes ACL database",
+  "CREATE_PAGE_TITLE": "Create new user insider note ACE",
+  "NO_USER_ERROR": "Please choose ACE user",
+  "NO_INSIDER_NOTE_ERROR": "Please choose ACE insider note",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete this user insider note ACE?",
+  "EDIT_PAGE_TITLE": "Edit user insider note ACE"
+}

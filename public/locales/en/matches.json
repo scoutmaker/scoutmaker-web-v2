@@ -1,0 +1,13 @@
+{
+  "INDEX_PAGE_TITLE": "Matches database",
+  "CREATE_MATCH_PAGE_TITLE": "Create new match",
+  "EDIT_MATCH_PAGE_TITLE": "Edit match {{name}} data",
+  "DELETE_MATCH_CONFIRM_QUESTION": "Are you sure you want to delete match {{name}}?",
+  "WITH_VIDEO_ONLY": "With video only",
+  "HOME_GOALS": "Home team goals",
+  "AWAY_GOALS": "Away team goals",
+  "NO_HOME_TEAM_ERROR": "Please select home team",
+  "NO_AWAY_TEAM_ERROR": "Please select away team",
+  "NO_COMPETITION_ERROR": "Please select competition",
+  "NO_SEASON_ERROR": "Please select season"
+}

@@ -1,78 +1,75 @@
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 
 import { ErrorContent } from '@/components/error/error-content'
+import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { withSessionSsr } from '@/modules/auth/session'
 import { ClubDetailsCard } from '@/modules/clubs/details-card'
 import { ClubDto } from '@/modules/clubs/types'
+import { useLikeTeam, useTeams, useUnlikeTeam } from '@/modules/teams/hooks'
+import { TeamsTable } from '@/modules/teams/table/teams'
 import { getClubBySlug } from '@/services/api/methods/clubs'
 import { ApiError } from '@/services/api/types'
-import { redirectToLogin } from '@/utils/redirect-to-login'
+import { useTable } from '@/utils/hooks/use-table'
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-type TClubPageProps = {
-  errorStatus: number | null
-  errorMessage: string | null
-  club: ClubDto | null
-}
-
-export const getServerSideProps = withSessionSsr<TClubPageProps>(
-  async ({ req, res, locale, params }) => {
-    const { user } = req.session
-
-    if (!user) {
-      redirectToLogin(res)
-      return {
-        props: {
-          errorStatus: null,
-          errorMessage: null,
-          club: null,
-        },
-      }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'clubs',
-    ])
-
-    let club: ClubDto
-
+export const getServerSideProps = withSessionSsrRole<ClubDto>(
+  ['common', 'clubs'],
+  false,
+  async (token, params) => {
     try {
-      const clubData = await getClubBySlug(
-        params?.slug as string,
-        req.session.token,
-      )
-      club = clubData
+      const data = await getClubBySlug(params?.slug as string, token)
+      return { data }
     } catch (error) {
-      const { response } = error as ApiError
-
-      return {
-        props: {
-          ...translations,
-          errorStatus: response.status,
-          errorMessage: response.data.message,
-          club: null,
-        },
-      }
-    }
-
-    return {
-      props: {
-        ...translations,
-        errorStatus: null,
-        errorMessage: null,
-        club,
-      },
+      return { data: null, error: error as ApiError }
     }
   },
 )
 
-const ClubPage = ({ club, errorMessage, errorStatus }: TClubPageProps) => {
-  if (club) {
+const ClubPage = ({ data, errorMessage, errorStatus }: TSsrRole<ClubDto>) => {
+  const { t } = useTranslation()
+
+  const {
+    tableSettings: { page, rowsPerPage, sortBy, order },
+    handleChangePage,
+    handleChangeRowsPerPage,
+    handleSort,
+  } = useTable(`club-teams-table`)
+
+  const { data: teamsData, isLoading: teamsLoading } = useTeams({
+    clubId: data?.id || '',
+  })
+  const { mutate: likeTeam, isLoading: likeTeamLoading } = useLikeTeam()
+  const { mutate: unLikeTeam, isLoading: unLikeTeamLoading } = useUnlikeTeam()
+
+  const isLoading = teamsLoading || likeTeamLoading || unLikeTeamLoading
+
+  if (data) {
     return (
       <>
-        <PageHeading title={club.name} />
-        <ClubDetailsCard club={club} />
+        {isLoading && <Loader />}
+        <PageHeading title={data.name} />
+        <ClubDetailsCard club={data} />
+        <Typography
+          variant="h3"
+          align="center"
+          paddingY={theme => theme.spacing(2.2)}
+        >
+          {t('TEAMS')}
+        </Typography>
+        <TeamsTable
+          page={page}
+          rowsPerPage={rowsPerPage}
+          sortBy={sortBy}
+          order={order}
+          handleChangePage={handleChangePage}
+          handleChangeRowsPerPage={handleChangeRowsPerPage}
+          handleSort={handleSort}
+          total={teamsData?.totalDocs || 0}
+          data={teamsData?.docs || []}
+          onUnLikeClick={unLikeTeam}
+          onLikeClick={likeTeam}
+        />
       </>
     )
   }

@@ -1,10 +1,8 @@
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { withSessionSsr } from '@/modules/auth/session'
 import { useCountriesList } from '@/modules/countries/hooks'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import { EditPlayerForm } from '@/modules/players/forms/edit'
@@ -13,71 +11,26 @@ import { PlayerDto } from '@/modules/players/types'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { getPlayerBySlug } from '@/services/api/methods/players'
 import { ApiError } from '@/services/api/types'
-import { redirectToLogin } from '@/utils/redirect-to-login'
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-type TEditPlayerPageProps = {
-  errorStatus: number | null
-  errorMessage: string | null
-  player: PlayerDto | null
-}
-
-export const getServerSideProps = withSessionSsr<TEditPlayerPageProps>(
-  async ({ req, res, locale, params }) => {
-    const { user } = req.session
-
-    if (!user) {
-      redirectToLogin(res)
-      return {
-        props: {
-          errorStatus: null,
-          errorMessage: null,
-          player: null,
-        },
-      }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'players',
-    ])
-
-    let player: PlayerDto
-
+export const getServerSideProps = withSessionSsrRole<PlayerDto>(
+  ['common', 'players'],
+  false,
+  async (token, params) => {
     try {
-      const playerData = await getPlayerBySlug(
-        params?.slug as string,
-        req.session.token,
-      )
-      player = playerData
+      const data = await getPlayerBySlug(params?.slug as string, token)
+      return { data }
     } catch (error) {
-      const { response } = error as ApiError
-
-      return {
-        props: {
-          ...translations,
-          errorStatus: response.status,
-          errorMessage: response.data.message,
-          player: null,
-        },
-      }
-    }
-
-    return {
-      props: {
-        ...translations,
-        errorStatus: null,
-        errorMessage: null,
-        player,
-      },
+      return { data: null, error: error as ApiError }
     }
   },
 )
 
 const EditPlayerPage = ({
-  player,
+  data,
   errorMessage,
   errorStatus,
-}: TEditPlayerPageProps) => {
+}: TSsrRole<PlayerDto>) => {
   const { t } = useTranslation()
 
   const { data: positions, isLoading: positionsLoading } =
@@ -86,22 +39,22 @@ const EditPlayerPage = ({
   const { data: teams, isLoading: teamsLoading } = useTeamsList()
 
   const { mutate: updatePlayer, isLoading: updatePlayerLoading } =
-    useUpdatePlayer(player?.id || 0)
+    useUpdatePlayer(data?.id || '')
 
   const isLoading =
     updatePlayerLoading || positionsLoading || countriesLoading || teamsLoading
 
-  if (player) {
+  if (data) {
     return (
       <>
         {isLoading && <Loader />}
         <PageHeading
           title={t('players:EDIT_PLAYER_PAGE_TITLE', {
-            name: `${player.firstName} ${player.lastName}`,
+            name: `${data.firstName} ${data.lastName}`,
           })}
         />
         <EditPlayerForm
-          current={player}
+          current={data}
           countriesData={countries || []}
           positionsData={positions || []}
           teamsData={teams || []}

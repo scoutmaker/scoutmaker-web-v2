@@ -14,7 +14,7 @@
     "plugin:import/typescript",
     "prettier"
   ],
-  "plugins": ["@typescript-eslint", "import", "simple-import-sort"],
+  "plugins": ["@typescript-eslint", "import", "simple-import-sort", "prettier"],
   "settings": {
     "next": {
       "rootDir": ["apps/*/", "packages/*/"]
@@ -32,6 +32,7 @@
   "rules": {
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
+    "prettier/prettier": "error",
     "react/function-component-definition": [
       2,
       {
@@ -45,7 +46,8 @@
     "react/require-default-props": "off",
     "react/no-unstable-nested-components": "off",
     "react/jsx-no-bind": "off",
-    "@typescript-eslint/no-use-before-define": "off"
+    "@typescript-eslint/no-use-before-define": "off",
+    "radix": "off"
   },
   "overrides": [
     {
@@ -73,6 +75,7 @@
     "styles",
     ".next",
     "coverage",
-    "dist"
+    "dist",
+    "src/types/generated.d.ts"
   ]
 }

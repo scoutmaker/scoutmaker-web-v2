@@ -1,0 +1,15 @@
+{
+  "NO_NAME_ERROR": "Please provide season name",
+  "NO_START_DATE_ERROR": "Please provide start date",
+  "NO_END_DATE_ERROR": "Please provide end date",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete season {{name}}?",
+  "INDEX_PAGE_TITLE": "Seasons database",
+  "CREATE_PAGE_TITLE": "Create new season",
+  "EDIT_PAGE_TITLE": "Edit season",
+  "START_DATE": "Start date",
+  "END_DATE": "End date",
+  "IS_ACTIVE": "Is active",
+  "SET_ACTIVE": "Set as active",
+  "UNSET_ACTIVE": "Set as not active",
+  "COPY_TO_NEW": "Copy competition participations"
+}

@@ -1,60 +1,38 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
 
+import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { withSessionSsr } from '@/modules/auth/session'
 import { ClubsFilterForm } from '@/modules/clubs/forms/filter'
 import { useClubs, useDeleteClub } from '@/modules/clubs/hooks'
-import { ClubsTableRow } from '@/modules/clubs/table/row'
 import { ClubsTable } from '@/modules/clubs/table/table'
-import { ClubsFiltersDto, ClubsSortBy } from '@/modules/clubs/types'
+import { ClubsFiltersState, ClubsSortBy } from '@/modules/clubs/types'
 import { useCountriesList } from '@/modules/countries/hooks'
 import { useRegionsList } from '@/modules/regions/hooks'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
-import { redirectToLogin } from '@/utils/redirect-to-login'
+import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsr(
-  async ({ locale, req, res }) => {
-    const { user } = req.session
+export const getServerSideProps = withSessionSsrRole(['common', 'clubs'], false)
 
-    if (!user) {
-      redirectToLogin(res)
-      return { props: {} }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'clubs',
-    ])
-
-    return {
-      props: {
-        ...translations,
-      },
-    }
-  },
-)
-
-const initialFilters: ClubsFiltersDto = {
+const initialFilters: ClubsFiltersState = {
   name: '',
-  countryId: 0,
-  regionId: 0,
+  countryId: null,
+  regionId: null,
 }
 
+// This should be generic, we just need the id and display name for every module
 interface IClubToDeleteData {
-  id: number
+  id: string
   name: string
 }
 
 const ClubsPage = () => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
@@ -66,16 +44,21 @@ const ClubsPage = () => {
     handleChangePage,
     handleChangeRowsPerPage,
     handleSort,
-  } = useTable('clubsTable')
+  } = useTable('clubs-table')
 
-  const [filters, setFilters] = useLocalStorage<ClubsFiltersDto>({
+  const [filters, setFilters] = useLocalStorage<ClubsFiltersState>({
     key: 'clubs-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: ClubsFiltersDto) {
+  function handleSetFilters(newFilters: ClubsFiltersState) {
     setFilters(newFilters)
     handleChangePage(null, 0)
+  }
+
+  function handleDeleteItemClick(data: IClubToDeleteData) {
+    setClubToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
   }
 
   const { data: countries, isLoading: countriesLoading } = useCountriesList()
@@ -87,7 +70,7 @@ const ClubsPage = () => {
     limit: rowsPerPage,
     sortBy: sortBy as ClubsSortBy,
     sortingOrder: order,
-    ...filters,
+    ...mapFiltersStateToDto(filters),
   })
 
   const { mutate: deleteClub, isLoading: deleteClubLoading } = useDeleteClub()
@@ -99,13 +82,15 @@ const ClubsPage = () => {
         regionsLoading ||
         deleteClubLoading) && <Loader />}
       <PageHeading title={t('clubs:INDEX_PAGE_TITLE')} />
-      <ClubsFilterForm
-        filters={filters}
-        countriesData={countries || []}
-        regionsData={regions || []}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <ClubsFilterForm
+          filters={filters}
+          countriesData={countries || []}
+          regionsData={regions || []}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <ClubsTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -116,25 +101,10 @@ const ClubsPage = () => {
         handleSort={handleSort}
         total={clubs?.totalDocs || 0}
         actions
-      >
-        {clubs
-          ? clubs.docs.map(club => (
-              <ClubsTableRow
-                key={club.id}
-                data={club}
-                onEditClick={() => {
-                  router.push(`/clubs/edit/${club.slug}`)
-                }}
-                onDeleteClick={() => {
-                  setClubToDeleteData({ id: club.id, name: club.name })
-                  setIsDeleteConfirmationModalOpen(true)
-                }}
-                isEditOptionEnabled
-                isDeleteOptionEnabled
-              />
-            ))
-          : null}
-      </ClubsTable>
+        data={clubs?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+      />
+
       <Fab href="/clubs/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}

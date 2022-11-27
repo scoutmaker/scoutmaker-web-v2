@@ -3,6 +3,7 @@ import {
   FindAllTeamsParams,
   TeamBasicDataDto,
   TeamDto,
+  TeamsFiltersDto,
   UpdateTeamDto,
 } from '@/modules/teams/types'
 import {
@@ -25,8 +26,8 @@ import { useUpdateDocument } from '@/utils/hooks/api/use-update-document'
 
 const moduleName: TModuleName = 'teams'
 
-export const useTeamsList = () =>
-  useList<TeamBasicDataDto>(moduleName, getTeamsList)
+export const useTeamsList = (params?: FindAllTeamsParams) =>
+  useList<TeamBasicDataDto, TeamsFiltersDto>(moduleName, getTeamsList, params)
 
 export const useTeams = (params: FindAllTeamsParams) =>
   usePaginatedData<FindAllTeamsParams, TeamDto>(moduleName, params, getTeams)
@@ -34,7 +35,7 @@ export const useTeams = (params: FindAllTeamsParams) =>
 export const useCreateTeam = () =>
   useCreateDocument<CreateTeamDto, TeamDto>(moduleName, createTeam)
 
-export const useUpdateTeam = (id: number) =>
+export const useUpdateTeam = (id: string) =>
   useUpdateDocument<UpdateTeamDto, TeamDto>(moduleName, id, updateTeam)
 
 export const useDeleteTeam = () =>

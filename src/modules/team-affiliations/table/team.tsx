@@ -1,13 +1,15 @@
+import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
 
 import { Table } from '@/components/tables/table'
 import { ICommonTableProps } from '@/types/tables'
 
-import { TeamAffiliationsSortBy } from '../types'
+import { TeamAffiliationDto, TeamAffiliationsSortBy } from '../types'
+import { TeamAffiliationsTableRow } from './row'
 
 interface ITeamAffiliationsTableProps extends ICommonTableProps {
-  children: ReactNode
+  data: TeamAffiliationDto[]
+  handleDeleteItemClick?: (data: { id: string }) => void
   shouldDisplayPlayerName?: boolean
 }
 
@@ -48,10 +50,12 @@ export const TeamAffiliationsTable = ({
   handleSort,
   total,
   actions,
-  children,
+  data,
   shouldDisplayPlayerName,
+  handleDeleteItemClick,
 }: ITeamAffiliationsTableProps) => {
   const { t } = useTranslation()
+  const router = useRouter()
 
   return (
     <Table
@@ -66,7 +70,22 @@ export const TeamAffiliationsTable = ({
       headCells={generateHeadCells({ t, shouldDisplayPlayerName })}
       actions={actions}
     >
-      {children}
+      {data.map(affiliation => (
+        <TeamAffiliationsTableRow
+          key={affiliation.id}
+          data={affiliation}
+          onEditClick={() =>
+            router.push(`/team-affiliations/edit/${affiliation.id}`)
+          }
+          onDeleteClick={
+            handleDeleteItemClick
+              ? () => handleDeleteItemClick({ id: affiliation.id })
+              : undefined
+          }
+          actions={actions}
+          shouldDisplayPlayerName={shouldDisplayPlayerName}
+        />
+      ))}
     </Table>
   )
 }

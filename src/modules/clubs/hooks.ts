@@ -30,7 +30,7 @@ export const useClubs = (params: FindAllClubsParams) =>
 export const useCreateClub = () =>
   useCreateDocument<CreateClubDto, ClubDto>(moduleName, createClub)
 
-export const useUpdateClub = (id: number) =>
+export const useUpdateClub = (id: string) =>
   useUpdateDocument<UpdateClubDto, ClubDto>(moduleName, id, updateClub)
 
 export const useDeleteClub = () =>

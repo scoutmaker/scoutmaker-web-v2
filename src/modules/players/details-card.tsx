@@ -89,7 +89,7 @@ export const PlayerDetialsCard = ({ player }: IPlayerDetailsCard) => {
           <Grid item xs={12}>
             <Typography>
               <strong>{t('players:CURRENT_TEAM')}: </strong>
-              {teams[0].team ? (
+              {teams[0]?.team ? (
                 <Link href={`/teams/${teams[0].team.slug}`} passHref>
                   <MUILink>{teams[0].team.name}</MUILink>
                 </Link>

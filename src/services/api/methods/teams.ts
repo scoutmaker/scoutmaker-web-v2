@@ -3,6 +3,7 @@ import {
   FindAllTeamsParams,
   TeamBasicDataDto,
   TeamDto,
+  TeamsFiltersDto,
   UpdateTeamDto,
 } from '@/modules/teams/types'
 import { TModuleName } from '@/services/api/modules'
@@ -23,7 +24,8 @@ const moduleName: TModuleName = 'teams'
 export const getTeamBySlug = (slug: string, token?: string) =>
   getAssetBySlug<TeamDto>({ moduleName, slug, token })
 
-export const getTeamsList = () => getDataList<TeamBasicDataDto>(moduleName)
+export const getTeamsList = (params?: FindAllTeamsParams) =>
+  getDataList<TeamBasicDataDto, TeamsFiltersDto>(moduleName, params)
 
 export const getTeams = (params: FindAllTeamsParams) =>
   getPaginatedData<FindAllTeamsParams, TeamDto>(params, moduleName)
@@ -32,17 +34,17 @@ export const createTeam = (data: CreateTeamDto) =>
   createDocument<CreateTeamDto, TeamDto>(data, moduleName)
 
 interface IUpdateTeamArgs {
-  id: number
+  id: string
   data: UpdateTeamDto
 }
 
 export const updateTeam = ({ id, data }: IUpdateTeamArgs) =>
   updateDocument<UpdateTeamDto, TeamDto>(id, data, moduleName)
 
-export const deleteTeam = (id: number) =>
+export const deleteTeam = (id: string) =>
   deleteDocument<TeamDto>(id, moduleName)
 
-export const likeTeam = (id: number) => likeDocument<TeamDto>(id, moduleName)
+export const likeTeam = (id: string) => likeDocument<TeamDto>(id, moduleName)
 
-export const unlikeTeam = (id: number) =>
+export const unlikeTeam = (id: string) =>
   unlikeDocument<TeamDto>(id, moduleName)

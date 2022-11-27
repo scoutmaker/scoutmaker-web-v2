@@ -1,6 +1,4 @@
 import {
-  Delete as DeleteIcon,
-  Edit as EditIcon,
   Favorite as UnlikeIcon,
   FavoriteBorder as LikeIcon,
 } from '@mui/icons-material'
@@ -9,6 +7,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
+import { LikedTableCell } from '@/components/likedTableCell/likedTableCell'
 import { StyledTableCell } from '@/components/tables/cell'
 import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
@@ -20,10 +19,9 @@ interface ITeamsTableRowProps {
   data: TeamDto
   onEditClick: () => void
   onDeleteClick: () => void
-  onLikeClick: (id: number) => void
-  onUnlikeClick: (id: number) => void
-  isEditOptionEnabled: boolean
-  isDeleteOptionEnabled: boolean
+  onLikeClick: (id: string) => void
+  onUnlikeClick: (id: string) => void
+  actions?: boolean
 }
 
 export const TeamsTableRow = ({
@@ -32,8 +30,7 @@ export const TeamsTableRow = ({
   onDeleteClick,
   onLikeClick,
   onUnlikeClick,
-  isEditOptionEnabled,
-  isDeleteOptionEnabled,
+  actions,
 }: ITeamsTableRowProps) => {
   const { t } = useTranslation()
   const router = useRouter()
@@ -48,54 +45,51 @@ export const TeamsTableRow = ({
 
   const { id, name, slug, club, competitions, likes } = data
 
+  const cellChangeLikedClick = () => {
+    if (likes.length) onUnlikeClick(id)
+    else onLikeClick(id)
+  }
+
   return (
     <StyledTableRow
       hover
       key={id}
       onClick={isMenuOpen ? undefined : () => router.push(`/teams/${slug}`)}
     >
-      <StyledTableCell padding="checkbox">
-        <TableMenu
-          menuAnchorEl={menuAnchorEl}
-          isMenuOpen={isMenuOpen}
-          onMenuClick={handleMenuClick}
-          onMenuClose={handleMenuClose}
-        >
-          <TableMenuItem
-            icon={<EditIcon fontSize="small" />}
-            text={t('EDIT')}
-            onClick={() => {
-              handleMenuAction(onEditClick)
-            }}
-            disabled={!isEditOptionEnabled}
-          />
-          <TableMenuItem
-            icon={<DeleteIcon fontSize="small" />}
-            text={t('DELETE')}
-            onClick={() => {
-              handleMenuAction(onDeleteClick)
-            }}
-            disabled={!isDeleteOptionEnabled}
-          />
-          {likes.length === 0 ? (
-            <TableMenuItem
-              icon={<LikeIcon fontSize="small" />}
-              text={t('ADD_TO_FAVOURITES')}
-              onClick={() => {
-                handleMenuAction(() => onLikeClick(id))
-              }}
-            />
-          ) : (
-            <TableMenuItem
-              icon={<UnlikeIcon fontSize="small" />}
-              text={t('REMOVE_FROM_FAVOURITES')}
-              onClick={() => {
-                handleMenuAction(() => onUnlikeClick(id))
-              }}
-            />
-          )}
-        </TableMenu>
-      </StyledTableCell>
+      {actions && (
+        <StyledTableCell padding="checkbox">
+          <TableMenu
+            menuAnchorEl={menuAnchorEl}
+            isMenuOpen={isMenuOpen}
+            onMenuClick={handleMenuClick}
+            onMenuClose={handleMenuClose}
+            onDeleteClick={() => handleMenuAction(onDeleteClick)}
+            onEditClick={() => handleMenuAction(onEditClick)}
+          >
+            {likes.length === 0 ? (
+              <TableMenuItem
+                icon={<LikeIcon fontSize="small" />}
+                text={t('ADD_TO_FAVOURITES')}
+                onClick={() => {
+                  handleMenuAction(() => onLikeClick(id))
+                }}
+              />
+            ) : (
+              <TableMenuItem
+                icon={<UnlikeIcon fontSize="small" />}
+                text={t('REMOVE_FROM_FAVOURITES')}
+                onClick={() => {
+                  handleMenuAction(() => onUnlikeClick(id))
+                }}
+              />
+            )}
+          </TableMenu>
+        </StyledTableCell>
+      )}
+      <LikedTableCell
+        isLiked={!!likes.length}
+        onClicked={cellChangeLikedClick}
+      />
       <StyledTableCell>{name}</StyledTableCell>
       <StyledTableCell>
         <Link href={`/clubs/${club.slug}`} passHref>

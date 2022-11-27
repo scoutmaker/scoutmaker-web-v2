@@ -1,15 +1,22 @@
+import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
 
 import { Table } from '@/components/tables/table'
-import { ICommonTableProps, IHeadCell } from '@/types/tables'
+import { ICommonTableProps, IHeadCell, INameToDeleteData } from '@/types/tables'
+
+import { PlayerDto } from '../types'
+import { PlayersTableRow } from './row'
 
 interface IPlayersTableProps extends ICommonTableProps {
-  children: ReactNode
+  data: PlayerDto[]
+  handleDeleteItemClick: (data: INameToDeleteData) => void
+  onLikeClick: (id: string) => void
+  onUnLikeClick: (id: string) => void
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
+    { id: 'favourite', label: '', isSortingDisabled: true },
     { id: 'lastName', label: t('LAST_NAME') },
     { id: 'firstName', label: t('FIRST_NAME') },
     { id: 'country', label: t('COUNTRY') },
@@ -34,9 +41,13 @@ export const PlayersTable = ({
   handleSort,
   total,
   actions,
-  children,
+  data,
+  handleDeleteItemClick,
+  onLikeClick,
+  onUnLikeClick,
 }: IPlayersTableProps) => {
   const { t } = useTranslation()
+  const router = useRouter()
 
   return (
     <Table
@@ -51,7 +62,21 @@ export const PlayersTable = ({
       headCells={generateHeadCells(t)}
       actions={actions}
     >
-      {children}
+      {data.map(player => (
+        <PlayersTableRow
+          key={player.id}
+          data={player}
+          onEditClick={() => router.push(`/players/edit/${player.slug}`)}
+          onDeleteClick={() =>
+            handleDeleteItemClick({
+              id: player.id,
+              name: `${player.firstName} ${player.lastName}`,
+            })
+          }
+          onLikeClick={onLikeClick}
+          onUnlikeClick={onUnLikeClick}
+        />
+      ))}
     </Table>
   )
 }

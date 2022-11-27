@@ -1,5 +1,5 @@
 import { format } from 'date-fns'
 
-export function formatDate(date: string) {
-  return format(new Date(date), 'yyyy-MM-dd')
+export function formatDate(date?: string) {
+  return format(date ? new Date(date) : new Date(), 'yyyy-MM-dd')
 }

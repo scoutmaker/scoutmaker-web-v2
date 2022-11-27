@@ -1,0 +1,8 @@
+{
+  "NO_NAME_ERROR": "Please provide competition junior level name",
+  "NO_LEVEL_ERROR": "Please provide level of competition junior level",
+  "INDEX_PAGE_TITLE": "Competition junior levels database",
+  "CREATE_PAGE_TITLE": "Create new competiton junior level",
+  "EDIT_PAGE_TITLE": "Edit competition junior level data",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete competition junior level {{name}}?"
+}

@@ -1,0 +1,13 @@
+{
+  "INDEX_PAGE_TITLE": "Baza meczów",
+  "CREATE_MATCH_PAGE_TITLE": "Utwórz nowy mecz",
+  "EDIT_MATCH_PAGE_TITLE": "Edycja danych meczu {{name}}",
+  "DELETE_MATCH_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć dane meczu {{name}}?",
+  "WITH_VIDEO_ONLY": "Tylko z video",
+  "HOME_GOALS": "Gole gospodarzy",
+  "AWAY_GOALS": "Gole gości",
+  "NO_HOME_TEAM_ERROR": "Wybierz zespół gospodarzy",
+  "NO_AWAY_TEAM_ERROR": "Wybierz zespół gości",
+  "NO_COMPETITION_ERROR": "Wybierz rozgrywki",
+  "NO_SEASON_ERROR": "Wybierz sezon"
+}

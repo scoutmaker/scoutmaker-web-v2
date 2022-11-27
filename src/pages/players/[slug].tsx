@@ -1,133 +1,244 @@
-import { Typography } from '@mui/material'
+import { Add as AddIcon } from '@mui/icons-material'
+import { AppBar, Box, Button, Tab, Tabs } from '@mui/material'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import React, { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
+import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { withSessionSsr } from '@/modules/auth/session'
+import { TabPanel } from '@/components/tab-panel/tab-panel'
+import {
+  useInsiderNotes,
+  useLikeInsiderNote,
+  useUnLikeInsiderNote,
+} from '@/modules/insider-notes/hooks'
+import { InsiderNotesTable } from '@/modules/insider-notes/table/table'
+import { InsiderNotesSortBy } from '@/modules/insider-notes/types'
+import { useLikeNote, useNotes, useUnlikeNote } from '@/modules/notes/hooks'
+import { NotesTable } from '@/modules/notes/table/table'
+import { NotesSortBy } from '@/modules/notes/types'
 import { PlayerDetialsCard } from '@/modules/players/details-card'
 import { PlayerDto } from '@/modules/players/types'
+import {
+  useLikeReport,
+  useReports,
+  useUnlikeReport,
+} from '@/modules/reports/hooks'
+import { ReportsTable } from '@/modules/reports/table/table'
+import { ReportsSortBy } from '@/modules/reports/types'
 import { useTeamAffiliations } from '@/modules/team-affiliations/hooks'
-import { TeamAffiliationsTableRow } from '@/modules/team-affiliations/table/row'
 import { TeamAffiliationsTable } from '@/modules/team-affiliations/table/team'
 import { TeamAffiliationsSortBy } from '@/modules/team-affiliations/types'
 import { getPlayerBySlug } from '@/services/api/methods/players'
 import { ApiError } from '@/services/api/types'
 import { useTable } from '@/utils/hooks/use-table'
-import { redirectToLogin } from '@/utils/redirect-to-login'
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-type TPlayerPageProps = {
-  errorStatus: number | null
-  errorMessage: string | null
-  player: PlayerDto | null
+type TData = {
+  isAdmin: boolean
+  player: PlayerDto
 }
 
-export const getServerSideProps = withSessionSsr<TPlayerPageProps>(
-  async ({ req, res, locale, params }) => {
-    const { user } = req.session
-
-    if (!user) {
-      redirectToLogin(res)
-      return {
-        props: {
-          errorStatus: null,
-          errorMessage: null,
-          player: null,
-        },
-      }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'players',
-    ])
-
-    let player: PlayerDto
-
+export const getServerSideProps = withSessionSsrRole<TData>(
+  ['common', 'players'],
+  false,
+  async (token, params, user) => {
     try {
-      const teamData = await getPlayerBySlug(
-        params?.slug as string,
-        req.session.token,
-      )
-      player = teamData
+      const data = await getPlayerBySlug(params?.slug as string, token)
+      return { data: { isAdmin: !!user?.role.includes('ADMIN'), player: data } }
     } catch (error) {
-      const { response } = error as ApiError
-
-      return {
-        props: {
-          ...translations,
-          errorStatus: response.status,
-          errorMessage: response.data.message,
-          player: null,
-        },
-      }
-    }
-
-    return {
-      props: {
-        ...translations,
-        errorStatus: null,
-        errorMessage: null,
-        player,
-      },
+      return { data: null, error: error as ApiError }
     }
   },
 )
 
-const PlayerPage = ({
-  player,
-  errorMessage,
-  errorStatus,
-}: TPlayerPageProps) => {
-  const { t } = useTranslation(['players'])
+const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
+  const { t } = useTranslation()
+  const router = useRouter()
+  const [tabValue, setTabValue] = useState(0)
+
+  const handleTabChange = (event: any, newValue: number) =>
+    setTabValue(newValue)
+
+  const { isAdmin, player } = data || {}
 
   const {
-    tableSettings: { page, rowsPerPage, sortBy, order },
-    handleChangePage,
-    handleChangeRowsPerPage,
-    handleSort,
+    tableSettings: TeamAffiliationsTableSettings,
+    ...TeamAffiliationsTableProps
   } = useTable(`team-affiliations-table-player:${player?.id}`, 'endDate')
 
-  const { data: affiliations } = useTeamAffiliations({
-    page: page + 1,
-    limit: rowsPerPage,
-    sortBy: sortBy as TeamAffiliationsSortBy,
-    sortingOrder: order,
-    playerId: player?.id,
+  const { tableSettings: NotesTableSettings, ...NotesTableProps } =
+    useTable(`notes-table-player`)
+
+  const { tableSettings: ReportsTableSettings, ...ReportsTableProps } =
+    useTable(`reports-table-player`)
+
+  const {
+    tableSettings: InsiderNotesTableSettings,
+    ...InsiderNotesTableProps
+  } = useTable(`insider-notes-table-player`)
+
+  const { data: affiliations, isLoading: teamAffiliationsLoading } =
+    useTeamAffiliations({
+      page: TeamAffiliationsTableSettings.page + 1,
+      limit: TeamAffiliationsTableSettings.rowsPerPage,
+      sortBy: TeamAffiliationsTableSettings.sortBy as TeamAffiliationsSortBy,
+      sortingOrder: TeamAffiliationsTableSettings.order,
+      playerId: player?.id,
+    })
+
+  const { data: notes, isLoading: notesLoading } = useNotes({
+    page: NotesTableSettings.page + 1,
+    limit: NotesTableSettings.rowsPerPage,
+    sortBy: NotesTableSettings.sortBy as NotesSortBy,
+    sortingOrder: NotesTableSettings.order,
+    playerIds: [player?.id || ''],
   })
 
-  if (!player) {
-    return <ErrorContent message={errorMessage} status={errorStatus} />
-  }
+  const { data: reports, isLoading: reportsLoading } = useReports({
+    page: ReportsTableSettings.page + 1,
+    limit: ReportsTableSettings.rowsPerPage,
+    sortBy: ReportsTableSettings.sortBy as ReportsSortBy,
+    sortingOrder: ReportsTableSettings.order,
+    playerIds: [player?.id || ''],
+  })
 
+  const { data: insiderNotes, isLoading: insiderNotesLoading } =
+    useInsiderNotes({
+      page: InsiderNotesTableSettings.page + 1,
+      limit: InsiderNotesTableSettings.rowsPerPage,
+      sortBy: InsiderNotesTableSettings.sortBy as InsiderNotesSortBy,
+      sortingOrder: InsiderNotesTableSettings.order,
+      playerIds: [player?.id || ''],
+    })
+
+  const { mutate: likeNote, isLoading: likeNoteLoading } = useLikeNote()
+  const { mutate: unLikeNote, isLoading: unLikeNoteLoading } = useUnlikeNote()
+
+  const { mutate: likeReport, isLoading: likeReportLoading } = useLikeReport()
+  const { mutate: unLikeReport, isLoading: unLikeReportLoading } =
+    useUnlikeReport()
+
+  const { mutate: likeInsiderNote, isLoading: likeInsiderNoteLoading } =
+    useLikeInsiderNote()
+  const { mutate: unLikeInsiderNote, isLoading: unLikeInsiderNoteLoading } =
+    useUnLikeInsiderNote()
+
+  const isLoading =
+    likeNoteLoading ||
+    unLikeNoteLoading ||
+    likeReportLoading ||
+    unLikeReportLoading ||
+    likeInsiderNoteLoading ||
+    unLikeInsiderNoteLoading ||
+    teamAffiliationsLoading ||
+    notesLoading ||
+    reportsLoading ||
+    insiderNotesLoading
+
+  if (!player)
+    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
+      {isLoading && <Loader />}
       <PageHeading title={`${player.firstName} ${player.lastName}`} />
       <PlayerDetialsCard player={player} />
-      <section>
-        <Typography variant="h3" align="center" sx={{ margin: 3 }}>
-          {t('players:TEAM_AFFILIATIONS_HEADING')}
-        </Typography>
-        <TeamAffiliationsTable
-          page={page}
-          rowsPerPage={rowsPerPage}
-          sortBy={sortBy}
-          order={order}
-          handleChangePage={handleChangePage}
-          handleChangeRowsPerPage={handleChangeRowsPerPage}
-          handleSort={handleSort}
-          total={affiliations?.totalDocs || 0}
+      <Box width="100%" marginTop={theme => theme.spacing(4)}>
+        <AppBar
+          position="static"
+          sx={theme => ({
+            marginBottom: theme.spacing(1),
+            borderBottomLeftRadius: 5,
+            borderBottomRightRadius: 5,
+          })}
         >
-          {affiliations
-            ? affiliations.docs.map(affiliation => (
-                <TeamAffiliationsTableRow
-                  key={affiliation.id}
-                  data={affiliation}
-                />
-              ))
-            : null}
-        </TeamAffiliationsTable>
-      </section>
+          <Tabs
+            value={tabValue}
+            onChange={handleTabChange}
+            aria-label="teams-notes-reports-tab"
+            indicatorColor="secondary"
+            textColor="inherit"
+            variant="fullWidth"
+            sx={theme => ({
+              '& .MuiTab-root': {
+                [theme.breakpoints.down('sm')]: {
+                  fontSize: 10,
+                },
+              },
+            })}
+            centered
+          >
+            <Tab label={t('NOTES')} />
+            <Tab label={t('INSIDER_NOTES')} />
+            <Tab label={t('REPORTS')} />
+            <Tab label={t('TEAM_AFFILIATIONS')} />
+          </Tabs>
+        </AppBar>
+        <TabPanel value={tabValue} index={0} title="notes" noPadding>
+          <NotesTable
+            {...NotesTableSettings}
+            {...NotesTableProps}
+            total={notes?.totalDocs || 0}
+            data={notes?.docs || []}
+            onLikeClick={likeNote}
+            onUnLikeClick={unLikeNote}
+          />
+        </TabPanel>
+        <TabPanel value={tabValue} index={1} title="insider-notes" noPadding>
+          <InsiderNotesTable
+            {...InsiderNotesTableProps}
+            {...InsiderNotesTableSettings}
+            total={insiderNotes?.totalDocs || 0}
+            data={insiderNotes?.docs || []}
+            likeInsiderNoteClick={likeInsiderNote}
+            unLikeInsiderNoteClick={unLikeInsiderNote}
+          />
+        </TabPanel>
+        <TabPanel value={tabValue} index={2} title="reports" noPadding>
+          <ReportsTable
+            {...ReportsTableSettings}
+            {...ReportsTableProps}
+            total={reports?.totalDocs || 0}
+            data={reports?.docs || []}
+            onLikeClick={likeReport}
+            onUnLikeClick={unLikeReport}
+          />
+        </TabPanel>
+        <TabPanel
+          value={tabValue}
+          index={3}
+          title="team-affiliations"
+          noPadding
+        >
+          {isAdmin && (
+            <Button
+              variant="contained"
+              disableElevation
+              sx={theme => ({
+                borderBottomLeftRadius: 0,
+                borderBottomRightRadius: 0,
+                marginBottom: -1,
+                [theme.breakpoints.down('sm')]: {
+                  fontSize: 11,
+                },
+              })}
+              fullWidth
+              onClick={() =>
+                router.push(`/team-affiliations/create?playerId=${player.id}`)
+              }
+            >
+              {t('ADD')} <AddIcon />
+            </Button>
+          )}
+          <TeamAffiliationsTable
+            {...TeamAffiliationsTableProps}
+            {...TeamAffiliationsTableSettings}
+            total={affiliations?.totalDocs || 0}
+            data={affiliations?.docs || []}
+          />
+        </TabPanel>
+      </Box>
     </>
   )
 }

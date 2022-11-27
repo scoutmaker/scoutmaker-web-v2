@@ -1,0 +1,8 @@
+{
+  "INDEX_PAGE_TITLE": "Baza ACL zawodników użytkowników",
+  "CREATE_PAGE_TITLE": "Utwórz nowy ACE zawodnika użytkownika",
+  "NO_USER_ERROR": "Wybierz użytkownika ACE",
+  "NO_PLAYER_ERROR": "Wybierz zawodnika ACE",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć ACE zawodnika użytkownika?",
+  "EDIT_PAGE_TITLE": "Edycja danych ACE zawodnika użytkownika"
+}

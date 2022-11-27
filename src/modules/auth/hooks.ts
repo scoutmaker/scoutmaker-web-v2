@@ -1,5 +1,5 @@
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import {
@@ -55,11 +55,13 @@ export function useLogin() {
 
 export function useLogout() {
   const router = useRouter()
+  const queryClient = useQueryClient()
 
   return useMutation(logout, {
     onSuccess: () => {
       router.push('/login')
       localStorage.removeItem('token')
+      queryClient.clear()
     },
   })
 }

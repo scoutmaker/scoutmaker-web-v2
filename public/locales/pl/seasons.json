@@ -1,0 +1,15 @@
+{
+  "NO_NAME_ERROR": "Podaj nazwę sezonu",
+  "NO_START_DATE_ERROR": "Podaj datę rozpoczęcia",
+  "NO_END_DATE_ERROR": "Podaj datę zakończenia",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć sezon {{name}}?",
+  "INDEX_PAGE_TITLE": "Baza sezonów",
+  "CREATE_PAGE_TITLE": "Utwórz nowy sezon",
+  "EDIT_PAGE_TITLE": "Edycja danych sezonu",
+  "START_DATE": "Data rozpoczęcia",
+  "END_DATE": "Data zakończenia",
+  "IS_ACTIVE": "Czy jest aktywny",
+  "SET_ACTIVE": "Ustaw jako aktywny",
+  "UNSET_ACTIVE": "Ustaw jako nieaktywny",
+  "COPY_TO_NEW": "Skopiuj udziały w rozgrywkach"
+}

@@ -4,10 +4,11 @@ import { Field, Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
+import { BasicCombo } from '@/components/combo/basicCombo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { ClubsCombo } from '@/modules/clubs/combo'
 import { ClubBasicDataDto } from '@/modules/clubs/types'
 import { TeamDto, UpdateTeamDto } from '@/modules/teams/types'
 
@@ -61,8 +62,8 @@ export const EditTeamForm = ({
               error={touched.name && !!errors.name}
               helperText={touched.name && errors.name}
             />
-            <ClubsCombo
-              data={clubsData}
+            <BasicCombo
+              data={mapListDataToComboOptions(clubsData)}
               name="clubId"
               label={t('CLUB')}
               error={touched.clubId && !!errors.clubId}

@@ -28,9 +28,9 @@ export const UserFootballRolesCombo = ({
       multiple={multiple}
       id={name}
       size={size}
-      options={[0, ...data.map(role => role.id)]}
-      getOptionLabel={(option: number) => {
-        if (option === 0) {
+      options={['', ...data.map(role => role.id)]}
+      getOptionLabel={(option: string) => {
+        if (option === '') {
           return ''
         }
         const role = data.find(r => r.id === option)

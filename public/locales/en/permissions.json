@@ -1,0 +1,6 @@
+{
+  "READ": "Read",
+  "FULL": "Full",
+  "READ_AND_WRITE": "Read and write",
+  "WRITE": "Write"
+}

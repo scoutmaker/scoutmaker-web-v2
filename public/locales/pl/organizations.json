@@ -1,0 +1,13 @@
+{
+  "NO_NAME_ERROR": "Podaj nazwę organizacji",
+  "INDEX_PAGE_TITLE": "Baza organizacji",
+  "CREATE_PAGE_TITLE": "Utwórz nową organizację",
+  "EDIT_PAGE_TITLE": "Edytuj dane organizacji",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć organizację {{name}}?",
+  "MEMBER_COUNT": "Liczba członków",
+  "ADD_MEMBERS_BTN": "Dodaj członków",
+  "USERS_HEADING": "Członkowie",
+  "ADD_MEMBERS_PAGE_TITLE": "Dodaj nowych członków do organizacji",
+  "ADD_MEMBERS": "Członków",
+  "REMOVE_FROM_ORGANIZATION": "Usuń z organizacji"
+}

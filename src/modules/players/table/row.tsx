@@ -1,7 +1,5 @@
 import {
   Assessment as ReportsIcon,
-  Delete as DeleteIcon,
-  Edit as EditIcon,
   Favorite as UnlikeIcon,
   FavoriteBorder as LikeIcon,
   Note as NotesIcon,
@@ -11,6 +9,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
+import { LikedTableCell } from '@/components/likedTableCell/likedTableCell'
 import { StyledTableCell } from '@/components/tables/cell'
 import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
@@ -24,10 +23,8 @@ interface IPlayersTableRowProps {
   data: PlayerDto
   onEditClick: () => void
   onDeleteClick: () => void
-  onLikeClick: (id: number) => void
-  onUnlikeClick: (id: number) => void
-  isEditOptionEnabled: boolean
-  isDeleteOptionEnabled: boolean
+  onLikeClick: (id: string) => void
+  onUnlikeClick: (id: string) => void
 }
 
 export const PlayersTableRow = ({
@@ -36,8 +33,6 @@ export const PlayersTableRow = ({
   onDeleteClick,
   onLikeClick,
   onUnlikeClick,
-  isEditOptionEnabled,
-  isDeleteOptionEnabled,
 }: IPlayersTableRowProps) => {
   const { t } = useTranslation()
   const router = useRouter()
@@ -66,6 +61,11 @@ export const PlayersTableRow = ({
     _count: count,
   } = data
 
+  const cellChangeLikedClick = () => {
+    if (likes.length) onUnlikeClick(id)
+    else onLikeClick(id)
+  }
+
   return (
     <StyledTableRow
       hover
@@ -78,23 +78,9 @@ export const PlayersTableRow = ({
           isMenuOpen={isMenuOpen}
           onMenuClick={handleMenuClick}
           onMenuClose={handleMenuClose}
+          onDeleteClick={() => handleMenuAction(onDeleteClick)}
+          onEditClick={() => handleMenuAction(onEditClick)}
         >
-          <TableMenuItem
-            icon={<EditIcon fontSize="small" />}
-            text={t('EDIT')}
-            onClick={() => {
-              handleMenuAction(onEditClick)
-            }}
-            disabled={!isEditOptionEnabled}
-          />
-          <TableMenuItem
-            icon={<DeleteIcon fontSize="small" />}
-            text={t('DELETE')}
-            onClick={() => {
-              handleMenuAction(onDeleteClick)
-            }}
-            disabled={!isDeleteOptionEnabled}
-          />
           {likes.length === 0 ? (
             <TableMenuItem
               icon={<LikeIcon fontSize="small" />}
@@ -114,6 +100,10 @@ export const PlayersTableRow = ({
           )}
         </TableMenu>
       </StyledTableCell>
+      <LikedTableCell
+        isLiked={!!likes.length}
+        onClicked={cellChangeLikedClick}
+      />
       <StyledTableCell>{lastName}</StyledTableCell>
       <StyledTableCell>{firstName}</StyledTableCell>
       <StyledTableCell sx={{ minWidth: 100 }}>{`${getFlagEmoji(country.code)} ${

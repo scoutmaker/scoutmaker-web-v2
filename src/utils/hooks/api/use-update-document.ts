@@ -1,16 +1,16 @@
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { ApiError, ApiResponse } from '@/services/api/types'
 
 export function useUpdateDocument<UpdateDto, ReturnType>(
   key: string,
-  docId: number,
+  docId: string,
   mutationFn: ({
     id,
     data,
   }: {
-    id: number
+    id: string
     data: UpdateDto
   }) => Promise<ApiResponse<ReturnType>>,
 ) {
@@ -25,7 +25,7 @@ export function useUpdateDocument<UpdateDto, ReturnType>(
           msg: data.message,
           type: 'success',
         })
-        queryClient.invalidateQueries(key)
+        queryClient.invalidateQueries([key])
       },
       onError: (err: ApiError) =>
         setAlert({

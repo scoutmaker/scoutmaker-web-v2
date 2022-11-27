@@ -1,13 +1,12 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
 
+import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { withSessionSsr } from '@/modules/auth/session'
 import { useClubsList } from '@/modules/clubs/hooks'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
@@ -21,37 +20,17 @@ import {
   useUnlikeTeam,
 } from '@/modules/teams/hooks'
 import { TeamsTable } from '@/modules/teams/table/teams'
-import { TeamsTableRow } from '@/modules/teams/table/teams-row'
-import { TeamsFiltersDto, TeamsSortBy } from '@/modules/teams/types'
+import { TeamsFiltersState, TeamsSortBy } from '@/modules/teams/types'
+import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
-import { redirectToLogin } from '@/utils/redirect-to-login'
+import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsr(
-  async ({ locale, req, res }) => {
-    const { user } = req.session
+export const getServerSideProps = withSessionSsrRole(['common', 'teams'], false)
 
-    if (!user) {
-      redirectToLogin(res)
-      return { props: {} }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'teams',
-    ])
-
-    return {
-      props: {
-        ...translations,
-      },
-    }
-  },
-)
-
-const initialFilters: TeamsFiltersDto = {
+const initialFilters: TeamsFiltersState = {
   name: '',
-  clubId: 0,
+  clubId: null,
   competitionGroupIds: [],
   competitionIds: [],
   countryIds: [],
@@ -59,19 +38,12 @@ const initialFilters: TeamsFiltersDto = {
   regionIds: [],
 }
 
-interface ITeamToDeleteData {
-  id: number
-  name: string
-}
-
 const TeamsPage = () => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
-  const [teamToDeleteData, setTeamToDeleteData] =
-    useState<ITeamToDeleteData | null>(null)
+  const [teamToDeleteData, setTeamToDeleteData] = useState<INameToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -80,12 +52,12 @@ const TeamsPage = () => {
     handleSort,
   } = useTable('teams-table')
 
-  const [filters, setFilters] = useLocalStorage<TeamsFiltersDto>({
+  const [filters, setFilters] = useLocalStorage<TeamsFiltersState>({
     key: 'teams-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: TeamsFiltersDto) {
+  function handleSetFilters(newFilters: TeamsFiltersState) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -103,12 +75,17 @@ const TeamsPage = () => {
     limit: rowsPerPage,
     sortBy: sortBy as TeamsSortBy,
     sortingOrder: order,
-    ...filters,
+    ...mapFiltersStateToDto(filters),
   })
 
   const { mutate: deleteTeam, isLoading: deleteTeamLoading } = useDeleteTeam()
   const { mutate: likeTeam, isLoading: likeTeamLoading } = useLikeTeam()
   const { mutate: unlikeTeam, isLoading: unlikeTeamLoading } = useUnlikeTeam()
+
+  const handleDeleteItemClick = (data: INameToDeleteData) => {
+    setTeamToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
 
   const isLoading =
     clubsLoading ||
@@ -125,16 +102,18 @@ const TeamsPage = () => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('teams:INDEX_PAGE_TITLE')} />
-      <TeamsFilterForm
-        filters={filters}
-        countriesData={countries || []}
-        regionsData={regions || []}
-        competitionsData={competitions || []}
-        competitionGroupsData={competitionGroups || []}
-        clubsData={clubs || []}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <TeamsFilterForm
+          filters={filters}
+          countriesData={countries || []}
+          regionsData={regions || []}
+          competitionsData={competitions || []}
+          competitionGroupsData={competitionGroups || []}
+          clubsData={clubs || []}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <TeamsTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -145,27 +124,11 @@ const TeamsPage = () => {
         handleSort={handleSort}
         total={teams?.totalDocs || 0}
         actions
-      >
-        {teams
-          ? teams.docs.map(team => (
-              <TeamsTableRow
-                key={team.id}
-                data={team}
-                onEditClick={() => {
-                  router.push(`/teams/edit/${team.slug}`)
-                }}
-                onDeleteClick={() => {
-                  setTeamToDeleteData({ id: team.id, name: team.name })
-                  setIsDeleteConfirmationModalOpen(true)
-                }}
-                onLikeClick={(id: number) => likeTeam(id)}
-                onUnlikeClick={(id: number) => unlikeTeam(id)}
-                isEditOptionEnabled
-                isDeleteOptionEnabled
-              />
-            ))
-          : null}
-      </TeamsTable>
+        data={teams?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+        onLikeClick={likeTeam}
+        onUnLikeClick={unlikeTeam}
+      />
       <Fab href="/teams/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}
@@ -176,11 +139,11 @@ const TeamsPage = () => {
           if (teamToDeleteData) {
             deleteTeam(teamToDeleteData.id)
           }
-          setTeamToDeleteData(null)
+          setTeamToDeleteData(undefined)
         }}
         handleClose={() => {
           setIsDeleteConfirmationModalOpen(false)
-          setTeamToDeleteData(null)
+          setTeamToDeleteData(undefined)
         }}
       />
     </>

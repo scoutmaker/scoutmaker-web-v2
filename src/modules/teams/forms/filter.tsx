@@ -1,26 +1,23 @@
 import { TextField } from '@mui/material'
-import { styled } from '@mui/material/styles'
 import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
 
-import { Container } from '@/components/forms/container'
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
+import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
-import { ClubsCombo } from '@/modules/clubs/combo'
-import { ClubBasicDataDto, ClubsFiltersDto } from '@/modules/clubs/types'
-import { CompetitionGroupsCombo } from '@/modules/competition-groups/combo'
+import { FilterFormContainer } from '@/components/forms/filter-form-container'
+import { ClubBasicDataDto } from '@/modules/clubs/types'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionsCombo } from '@/modules/competitions/combo'
+import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { CountriesCombo } from '@/modules/countries/combo'
+import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { CountryDto } from '@/modules/countries/types'
-import { RegionsCombo } from '@/modules/regions/combo'
+import { mapCountriesListToComboOptions } from '@/modules/countries/utils'
 import { RegionDto } from '@/modules/regions/types'
 
-const StyledCheckboxContainer = styled('div')(() => ({
-  display: 'flex',
-  justifyContent: 'center',
-}))
+import { TeamsFiltersState } from '../types'
 
 type ITeamsFilterFormProps = {
   regionsData: RegionDto[]
@@ -28,8 +25,8 @@ type ITeamsFilterFormProps = {
   clubsData: ClubBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
-  filters: ClubsFiltersDto
-  onFilter: (data: ClubsFiltersDto) => void
+  filters: TeamsFiltersState
+  onFilter: (data: TeamsFiltersState) => void
   onClearFilters: () => void
 }
 
@@ -48,12 +45,15 @@ export const TeamsFilterForm = ({
   return (
     <Formik
       initialValues={filters}
-      onSubmit={data => onFilter(data)}
+      onSubmit={(data, form) => {
+        onFilter(data)
+        form.setSubmitting(false)
+      }}
       enableReinitialize
     >
       {() => (
         <Form autoComplete="off">
-          <Container>
+          <FilterFormContainer>
             <Field
               name="name"
               as={TextField}
@@ -62,46 +62,53 @@ export const TeamsFilterForm = ({
               label={t('NAME')}
               size="small"
             />
-            <CountriesCombo
+            <FilterCombo
               name="countryIds"
-              data={countriesData}
+              data={mapCountriesListToComboOptions(countriesData)}
               label={t('COUNTRIES')}
               multiple
+              size="small"
             />
-            <RegionsCombo
+            <FilterCombo
               name="regionIds"
-              data={regionsData}
+              data={mapListDataToComboOptions(regionsData)}
               label={t('REGIONS')}
               multiple
+              size="small"
             />
-            <ClubsCombo
-              data={clubsData}
+            <FilterCombo
+              data={mapListDataToComboOptions(clubsData)}
               name="clubId"
               label={t('CLUB')}
               size="small"
             />
-            <CompetitionsCombo
+            <FilterCombo
               name="competitionIds"
-              data={competitionsData}
+              data={mapCompetitionsListToComboOptions(competitionsData)}
               label={t('COMPETITIONS')}
               multiple
+              size="small"
             />
-            <CompetitionGroupsCombo
+            <FilterCombo
               name="competitionGroupIds"
-              data={competitionGroupsData}
+              data={mapCompetitionGroupsListToComboOptions(
+                competitionGroupsData,
+              )}
               label={t('COMPETITION_GROUPS')}
               multiple
+              size="small"
             />
-            <StyledCheckboxContainer>
-              <Field
-                component={CheckboxWithLabel}
-                type="checkbox"
-                name="isLiked"
-                Label={{ label: 'Tylko polubione' }}
-              />
-            </StyledCheckboxContainer>
-            <FilterFormActions handleClearFilter={onClearFilters} />
-          </Container>
+          </FilterFormContainer>
+          <FilterCheckboxContainer>
+            <Field
+              component={CheckboxWithLabel}
+              type="checkbox"
+              name="isLiked"
+              Label={{ label: 'Tylko polubione' }}
+              size="small"
+            />
+          </FilterCheckboxContainer>
+          <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>
       )}
     </Formik>

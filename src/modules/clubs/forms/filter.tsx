@@ -2,19 +2,20 @@ import { TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
-import { Container } from '@/components/forms/container'
+import { FilterCombo } from '@/components/combo/combo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
-import { ClubsFiltersDto } from '@/modules/clubs/types'
-import { CountriesCombo } from '@/modules/countries/combo'
+import { FilterFormContainer } from '@/components/forms/filter-form-container'
+import { ClubsFiltersState } from '@/modules/clubs/types'
 import { CountryDto } from '@/modules/countries/types'
-import { RegionsCombo } from '@/modules/regions/combo'
+import { mapCountriesListToComboOptions } from '@/modules/countries/utils'
 import { RegionDto } from '@/modules/regions/types'
 
 type IClubsFilterFormProps = {
   regionsData: RegionDto[]
   countriesData: CountryDto[]
-  filters: ClubsFiltersDto
-  onFilter: (data: ClubsFiltersDto) => void
+  filters: ClubsFiltersState
+  onFilter: (data: ClubsFiltersState) => void
   onClearFilters: () => void
 }
 
@@ -30,12 +31,15 @@ export const ClubsFilterForm = ({
   return (
     <Formik
       initialValues={filters}
-      onSubmit={data => onFilter(data)}
+      onSubmit={(data, form) => {
+        onFilter(data)
+        form.setSubmitting(false)
+      }}
       enableReinitialize
     >
       {() => (
         <Form autoComplete="off">
-          <Container>
+          <FilterFormContainer>
             <Field
               name="name"
               as={TextField}
@@ -44,20 +48,20 @@ export const ClubsFilterForm = ({
               label={t('NAME')}
               size="small"
             />
-            <RegionsCombo
+            <FilterCombo
               name="regionId"
-              data={regionsData}
+              data={mapListDataToComboOptions(regionsData)}
               size="small"
               label={t('REGION')}
             />
-            <CountriesCombo
+            <FilterCombo
               name="countryId"
-              data={countriesData}
+              data={mapCountriesListToComboOptions(countriesData)}
               size="small"
               label={t('COUNTRY')}
             />
-            <FilterFormActions handleClearFilter={onClearFilters} />
-          </Container>
+          </FilterFormContainer>
+          <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>
       )}
     </Formik>

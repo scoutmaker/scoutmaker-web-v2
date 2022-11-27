@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs'
+import { useActiveMatchAttendance } from '@/modules/match-attendances/hooks'
 
 import { Alerts } from '../components/alerts/Alerts'
 import { Sidebar } from '../components/sidebar/Sidebar'
@@ -16,7 +17,7 @@ const StyledContentContainer = styled('main')(({ theme }) => ({
   marginLeft: 240,
   flexGrow: 1,
 
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     padding: theme.spacing(3, 1),
     marginLeft: 0,
   },
@@ -29,10 +30,12 @@ export interface IPrimaryLayoutProps {
 export const PrimaryLayout = ({ children }: IPrimaryLayoutProps) => {
   const router = useRouter()
 
+  const { data: activeMatchAttendance } = useActiveMatchAttendance()
+
   return (
     <div>
-      <Topbar />
-      <Sidebar />
+      <Topbar matchAttendance={activeMatchAttendance} />
+      <Sidebar matchAttendance={activeMatchAttendance || null} />
       <StyledContentContainer>
         <Offset />
         {router.route !== '/dashboard' ? <Breadcrumbs /> : null}

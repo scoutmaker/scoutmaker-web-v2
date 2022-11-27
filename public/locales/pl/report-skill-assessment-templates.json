@@ -1,0 +1,10 @@
+{
+  "NO_NAME_ERROR": "Podaj nazwę szablonu cech",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć szablon cech {{name}}?",
+  "INDEX_PAGE_TITLE": "Baza szablonów cech",
+  "CREATE_PAGE_TITLE": "Utwórz nowy szablon cech",
+  "EDIT_PAGE_TITLE": "Edycja danych szablonu cech",
+  "NO_CATEGORY_ERROR": "Wybierz kategorie szablonu cech",
+  "NO_SHORTNAME_ERROR": "Podaj skrót nazwy szablonu cech",
+  "HAS_SCORE": "Ocena"
+}

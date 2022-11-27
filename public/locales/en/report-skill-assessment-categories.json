@@ -1,0 +1,7 @@
+{
+  "NO_NAME_ERROR": "Please provide skill category name",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete skill category {{name}}?",
+  "INDEX_PAGE_TITLE": "Skill categories database",
+  "CREATE_PAGE_TITLE": "Create new skill category",
+  "EDIT_PAGE_TITLE": "Edit skill category"
+}

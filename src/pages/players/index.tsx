@@ -1,13 +1,12 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
 
+import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { Fab } from '@/components/fab/fab'
+import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { withSessionSsr } from '@/modules/auth/session'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { useCountriesList } from '@/modules/countries/hooks'
@@ -19,62 +18,42 @@ import {
   usePlayers,
   useUnlikePlayer,
 } from '@/modules/players/hooks'
-import { PlayersTableRow } from '@/modules/players/table/row'
 import { PlayersTable } from '@/modules/players/table/table'
-import { PlayersFiltersDto, PlayersSortBy } from '@/modules/players/types'
+import { PlayersFiltersState, PlayersSortBy } from '@/modules/players/types'
 import { useTeamsList } from '@/modules/teams/hooks'
+import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
-import { redirectToLogin } from '@/utils/redirect-to-login'
+import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-export const getServerSideProps = withSessionSsr(
-  async ({ locale, req, res }) => {
-    const { user } = req.session
-
-    if (!user) {
-      redirectToLogin(res)
-      return { props: {} }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'players',
-    ])
-
-    return {
-      props: {
-        ...translations,
-      },
-    }
-  },
+export const getServerSideProps = withSessionSsrRole(
+  ['common', 'players'],
+  false,
 )
 
-const initialFilters: PlayersFiltersDto = {
+const initialFilters: PlayersFiltersState = {
   name: '',
   bornAfter: 1980,
   bornBefore: 2005,
-  footed: '',
+  footed: null,
   competitionGroupIds: [],
   competitionIds: [],
   countryIds: [],
   positionIds: [],
   teamIds: [],
   isLiked: false,
-}
-
-interface IPlayerToDeleteData {
-  id: number
-  name: string
+  hasNote: false,
+  hasReport: false,
+  hasAnyObservation: false,
 }
 
 const PlayersPage = () => {
   const { t } = useTranslation()
-  const router = useRouter()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
     useState(false)
   const [playerToDeleteData, setPlayerToDeleteData] =
-    useState<IPlayerToDeleteData | null>(null)
+    useState<INameToDeleteData>()
 
   const {
     tableSettings: { page, rowsPerPage, sortBy, order },
@@ -83,12 +62,12 @@ const PlayersPage = () => {
     handleSort,
   } = useTable('players-table')
 
-  const [filters, setFilters] = useLocalStorage<PlayersFiltersDto>({
+  const [filters, setFilters] = useLocalStorage<PlayersFiltersState>({
     key: 'players-filters',
     initialValue: initialFilters,
   })
 
-  function handleSetFilters(newFilters: PlayersFiltersDto) {
+  function handleSetFilters(newFilters: PlayersFiltersState) {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
@@ -107,7 +86,7 @@ const PlayersPage = () => {
     limit: rowsPerPage,
     sortBy: sortBy as PlayersSortBy,
     sortingOrder: order,
-    ...filters,
+    ...mapFiltersStateToDto(filters),
   })
 
   const { mutate: deletePlayer, isLoading: deletePlayerLoading } =
@@ -115,6 +94,11 @@ const PlayersPage = () => {
   const { mutate: likePlayer, isLoading: likePlayerLoading } = useLikePlayer()
   const { mutate: unlikePlayer, isLoading: unlikePlayerLoading } =
     useUnlikePlayer()
+
+  const handleDeleteItemClick = (data: INameToDeleteData) => {
+    setPlayerToDeleteData(data)
+    setIsDeleteConfirmationModalOpen(true)
+  }
 
   const isLoading =
     countriesLoading ||
@@ -131,16 +115,18 @@ const PlayersPage = () => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('players:INDEX_PAGE_TITLE')} />
-      <PlayersFilterForm
-        filters={filters}
-        countriesData={countries || []}
-        positionsData={positions || []}
-        competitionsData={competitions || []}
-        competitionGroupsData={competitionGroups || []}
-        teamsData={teams || []}
-        onFilter={handleSetFilters}
-        onClearFilters={() => handleSetFilters(initialFilters)}
-      />
+      <FilterAccordion>
+        <PlayersFilterForm
+          filters={filters}
+          countriesData={countries || []}
+          positionsData={positions || []}
+          competitionsData={competitions || []}
+          competitionGroupsData={competitionGroups || []}
+          teamsData={teams || []}
+          onFilter={handleSetFilters}
+          onClearFilters={() => handleSetFilters(initialFilters)}
+        />
+      </FilterAccordion>
       <PlayersTable
         page={page}
         rowsPerPage={rowsPerPage}
@@ -151,30 +137,11 @@ const PlayersPage = () => {
         handleSort={handleSort}
         total={players?.totalDocs || 0}
         actions
-      >
-        {players
-          ? players.docs.map(player => (
-              <PlayersTableRow
-                key={player.id}
-                data={player}
-                onEditClick={() => {
-                  router.push(`/players/edit/${player.slug}`)
-                }}
-                onDeleteClick={() => {
-                  setPlayerToDeleteData({
-                    id: player.id,
-                    name: `${player.firstName} ${player.lastName}`,
-                  })
-                  setIsDeleteConfirmationModalOpen(true)
-                }}
-                onLikeClick={(id: number) => likePlayer(id)}
-                onUnlikeClick={(id: number) => unlikePlayer(id)}
-                isEditOptionEnabled
-                isDeleteOptionEnabled
-              />
-            ))
-          : null}
-      </PlayersTable>
+        data={players?.docs || []}
+        handleDeleteItemClick={handleDeleteItemClick}
+        onLikeClick={likePlayer}
+        onUnLikeClick={unlikePlayer}
+      />
       <Fab href="/players/create" />
       <ConfirmationModal
         open={isDeleteConfirmationModalOpen}
@@ -185,11 +152,11 @@ const PlayersPage = () => {
           if (playerToDeleteData) {
             deletePlayer(playerToDeleteData.id)
           }
-          setPlayerToDeleteData(null)
+          setPlayerToDeleteData(undefined)
         }}
         handleClose={() => {
           setIsDeleteConfirmationModalOpen(false)
-          setPlayerToDeleteData(null)
+          setPlayerToDeleteData(undefined)
         }}
       />
     </>

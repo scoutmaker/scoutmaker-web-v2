@@ -1,129 +1,191 @@
-import { Typography } from '@mui/material'
+import { Add as AddIcon } from '@mui/icons-material'
+import { AppBar, Box, Button, Tab, Tabs } from '@mui/material'
+import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
+import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { withSessionSsr } from '@/modules/auth/session'
+import { TabPanel } from '@/components/tab-panel/tab-panel'
 import { useCompetitionParticipations } from '@/modules/competition-participations/hooks'
-import { CompetitionParticipationsTableRow } from '@/modules/competition-participations/table/row'
 import { CompetitionParticipationsTable } from '@/modules/competition-participations/table/table'
 import { CompetitionParticipationsSortBy } from '@/modules/competition-participations/types'
+import { useMatches } from '@/modules/matches/hooks'
+import { MatchesTable } from '@/modules/matches/table/table'
+import { MatchesSortBy } from '@/modules/matches/types'
+import { PlayersBasicTable } from '@/modules/players/basicTable/table'
+import { useTeamAffiliations } from '@/modules/team-affiliations/hooks'
+import { TeamAffiliationsSortBy } from '@/modules/team-affiliations/types'
 import { TeamDetailsCard } from '@/modules/teams/details-card'
 import { TeamDto } from '@/modules/teams/types'
 import { getTeamBySlug } from '@/services/api/methods/teams'
 import { ApiError } from '@/services/api/types'
 import { useTable } from '@/utils/hooks/use-table'
-import { redirectToLogin } from '@/utils/redirect-to-login'
+import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-type TTeamPageProps = {
-  errorStatus: number | null
-  errorMessage: string | null
-  team: TeamDto | null
+interface TTeamPageProps {
+  team: TeamDto
+  isAdmin: boolean
 }
 
-export const getServerSideProps = withSessionSsr<TTeamPageProps>(
-  async ({ req, res, locale, params }) => {
-    const { user } = req.session
-
-    if (!user) {
-      redirectToLogin(res)
-      return {
-        props: {
-          errorStatus: null,
-          errorMessage: null,
-          team: null,
-        },
-      }
-    }
-
-    const translations = await serverSideTranslations(locale || 'pl', [
-      'common',
-      'teams',
-    ])
-
-    let team: TeamDto
-
+export const getServerSideProps = withSessionSsrRole<TTeamPageProps>(
+  ['common', 'teams'],
+  false,
+  async (token, params, user) => {
     try {
-      const teamData = await getTeamBySlug(
-        params?.slug as string,
-        req.session.token,
-      )
-      team = teamData
+      const team = await getTeamBySlug(params?.slug as string, token)
+      return { data: { team, isAdmin: user?.role === 'ADMIN' } }
     } catch (error) {
-      const { response } = error as ApiError
-
-      return {
-        props: {
-          ...translations,
-          errorStatus: response.status,
-          errorMessage: response.data.message,
-          team: null,
-        },
-      }
-    }
-
-    return {
-      props: {
-        ...translations,
-        errorStatus: null,
-        errorMessage: null,
-        team,
-      },
+      return { data: null, error: error as ApiError }
     }
   },
 )
 
-const TeamPage = ({ team, errorMessage, errorStatus }: TTeamPageProps) => {
-  const { t } = useTranslation(['teams'])
+const TeamPage = ({
+  errorMessage,
+  errorStatus,
+  data,
+}: TSsrRole<TTeamPageProps>) => {
+  const { t } = useTranslation()
+  const [tabValue, setTabValue] = useState(0)
+
+  const handleTabChange = (event: any, newValue: number) =>
+    setTabValue(newValue)
 
   const {
-    tableSettings: { page, rowsPerPage, sortBy, order },
-    handleChangePage,
-    handleChangeRowsPerPage,
-    handleSort,
-  } = useTable(`competition-participations-table-team:${team?.id}`, 'seasonId')
+    tableSettings: CompetitionParticipationTableSettings,
+    ...CompetitionParticipationTableProps
+  } = useTable(
+    `competition-participations-table-team:${data?.team.id}`,
+    'seasonId',
+  )
 
-  const { data: participations } = useCompetitionParticipations({
-    page: page + 1,
-    limit: rowsPerPage,
-    sortBy: sortBy as CompetitionParticipationsSortBy,
-    sortingOrder: order,
-    teamId: team?.id,
+  const {
+    tableSettings: PlayersBasicTableSettings,
+    ...PlayersBasicTableProps
+  } = useTable(`players-basic-table-team:${data?.team.id}`)
+
+  const { tableSettings: MatchesTableSettings, ...MatchesTableProps } =
+    useTable(`matches-table-team:${data?.team.id}`)
+
+  const { data: participations, isLoading: participationsLoading } =
+    useCompetitionParticipations({
+      page: CompetitionParticipationTableSettings.page + 1,
+      limit: CompetitionParticipationTableSettings.rowsPerPage,
+      sortBy:
+        CompetitionParticipationTableSettings.sortBy as CompetitionParticipationsSortBy,
+      sortingOrder: CompetitionParticipationTableSettings.order,
+      teamId: data?.team.id || '',
+    })
+
+  const { data: affiliations, isLoading: affiliationsLoading } =
+    useTeamAffiliations({
+      page: PlayersBasicTableSettings.page + 1,
+      limit: PlayersBasicTableSettings.rowsPerPage,
+      sortBy: PlayersBasicTableSettings.sortBy as TeamAffiliationsSortBy,
+      sortingOrder: PlayersBasicTableSettings.order,
+      teamId: data?.team.id || '',
+    })
+
+  const { data: matches, isLoading: matchesLoading } = useMatches({
+    page: MatchesTableSettings.page + 1,
+    limit: MatchesTableSettings.rowsPerPage,
+    sortBy: MatchesTableSettings.sortBy as MatchesSortBy,
+    sortingOrder: MatchesTableSettings.order,
+    teamId: data?.team.id || '',
   })
 
-  if (!team) {
-    return <ErrorContent message={errorMessage} status={errorStatus} />
-  }
+  const players =
+    affiliations?.docs
+      .filter(aff => aff.endDate === null)
+      .map(aff => aff.player) || []
 
+  const isLoading =
+    matchesLoading || participationsLoading || affiliationsLoading
+
+  if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />
+  const { team, isAdmin } = data
   return (
     <>
+      {isLoading && <Loader />}
       <PageHeading title={team.name} />
       <TeamDetailsCard team={team} />
-      <section>
-        <Typography variant="h3" align="center" sx={{ margin: 3 }}>
-          {t('teams:COMPETITION_PARTICIPATIONS_HEADING')}
-        </Typography>
-        <CompetitionParticipationsTable
-          page={page}
-          rowsPerPage={rowsPerPage}
-          sortBy={sortBy}
-          order={order}
-          handleChangePage={handleChangePage}
-          handleChangeRowsPerPage={handleChangeRowsPerPage}
-          handleSort={handleSort}
-          total={participations?.totalDocs || 0}
+      <Box width="100%" marginTop={theme => theme.spacing(4)}>
+        <AppBar
+          position="static"
+          sx={theme => ({
+            marginBottom: theme.spacing(1),
+            borderBottomLeftRadius: 5,
+            borderBottomRightRadius: 5,
+          })}
         >
-          {participations
-            ? participations.docs.map(participation => (
-                <CompetitionParticipationsTableRow
-                  key={team.id}
-                  data={participation}
-                />
-              ))
-            : null}
-        </CompetitionParticipationsTable>
-      </section>
+          <Tabs
+            value={tabValue}
+            onChange={handleTabChange}
+            aria-label="affiliations-players-matches-tabs"
+            indicatorColor="secondary"
+            textColor="inherit"
+            variant="fullWidth"
+            sx={theme => ({
+              '& .MuiTab-root': {
+                [theme.breakpoints.down('sm')]: {
+                  fontSize: 10,
+                },
+              },
+            })}
+            centered
+          >
+            <Tab label={t('COMPETITION_PARTICIPATIONS')} />
+            <Tab label={t('PLAYERS')} />
+            <Tab label={t('MATCHES')} />
+          </Tabs>
+        </AppBar>
+        <TabPanel
+          value={tabValue}
+          index={0}
+          title="competition-participations"
+          noPadding
+        >
+          <Box display="flex" flexDirection="column" alignItems="center">
+            {isAdmin && (
+              <Link
+                href={`/competition-participations/create?teamId=${team.id}`}
+                passHref
+              >
+                <Button
+                  variant="contained"
+                  sx={theme => ({ marginBottom: theme.spacing(1) })}
+                >
+                  {t('ADD')} <AddIcon />
+                </Button>
+              </Link>
+            )}
+            <CompetitionParticipationsTable
+              {...CompetitionParticipationTableSettings}
+              {...CompetitionParticipationTableProps}
+              total={participations?.totalDocs || 0}
+              data={participations?.docs || []}
+            />
+          </Box>
+        </TabPanel>
+        <TabPanel value={tabValue} index={1} title="players" noPadding>
+          <PlayersBasicTable
+            {...PlayersBasicTableProps}
+            {...PlayersBasicTableSettings}
+            data={players}
+            total={players.length}
+          />
+        </TabPanel>
+        <TabPanel value={tabValue} index={2} title="matches" noPadding>
+          <MatchesTable
+            {...MatchesTableSettings}
+            {...MatchesTableProps}
+            total={matches?.totalDocs || 0}
+            data={matches?.docs || []}
+          />
+        </TabPanel>
+      </Box>
     </>
   )
 }

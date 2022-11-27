@@ -13,13 +13,13 @@ import { validateId, validateIdsArray } from '@/utils/validation-helpers'
 export const initialValues: CreatePlayerDto = {
   firstName: '',
   lastName: '',
-  countryId: 0,
+  countryId: '',
   yearOfBirth: 2000,
   height: 180,
   weight: 70,
   footed: 'RIGHT',
-  teamId: 0,
-  primaryPositionId: 0,
+  teamId: '',
+  primaryPositionId: '',
   secondaryPositionIds: [],
   lnpId: '',
   lnpUrl: '',
@@ -107,6 +107,6 @@ export function getInitialStateFromCurrent(player: PlayerDto): UpdatePlayerDto {
     ...mappedRest,
     countryId: country.id,
     primaryPositionId: primaryPosition.id,
-    secondaryPositionIds: secondaryPositions.map(pos => pos.id),
+    secondaryPositionIds: secondaryPositions?.map(pos => pos.id) || [],
   }
 }
