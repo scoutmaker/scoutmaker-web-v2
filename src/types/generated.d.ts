@@ -444,7 +444,7 @@ declare namespace Components {
             recentNotesRatio?: number;
             observedMatchesCount?: number;
             recentObservedMatchesRatio?: number;
-            organizations?: OrganizationInfoDto[];
+            organizations?: OrganizationBasicDataDto[];
             scoutsCount?: number;
             observerdPlayersCount?: number;
             topNotes?: DashboardNoteDto[];
@@ -686,10 +686,6 @@ declare namespace Components {
             name: string;
             members: UserBasicDataDto[];
             createdAt: string; // date-time
-        }
-        export interface OrganizationInfoDto {
-            name: string;
-            sharedMatchesCount: number;
         }
         export interface OrganizationInsiderNoteAceDto {
             id: string;
