@@ -1,6 +1,6 @@
+import { Grid, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { CardItemBasic } from '@/components/details-card/details-card-item'
 import { OrdersIcon, OrganizationsIcon, PlayersIcon } from '@/components/icons'
 
 import { BasicCard } from '../BasicCard'
@@ -25,11 +25,12 @@ const PMScoutDashboardLayout = (props: IBaseDashboardProps) => {
       <ListDataCard
         icon={<OrganizationsIcon />}
         title={t('ORGANIZATIONS')}
-        subheader="Udostępnione mecze"
-        linkTo=""
+        subheader="Organizacje z aktywnymi subskrypcjami"
         items={
-          organizations?.map(({ name, sharedMatchesCount }) => (
-            <CardItemBasic title={name} value={sharedMatchesCount} />
+          organizations?.map(({ name }) => (
+            <Grid item xs={12}>
+              <Typography fontWeight="Bold">{name}</Typography>
+            </Grid>
           )) || 'ERROR: DATA NOT RECIVED'
         }
       />
