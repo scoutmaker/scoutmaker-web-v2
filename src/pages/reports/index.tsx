@@ -46,6 +46,7 @@ const initialFilters: ReportsFiltersState = {
   teamIds: [],
   hasVideo: false,
   ratingRange: 'ALL',
+  observationType: null,
   onlyLikedPlayers: false,
   onlyLikedTeams: false,
 }

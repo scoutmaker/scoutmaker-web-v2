@@ -22,7 +22,7 @@ export const initialValues: CreateUserSubscriptionDto = {
 export function generateCreateValidationSchema(t: TFunction) {
   return yup
     .object({
-      competitionGroupIds: validateIdsArray().min(1),
+      competitionGroupIds: validateIdsArray().notRequired(),
       competitionIds: validateIdsArray().min(1),
       endDate: yup.date().required(t('user-subs:NO_END_DATE_ERROR')),
       startDate: yup.date().required(t('user-subs:NO_START_DATE_ERROR')),

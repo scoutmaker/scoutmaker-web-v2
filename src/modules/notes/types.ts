@@ -27,6 +27,7 @@ export type FindAllNotesParams = Pick<
   | 'sortingOrder'
   | 'teamIds'
   | 'userId'
+  | 'observationType'
   | 'onlyLikedPlayers'
   | 'onlyLikedTeams'
   | 'onlyWithoutPlayers'
@@ -50,6 +51,7 @@ export type NotesFiltersState = Omit<
   | 'playerIds'
   | 'positionIds'
   | 'teamIds'
+  | 'observationType'
 > & {
   competitionGroupIds: ICompetitionGroupComboOptions[]
   competitionIds: ICompetitionComboOptions[]
@@ -57,6 +59,7 @@ export type NotesFiltersState = Omit<
   playerIds: IPlayerComboOptions[]
   positionIds: IPlayerPositionComboOptions[]
   teamIds: IStandardComboOptions[]
+  observationType: IComboOptions | null
 }
 
 export type NotesSortBy = Paths.NotesControllerFindAll.Parameters.SortBy

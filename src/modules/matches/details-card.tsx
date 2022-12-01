@@ -33,6 +33,7 @@ export const MatchDetailsCard = ({ match }: IMatchDetailsCard) => {
     homeGoals,
     awayGoals,
     videoUrl,
+    observationType,
   } = match
 
   return (
@@ -84,6 +85,14 @@ export const MatchDetailsCard = ({ match }: IMatchDetailsCard) => {
             <Typography>
               <strong>{t('VIDEO_URL')}: </strong>
               {videoUrl ? <Link href={videoUrl}>{videoUrl || '-'}</Link> : '-'}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography>
+              <strong>{t('OBSERVATION_TYPE')}: </strong>
+              {observationType === 'BOTH'
+                ? `${t('VIDEO')} + ${t('LIVE')}`
+                : t(observationType || '-')}
             </Typography>
           </Grid>
         </Grid>

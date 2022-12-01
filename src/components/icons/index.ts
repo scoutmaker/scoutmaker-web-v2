@@ -19,6 +19,7 @@ export {
   KeyboardArrowDown as KeyboardArrowDownIcon,
   KeyboardArrowUp as KeyboardArrowUpIcon,
   FavoriteBorder as LikeIcon,
+  Stadium as LiveObservationIcon,
   Sports as MatchesIcon,
   AssignmentLate as NoteIcon,
   Note as NotesIcon,

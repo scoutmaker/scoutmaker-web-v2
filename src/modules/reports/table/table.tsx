@@ -31,6 +31,7 @@ function generateHeadCells(t: TFunction): IHeadCell[] {
     { id: 'author', label: t('AUTHOR') },
     { id: 'createdAt', label: t('CREATED_AT') },
     { id: 'status', label: t('STATUS') },
+    { id: 'observationType', label: t('OBSERVATION'), isSortingDisabled: true },
   ]
 }
 

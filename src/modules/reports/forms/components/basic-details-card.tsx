@@ -34,6 +34,7 @@ export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
     status,
     meta,
     author,
+    observationType,
   } = report
 
   return (
@@ -67,6 +68,10 @@ export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
           <CardItemBasic
             title={t('MATCH_DATE')}
             value={match ? formatDate(match.date) : '-'}
+          />
+          <CardItemBasic
+            title={t('OBSERVATION_TYPE')}
+            value={t(observationType)}
           />
           <CardItemBasic
             title={t('reports:POSITION_PLAYED')}
