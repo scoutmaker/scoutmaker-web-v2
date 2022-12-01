@@ -9,5 +9,10 @@
   "NO_HOME_TEAM_ERROR": "Wybierz zespół gospodarzy",
   "NO_AWAY_TEAM_ERROR": "Wybierz zespół gości",
   "NO_COMPETITION_ERROR": "Wybierz rozgrywki",
-  "NO_SEASON_ERROR": "Wybierz sezon"
+  "NO_SEASON_ERROR": "Wybierz sezon",
+  "HOME_TEAM_NOTES": "Gospodarze - notatki ({{count}})",
+  "AWAY_TEAM_NOTES": "Goście - notatki ({{count}})",
+  "HOME_TEAM_REPORTS": "Gospodarze - raporty ({{count}})",
+  "AWAY_TEAM_REPORTS": "Goście - raporty ({{count}})",
+  "UNASSIGNED_NOTES": "Nieprzypisane notatki ({{count}})"
 }
