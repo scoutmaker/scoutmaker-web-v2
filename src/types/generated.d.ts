@@ -437,7 +437,6 @@ declare namespace Components {
             competitionGroupIds: string[];
         }
         export interface DashboardDto {
-            user: UserDashboardDto;
             reportsCount?: number;
             recentReportsRatio?: number;
             notesCount?: number;
@@ -1238,11 +1237,6 @@ declare namespace Components {
             firstName: string;
             lastName: string;
             email: string;
-        }
-        export interface UserDashboardDto {
-            role: "SCOUT" | "PLAYMAKER_SCOUT" | "PLAYMAKER_SCOUT_MANAGER" | "ADMIN";
-            organizationId: string;
-            id: string;
         }
         export interface UserDto {
             role: "SCOUT" | "PLAYMAKER_SCOUT" | "PLAYMAKER_SCOUT_MANAGER" | "ADMIN";
