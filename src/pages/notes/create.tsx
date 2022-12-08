@@ -11,6 +11,7 @@ import { useCreateNote } from '@/modules/notes/hooks'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
+import { useConfirmOnLeavePage } from '@/utils/hooks/use-confirm-leave'
 import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(['common', 'notes'], false)
@@ -45,6 +46,8 @@ const CreateNotePage = () => {
     teamIds:
       matchId && match ? [match.homeTeam.id, match.awayTeam.id] : undefined,
   })
+
+  useConfirmOnLeavePage(t)
 
   const isLoading =
     positionsLoading ||

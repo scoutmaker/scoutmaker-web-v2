@@ -12,6 +12,7 @@ import { useReportTemplatesList } from '@/modules/report-templates/hooks'
 import { CreateReportForm } from '@/modules/reports/forms/create'
 import { useCreateReport } from '@/modules/reports/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
+import { useConfirmOnLeavePage } from '@/utils/hooks/use-confirm-leave'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(
@@ -35,6 +36,8 @@ const CreateReportPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     useCompetitionsList()
   const { data: groups, isLoading: competitionGroupsLoading } =
     useCompetitionGroupsList()
+
+  useConfirmOnLeavePage(t)
 
   if (errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />

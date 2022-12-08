@@ -13,7 +13,6 @@ import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { ReportTemplateBasicDataDto } from '@/modules/report-templates/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
-import { useConfirmOnLeavePage } from '@/utils/hooks/use-confirm-leave'
 import { useStepper } from '@/utils/hooks/use-stepper'
 
 import { CreateReportDto, IReportFromNoteQuery, ReportType } from '../types'
@@ -165,8 +164,6 @@ export const CreateReportForm = ({
       ],
     },
   ]
-
-  useConfirmOnLeavePage(t)
 
   return (
     <Formik

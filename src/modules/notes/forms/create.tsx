@@ -11,7 +11,6 @@ import { MatchBasicDataDto, MatchDto } from '@/modules/matches/types'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
-import { useConfirmOnLeavePage } from '@/utils/hooks/use-confirm-leave'
 
 import { CreateNoteDto } from '../types'
 import { Fields } from './fields'
@@ -50,8 +49,6 @@ export const CreateNoteForm = ({
 
   if (match) initValues.matchId = match.id
   if (observationType) initValues.observationType = observationType
-
-  useConfirmOnLeavePage(t)
 
   return (
     <Formik
