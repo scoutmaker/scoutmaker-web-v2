@@ -1252,6 +1252,7 @@ declare namespace Components {
             club?: ClubBasicDataDto;
             footballRole?: UserFootballRoleDto;
             _count: Count;
+            organizationId?: string;
         }
         export interface UserFootballRoleDto {
             id: string;
