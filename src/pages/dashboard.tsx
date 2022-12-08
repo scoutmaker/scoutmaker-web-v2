@@ -3,12 +3,12 @@ import { useTranslation } from 'next-i18next'
 
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
+import { useUser } from '@/modules/auth/hooks'
 import { useDashboardData } from '@/modules/dashboard/hooks'
 import PMScoutManagerDashboardLayout from '@/modules/dashboard/layouts/playmaker-manager'
 import PlaymakerScoutManagerDashboardLayout from '@/modules/dashboard/layouts/playmaker-scout'
 import ScoutDashboardLayout from '@/modules/dashboard/layouts/scout'
 import ScoutOrganizationDashboardLayout from '@/modules/dashboard/layouts/scout-organization'
-import { DashboardDto } from '@/modules/dashboard/types'
 import {
   useActiveMatchAttendance,
   useRemoveMatchAttendance,
@@ -33,40 +33,40 @@ const DashboardPage = () => {
     isLoading: leaveMatchAttendanceLoading,
   } = useRemoveMatchAttendance()
 
-  const {
-    user: { organizationId: userOrganization, role: userRole },
-  } = dashboardData || { user: {} }
+  const { data: user, isLoading: userLoading } = useUser()
 
   const isLoading =
-    dashboardLoading || matchAttendanceLoading || leaveMatchAttendanceLoading
+    dashboardLoading ||
+    matchAttendanceLoading ||
+    leaveMatchAttendanceLoading ||
+    userLoading
 
   return (
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('dashboard:INDEX_PAGE_TITLE')} />
       <Container>
-        {(userRole === 'ADMIN' || userRole === 'PLAYMAKER_SCOUT_MANAGER') && (
+        {(user?.role === 'ADMIN' ||
+          user?.role === 'PLAYMAKER_SCOUT_MANAGER') && (
           <PMScoutManagerDashboardLayout
-            data={dashboardData as DashboardDto}
+            data={dashboardData || {}}
             leaveMatchClick={leaveMatchAttendance}
             matchAttendance={matchAttendance}
           />
         )}
-        {userRole === 'PLAYMAKER_SCOUT' && (
+        {user?.role === 'PLAYMAKER_SCOUT' && (
           <PlaymakerScoutManagerDashboardLayout
-            data={dashboardData as DashboardDto}
+            data={dashboardData || {}}
             leaveMatchClick={leaveMatchAttendance}
             matchAttendance={matchAttendance}
           />
         )}
-        {userRole === 'SCOUT' &&
-          (userOrganization ? (
-            <ScoutOrganizationDashboardLayout
-              data={dashboardData as DashboardDto}
-            />
+        {user?.role === 'SCOUT' &&
+          (user?.organizationId ? (
+            <ScoutOrganizationDashboardLayout data={dashboardData || {}} />
           ) : (
             <ScoutDashboardLayout
-              data={dashboardData as DashboardDto}
+              data={dashboardData || {}}
               leaveMatchClick={leaveMatchAttendance}
               matchAttendance={matchAttendance}
             />
