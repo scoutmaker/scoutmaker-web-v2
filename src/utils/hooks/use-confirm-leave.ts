@@ -1,7 +1,8 @@
 import { Router } from 'next/router'
+import { TFunction } from 'next-i18next'
 import { useEffect } from 'react'
 
-export const useConfirmOnLeavePage = () => {
+export const useConfirmOnLeavePage = (t: TFunction) => {
   useEffect(() => {
     const beforeUnload = (e: BeforeUnloadEvent) => {
       // Cancel the event
@@ -10,8 +11,8 @@ export const useConfirmOnLeavePage = () => {
       e.returnValue = ''
     }
     const routeChangeStart = () => {
-      const ok = window.confirm('Do you want to leave the current page?')
-      if (!ok) {
+      const leave = window.confirm(t('LEAVE_PAGE_PROMPT'))
+      if (!leave) {
         Router.events.emit('routeChangeError')
         // eslint-disable-next-line @typescript-eslint/no-throw-literal
         throw 'Abort route change. Please ignore this error.'
