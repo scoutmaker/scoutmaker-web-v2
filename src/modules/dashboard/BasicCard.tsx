@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@mui/material'
 
-import { OptionalLink } from '@/components/links/optional-link'
+import { OptionalLinkWrapper } from '@/components/links/optional-link'
 
 import { StyledAvatar } from './StyledAvatar'
 
@@ -29,7 +29,7 @@ export const BasicCard = ({
   secondary,
 }: IBasicCardProps) => (
   <Card onClick={onClick}>
-    <OptionalLink href={linkTo}>
+    <OptionalLinkWrapper href={linkTo}>
       <CardActionArea sx={{ height: '100%' }}>
         <CardContentContainer
           sx={
@@ -72,7 +72,7 @@ export const BasicCard = ({
           </div>
         </CardContentContainer>
       </CardActionArea>
-    </OptionalLink>
+    </OptionalLinkWrapper>
   </Card>
 )
 

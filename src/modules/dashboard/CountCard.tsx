@@ -8,7 +8,7 @@ import {
 import { ReactElement } from 'react'
 import CountUp from 'react-countup'
 
-import { OptionalLink } from '@/components/links/optional-link'
+import { OptionalLinkWrapper } from '@/components/links/optional-link'
 
 import { StyledAvatar } from './StyledAvatar'
 
@@ -28,7 +28,7 @@ export const CountCard = ({
   text,
 }: ICountCardProps) => (
   <Card>
-    <OptionalLink href={linkTo}>
+    <OptionalLinkWrapper href={linkTo}>
       <CardActionArea>
         <CardContentContainer>
           <div>
@@ -44,7 +44,7 @@ export const CountCard = ({
           </div>
         </CardContentContainer>
       </CardActionArea>
-    </OptionalLink>
+    </OptionalLinkWrapper>
   </Card>
 )
 

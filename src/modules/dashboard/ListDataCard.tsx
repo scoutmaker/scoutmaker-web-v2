@@ -6,7 +6,7 @@ import {
   Grid,
 } from '@mui/material'
 
-import { OptionalLink } from '@/components/links/optional-link'
+import { OptionalLinkWrapper } from '@/components/links/optional-link'
 
 import { StyledAvatar } from './StyledAvatar'
 
@@ -27,7 +27,7 @@ const ListDataCard = ({
 }: IListDataCardProps) => (
   <Card sx={{ margin: '0 auto', width: '100%' }}>
     <CardActionArea>
-      <OptionalLink href={linkTo}>
+      <OptionalLinkWrapper href={linkTo}>
         <CardHeader
           avatar={
             <StyledAvatar aria-label={`${title} icon`} secondary>
@@ -38,7 +38,7 @@ const ListDataCard = ({
           titleTypographyProps={{ variant: 'h6', color: 'textSecondary' }}
           subheader={subheader}
         />
-      </OptionalLink>
+      </OptionalLinkWrapper>
     </CardActionArea>
     {(!Array.isArray(items) || !!items.length) && (
       <CardContent sx={theme => ({ marginTop: theme.spacing(-2.2) })}>

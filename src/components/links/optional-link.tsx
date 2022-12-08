@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export const OptionalLink = ({
+export const OptionalLinkWrapper = ({
   href,
   children,
   passhref,
