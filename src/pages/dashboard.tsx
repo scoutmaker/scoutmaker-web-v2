@@ -5,7 +5,7 @@ import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { useDashboardData } from '@/modules/dashboard/hooks'
 import PMScoutManagerDashboardLayout from '@/modules/dashboard/layouts/playmaker-manager'
-import PMScoutDashboardLayout from '@/modules/dashboard/layouts/playmaker-scout'
+import PlaymakerScoutManagerDashboardLayout from '@/modules/dashboard/layouts/playmaker-scout'
 import ScoutDashboardLayout from '@/modules/dashboard/layouts/scout'
 import ScoutOrganizationDashboardLayout from '@/modules/dashboard/layouts/scout-organization'
 import { DashboardDto } from '@/modules/dashboard/types'
@@ -53,7 +53,7 @@ const DashboardPage = () => {
           />
         )}
         {userRole === 'PLAYMAKER_SCOUT' && (
-          <PMScoutDashboardLayout
+          <PlaymakerScoutManagerDashboardLayout
             data={dashboardData as DashboardDto}
             leaveMatchClick={leaveMatchAttendance}
             matchAttendance={matchAttendance}
