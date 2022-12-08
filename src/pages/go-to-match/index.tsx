@@ -9,6 +9,7 @@ import {
   useRemoveMatchAttendance,
 } from '@/modules/match-attendances/hooks'
 import { useMatchesList } from '@/modules/matches/hooks'
+import { useConfirmOnLeavePage } from '@/utils/hooks/use-confirm-leave'
 import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(
@@ -29,6 +30,8 @@ const GoToMatchPage = () => {
     useAddMatchAttendance()
 
   const { data: matches, isLoading: matchesLoading } = useMatchesList()
+
+  useConfirmOnLeavePage(t)
 
   const isLoading =
     activeMatchLoading ||
