@@ -12,7 +12,7 @@ import { StyledAvatar } from './StyledAvatar'
 
 interface IListDataCardProps {
   title: string
-  items: JSX.Element | JSX.Element[] | string
+  items: React.ReactNode
   subheader: string
   icon: JSX.Element
   linkTo?: string
