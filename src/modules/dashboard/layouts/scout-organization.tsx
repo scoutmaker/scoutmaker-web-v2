@@ -69,7 +69,7 @@ const ScoutOrganizationDashboardLayout = ({ data }: IProps) => {
                 href={`/notes/${id}`}
               />
             ),
-          ) || 'ERROR: NO DATA'
+          ) || []
         }
       />
       <ListDataCard
@@ -91,7 +91,7 @@ const ScoutOrganizationDashboardLayout = ({ data }: IProps) => {
                 href={`/reports/${id}`}
               />
             ),
-          ) || 'ERROR: NO DATA'
+          ) || []
         }
       />
       <ListDataCard

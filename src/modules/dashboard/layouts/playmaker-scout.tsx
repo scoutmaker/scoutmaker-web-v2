@@ -31,7 +31,7 @@ const PlaymakerScoutManagerDashboardLayout = (props: IBaseDashboardProps) => {
             <Grid item xs={12}>
               <Typography fontWeight="Bold">{name}</Typography>
             </Grid>
-          )) || 'ERROR: DATA NOT RECIVED'
+          )) || []
         }
       />
     </>
