@@ -84,7 +84,7 @@ const BaseDashboardLayout = ({
 
 // -1 for debug purposes, should be defined on render
 const precentageCountUp = (value: number | undefined) => (
-  <>➙ {value === 0 ? 0 : <CountUp end={value || -1} useEasing />}% z 30 dni</>
+  <>➙ {<CountUp end={value || 0} useEasing />}% z 30 dni</>
 )
 
 export default BaseDashboardLayout
