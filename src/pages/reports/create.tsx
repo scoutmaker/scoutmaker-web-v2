@@ -1,4 +1,5 @@
 import { useTranslation } from 'next-i18next'
+import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
@@ -37,7 +38,9 @@ const CreateReportPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { data: groups, isLoading: competitionGroupsLoading } =
     useCompetitionGroupsList()
 
-  useConfirmOnLeavePage(t)
+  const [isFormChanged, setIsFormChanged] = useState(false)
+
+  useConfirmOnLeavePage(isFormChanged)
 
   if (errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
@@ -65,6 +68,7 @@ const CreateReportPage = ({ errorMessage, errorStatus }: TSsrRole) => {
         teamsData={teams || []}
         competitionsData={competitions || []}
         competitionGroupsData={groups || []}
+        onFormChange={() => setIsFormChanged(true)}
       />
     </>
   )

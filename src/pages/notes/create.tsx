@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { useState } from 'react'
 
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -47,7 +48,9 @@ const CreateNotePage = () => {
       matchId && match ? [match.homeTeam.id, match.awayTeam.id] : undefined,
   })
 
-  useConfirmOnLeavePage(t)
+  const [isFormChanged, setIsFormChanged] = useState(false)
+
+  useConfirmOnLeavePage(isFormChanged)
 
   const isLoading =
     positionsLoading ||
@@ -73,6 +76,7 @@ const CreateNotePage = () => {
         onSubmit={createNote}
         match={matchId && match ? match : undefined}
         observationType={observationType}
+        onFormChange={() => setIsFormChanged(true)}
       />
     </>
   )

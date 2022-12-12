@@ -1,8 +1,10 @@
 import { Router } from 'next/router'
-import { TFunction } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import { useEffect } from 'react'
 
-export const useConfirmOnLeavePage = (t: TFunction) => {
+export const useConfirmOnLeavePage = (showPrompt: boolean = true) => {
+  const { t } = useTranslation()
+
   useEffect(() => {
     const beforeUnload = (e: BeforeUnloadEvent) => {
       // Cancel the event
@@ -18,12 +20,14 @@ export const useConfirmOnLeavePage = (t: TFunction) => {
         throw 'Abort route change. Please ignore this error.'
       }
     }
-    Router.events.on('routeChangeStart', routeChangeStart)
-    window.addEventListener('beforeunload', beforeUnload)
+    if (showPrompt) {
+      Router.events.on('routeChangeStart', routeChangeStart)
+      window.addEventListener('beforeunload', beforeUnload)
+    }
 
     return () => {
       Router.events.off('routeChangeStart', routeChangeStart)
       window.removeEventListener('beforeunload', beforeUnload)
     }
-  }, [])
+  }, [showPrompt])
 }

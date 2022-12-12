@@ -28,6 +28,7 @@ interface ICreateNoteFormProps {
   fullwidth?: boolean
   match?: MatchDto
   observationType?: 'LIVE' | 'VIDEO'
+  onFormChange: () => void
 }
 
 export const CreateNoteForm = ({
@@ -42,6 +43,7 @@ export const CreateNoteForm = ({
   teamsData,
   match,
   observationType,
+  onFormChange,
 }: ICreateNoteFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation(['common', 'notes'])
@@ -68,7 +70,7 @@ export const CreateNoteForm = ({
       }}
     >
       {({ handleReset }) => (
-        <Form>
+        <Form onChange={onFormChange}>
           <Container fullwidth={fullwidth}>
             <Fields
               positionsData={positionsData}

@@ -31,7 +31,7 @@ const GoToMatchPage = () => {
 
   const { data: matches, isLoading: matchesLoading } = useMatchesList()
 
-  useConfirmOnLeavePage(t)
+  useConfirmOnLeavePage()
 
   const isLoading =
     activeMatchLoading ||
