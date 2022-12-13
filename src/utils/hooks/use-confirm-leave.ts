@@ -6,6 +6,8 @@ export const useConfirmOnLeavePage = (showPrompt: boolean = true) => {
   const { t } = useTranslation()
 
   useEffect(() => {
+    if (!showPrompt) return
+
     const beforeUnload = (e: BeforeUnloadEvent) => {
       // Cancel the event
       e.preventDefault() // If you prevent default behavior in Mozilla Firefox prompt will always be shown
@@ -20,11 +22,11 @@ export const useConfirmOnLeavePage = (showPrompt: boolean = true) => {
         throw 'Abort route change. Please ignore this error.'
       }
     }
-    if (showPrompt) {
-      Router.events.on('routeChangeStart', routeChangeStart)
-      window.addEventListener('beforeunload', beforeUnload)
-    }
 
+    Router.events.on('routeChangeStart', routeChangeStart)
+    window.addEventListener('beforeunload', beforeUnload)
+
+    // eslint-disable-next-line consistent-return
     return () => {
       Router.events.off('routeChangeStart', routeChangeStart)
       window.removeEventListener('beforeunload', beforeUnload)
