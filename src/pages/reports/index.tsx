@@ -51,6 +51,8 @@ const initialFilters: ReportsFiltersState = {
   onlyLikedTeams: false,
 }
 
+const initialSortBy: ReportsSortBy = 'createdAt'
+
 interface IReportToDeleteData {
   id: string
   docNumber: number
@@ -70,7 +72,7 @@ const ReportsPage = () => {
     handleChangePage,
     handleChangeRowsPerPage,
     handleSort,
-  } = useTable('reports-table')
+  } = useTable('reports-table', initialSortBy)
 
   const [filters, setFilters] = useLocalStorage<ReportsFiltersState>({
     key: 'reports-filters',
@@ -115,6 +117,11 @@ const ReportsPage = () => {
     setIsDeleteConfirmationModalOpen(true)
   }
 
+  const onClearFilters = () => {
+    handleSetFilters(initialFilters)
+    handleSort(initialSortBy, 'desc')
+  }
+
   const isLoading =
     teamsLoading ||
     competitionsLoading ||
@@ -141,7 +148,7 @@ const ReportsPage = () => {
           competitionsData={competitions || []}
           competitionGroupsData={competitionGroups || []}
           onFilter={handleSetFilters}
-          onClearFilters={() => handleSetFilters(initialFilters)}
+          onClearFilters={onClearFilters}
         />
       </FilterAccordion>
       <ReportsTable

@@ -47,6 +47,8 @@ const initialFilters: PlayersFiltersState = {
   hasAnyObservation: false,
 }
 
+const initialSortBy: PlayersSortBy = 'updatedAt'
+
 const PlayersPage = () => {
   const { t } = useTranslation()
 
@@ -60,7 +62,7 @@ const PlayersPage = () => {
     handleChangePage,
     handleChangeRowsPerPage,
     handleSort,
-  } = useTable('players-table')
+  } = useTable('players-table', initialSortBy)
 
   const [filters, setFilters] = useLocalStorage<PlayersFiltersState>({
     key: 'players-filters',
@@ -100,6 +102,11 @@ const PlayersPage = () => {
     setIsDeleteConfirmationModalOpen(true)
   }
 
+  const onClearFilters = () => {
+    handleSetFilters(initialFilters)
+    handleSort(initialSortBy, 'desc')
+  }
+
   const isLoading =
     countriesLoading ||
     teamsLoading ||
@@ -124,7 +131,7 @@ const PlayersPage = () => {
           competitionGroupsData={competitionGroups || []}
           teamsData={teams || []}
           onFilter={handleSetFilters}
-          onClearFilters={() => handleSetFilters(initialFilters)}
+          onClearFilters={onClearFilters}
         />
       </FilterAccordion>
       <PlayersTable
