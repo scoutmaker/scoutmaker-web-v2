@@ -4,47 +4,44 @@ import {
   CardContent,
   CardHeader,
   Grid,
+  Link as MuiLink,
+  Typography,
 } from '@mui/material'
 
 import { OptionalLinkWrapper } from '@/components/links/optional-link'
 
-import { StyledAvatar } from './StyledAvatar'
-
 interface IListDataCardProps {
   title: string
-  items: React.ReactNode
-  subheader: string
-  icon: JSX.Element
+  items: { id: string; text: React.ReactElement | string; linksPage?: string }[]
   linkTo?: string
 }
 
-const ListDataCard = ({
-  items,
-  icon,
-  subheader,
-  title,
-  linkTo,
-}: IListDataCardProps) => (
+const ListDataCard = ({ title, items, linkTo }: IListDataCardProps) => (
   <Card sx={{ margin: '0 auto', width: '100%' }}>
     <CardActionArea>
       <OptionalLinkWrapper href={linkTo}>
         <CardHeader
-          avatar={
-            <StyledAvatar aria-label={`${title} icon`} secondary>
-              {icon}
-            </StyledAvatar>
-          }
-          title={title.toUpperCase()}
-          titleTypographyProps={{ variant: 'h6', color: 'textSecondary' }}
-          subheader={subheader}
+          title={title}
+          titleTypographyProps={{
+            variant: 'h6',
+            color: 'textSecondary',
+            textAlign: 'center',
+          }}
         />
       </OptionalLinkWrapper>
     </CardActionArea>
-    {(!Array.isArray(items) || !!items.length) && (
-      <CardContent sx={theme => ({ marginTop: theme.spacing(-2.2) })}>
-        <Grid container>{items}</Grid>
-      </CardContent>
-    )}
+    <CardContent sx={theme => ({ marginTop: theme.spacing(-2.2) })}>
+      {items.map(({ id, text, linksPage }) => (
+        <Grid item xs={12} key={id} justifyContent="center" display="flex">
+          <OptionalLinkWrapper
+            href={linksPage ? `/${linksPage}/${id}` : undefined}
+            passHref
+          >
+            <Typography component={MuiLink}>{text}</Typography>
+          </OptionalLinkWrapper>
+        </Grid>
+      ))}
+    </CardContent>
   </Card>
 )
 export default ListDataCard

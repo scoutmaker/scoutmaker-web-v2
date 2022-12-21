@@ -17,7 +17,6 @@ const PMScoutManagerDashboardLayout = (props: IBaseDashboardProps) => {
         linkTo="/players"
         icon={<PlayersIcon />}
       />
-      <BasicCard title={t('dashboard:CREATE_ORDER')} linkTo="/orders/create" />
     </>
   )
 }

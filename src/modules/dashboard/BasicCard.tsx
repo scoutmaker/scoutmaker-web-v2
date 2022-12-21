@@ -1,11 +1,5 @@
 import { Add as AddIcon } from '@mui/icons-material'
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  styled,
-  Typography,
-} from '@mui/material'
+import { Card, CardActionArea, CardContent, Typography } from '@mui/material'
 
 import { OptionalLinkWrapper } from '@/components/links/optional-link'
 
@@ -28,20 +22,31 @@ export const BasicCard = ({
   onClick,
   secondary,
 }: IBasicCardProps) => (
-  <Card onClick={onClick}>
-    <OptionalLinkWrapper href={linkTo}>
-      <CardActionArea sx={{ height: '100%' }}>
-        <CardContentContainer
-          sx={
-            secondary
-              ? ({ palette }) => ({ background: palette.secondary.main })
-              : undefined
-          }
+  <Card
+    onClick={onClick}
+    sx={({ palette }) => ({
+      background: secondary ? palette.secondary.main : undefined,
+    })}
+  >
+    <CardActionArea sx={{ height: '100%' }}>
+      <OptionalLinkWrapper href={linkTo}>
+        <CardContent
+          sx={theme => ({
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: underText ? 'space-between' : 'center',
+            gap: underText ? undefined : theme.spacing(1),
+          })}
         >
           {underText ? (
             <div>
-              <Typography color="textPrimary" gutterBottom variant="h6">
-                {title.toUpperCase()}
+              <Typography
+                color="textPrimary"
+                gutterBottom
+                variant="h6"
+                fontSize={16}
+              >
+                {title}
               </Typography>
               <Typography
                 color={
@@ -67,18 +72,11 @@ export const BasicCard = ({
               {title}
             </Typography>
           )}
-          <div>
-            <StyledAvatar>{icon || <AddIcon />}</StyledAvatar>
-          </div>
-        </CardContentContainer>
-      </CardActionArea>
-    </OptionalLinkWrapper>
+          <StyledAvatar sx={underText ? undefined : { marginRight: '-2rem' }}>
+            {icon || <AddIcon />}
+          </StyledAvatar>
+        </CardContent>
+      </OptionalLinkWrapper>
+    </CardActionArea>
   </Card>
 )
-
-const CardContentContainer = styled(CardContent)({
-  height: '100%',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-})

@@ -1,18 +1,10 @@
-import { useTranslation } from 'next-i18next'
+import { Box } from '@mui/material'
 
-import { CardItemBasic } from '@/components/details-card/details-card-item'
-import {
-  MatchesIcon,
-  NotesIcon,
-  PlayersIcon,
-  ReportsIcon,
-  UsersIcon,
-} from '@/components/icons'
 import { getBasicMatchName } from '@/modules/matches/utils'
 import { getPlayerFullName } from '@/modules/players/utils'
-import { getDocumentNumber } from '@/utils/get-document-number'
+import { getCompetitionDisplayName } from '@/modules/teams/details-card'
+import { formatDate } from '@/utils/format-date'
 
-import { BasicCard } from '../BasicCard'
 import { CountCard } from '../CountCard'
 import ListDataCard from '../ListDataCard'
 import { DashboardDto } from '../types'
@@ -22,95 +14,95 @@ interface IProps {
 }
 
 const ScoutOrganizationDashboardLayout = ({ data }: IProps) => {
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
   const {
     scoutsCount,
     observerdPlayersCount,
     observedMatchesCount,
     topNotes,
     topReports,
+    reportsCount,
+    notesCount,
+    topPlayers,
+    matchesCount,
   } = data
 
   return (
     <>
+      <CountCard title="Skauci raportujący dla klubu" count={scoutsCount} />
       <CountCard
-        icon={<UsersIcon />}
-        title="Liczba skautów"
-        count={scoutsCount}
-      />
-      <CountCard
-        icon={<PlayersIcon />}
-        title="Liczba piłkarzy"
+        title="Zawodnicy z notką lub raportem subskrybowanych lig"
         count={observerdPlayersCount}
         linkTo="/players"
       />
       <CountCard
-        icon={<MatchesIcon />}
-        title="Liczba obejrzanych meczy"
+        title="Zaraportowane mecze subskrybowanych lig"
         count={observedMatchesCount}
         linkTo="/matches"
       />
       <ListDataCard
-        icon={<NotesIcon />}
-        title="Top notatki"
-        subheader="Top 5 ostatnich notatek"
+        title="Top 5 ostatnich raportów"
         items={
-          topNotes?.map(
-            ({ rating, player, createdAt, docNumber, match, id }) => (
-              <CardItemBasic
-                key={id}
-                title={player ? getPlayerFullName(player) : '-'}
-                value={`${rating} - ${
-                  match ? getBasicMatchName(match) : ''
-                } (${getDocumentNumber({
-                  docNumber,
-                  createdAt,
-                })})`}
-                href={`/notes/${id}`}
-              />
+          topReports?.map(({ finalRating, player, createdAt, match, id }) => ({
+            id,
+            linksPage: 'reports',
+            text: (
+              <>
+                {getPlayerFullName(player)}:{' '}
+                <Box component="span" color="green">
+                  {finalRating}
+                </Box>{' '}
+                ➙ {match ? getBasicMatchName(match) : ''} (
+                {formatDate(createdAt)})
+              </>
             ),
-          ) || []
+          })) || []
         }
       />
       <ListDataCard
-        icon={<ReportsIcon />}
-        title="Top raporty"
-        subheader="Top 5 ostatnich raportów"
+        title="Top 5 ostatnich notatek"
         items={
-          topReports?.map(
-            ({ finalRating, player, createdAt, docNumber, match, id }) => (
-              <CardItemBasic
-                key={id}
-                title={player ? getPlayerFullName(player) : '-'}
-                value={`${finalRating} - ${
-                  match ? getBasicMatchName(match) : ''
-                } (${getDocumentNumber({
-                  docNumber,
-                  createdAt,
-                })})`}
-                href={`/reports/${id}`}
-              />
+          topNotes?.map(({ rating, player, createdAt, match, id }) => ({
+            id,
+            linksPage: 'notes',
+            text: (
+              <>
+                {player ? getPlayerFullName(player) : '-'}:{' '}
+                <Box component="span" color="green">
+                  {rating}
+                </Box>{' '}
+                ➙ {match ? getBasicMatchName(match) : ''} (
+                {formatDate(createdAt)})
+              </>
             ),
-          ) || []
+          })) || []
         }
       />
       <ListDataCard
-        icon={<PlayersIcon />}
-        title="Top piłkarze"
-        subheader="Top 5 piłkarzy"
-        items="TO ADD"
+        title="Top 5 piłkarzy z minimum 3 wpisami do bazy"
+        items={
+          topPlayers?.map(
+            ({ averageRating, firstName, lastName, teams, slug }) => ({
+              id: slug,
+              linksPage: 'players',
+              text: (
+                <>
+                  {firstName} {lastName}:{' '}
+                  <Box component="span" color="green">
+                    {4 * (averageRating / 100)}
+                  </Box>{' '}
+                  ➙ {teams[0]?.team.name || '-'}:{' '}
+                  {getCompetitionDisplayName(teams[0]?.team.competitions[0])}
+                </>
+              ),
+            }),
+          ) || []
+        }
       />
-      <BasicCard title={t('NOTES')} linkTo="/notes" icon={<NotesIcon />} />
-      <BasicCard
-        title={t('PLAYERS')}
-        linkTo="/players"
-        icon={<PlayersIcon />}
-      />
-      <BasicCard
-        title={t('REPORTS')}
-        linkTo="/reports"
-        icon={<ReportsIcon />}
-      />
+
+      <CountCard title="Baza raportów" count={reportsCount} />
+      <CountCard title="Baza notatek" count={notesCount} />
+      <CountCard title="Baza meczów" count={matchesCount} />
     </>
   )
 }

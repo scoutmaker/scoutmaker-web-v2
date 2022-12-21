@@ -1,7 +1,6 @@
-import { Grid, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { OrdersIcon, OrganizationsIcon, PlayersIcon } from '@/components/icons'
+import { OrdersIcon, PlayersIcon } from '@/components/icons'
 
 import { BasicCard } from '../BasicCard'
 import ListDataCard from '../ListDataCard'
@@ -15,24 +14,16 @@ const PlaymakerScoutManagerDashboardLayout = (props: IBaseDashboardProps) => {
 
   return (
     <>
-      <BaseDashboardLayout {...props} />
+      <BaseDashboardLayout {...props} variant="playmaker-scout" />
       <BasicCard title={t('ORDERS')} linkTo="/orders" icon={<OrdersIcon />} />
       <BasicCard
-        title={t('PLAYERS')}
+        title="Ulubieni zawodnicy"
         linkTo="/players"
         icon={<PlayersIcon />}
       />
       <ListDataCard
-        icon={<OrganizationsIcon />}
-        title={t('ORGANIZATIONS')}
-        subheader="Organizacje z aktywnymi subskrypcjami"
-        items={
-          organizations?.map(({ name }) => (
-            <Grid item xs={12}>
-              <Typography fontWeight="Bold">{name}</Typography>
-            </Grid>
-          )) || []
-        }
+        title="Organizacje z subskrypcją"
+        items={organizations?.map(({ name, id }) => ({ id, text: name })) || []}
       />
     </>
   )

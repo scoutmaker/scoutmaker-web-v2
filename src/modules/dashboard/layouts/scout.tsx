@@ -6,21 +6,23 @@ import { BasicCard } from '../BasicCard'
 import BaseDashboardLayout, { IBaseDashboardProps } from './base'
 
 const ScoutDashboardLayout = (props: IBaseDashboardProps) => {
+  // will come back to this when adding translations
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { t } = useTranslation()
 
   return (
     <>
-      <BaseDashboardLayout {...props} />
-      <BasicCard title={t('NOTES')} linkTo="/notes" icon={<NotesIcon />} />
+      <BaseDashboardLayout {...props} variant="scout" />
       <BasicCard
-        title={t('PLAYERS')}
-        linkTo="/players"
-        icon={<PlayersIcon />}
-      />
-      <BasicCard
-        title={t('REPORTS')}
+        title="Baza raportów"
         linkTo="/reports"
         icon={<ReportsIcon />}
+      />
+      <BasicCard title="Baza notatek" linkTo="/notes" icon={<NotesIcon />} />
+      <BasicCard
+        title="Ulubieni zawodnicy"
+        linkTo="/players"
+        icon={<PlayersIcon />}
       />
     </>
   )
