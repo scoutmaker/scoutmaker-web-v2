@@ -82,14 +82,20 @@ const ScoutOrganizationDashboardLayout = ({ data }: IProps) => {
         title="Top 5 piłkarzy z minimum 3 wpisami do bazy"
         items={
           topPlayers?.map(
-            ({ averageRating, firstName, lastName, teams, slug }) => ({
+            ({
+              averagePrecentageRating,
+              firstName,
+              lastName,
+              teams,
+              slug,
+            }) => ({
               id: slug,
               linksPage: 'players',
               text: (
                 <>
                   {firstName} {lastName}:{' '}
                   <Box component="span" color="green">
-                    {4 * (averageRating / 100)}
+                    {4 * (averagePrecentageRating / 100)}
                   </Box>{' '}
                   ➙ {teams[0]?.team.name || '-'}:{' '}
                   {getCompetitionDisplayName(teams[0]?.team.competitions[0])}
