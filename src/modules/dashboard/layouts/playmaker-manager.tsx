@@ -5,12 +5,14 @@ import { OrdersIcon, PlayersIcon } from '@/components/icons'
 import { BasicCard } from '../BasicCard'
 import BaseDashboardLayout, { IBaseDashboardProps } from './base'
 
-const PMScoutManagerDashboardLayout = (props: IBaseDashboardProps) => {
+const PMScoutManagerDashboardLayout = (
+  props: Omit<IBaseDashboardProps, 'variant'>,
+) => {
   const { t } = useTranslation()
 
   return (
     <>
-      <BaseDashboardLayout {...props} />
+      <BaseDashboardLayout {...props} variant="playmaker-scout" />
       <BasicCard title={t('ORDERS')} linkTo="/orders" icon={<OrdersIcon />} />
       <BasicCard
         title={t('PLAYERS')}

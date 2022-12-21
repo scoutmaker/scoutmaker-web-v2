@@ -6,7 +6,9 @@ import { BasicCard } from '../BasicCard'
 import ListDataCard from '../ListDataCard'
 import BaseDashboardLayout, { IBaseDashboardProps } from './base'
 
-const PlaymakerScoutManagerDashboardLayout = (props: IBaseDashboardProps) => {
+const PlaymakerScoutManagerDashboardLayout = (
+  props: Omit<IBaseDashboardProps, 'variant'>,
+) => {
   const { t } = useTranslation()
   const {
     data: { organizations },

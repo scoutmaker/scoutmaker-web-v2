@@ -5,7 +5,7 @@ import { NotesIcon, PlayersIcon, ReportsIcon } from '@/components/icons'
 import { BasicCard } from '../BasicCard'
 import BaseDashboardLayout, { IBaseDashboardProps } from './base'
 
-const ScoutDashboardLayout = (props: IBaseDashboardProps) => {
+const ScoutDashboardLayout = (props: Omit<IBaseDashboardProps, 'variant'>) => {
   // will come back to this when adding translations
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { t } = useTranslation()
