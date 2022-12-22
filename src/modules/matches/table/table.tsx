@@ -14,21 +14,20 @@ interface IMatchesTableProps extends ICommonTableProps {
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
+    { id: 'date', label: t('DATE') },
     { id: 'homeTeam', label: t('HOME_TEAM') },
     { id: 'awayTeam', label: t('AWAY_TEAM') },
-    { id: 'date', label: t('DATE') },
     { id: 'competition', label: t('COMPETITION') },
-    { id: 'group', label: t('COMPETITION_GROUP') },
-    { id: 'season', label: t('SEASON') },
+    { id: 'group', label: t('GROUP') },
     { id: 'result', label: t('RESULT'), isSortingDisabled: true },
-    { id: 'videoUrl', label: t('VIDEO') },
-    { id: 'reportsCount', label: t('REPORTS_COUNT') },
-    { id: 'notesCount', label: t('NOTES_COUNT') },
+    { id: 'reportsCount', label: t('REPORTS') },
+    { id: 'notesCount', label: t('NOTES') },
     {
       id: 'observations',
-      label: t('OBSERVATION_TYPE'),
+      label: t('OBSERVATION'),
       isSortingDisabled: true,
     },
+    { id: 'season', label: t('SEASON') },
   ]
 }
 

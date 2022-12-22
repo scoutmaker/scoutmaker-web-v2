@@ -17,17 +17,15 @@ interface IPlayersTableProps extends ICommonTableProps {
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
     { id: 'favourite', label: '', isSortingDisabled: true },
+    { id: 'country', label: t('COUNTRY') },
     { id: 'lastName', label: t('LAST_NAME') },
     { id: 'firstName', label: t('FIRST_NAME') },
-    { id: 'country', label: t('COUNTRY') },
     { id: 'team', label: t('TEAM') },
-    { id: 'primaryPosition', label: t('PRIMARY_POSITION') },
     { id: 'yearOfBirth', label: t('YEAR_OF_BIRTH') },
-    { id: 'height', label: t('HEIGHT') },
-    { id: 'weight', label: t('WEIGHT') },
+    { id: 'primaryPosition', label: t('PRIMARY_POSITION') },
     { id: 'footed', label: t('FOOTED') },
-    { id: 'reportsCount', label: t('REPORTS_COUNT') },
-    { id: 'notesCount', label: t('NOTES_COUNT') },
+    { id: 'reportsCount', label: t('REPORTS') },
+    { id: 'notesCount', label: t('NOTES') },
   ]
 }
 

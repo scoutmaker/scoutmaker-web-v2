@@ -4,13 +4,13 @@ import {
   FavoriteBorder as LikeIcon,
   Note as NotesIcon,
 } from '@mui/icons-material'
-import { Badge, Link as MUILink } from '@mui/material'
-import Link from 'next/link'
+import { Badge } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { LikedTableCell } from '@/components/likedTableCell/likedTableCell'
 import { StyledTableCell } from '@/components/tables/cell'
+import { CellWithLink } from '@/components/tables/cell-with-link'
 import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
 import { StyledTableRow } from '@/components/tables/row'
@@ -54,8 +54,6 @@ export const PlayersTableRow = ({
     primaryPosition,
     teams,
     footed,
-    height,
-    weight,
     country,
     yearOfBirth,
     _count: count,
@@ -104,22 +102,17 @@ export const PlayersTableRow = ({
         isLiked={!!likes.length}
         onClicked={cellChangeLikedClick}
       />
-      <StyledTableCell>{lastName}</StyledTableCell>
-      <StyledTableCell>{firstName}</StyledTableCell>
       <StyledTableCell sx={{ minWidth: 100 }}>{`${getFlagEmoji(country.code)} ${
         country.name
       }`}</StyledTableCell>
-      <StyledTableCell sx={{ minWidth: 150 }}>
-        <Link href={`/teams/${teams[0]?.team?.slug}`} passHref>
-          <MUILink onClick={e => e.stopPropagation()}>
-            {teams[0]?.team?.name}
-          </MUILink>
-        </Link>
-      </StyledTableCell>
-      <StyledTableCell>{primaryPosition.name}</StyledTableCell>
+      <StyledTableCell>{lastName}</StyledTableCell>
+      <StyledTableCell>{firstName}</StyledTableCell>
+      <CellWithLink
+        href={`/teams/${teams[0]?.team?.slug}`}
+        label={teams[0]?.team?.name}
+      />
       <StyledTableCell>{yearOfBirth}</StyledTableCell>
-      <StyledTableCell>{height}</StyledTableCell>
-      <StyledTableCell>{weight}</StyledTableCell>
+      <StyledTableCell>{primaryPosition.name}</StyledTableCell>
       <StyledTableCell>{t(footed)}</StyledTableCell>
       <StyledTableCell align="center">
         <Badge badgeContent={count.reports || '0'} color="secondary">

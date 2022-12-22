@@ -96,8 +96,10 @@ export const TeamsTableRow = ({
           <MUILink onClick={e => e.stopPropagation()}>{club.name}</MUILink>
         </Link>
       </StyledTableCell>
-      <StyledTableCell>{competitions[0]?.competition?.name}</StyledTableCell>
-      <StyledTableCell>{competitions[0]?.group?.name}</StyledTableCell>
+      <StyledTableCell>
+        {competitions[0]?.competition?.name || '-'} →{' '}
+        {competitions[0]?.group?.name || '-'}
+      </StyledTableCell>
     </StyledTableRow>
   )
 }
