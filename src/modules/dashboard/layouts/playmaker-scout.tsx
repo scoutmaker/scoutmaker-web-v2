@@ -20,7 +20,7 @@ const PlaymakerScoutManagerDashboardLayout = (
       <BasicCard title={t('ORDERS')} linkTo="/orders" icon={<OrdersIcon />} />
       <BasicCard
         title="Ulubieni zawodnicy"
-        linkTo="/players"
+        linkTo="/players?onlyLiked=true"
         icon={<PlayersIcon />}
       />
       <ListDataCard

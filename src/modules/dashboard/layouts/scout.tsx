@@ -21,7 +21,7 @@ const ScoutDashboardLayout = (props: Omit<IBaseDashboardProps, 'variant'>) => {
       <BasicCard title="Baza notatek" linkTo="/notes" icon={<NotesIcon />} />
       <BasicCard
         title="Ulubieni zawodnicy"
-        linkTo="/players"
+        linkTo="/players?onlyLiked=true"
         icon={<PlayersIcon />}
       />
     </>
