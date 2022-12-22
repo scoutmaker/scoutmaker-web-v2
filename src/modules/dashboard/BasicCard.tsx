@@ -1,9 +1,13 @@
 import { Add as AddIcon } from '@mui/icons-material'
-import { Card, CardActionArea, CardContent, Typography } from '@mui/material'
+import {
+  Avatar,
+  Card,
+  CardActionArea,
+  CardContent,
+  Typography,
+} from '@mui/material'
 
 import { OptionalLinkWrapper } from '@/components/links/optional-link'
-
-import { StyledAvatar } from './StyledAvatar'
 
 interface IBasicCardProps {
   linkTo?: string
@@ -72,9 +76,14 @@ export const BasicCard = ({
               {title}
             </Typography>
           )}
-          <StyledAvatar sx={underText ? undefined : { marginRight: '-2rem' }}>
+          <Avatar
+            sx={{
+              marginRight: underText ? undefined : '-2rem',
+              backgroundColor: 'primary.main',
+            }}
+          >
             {icon || <AddIcon />}
-          </StyledAvatar>
+          </Avatar>
         </CardContent>
       </OptionalLinkWrapper>
     </CardActionArea>
