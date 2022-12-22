@@ -36,6 +36,9 @@ declare namespace Components {
             name: string;
             slug: string;
         }
+        export interface ClubCount {
+            teams: number;
+        }
         export interface ClubDto {
             id: string;
             name: string;
@@ -50,6 +53,7 @@ declare namespace Components {
             instagram?: string;
             country: CountryDto;
             region: RegionWithoutCountryDto;
+            _count: ClubCount;
         }
         export interface CompetitionAgeCategoryDto {
             id: string;
