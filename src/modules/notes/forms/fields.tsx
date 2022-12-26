@@ -82,6 +82,16 @@ export const Fields = ({
         helperText={touched.shirtNo && errors.shirtNo}
       />
       <BasicCombo
+        data={mapListDataToComboOptions(positionsData)}
+        name="positionPlayedId"
+        label={t('notes:POSITION_PLAYED')}
+        error={touched.positionPlayedId && !!errors.positionPlayedId}
+        helperText={
+          (touched.positionPlayedId && errors.positionPlayedId) ||
+          t('notes:PLAYER_POSITION_INFO')
+        }
+      />
+      <BasicCombo
         data={mapMatchesListToComboOptions(matchesData)}
         name="matchId"
         label={t('MATCH')}
@@ -120,58 +130,6 @@ export const Fields = ({
           touched.observationType ? errors.observationType : undefined
         }
       />
-      <Accordion sx={{ background: 'none' }}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="meta-data-fields-content"
-          id="meta-data-fields-header"
-        >
-          <Typography sx={{ fontWeight: 'bold' }}>{t('META_DATA')}</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <AccordionInnerContainer>
-            <Typography>{t('notes:META_DATA_DISCLAIMER')}</Typography>
-            <BasicCombo
-              data={mapListDataToComboOptions(positionsData)}
-              name="positionPlayedId"
-              label={t('PLAYER_POSITION')}
-              error={touched.positionPlayedId && !!errors.positionPlayedId}
-              helperText={
-                touched.positionPlayedId ? errors.positionPlayedId : undefined
-              }
-            />
-            <BasicCombo
-              data={mapListDataToComboOptions(teamsData)}
-              name="teamId"
-              label={t('TEAM')}
-              error={touched.teamId && !!errors.teamId}
-              helperText={touched.teamId ? errors.teamId : undefined}
-            />
-            <BasicCombo
-              data={mapCompetitionsListToComboOptions(competitionsData)}
-              name="competitionId"
-              label={t('COMPETITION')}
-              error={touched.competitionId && !!errors.competitionId}
-              helperText={
-                touched.competitionId ? errors.competitionId : undefined
-              }
-            />
-            <BasicCombo
-              data={mapCompetitionGroupsListToComboOptions(
-                competitionGroupsData,
-              )}
-              name="competitionGroupId"
-              label={t('COMPETITION_GROUP')}
-              error={touched.competitionGroupId && !!errors.competitionGroupId}
-              helperText={
-                touched.competitionGroupId
-                  ? errors.competitionGroupId
-                  : undefined
-              }
-            />
-          </AccordionInnerContainer>
-        </AccordionDetails>
-      </Accordion>
     </>
   )
 }
