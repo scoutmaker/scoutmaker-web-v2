@@ -14,7 +14,7 @@ interface IMatchesTableProps extends ICommonTableProps {
     docNumber: number
     createdAt: string
   }) => void
-  onLikeClick: (id: string) => void
+  onLikeClick: (note: NoteDto) => void
   onUnLikeClick: (id: string) => void
 }
 
