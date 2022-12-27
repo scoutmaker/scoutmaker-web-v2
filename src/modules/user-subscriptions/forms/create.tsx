@@ -4,6 +4,7 @@ import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
 import { BasicCombo } from '@/components/combo/basicCombo'
+import FilteredCompetitonGroups from '@/components/filteredCompetitionGroups/filteredCompetitonGroups'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
@@ -48,7 +49,7 @@ export const CreateUserSubscriptionForm = ({
         resetForm()
       }}
     >
-      {({ handleReset, touched, errors }) => (
+      {({ handleReset, touched, errors, values }) => (
         <Form>
           <Container fullwidth={fullwidth}>
             <BasicCombo
@@ -70,11 +71,12 @@ export const CreateUserSubscriptionForm = ({
               }
               label={t('COMPETITIONS')}
             />
-            <BasicCombo
-              name="competitionGroupIds"
-              data={mapCompetitionGroupsListToComboOptions(
+            <FilteredCompetitonGroups
+              competitionGroupsData={mapCompetitionGroupsListToComboOptions(
                 competitionGroupsData,
               )}
+              competitionsFormValue={values.competitionIds}
+              name="competitionGroupIds"
               multiple
               error={touched.competitionIds && !!errors.competitionIds}
               helperText={
@@ -83,6 +85,7 @@ export const CreateUserSubscriptionForm = ({
                   : undefined
               }
               label={t('COMPETITION_GROUPS')}
+              isBasicCombo
             />
             <Field
               name="startDate"

@@ -13,6 +13,7 @@ import React from 'react'
 import { BasicCombo } from '@/components/combo/basicCombo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { getObservationTypeComboData } from '@/components/combos-data/observation-type'
+import FilteredCompetitonGroups from '@/components/filteredCompetitionGroups/filteredCompetitonGroups'
 import { ExpandMoreIcon } from '@/components/icons'
 import { RatingInput } from '@/components/rating-input/rating-input'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
@@ -156,10 +157,11 @@ export const Fields = ({
                 touched.competitionId ? errors.competitionId : undefined
               }
             />
-            <BasicCombo
-              data={mapCompetitionGroupsListToComboOptions(
+            <FilteredCompetitonGroups
+              competitionGroupsData={mapCompetitionGroupsListToComboOptions(
                 competitionGroupsData,
               )}
+              competitionsFormValue={values.competitionId || ''}
               name="competitionGroupId"
               label={t('COMPETITION_GROUP')}
               error={touched.competitionGroupId && !!errors.competitionGroupId}
@@ -168,6 +170,7 @@ export const Fields = ({
                   ? errors.competitionGroupId
                   : undefined
               }
+              isBasicCombo
             />
           </AccordionInnerContainer>
         </AccordionDetails>
