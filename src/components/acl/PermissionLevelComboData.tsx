@@ -1,7 +1,7 @@
 import { TFunction } from 'next-i18next'
 
 type TPermissionLevels = NonNullable<
-  Components.Schemas.CreateUserPlayerAceDto['permissionLevel']
+  Components.Schemas.CreateUserNoteAceDto['permissionLevel']
 >
 
 interface IPermissionComboOptions {
