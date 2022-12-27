@@ -5,12 +5,9 @@ import { useTranslation } from 'next-i18next'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { MatchBasicDataDto, MatchDto } from '@/modules/matches/types'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { PlayerBasicDataDto } from '@/modules/players/types'
-import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { CreateNoteDto } from '../types'
 import { Fields } from './fields'
@@ -20,9 +17,6 @@ interface ICreateNoteFormProps {
   playersData: PlayerBasicDataDto[]
   matchesData: MatchBasicDataDto[]
   positionsData: PlayerPositionDto[]
-  teamsData: TeamBasicDataDto[]
-  competitionsData: CompetitionBasicDataDto[]
-  competitionGroupsData: CompetitionGroupBasicDataDto[]
   onSubmit: (data: CreateNoteDto) => void
   onCancelClick?: () => void
   fullwidth?: boolean
@@ -37,9 +31,6 @@ export const CreateNoteForm = ({
   playersData,
   matchesData,
   positionsData,
-  competitionsData,
-  competitionGroupsData,
-  teamsData,
   match,
   observationType,
 }: ICreateNoteFormProps) => {
@@ -72,9 +63,6 @@ export const CreateNoteForm = ({
           <Container fullwidth={fullwidth}>
             <Fields
               positionsData={positionsData}
-              teamsData={teamsData}
-              competitionGroupsData={competitionGroupsData}
-              competitionsData={competitionsData}
               matchesData={matchesData}
               playersData={playersData}
               matchDisabled={!!match}

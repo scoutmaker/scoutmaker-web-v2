@@ -1,11 +1,4 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  TextField,
-  Typography,
-} from '@mui/material'
-import { styled } from '@mui/material/styles'
+import { TextField } from '@mui/material'
 import { Field, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
@@ -13,35 +6,19 @@ import React from 'react'
 import { BasicCombo } from '@/components/combo/basicCombo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { getObservationTypeComboData } from '@/components/combos-data/observation-type'
-import { ExpandMoreIcon } from '@/components/icons'
 import { RatingInput } from '@/components/rating-input/rating-input'
-import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
-import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { MatchBasicDataDto } from '@/modules/matches/types'
 import { mapMatchesListToComboOptions } from '@/modules/matches/utils'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { mapPlayersListToComboOptions } from '@/modules/players/utils'
-import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { CreateNoteDto, UpdateNoteDto } from '../types'
-
-export const AccordionInnerContainer = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  margin: theme.spacing(0, 'auto', 2),
-  gap: theme.spacing(2),
-}))
 
 interface IFieldsProps {
   playersData: PlayerBasicDataDto[]
   matchesData: MatchBasicDataDto[]
   positionsData: PlayerPositionDto[]
-  teamsData: TeamBasicDataDto[]
-  competitionsData: CompetitionBasicDataDto[]
-  competitionGroupsData: CompetitionGroupBasicDataDto[]
   matchDisabled?: boolean
 }
 
@@ -49,9 +26,6 @@ export const Fields = ({
   playersData,
   matchesData,
   positionsData,
-  competitionsData,
-  competitionGroupsData,
-  teamsData,
   matchDisabled,
 }: IFieldsProps) => {
   const { t } = useTranslation()
