@@ -63,15 +63,6 @@ export const MatchesFilterForm = ({
               multiple
               size="small"
             />
-            <FilterCombo
-              name="groupIds"
-              data={mapCompetitionGroupsListToComboOptions(
-                competitionGroupsData,
-              )}
-              label={t('COMPETITION_GROUPS')}
-              multiple
-              size="small"
-            />
             <FilteredCompetitonGroups
               competitionGroupsData={mapCompetitionGroupsListToComboOptions(
                 competitionGroupsData,
