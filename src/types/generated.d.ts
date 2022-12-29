@@ -4725,7 +4725,7 @@ declare namespace Paths {
             export type PlayerBornBefore = number;
             export type PlayerIds = string[];
             export type PositionIds = string[];
-            export type SortBy = "id" | "player" | "positionPlayed" | "finalRating" | "percentageRating" | "videoUrl" | "author" | "createdAt" | "status";
+            export type SortBy = "id" | "player" | "positionPlayed" | "finalRating" | "percentageRating" | "videoUrl" | "author" | "createdAt" | "status" | "match";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
             export type UserId = string;
