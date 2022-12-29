@@ -20,10 +20,7 @@ import {
 } from '@/modules/reports/hooks'
 import { ReportsTable } from '@/modules/reports/table/table'
 import { ReportsFiltersState, ReportsSortBy } from '@/modules/reports/types'
-import {
-  mapFilterFormDataToFiltersDto,
-  useOnLikeReportClick,
-} from '@/modules/reports/utils'
+import { useOnLikeReportClick } from '@/modules/reports/utils'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { getDocumentNumber } from '@/utils/get-document-number'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
@@ -47,10 +44,10 @@ const initialFilters: ReportsFiltersState = {
   positionIds: [],
   teamIds: [],
   hasVideo: false,
-  ratingRange: 'ALL',
   observationType: null,
   onlyLikedPlayers: false,
   onlyLikedTeams: false,
+  percentageRatingRanges: [],
 }
 
 const initialSortBy: ReportsSortBy = 'createdAt'
@@ -105,7 +102,7 @@ const ReportsPage = () => {
     limit: rowsPerPage,
     sortBy: sortBy as ReportsSortBy,
     sortingOrder: order,
-    ...mapFiltersStateToDto(mapFilterFormDataToFiltersDto(filters)),
+    ...mapFiltersStateToDto(filters),
   })
 
   const { mutate: deleteReport, isLoading: deleteReportLoading } =

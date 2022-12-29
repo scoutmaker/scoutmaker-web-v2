@@ -2971,6 +2971,7 @@ declare namespace Paths {
             export type Page = number;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
+            export type PercentageRatingRanges = ("ALL" | "NEGATIVE_SELECTION" | "NO_DECISION" | "TO_OBSERVE" | "POSITIVE_SELECTION")[];
             export type PlayerBornAfter = number;
             export type PlayerBornBefore = number;
             export type PlayerIds = string[];
@@ -2989,6 +2990,7 @@ declare namespace Paths {
             competitionGroupIds?: Parameters.CompetitionGroupIds;
             percentageRatingRangeStart?: Parameters.PercentageRatingRangeStart;
             percentageRatingRangeEnd?: Parameters.PercentageRatingRangeEnd;
+            percentageRatingRanges?: Parameters.PercentageRatingRanges;
             playerBornAfter?: Parameters.PlayerBornAfter;
             playerBornBefore?: Parameters.PlayerBornBefore;
             isLiked?: Parameters.IsLiked;
@@ -4725,6 +4727,7 @@ declare namespace Paths {
             export type Page = number;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
+            export type PercentageRatingRanges = ("ALL" | "NEGATIVE_SELECTION" | "NO_DECISION" | "TO_OBSERVE" | "POSITIVE_SELECTION")[];
             export type PlayerBornAfter = number;
             export type PlayerBornBefore = number;
             export type PlayerIds = string[];
@@ -4743,6 +4746,7 @@ declare namespace Paths {
             competitionGroupIds?: Parameters.CompetitionGroupIds;
             percentageRatingRangeStart?: Parameters.PercentageRatingRangeStart;
             percentageRatingRangeEnd?: Parameters.PercentageRatingRangeEnd;
+            percentageRatingRanges?: Parameters.PercentageRatingRanges;
             playerBornAfter?: Parameters.PlayerBornAfter;
             playerBornBefore?: Parameters.PlayerBornBefore;
             hasVideo?: Parameters.HasVideo;
@@ -4801,6 +4805,7 @@ declare namespace Paths {
             export type OnlyLikedTeams = boolean;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
+            export type PercentageRatingRanges = ("ALL" | "NEGATIVE_SELECTION" | "NO_DECISION" | "TO_OBSERVE" | "POSITIVE_SELECTION")[];
             export type PlayerBornAfter = number;
             export type PlayerBornBefore = number;
             export type PlayerIds = string[];
@@ -4817,6 +4822,7 @@ declare namespace Paths {
             competitionGroupIds?: Parameters.CompetitionGroupIds;
             percentageRatingRangeStart?: Parameters.PercentageRatingRangeStart;
             percentageRatingRangeEnd?: Parameters.PercentageRatingRangeEnd;
+            percentageRatingRanges?: Parameters.PercentageRatingRanges;
             playerBornAfter?: Parameters.PlayerBornAfter;
             playerBornBefore?: Parameters.PlayerBornBefore;
             hasVideo?: Parameters.HasVideo;

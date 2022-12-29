@@ -1,31 +1,13 @@
-import { TFiltersStateData } from '@/components/combo/utils'
 import {
   INotesComboOptions,
   NoteBasicDataDto,
   NoteDto,
-  NotesFiltersState,
 } from '@/modules/notes/types'
 import { getDocumentNumber } from '@/utils/get-document-number'
-import {
-  RATING_RANGE_END_MAP,
-  RATING_RANGE_START_MAP,
-} from '@/utils/rating-range-maps'
 
 import { useLikePlayer } from '../players/hooks'
 import { getPlayerFullName } from '../players/utils'
 import { useLikeNote } from './hooks'
-
-export function mapFilterFormDataToFiltersDto(
-  data: NotesFiltersState,
-): TFiltersStateData {
-  const { ratingRange, ...rest } = data
-
-  return {
-    ...rest,
-    percentageRatingRangeStart: RATING_RANGE_START_MAP[ratingRange],
-    percentageRatingRangeEnd: RATING_RANGE_END_MAP[ratingRange],
-  }
-}
 
 export function mapNotesListToComboOptions(
   data: NoteBasicDataDto[],

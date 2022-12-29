@@ -6,11 +6,11 @@ import { useTranslation } from 'next-i18next'
 import { FilterCombo } from '@/components/combo/combo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { getObservationTypeComboData } from '@/components/combos-data/observation-type'
+import { getRatingRangeComboData } from '@/components/combos-data/rating-range'
 import FilteredCompetitonGroups from '@/components/filteredCompetitionGroups/filteredCompetitonGroups'
 import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
-import { RatingRangeSelect } from '@/components/rating-range-select/rating-range-select'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
@@ -135,10 +135,12 @@ export const ReportsFilterForm = ({
               size="small"
               multiple
             />
-            <RatingRangeSelect
-              name="ratingRange"
+            <FilterCombo
+              name="percentageRatingRanges"
+              data={getRatingRangeComboData(t)}
               label={t('RATING_RANGE')}
               size="small"
+              multiple
             />
             <FilterCombo
               name="observationType"
