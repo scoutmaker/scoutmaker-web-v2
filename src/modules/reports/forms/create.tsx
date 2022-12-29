@@ -45,6 +45,7 @@ interface ICreateFormProps {
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
   isOrderOptionDisabled?: boolean
+  onFormChange: () => void
 }
 
 export const CreateReportForm = ({
@@ -58,6 +59,7 @@ export const CreateReportForm = ({
   competitionsData,
   competitionGroupsData,
   isOrderOptionDisabled,
+  onFormChange,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation(['common', 'reports'])
@@ -176,7 +178,7 @@ export const CreateReportForm = ({
       }}
     >
       {({ handleReset, touched, errors, values }) => (
-        <Form>
+        <Form onChange={onFormChange}>
           <Stepper
             activeStep={activeStep}
             orientation="vertical"
