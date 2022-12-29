@@ -164,21 +164,8 @@ export const NotesTableRow = ({
           isLiked={!!likes.length}
           onClicked={cellChangeLikedClick}
         />
-        {player ? (
-          <CellWithLink
-            href={getSinglePlayerRoute(player.slug)}
-            label={`${player.firstName} ${player.lastName}`}
-          />
-        ) : (
-          <StyledTableCell>-</StyledTableCell>
-        )}
-        <StyledTableCell>{meta?.position?.name || '-'}</StyledTableCell>
         <StyledTableCell>
-          {percentageRating ? (
-            <RatingChip
-              rating={parseInt(((percentageRating * 4) / 100).toFixed())}
-            />
-          ) : null}
+          {match ? formatDate(match.date) : '-'}
         </StyledTableCell>
         {match ? (
           <CellWithLink
@@ -191,15 +178,27 @@ export const NotesTableRow = ({
         ) : (
           <StyledTableCell>-</StyledTableCell>
         )}
-
         <StyledTableCell>
-          {match ? formatDate(match.date) : '-'}
+          {percentageRating ? (
+            <RatingChip
+              rating={parseInt(((percentageRating * 4) / 100).toFixed())}
+            />
+          ) : null}
         </StyledTableCell>
+        {player ? (
+          <CellWithLink
+            href={getSinglePlayerRoute(player.slug)}
+            label={`${player.firstName} ${player.lastName}`}
+          />
+        ) : (
+          <StyledTableCell>-</StyledTableCell>
+        )}
+        <StyledTableCell>{meta?.position?.name || '-'}</StyledTableCell>
         <StyledTableCell>{`${author.firstName} ${author.lastName}`}</StyledTableCell>
-        <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
         <StyledTableCell padding="checkbox" align="center">
           {observationType === 'LIVE' ? <LiveObservationIcon /> : <VideoIcon />}
         </StyledTableCell>
+        <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
       </StyledTableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={10}>

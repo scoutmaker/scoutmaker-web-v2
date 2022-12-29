@@ -1,5 +1,7 @@
+import { Badge } from '@mui/material'
 import { useRouter } from 'next/router'
 
+import { TeamsIcon } from '@/components/icons'
 import { StyledTableCell } from '@/components/tables/cell'
 import { TableMenu } from '@/components/tables/menu'
 import { StyledTableRow } from '@/components/tables/row'
@@ -28,7 +30,7 @@ export const ClubsTableRow = ({
     handleMenuAction,
   } = useTableMenu()
 
-  const { id, name, slug, region, country } = data
+  const { id, name, slug, region, country, _count: count } = data
 
   return (
     <StyledTableRow
@@ -51,6 +53,11 @@ export const ClubsTableRow = ({
         country.name
       }`}</StyledTableCell>
       <StyledTableCell>{region?.name}</StyledTableCell>
+      <StyledTableCell>
+        <Badge badgeContent={count.teams || '0'} color="secondary">
+          <TeamsIcon />
+        </Badge>
+      </StyledTableCell>
     </StyledTableRow>
   )
 }
