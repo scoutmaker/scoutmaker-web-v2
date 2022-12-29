@@ -48,6 +48,8 @@ export type NotesFiltersState = Omit<
   | 'teamIds'
   | 'observationType'
   | 'percentageRatingRanges'
+  | 'playerBornAfter'
+  | 'playerBornBefore'
 > & {
   competitionGroupIds: ICompetitionGroupComboOptions[]
   competitionIds: ICompetitionComboOptions[]
@@ -57,6 +59,8 @@ export type NotesFiltersState = Omit<
   teamIds: IStandardComboOptions[]
   observationType: IComboOptions | null
   percentageRatingRanges: IComboOptions[]
+  playerBornAfter: '' | number
+  playerBornBefore: '' | number
 }
 
 export type NotesSortBy = Paths.NotesControllerFindAll.Parameters.SortBy

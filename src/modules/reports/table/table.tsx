@@ -15,23 +15,21 @@ interface IReportsTableProps extends ICommonTableProps {
     docNumber: number
     createdAt: string
   }) => void
-  onLikeClick: (id: string) => void
+  onLikeClick: (report: ReportPaginatedDataDto) => void
   onUnLikeClick: (id: string) => void
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
     { id: 'favourite', label: '' },
+    { id: 'match', label: t('MATCH_DATE') },
+    { id: 'matchName', label: t('MATCH'), isSortingDisabled: true },
+    { id: 'percentageRating', label: t('RATING') },
     { id: 'player', label: t('PLAYER') },
     { id: 'positionPlayed', label: t('POSITION') },
-    { id: 'percentageRating', label: t('RATING') },
-    { id: 'match', label: t('MATCH') },
-    { id: 'videoUrl', label: t('VIDEO') },
-    { id: 'matchDate', label: t('MATCH_DATE'), isSortingDisabled: true },
-    { id: 'author', label: t('AUTHOR') },
-    { id: 'createdAt', label: t('CREATED_AT') },
-    { id: 'status', label: t('STATUS') },
+    { id: 'author', label: t('SCOUT') },
     { id: 'observationType', label: t('OBSERVATION'), isSortingDisabled: true },
+    { id: 'createdAt', label: t('CREATED_AT') },
   ]
 }
 

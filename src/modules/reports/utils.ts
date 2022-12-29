@@ -1,6 +1,13 @@
 import { Routes } from '@/utils/routes'
 
-import { IReportsComboOptions, ReportBasicDataDto, ReportDto } from './types'
+import { useLikePlayer } from '../players/hooks'
+import { useLikeReport } from './hooks'
+import {
+  IReportsComboOptions,
+  ReportBasicDataDto,
+  ReportDto,
+  ReportPaginatedDataDto,
+} from './types'
 
 export function getSingleReportRoute(id: string) {
   return `${Routes.REPORTS}/${id}`
@@ -33,4 +40,19 @@ export function groupSkillsByCategory(skills: ReportDto['skills']) {
   })
 
   return groupedSkills
+}
+
+export const useOnLikeReportClick = () => {
+  const { mutate: likeReport, isLoading: likeReportLoading } = useLikeReport()
+  const { mutate: likePlayer, isLoading: likePlayerLoading } = useLikePlayer()
+
+  const onLikeClick = (report: ReportPaginatedDataDto) => {
+    likeReport(report.id)
+    likePlayer(report.player.id)
+  }
+
+  return {
+    likeReport: onLikeClick,
+    likeReportLoading: likePlayerLoading || likeReportLoading,
+  }
 }

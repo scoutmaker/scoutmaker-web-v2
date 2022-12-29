@@ -1,7 +1,13 @@
-import { INotesComboOptions, NoteBasicDataDto } from '@/modules/notes/types'
+import {
+  INotesComboOptions,
+  NoteBasicDataDto,
+  NoteDto,
+} from '@/modules/notes/types'
 import { getDocumentNumber } from '@/utils/get-document-number'
 
+import { useLikePlayer } from '../players/hooks'
 import { getPlayerFullName } from '../players/utils'
+import { useLikeNote } from './hooks'
 
 export function mapNotesListToComboOptions(
   data: NoteBasicDataDto[],
@@ -19,4 +25,19 @@ export function mapNotesListToComboOptions(
       shirtNo,
     }),
   )
+}
+
+export const useOnLikeNoteClick = () => {
+  const { mutate: likeNote, isLoading: likeNoteLoading } = useLikeNote()
+  const { mutate: likePlayer, isLoading: likePlayerLoading } = useLikePlayer()
+
+  const onLikeClick = (note: NoteDto) => {
+    likeNote(note.id)
+    if (note?.player) likePlayer(note.player.id)
+  }
+
+  return {
+    likeNote: onLikeClick,
+    likeNoteLoading: likePlayerLoading || likeNoteLoading,
+  }
 }

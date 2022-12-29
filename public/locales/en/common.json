@@ -229,5 +229,7 @@
   "LIKED_NOTES": "Liked notes",
   "LIKED_TEAMS": "Liked teams",
   "LIKED_PLAYERS": "Liked players",
-  "UNASSIGNED": "Unassigned"
+  "UNASSIGNED": "Unassigned",
+  "GROUP": "Group",
+  "LEAVE_PAGE_PROMPT": "Are you sure you want to leave this page?"
 }
