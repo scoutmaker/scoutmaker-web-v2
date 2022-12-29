@@ -44,6 +44,8 @@ const initialFilters: NotesFiltersState = {
   onlyLikedTeams: false,
 }
 
+const initialSortBy: NotesSortBy = 'percentageRating_createdAt'
+
 interface INoteToDeleteData {
   id: string
   docNumber: number
@@ -62,7 +64,7 @@ const NotesPage = () => {
     handleChangePage,
     handleChangeRowsPerPage,
     handleSort,
-  } = useTable('notes-table')
+  } = useTable('notes-table', initialSortBy)
 
   const [filters, setFilters] = useLocalStorage<NotesFiltersState>({
     key: 'notes-filters',
@@ -105,6 +107,11 @@ const NotesPage = () => {
     setIsDeleteConfirmationModalOpen(true)
   }
 
+  const onClearFilters = () => {
+    handleSetFilters(initialFilters)
+    handleSort(initialSortBy, 'desc')
+  }
+
   const isLoading =
     teamsLoading ||
     competitionsLoading ||
@@ -132,7 +139,7 @@ const NotesPage = () => {
           competitionsData={competitions || []}
           competitionGroupsData={competitionGroups || []}
           onFilter={handleSetFilters}
-          onClearFilters={() => handleSetFilters(initialFilters)}
+          onClearFilters={onClearFilters}
         />
       </FilterAccordion>
       <NotesTable

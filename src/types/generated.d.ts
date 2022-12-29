@@ -2829,7 +2829,7 @@ declare namespace Paths {
             export type OrderId = string;
             export type Page = number;
             export type SeasonId = string;
-            export type SortBy = "id" | "date" | "homeTeam" | "awayTeam" | "competition" | "group" | "season" | "reportsCount" | "notesCount" | "videoUrl";
+            export type SortBy = "id" | "date" | "homeTeam" | "awayTeam" | "competition" | "group" | "season" | "reportsCount" | "notesCount" | "videoUrl" | "updatedAt";
             export type SortingOrder = "asc" | "desc";
             export type TeamId = string;
         }
@@ -2971,7 +2971,7 @@ declare namespace Paths {
             export type PlayerBornBefore = number;
             export type PlayerIds = string[];
             export type PositionIds = string[];
-            export type SortBy = "id" | "player" | "positionPlayed" | "percentageRating" | "match" | "author" | "createdAt";
+            export type SortBy = "id" | "player" | "positionPlayed" | "percentageRating" | "match" | "author" | "createdAt" | "percentageRating_createdAt";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
             export type UserId = string;
@@ -3979,7 +3979,7 @@ declare namespace Paths {
             export type OrderId = string;
             export type Page = number;
             export type PositionIds = string[];
-            export type SortBy = "id" | "firstName" | "lastName" | "yearOfBirth" | "height" | "weight" | "footed" | "country" | "primaryPosition" | "reportsCount" | "notesCount";
+            export type SortBy = "id" | "firstName" | "lastName" | "yearOfBirth" | "height" | "weight" | "footed" | "country" | "primaryPosition" | "reportsCount" | "notesCount" | "updatedAt";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
         }
