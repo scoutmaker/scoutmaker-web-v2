@@ -34,8 +34,8 @@ export const getServerSideProps = withSessionSsrRole(
 
 const initialFilters: PlayersFiltersState = {
   name: '',
-  bornAfter: 1980,
-  bornBefore: 2005,
+  bornAfter: '',
+  bornBefore: '',
   footed: null,
   competitionGroupIds: [],
   competitionIds: [],

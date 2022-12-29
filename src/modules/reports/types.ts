@@ -53,6 +53,8 @@ export type ReportsFiltersState = Omit<
   | 'positionIds'
   | 'teamIds'
   | 'observationType'
+  | 'playerBornAfter'
+  | 'playerBornBefore'
 > & {
   competitionGroupIds: ICompetitionGroupComboOptions[]
   competitionIds: ICompetitionComboOptions[]
@@ -61,6 +63,8 @@ export type ReportsFiltersState = Omit<
   positionIds: IPlayerPositionComboOptions[]
   teamIds: IStandardComboOptions[]
   observationType: IComboOptions | null
+  playerBornAfter: '' | number
+  playerBornBefore: '' | number
 }
 
 export type ReportsSortBy = Paths.ReportsControllerFindAll.Parameters.SortBy
