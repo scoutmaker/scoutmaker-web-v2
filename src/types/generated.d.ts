@@ -426,6 +426,68 @@ declare namespace Components {
             competitionIds: string[];
             competitionGroupIds: string[];
         }
+        export interface DashboardDto {
+            reportsCount?: number;
+            recentReportsRatio?: number;
+            notesCount?: number;
+            recentNotesRatio?: number;
+            matchesCount?: number;
+            observedMatchesCount?: number;
+            recentObservedMatchesRatio?: number;
+            organizations?: OrganizationBasicDataDto[];
+            scoutsCount?: number;
+            observerdPlayersCount?: number;
+            topNotes?: DashboardNoteDto[];
+            topReports?: DashboardReportDto[];
+            topPlayers?: DashboardPlayerDto[];
+        }
+        export interface DashboardNoteDto {
+            player?: PlayerSuperBasicDataDto;
+            id: string;
+            docNumber: number;
+            description?: string;
+            rating?: number;
+            createdAt: string; // date-time
+            shirtNo?: number;
+            match?: MatchBasicDataDto;
+        }
+        export interface DashboardPlayerDto {
+            footed: "LEFT" | "RIGHT" | "BOTH";
+            averagePrecentageRating: number;
+            teams: DashboardTeamAffiliationDto[];
+            id: string;
+            firstName: string;
+            lastName: string;
+            slug: string;
+            yearOfBirth: number;
+            height?: number;
+            weight?: number;
+            lnpId?: string;
+            lnpUrl?: string;
+            minut90id?: string;
+            minut90url?: string;
+            transfermarktId?: string;
+            transfermarktUrl?: string;
+            country: CountryDto;
+            primaryPosition: PlayerPositionDto;
+            secondaryPositions: PlayerPositionDto[];
+            likes: LikePlayerBasicDataDto[];
+            _count: Count;
+        }
+        export interface DashboardReportDto {
+            id: string;
+            player: PlayerSuperBasicDataDto;
+            createdAt: string; // date-time
+            finalRating?: number;
+            match?: MatchBasicDataDto;
+            docNumber: number;
+        }
+        export interface DashboardTeamAffiliationDto {
+            team: TeamDto;
+            id: string;
+            startDate: string; // date-time
+            endDate?: string; // date-time
+        }
         export interface FollowAgencyDto {
             agency: AgencyBasicInfoDto;
             follower: UserBasicDataDto;
@@ -1190,6 +1252,7 @@ declare namespace Components {
             club?: ClubBasicDataDto;
             footballRole?: UserFootballRoleDto;
             _count: Count;
+            organizationId?: string;
         }
         export interface UserFootballRoleDto {
             id: string;
@@ -2319,6 +2382,15 @@ declare namespace Paths {
             }
         }
     }
+    namespace DashboardControllerGetData {
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.DashboardDto;
+            }
+        }
+    }
     namespace FollowAgenciesControllerCreate {
         namespace Parameters {
             export type AgencyId = string;
@@ -2757,7 +2829,7 @@ declare namespace Paths {
             export type OrderId = string;
             export type Page = number;
             export type SeasonId = string;
-            export type SortBy = "id" | "date" | "homeTeam" | "awayTeam" | "competition" | "group" | "season" | "reportsCount" | "notesCount" | "videoUrl";
+            export type SortBy = "id" | "date" | "homeTeam" | "awayTeam" | "competition" | "group" | "season" | "reportsCount" | "notesCount" | "videoUrl" | "updatedAt";
             export type SortingOrder = "asc" | "desc";
             export type TeamId = string;
         }
@@ -2899,7 +2971,7 @@ declare namespace Paths {
             export type PlayerBornBefore = number;
             export type PlayerIds = string[];
             export type PositionIds = string[];
-            export type SortBy = "id" | "player" | "positionPlayed" | "percentageRating" | "match" | "author" | "createdAt";
+            export type SortBy = "id" | "player" | "positionPlayed" | "percentageRating" | "match" | "author" | "createdAt" | "percentageRating_createdAt";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
             export type UserId = string;
@@ -3907,7 +3979,7 @@ declare namespace Paths {
             export type OrderId = string;
             export type Page = number;
             export type PositionIds = string[];
-            export type SortBy = "id" | "firstName" | "lastName" | "yearOfBirth" | "height" | "weight" | "footed" | "country" | "primaryPosition" | "reportsCount" | "notesCount";
+            export type SortBy = "id" | "firstName" | "lastName" | "yearOfBirth" | "height" | "weight" | "footed" | "country" | "primaryPosition" | "reportsCount" | "notesCount" | "updatedAt";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
         }

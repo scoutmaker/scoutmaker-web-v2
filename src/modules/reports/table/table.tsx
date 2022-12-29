@@ -15,7 +15,7 @@ interface IReportsTableProps extends ICommonTableProps {
     docNumber: number
     createdAt: string
   }) => void
-  onLikeClick: (id: string) => void
+  onLikeClick: (report: ReportPaginatedDataDto) => void
   onUnLikeClick: (id: string) => void
 }
 
