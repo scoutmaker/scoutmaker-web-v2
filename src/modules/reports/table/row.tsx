@@ -44,7 +44,7 @@ interface IReportsTableRowProps {
   data: ReportPaginatedDataDto
   onEditClick: () => void
   onDeleteClick?: () => void
-  onLikeClick: (id: string) => void
+  onLikeClick: (report: ReportPaginatedDataDto) => void
   onUnlikeClick: (id: string) => void
   withoutActions?: boolean
 }
@@ -84,7 +84,7 @@ export const ReportsTableRow = ({
 
   const cellChangeLikedClick = () => {
     if (likes.length) onUnlikeClick(id)
-    else onLikeClick(id)
+    else onLikeClick(data)
   }
 
   return (
@@ -130,7 +130,7 @@ export const ReportsTableRow = ({
                   icon={<LikeIcon fontSize="small" />}
                   text={t('ADD_TO_FAVOURITES')}
                   onClick={() => {
-                    handleMenuAction(() => onLikeClick(id))
+                    handleMenuAction(cellChangeLikedClick)
                   }}
                 />
               ) : (
@@ -138,7 +138,7 @@ export const ReportsTableRow = ({
                   icon={<UnlikeIcon fontSize="small" />}
                   text={t('REMOVE_FROM_FAVOURITES')}
                   onClick={() => {
-                    handleMenuAction(() => onUnlikeClick(id))
+                    handleMenuAction(cellChangeLikedClick)
                   }}
                 />
               )}

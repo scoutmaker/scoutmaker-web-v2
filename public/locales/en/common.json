@@ -230,5 +230,6 @@
   "LIKED_TEAMS": "Liked teams",
   "LIKED_PLAYERS": "Liked players",
   "UNASSIGNED": "Unassigned",
-  "GROUP": "Group"
+  "GROUP": "Group",
+  "LEAVE_PAGE_PROMPT": "Are you sure you want to leave this page?"
 }

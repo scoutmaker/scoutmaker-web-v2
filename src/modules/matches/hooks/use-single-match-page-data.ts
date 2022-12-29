@@ -1,11 +1,9 @@
-import { useLikeNote, useNotes, useUnlikeNote } from '@/modules/notes/hooks'
+import { useNotes, useUnlikeNote } from '@/modules/notes/hooks'
 import { NoteDto, NotesSortBy } from '@/modules/notes/types'
-import {
-  useLikeReport,
-  useReports,
-  useUnlikeReport,
-} from '@/modules/reports/hooks'
+import { useOnLikeNoteClick } from '@/modules/notes/utils'
+import { useReports, useUnlikeReport } from '@/modules/reports/hooks'
 import { ReportPaginatedDataDto, ReportsSortBy } from '@/modules/reports/types'
+import { useOnLikeReportClick } from '@/modules/reports/utils'
 import { useTable } from '@/utils/hooks/use-table'
 
 type CommonTabData = {
@@ -108,9 +106,9 @@ export function useSingleMatchPageData({
   )
 
   // Mutations
-  const { mutate: likeNote, isLoading: likeNoteLoading } = useLikeNote()
+  const { likeNote, likeNoteLoading } = useOnLikeNoteClick()
   const { mutate: unlikeNote, isLoading: unLikeNoteLoading } = useUnlikeNote()
-  const { mutate: likeReport, isLoading: likeReportLoading } = useLikeReport()
+  const { likeReport, likeReportLoading } = useOnLikeReportClick()
   const { mutate: unlikeReport, isLoading: unLikeReportLoading } =
     useUnlikeReport()
 

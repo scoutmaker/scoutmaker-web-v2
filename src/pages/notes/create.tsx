@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { useState } from 'react'
 
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -11,6 +12,7 @@ import { useCreateNote } from '@/modules/notes/hooks'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
+import { useConfirmOnLeavePage } from '@/utils/hooks/use-confirm-leave'
 import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(['common', 'notes'], false)
@@ -46,6 +48,10 @@ const CreateNotePage = () => {
       matchId && match ? [match.homeTeam.id, match.awayTeam.id] : undefined,
   })
 
+  const [isFormChanged, setIsFormChanged] = useState(false)
+
+  useConfirmOnLeavePage(isFormChanged)
+
   const isLoading =
     positionsLoading ||
     teamsLoading ||
@@ -70,6 +76,7 @@ const CreateNotePage = () => {
         onSubmit={createNote}
         match={matchId && match ? match : undefined}
         observationType={observationType}
+        onFormChange={() => setIsFormChanged(true)}
       />
     </>
   )

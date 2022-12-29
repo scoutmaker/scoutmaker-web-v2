@@ -41,7 +41,7 @@ interface INotesTableRowProps {
   data: NoteDto
   onEditClick: () => void
   onDeleteClick?: () => void
-  onLikeClick: (id: string) => void
+  onLikeClick: (note: NoteDto) => void
   onUnlikeClick: (id: string) => void
   withoutActions?: boolean
 }
@@ -83,7 +83,7 @@ export const NotesTableRow = ({
 
   const cellChangeLikedClick = () => {
     if (likes.length) onUnlikeClick(id)
-    else onLikeClick(id)
+    else onLikeClick(data)
   }
 
   const createReportQueryData: IReportFromNoteQuery = {
@@ -135,7 +135,7 @@ export const NotesTableRow = ({
                   icon={<LikeIcon fontSize="small" />}
                   text={t('ADD_TO_FAVOURITES')}
                   onClick={() => {
-                    handleMenuAction(() => onLikeClick(id))
+                    handleMenuAction(cellChangeLikedClick)
                   }}
                 />
               ) : (
@@ -143,7 +143,7 @@ export const NotesTableRow = ({
                   icon={<UnlikeIcon fontSize="small" />}
                   text={t('REMOVE_FROM_FAVOURITES')}
                   onClick={() => {
-                    handleMenuAction(() => onUnlikeClick(id))
+                    handleMenuAction(cellChangeLikedClick)
                   }}
                 />
               )}

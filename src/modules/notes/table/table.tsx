@@ -14,15 +14,15 @@ interface IMatchesTableProps extends ICommonTableProps {
     docNumber: number
     createdAt: string
   }) => void
-  onLikeClick: (id: string) => void
+  onLikeClick: (note: NoteDto) => void
   onUnLikeClick: (id: string) => void
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
     { id: 'favourite', label: '' },
-    { id: 'matchDate', label: t('MATCH_DATE'), isSortingDisabled: true },
-    { id: 'match', label: t('MATCH') },
+    { id: 'match', label: t('MATCH_DATE') },
+    { id: 'matchName', label: t('MATCH'), isSortingDisabled: true },
     { id: 'percentageRating', label: t('RATING') },
     { id: 'player', label: t('PLAYER') },
     { id: 'positionPlayed', label: t('POSITION') },
