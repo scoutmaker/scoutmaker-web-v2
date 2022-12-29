@@ -40,13 +40,13 @@ export function useTable(key: string, initialSortBy?: string) {
     })
   }
 
-  function handleSort(id: string) {
+  function handleSort(id: string, order?: 'asc' | 'desc') {
     const isAsc = tableSettings.sortBy === id && tableSettings.order === 'asc'
     setTableSettings({
       ...tableSettings,
       page: 0,
       sortBy: id,
-      order: isAsc ? 'desc' : 'asc',
+      order: order || isAsc ? 'desc' : 'asc',
     })
   }
 

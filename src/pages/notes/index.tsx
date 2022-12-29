@@ -11,15 +11,13 @@ import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { useMatchesList } from '@/modules/matches/hooks'
 import { NotesFilterForm } from '@/modules/notes/forms/filter'
-import {
-  useDeleteNote,
-  useLikeNote,
-  useNotes,
-  useUnlikeNote,
-} from '@/modules/notes/hooks'
+import { useDeleteNote, useNotes, useUnlikeNote } from '@/modules/notes/hooks'
 import { NotesTable } from '@/modules/notes/table/table'
 import { NotesFiltersState, NotesSortBy } from '@/modules/notes/types'
-import { mapFilterFormDataToFiltersDto } from '@/modules/notes/utils'
+import {
+  mapFilterFormDataToFiltersDto,
+  useOnLikeNoteClick,
+} from '@/modules/notes/utils'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
@@ -35,8 +33,8 @@ const initialFilters: NotesFiltersState = {
   competitionIds: [],
   isLiked: false,
   matchIds: [],
-  playerBornAfter: 1980,
-  playerBornBefore: 2005,
+  playerBornAfter: '',
+  playerBornBefore: '',
   playerIds: [],
   positionIds: [],
   teamIds: [],
@@ -45,6 +43,8 @@ const initialFilters: NotesFiltersState = {
   onlyLikedPlayers: false,
   onlyLikedTeams: false,
 }
+
+const initialSortBy: NotesSortBy = 'percentageRating_createdAt'
 
 interface INoteToDeleteData {
   id: string
@@ -64,7 +64,7 @@ const NotesPage = () => {
     handleChangePage,
     handleChangeRowsPerPage,
     handleSort,
-  } = useTable('notes-table')
+  } = useTable('notes-table', initialSortBy)
 
   const [filters, setFilters] = useLocalStorage<NotesFiltersState>({
     key: 'notes-filters',
@@ -99,12 +99,17 @@ const NotesPage = () => {
   })
 
   const { mutate: deleteNote, isLoading: deleteNoteLoading } = useDeleteNote()
-  const { mutate: likeNote, isLoading: likeNoteLoading } = useLikeNote()
   const { mutate: unlikeNote, isLoading: unlikeNoteLoading } = useUnlikeNote()
+  const { likeNote, likeNoteLoading } = useOnLikeNoteClick()
 
   const handleDeleteItemClick = (data: INoteToDeleteData) => {
     setNoteToDeleteData(data)
     setIsDeleteConfirmationModalOpen(true)
+  }
+
+  const onClearFilters = () => {
+    handleSetFilters(initialFilters)
+    handleSort(initialSortBy, 'desc')
   }
 
   const isLoading =
@@ -117,7 +122,8 @@ const NotesPage = () => {
     playersLoading ||
     positionsLoading ||
     likeNoteLoading ||
-    unlikeNoteLoading
+    unlikeNoteLoading ||
+    likeNoteLoading
 
   return (
     <>
@@ -133,7 +139,7 @@ const NotesPage = () => {
           competitionsData={competitions || []}
           competitionGroupsData={competitionGroups || []}
           onFilter={handleSetFilters}
-          onClearFilters={() => handleSetFilters(initialFilters)}
+          onClearFilters={onClearFilters}
         />
       </FilterAccordion>
       <NotesTable
