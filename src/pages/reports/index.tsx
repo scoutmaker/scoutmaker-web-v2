@@ -15,13 +15,15 @@ import { usePlayersList } from '@/modules/players/hooks'
 import { ReportsFilterForm } from '@/modules/reports/forms/filter'
 import {
   useDeleteReport,
-  useLikeReport,
   useReports,
   useUnlikeReport,
 } from '@/modules/reports/hooks'
 import { ReportsTable } from '@/modules/reports/table/table'
 import { ReportsFiltersState, ReportsSortBy } from '@/modules/reports/types'
-import { mapFilterFormDataToFiltersDto } from '@/modules/reports/utils'
+import {
+  mapFilterFormDataToFiltersDto,
+  useOnLikeReportClick,
+} from '@/modules/reports/utils'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { getDocumentNumber } from '@/utils/get-document-number'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
@@ -39,8 +41,8 @@ const initialFilters: ReportsFiltersState = {
   competitionIds: [],
   isLiked: false,
   matchIds: [],
-  playerBornAfter: 1980,
-  playerBornBefore: 2005,
+  playerBornAfter: '',
+  playerBornBefore: '',
   playerIds: [],
   positionIds: [],
   teamIds: [],
@@ -108,7 +110,7 @@ const ReportsPage = () => {
 
   const { mutate: deleteReport, isLoading: deleteReportLoading } =
     useDeleteReport()
-  const { mutate: likeReport, isLoading: likeReportLoading } = useLikeReport()
+  const { likeReport, likeReportLoading } = useOnLikeReportClick()
   const { mutate: unlikeReport, isLoading: unlikeReportLoading } =
     useUnlikeReport()
 

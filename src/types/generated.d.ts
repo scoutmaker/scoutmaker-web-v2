@@ -426,6 +426,68 @@ declare namespace Components {
             competitionIds: string[];
             competitionGroupIds: string[];
         }
+        export interface DashboardDto {
+            reportsCount?: number;
+            recentReportsRatio?: number;
+            notesCount?: number;
+            recentNotesRatio?: number;
+            matchesCount?: number;
+            observedMatchesCount?: number;
+            recentObservedMatchesRatio?: number;
+            organizations?: OrganizationBasicDataDto[];
+            scoutsCount?: number;
+            observerdPlayersCount?: number;
+            topNotes?: DashboardNoteDto[];
+            topReports?: DashboardReportDto[];
+            topPlayers?: DashboardPlayerDto[];
+        }
+        export interface DashboardNoteDto {
+            player?: PlayerSuperBasicDataDto;
+            id: string;
+            docNumber: number;
+            description?: string;
+            rating?: number;
+            createdAt: string; // date-time
+            shirtNo?: number;
+            match?: MatchBasicDataDto;
+        }
+        export interface DashboardPlayerDto {
+            footed: "LEFT" | "RIGHT" | "BOTH";
+            averagePrecentageRating: number;
+            teams: DashboardTeamAffiliationDto[];
+            id: string;
+            firstName: string;
+            lastName: string;
+            slug: string;
+            yearOfBirth: number;
+            height?: number;
+            weight?: number;
+            lnpId?: string;
+            lnpUrl?: string;
+            minut90id?: string;
+            minut90url?: string;
+            transfermarktId?: string;
+            transfermarktUrl?: string;
+            country: CountryDto;
+            primaryPosition: PlayerPositionDto;
+            secondaryPositions: PlayerPositionDto[];
+            likes: LikePlayerBasicDataDto[];
+            _count: Count;
+        }
+        export interface DashboardReportDto {
+            id: string;
+            player: PlayerSuperBasicDataDto;
+            createdAt: string; // date-time
+            finalRating?: number;
+            match?: MatchBasicDataDto;
+            docNumber: number;
+        }
+        export interface DashboardTeamAffiliationDto {
+            team: TeamDto;
+            id: string;
+            startDate: string; // date-time
+            endDate?: string; // date-time
+        }
         export interface FollowAgencyDto {
             agency: AgencyBasicInfoDto;
             follower: UserBasicDataDto;
@@ -1190,6 +1252,7 @@ declare namespace Components {
             club?: ClubBasicDataDto;
             footballRole?: UserFootballRoleDto;
             _count: Count;
+            organizationId?: string;
         }
         export interface UserFootballRoleDto {
             id: string;
@@ -2316,6 +2379,15 @@ declare namespace Paths {
         }
         namespace Responses {
             export interface $201 {
+            }
+        }
+    }
+    namespace DashboardControllerGetData {
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.DashboardDto;
             }
         }
     }

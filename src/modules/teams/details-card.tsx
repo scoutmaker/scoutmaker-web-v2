@@ -14,7 +14,7 @@ import { useTranslation } from 'next-i18next'
 import { CompetitionParticipationWithoutTeamDto } from '@/modules/competitions/types'
 import { TeamDto } from '@/modules/teams/types'
 
-function getCompetitionDisplayName(
+export function getCompetitionDisplayName(
   participation?: CompetitionParticipationWithoutTeamDto,
 ) {
   if (!participation || !participation.competition) {
