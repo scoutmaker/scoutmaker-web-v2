@@ -12,5 +12,6 @@
   "HIGHEST_RATED_REPORT": "HIGHEST RATED REPORT",
   "LATEST_NOTE": "LATEST NOTE",
   "REPORT_NO": "Report no. {{number}}",
-  "NOTE_NO": "Note no. {{number}}"
+  "NOTE_NO": "Note no. {{number}}",
+  "CREATE_ORDER": "Create order"
 }

@@ -250,11 +250,6 @@ declare namespace Components {
             noteId: string;
             permissionLevel?: "READ" | "READ_AND_WRITE" | "FULL";
         }
-        export interface CreateOrganizationPlayerAceDto {
-            organizationId: string;
-            playerId: string;
-            permissionLevel?: "READ" | "READ_AND_WRITE" | "FULL";
-        }
         export interface CreateOrganizationReportAceDto {
             organizationId: string;
             reportId: string;
@@ -419,11 +414,6 @@ declare namespace Components {
             noteId: string;
             permissionLevel?: "READ" | "READ_AND_WRITE" | "FULL";
         }
-        export interface CreateUserPlayerAceDto {
-            userId: string;
-            playerId: string;
-            permissionLevel?: "READ" | "READ_AND_WRITE" | "FULL";
-        }
         export interface CreateUserReportAceDto {
             userId: string;
             reportId: string;
@@ -435,6 +425,68 @@ declare namespace Components {
             endDate: string;
             competitionIds: string[];
             competitionGroupIds: string[];
+        }
+        export interface DashboardDto {
+            reportsCount?: number;
+            recentReportsRatio?: number;
+            notesCount?: number;
+            recentNotesRatio?: number;
+            matchesCount?: number;
+            observedMatchesCount?: number;
+            recentObservedMatchesRatio?: number;
+            organizations?: OrganizationBasicDataDto[];
+            scoutsCount?: number;
+            observerdPlayersCount?: number;
+            topNotes?: DashboardNoteDto[];
+            topReports?: DashboardReportDto[];
+            topPlayers?: DashboardPlayerDto[];
+        }
+        export interface DashboardNoteDto {
+            player?: PlayerSuperBasicDataDto;
+            id: string;
+            docNumber: number;
+            description?: string;
+            rating?: number;
+            createdAt: string; // date-time
+            shirtNo?: number;
+            match?: MatchBasicDataDto;
+        }
+        export interface DashboardPlayerDto {
+            footed: "LEFT" | "RIGHT" | "BOTH";
+            averagePrecentageRating: number;
+            teams: DashboardTeamAffiliationDto[];
+            id: string;
+            firstName: string;
+            lastName: string;
+            slug: string;
+            yearOfBirth: number;
+            height?: number;
+            weight?: number;
+            lnpId?: string;
+            lnpUrl?: string;
+            minut90id?: string;
+            minut90url?: string;
+            transfermarktId?: string;
+            transfermarktUrl?: string;
+            country: CountryDto;
+            primaryPosition: PlayerPositionDto;
+            secondaryPositions: PlayerPositionDto[];
+            likes: LikePlayerBasicDataDto[];
+            _count: Count;
+        }
+        export interface DashboardReportDto {
+            id: string;
+            player: PlayerSuperBasicDataDto;
+            createdAt: string; // date-time
+            finalRating?: number;
+            match?: MatchBasicDataDto;
+            docNumber: number;
+        }
+        export interface DashboardTeamAffiliationDto {
+            team: TeamDto;
+            id: string;
+            startDate: string; // date-time
+            endDate?: string; // date-time
         }
         export interface FollowAgencyDto {
             agency: AgencyBasicInfoDto;
@@ -658,13 +710,6 @@ declare namespace Components {
             id: string;
             organization: OrganizationBasicDataDto;
             note: NoteSuperBasicDataDto;
-            permissionLevel: "READ" | "READ_AND_WRITE" | "FULL";
-            createdAt: string; // date-time
-        }
-        export interface OrganizationPlayerAceDto {
-            id: string;
-            organization: OrganizationBasicDataDto;
-            player: PlayerSuperBasicDataDto;
             permissionLevel: "READ" | "READ_AND_WRITE" | "FULL";
             createdAt: string; // date-time
         }
@@ -1046,9 +1091,6 @@ declare namespace Components {
         export interface UpdateOrganizationNoteAceDto {
             permissionLevel?: "READ" | "READ_AND_WRITE" | "FULL";
         }
-        export interface UpdateOrganizationPlayerAceDto {
-            permissionLevel?: "READ" | "READ_AND_WRITE" | "FULL";
-        }
         export interface UpdateOrganizationReportAceDto {
             permissionLevel?: "READ" | "READ_AND_WRITE" | "FULL";
         }
@@ -1181,9 +1223,6 @@ declare namespace Components {
         export interface UpdateUserNoteAceDto {
             permissionLevel?: "READ" | "READ_AND_WRITE" | "FULL";
         }
-        export interface UpdateUserPlayerAceDto {
-            permissionLevel?: "READ" | "READ_AND_WRITE" | "FULL";
-        }
         export interface UpdateUserReportAceDto {
             permissionLevel?: "READ" | "READ_AND_WRITE" | "FULL";
         }
@@ -1213,6 +1252,7 @@ declare namespace Components {
             club?: ClubBasicDataDto;
             footballRole?: UserFootballRoleDto;
             _count: Count;
+            organizationId?: string;
         }
         export interface UserFootballRoleDto {
             id: string;
@@ -1229,13 +1269,6 @@ declare namespace Components {
             id: string;
             user: UserBasicDataDto;
             note: NoteSuperBasicDataDto;
-            permissionLevel: "READ" | "READ_AND_WRITE" | "FULL";
-            createdAt: string; // date-time
-        }
-        export interface UserPlayerAceDto {
-            id: string;
-            user: UserBasicDataDto;
-            player: PlayerSuperBasicDataDto;
             permissionLevel: "READ" | "READ_AND_WRITE" | "FULL";
             createdAt: string; // date-time
         }
@@ -2349,6 +2382,15 @@ declare namespace Paths {
             }
         }
     }
+    namespace DashboardControllerGetData {
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.DashboardDto;
+            }
+        }
+    }
     namespace FollowAgenciesControllerCreate {
         namespace Parameters {
             export type AgencyId = string;
@@ -2921,6 +2963,7 @@ declare namespace Paths {
             export type ObservationType = "LIVE" | "VIDEO";
             export type OnlyLikedPlayers = boolean;
             export type OnlyLikedTeams = boolean;
+            export type OnlyWithoutPlayers = boolean;
             export type Page = number;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
@@ -2949,6 +2992,7 @@ declare namespace Paths {
             observationType?: Parameters.ObservationType;
             onlyLikedTeams?: Parameters.OnlyLikedTeams;
             onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
+            onlyWithoutPlayers?: Parameters.OnlyWithoutPlayers;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -3378,97 +3422,6 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.OrganizationNoteAceDto;
-            }
-        }
-    }
-    namespace OrganizationPlayerAclControllerCreate {
-        export type RequestBody = Components.Schemas.CreateOrganizationPlayerAceDto;
-        namespace Responses {
-            export interface $201 {
-                success: boolean;
-                message: string;
-                data?: Components.Schemas.OrganizationPlayerAceDto;
-            }
-        }
-    }
-    namespace OrganizationPlayerAclControllerFindAll {
-        namespace Parameters {
-            export type Limit = number;
-            export type OrganizationId = string;
-            export type Page = number;
-            export type PlayerId = string;
-            export type SortBy = "id" | "organization" | "player" | "createdAt";
-            export type SortingOrder = "asc" | "desc";
-        }
-        export interface QueryParameters {
-            organizationId?: Parameters.OrganizationId;
-            playerId?: Parameters.PlayerId;
-            sortBy?: Parameters.SortBy;
-            sortingOrder?: Parameters.SortingOrder;
-            limit?: Parameters.Limit;
-            page?: Parameters.Page;
-        }
-        namespace Responses {
-            export interface $200 {
-                success: boolean;
-                message: string;
-                data?: {
-                    totalDocs?: number;
-                    limit?: number;
-                    page?: number;
-                    totalPages?: number;
-                    hasPrevPage?: boolean;
-                    hasNextPage?: boolean;
-                    prevPage?: number | null;
-                    nextPage?: number | null;
-                    docs?: Components.Schemas.OrganizationPlayerAceDto[];
-                };
-            }
-        }
-    }
-    namespace OrganizationPlayerAclControllerFindOne {
-        namespace Parameters {
-            export type Id = string;
-        }
-        export interface PathParameters {
-            id: Parameters.Id;
-        }
-        namespace Responses {
-            export interface $200 {
-                success: boolean;
-                message: string;
-                data?: Components.Schemas.OrganizationPlayerAceDto;
-            }
-        }
-    }
-    namespace OrganizationPlayerAclControllerRemove {
-        namespace Parameters {
-            export type Id = string;
-        }
-        export interface PathParameters {
-            id: Parameters.Id;
-        }
-        namespace Responses {
-            export interface $200 {
-                success: boolean;
-                message: string;
-                data?: Components.Schemas.OrganizationPlayerAceDto;
-            }
-        }
-    }
-    namespace OrganizationPlayerAclControllerUpdate {
-        namespace Parameters {
-            export type Id = string;
-        }
-        export interface PathParameters {
-            id: Parameters.Id;
-        }
-        export type RequestBody = Components.Schemas.UpdateOrganizationPlayerAceDto;
-        namespace Responses {
-            export interface $200 {
-                success: boolean;
-                message: string;
-                data?: Components.Schemas.OrganizationPlayerAceDto;
             }
         }
     }
@@ -5589,97 +5542,6 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.UserNoteAceDto;
-            }
-        }
-    }
-    namespace UserPlayerAclControllerCreate {
-        export type RequestBody = Components.Schemas.CreateUserPlayerAceDto;
-        namespace Responses {
-            export interface $201 {
-                success: boolean;
-                message: string;
-                data?: Components.Schemas.UserPlayerAceDto;
-            }
-        }
-    }
-    namespace UserPlayerAclControllerFindAll {
-        namespace Parameters {
-            export type Limit = number;
-            export type Page = number;
-            export type PlayerId = string;
-            export type SortBy = "id" | "user" | "player" | "createdAt";
-            export type SortingOrder = "asc" | "desc";
-            export type UserId = string;
-        }
-        export interface QueryParameters {
-            userId?: Parameters.UserId;
-            playerId?: Parameters.PlayerId;
-            sortBy?: Parameters.SortBy;
-            sortingOrder?: Parameters.SortingOrder;
-            limit?: Parameters.Limit;
-            page?: Parameters.Page;
-        }
-        namespace Responses {
-            export interface $200 {
-                success: boolean;
-                message: string;
-                data?: {
-                    totalDocs?: number;
-                    limit?: number;
-                    page?: number;
-                    totalPages?: number;
-                    hasPrevPage?: boolean;
-                    hasNextPage?: boolean;
-                    prevPage?: number | null;
-                    nextPage?: number | null;
-                    docs?: Components.Schemas.UserPlayerAceDto[];
-                };
-            }
-        }
-    }
-    namespace UserPlayerAclControllerFindOne {
-        namespace Parameters {
-            export type Id = string;
-        }
-        export interface PathParameters {
-            id: Parameters.Id;
-        }
-        namespace Responses {
-            export interface $200 {
-                success: boolean;
-                message: string;
-                data?: Components.Schemas.UserPlayerAceDto;
-            }
-        }
-    }
-    namespace UserPlayerAclControllerRemove {
-        namespace Parameters {
-            export type Id = string;
-        }
-        export interface PathParameters {
-            id: Parameters.Id;
-        }
-        namespace Responses {
-            export interface $200 {
-                success: boolean;
-                message: string;
-                data?: Components.Schemas.UserPlayerAceDto;
-            }
-        }
-    }
-    namespace UserPlayerAclControllerUpdate {
-        namespace Parameters {
-            export type Id = string;
-        }
-        export interface PathParameters {
-            id: Parameters.Id;
-        }
-        export type RequestBody = Components.Schemas.UpdateUserPlayerAceDto;
-        namespace Responses {
-            export interface $200 {
-                success: boolean;
-                message: string;
-                data?: Components.Schemas.UserPlayerAceDto;
             }
         }
     }

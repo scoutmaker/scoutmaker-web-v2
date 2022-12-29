@@ -30,6 +30,7 @@ export type FindAllNotesParams = Pick<
   | 'observationType'
   | 'onlyLikedPlayers'
   | 'onlyLikedTeams'
+  | 'onlyWithoutPlayers'
 >
 
 export type NotesFiltersDto = Omit<
