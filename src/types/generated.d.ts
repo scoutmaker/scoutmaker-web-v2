@@ -445,6 +445,12 @@ declare namespace Components {
             topReports?: DashboardReportDto[];
             topPlayers?: DashboardPlayerDto[];
         }
+        export interface DashboardMatchDto {
+            id: string;
+            date: string; // date-time
+            homeTeam: TeamBasicDataDto;
+            awayTeam: TeamBasicDataDto;
+        }
         export interface DashboardNoteDto {
             player?: PlayerSuperBasicDataDto;
             id: string;
@@ -476,14 +482,15 @@ declare namespace Components {
             primaryPosition: PlayerPositionDto;
             secondaryPositions: PlayerPositionDto[];
             likes: LikePlayerBasicDataDto[];
+            avgPercentageRating: number;
             _count: Count;
         }
         export interface DashboardReportDto {
+            match: DashboardMatchDto;
             id: string;
             player: PlayerSuperBasicDataDto;
             createdAt: string; // date-time
             finalRating?: number;
-            match?: MatchBasicDataDto;
             docNumber: number;
         }
         export interface DashboardTeamAffiliationDto {
@@ -777,6 +784,7 @@ declare namespace Components {
             secondaryPositions: PlayerPositionDto[];
             teams: TeamAffiliationWithoutPlayerDto[];
             likes: LikePlayerBasicDataDto[];
+            avgPercentageRating: number;
             _count: Count;
         }
         export interface PlayerPositionDto {
