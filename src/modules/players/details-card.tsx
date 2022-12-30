@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next'
 
 import { CardItemBasic } from '@/components/details-card/details-card-item'
 import { PlayerDto } from '@/modules/players/types'
+import { calculateRating } from '@/utils/calculate-rating'
 import { getFlagEmoji } from '@/utils/get-flag-emoji'
 
 interface IPlayerDetailsCard {
@@ -26,6 +27,7 @@ export const PlayerDetialsCard = ({ player }: IPlayerDetailsCard) => {
     primaryPosition,
     secondaryPositions,
     teams,
+    avgPercentageRating,
   } = player
 
   return (
@@ -58,6 +60,14 @@ export const PlayerDetialsCard = ({ player }: IPlayerDetailsCard) => {
           <CardItemBasic
             title={t('SECONDARY_POSITIONS')}
             value={secondaryPositions.map(position => position.name).join(', ')}
+          />
+          <CardItemBasic
+            title={t('AVG_RATING')}
+            value={
+              typeof avgPercentageRating === 'number'
+                ? calculateRating(avgPercentageRating)
+                : '-'
+            }
           />
           <CardItemBasic title={t('FOOTED')} value={t(footed)} />
           <CardItemBasic
