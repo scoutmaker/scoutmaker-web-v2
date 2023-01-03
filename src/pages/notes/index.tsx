@@ -15,7 +15,7 @@ import { useDeleteNote, useNotes, useUnlikeNote } from '@/modules/notes/hooks'
 import { NotesTable } from '@/modules/notes/table/table'
 import { NotesFiltersState, NotesSortBy } from '@/modules/notes/types'
 import { useOnLikeNoteClick } from '@/modules/notes/utils'
-import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
+import { usePlayerPositionTypesList } from '@/modules/player-position-types/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { getDocumentNumber } from '@/utils/get-document-number'
@@ -34,6 +34,7 @@ const initialFilters: NotesFiltersState = {
   playerBornBefore: '',
   playerIds: [],
   positionIds: [],
+  positionTypeIds: [],
   teamIds: [],
   observationType: null,
   onlyLikedPlayers: false,
@@ -84,8 +85,8 @@ const NotesPage = () => {
   const { data: players, isLoading: playersLoading } = usePlayersList({
     isLiked: filters.onlyLikedPlayers,
   })
-  const { data: positions, isLoading: positionsLoading } =
-    usePlayerPositionsList()
+  const { data: positionTypes, isLoading: positionTypesLoading } =
+    usePlayerPositionTypesList()
 
   const { data: notes, isLoading: notesLoading } = useNotes({
     page: page + 1,
@@ -117,10 +118,10 @@ const NotesPage = () => {
     deleteNoteLoading ||
     matchesLoading ||
     playersLoading ||
-    positionsLoading ||
     likeNoteLoading ||
     unlikeNoteLoading ||
-    likeNoteLoading
+    likeNoteLoading ||
+    positionTypesLoading
 
   return (
     <>
@@ -131,7 +132,7 @@ const NotesPage = () => {
           filters={filters}
           matchesData={matches || []}
           playersData={players || []}
-          positionsData={positions || []}
+          positionTypesData={positionTypes || []}
           teamsData={teams || []}
           competitionsData={competitions || []}
           competitionGroupsData={competitionGroups || []}
