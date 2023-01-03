@@ -21,7 +21,7 @@ export type PlayerPositionsTypesFiltersDto = Pick<
 export type PlayerPositionTypesSortBy =
   Paths.PlayerPositionTypesControllerFindAll.Parameters.SortBy
 
-export interface IPlayerPositionComboOptions extends IComboOptions {
+export interface IPlayerPositionTypeComboOptions extends IComboOptions {
   name: string
   code: string
 }
