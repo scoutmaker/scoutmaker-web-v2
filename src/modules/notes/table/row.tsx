@@ -30,6 +30,7 @@ import {
   getMatchDisplayName,
   getSingleMatchRoute,
 } from '@/modules/matches/utils'
+import { getPositionDisplayName } from '@/modules/player-positions/utils'
 import { getSinglePlayerRoute } from '@/modules/players/utils'
 import { IReportFromNoteQuery } from '@/modules/reports/types'
 import { formatDate } from '@/utils/format-date'
@@ -193,7 +194,9 @@ export const NotesTableRow = ({
         ) : (
           <StyledTableCell>-</StyledTableCell>
         )}
-        <StyledTableCell>{meta?.position?.name || '-'}</StyledTableCell>
+        <StyledTableCell>
+          {meta?.position ? getPositionDisplayName(meta.position) : '-'}
+        </StyledTableCell>
         <StyledTableCell>{`${author.firstName} ${author.lastName}`}</StyledTableCell>
         <StyledTableCell padding="checkbox" align="center">
           {observationType === 'LIVE' ? <LiveObservationIcon /> : <VideoIcon />}

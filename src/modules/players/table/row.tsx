@@ -14,6 +14,7 @@ import { CellWithLink } from '@/components/tables/cell-with-link'
 import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
 import { StyledTableRow } from '@/components/tables/row'
+import { getPositionDisplayName } from '@/modules/player-positions/utils'
 import { getFlagEmoji } from '@/utils/get-flag-emoji'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
@@ -112,7 +113,9 @@ export const PlayersTableRow = ({
         label={teams[0]?.team?.name}
       />
       <StyledTableCell>{yearOfBirth}</StyledTableCell>
-      <StyledTableCell>{primaryPosition.name}</StyledTableCell>
+      <StyledTableCell>
+        {getPositionDisplayName(primaryPosition)}
+      </StyledTableCell>
       <StyledTableCell>{t(footed)}</StyledTableCell>
       <StyledTableCell align="center">
         <Badge badgeContent={count.reports || '0'} color="secondary">

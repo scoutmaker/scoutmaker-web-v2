@@ -6,6 +6,7 @@ import {
   getMatchDisplayName,
   getSingleMatchRoute,
 } from '@/modules/matches/utils'
+import { getPositionDisplayName } from '@/modules/player-positions/utils'
 import {
   getPlayerFullName,
   getSinglePlayerRoute,
@@ -75,7 +76,7 @@ export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
           />
           <CardItemBasic
             title={t('reports:POSITION_PLAYED')}
-            value={meta?.position.name}
+            value={meta ? getPositionDisplayName(meta.position) : undefined}
           />
           <CardItemBasic title={t('SHIRT_NO')} value={shirtNo} />
           <CardItemBasic
