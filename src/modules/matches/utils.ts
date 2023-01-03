@@ -18,8 +18,9 @@ export function getMatchDisplayName({
   }`
 }
 
-export const getBasicMatchName = (match: MatchBasicDataDto) =>
-  `${match.homeTeam.name} vs ${match.awayTeam.name}`
+export const getBasicMatchName = (
+  match: Omit<MatchBasicDataDto, 'competition'>,
+) => `${match.homeTeam.name} vs ${match.awayTeam.name}`
 
 export function getMatchResult(homeGoals?: number, awayGoals?: number) {
   if (!homeGoals || !awayGoals) {
