@@ -15,18 +15,16 @@ import {
 } from '@/modules/insider-notes/hooks'
 import { InsiderNotesTable } from '@/modules/insider-notes/table/table'
 import { InsiderNotesSortBy } from '@/modules/insider-notes/types'
-import { useLikeNote, useNotes, useUnlikeNote } from '@/modules/notes/hooks'
+import { useNotes, useUnlikeNote } from '@/modules/notes/hooks'
 import { NotesTable } from '@/modules/notes/table/table'
 import { NotesSortBy } from '@/modules/notes/types'
+import { useOnLikeNoteClick } from '@/modules/notes/utils'
 import { PlayerDetialsCard } from '@/modules/players/details-card'
 import { PlayerDto } from '@/modules/players/types'
-import {
-  useLikeReport,
-  useReports,
-  useUnlikeReport,
-} from '@/modules/reports/hooks'
+import { useReports, useUnlikeReport } from '@/modules/reports/hooks'
 import { ReportsTable } from '@/modules/reports/table/table'
 import { ReportsSortBy } from '@/modules/reports/types'
+import { useOnLikeReportClick } from '@/modules/reports/utils'
 import { useTeamAffiliations } from '@/modules/team-affiliations/hooks'
 import { TeamAffiliationsTable } from '@/modules/team-affiliations/table/team'
 import { TeamAffiliationsSortBy } from '@/modules/team-affiliations/types'
@@ -113,10 +111,10 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
       playerIds: [player?.id || ''],
     })
 
-  const { mutate: likeNote, isLoading: likeNoteLoading } = useLikeNote()
+  const { likeNote, likeNoteLoading } = useOnLikeNoteClick()
   const { mutate: unLikeNote, isLoading: unLikeNoteLoading } = useUnlikeNote()
 
-  const { mutate: likeReport, isLoading: likeReportLoading } = useLikeReport()
+  const { likeReport, likeReportLoading } = useOnLikeReportClick()
   const { mutate: unLikeReport, isLoading: unLikeReportLoading } =
     useUnlikeReport()
 

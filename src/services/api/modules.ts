@@ -37,3 +37,4 @@ export type TModuleName =
   | 'organization-note-acl'
   | 'user-insider-note-acl'
   | 'organization-insider-note-acl'
+  | 'dashboard'

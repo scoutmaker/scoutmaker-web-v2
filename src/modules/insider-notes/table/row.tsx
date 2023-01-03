@@ -42,7 +42,7 @@ export const InsiderNotesTableRow = ({
     handleMenuAction,
   } = useTableMenu()
 
-  const { player, createdAt, informant, id, likes, meta } = data
+  const { player, createdAt, informant, id, likes, author } = data
 
   const cellChangeLikedClick = () => {
     if (likes.length) onUnlikeClick(id)
@@ -96,11 +96,10 @@ export const InsiderNotesTableRow = ({
         label={`${player.firstName} ${player.lastName}`}
       />
       <StyledTableCell> {player.primaryPosition.name}</StyledTableCell>
-      <CellWithLink
-        href={`/teams/${meta?.team?.slug}`}
-        label={meta?.team ? meta.team.name : ''}
-      />
       <StyledTableCell>{informant || ''}</StyledTableCell>
+      <StyledTableCell>
+        {author.firstName} {author.lastName}
+      </StyledTableCell>
       <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
     </StyledTableRow>
   )

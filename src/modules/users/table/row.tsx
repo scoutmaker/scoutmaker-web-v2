@@ -1,7 +1,4 @@
-import {
-  ArrowDownward as DownIcon,
-  ArrowUpward as UpIcon,
-} from '@mui/icons-material'
+import { WorkspacePremium as RoleIcon } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
@@ -10,21 +7,16 @@ import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
 import { StyledTableRow } from '@/components/tables/row'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
-import { isAdmin, isPlaymakerScout } from '@/utils/user-roles'
+import { isAdmin } from '@/utils/user-roles'
 
 import { UserDto } from '../types'
 
 interface ITableRowProps {
   data: UserDto
-  onSetScoutClick: () => void
-  onSetPlaymakerScoutClick: () => void
+  onSetRole: (arg: { id: string; role: UserDto['role'] }) => void
 }
 
-export const UsersTableRow = ({
-  data,
-  onSetScoutClick,
-  onSetPlaymakerScoutClick,
-}: ITableRowProps) => {
+export const UsersTableRow = ({ data, onSetRole }: ITableRowProps) => {
   const router = useRouter()
   const { t } = useTranslation()
 
@@ -52,20 +44,34 @@ export const UsersTableRow = ({
             onMenuClick={handleMenuClick}
             onMenuClose={handleMenuClose}
           >
-            {isPlaymakerScout(data) ? (
+            {role !== 'PLAYMAKER_SCOUT_MANAGER' && (
               <TableMenuItem
-                icon={<DownIcon fontSize="small" />}
-                text={t('users:SET_SCOUT_ROLE')}
+                icon={<RoleIcon fontSize="small" />}
+                text={t('users:SET_ROLE', { role: 'PLAYMAKER_SCOUT_MANAGER' })}
                 onClick={() => {
-                  handleMenuAction(onSetScoutClick)
+                  handleMenuAction(() =>
+                    onSetRole({ id, role: 'PLAYMAKER_SCOUT_MANAGER' }),
+                  )
                 }}
               />
-            ) : (
+            )}
+            {role !== 'PLAYMAKER_SCOUT' && (
               <TableMenuItem
-                icon={<UpIcon fontSize="small" />}
-                text={t('users:SET_PLAYMAKER_SCOUT_ROLE')}
+                icon={<RoleIcon fontSize="small" />}
+                text={t('users:SET_ROLE', { role: 'PLAYMAKER_SCOUT' })}
                 onClick={() => {
-                  handleMenuAction(onSetPlaymakerScoutClick)
+                  handleMenuAction(() =>
+                    onSetRole({ id, role: 'PLAYMAKER_SCOUT' }),
+                  )
+                }}
+              />
+            )}
+            {role !== 'SCOUT' && (
+              <TableMenuItem
+                icon={<RoleIcon fontSize="small" />}
+                text={t('users:SET_ROLE', { role: 'SCOUT' })}
+                onClick={() => {
+                  handleMenuAction(() => onSetRole({ id, role: 'SCOUT' }))
                 }}
               />
             )}

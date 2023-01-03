@@ -12,5 +12,6 @@
   "HIGHEST_RATED_REPORT": "NAJWYŻEJ OCENIONY RAPORT",
   "LATEST_NOTE": "NAJNOWSZA NOTATKA",
   "REPORT_NO": "Raport nr {{number}}",
-  "NOTE_NO": "Notatka nr {{number}}"
+  "NOTE_NO": "Notatka nr {{number}}",
+  "CREATE_ORDER": "Utwórz zlecenie"
 }

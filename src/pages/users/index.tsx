@@ -9,11 +9,7 @@ import { useClubsList } from '@/modules/clubs/hooks'
 import { useRegionsList } from '@/modules/regions/hooks'
 import { useUserFootballRolesList } from '@/modules/user-football-roles/hooks'
 import { UsersFilterForm } from '@/modules/users/forms/filter'
-import {
-  useSetPMScoutRoleUser,
-  useSetScoutRoleUser,
-  useUsers,
-} from '@/modules/users/hooks'
+import { useSetUserRole, useUsers } from '@/modules/users/hooks'
 import { UsersTable } from '@/modules/users/table/table'
 import { UsersFiltersState, UsersSortBy } from '@/modules/users/types'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
@@ -66,18 +62,15 @@ const UsersPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { data: userFootballRoles, isLoading: userFootballRolesLoading } =
     useUserFootballRolesList()
 
-  const { mutate: setScoutRole, isLoading: scoutRoleLoading } =
-    useSetScoutRoleUser()
-  const { mutate: setPMScoutRole, isLoading: pmScoutRoleLoading } =
-    useSetPMScoutRoleUser()
+  const { mutate: setUserRole, isLoading: userSetRoleLoading } =
+    useSetUserRole()
 
   const isLoading =
     dataLoading ||
     clubsLoading ||
     regionsLoading ||
     userFootballRolesLoading ||
-    scoutRoleLoading ||
-    pmScoutRoleLoading
+    userSetRoleLoading
 
   if (errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
@@ -106,8 +99,7 @@ const UsersPage = ({ errorMessage, errorStatus }: TSsrRole) => {
         total={users?.totalDocs || 0}
         actions
         data={users?.docs || []}
-        onSetPlaymakerScoutClick={setPMScoutRole}
-        onSetScoutClick={setScoutRole}
+        onSetRole={setUserRole}
       />
     </>
   )

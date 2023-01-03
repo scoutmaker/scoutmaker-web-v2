@@ -41,6 +41,8 @@ export type PlayersFiltersState = Omit<
   | 'competitionIds'
   | 'competitionGroupIds'
   | 'footed'
+  | 'bornAfter'
+  | 'bornBefore'
 > & {
   countryIds: ICountryComboOptions[]
   positionIds: IPlayerPositionComboOptions[]
@@ -48,6 +50,8 @@ export type PlayersFiltersState = Omit<
   competitionIds: ICompetitionComboOptions[]
   competitionGroupIds: ICompetitionGroupComboOptions[]
   footed: IComboOptions | null
+  bornAfter: '' | number
+  bornBefore: '' | number
 }
 
 export type PlayersSortBy = Paths.PlayersControllerFindAll.Parameters.SortBy

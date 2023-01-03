@@ -1,31 +1,16 @@
-import { TFiltersStateData } from '@/components/combo/utils'
-import {
-  RATING_RANGE_END_MAP,
-  RATING_RANGE_START_MAP,
-} from '@/utils/rating-range-maps'
 import { Routes } from '@/utils/routes'
 
+import { useLikePlayer } from '../players/hooks'
+import { useLikeReport } from './hooks'
 import {
   IReportsComboOptions,
   ReportBasicDataDto,
   ReportDto,
-  ReportsFiltersState,
+  ReportPaginatedDataDto,
 } from './types'
 
 export function getSingleReportRoute(id: string) {
   return `${Routes.REPORTS}/${id}`
-}
-
-export function mapFilterFormDataToFiltersDto(
-  data: ReportsFiltersState,
-): TFiltersStateData {
-  const { ratingRange, ...rest } = data
-
-  return {
-    ...rest,
-    percentageRatingRangeStart: RATING_RANGE_START_MAP[ratingRange],
-    percentageRatingRangeEnd: RATING_RANGE_END_MAP[ratingRange],
-  }
 }
 
 export function mapReportsListToComboOptions(
@@ -55,4 +40,19 @@ export function groupSkillsByCategory(skills: ReportDto['skills']) {
   })
 
   return groupedSkills
+}
+
+export const useOnLikeReportClick = () => {
+  const { mutate: likeReport, isLoading: likeReportLoading } = useLikeReport()
+  const { mutate: likePlayer, isLoading: likePlayerLoading } = useLikePlayer()
+
+  const onLikeClick = (report: ReportPaginatedDataDto) => {
+    likeReport(report.id)
+    likePlayer(report.player.id)
+  }
+
+  return {
+    likeReport: onLikeClick,
+    likeReportLoading: likePlayerLoading || likeReportLoading,
+  }
 }
