@@ -41,7 +41,7 @@ interface INotesTableRowProps {
   data: NoteDto
   onEditClick: () => void
   onDeleteClick?: () => void
-  onLikeClick: (id: string) => void
+  onLikeClick: (note: NoteDto) => void
   onUnlikeClick: (id: string) => void
   withoutActions?: boolean
 }
@@ -83,7 +83,7 @@ export const NotesTableRow = ({
 
   const cellChangeLikedClick = () => {
     if (likes.length) onUnlikeClick(id)
-    else onLikeClick(id)
+    else onLikeClick(data)
   }
 
   const createReportQueryData: IReportFromNoteQuery = {
@@ -135,7 +135,7 @@ export const NotesTableRow = ({
                   icon={<LikeIcon fontSize="small" />}
                   text={t('ADD_TO_FAVOURITES')}
                   onClick={() => {
-                    handleMenuAction(() => onLikeClick(id))
+                    handleMenuAction(cellChangeLikedClick)
                   }}
                 />
               ) : (
@@ -143,7 +143,7 @@ export const NotesTableRow = ({
                   icon={<UnlikeIcon fontSize="small" />}
                   text={t('REMOVE_FROM_FAVOURITES')}
                   onClick={() => {
-                    handleMenuAction(() => onUnlikeClick(id))
+                    handleMenuAction(cellChangeLikedClick)
                   }}
                 />
               )}
@@ -164,21 +164,8 @@ export const NotesTableRow = ({
           isLiked={!!likes.length}
           onClicked={cellChangeLikedClick}
         />
-        {player ? (
-          <CellWithLink
-            href={getSinglePlayerRoute(player.slug)}
-            label={`${player.firstName} ${player.lastName}`}
-          />
-        ) : (
-          <StyledTableCell>-</StyledTableCell>
-        )}
-        <StyledTableCell>{meta?.position?.name || '-'}</StyledTableCell>
         <StyledTableCell>
-          {percentageRating ? (
-            <RatingChip
-              rating={parseInt(((percentageRating * 4) / 100).toFixed())}
-            />
-          ) : null}
+          {match ? formatDate(match.date) : '-'}
         </StyledTableCell>
         {match ? (
           <CellWithLink
@@ -191,15 +178,27 @@ export const NotesTableRow = ({
         ) : (
           <StyledTableCell>-</StyledTableCell>
         )}
-
         <StyledTableCell>
-          {match ? formatDate(match.date) : '-'}
+          {percentageRating ? (
+            <RatingChip
+              rating={parseInt(((percentageRating * 4) / 100).toFixed())}
+            />
+          ) : null}
         </StyledTableCell>
+        {player ? (
+          <CellWithLink
+            href={getSinglePlayerRoute(player.slug)}
+            label={`${player.firstName} ${player.lastName}`}
+          />
+        ) : (
+          <StyledTableCell>-</StyledTableCell>
+        )}
+        <StyledTableCell>{meta?.position?.name || '-'}</StyledTableCell>
         <StyledTableCell>{`${author.firstName} ${author.lastName}`}</StyledTableCell>
-        <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
         <StyledTableCell padding="checkbox" align="center">
           {observationType === 'LIVE' ? <LiveObservationIcon /> : <VideoIcon />}
         </StyledTableCell>
+        <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
       </StyledTableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={10}>

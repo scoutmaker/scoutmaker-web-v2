@@ -8,8 +8,7 @@ import { UsersTableRow } from './row'
 
 interface ITableProps extends ICommonTableProps {
   data: UserDto[]
-  onSetPlaymakerScoutClick: (id: string) => void
-  onSetScoutClick: (id: string) => void
+  onSetRole: (arg: { id: string; role: UserDto['role'] }) => void
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
@@ -34,8 +33,7 @@ export const UsersTable = ({
   total,
   actions,
   data,
-  onSetPlaymakerScoutClick,
-  onSetScoutClick,
+  onSetRole,
 }: ITableProps) => {
   const { t } = useTranslation()
 
@@ -53,12 +51,7 @@ export const UsersTable = ({
       actions={actions}
     >
       {data.map(user => (
-        <UsersTableRow
-          key={user.id}
-          data={user}
-          onSetPlaymakerScoutClick={() => onSetPlaymakerScoutClick(user.id)}
-          onSetScoutClick={() => onSetScoutClick(user.id)}
-        />
+        <UsersTableRow key={user.id} data={user} onSetRole={onSetRole} />
       ))}
     </Table>
   )
