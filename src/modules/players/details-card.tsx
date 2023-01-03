@@ -1,16 +1,8 @@
 import { DirectionsRun as PlayersIcon } from '@mui/icons-material'
-import {
-  Avatar,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  Link as MUILink,
-  Typography,
-} from '@mui/material'
-import Link from 'next/link'
+import { Avatar, Card, CardContent, CardHeader, Grid } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
+import { CardItemBasic } from '@/components/details-card/details-card-item'
 import { PlayerDto } from '@/modules/players/types'
 import { getFlagEmoji } from '@/utils/get-flag-emoji'
 
@@ -28,11 +20,7 @@ export const PlayerDetialsCard = ({ player }: IPlayerDetailsCard) => {
     height,
     weight,
     footed,
-    lnpId,
-    lnpUrl,
-    minut90id,
     minut90url,
-    transfermarktId,
     transfermarktUrl,
     country,
     primaryPosition,
@@ -56,104 +44,40 @@ export const PlayerDetialsCard = ({ player }: IPlayerDetailsCard) => {
       />
       <CardContent>
         <Grid container spacing={1}>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('COUNTRY')}: </strong>
-              {`${getFlagEmoji(country.code)} ${country.name}`}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('YEAR_OF_BIRTH')}: </strong>
-              {yearOfBirth}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('HEIGHT')}: </strong>
-              {height ? `${height} cm` : '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('WEIGHT')}: </strong>
-              {weight ? `${weight} kg` : '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('FOOTED')}: </strong>
-              {t(footed)}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('players:CURRENT_TEAM')}: </strong>
-              {teams[0]?.team ? (
-                <Link href={`/teams/${teams[0].team.slug}`} passHref>
-                  <MUILink>{teams[0].team.name}</MUILink>
-                </Link>
-              ) : (
-                '-'
-              )}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('PRIMARY_POSITION')}: </strong>
-              {primaryPosition.name}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('SECONDARY_POSITIONS')}: </strong>
-              {secondaryPositions.map(position => position.name).join(', ')}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('LNP_ID')}: </strong>
-              {lnpId || '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('LNP_URL')}: </strong>
-              {lnpUrl ? <MUILink href={lnpUrl}>{lnpUrl}</MUILink> : '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('90_MINUT_ID')}: </strong>
-              {minut90id || '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('90_MINUT_URL')}: </strong>
-              {minut90url ? (
-                <MUILink href={minut90url}>{minut90url}</MUILink>
-              ) : (
-                '-'
-              )}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('TRANSFERMARKT_ID')}: </strong>
-              {transfermarktId || '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('TRANSFERMARKT_URL')}: </strong>
-              {transfermarktUrl ? (
-                <MUILink href={transfermarktUrl}>{transfermarktUrl}</MUILink>
-              ) : (
-                '-'
-              )}
-            </Typography>
-          </Grid>
+          <CardItemBasic title={t('YEAR_OF_BIRTH')} value={yearOfBirth} />
+          <CardItemBasic
+            title={t('COUNTRY')}
+            value={`${getFlagEmoji(country.code)} ${country.name}`}
+          />
+          <CardItemBasic
+            title={t('TEAM')}
+            value={teams[0]?.team.name}
+            href={teams[0] ? `/teams/${teams[0].team.slug}` : undefined}
+          />
+          <CardItemBasic title={t('POSITION')} value={primaryPosition.name} />
+          <CardItemBasic
+            title={t('SECONDARY_POSITIONS')}
+            value={secondaryPositions.map(position => position.name).join(', ')}
+          />
+          <CardItemBasic title={t('FOOTED')} value={t(footed)} />
+          <CardItemBasic
+            title={t('WEIGHT')}
+            value={weight ? `${weight} kg` : '-'}
+          />
+          <CardItemBasic
+            title={t('HEIGHT')}
+            value={height ? `${height} cm` : '-'}
+          />
+          <CardItemBasic
+            title={t('TRANSFERMARKT_URL')}
+            value={transfermarktUrl}
+            href={transfermarktUrl}
+          />
+          <CardItemBasic
+            title={t('90_MINUT_URL')}
+            value={minut90url}
+            href={minut90url}
+          />
         </Grid>
       </CardContent>
     </Card>

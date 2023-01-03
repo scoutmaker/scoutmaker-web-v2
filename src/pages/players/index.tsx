@@ -34,8 +34,8 @@ export const getServerSideProps = withSessionSsrRole(
 
 const initialFilters: PlayersFiltersState = {
   name: '',
-  bornAfter: 1980,
-  bornBefore: 2005,
+  bornAfter: '',
+  bornBefore: '',
   footed: null,
   competitionGroupIds: [],
   competitionIds: [],
@@ -47,6 +47,8 @@ const initialFilters: PlayersFiltersState = {
   hasReport: false,
   hasAnyObservation: false,
 }
+
+const initialSortBy: PlayersSortBy = 'updatedAt'
 
 const PlayersPage = () => {
   const router = useRouter()
@@ -62,7 +64,7 @@ const PlayersPage = () => {
     handleChangePage,
     handleChangeRowsPerPage,
     handleSort,
-  } = useTable('players-table')
+  } = useTable('players-table', initialSortBy)
 
   const [filters, setFilters] = useLocalStorage<PlayersFiltersState>({
     key: 'players-filters',
@@ -108,6 +110,11 @@ const PlayersPage = () => {
     setIsDeleteConfirmationModalOpen(true)
   }
 
+  const onClearFilters = () => {
+    handleSetFilters(initialFilters)
+    handleSort(initialSortBy, 'desc')
+  }
+
   const isLoading =
     countriesLoading ||
     teamsLoading ||
@@ -132,7 +139,7 @@ const PlayersPage = () => {
           competitionGroupsData={competitionGroups || []}
           teamsData={teams || []}
           onFilter={handleSetFilters}
-          onClearFilters={() => handleSetFilters(initialFilters)}
+          onClearFilters={onClearFilters}
         />
       </FilterAccordion>
       <PlayersTable

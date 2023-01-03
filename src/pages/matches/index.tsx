@@ -33,6 +33,8 @@ const initialFilters: MatchesFiltersState = {
   teamId: null,
 }
 
+const initialSortBy: MatchesSortBy = 'updatedAt'
+
 const MatchesPage = () => {
   const { t } = useTranslation()
 
@@ -46,7 +48,7 @@ const MatchesPage = () => {
     handleChangePage,
     handleChangeRowsPerPage,
     handleSort,
-  } = useTable('matches-table')
+  } = useTable('matches-table', initialSortBy)
 
   const [filters, setFilters] = useLocalStorage<MatchesFiltersState>({
     key: 'matches-filters',
@@ -81,6 +83,11 @@ const MatchesPage = () => {
     setIsDeleteConfirmationModalOpen(true)
   }
 
+  const onClearFilters = () => {
+    handleSetFilters(initialFilters)
+    handleSort(initialSortBy, 'desc')
+  }
+
   const isLoading =
     teamsLoading ||
     competitionsLoading ||
@@ -101,7 +108,7 @@ const MatchesPage = () => {
           competitionGroupsData={competitionGroups || []}
           seasonsData={seasons || []}
           onFilter={handleSetFilters}
-          onClearFilters={() => handleSetFilters(initialFilters)}
+          onClearFilters={onClearFilters}
         />
       </FilterAccordion>
       <MatchesTable
