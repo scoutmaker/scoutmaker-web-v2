@@ -291,6 +291,12 @@ declare namespace Components {
             id?: string;
             name: string;
             code: string;
+            playerPositionTypeId: string;
+        }
+        export interface CreatePlayerPositionTypeDto {
+            id?: string;
+            name: string;
+            code: string;
         }
         export interface CreatePlayerStatsDto {
             id?: string;
@@ -445,6 +451,12 @@ declare namespace Components {
             topReports?: DashboardReportDto[];
             topPlayers?: DashboardPlayerDto[];
         }
+        export interface DashboardMatchDto {
+            id: string;
+            date: string; // date-time
+            homeTeam: TeamBasicDataDto;
+            awayTeam: TeamBasicDataDto;
+        }
         export interface DashboardNoteDto {
             player?: PlayerSuperBasicDataDto;
             id: string;
@@ -479,11 +491,11 @@ declare namespace Components {
             _count: Count;
         }
         export interface DashboardReportDto {
+            match: DashboardMatchDto;
             id: string;
             player: PlayerSuperBasicDataDto;
             createdAt: string; // date-time
             finalRating?: number;
-            match?: MatchBasicDataDto;
             docNumber: number;
         }
         export interface DashboardTeamAffiliationDto {
@@ -780,6 +792,12 @@ declare namespace Components {
             _count: Count;
         }
         export interface PlayerPositionDto {
+            id: string;
+            name: string;
+            code: string;
+            positionType: PlayerPositionTypeDto;
+        }
+        export interface PlayerPositionTypeDto {
             id: string;
             name: string;
             code: string;
@@ -1129,6 +1147,11 @@ declare namespace Components {
             isPublic?: boolean;
         }
         export interface UpdatePlayerPositionDto {
+            name?: string;
+            code?: string;
+            playerPositionTypeId?: string;
+        }
+        export interface UpdatePlayerPositionTypeDto {
             name?: string;
             code?: string;
         }
@@ -2534,6 +2557,7 @@ declare namespace Paths {
             export type Page = number;
             export type PlayerIds = string[];
             export type PositionIds = string[];
+            export type PositionTypeIds = string[];
             export type SortBy = "id" | "player" | "createdAt";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
@@ -2541,6 +2565,7 @@ declare namespace Paths {
         export interface QueryParameters {
             playerIds?: Parameters.PlayerIds;
             positionIds?: Parameters.PositionIds;
+            positionTypeIds?: Parameters.PositionTypeIds;
             teamIds?: Parameters.TeamIds;
             competitionIds?: Parameters.CompetitionIds;
             competitionGroupIds?: Parameters.CompetitionGroupIds;
@@ -2976,6 +3001,7 @@ declare namespace Paths {
             export type PlayerBornBefore = number;
             export type PlayerIds = string[];
             export type PositionIds = string[];
+            export type PositionTypeIds = string[];
             export type SortBy = "id" | "player" | "positionPlayed" | "percentageRating" | "match" | "author" | "createdAt" | "percentageRating_createdAt";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
@@ -2984,6 +3010,7 @@ declare namespace Paths {
         export interface QueryParameters {
             playerIds?: Parameters.PlayerIds;
             positionIds?: Parameters.PositionIds;
+            positionTypeIds?: Parameters.PositionTypeIds;
             teamIds?: Parameters.TeamIds;
             matchIds?: Parameters.MatchIds;
             competitionIds?: Parameters.CompetitionIds;
@@ -3756,6 +3783,115 @@ declare namespace Paths {
             }
         }
     }
+    namespace PlayerPositionTypesControllerCreate {
+        export type RequestBody = Components.Schemas.CreatePlayerPositionTypeDto;
+        namespace Responses {
+            export interface $201 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerPositionTypeDto;
+            }
+        }
+    }
+    namespace PlayerPositionTypesControllerFindAll {
+        namespace Parameters {
+            export type Code = string;
+            export type Limit = number;
+            export type Name = string;
+            export type Page = number;
+            export type SortBy = "id" | "name" | "code";
+            export type SortingOrder = "asc" | "desc";
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            code?: Parameters.Code;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.PlayerPositionTypeDto[];
+                };
+            }
+        }
+    }
+    namespace PlayerPositionTypesControllerFindOne {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerPositionTypeDto;
+            }
+        }
+    }
+    namespace PlayerPositionTypesControllerGetList {
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerPositionTypeDto[];
+            }
+        }
+    }
+    namespace PlayerPositionTypesControllerRemove {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerPositionTypeDto;
+            }
+        }
+    }
+    namespace PlayerPositionTypesControllerUpdate {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        export type RequestBody = Components.Schemas.UpdatePlayerPositionTypeDto;
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerPositionTypeDto;
+            }
+        }
+    }
+    namespace PlayerPositionTypesControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
+            }
+        }
+    }
     namespace PlayerPositionsControllerCreate {
         export type RequestBody = Components.Schemas.CreatePlayerPositionDto;
         namespace Responses {
@@ -3985,6 +4121,7 @@ declare namespace Paths {
             export type OrderId = string;
             export type Page = number;
             export type PositionIds = string[];
+            export type PositionTypeIds = string[];
             export type SortBy = "id" | "firstName" | "lastName" | "yearOfBirth" | "height" | "weight" | "footed" | "country" | "primaryPosition" | "reportsCount" | "notesCount" | "updatedAt";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
@@ -3996,6 +4133,7 @@ declare namespace Paths {
             footed?: Parameters.Footed;
             countryIds?: Parameters.CountryIds;
             positionIds?: Parameters.PositionIds;
+            positionTypeIds?: Parameters.PositionTypeIds;
             teamIds?: Parameters.TeamIds;
             competitionIds?: Parameters.CompetitionIds;
             competitionGroupIds?: Parameters.CompetitionGroupIds;
@@ -4072,6 +4210,7 @@ declare namespace Paths {
             export type Name = string;
             export type OrderId = string;
             export type PositionIds = string[];
+            export type PositionTypeIds = string[];
             export type TeamIds = string[];
         }
         export interface QueryParameters {
@@ -4081,6 +4220,7 @@ declare namespace Paths {
             footed?: Parameters.Footed;
             countryIds?: Parameters.CountryIds;
             positionIds?: Parameters.PositionIds;
+            positionTypeIds?: Parameters.PositionTypeIds;
             teamIds?: Parameters.TeamIds;
             competitionIds?: Parameters.CompetitionIds;
             competitionGroupIds?: Parameters.CompetitionGroupIds;
@@ -4732,6 +4872,7 @@ declare namespace Paths {
             export type PlayerBornBefore = number;
             export type PlayerIds = string[];
             export type PositionIds = string[];
+            export type PositionTypeIds = string[];
             export type SortBy = "id" | "player" | "positionPlayed" | "finalRating" | "percentageRating" | "videoUrl" | "author" | "createdAt" | "status" | "match";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
@@ -4740,6 +4881,7 @@ declare namespace Paths {
         export interface QueryParameters {
             playerIds?: Parameters.PlayerIds;
             positionIds?: Parameters.PositionIds;
+            positionTypeIds?: Parameters.PositionTypeIds;
             matchIds?: Parameters.MatchIds;
             teamIds?: Parameters.TeamIds;
             competitionIds?: Parameters.CompetitionIds;
@@ -4810,12 +4952,14 @@ declare namespace Paths {
             export type PlayerBornBefore = number;
             export type PlayerIds = string[];
             export type PositionIds = string[];
+            export type PositionTypeIds = string[];
             export type TeamIds = string[];
             export type UserId = string;
         }
         export interface QueryParameters {
             playerIds?: Parameters.PlayerIds;
             positionIds?: Parameters.PositionIds;
+            positionTypeIds?: Parameters.PositionTypeIds;
             matchIds?: Parameters.MatchIds;
             teamIds?: Parameters.TeamIds;
             competitionIds?: Parameters.CompetitionIds;
