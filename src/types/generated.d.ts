@@ -218,6 +218,7 @@ declare namespace Components {
             competitionId: string;
             groupId?: string;
             seasonId: string;
+            transfermarktUrl?: string;
         }
         export interface CreateNoteDto {
             id?: string;
@@ -603,6 +604,7 @@ declare namespace Components {
             homeGoals?: number;
             awayGoals?: number;
             videoUrl?: string;
+            transfermarktUrl?: string;
             homeTeam: TeamBasicDataDto;
             awayTeam: TeamBasicDataDto;
             competition: CompetitionBasicDataDto;
@@ -1072,6 +1074,7 @@ declare namespace Components {
             competitionId?: string;
             groupId?: string;
             seasonId?: string;
+            transfermarktUrl?: string;
         }
         export interface UpdateNoteDto {
             shirtNo?: number;

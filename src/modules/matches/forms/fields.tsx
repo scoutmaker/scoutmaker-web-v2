@@ -117,6 +117,18 @@ export const Fields = ({
           (touched.videoUrl && errors.videoUrl) || t('OPTIONAL_FIELD')
         }
       />
+      <Field
+        name="transfermarktUrl"
+        as={TextField}
+        variant="outlined"
+        fullWidth
+        label={t('TRANSFERMARKT_URL')}
+        error={touched.transfermarktUrl && !!errors.transfermarktUrl}
+        helperText={
+          (touched.transfermarktUrl && errors.transfermarktUrl) ||
+          t('OPTIONAL_FIELD')
+        }
+      />
     </>
   )
 }

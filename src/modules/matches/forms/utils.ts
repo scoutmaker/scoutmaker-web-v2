@@ -20,6 +20,7 @@ export const initialValues: CreateMatchDto = {
   homeGoals: 0,
   awayGoals: 0,
   videoUrl: '',
+  transfermarktUrl: '',
 }
 
 export function generateMatchFormValidationSchema(t: TFunction) {
@@ -44,6 +45,7 @@ export function generateMatchFormValidationSchema(t: TFunction) {
       homeGoals: yup.number().min(0).max(20),
       awayGoals: yup.number().min(0).max(20),
       videoUrl: yup.string().url().notRequired(),
+      transfermarktUrl: yup.string().url().notRequired(),
     })
     .defined()
 }
