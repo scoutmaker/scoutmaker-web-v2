@@ -11,11 +11,11 @@ import { MatchBasicDataDto, MatchDto } from '@/modules/matches/types'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
+import { ConfirmOnLeaveForm } from '@/utils/hooks/use-confirm-leave'
 
 import { CreateNoteDto } from '../types'
 import { Fields } from './fields'
 import { generateNoteFormValidationSchema, initialValues } from './utils'
-import { ConfirmOnLeaveForm } from '@/utils/hooks/use-confirm-leave'
 
 interface ICreateNoteFormProps {
   playersData: PlayerBasicDataDto[]
