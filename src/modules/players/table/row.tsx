@@ -58,7 +58,7 @@ export const PlayersTableRow = ({
     country,
     yearOfBirth,
     _count: count,
-    avgPercentageRating,
+    averagePercentageRating,
   } = data
 
   const cellChangeLikedClick = () => {
@@ -117,8 +117,8 @@ export const PlayersTableRow = ({
       <StyledTableCell>{primaryPosition.name}</StyledTableCell>
       <StyledTableCell>{t(footed)}</StyledTableCell>
       <StyledTableCell>
-        {typeof avgPercentageRating === 'number'
-          ? calculateRating(avgPercentageRating)
+        {typeof averagePercentageRating === 'number'
+          ? calculateRating(averagePercentageRating)
           : '-'}
       </StyledTableCell>
       <StyledTableCell align="center">

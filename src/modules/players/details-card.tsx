@@ -27,7 +27,7 @@ export const PlayerDetialsCard = ({ player }: IPlayerDetailsCard) => {
     primaryPosition,
     secondaryPositions,
     teams,
-    avgPercentageRating,
+    averagePercentageRating,
   } = player
 
   return (
@@ -64,8 +64,8 @@ export const PlayerDetialsCard = ({ player }: IPlayerDetailsCard) => {
           <CardItemBasic
             title={t('AVG_RATING')}
             value={
-              typeof avgPercentageRating === 'number'
-                ? calculateRating(avgPercentageRating)
+              typeof averagePercentageRating === 'number'
+                ? calculateRating(averagePercentageRating)
                 : '-'
             }
           />

@@ -1,3 +1,3 @@
-export function calculateRating(percentage: number) {
-  return parseFloat(((percentage / 100) * 4).toFixed(2))
+export function calculateRating(percentage: number, maxRating: number = 4) {
+  return parseFloat(((percentage / 100) * maxRating).toFixed(2))
 }

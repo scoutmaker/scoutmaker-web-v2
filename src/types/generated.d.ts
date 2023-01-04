@@ -218,6 +218,7 @@ declare namespace Components {
             competitionId: string;
             groupId?: string;
             seasonId: string;
+            transfermarktUrl?: string;
         }
         export interface CreateNoteDto {
             id?: string;
@@ -482,7 +483,7 @@ declare namespace Components {
             primaryPosition: PlayerPositionDto;
             secondaryPositions: PlayerPositionDto[];
             likes: LikePlayerBasicDataDto[];
-            avgPercentageRating: number;
+            averagePercentageRating: number;
             _count: Count;
         }
         export interface DashboardReportDto {
@@ -610,6 +611,7 @@ declare namespace Components {
             homeGoals?: number;
             awayGoals?: number;
             videoUrl?: string;
+            transfermarktUrl?: string;
             homeTeam: TeamBasicDataDto;
             awayTeam: TeamBasicDataDto;
             competition: CompetitionBasicDataDto;
@@ -784,7 +786,7 @@ declare namespace Components {
             secondaryPositions: PlayerPositionDto[];
             teams: TeamAffiliationWithoutPlayerDto[];
             likes: LikePlayerBasicDataDto[];
-            avgPercentageRating: number;
+            averagePercentageRating: number;
             _count: Count;
         }
         export interface PlayerPositionDto {
@@ -1080,6 +1082,7 @@ declare namespace Components {
             competitionId?: string;
             groupId?: string;
             seasonId?: string;
+            transfermarktUrl?: string;
         }
         export interface UpdateNoteDto {
             shirtNo?: number;
@@ -1118,6 +1121,7 @@ declare namespace Components {
             newPasswordConfirm: string;
         }
         export interface UpdatePlayerDto {
+            averagePercentageRating?: number;
             firstName?: string;
             lastName?: string;
             countryId?: string;
@@ -3993,7 +3997,7 @@ declare namespace Paths {
             export type OrderId = string;
             export type Page = number;
             export type PositionIds = string[];
-            export type SortBy = "id" | "firstName" | "lastName" | "yearOfBirth" | "height" | "weight" | "footed" | "country" | "primaryPosition" | "reportsCount" | "notesCount" | "updatedAt";
+            export type SortBy = "id" | "firstName" | "lastName" | "yearOfBirth" | "height" | "weight" | "footed" | "country" | "primaryPosition" | "reportsCount" | "notesCount" | "updatedAt" | "averagePercentageRating";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
         }
