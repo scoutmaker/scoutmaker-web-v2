@@ -11,6 +11,7 @@ import { MatchBasicDataDto, MatchDto } from '@/modules/matches/types'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
+import { ConfirmOnLeaveForm } from '@/utils/hooks/use-confirm-leave'
 
 import { CreateNoteDto } from '../types'
 import { Fields } from './fields'
@@ -28,7 +29,6 @@ interface ICreateNoteFormProps {
   fullwidth?: boolean
   match?: MatchDto
   observationType?: 'LIVE' | 'VIDEO'
-  onFormChange: () => void
 }
 
 export const CreateNoteForm = ({
@@ -43,7 +43,6 @@ export const CreateNoteForm = ({
   teamsData,
   match,
   observationType,
-  onFormChange,
 }: ICreateNoteFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation(['common', 'notes'])
@@ -70,7 +69,8 @@ export const CreateNoteForm = ({
       }}
     >
       {({ handleReset }) => (
-        <Form onChange={onFormChange}>
+        <Form>
+          <ConfirmOnLeaveForm />
           <Container fullwidth={fullwidth}>
             <Fields
               positionsData={positionsData}
