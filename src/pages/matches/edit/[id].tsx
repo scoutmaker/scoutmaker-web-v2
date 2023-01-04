@@ -58,7 +58,7 @@ const EditMatchPage = ({
       <>
         {isLoading && <Loader />}
         <PageHeading
-          title={t('players:EDIT_PLAYER_PAGE_TITLE', {
+          title={t('matches:EDIT_MATCH_PAGE_TITLE', {
             name: getMatchDisplayName({
               homeTeamName: data.homeTeam.name,
               awayTeamName: data.awayTeam.name,

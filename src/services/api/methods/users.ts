@@ -23,14 +23,9 @@ export const getUsers = (params: FindAllUsersParams) =>
 export const getUserById = (id: string, token?: string) =>
   getAssetById<UserDto>({ moduleName, id, token })
 
-export const setScoutRoleUser = (id: string) => changeUserRole(id, 'SCOUT')
-
-export const setPMScoutRoleUser = (id: string) =>
-  changeUserRole(id, 'PLAYMAKER_SCOUT')
-
-async function changeUserRole(
+export async function setUserRole(
   id: string,
-  role: 'SCOUT' | 'PLAYMAKER_SCOUT',
+  role: UserDto['role'],
 ): Promise<ApiResponse<UserDto>> {
   const { data } = await client.patch<ApiResponse<UserDto>>(
     `/${moduleName}/${id}/change-role`,
