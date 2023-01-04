@@ -446,6 +446,12 @@ declare namespace Components {
             topReports?: DashboardReportDto[];
             topPlayers?: DashboardPlayerDto[];
         }
+        export interface DashboardMatchDto {
+            id: string;
+            date: string; // date-time
+            homeTeam: TeamBasicDataDto;
+            awayTeam: TeamBasicDataDto;
+        }
         export interface DashboardNoteDto {
             player?: PlayerSuperBasicDataDto;
             id: string;
@@ -477,14 +483,15 @@ declare namespace Components {
             primaryPosition: PlayerPositionDto;
             secondaryPositions: PlayerPositionDto[];
             likes: LikePlayerBasicDataDto[];
+            averagePercentageRating: number;
             _count: Count;
         }
         export interface DashboardReportDto {
+            match: DashboardMatchDto;
             id: string;
             player: PlayerSuperBasicDataDto;
             createdAt: string; // date-time
             finalRating?: number;
-            match?: MatchBasicDataDto;
             docNumber: number;
         }
         export interface DashboardTeamAffiliationDto {
@@ -779,6 +786,7 @@ declare namespace Components {
             secondaryPositions: PlayerPositionDto[];
             teams: TeamAffiliationWithoutPlayerDto[];
             likes: LikePlayerBasicDataDto[];
+            averagePercentageRating: number;
             _count: Count;
         }
         export interface PlayerPositionDto {
@@ -1113,6 +1121,7 @@ declare namespace Components {
             newPasswordConfirm: string;
         }
         export interface UpdatePlayerDto {
+            averagePercentageRating?: number;
             firstName?: string;
             lastName?: string;
             countryId?: string;
@@ -3988,7 +3997,7 @@ declare namespace Paths {
             export type OrderId = string;
             export type Page = number;
             export type PositionIds = string[];
-            export type SortBy = "id" | "firstName" | "lastName" | "yearOfBirth" | "height" | "weight" | "footed" | "country" | "primaryPosition" | "reportsCount" | "notesCount" | "updatedAt";
+            export type SortBy = "id" | "firstName" | "lastName" | "yearOfBirth" | "height" | "weight" | "footed" | "country" | "primaryPosition" | "reportsCount" | "notesCount" | "updatedAt" | "averagePercentageRating";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
         }
