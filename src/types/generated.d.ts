@@ -3993,6 +3993,8 @@ declare namespace Paths {
             export type HasReport = boolean;
             export type IsLiked = boolean;
             export type Limit = number;
+            export type MaxAverageRating = number;
+            export type MinAverageRating = number;
             export type Name = string;
             export type OrderId = string;
             export type Page = number;
@@ -4016,6 +4018,8 @@ declare namespace Paths {
             hasNote?: Parameters.HasNote;
             hasReport?: Parameters.HasReport;
             hasAnyObservation?: Parameters.HasAnyObservation;
+            minAverageRating?: Parameters.MinAverageRating;
+            maxAverageRating?: Parameters.MaxAverageRating;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -4081,6 +4085,8 @@ declare namespace Paths {
             export type HasNote = boolean;
             export type HasReport = boolean;
             export type IsLiked = boolean;
+            export type MaxAverageRating = number;
+            export type MinAverageRating = number;
             export type Name = string;
             export type OrderId = string;
             export type PositionIds = string[];
@@ -4101,6 +4107,8 @@ declare namespace Paths {
             hasNote?: Parameters.HasNote;
             hasReport?: Parameters.HasReport;
             hasAnyObservation?: Parameters.HasAnyObservation;
+            minAverageRating?: Parameters.MinAverageRating;
+            maxAverageRating?: Parameters.MaxAverageRating;
         }
         namespace Responses {
             export interface $200 {
