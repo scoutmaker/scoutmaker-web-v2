@@ -186,6 +186,15 @@ export const ReportsFilterForm = ({
                 size="small"
               />
             </FilterCheckboxContainer>
+            <FilterCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="onlyMine"
+                Label={{ label: t('ONLY_MINE') }}
+                size="small"
+              />
+            </FilterCheckboxContainer>
           </Box>
           <FilterFormActions handleClearFilter={onClearFilters} />
         </Form>

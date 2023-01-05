@@ -2979,6 +2979,7 @@ declare namespace Paths {
             export type ObservationType = "LIVE" | "VIDEO";
             export type OnlyLikedPlayers = boolean;
             export type OnlyLikedTeams = boolean;
+            export type OnlyMine = boolean;
             export type OnlyWithoutPlayers = boolean;
             export type Page = number;
             export type PercentageRatingRangeEnd = number;
@@ -3011,6 +3012,7 @@ declare namespace Paths {
             onlyLikedTeams?: Parameters.OnlyLikedTeams;
             onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
             onlyWithoutPlayers?: Parameters.OnlyWithoutPlayers;
+            onlyMine?: Parameters.OnlyMine;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -4744,6 +4746,7 @@ declare namespace Paths {
             export type ObservationType = "LIVE" | "VIDEO";
             export type OnlyLikedPlayers = boolean;
             export type OnlyLikedTeams = boolean;
+            export type OnlyMine = boolean;
             export type Page = number;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
@@ -4775,6 +4778,7 @@ declare namespace Paths {
             observationType?: Parameters.ObservationType;
             onlyLikedTeams?: Parameters.OnlyLikedTeams;
             onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
+            onlyMine?: Parameters.OnlyMine;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -4823,6 +4827,7 @@ declare namespace Paths {
             export type ObservationType = "LIVE" | "VIDEO";
             export type OnlyLikedPlayers = boolean;
             export type OnlyLikedTeams = boolean;
+            export type OnlyMine = boolean;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
             export type PercentageRatingRanges = ("ALL" | "NEGATIVE_SELECTION" | "NO_DECISION" | "TO_OBSERVE" | "POSITIVE_SELECTION")[];
@@ -4851,6 +4856,7 @@ declare namespace Paths {
             observationType?: Parameters.ObservationType;
             onlyLikedTeams?: Parameters.OnlyLikedTeams;
             onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
+            onlyMine?: Parameters.OnlyMine;
         }
         namespace Responses {
             export interface $200 {
