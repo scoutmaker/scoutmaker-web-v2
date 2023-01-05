@@ -8,6 +8,7 @@ import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { MatchBasicDataDto, MatchDto } from '@/modules/matches/types'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { PlayerBasicDataDto } from '@/modules/players/types'
+import { ConfirmOnLeaveForm } from '@/utils/hooks/use-confirm-leave'
 
 import { CreateNoteDto } from '../types'
 import { Fields } from './fields'
@@ -60,6 +61,7 @@ export const CreateNoteForm = ({
     >
       {({ handleReset }) => (
         <Form>
+          <ConfirmOnLeaveForm />
           <Container fullwidth={fullwidth}>
             <Fields
               positionsData={positionsData}

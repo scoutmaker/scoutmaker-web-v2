@@ -19,10 +19,9 @@ function generateHeadCells(t: TFunction): IHeadCell[] {
     { id: 'favourite', label: '' },
     { id: 'name', label: t('NAME') },
     { id: 'clubId', label: t('CLUB') },
-    { id: 'competition', label: t('COMPETITION'), isSortingDisabled: true },
     {
-      id: 'competitionGroup',
-      label: t('COMPETITION_GROUP'),
+      id: 'competition_with_group',
+      label: `${t('COMPETITION')} → ${t('GROUP')}`,
       isSortingDisabled: true,
     },
   ]

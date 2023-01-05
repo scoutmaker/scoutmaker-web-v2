@@ -2,9 +2,9 @@ import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
 
 import { Table } from '@/components/tables/table'
-import { ICommonTableProps } from '@/types/tables'
+import { ICommonTableProps, IHeadCell } from '@/types/tables'
 
-import { ClubDto, ClubsSortBy } from '../types'
+import { ClubDto } from '../types'
 import { ClubsTableRow } from './row'
 
 // This should be generic, we just need the id and display name for every module
@@ -18,16 +18,12 @@ interface IClubsTableProps extends ICommonTableProps {
   handleDeleteItemClick: (data: IClubToDeleteData) => void
 }
 
-interface IHeadCell {
-  id: ClubsSortBy
-  label: string
-}
-
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
-    { id: 'name', label: t('NAME') },
+    { id: 'name', label: t('CLUB') },
     { id: 'countryId', label: t('COUNTRY') },
     { id: 'regionId', label: t('REGION') },
+    { id: 'teams', label: t('TEAMS'), isSortingDisabled: true },
   ]
 }
 

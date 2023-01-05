@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next'
 
 import { BasicCombo } from '@/components/combo/basicCombo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
+import FilteredCompetitonGroups from '@/components/filteredCompetitionGroups/filteredCompetitonGroups'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
@@ -27,7 +28,7 @@ export const Fields = ({
 }: IFieldsProps) => {
   const { t } = useTranslation(['common', 'matches'])
 
-  const { touched, errors } = useFormikContext<
+  const { touched, errors, values } = useFormikContext<
     CreateMatchDto | UpdateMatchDto
   >()
 
@@ -54,12 +55,16 @@ export const Fields = ({
         error={touched.competitionId && !!errors.competitionId}
         helperText={touched.competitionId ? errors.competitionId : undefined}
       />
-      <BasicCombo
-        data={mapCompetitionGroupsListToComboOptions(competitionGroupsData)}
-        name="groupId"
-        label={t('COMPETITION_GROUP')}
+      <FilteredCompetitonGroups
+        competitionGroupsData={mapCompetitionGroupsListToComboOptions(
+          competitionGroupsData,
+        )}
+        competitionsFormValue={values.competitionId || ''}
         error={touched.groupId && !!errors.groupId}
         helperText={touched.groupId ? errors.groupId : undefined}
+        label={t('COMPETITION_GROUP')}
+        name="groupId"
+        isBasicCombo
       />
       <BasicCombo
         data={mapListDataToComboOptions(seasonsData)}
@@ -115,6 +120,18 @@ export const Fields = ({
         error={touched.videoUrl && !!errors.videoUrl}
         helperText={
           (touched.videoUrl && errors.videoUrl) || t('OPTIONAL_FIELD')
+        }
+      />
+      <Field
+        name="transfermarktUrl"
+        as={TextField}
+        variant="outlined"
+        fullWidth
+        label={t('TRANSFERMARKT_URL')}
+        error={touched.transfermarktUrl && !!errors.transfermarktUrl}
+        helperText={
+          (touched.transfermarktUrl && errors.transfermarktUrl) ||
+          t('OPTIONAL_FIELD')
         }
       />
     </>

@@ -36,6 +36,9 @@ declare namespace Components {
             name: string;
             slug: string;
         }
+        export interface ClubCount {
+            teams: number;
+        }
         export interface ClubDto {
             id: string;
             name: string;
@@ -50,6 +53,7 @@ declare namespace Components {
             instagram?: string;
             country: CountryDto;
             region: RegionWithoutCountryDto;
+            _count: ClubCount;
         }
         export interface CompetitionAgeCategoryDto {
             id: string;
@@ -214,6 +218,7 @@ declare namespace Components {
             competitionId: string;
             groupId?: string;
             seasonId: string;
+            transfermarktUrl?: string;
         }
         export interface CreateNoteDto {
             id?: string;
@@ -426,6 +431,68 @@ declare namespace Components {
             competitionIds: string[];
             competitionGroupIds: string[];
         }
+        export interface DashboardDto {
+            reportsCount?: number;
+            recentReportsRatio?: number;
+            notesCount?: number;
+            recentNotesRatio?: number;
+            matchesCount?: number;
+            observedMatchesCount?: number;
+            recentObservedMatchesRatio?: number;
+            organizations?: OrganizationBasicDataDto[];
+            scoutsCount?: number;
+            observerdPlayersCount?: number;
+            topNotes?: DashboardNoteDto[];
+            topReports?: DashboardReportDto[];
+            topPlayers?: DashboardPlayerDto[];
+        }
+        export interface DashboardNoteDto {
+            player?: PlayerSuperBasicDataDto;
+            id: string;
+            docNumber: number;
+            description?: string;
+            rating?: number;
+            createdAt: string; // date-time
+            shirtNo?: number;
+            match?: MatchBasicDataDto;
+        }
+        export interface DashboardPlayerDto {
+            footed: "LEFT" | "RIGHT" | "BOTH";
+            averagePrecentageRating: number;
+            teams: DashboardTeamAffiliationDto[];
+            id: string;
+            firstName: string;
+            lastName: string;
+            slug: string;
+            yearOfBirth: number;
+            height?: number;
+            weight?: number;
+            lnpId?: string;
+            lnpUrl?: string;
+            minut90id?: string;
+            minut90url?: string;
+            transfermarktId?: string;
+            transfermarktUrl?: string;
+            country: CountryDto;
+            primaryPosition: PlayerPositionDto;
+            secondaryPositions: PlayerPositionDto[];
+            likes: LikePlayerBasicDataDto[];
+            _count: Count;
+        }
+        export interface DashboardReportDto {
+            id: string;
+            player: PlayerSuperBasicDataDto;
+            createdAt: string; // date-time
+            finalRating?: number;
+            match?: MatchBasicDataDto;
+            docNumber: number;
+        }
+        export interface DashboardTeamAffiliationDto {
+            team: TeamDto;
+            id: string;
+            startDate: string; // date-time
+            endDate?: string; // date-time
+        }
         export interface FollowAgencyDto {
             agency: AgencyBasicInfoDto;
             follower: UserBasicDataDto;
@@ -537,6 +604,7 @@ declare namespace Components {
             homeGoals?: number;
             awayGoals?: number;
             videoUrl?: string;
+            transfermarktUrl?: string;
             homeTeam: TeamBasicDataDto;
             awayTeam: TeamBasicDataDto;
             competition: CompetitionBasicDataDto;
@@ -1006,6 +1074,7 @@ declare namespace Components {
             competitionId?: string;
             groupId?: string;
             seasonId?: string;
+            transfermarktUrl?: string;
         }
         export interface UpdateNoteDto {
             shirtNo?: number;
@@ -1190,6 +1259,7 @@ declare namespace Components {
             club?: ClubBasicDataDto;
             footballRole?: UserFootballRoleDto;
             _count: Count;
+            organizationId?: string;
         }
         export interface UserFootballRoleDto {
             id: string;
@@ -2319,6 +2389,15 @@ declare namespace Paths {
             }
         }
     }
+    namespace DashboardControllerGetData {
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.DashboardDto;
+            }
+        }
+    }
     namespace FollowAgenciesControllerCreate {
         namespace Parameters {
             export type AgencyId = string;
@@ -2757,7 +2836,7 @@ declare namespace Paths {
             export type OrderId = string;
             export type Page = number;
             export type SeasonId = string;
-            export type SortBy = "id" | "date" | "homeTeam" | "awayTeam" | "competition" | "group" | "season" | "reportsCount" | "notesCount" | "videoUrl";
+            export type SortBy = "id" | "date" | "homeTeam" | "awayTeam" | "competition" | "group" | "season" | "reportsCount" | "notesCount" | "videoUrl" | "updatedAt";
             export type SortingOrder = "asc" | "desc";
             export type TeamId = string;
         }
@@ -2895,11 +2974,12 @@ declare namespace Paths {
             export type Page = number;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
+            export type PercentageRatingRanges = ("ALL" | "NEGATIVE_SELECTION" | "NO_DECISION" | "TO_OBSERVE" | "POSITIVE_SELECTION")[];
             export type PlayerBornAfter = number;
             export type PlayerBornBefore = number;
             export type PlayerIds = string[];
             export type PositionIds = string[];
-            export type SortBy = "id" | "player" | "positionPlayed" | "percentageRating" | "match" | "author" | "createdAt";
+            export type SortBy = "id" | "player" | "positionPlayed" | "percentageRating" | "match" | "author" | "createdAt" | "percentageRating_createdAt";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
             export type UserId = string;
@@ -2913,6 +2993,7 @@ declare namespace Paths {
             competitionGroupIds?: Parameters.CompetitionGroupIds;
             percentageRatingRangeStart?: Parameters.PercentageRatingRangeStart;
             percentageRatingRangeEnd?: Parameters.PercentageRatingRangeEnd;
+            percentageRatingRanges?: Parameters.PercentageRatingRanges;
             playerBornAfter?: Parameters.PlayerBornAfter;
             playerBornBefore?: Parameters.PlayerBornBefore;
             isLiked?: Parameters.IsLiked;
@@ -3907,7 +3988,7 @@ declare namespace Paths {
             export type OrderId = string;
             export type Page = number;
             export type PositionIds = string[];
-            export type SortBy = "id" | "firstName" | "lastName" | "yearOfBirth" | "height" | "weight" | "footed" | "country" | "primaryPosition" | "reportsCount" | "notesCount";
+            export type SortBy = "id" | "firstName" | "lastName" | "yearOfBirth" | "height" | "weight" | "footed" | "country" | "primaryPosition" | "reportsCount" | "notesCount" | "updatedAt";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
         }
@@ -4649,11 +4730,12 @@ declare namespace Paths {
             export type Page = number;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
+            export type PercentageRatingRanges = ("ALL" | "NEGATIVE_SELECTION" | "NO_DECISION" | "TO_OBSERVE" | "POSITIVE_SELECTION")[];
             export type PlayerBornAfter = number;
             export type PlayerBornBefore = number;
             export type PlayerIds = string[];
             export type PositionIds = string[];
-            export type SortBy = "id" | "player" | "positionPlayed" | "finalRating" | "percentageRating" | "videoUrl" | "author" | "createdAt" | "status";
+            export type SortBy = "id" | "player" | "positionPlayed" | "finalRating" | "percentageRating" | "videoUrl" | "author" | "createdAt" | "status" | "match";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
             export type UserId = string;
@@ -4667,6 +4749,7 @@ declare namespace Paths {
             competitionGroupIds?: Parameters.CompetitionGroupIds;
             percentageRatingRangeStart?: Parameters.PercentageRatingRangeStart;
             percentageRatingRangeEnd?: Parameters.PercentageRatingRangeEnd;
+            percentageRatingRanges?: Parameters.PercentageRatingRanges;
             playerBornAfter?: Parameters.PlayerBornAfter;
             playerBornBefore?: Parameters.PlayerBornBefore;
             hasVideo?: Parameters.HasVideo;
@@ -4725,6 +4808,7 @@ declare namespace Paths {
             export type OnlyLikedTeams = boolean;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
+            export type PercentageRatingRanges = ("ALL" | "NEGATIVE_SELECTION" | "NO_DECISION" | "TO_OBSERVE" | "POSITIVE_SELECTION")[];
             export type PlayerBornAfter = number;
             export type PlayerBornBefore = number;
             export type PlayerIds = string[];
@@ -4741,6 +4825,7 @@ declare namespace Paths {
             competitionGroupIds?: Parameters.CompetitionGroupIds;
             percentageRatingRangeStart?: Parameters.PercentageRatingRangeStart;
             percentageRatingRangeEnd?: Parameters.PercentageRatingRangeEnd;
+            percentageRatingRanges?: Parameters.PercentageRatingRanges;
             playerBornAfter?: Parameters.PlayerBornAfter;
             playerBornBefore?: Parameters.PlayerBornBefore;
             hasVideo?: Parameters.HasVideo;

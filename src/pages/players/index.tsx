@@ -1,5 +1,6 @@
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { mapFiltersStateToDto } from '@/components/combo/utils'
 import { Fab } from '@/components/fab/fab'
@@ -33,8 +34,8 @@ export const getServerSideProps = withSessionSsrRole(
 
 const initialFilters: PlayersFiltersState = {
   name: '',
-  bornAfter: 1980,
-  bornBefore: 2005,
+  bornAfter: '',
+  bornBefore: '',
   footed: null,
   competitionGroupIds: [],
   competitionIds: [],
@@ -47,7 +48,10 @@ const initialFilters: PlayersFiltersState = {
   hasAnyObservation: false,
 }
 
+const initialSortBy: PlayersSortBy = 'updatedAt'
+
 const PlayersPage = () => {
+  const router = useRouter()
   const { t } = useTranslation()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
@@ -60,7 +64,7 @@ const PlayersPage = () => {
     handleChangePage,
     handleChangeRowsPerPage,
     handleSort,
-  } = useTable('players-table')
+  } = useTable('players-table', initialSortBy)
 
   const [filters, setFilters] = useLocalStorage<PlayersFiltersState>({
     key: 'players-filters',
@@ -71,6 +75,12 @@ const PlayersPage = () => {
     setFilters(newFilters)
     handleChangePage(null, 0)
   }
+
+  useEffect(() => {
+    const onlyLikedQuery = router.query?.onlyLiked
+    if (onlyLikedQuery === 'true')
+      setFilters(prev => ({ ...prev, isLiked: true }))
+  }, [])
 
   const { data: countries, isLoading: countriesLoading } = useCountriesList()
   const { data: teams, isLoading: teamsLoading } = useTeamsList()
@@ -100,6 +110,11 @@ const PlayersPage = () => {
     setIsDeleteConfirmationModalOpen(true)
   }
 
+  const onClearFilters = () => {
+    handleSetFilters(initialFilters)
+    handleSort(initialSortBy, 'desc')
+  }
+
   const isLoading =
     countriesLoading ||
     teamsLoading ||
@@ -124,7 +139,7 @@ const PlayersPage = () => {
           competitionGroupsData={competitionGroups || []}
           teamsData={teams || []}
           onFilter={handleSetFilters}
-          onClearFilters={() => handleSetFilters(initialFilters)}
+          onClearFilters={onClearFilters}
         />
       </FilterAccordion>
       <PlayersTable

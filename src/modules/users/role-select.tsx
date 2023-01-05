@@ -1,9 +1,11 @@
-import { TFunction } from 'next-i18next'
+import { UserDto } from './types'
 
-import { IComboOptions } from '@/components/combo/types'
-
-export const getRolesComboData = (t: TFunction): IComboOptions[] => [
-  { id: 'ADMIN', label: t('ADMIN') },
-  { id: 'PLAYMAKER_SCOUT', label: t('PLAYMAKER_SCOUT') },
-  { id: 'SCOUT', label: t('SCOUT') },
+export const rolesComboData: {
+  id: UserDto['role']
+  label: UserDto['role']
+}[] = [
+  { id: 'ADMIN', label: 'ADMIN' },
+  { id: 'PLAYMAKER_SCOUT', label: 'PLAYMAKER_SCOUT' },
+  { id: 'PLAYMAKER_SCOUT_MANAGER', label: 'PLAYMAKER_SCOUT_MANAGER' },
+  { id: 'SCOUT', label: 'SCOUT' },
 ]
