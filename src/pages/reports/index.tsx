@@ -48,6 +48,7 @@ const initialFilters: ReportsFiltersState = {
   onlyLikedPlayers: false,
   onlyLikedTeams: false,
   percentageRatingRanges: [],
+  onlyMine: false,
 }
 
 const initialSortBy: ReportsSortBy = 'createdAt'
