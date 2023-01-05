@@ -46,6 +46,8 @@ const initialFilters: PlayersFiltersState = {
   hasNote: false,
   hasReport: false,
   hasAnyObservation: false,
+  maxAverageRating: '',
+  minAverageRating: '',
 }
 
 const initialSortBy: PlayersSortBy = 'updatedAt'
