@@ -9,10 +9,10 @@ export function validateId(args?: IValidateIdArgs) {
   const { message, required } = args || {}
 
   if (required) {
-    return yup.string().required(message)
+    return yup.string().nullable().required(message)
   }
 
-  return yup.string()
+  return yup.string().nullable()
 }
 
 export function validateIdsArray() {

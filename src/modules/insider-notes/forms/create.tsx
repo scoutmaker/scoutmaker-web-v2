@@ -2,6 +2,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  styled,
   TextField,
   Typography,
 } from '@mui/material'
@@ -20,13 +21,19 @@ import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types
 import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
-import { AccordionInnerContainer } from '@/modules/notes/forms/fields'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { CreateInsiderNoteDto } from '../types'
 import { generateCreateValidationSchema, initialValues } from './utils'
+
+export const AccordionInnerContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  margin: theme.spacing(0, 'auto', 2),
+  gap: theme.spacing(2),
+}))
 
 interface IFormProps {
   onSubmit: (data: CreateInsiderNoteDto) => void

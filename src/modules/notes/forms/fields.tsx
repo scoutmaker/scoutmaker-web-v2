@@ -1,11 +1,4 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  TextField,
-  Typography,
-} from '@mui/material'
-import { styled } from '@mui/material/styles'
+import { TextField } from '@mui/material'
 import { Field, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
@@ -13,36 +6,19 @@ import React from 'react'
 import { BasicCombo } from '@/components/combo/basicCombo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { getObservationTypeComboData } from '@/components/combos-data/observation-type'
-import FilteredCompetitonGroups from '@/components/filteredCompetitionGroups/filteredCompetitonGroups'
-import { ExpandMoreIcon } from '@/components/icons'
 import { RatingInput } from '@/components/rating-input/rating-input'
-import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
-import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { MatchBasicDataDto } from '@/modules/matches/types'
 import { mapMatchesListToComboOptions } from '@/modules/matches/utils'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { mapPlayersListToComboOptions } from '@/modules/players/utils'
-import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { CreateNoteDto, UpdateNoteDto } from '../types'
-
-export const AccordionInnerContainer = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  margin: theme.spacing(0, 'auto', 2),
-  gap: theme.spacing(2),
-}))
 
 interface IFieldsProps {
   playersData: PlayerBasicDataDto[]
   matchesData: MatchBasicDataDto[]
   positionsData: PlayerPositionDto[]
-  teamsData: TeamBasicDataDto[]
-  competitionsData: CompetitionBasicDataDto[]
-  competitionGroupsData: CompetitionGroupBasicDataDto[]
   matchDisabled?: boolean
 }
 
@@ -50,9 +26,6 @@ export const Fields = ({
   playersData,
   matchesData,
   positionsData,
-  competitionsData,
-  competitionGroupsData,
-  teamsData,
   matchDisabled,
 }: IFieldsProps) => {
   const { t } = useTranslation()
@@ -81,6 +54,16 @@ export const Fields = ({
         label={t('SHIRT_NO')}
         error={touched.shirtNo && !!errors.shirtNo}
         helperText={touched.shirtNo && errors.shirtNo}
+      />
+      <BasicCombo
+        data={mapListDataToComboOptions(positionsData)}
+        name="positionPlayedId"
+        label={t('notes:POSITION_PLAYED')}
+        error={touched.positionPlayedId && !!errors.positionPlayedId}
+        helperText={
+          (touched.positionPlayedId && errors.positionPlayedId) ||
+          t('notes:PLAYER_POSITION_INFO')
+        }
       />
       <BasicCombo
         data={mapMatchesListToComboOptions(matchesData)}
@@ -121,60 +104,6 @@ export const Fields = ({
           touched.observationType ? errors.observationType : undefined
         }
       />
-      <Accordion sx={{ background: 'none' }}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="meta-data-fields-content"
-          id="meta-data-fields-header"
-        >
-          <Typography sx={{ fontWeight: 'bold' }}>{t('META_DATA')}</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <AccordionInnerContainer>
-            <Typography>{t('notes:META_DATA_DISCLAIMER')}</Typography>
-            <BasicCombo
-              data={mapListDataToComboOptions(positionsData)}
-              name="positionPlayedId"
-              label={t('PLAYER_POSITION')}
-              error={touched.positionPlayedId && !!errors.positionPlayedId}
-              helperText={
-                touched.positionPlayedId ? errors.positionPlayedId : undefined
-              }
-            />
-            <BasicCombo
-              data={mapListDataToComboOptions(teamsData)}
-              name="teamId"
-              label={t('TEAM')}
-              error={touched.teamId && !!errors.teamId}
-              helperText={touched.teamId ? errors.teamId : undefined}
-            />
-            <BasicCombo
-              data={mapCompetitionsListToComboOptions(competitionsData)}
-              name="competitionId"
-              label={t('COMPETITION')}
-              error={touched.competitionId && !!errors.competitionId}
-              helperText={
-                touched.competitionId ? errors.competitionId : undefined
-              }
-            />
-            <FilteredCompetitonGroups
-              competitionGroupsData={mapCompetitionGroupsListToComboOptions(
-                competitionGroupsData,
-              )}
-              competitionsFormValue={values.competitionId || ''}
-              name="competitionGroupId"
-              label={t('COMPETITION_GROUP')}
-              error={touched.competitionGroupId && !!errors.competitionGroupId}
-              helperText={
-                touched.competitionGroupId
-                  ? errors.competitionGroupId
-                  : undefined
-              }
-              isBasicCombo
-            />
-          </AccordionInnerContainer>
-        </AccordionDetails>
-      </Accordion>
     </>
   )
 }
