@@ -65,11 +65,13 @@ export const MatchDetailsCard = ({ match }: IMatchDetailsCard) => {
             title={t('VIDEO_URL')}
             value={videoUrl}
             href={videoUrl}
+            linkInNewCard
           />
           <CardItemBasic
             title={t('TRANSFERMARKT_URL')}
             value={transfermarktUrl}
             href={transfermarktUrl}
+            linkInNewCard
           />
           <CardItemBasic
             title={t('OBSERVATION_TYPE')}

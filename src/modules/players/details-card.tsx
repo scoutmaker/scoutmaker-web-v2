@@ -82,11 +82,13 @@ export const PlayerDetialsCard = ({ player }: IPlayerDetailsCard) => {
             title={t('TRANSFERMARKT_URL')}
             value={transfermarktUrl}
             href={transfermarktUrl}
+            linkInNewCard
           />
           <CardItemBasic
             title={t('90_MINUT_URL')}
             value={minut90url}
             href={minut90url}
+            linkInNewCard
           />
         </Grid>
       </CardContent>

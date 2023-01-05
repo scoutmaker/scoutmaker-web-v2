@@ -6,9 +6,15 @@ interface ICardItemBasicProps {
   title: string
   value?: string | number | ReactNode
   href?: string
+  linkInNewCard?: boolean
 }
 
-export const CardItemBasic = ({ title, value, href }: ICardItemBasicProps) => {
+export const CardItemBasic = ({
+  title,
+  value,
+  href,
+  linkInNewCard,
+}: ICardItemBasicProps) => {
   const valueToDisplay = value || '-'
 
   return (
@@ -25,7 +31,9 @@ export const CardItemBasic = ({ title, value, href }: ICardItemBasicProps) => {
         </Typography>
         {href ? (
           <Link href={href} passHref>
-            <MUILink>{valueToDisplay}</MUILink>
+            <MUILink target={linkInNewCard ? '_blank' : undefined}>
+              {valueToDisplay}
+            </MUILink>
           </Link>
         ) : (
           valueToDisplay
