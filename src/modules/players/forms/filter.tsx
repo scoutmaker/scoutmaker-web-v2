@@ -149,7 +149,7 @@ export const PlayersFilterForm = ({
             />
             <FilteredCompetitonGroups
               competitionGroupsData={groupsComboData}
-              competitionsFormValues={values.competitionIds}
+              competitionsFormValue={values.competitionIds}
               name="competitionGroupIds"
               label={t('COMPETITION_GROUPS')}
               size="small"
