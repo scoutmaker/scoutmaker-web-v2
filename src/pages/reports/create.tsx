@@ -1,5 +1,4 @@
 import { useTranslation } from 'next-i18next'
-import { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
@@ -13,7 +12,6 @@ import { useReportTemplatesList } from '@/modules/report-templates/hooks'
 import { CreateReportForm } from '@/modules/reports/forms/create'
 import { useCreateReport } from '@/modules/reports/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
-import { useConfirmOnLeavePage } from '@/utils/hooks/use-confirm-leave'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(
@@ -37,10 +35,6 @@ const CreateReportPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     useCompetitionsList()
   const { data: groups, isLoading: competitionGroupsLoading } =
     useCompetitionGroupsList()
-
-  const [isFormChanged, setIsFormChanged] = useState(false)
-
-  useConfirmOnLeavePage(isFormChanged)
 
   if (errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
@@ -68,7 +62,6 @@ const CreateReportPage = ({ errorMessage, errorStatus }: TSsrRole) => {
         teamsData={teams || []}
         competitionsData={competitions || []}
         competitionGroupsData={groups || []}
-        onFormChange={() => setIsFormChanged(true)}
       />
     </>
   )

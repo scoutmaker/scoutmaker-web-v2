@@ -10,7 +10,7 @@ import { ClubBasicDataDto } from '@/modules/clubs/types'
 import { RegionDto } from '@/modules/regions/types'
 import { UserFootballRoleDto } from '@/modules/user-football-roles/types'
 
-import { getRolesComboData } from '../role-select'
+import { rolesComboData } from '../role-select'
 import { UsersFiltersState } from '../types'
 
 interface IFormProps {
@@ -31,7 +31,6 @@ export const UsersFilterForm = ({
   userFootballRolesData,
 }: IFormProps) => {
   const { t } = useTranslation()
-  const rolesComboData = getRolesComboData(t)
 
   return (
     <Formik

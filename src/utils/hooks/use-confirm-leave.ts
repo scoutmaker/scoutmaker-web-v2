@@ -1,6 +1,7 @@
+import { useFormikContext } from 'formik'
 import { Router } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export const useConfirmOnLeavePage = (showPrompt: boolean = true) => {
   const { t } = useTranslation()
@@ -32,4 +33,18 @@ export const useConfirmOnLeavePage = (showPrompt: boolean = true) => {
       window.removeEventListener('beforeunload', beforeUnload)
     }
   }, [showPrompt])
+}
+
+export const ConfirmOnLeaveForm = () => {
+  const [isFormChanged, setIsFormChanged] = useState(false)
+
+  const { touched } = useFormikContext<{}>()
+
+  useEffect(() => {
+    if (Object.keys(touched).length) setIsFormChanged(true)
+  }, [touched])
+
+  useConfirmOnLeavePage(isFormChanged)
+
+  return null
 }

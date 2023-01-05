@@ -6,6 +6,7 @@ import { useTranslation } from 'next-i18next'
 
 import { BasicCombo } from '@/components/combo/basicCombo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
+import FilteredCompetitonGroups from '@/components/filteredCompetitionGroups/filteredCompetitonGroups'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
@@ -61,7 +62,7 @@ export const EditInsiderNoteForm = ({
         onSubmit(dataToSubmit)
       }}
     >
-      {({ handleReset, touched, errors }) => (
+      {({ handleReset, touched, errors, values }) => (
         <Form>
           <Container fullwidth={fullwidth}>
             <Field
@@ -106,18 +107,20 @@ export const EditInsiderNoteForm = ({
                 touched.competitionId ? errors.competitionId : undefined
               }
             />
-            <BasicCombo
-              data={mapCompetitionGroupsListToComboOptions(
+            <FilteredCompetitonGroups
+              competitionGroupsData={mapCompetitionGroupsListToComboOptions(
                 competitionGroupsData,
               )}
-              name="competitionGroupId"
-              label={t('COMPETITION_GROUP')}
+              competitionsFormValue={values.competitionId || ''}
               error={touched.competitionGroupId && !!errors.competitionGroupId}
               helperText={
                 touched.competitionGroupId
                   ? errors.competitionGroupId
                   : undefined
               }
+              label={t('COMPETITION_GROUP')}
+              name="competitionGroupId"
+              isBasicCombo
             />
             <MainFormActions
               label={t('INSIDER_NOTES')}

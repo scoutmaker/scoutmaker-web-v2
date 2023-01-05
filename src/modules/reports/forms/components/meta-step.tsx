@@ -5,6 +5,7 @@ import React from 'react'
 
 import { BasicCombo } from '@/components/combo/basicCombo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
+import FilteredCompetitonGroups from '@/components/filteredCompetitionGroups/filteredCompetitonGroups'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
@@ -28,7 +29,7 @@ export const MetaStep = ({
   competitionsData,
 }: IMetaStepProps) => {
   const { t } = useTranslation(['common', 'reports'])
-  const { touched, errors } = useFormikContext<CreateReportDto>()
+  const { touched, errors, values } = useFormikContext<CreateReportDto>()
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -56,14 +57,18 @@ export const MetaStep = ({
         error={touched.competitionId && !!errors.competitionId}
         helperText={touched.competitionId ? errors.competitionId : undefined}
       />
-      <BasicCombo
-        data={mapCompetitionGroupsListToComboOptions(competitionGroupsData)}
+      <FilteredCompetitonGroups
+        competitionGroupsData={mapCompetitionGroupsListToComboOptions(
+          competitionGroupsData,
+        )}
+        competitionsFormValue={values.competitionId || ''}
         name="competitionGroupId"
         label={t('COMPETITION_GROUP')}
         error={touched.competitionGroupId && !!errors.competitionGroupId}
         helperText={
           touched.competitionGroupId ? errors.competitionGroupId : undefined
         }
+        isBasicCombo
       />
     </Box>
   )

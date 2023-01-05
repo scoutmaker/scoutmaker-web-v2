@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next'
 
 import { FilterCombo } from '@/components/combo/combo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
+import FilteredCompetitonGroups from '@/components/filteredCompetitionGroups/filteredCompetitonGroups'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
@@ -41,7 +42,7 @@ export const OrganizationSubscriptionsFilterForm = ({
       }}
       enableReinitialize
     >
-      {() => (
+      {({ values }) => (
         <Form autoComplete="off">
           <FilterFormContainer>
             <FilterCombo
@@ -57,10 +58,11 @@ export const OrganizationSubscriptionsFilterForm = ({
               label={t('COMPETITIONS')}
               size="small"
             />
-            <FilterCombo
-              data={mapCompetitionGroupsListToComboOptions(
+            <FilteredCompetitonGroups
+              competitionGroupsData={mapCompetitionGroupsListToComboOptions(
                 competitionGroupsData,
               )}
+              competitionsFormValue={values.competitionIds}
               name="competitionGroupIds"
               multiple
               label={t('COMPETITION_GROUPS')}
