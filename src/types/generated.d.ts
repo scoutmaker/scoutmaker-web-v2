@@ -446,6 +446,12 @@ declare namespace Components {
             topReports?: DashboardReportDto[];
             topPlayers?: DashboardPlayerDto[];
         }
+        export interface DashboardMatchDto {
+            id: string;
+            date: string; // date-time
+            homeTeam: TeamBasicDataDto;
+            awayTeam: TeamBasicDataDto;
+        }
         export interface DashboardNoteDto {
             player?: PlayerSuperBasicDataDto;
             id: string;
@@ -477,14 +483,15 @@ declare namespace Components {
             primaryPosition: PlayerPositionDto;
             secondaryPositions: PlayerPositionDto[];
             likes: LikePlayerBasicDataDto[];
+            averagePercentageRating: number;
             _count: Count;
         }
         export interface DashboardReportDto {
+            match: DashboardMatchDto;
             id: string;
             player: PlayerSuperBasicDataDto;
             createdAt: string; // date-time
             finalRating?: number;
-            match?: MatchBasicDataDto;
             docNumber: number;
         }
         export interface DashboardTeamAffiliationDto {
@@ -779,6 +786,7 @@ declare namespace Components {
             secondaryPositions: PlayerPositionDto[];
             teams: TeamAffiliationWithoutPlayerDto[];
             likes: LikePlayerBasicDataDto[];
+            averagePercentageRating: number;
             _count: Count;
         }
         export interface PlayerPositionDto {
@@ -1113,6 +1121,7 @@ declare namespace Components {
             newPasswordConfirm: string;
         }
         export interface UpdatePlayerDto {
+            averagePercentageRating?: number;
             firstName?: string;
             lastName?: string;
             countryId?: string;
@@ -2970,6 +2979,7 @@ declare namespace Paths {
             export type ObservationType = "LIVE" | "VIDEO";
             export type OnlyLikedPlayers = boolean;
             export type OnlyLikedTeams = boolean;
+            export type OnlyMine = boolean;
             export type OnlyWithoutPlayers = boolean;
             export type Page = number;
             export type PercentageRatingRangeEnd = number;
@@ -3002,6 +3012,7 @@ declare namespace Paths {
             onlyLikedTeams?: Parameters.OnlyLikedTeams;
             onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
             onlyWithoutPlayers?: Parameters.OnlyWithoutPlayers;
+            onlyMine?: Parameters.OnlyMine;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -3984,11 +3995,13 @@ declare namespace Paths {
             export type HasReport = boolean;
             export type IsLiked = boolean;
             export type Limit = number;
+            export type MaxAverageRating = number;
+            export type MinAverageRating = number;
             export type Name = string;
             export type OrderId = string;
             export type Page = number;
             export type PositionIds = string[];
-            export type SortBy = "id" | "firstName" | "lastName" | "yearOfBirth" | "height" | "weight" | "footed" | "country" | "primaryPosition" | "reportsCount" | "notesCount" | "updatedAt";
+            export type SortBy = "id" | "firstName" | "lastName" | "yearOfBirth" | "height" | "weight" | "footed" | "country" | "primaryPosition" | "reportsCount" | "notesCount" | "updatedAt" | "averagePercentageRating";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
         }
@@ -4007,6 +4020,8 @@ declare namespace Paths {
             hasNote?: Parameters.HasNote;
             hasReport?: Parameters.HasReport;
             hasAnyObservation?: Parameters.HasAnyObservation;
+            minAverageRating?: Parameters.MinAverageRating;
+            maxAverageRating?: Parameters.MaxAverageRating;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -4072,6 +4087,8 @@ declare namespace Paths {
             export type HasNote = boolean;
             export type HasReport = boolean;
             export type IsLiked = boolean;
+            export type MaxAverageRating = number;
+            export type MinAverageRating = number;
             export type Name = string;
             export type OrderId = string;
             export type PositionIds = string[];
@@ -4092,6 +4109,8 @@ declare namespace Paths {
             hasNote?: Parameters.HasNote;
             hasReport?: Parameters.HasReport;
             hasAnyObservation?: Parameters.HasAnyObservation;
+            minAverageRating?: Parameters.MinAverageRating;
+            maxAverageRating?: Parameters.MaxAverageRating;
         }
         namespace Responses {
             export interface $200 {
@@ -4727,6 +4746,7 @@ declare namespace Paths {
             export type ObservationType = "LIVE" | "VIDEO";
             export type OnlyLikedPlayers = boolean;
             export type OnlyLikedTeams = boolean;
+            export type OnlyMine = boolean;
             export type Page = number;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
@@ -4758,6 +4778,7 @@ declare namespace Paths {
             observationType?: Parameters.ObservationType;
             onlyLikedTeams?: Parameters.OnlyLikedTeams;
             onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
+            onlyMine?: Parameters.OnlyMine;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -4806,6 +4827,7 @@ declare namespace Paths {
             export type ObservationType = "LIVE" | "VIDEO";
             export type OnlyLikedPlayers = boolean;
             export type OnlyLikedTeams = boolean;
+            export type OnlyMine = boolean;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
             export type PercentageRatingRanges = ("ALL" | "NEGATIVE_SELECTION" | "NO_DECISION" | "TO_OBSERVE" | "POSITIVE_SELECTION")[];
@@ -4834,6 +4856,7 @@ declare namespace Paths {
             observationType?: Parameters.ObservationType;
             onlyLikedTeams?: Parameters.OnlyLikedTeams;
             onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
+            onlyMine?: Parameters.OnlyMine;
         }
         namespace Responses {
             export interface $200 {
