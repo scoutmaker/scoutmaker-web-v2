@@ -31,6 +31,7 @@ export type FindAllNotesParams = Pick<
   | 'onlyLikedTeams'
   | 'onlyWithoutPlayers'
   | 'percentageRatingRanges'
+  | 'onlyMine'
 >
 
 export type NotesFiltersDto = Omit<
