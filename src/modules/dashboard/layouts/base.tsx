@@ -67,6 +67,7 @@ const BaseDashboardLayout = ({
           linkTo="/reports"
           title={`% wszystkich raportów ${ratioTo} z ostatnich 30 dni`}
           count={recentReportsRatio}
+          percentage
         />
       </CountGridContainer>
 
@@ -80,6 +81,7 @@ const BaseDashboardLayout = ({
           linkTo="/notes"
           title={`% wszystkich notatek ${ratioTo} z ostatnich 30 dni`}
           count={recentNotesRatio}
+          percentage
         />
       </CountGridContainer>
 
@@ -93,6 +95,7 @@ const BaseDashboardLayout = ({
           linkTo="/matches"
           title={`% wszystkich meczów ${ratioTo} z ostatnich 30 dni`}
           count={recentObservedMatchesRatio}
+          percentage
         />
       </CountGridContainer>
     </>

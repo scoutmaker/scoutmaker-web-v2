@@ -51,7 +51,7 @@ const ScoutOrganizationDashboardLayout = ({ data }: IProps) => {
             linksPage: 'reports',
             text: (
               <>
-                {formatDate(createdAt, 'dd.MM.yyyy')}r.{' '}
+                {formatDate(createdAt, 'dd.MM.yy')}r.{' '}
                 <Typography color="textSecondary" component="span">
                   {getPlayerShortName(player)}
                 </Typography>{' '}
@@ -69,7 +69,7 @@ const ScoutOrganizationDashboardLayout = ({ data }: IProps) => {
             linksPage: 'notes',
             text: (
               <>
-                {formatDate(createdAt, 'dd.MM.yyyy')}r.{' '}
+                {formatDate(createdAt, 'dd.MM.yy')}r.{' '}
                 <Typography color="textSecondary" component="span">
                   {player ? getPlayerShortName(player) : '-'}
                 </Typography>{' '}
