@@ -40,6 +40,7 @@ const initialFilters: NotesFiltersState = {
   onlyLikedPlayers: false,
   onlyLikedTeams: false,
   percentageRatingRanges: [],
+  onlyMine: false,
 }
 
 const initialSortBy: NotesSortBy = 'percentageRating_createdAt'

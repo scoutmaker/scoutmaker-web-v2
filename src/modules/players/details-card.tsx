@@ -5,6 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { CardItemBasic } from '@/components/details-card/details-card-item'
 import { getPositionDisplayName } from '@/modules/player-positions/utils'
 import { PlayerDto } from '@/modules/players/types'
+import { calculateRating } from '@/utils/calculate-rating'
 import { getFlagEmoji } from '@/utils/get-flag-emoji'
 
 interface IPlayerDetailsCard {
@@ -27,6 +28,7 @@ export const PlayerDetialsCard = ({ player }: IPlayerDetailsCard) => {
     primaryPosition,
     secondaryPositions,
     teams,
+    averagePercentageRating,
   } = player
 
   return (
@@ -63,6 +65,14 @@ export const PlayerDetialsCard = ({ player }: IPlayerDetailsCard) => {
             title={t('SECONDARY_POSITIONS')}
             value={secondaryPositions.map(getPositionDisplayName).join(', ')}
           />
+          <CardItemBasic
+            title={t('AVG_RATING')}
+            value={
+              typeof averagePercentageRating === 'number'
+                ? calculateRating(averagePercentageRating)
+                : '-'
+            }
+          />
           <CardItemBasic title={t('FOOTED')} value={t(footed)} />
           <CardItemBasic
             title={t('WEIGHT')}
@@ -76,11 +86,13 @@ export const PlayerDetialsCard = ({ player }: IPlayerDetailsCard) => {
             title={t('TRANSFERMARKT_URL')}
             value={transfermarktUrl}
             href={transfermarktUrl}
+            linkInNewCard
           />
           <CardItemBasic
             title={t('90_MINUT_URL')}
             value={minut90url}
             href={minut90url}
+            linkInNewCard
           />
         </Grid>
       </CardContent>

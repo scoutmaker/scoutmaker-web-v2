@@ -34,6 +34,7 @@ export type FindAllReportsParams = Pick<
   | 'onlyLikedPlayers'
   | 'onlyLikedTeams'
   | 'percentageRatingRanges'
+  | 'onlyMine'
 >
 
 export type ReportsFiltersDto = Omit<

@@ -104,6 +104,28 @@ export const PlayersFilterForm = ({
               size="small"
               multiple
             />
+            <Box display="grid" gridTemplateColumns="1fr 1fr" gap={2}>
+              <Field
+                name="minAverageRating"
+                as={TextField}
+                type="number"
+                variant="outlined"
+                fullWidth
+                label={`Min ${t('AVG_RATING')}`}
+                size="small"
+                inputProps={{ min: 0, max: 4, step: 0.01 }}
+              />
+              <Field
+                name="maxAverageRating"
+                as={TextField}
+                type="number"
+                variant="outlined"
+                fullWidth
+                label={`Max ${t('AVG_RATING')}`}
+                size="small"
+                inputProps={{ min: 0, max: 4, step: 0.01 }}
+              />
+            </Box>
             <FilterCombo
               name="positionTypeIds"
               data={mapPlayerPositionTypesToComboOptions(positionTypesData)}
@@ -127,7 +149,7 @@ export const PlayersFilterForm = ({
             />
             <FilteredCompetitonGroups
               competitionGroupsData={groupsComboData}
-              competitionsFormValues={values.competitionIds}
+              competitionsFormValue={values.competitionIds}
               name="competitionGroupIds"
               label={t('COMPETITION_GROUPS')}
               size="small"

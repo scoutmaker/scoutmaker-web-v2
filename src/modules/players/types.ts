@@ -33,6 +33,8 @@ export type PlayersFiltersDto = Pick<
   | 'hasNote'
   | 'hasReport'
   | 'hasAnyObservation'
+  | 'maxAverageRating'
+  | 'minAverageRating'
 >
 
 export type PlayersFiltersState = Omit<
@@ -46,6 +48,8 @@ export type PlayersFiltersState = Omit<
   | 'footed'
   | 'bornAfter'
   | 'bornBefore'
+  | 'maxAverageRating'
+  | 'minAverageRating'
 > & {
   countryIds: ICountryComboOptions[]
   positionIds: IPlayerPositionComboOptions[]
@@ -56,6 +60,8 @@ export type PlayersFiltersState = Omit<
   footed: IComboOptions | null
   bornAfter: '' | number
   bornBefore: '' | number
+  maxAverageRating: '' | number
+  minAverageRating: '' | number
 }
 
 export type PlayersSortBy = Paths.PlayersControllerFindAll.Parameters.SortBy

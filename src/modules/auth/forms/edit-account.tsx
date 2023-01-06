@@ -14,7 +14,6 @@ import { RegionsCombo } from '@/modules/regions/combo'
 import { useRegionsList } from '@/modules/regions/hooks'
 import { UserFootballRolesCombo } from '@/modules/user-football-roles/combo'
 import { useUserFootballRolesList } from '@/modules/user-football-roles/hooks'
-import { validateId } from '@/utils/validation-helpers'
 
 const StyledForm = styled(Form)(() => ({
   width: '100%',
@@ -30,14 +29,14 @@ function generateValidationSchema(t: TFunction): yup.SchemaOf<UpdateUserDto> {
     .object({
       firstName: yup.string().required(t('NO_FIRST_NAME_ERROR')),
       lastName: yup.string().required(t('NO_LAST_NAME_ERROR')),
-      clubId: validateId(),
-      footballRoleId: validateId(),
+      clubId: yup.string(),
+      footballRoleId: yup.string(),
       city: yup.string(),
       phone: yup.string(),
       activeRadius: yup
         .number()
         .min(0, t('account.ACTIVE_RADIUS_VALIDATION_ERROR')),
-      regionId: validateId(),
+      regionId: yup.string(),
     })
     .defined()
 }

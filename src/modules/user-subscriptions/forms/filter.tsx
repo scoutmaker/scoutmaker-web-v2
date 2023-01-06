@@ -2,6 +2,7 @@ import { Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
 import { FilterCombo } from '@/components/combo/combo'
+import FilteredCompetitonGroups from '@/components/filteredCompetitionGroups/filteredCompetitonGroups'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
@@ -40,31 +41,36 @@ export const UserSubscriptionsFilterForm = ({
       }}
       enableReinitialize
     >
-      <Form autoComplete="off">
-        <FilterFormContainer>
-          <FilterCombo
-            data={mapUsersListToComboOptions(usersData)}
-            name="userId"
-            size="small"
-            label={t('USER')}
-          />
-          <FilterCombo
-            data={mapCompetitionsListToComboOptions(competitionsData)}
-            name="competitionIds"
-            multiple
-            size="small"
-            label={t('COMPETITIONS')}
-          />
-          <FilterCombo
-            data={mapCompetitionGroupsListToComboOptions(competitionGroupsData)}
-            name="competitionGroupIds"
-            multiple
-            size="small"
-            label={t('COMPETITION_GROUPS')}
-          />
-        </FilterFormContainer>
-        <FilterFormActions handleClearFilter={onClearFilters} />
-      </Form>
+      {({ values }) => (
+        <Form autoComplete="off">
+          <FilterFormContainer>
+            <FilterCombo
+              data={mapUsersListToComboOptions(usersData)}
+              name="userId"
+              size="small"
+              label={t('USER')}
+            />
+            <FilterCombo
+              data={mapCompetitionsListToComboOptions(competitionsData)}
+              name="competitionIds"
+              multiple
+              size="small"
+              label={t('COMPETITIONS')}
+            />
+            <FilteredCompetitonGroups
+              competitionGroupsData={mapCompetitionGroupsListToComboOptions(
+                competitionGroupsData,
+              )}
+              competitionsFormValue={values.competitionIds}
+              name="competitionGroupIds"
+              multiple
+              size="small"
+              label={t('COMPETITION_GROUPS')}
+            />
+          </FilterFormContainer>
+          <FilterFormActions handleClearFilter={onClearFilters} />
+        </Form>
+      )}
     </Formik>
   )
 }

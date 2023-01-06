@@ -15,6 +15,7 @@ import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
 import { StyledTableRow } from '@/components/tables/row'
 import { getPositionDisplayName } from '@/modules/player-positions/utils'
+import { calculateRating } from '@/utils/calculate-rating'
 import { getFlagEmoji } from '@/utils/get-flag-emoji'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
@@ -58,6 +59,7 @@ export const PlayersTableRow = ({
     country,
     yearOfBirth,
     _count: count,
+    averagePercentageRating,
   } = data
 
   const cellChangeLikedClick = () => {
@@ -117,6 +119,11 @@ export const PlayersTableRow = ({
         {getPositionDisplayName(primaryPosition)}
       </StyledTableCell>
       <StyledTableCell>{t(footed)}</StyledTableCell>
+      <StyledTableCell>
+        {typeof averagePercentageRating === 'number'
+          ? calculateRating(averagePercentageRating)
+          : '-'}
+      </StyledTableCell>
       <StyledTableCell align="center">
         <Badge badgeContent={count.reports || '0'} color="secondary">
           <NotesIcon />

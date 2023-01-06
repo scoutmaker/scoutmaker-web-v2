@@ -37,7 +37,9 @@ const ListDataCard = ({ title, items, linkTo }: IListDataCardProps) => (
             href={linksPage ? `/${linksPage}/${id}` : undefined}
             passHref
           >
-            <Typography component={MuiLink}>{text}</Typography>
+            <Typography component={MuiLink} underline="hover">
+              {text}
+            </Typography>
           </OptionalLinkWrapper>
         </Grid>
       ))}

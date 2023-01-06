@@ -1,14 +1,8 @@
 import { Security as ClubsIcon } from '@mui/icons-material'
-import {
-  Avatar,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  Link,
-  Typography,
-} from '@mui/material'
+import { Avatar, Card, CardContent, CardHeader, Grid } from '@mui/material'
 import { useTranslation } from 'next-i18next'
+
+import { CardItemBasic } from '@/components/details-card/details-card-item'
 
 import { getFlagEmoji } from '../../utils/get-flag-emoji'
 import { ClubDto } from './types'
@@ -50,70 +44,39 @@ export const ClubDetailsCard = ({ club }: IClubDetailsCard) => {
       />
       <CardContent>
         <Grid container spacing={1}>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('COUNTRY')}: </strong>
-              {`${getFlagEmoji(country.code)} ${country.name}`}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('REGION')}: </strong>
-              {region?.name || '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('LNP_ID')}: </strong>
-              {lnpId || '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('CITY')}: </strong>
-              {city || '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('POSTAL_CODE')}: </strong>
-              {postalCode || '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('STREET')}: </strong>
-              {street || '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('WEBSITE_URL')}: </strong>
-              {website ? <Link href={website}>{website || '-'}</Link> : '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('TWITTER_URL')}: </strong>
-              {twitter ? <Link href={twitter}>{twitter || '-'}</Link> : '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('FACEBOOK_URL')}: </strong>
-              {facebook ? <Link href={facebook}>{facebook || '-'}</Link> : '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('INSTAGRAM_URL')}: </strong>
-              {instagram ? (
-                <Link href={instagram}>{instagram || '-'}</Link>
-              ) : (
-                '-'
-              )}
-            </Typography>
-          </Grid>
+          <CardItemBasic
+            title={t('COUNTRY')}
+            value={`${getFlagEmoji(country.code)} ${country.name}`}
+          />
+          <CardItemBasic title={t('REGION')} value={region?.name} />
+          <CardItemBasic title={t('LNP_ID')} value={lnpId} />
+          <CardItemBasic title={t('CITY')} value={city} />
+          <CardItemBasic title={t('POSTAL_CODE')} value={postalCode} />
+          <CardItemBasic title={t('STREET')} value={street} />
+          <CardItemBasic
+            title={t('WEBSITE_URL')}
+            value={website}
+            href={website}
+            linkInNewCard
+          />
+          <CardItemBasic
+            title={t('TWITTER_URL')}
+            value={twitter}
+            href={twitter}
+            linkInNewCard
+          />
+          <CardItemBasic
+            title={t('FACEBOOK_URL')}
+            value={facebook}
+            href={facebook}
+            linkInNewCard
+          />
+          <CardItemBasic
+            title={t('INSTAGRAM_URL')}
+            value={instagram}
+            href={instagram}
+            linkInNewCard
+          />
         </Grid>
       </CardContent>
     </Card>

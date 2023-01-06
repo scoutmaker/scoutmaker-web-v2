@@ -1,15 +1,7 @@
-import {
-  Avatar,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  Link as MUILink,
-  Typography,
-} from '@mui/material'
-import Link from 'next/link'
+import { Avatar, Card, CardContent, CardHeader, Grid } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
+import { CardItemBasic } from '@/components/details-card/details-card-item'
 import { MatchesIcon } from '@/components/icons'
 import { formatDate } from '@/utils/format-date'
 
@@ -34,6 +26,7 @@ export const MatchDetailsCard = ({ match }: IMatchDetailsCard) => {
     awayGoals,
     videoUrl,
     observationType,
+    transfermarktUrl,
   } = match
 
   return (
@@ -53,48 +46,41 @@ export const MatchDetailsCard = ({ match }: IMatchDetailsCard) => {
       />
       <CardContent>
         <Grid container spacing={1}>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('HOME_TEAM')}: </strong>
-              <Link href={`/teams/${homeTeam.slug}`} passHref>
-                <MUILink>{homeTeam.name}</MUILink>
-              </Link>
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('AWAY_TEAM')}: </strong>
-              <Link href={`/teams/${awayTeam.slug}`} passHref>
-                <MUILink>{awayTeam.name}</MUILink>
-              </Link>
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('SEASON')}: </strong>
-              {season.name}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('RESULT')}: </strong>
-              {getMatchResult(homeGoals, awayGoals)}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('VIDEO_URL')}: </strong>
-              {videoUrl ? <Link href={videoUrl}>{videoUrl || '-'}</Link> : '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('OBSERVATION_TYPE')}: </strong>
-              {observationType === 'BOTH'
+          <CardItemBasic
+            title={t('HOME_TEAM')}
+            value={homeTeam.name}
+            href={`/teams/${homeTeam.slug}`}
+          />
+          <CardItemBasic
+            title={t('AWAY_TEAM')}
+            value={awayTeam.name}
+            href={`/teams/${awayTeam.slug}`}
+          />
+          <CardItemBasic title={t('SEASON')} value={season.name} />
+          <CardItemBasic
+            title={t('RESULT')}
+            value={getMatchResult(homeGoals, awayGoals)}
+          />
+          <CardItemBasic
+            title={t('VIDEO_URL')}
+            value={videoUrl}
+            href={videoUrl}
+            linkInNewCard
+          />
+          <CardItemBasic
+            title={t('TRANSFERMARKT_URL')}
+            value={transfermarktUrl}
+            href={transfermarktUrl}
+            linkInNewCard
+          />
+          <CardItemBasic
+            title={t('OBSERVATION_TYPE')}
+            value={
+              observationType === 'BOTH'
                 ? `${t('VIDEO')} + ${t('LIVE')}`
-                : t(observationType || '-')}
-            </Typography>
-          </Grid>
+                : t(observationType || '-')
+            }
+          />
         </Grid>
       </CardContent>
     </Card>

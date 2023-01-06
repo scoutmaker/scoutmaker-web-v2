@@ -129,7 +129,7 @@ export const NotesFilterForm = ({
             />
             <FilteredCompetitonGroups
               competitionGroupsData={groupsComboData}
-              competitionsFormValues={values.competitionIds}
+              competitionsFormValue={values.competitionIds}
               name="competitionGroupIds"
               label={t('COMPETITION_GROUPS')}
               size="small"
@@ -174,6 +174,15 @@ export const NotesFilterForm = ({
                 type="checkbox"
                 name="onlyLikedPlayers"
                 Label={{ label: t('LIKED_PLAYERS') }}
+                size="small"
+              />
+            </FilterCheckboxContainer>
+            <FilterCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="onlyMine"
+                Label={{ label: t('ONLY_MINE') }}
                 size="small"
               />
             </FilterCheckboxContainer>

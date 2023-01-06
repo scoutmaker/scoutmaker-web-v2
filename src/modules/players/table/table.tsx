@@ -23,7 +23,11 @@ function generateHeadCells(t: TFunction): IHeadCell[] {
     { id: 'team', label: t('TEAM') },
     { id: 'yearOfBirth', label: t('YEAR_OF_BIRTH') },
     { id: 'primaryPosition', label: t('PRIMARY_POSITION') },
-    { id: 'footed', label: t('FOOTED') },
+    { id: 'footed', label: t('FOOTED'), isSortingDisabled: true },
+    {
+      id: 'averagePercentageRating',
+      label: t('AVG_RATING'),
+    },
     { id: 'reportsCount', label: t('REPORTS') },
     { id: 'notesCount', label: t('NOTES') },
   ]
