@@ -11,6 +11,7 @@ import {
 export const initialValues: CreatePlayerPostitionDto = {
   name: '',
   code: '',
+  playerPositionTypeId: '',
 }
 
 export function generateCreateValidationSchema(t: TFunction) {
@@ -32,11 +33,12 @@ export function generateUpdateValidationSchema() {
 export function getInitialStateFromCurrent(
   position: PlayerPositionDto,
 ): UpdatePlayerPostitionDto {
-  const { name, code } = position
+  const { name, code, positionType } = position
 
   const values = {
     name,
     code,
+    playerPositionTypeId: positionType.id,
   }
 
   return map(values, value => value || '')

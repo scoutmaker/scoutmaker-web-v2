@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
+import { usePlayerPositionTypesList } from '@/modules/player-position-types/hooks'
 import { EditPlayerPositionForm } from '@/modules/player-positions/forms/edit'
 import { useUpdatePlayerPosition } from '@/modules/player-positions/hooks'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
@@ -36,13 +37,22 @@ const EditPlayerPositionPage = ({
   const { mutate: updatePlayerPosition, isLoading: updateLoading } =
     useUpdatePlayerPosition(data?.id || '')
 
+  const positionTypes = usePlayerPositionTypesList()
+
   if (!data || errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
+
+  const isLoading = updateLoading || positionTypes.isLoading
+
   return (
     <>
-      {updateLoading && <Loader />}
+      {isLoading && <Loader />}
       <PageHeading title={t('player-positions:EDIT_PAGE_TITLE')} />
-      <EditPlayerPositionForm current={data} onSubmit={updatePlayerPosition} />
+      <EditPlayerPositionForm
+        current={data}
+        onSubmit={updatePlayerPosition}
+        positionTypesData={positionTypes.data || []}
+      />
     </>
   )
 }
