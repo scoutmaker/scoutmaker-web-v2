@@ -29,7 +29,7 @@ export const CountCard = ({ linkTo, title, count }: ICountCardProps) => (
             component="p"
             textAlign="center"
           >
-            {count ? <CountUp end={count} useEasing /> : 0}
+            {count ? <CountUp end={count} useEasing /> : 0}%
           </Typography>
         </CardContent>
       </CardActionArea>
