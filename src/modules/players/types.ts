@@ -1,4 +1,5 @@
 import { IComboOptions, IStandardComboOptions } from '@/components/combo/types'
+import { IPlayerPositionTypeComboOptions } from '@/modules/player-position-types/types'
 
 import { ICompetitionGroupComboOptions } from '../competition-groups/types'
 import { ICompetitionComboOptions } from '../competitions/types'
@@ -26,6 +27,7 @@ export type PlayersFiltersDto = Pick<
   | 'footed'
   | 'name'
   | 'positionIds'
+  | 'positionTypeIds'
   | 'teamIds'
   | 'orderId'
   | 'hasNote'
@@ -39,6 +41,7 @@ export type PlayersFiltersState = Omit<
   PlayersFiltersDto,
   | 'countryIds'
   | 'positionIds'
+  | 'positionTypeIds'
   | 'teamIds'
   | 'competitionIds'
   | 'competitionGroupIds'
@@ -50,6 +53,7 @@ export type PlayersFiltersState = Omit<
 > & {
   countryIds: ICountryComboOptions[]
   positionIds: IPlayerPositionComboOptions[]
+  positionTypeIds: IPlayerPositionTypeComboOptions[]
   teamIds: IStandardComboOptions[]
   competitionIds: ICompetitionComboOptions[]
   competitionGroupIds: ICompetitionGroupComboOptions[]

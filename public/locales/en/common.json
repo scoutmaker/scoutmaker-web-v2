@@ -231,5 +231,7 @@
   "LIKED_PLAYERS": "Liked players",
   "UNASSIGNED": "Unassigned",
   "GROUP": "Group",
-  "LEAVE_PAGE_PROMPT": "Are you sure you want to leave this page?"
+  "LEAVE_PAGE_PROMPT": "Are you sure you want to leave this page?",
+  "POSITION_TYPE": "General position",
+  "POSITION_TYPES": "General positions"
 }

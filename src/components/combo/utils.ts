@@ -41,5 +41,6 @@ export const mapFiltersStateToDto = (data: TFiltersStateData) => {
     )
       filtersDto[key] = (value as IComboOptions).id || ''
   })
+
   return filtersDto
 }

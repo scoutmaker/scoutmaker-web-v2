@@ -1,4 +1,5 @@
 import { IComboOptions, IStandardComboOptions } from '@/components/combo/types'
+import { IPlayerPositionTypeComboOptions } from '@/modules/player-position-types/types'
 
 import { ICompetitionGroupComboOptions } from '../competition-groups/types'
 import { ICompetitionComboOptions } from '../competitions/types'
@@ -23,6 +24,7 @@ export type FindAllReportsParams = Pick<
   | 'playerBornBefore'
   | 'playerIds'
   | 'positionIds'
+  | 'positionTypeIds'
   | 'sortBy'
   | 'sortingOrder'
   | 'teamIds'
@@ -52,12 +54,14 @@ export type ReportsFiltersState = Omit<
   | 'percentageRatingRanges'
   | 'playerBornAfter'
   | 'playerBornBefore'
+  | 'positionTypeIds'
 > & {
   competitionGroupIds: ICompetitionGroupComboOptions[]
   competitionIds: ICompetitionComboOptions[]
   matchIds: IMatchComboOptions[]
   playerIds: IPlayerComboOptions[]
   positionIds: IPlayerPositionComboOptions[]
+  positionTypeIds: IPlayerPositionTypeComboOptions[]
   teamIds: IStandardComboOptions[]
   observationType: IComboOptions | null
   percentageRatingRanges: IComboOptions[]

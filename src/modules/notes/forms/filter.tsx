@@ -17,8 +17,8 @@ import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { MatchBasicDataDto } from '@/modules/matches/types'
 import { mapMatchesListToComboOptions } from '@/modules/matches/utils'
-import { PlayerPositionDto } from '@/modules/player-positions/types'
-import { mapPlayerPositionsToComboOptions } from '@/modules/player-positions/utils'
+import { PlayerPositionTypeDto } from '@/modules/player-position-types/types'
+import { mapPlayerPositionTypesToComboOptions } from '@/modules/player-position-types/utils'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 import { TeamBasicDataDto } from '@/modules/teams/types'
@@ -27,7 +27,7 @@ import { NotesFiltersState } from '../types'
 
 interface INotesFilterFormProps {
   playersData: PlayerBasicDataDto[]
-  positionsData: PlayerPositionDto[]
+  positionTypesData: PlayerPositionTypeDto[]
   teamsData: TeamBasicDataDto[]
   matchesData: MatchBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
@@ -40,7 +40,7 @@ interface INotesFilterFormProps {
 export const NotesFilterForm = ({
   playersData,
   teamsData,
-  positionsData,
+  positionTypesData,
   competitionsData,
   competitionGroupsData,
   matchesData,
@@ -74,11 +74,11 @@ export const NotesFilterForm = ({
               filterBeforeComma
             />
             <FilterCombo
-              name="positionIds"
-              data={mapPlayerPositionsToComboOptions(positionsData)}
-              label={t('POSITIONS')}
-              multiple
+              name="positionTypeIds"
+              label={t('POSITION_TYPES')}
+              data={mapPlayerPositionTypesToComboOptions(positionTypesData)}
               size="small"
+              multiple
             />
             <FilterCombo
               data={mapListDataToComboOptions(teamsData)}

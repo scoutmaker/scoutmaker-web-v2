@@ -233,5 +233,7 @@
   "LIKED_PLAYERS": "Polubieni zawodnicy",
   "UNASSIGNED": "Nieprzypisani",
   "GROUP": "Grupa",
-  "LEAVE_PAGE_PROMPT": "Czy na pewno chcesz opuścić tą stronę?"
+  "LEAVE_PAGE_PROMPT": "Czy na pewno chcesz opuścić tą stronę?",
+  "POSITION_TYPE": "Pozycja ogólna",
+  "POSITION_TYPES": "Pozycje ogólne"
 }

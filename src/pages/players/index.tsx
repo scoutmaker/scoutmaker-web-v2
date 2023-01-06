@@ -11,7 +11,7 @@ import { PageHeading } from '@/components/page-heading/page-heading'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { useCountriesList } from '@/modules/countries/hooks'
-import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
+import { usePlayerPositionTypesList } from '@/modules/player-position-types/hooks'
 import { PlayersFilterForm } from '@/modules/players/forms/filter'
 import {
   useDeletePlayer,
@@ -41,6 +41,7 @@ const initialFilters: PlayersFiltersState = {
   competitionIds: [],
   countryIds: [],
   positionIds: [],
+  positionTypeIds: [],
   teamIds: [],
   isLiked: false,
   hasNote: false,
@@ -94,8 +95,8 @@ const PlayersPage = () => {
     useCompetitionsList()
   const { data: competitionGroups, isLoading: competitionGroupsLoading } =
     useCompetitionGroupsList()
-  const { data: positions, isLoading: positionsLoading } =
-    usePlayerPositionsList()
+  const { data: positionTypes, isLoading: positionTypesLoading } =
+    usePlayerPositionTypesList()
 
   const { data: players, isLoading: playersLoading } = usePlayers({
     page: page + 1,
@@ -130,7 +131,7 @@ const PlayersPage = () => {
     playersLoading ||
     likePlayerLoading ||
     unlikePlayerLoading ||
-    positionsLoading
+    positionTypesLoading
 
   return (
     <>
@@ -140,7 +141,7 @@ const PlayersPage = () => {
         <PlayersFilterForm
           filters={filters}
           countriesData={countries || []}
-          positionsData={positions || []}
+          positionTypesData={positionTypes || []}
           competitionsData={competitions || []}
           competitionGroupsData={competitionGroups || []}
           teamsData={teams || []}

@@ -4,9 +4,12 @@ import { Field, Form, Formik } from 'formik'
 import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
+import { BasicCombo } from '@/components/combo/basicCombo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { PlayerPositionTypeDto } from '@/modules/player-position-types/types'
 
 import { PlayerPositionDto, UpdatePlayerPostitionDto } from '../types'
 import {
@@ -16,6 +19,7 @@ import {
 
 interface IEditFormProps {
   current: PlayerPositionDto
+  positionTypesData: PlayerPositionTypeDto[]
   onSubmit: (data: UpdatePlayerPostitionDto) => void
   onCancelClick?: () => void
   fullwidth?: boolean
@@ -23,6 +27,7 @@ interface IEditFormProps {
 
 export const EditPlayerPositionForm = ({
   current,
+  positionTypesData,
   onSubmit,
   onCancelClick,
   fullwidth,
@@ -65,6 +70,19 @@ export const EditPlayerPositionForm = ({
               label={t('CODE')}
               error={touched.code && !!errors.code}
               helperText={touched.code && errors.code}
+            />
+            <BasicCombo
+              data={mapListDataToComboOptions(positionTypesData)}
+              name="playerPositionTypeId"
+              label={t('POSITION_TYPE')}
+              error={
+                touched.playerPositionTypeId && !!errors.playerPositionTypeId
+              }
+              helperText={
+                touched.playerPositionTypeId
+                  ? errors.playerPositionTypeId
+                  : undefined
+              }
             />
             <MainFormActions
               label={t('POSITION')}

@@ -10,6 +10,7 @@ import { useTranslation } from 'next-i18next'
 
 import { CardItemBasic } from '@/components/details-card/details-card-item'
 import { BallIcon, NotesIcon } from '@/components/icons'
+import { getPositionDisplayName } from '@/modules/player-positions/utils'
 import { formatDate } from '@/utils/format-date'
 
 import { getDocumentNumber } from '../../utils/get-document-number'
@@ -88,7 +89,9 @@ export const NoteDetailsCard = ({ note }: INoteDetailsCard) => {
           />
           <CardItemBasic
             title={t('notes:POSITION_PLAYED')}
-            value={meta?.position.name}
+            value={
+              meta?.position ? getPositionDisplayName(meta.position) : undefined
+            }
           />
           <CardItemBasic title={t('SHIRT_NO')} value={shirtNo?.toString()} />
           <CardItemBasic

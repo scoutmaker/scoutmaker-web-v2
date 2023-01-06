@@ -22,7 +22,7 @@ import {
   InsiderNotesFiltersState,
   InsiderNotesSortBy,
 } from '@/modules/insider-notes/types'
-import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
+import { usePlayerPositionTypesList } from '@/modules/player-position-types/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { getDocumentNumber } from '@/utils/get-document-number'
@@ -41,6 +41,7 @@ const initialFilters: InsiderNotesFiltersState = {
   isLiked: false,
   playerIds: [],
   positionIds: [],
+  positionTypeIds: [],
   teamIds: [],
 }
 
@@ -90,8 +91,10 @@ const InsiderNotesPage = ({ errorStatus, errorMessage }: TSsrRole) => {
     useCompetitionGroupsList()
   const { data: competitionsData, isLoading: competitionsLoading } =
     useCompetitionsList()
-  const { data: playerPositionsData, isLoading: playerPostitionsLoading } =
-    usePlayerPositionsList()
+  const {
+    data: playerPositionTypesData,
+    isLoading: playerPostitionTypesLoading,
+  } = usePlayerPositionTypesList()
   const { data: playersData, isLoading: playersLoading } = usePlayersList()
   const { data: teamsData, isLoading: teamsLoading } = useTeamsList()
 
@@ -110,11 +113,11 @@ const InsiderNotesPage = ({ errorStatus, errorMessage }: TSsrRole) => {
     deleteLoading ||
     competitionGroupsLoading ||
     competitionsLoading ||
-    playerPostitionsLoading ||
     playersLoading ||
     teamsLoading ||
     likeLoading ||
-    unLikeLoading
+    unLikeLoading ||
+    playerPostitionTypesLoading
 
   if (errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
@@ -129,7 +132,7 @@ const InsiderNotesPage = ({ errorStatus, errorMessage }: TSsrRole) => {
           onClearFilters={() => handleSetFilters(initialFilters)}
           competitionGroupsData={competitionGroupsData || []}
           competitionsData={competitionsData || []}
-          playerPositionsData={playerPositionsData || []}
+          playerPositionTypesData={playerPositionTypesData || []}
           playersData={playersData || []}
           teamsData={teamsData || []}
         />

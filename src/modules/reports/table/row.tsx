@@ -30,6 +30,7 @@ import {
   getMatchDisplayName,
   getSingleMatchRoute,
 } from '@/modules/matches/utils'
+import { getPositionDisplayName } from '@/modules/player-positions/utils'
 import {
   getPlayerFullName,
   getSinglePlayerRoute,
@@ -190,7 +191,9 @@ export const ReportsTableRow = ({
         ) : (
           <StyledTableCell>-</StyledTableCell>
         )}
-        <StyledTableCell>{meta?.position?.name || '-'}</StyledTableCell>
+        <StyledTableCell>
+          {meta?.position ? getPositionDisplayName(meta.position) : '-'}
+        </StyledTableCell>
         <StyledTableCell>{`${author.firstName} ${author.lastName}`}</StyledTableCell>
         <StyledTableCell padding="checkbox" align="center">
           {observationType === 'LIVE' ? <LiveObservationIcon /> : <VideoIcon />}

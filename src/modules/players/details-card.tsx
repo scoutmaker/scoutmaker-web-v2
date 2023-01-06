@@ -3,6 +3,7 @@ import { Avatar, Card, CardContent, CardHeader, Grid } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { CardItemBasic } from '@/components/details-card/details-card-item'
+import { getPositionDisplayName } from '@/modules/player-positions/utils'
 import { PlayerDto } from '@/modules/players/types'
 import { calculateRating } from '@/utils/calculate-rating'
 import { getFlagEmoji } from '@/utils/get-flag-emoji'
@@ -56,10 +57,13 @@ export const PlayerDetialsCard = ({ player }: IPlayerDetailsCard) => {
             value={teams[0]?.team.name}
             href={teams[0] ? `/teams/${teams[0].team.slug}` : undefined}
           />
-          <CardItemBasic title={t('POSITION')} value={primaryPosition.name} />
+          <CardItemBasic
+            title={t('POSITION')}
+            value={getPositionDisplayName(primaryPosition)}
+          />
           <CardItemBasic
             title={t('SECONDARY_POSITIONS')}
-            value={secondaryPositions.map(position => position.name).join(', ')}
+            value={secondaryPositions.map(getPositionDisplayName).join(', ')}
           />
           <CardItemBasic
             title={t('AVG_RATING')}

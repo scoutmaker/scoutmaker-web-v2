@@ -16,6 +16,11 @@ function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
     { id: 'name', label: t('NAME') },
     { id: 'code', label: t('CODE') },
+    {
+      id: 'playerPositionTypeId',
+      label: t('POSITION_TYPE'),
+      isSortingDisabled: true,
+    },
   ]
 }
 
