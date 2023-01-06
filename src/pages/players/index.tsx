@@ -80,8 +80,12 @@ const PlayersPage = () => {
 
   useEffect(() => {
     const onlyLikedQuery = router.query?.onlyLiked
+    const hasAnyObservationQuery = router.query?.hasAnyObservation
+
     if (onlyLikedQuery === 'true')
       setFilters(prev => ({ ...prev, isLiked: true }))
+    if (hasAnyObservationQuery === 'true')
+      setFilters(prev => ({ ...prev, hasAnyObservation: true }))
   }, [])
 
   const { data: countries, isLoading: countriesLoading } = useCountriesList()
