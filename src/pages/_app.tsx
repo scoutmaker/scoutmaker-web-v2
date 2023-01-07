@@ -1,4 +1,5 @@
 import 'nprogress/nprogress.css'
+import '@/styles/fix-print.css'
 
 import { CacheProvider, EmotionCache } from '@emotion/react'
 import CssBaseline from '@mui/material/CssBaseline'
