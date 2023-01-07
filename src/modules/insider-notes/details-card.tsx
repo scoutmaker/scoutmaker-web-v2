@@ -8,6 +8,7 @@ import { getDocumentNumber } from '@/utils/get-document-number'
 
 import { getPlayerFullName, getSinglePlayerRoute } from '../players/utils'
 import { getSingleTeamRoute } from '../teams/utils'
+import { getAuthorDisplayName } from '../users/utils'
 import { InsiderNoteDto } from './types'
 
 interface IInsiderNoteDetailsCard {
@@ -34,7 +35,7 @@ export const InsiderNoteDetailsCard = ({ note }: IInsiderNoteDetailsCard) => {
         title={t('insider-notes:DETAILS_TITLE', {
           nr: getDocumentNumber({ docNumber, createdAt }),
         })}
-        subheader={`${t('AUTHOR')}: ${author.firstName} ${author.lastName}`}
+        subheader={`${t('AUTHOR')}: ${getAuthorDisplayName(author)}`}
         titleTypographyProps={{ variant: 'h3' }}
       />
       <CardContent>

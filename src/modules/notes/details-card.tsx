@@ -17,6 +17,7 @@ import { getDocumentNumber } from '../../utils/get-document-number'
 import { getMatchDisplayName, getSingleMatchRoute } from '../matches/utils'
 import { getPlayerFullName, getSinglePlayerRoute } from '../players/utils'
 import { getSingleTeamRoute } from '../teams/utils'
+import { getAuthorDisplayName } from '../users/utils'
 import { NoteDto } from './types'
 
 interface INoteDetailsCard {
@@ -55,7 +56,7 @@ export const NoteDetailsCard = ({ note }: INoteDetailsCard) => {
         title={t('notes:NOTE_DETAILS_TITLE', {
           number: getDocumentNumber({ docNumber, createdAt }),
         })}
-        subheader={`${t('AUTHOR')}: ${author.firstName} ${author.lastName}`}
+        subheader={`${t('AUTHOR')}: ${getAuthorDisplayName(author)}`}
         titleTypographyProps={{ variant: 'h3' }}
       />
       <CardContent>
