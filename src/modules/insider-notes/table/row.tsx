@@ -12,6 +12,7 @@ import { getSinglePlayerRoute } from '@/modules/players/utils'
 import { formatDate } from '@/utils/format-date'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
+import { getAuthorDisplayName } from '../../users/utils'
 import { InsiderNoteDto } from '../types'
 
 interface ITableRowProps {
@@ -97,9 +98,7 @@ export const InsiderNotesTableRow = ({
       />
       <StyledTableCell> {player.primaryPosition.name}</StyledTableCell>
       <StyledTableCell>{informant || ''}</StyledTableCell>
-      <StyledTableCell>
-        {author.firstName} {author.lastName}
-      </StyledTableCell>
+      <StyledTableCell>{getAuthorDisplayName(author)}</StyledTableCell>
       <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
     </StyledTableRow>
   )
