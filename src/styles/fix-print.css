@@ -1,0 +1,6 @@
+.chartjs-size-monitor,
+.chartjs-size-monitor-shrink,
+.chartjs-size-monitor-expand,
+.chartjs-size-monitor-expand > div {
+  position: fixed !important; /* cannot stay "absolute" */
+}
