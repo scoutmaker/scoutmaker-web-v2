@@ -36,6 +36,7 @@ import { IReportFromNoteQuery } from '@/modules/reports/types'
 import { formatDate } from '@/utils/format-date'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
+import { getAuthorDisplayName } from '../../users/utils'
 import { NoteDto } from '../types'
 
 interface INotesTableRowProps {
@@ -197,7 +198,7 @@ export const NotesTableRow = ({
         <StyledTableCell>
           {meta?.position ? getPositionDisplayName(meta.position) : '-'}
         </StyledTableCell>
-        <StyledTableCell>{`${author.firstName} ${author.lastName}`}</StyledTableCell>
+        <StyledTableCell>{getAuthorDisplayName(author)}</StyledTableCell>
         <StyledTableCell padding="checkbox" align="center">
           {observationType === 'LIVE' ? <LiveObservationIcon /> : <VideoIcon />}
         </StyledTableCell>

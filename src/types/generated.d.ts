@@ -387,6 +387,12 @@ declare namespace Components {
             isPublic?: boolean;
             skillAssessmentTemplateIds: string[];
         }
+        export interface CreateScoutProfileDto {
+            userId: string;
+            cooperationStartDate?: string;
+            description?: string;
+            rating?: number;
+        }
         export interface CreateSeasonDto {
             id?: string;
             name: string;
@@ -999,6 +1005,19 @@ declare namespace Components {
             maxRatingScore: number;
             skillAssessmentTemplates: ReportSkillAssessmentTemplateDto[];
         }
+        export interface ScoutProfileDto {
+            id: string;
+            cooperationStartDate?: string; // date-time
+            description?: string;
+            rating?: number;
+            user: UserBasicDataDto;
+        }
+        export interface ScoutProfileWithoutUserDto {
+            id: string;
+            cooperationStartDate?: string; // date-time
+            description?: string;
+            rating?: number;
+        }
         export interface SeasonBasicDataDto {
             id: string;
             name: string;
@@ -1276,6 +1295,12 @@ declare namespace Components {
             isPublic?: boolean;
             skillAssessmentTemplateIds?: string[];
         }
+        export interface UpdateScoutProfileDto {
+            userId?: string;
+            cooperationStartDate?: string;
+            description?: string;
+            rating?: number;
+        }
         export interface UpdateSeasonDto {
             name?: string;
             startDate?: string;
@@ -1326,6 +1351,7 @@ declare namespace Components {
             firstName: string;
             lastName: string;
             email: string;
+            profile?: ScoutProfileWithoutUserDto;
         }
         export interface UserDto {
             role: "SCOUT" | "PLAYMAKER_SCOUT" | "PLAYMAKER_SCOUT_MANAGER" | "ADMIN";
@@ -1340,6 +1366,7 @@ declare namespace Components {
             region: RegionDto;
             club?: ClubBasicDataDto;
             footballRole?: UserFootballRoleDto;
+            profile?: ScoutProfileWithoutUserDto;
             _count: Count;
             organizationId?: string;
         }
@@ -5318,6 +5345,56 @@ declare namespace Paths {
         }
     }
     namespace ReportsControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
+            }
+        }
+    }
+    namespace ScoutProfilesControllerCreate {
+        export type RequestBody = Components.Schemas.CreateScoutProfileDto;
+        namespace Responses {
+            export interface $201 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.ScoutProfileDto;
+            }
+        }
+    }
+    namespace ScoutProfilesControllerRemove {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.ScoutProfileDto;
+            }
+        }
+    }
+    namespace ScoutProfilesControllerUpdate {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        export type RequestBody = Components.Schemas.UpdateScoutProfileDto;
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.ScoutProfileDto;
+            }
+        }
+    }
+    namespace ScoutProfilesControllerUploadFile {
         export interface RequestBody {
             file?: string; // binary
         }
