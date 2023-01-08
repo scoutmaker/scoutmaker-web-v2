@@ -8,6 +8,7 @@ import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { CountryDto } from '@/modules/countries/types'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
+import { PlayerRoleDto } from '@/modules/player-roles/types'
 import { PlayerDto, UpdatePlayerDto } from '@/modules/players/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
@@ -22,9 +23,11 @@ interface EditPlayerFormProps {
   positionsData: PlayerPositionDto[]
   countriesData: CountryDto[]
   teamsData: TeamBasicDataDto[]
+  playerRolesData: PlayerRoleDto[]
   onSubmit: (data: UpdatePlayerDto) => void
   onCancelClick?: () => void
   fullwidth?: boolean
+  showRoleField: boolean
 }
 
 export const EditPlayerForm = ({
@@ -35,6 +38,8 @@ export const EditPlayerForm = ({
   positionsData,
   teamsData,
   countriesData,
+  showRoleField,
+  playerRolesData,
 }: EditPlayerFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -51,6 +56,12 @@ export const EditPlayerForm = ({
           initialValues,
           filter(data, (_, value) => value),
         )
+        console.log({
+          filtered: filter(data, (_, value) => value),
+          initialValues,
+          data,
+          dataToSubmit,
+        })
         onSubmit(dataToSubmit)
       }}
     >
@@ -61,6 +72,8 @@ export const EditPlayerForm = ({
               countriesData={countriesData}
               positionsData={positionsData}
               teamsData={teamsData}
+              showRoleField={showRoleField}
+              playerRolesData={playerRolesData}
               editForm
             />
             <MainFormActions

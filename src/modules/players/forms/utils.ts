@@ -27,6 +27,7 @@ export const initialValues: CreatePlayerDto = {
   minut90url: '',
   transfermarktId: '',
   transfermarktUrl: '',
+  roleId: '',
 }
 
 function generateCommonPlayerFieldsValidationSchema() {
@@ -41,6 +42,7 @@ function generateCommonPlayerFieldsValidationSchema() {
     minut90url: yup.string().url().notRequired(),
     transfermarktId: yup.string().notRequired(),
     transfermarktUrl: yup.string().url().notRequired(),
+    roleId: validateId(),
   }
 }
 
@@ -98,6 +100,7 @@ export function getInitialStateFromCurrent(player: PlayerDto): UpdatePlayerDto {
     secondaryPositions,
     slug,
     teams,
+    role,
     ...rest
   } = player
 
@@ -108,5 +111,6 @@ export function getInitialStateFromCurrent(player: PlayerDto): UpdatePlayerDto {
     countryId: country.id,
     primaryPositionId: primaryPosition.id,
     secondaryPositionIds: secondaryPositions?.map(pos => pos.id) || [],
+    roleId: role?.id,
   }
 }

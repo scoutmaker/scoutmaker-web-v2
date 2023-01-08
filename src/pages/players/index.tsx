@@ -8,6 +8,7 @@ import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
+import { useUser } from '@/modules/auth/hooks'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { useCountriesList } from '@/modules/countries/hooks'
@@ -21,6 +22,7 @@ import {
 } from '@/modules/players/hooks'
 import { PlayersTable } from '@/modules/players/table/table'
 import { PlayersFiltersState, PlayersSortBy } from '@/modules/players/types'
+import { shouldShowPlayerRole } from '@/modules/players/utils'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
@@ -89,6 +91,8 @@ const PlayersPage = () => {
       setFilters(prev => ({ ...prev, hasAnyObservation: true }))
   }, [])
 
+  const { data: user, isLoading: userLoading } = useUser()
+
   const { data: countries, isLoading: countriesLoading } = useCountriesList()
   const { data: teams, isLoading: teamsLoading } = useTeamsList()
   const { data: competitions, isLoading: competitionsLoading } =
@@ -131,7 +135,8 @@ const PlayersPage = () => {
     playersLoading ||
     likePlayerLoading ||
     unlikePlayerLoading ||
-    positionTypesLoading
+    positionTypesLoading ||
+    userLoading
 
   return (
     <>
@@ -163,6 +168,7 @@ const PlayersPage = () => {
         handleDeleteItemClick={handleDeleteItemClick}
         onLikeClick={likePlayer}
         onUnLikeClick={unlikePlayer}
+        showRole={shouldShowPlayerRole(user)}
       />
       <Fab href="/players/create" />
       <ConfirmationModal

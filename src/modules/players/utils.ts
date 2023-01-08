@@ -1,5 +1,6 @@
 import { Routes } from '@/utils/routes'
 
+import { UserDto } from '../users/types'
 import { IPlayerComboOptions, PlayerBasicDataDto } from './types'
 
 export function getPlayerFullName<
@@ -24,3 +25,9 @@ export function mapPlayersListToComboOptions(
     lastName,
   }))
 }
+
+export const shouldShowPlayerRole = (user: UserDto | undefined): boolean =>
+  !(!user?.organizationId && user?.role === 'SCOUT')
+
+export const shouldShowPlayerRoleField = (user: UserDto | undefined): boolean =>
+  user?.role === 'ADMIN' || user?.role === 'PLAYMAKER_SCOUT_MANAGER'

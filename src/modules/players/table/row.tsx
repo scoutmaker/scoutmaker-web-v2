@@ -27,6 +27,7 @@ interface IPlayersTableRowProps {
   onDeleteClick: () => void
   onLikeClick: (id: string) => void
   onUnlikeClick: (id: string) => void
+  showRole?: boolean
 }
 
 export const PlayersTableRow = ({
@@ -35,6 +36,7 @@ export const PlayersTableRow = ({
   onDeleteClick,
   onLikeClick,
   onUnlikeClick,
+  showRole,
 }: IPlayersTableRowProps) => {
   const { t } = useTranslation()
   const router = useRouter()
@@ -60,6 +62,7 @@ export const PlayersTableRow = ({
     yearOfBirth,
     _count: count,
     averagePercentageRating,
+    role,
   } = data
 
   const cellChangeLikedClick = () => {
@@ -117,6 +120,11 @@ export const PlayersTableRow = ({
       <StyledTableCell>{yearOfBirth}</StyledTableCell>
       <StyledTableCell>
         {getPositionDisplayName(primaryPosition)}
+        {showRole && role && (
+          <>
+            <br />({role.name})
+          </>
+        )}
       </StyledTableCell>
       <StyledTableCell>{t(footed)}</StyledTableCell>
       <StyledTableCell>

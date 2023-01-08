@@ -39,3 +39,4 @@ export type TModuleName =
   | 'organization-insider-note-acl'
   | 'dashboard'
   | 'player-position-types'
+  | 'player-roles'

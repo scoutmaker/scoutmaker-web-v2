@@ -7,6 +7,7 @@ import { BasicCombo } from '@/components/combo/basicCombo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { CountryDto } from '@/modules/countries/types'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
+import { PlayerRoleDto } from '@/modules/player-roles/types'
 import { CreatePlayerDto, UpdatePlayerDto } from '@/modules/players/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
@@ -16,7 +17,9 @@ interface IFieldsProps {
   positionsData: PlayerPositionDto[]
   countriesData: CountryDto[]
   teamsData: TeamBasicDataDto[]
+  playerRolesData: PlayerRoleDto[]
   editForm?: boolean
+  showRoleField: boolean
 }
 
 export const Fields = ({
@@ -24,6 +27,8 @@ export const Fields = ({
   countriesData,
   teamsData,
   editForm,
+  showRoleField,
+  playerRolesData,
 }: IFieldsProps) => {
   const { t } = useTranslation()
   const footedComboData = getFootedComboData(t)
@@ -136,6 +141,15 @@ export const Fields = ({
             : t('OPTIONAL_FIELD')
         }
       />
+      {showRoleField && (
+        <BasicCombo
+          data={mapListDataToComboOptions(playerRolesData)}
+          name="roleId"
+          label={t('PLAYER_ROLE')}
+          error={touched.roleId && !!errors.roleId}
+          helperText={touched.roleId ? errors.roleId : t('OPTIONAL_FIELD')}
+        />
+      )}
       <Field
         name="lnpId"
         as={TextField}

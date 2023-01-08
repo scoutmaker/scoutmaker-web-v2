@@ -3,11 +3,14 @@ import { useTranslation } from 'next-i18next'
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
+import { useUser } from '@/modules/auth/hooks'
 import { useCountriesList } from '@/modules/countries/hooks'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
+import { usePlayerRolesList } from '@/modules/player-roles/hooks'
 import { EditPlayerForm } from '@/modules/players/forms/edit'
 import { useUpdatePlayer } from '@/modules/players/hooks'
 import { PlayerDto } from '@/modules/players/types'
+import { shouldShowPlayerRoleField } from '@/modules/players/utils'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { getPlayerBySlug } from '@/services/api/methods/players'
 import { ApiError } from '@/services/api/types'
@@ -37,12 +40,19 @@ const EditPlayerPage = ({
     usePlayerPositionsList()
   const { data: countries, isLoading: countriesLoading } = useCountriesList()
   const { data: teams, isLoading: teamsLoading } = useTeamsList()
+  const { data: playerRoles, isLoading: rolesLoading } = usePlayerRolesList()
+  const { data: user, isLoading: userLoading } = useUser()
 
   const { mutate: updatePlayer, isLoading: updatePlayerLoading } =
     useUpdatePlayer(data?.id || '')
 
   const isLoading =
-    updatePlayerLoading || positionsLoading || countriesLoading || teamsLoading
+    updatePlayerLoading ||
+    positionsLoading ||
+    countriesLoading ||
+    teamsLoading ||
+    userLoading ||
+    rolesLoading
 
   if (data) {
     return (
@@ -58,7 +68,9 @@ const EditPlayerPage = ({
           countriesData={countries || []}
           positionsData={positions || []}
           teamsData={teams || []}
+          playerRolesData={playerRoles || []}
           onSubmit={updatePlayer}
+          showRoleField={shouldShowPlayerRoleField(user)}
         />
       </>
     )
