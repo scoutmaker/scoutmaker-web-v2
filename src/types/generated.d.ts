@@ -833,6 +833,7 @@ declare namespace Components {
         export interface PlayerRoleBasicDataDto {
             id: string;
             name: string;
+            description: string;
         }
         export interface PlayerRoleDto {
             id: string;

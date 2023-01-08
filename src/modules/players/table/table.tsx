@@ -12,6 +12,7 @@ interface IPlayersTableProps extends ICommonTableProps {
   handleDeleteItemClick: (data: INameToDeleteData) => void
   onLikeClick: (id: string) => void
   onUnLikeClick: (id: string) => void
+  showRole?: boolean
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
@@ -47,6 +48,7 @@ export const PlayersTable = ({
   handleDeleteItemClick,
   onLikeClick,
   onUnLikeClick,
+  showRole,
 }: IPlayersTableProps) => {
   const { t } = useTranslation()
   const router = useRouter()
@@ -77,6 +79,7 @@ export const PlayersTable = ({
           }
           onLikeClick={onLikeClick}
           onUnlikeClick={onUnLikeClick}
+          showRole={showRole}
         />
       ))}
     </Table>

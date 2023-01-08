@@ -233,5 +233,10 @@
   "GROUP": "Group",
   "LEAVE_PAGE_PROMPT": "Are you sure you want to leave this page?",
   "POSITION_TYPE": "General position",
-  "POSITION_TYPES": "General positions"
+  "POSITION_TYPES": "General positions",
+  "SEE_DETAILS": "See details",
+  "PLAYER_ROLE": "Player characteristics",
+  "PLAYER_ROLES": "Players characteristics",
+  "EXAMPLES": "Examples",
+  "ALT_NAME": "Secondary name"
 }

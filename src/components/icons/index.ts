@@ -28,6 +28,7 @@ export {
   CorporateFare as OrganizationsIcon,
   Subscriptions as OrganizationSubscriptionsIcon,
   Place as PlayerPositionIcon,
+  PersonPinCircle as PlayerRoleIcon,
   DirectionsRun as PlayersIcon,
   Analytics as PlayerStatsIcon,
   AccountCircle as ProfileIcon,

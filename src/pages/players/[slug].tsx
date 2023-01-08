@@ -8,6 +8,7 @@ import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { TabPanel } from '@/components/tab-panel/tab-panel'
+import { useUser } from '@/modules/auth/hooks'
 import {
   useInsiderNotes,
   useLikeInsiderNote,
@@ -21,6 +22,7 @@ import { NotesSortBy } from '@/modules/notes/types'
 import { useOnLikeNoteClick } from '@/modules/notes/utils'
 import { PlayerDetialsCard } from '@/modules/players/details-card'
 import { PlayerDto } from '@/modules/players/types'
+import { shouldShowPlayerRole } from '@/modules/players/utils'
 import { useReports, useUnlikeReport } from '@/modules/reports/hooks'
 import { ReportsTable } from '@/modules/reports/table/table'
 import { ReportsSortBy } from '@/modules/reports/types'
@@ -123,6 +125,8 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
   const { mutate: unLikeInsiderNote, isLoading: unLikeInsiderNoteLoading } =
     useUnLikeInsiderNote()
 
+  const { data: user, isLoading: userLoading } = useUser()
+
   const isLoading =
     likeNoteLoading ||
     unLikeNoteLoading ||
@@ -133,7 +137,8 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
     teamAffiliationsLoading ||
     notesLoading ||
     reportsLoading ||
-    insiderNotesLoading
+    insiderNotesLoading ||
+    userLoading
 
   if (!player)
     return <ErrorContent message={errorMessage} status={errorStatus} />
@@ -141,7 +146,10 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={`${player.firstName} ${player.lastName}`} />
-      <PlayerDetialsCard player={player} />
+      <PlayerDetialsCard
+        player={player}
+        showRole={shouldShowPlayerRole(user)}
+      />
       <Box width="100%" marginTop={theme => theme.spacing(4)}>
         <AppBar
           position="static"
