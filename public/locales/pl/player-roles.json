@@ -1,0 +1,9 @@
+{
+  "IS_PUBLIC": "Publiczny",
+  "NO_NAME_ERROR": "Podaj nazwę charakterystyki",
+  "NO_POSITION_ERROR": "Wybierz pozycję ogólną charakterystyki",
+  "INDEX_PAGE_TITLE": "Baza charakterystyk piłkarzy",
+  "EDIT_PAGE_TITLE": "Edycja danych charakterystyki piłkarza",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć charakterystykę {{name}}?",
+  "CREATE_PAGE_TITLE": "Utwórz nową charakterystykę piłkarza"
+}

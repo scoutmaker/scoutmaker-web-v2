@@ -235,5 +235,10 @@
   "GROUP": "Grupa",
   "LEAVE_PAGE_PROMPT": "Czy na pewno chcesz opuścić tą stronę?",
   "POSITION_TYPE": "Pozycja ogólna",
-  "POSITION_TYPES": "Pozycje ogólne"
+  "POSITION_TYPES": "Pozycje ogólne",
+  "SEE_DETAILS": "Zobacz szczegóły",
+  "PLAYER_ROLE": "Charakterystyka piłkarza",
+  "PLAYER_ROLES": "Charakterystyki piłkarzy",
+  "EXAMPLES": "Przykłady",
+  "ALT_NAME": "Nazwa alternatywna"
 }

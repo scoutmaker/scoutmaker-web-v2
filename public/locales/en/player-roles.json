@@ -1,0 +1,9 @@
+{
+  "IS_PUBLIC": "Public",
+  "NO_NAME_ERROR": "Please provide player characteristic name",
+  "NO_POSITION_ERROR": "Please choose characteristic position type",
+  "INDEX_PAGE_TITLE": "Player characteristics database",
+  "EDIT_PAGE_TITLE": "Edit player characteristic data",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete characteristic {{name}}?",
+  "CREATE_PAGE_TITLE": "Create new player characteristic"
+}
