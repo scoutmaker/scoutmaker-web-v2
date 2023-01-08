@@ -33,7 +33,7 @@ export const PlayerRoleDetailsCard = ({ role }: IDetailsCard) => {
           <CardItemBasic title={t('DESCRIPTION')} value={description} />
           <CardItemBasic
             title={t('EXAMPLES')}
-            value={examples.map(ex => ex.type).join(', ')}
+            value={examples.map(ex => `${ex.player} - ${ex.type}`).join(', ')}
           />
         </Grid>
       </CardContent>
