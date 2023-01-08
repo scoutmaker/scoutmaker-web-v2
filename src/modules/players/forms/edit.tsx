@@ -56,12 +56,6 @@ export const EditPlayerForm = ({
           initialValues,
           filter(data, (_, value) => value),
         )
-        console.log({
-          filtered: filter(data, (_, value) => value),
-          initialValues,
-          data,
-          dataToSubmit,
-        })
         onSubmit(dataToSubmit)
       }}
     >
