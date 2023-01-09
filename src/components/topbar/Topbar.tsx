@@ -34,7 +34,7 @@ export const Topbar = ({ matchAttendance }: ITopbarProps) => {
   return (
     <AppBar position="fixed" sx={{ zIndex: 5000 }}>
       <StyledToolbar>
-        <Link href="/" passHref>
+        <Link href="/dashboard" passHref>
           <StyledTitle>
             <Logo />
           </StyledTitle>
