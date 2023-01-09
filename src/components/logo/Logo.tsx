@@ -23,8 +23,5 @@ export const Logo = () => (
     <StyledImageContainer>
       <Image src={logoWhite} alt="PlaymakerPro Logo" objectFit="cover" />
     </StyledImageContainer>
-    <Typography variant="h5" noWrap component="h1">
-      ScoutMaker Pro
-    </Typography>
   </StyledContainer>
 )
