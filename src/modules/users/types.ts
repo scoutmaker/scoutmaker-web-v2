@@ -14,11 +14,17 @@ export type FindAllUsersParams = Pick<
   | 'footballRoleIds'
   | 'regionIds'
   | 'role'
+  | 'hasScoutProfile'
 >
 
 export type UsersFiltersDto = Pick<
   FindAllUsersParams,
-  'name' | 'clubIds' | 'footballRoleIds' | 'regionIds' | 'role'
+  | 'name'
+  | 'clubIds'
+  | 'footballRoleIds'
+  | 'regionIds'
+  | 'role'
+  | 'hasScoutProfile'
 >
 
 export type UsersFiltersState = Omit<

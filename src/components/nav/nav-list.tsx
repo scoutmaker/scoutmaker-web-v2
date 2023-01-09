@@ -238,6 +238,11 @@ export const NavList = ({ matchAttendance }: INavListProps) => {
             text={t('USERS')}
           />
           <NavElement
+            icon={<UsersIcon color="error" />}
+            to="/scout-profiles"
+            text={t('SCOUTS')}
+          />
+          <NavElement
             icon={<UserSubscriptionsIcon color="error" />}
             to="/user-subscriptions"
             text={t('USER_SUBSCRIPTIONS')}

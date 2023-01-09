@@ -6294,6 +6294,7 @@ declare namespace Paths {
         namespace Parameters {
             export type ClubIds = string[];
             export type FootballRoleIds = string[];
+            export type HasScoutProfile = boolean;
             export type Limit = number;
             export type Name = string;
             export type Page = number;
@@ -6308,6 +6309,7 @@ declare namespace Paths {
             regionIds?: Parameters.RegionIds;
             clubIds?: Parameters.ClubIds;
             footballRoleIds?: Parameters.FootballRoleIds;
+            hasScoutProfile?: Parameters.HasScoutProfile;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;

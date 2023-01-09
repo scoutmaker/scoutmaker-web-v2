@@ -240,5 +240,8 @@
   "PLAYER_ROLE": "Charakterystyka piłkarza",
   "PLAYER_ROLES": "Charakterystyki piłkarzy",
   "EXAMPLES": "Przykłady",
-  "ALT_NAME": "Nazwa alternatywna"
+  "ALT_NAME": "Nazwa alternatywna",
+  "SCOUTS": "Skauci",
+  "CHARACTERISTICS": "Charakterystyka",
+  "SCOUT_PROFILE": "Profil skauta"
 }
