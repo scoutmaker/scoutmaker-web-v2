@@ -40,3 +40,4 @@ export type TModuleName =
   | 'dashboard'
   | 'player-position-types'
   | 'player-roles'
+  | 'scout-profiles'
