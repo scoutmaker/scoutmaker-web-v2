@@ -1,0 +1,8 @@
+{
+  "INDEX_PAGE_TITLE": "Scouts database",
+  "CREATE_PAGE_TITLE": "Create new scout profile",
+  "EDIT_PAGE_TITLE": "Edit scout profile data",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete this scout profile?",
+  "NO_USER_ERROR": "Please choose user",
+  "DATE_JOINED": "Joined date"
+}

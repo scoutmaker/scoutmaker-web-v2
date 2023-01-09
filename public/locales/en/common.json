@@ -238,5 +238,8 @@
   "PLAYER_ROLE": "Player characteristics",
   "PLAYER_ROLES": "Players characteristics",
   "EXAMPLES": "Examples",
-  "ALT_NAME": "Secondary name"
+  "ALT_NAME": "Secondary name",
+  "SCOUTS": "Scouts",
+  "CHARACTERISTICS": "Characteristics",
+  "SCOUT_PROFILE": "Scout profile"
 }

@@ -1,0 +1,8 @@
+{
+  "INDEX_PAGE_TITLE": "Baza skautów",
+  "CREATE_PAGE_TITLE": "Utwórz nowy profil skauta",
+  "EDIT_PAGE_TITLE": "Edycja danych profilu skauta",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć ten profil skauta?",
+  "NO_USER_ERROR": "Wybierz użytkownika",
+  "DATE_JOINED": "Data dołączenia"
+}
