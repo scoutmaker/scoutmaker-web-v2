@@ -46,7 +46,6 @@ export const CreateMatchForm = ({
           data,
           (_, value) => typeof value === 'number' || value,
         )
-        console.log(dataToSubmit)
         onSubmit(dataToSubmit as CreateMatchDto)
         resetForm()
       }}
