@@ -111,8 +111,8 @@ export const PlayersTableRow = ({
       <StyledTableCell sx={{ minWidth: 100 }}>{`${getFlagEmoji(country.code)} ${
         country.name
       }`}</StyledTableCell>
-      <StyledTableCell>{lastName}</StyledTableCell>
-      <StyledTableCell>{firstName}</StyledTableCell>
+      <CellWithLink href={`/players/${slug}`} label={lastName} />
+      <CellWithLink href={`/players/${slug}`} label={firstName} />
       <CellWithLink
         href={`/teams/${teams[0]?.team?.slug}`}
         label={teams[0]?.team?.name}
