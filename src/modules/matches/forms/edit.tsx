@@ -51,7 +51,7 @@ export const EditMatchForm = ({
       onSubmit={data => {
         const dataToSubmit = updatedDiff(
           initialValues,
-          filter(data, (_, value) => value),
+          filter(data, (_, value) => typeof value === 'number' || value),
         )
         onSubmit(dataToSubmit)
       }}
