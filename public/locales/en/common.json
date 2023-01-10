@@ -229,5 +229,17 @@
   "LIKED_NOTES": "Liked notes",
   "LIKED_TEAMS": "Liked teams",
   "LIKED_PLAYERS": "Liked players",
-  "UNASSIGNED": "Unassigned"
+  "UNASSIGNED": "Unassigned",
+  "GROUP": "Group",
+  "LEAVE_PAGE_PROMPT": "Are you sure you want to leave this page?",
+  "POSITION_TYPE": "General position",
+  "POSITION_TYPES": "General positions",
+  "SEE_DETAILS": "See details",
+  "PLAYER_ROLE": "Player characteristics",
+  "PLAYER_ROLES": "Players characteristics",
+  "EXAMPLES": "Examples",
+  "ALT_NAME": "Secondary name",
+  "SCOUTS": "Scouts",
+  "CHARACTERISTICS": "Characteristics",
+  "SCOUT_PROFILE": "Scout profile"
 }

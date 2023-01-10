@@ -38,3 +38,6 @@ export type TModuleName =
   | 'user-insider-note-acl'
   | 'organization-insider-note-acl'
   | 'dashboard'
+  | 'player-position-types'
+  | 'player-roles'
+  | 'scout-profiles'

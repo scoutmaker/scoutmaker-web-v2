@@ -6,7 +6,7 @@ import { BasicCard } from '../BasicCard'
 import ListDataCard from '../ListDataCard'
 import BaseDashboardLayout, { IBaseDashboardProps } from './base'
 
-const PlaymakerScoutManagerDashboardLayout = (
+const PlaymakerScoutDashboardLayout = (
   props: Omit<IBaseDashboardProps, 'variant'>,
 ) => {
   const { t } = useTranslation()
@@ -31,4 +31,4 @@ const PlaymakerScoutManagerDashboardLayout = (
   )
 }
 
-export default PlaymakerScoutManagerDashboardLayout
+export default PlaymakerScoutDashboardLayout

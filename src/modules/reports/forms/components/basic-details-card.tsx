@@ -6,6 +6,7 @@ import {
   getMatchDisplayName,
   getSingleMatchRoute,
 } from '@/modules/matches/utils'
+import { getPositionDisplayName } from '@/modules/player-positions/utils'
 import {
   getPlayerFullName,
   getSinglePlayerRoute,
@@ -14,6 +15,7 @@ import { StatusChip } from '@/modules/reports/status-chip'
 import { getSingleTeamRoute } from '@/modules/teams/utils'
 import { formatDate } from '@/utils/format-date'
 
+import { getAuthorDisplayName } from '../../../users/utils'
 import { ReportDto } from '../../types'
 
 interface IReportBasicDetailsCard {
@@ -75,7 +77,7 @@ export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
           />
           <CardItemBasic
             title={t('reports:POSITION_PLAYED')}
-            value={meta?.position.name}
+            value={meta ? getPositionDisplayName(meta.position) : undefined}
           />
           <CardItemBasic title={t('SHIRT_NO')} value={shirtNo} />
           <CardItemBasic
@@ -88,10 +90,7 @@ export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
           />
           <CardItemBasic
             title={t('AUTHOR')}
-            value={getPlayerFullName({
-              firstName: author.firstName,
-              lastName: author.lastName,
-            })}
+            value={getAuthorDisplayName(author)}
           />
           <CardItemBasic
             title={t('reports:STATUS')}

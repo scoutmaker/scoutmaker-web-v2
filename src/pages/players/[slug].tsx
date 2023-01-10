@@ -8,6 +8,7 @@ import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { TabPanel } from '@/components/tab-panel/tab-panel'
+import { useUser } from '@/modules/auth/hooks'
 import {
   useInsiderNotes,
   useLikeInsiderNote,
@@ -15,18 +16,17 @@ import {
 } from '@/modules/insider-notes/hooks'
 import { InsiderNotesTable } from '@/modules/insider-notes/table/table'
 import { InsiderNotesSortBy } from '@/modules/insider-notes/types'
-import { useLikeNote, useNotes, useUnlikeNote } from '@/modules/notes/hooks'
+import { useNotes, useUnlikeNote } from '@/modules/notes/hooks'
 import { NotesTable } from '@/modules/notes/table/table'
 import { NotesSortBy } from '@/modules/notes/types'
+import { useOnLikeNoteClick } from '@/modules/notes/utils'
 import { PlayerDetialsCard } from '@/modules/players/details-card'
 import { PlayerDto } from '@/modules/players/types'
-import {
-  useLikeReport,
-  useReports,
-  useUnlikeReport,
-} from '@/modules/reports/hooks'
+import { shouldShowPlayerRole } from '@/modules/players/utils'
+import { useReports, useUnlikeReport } from '@/modules/reports/hooks'
 import { ReportsTable } from '@/modules/reports/table/table'
 import { ReportsSortBy } from '@/modules/reports/types'
+import { useOnLikeReportClick } from '@/modules/reports/utils'
 import { useTeamAffiliations } from '@/modules/team-affiliations/hooks'
 import { TeamAffiliationsTable } from '@/modules/team-affiliations/table/team'
 import { TeamAffiliationsSortBy } from '@/modules/team-affiliations/types'
@@ -113,10 +113,10 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
       playerIds: [player?.id || ''],
     })
 
-  const { mutate: likeNote, isLoading: likeNoteLoading } = useLikeNote()
+  const { likeNote, likeNoteLoading } = useOnLikeNoteClick()
   const { mutate: unLikeNote, isLoading: unLikeNoteLoading } = useUnlikeNote()
 
-  const { mutate: likeReport, isLoading: likeReportLoading } = useLikeReport()
+  const { likeReport, likeReportLoading } = useOnLikeReportClick()
   const { mutate: unLikeReport, isLoading: unLikeReportLoading } =
     useUnlikeReport()
 
@@ -124,6 +124,8 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
     useLikeInsiderNote()
   const { mutate: unLikeInsiderNote, isLoading: unLikeInsiderNoteLoading } =
     useUnLikeInsiderNote()
+
+  const { data: user, isLoading: userLoading } = useUser()
 
   const isLoading =
     likeNoteLoading ||
@@ -135,7 +137,8 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
     teamAffiliationsLoading ||
     notesLoading ||
     reportsLoading ||
-    insiderNotesLoading
+    insiderNotesLoading ||
+    userLoading
 
   if (!player)
     return <ErrorContent message={errorMessage} status={errorStatus} />
@@ -143,7 +146,10 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
     <>
       {isLoading && <Loader />}
       <PageHeading title={`${player.firstName} ${player.lastName}`} />
-      <PlayerDetialsCard player={player} />
+      <PlayerDetialsCard
+        player={player}
+        showRole={shouldShowPlayerRole(user)}
+      />
       <Box width="100%" marginTop={theme => theme.spacing(4)}>
         <AppBar
           position="static"

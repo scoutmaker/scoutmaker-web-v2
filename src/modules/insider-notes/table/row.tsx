@@ -12,6 +12,7 @@ import { getSinglePlayerRoute } from '@/modules/players/utils'
 import { formatDate } from '@/utils/format-date'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
+import { getAuthorDisplayName } from '../../users/utils'
 import { InsiderNoteDto } from '../types'
 
 interface ITableRowProps {
@@ -42,7 +43,7 @@ export const InsiderNotesTableRow = ({
     handleMenuAction,
   } = useTableMenu()
 
-  const { player, createdAt, informant, id, likes, meta } = data
+  const { player, createdAt, informant, id, likes, author } = data
 
   const cellChangeLikedClick = () => {
     if (likes.length) onUnlikeClick(id)
@@ -96,11 +97,8 @@ export const InsiderNotesTableRow = ({
         label={`${player.firstName} ${player.lastName}`}
       />
       <StyledTableCell> {player.primaryPosition.name}</StyledTableCell>
-      <CellWithLink
-        href={`/teams/${meta?.team?.slug}`}
-        label={meta?.team ? meta.team.name : ''}
-      />
       <StyledTableCell>{informant || ''}</StyledTableCell>
+      <StyledTableCell>{getAuthorDisplayName(author)}</StyledTableCell>
       <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
     </StyledTableRow>
   )

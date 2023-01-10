@@ -7,9 +7,15 @@ interface ICountCardProps {
   title: string
   count?: number
   linkTo?: string
+  percentage?: boolean
 }
 
-export const CountCard = ({ linkTo, title, count }: ICountCardProps) => (
+export const CountCard = ({
+  linkTo,
+  title,
+  count,
+  percentage,
+}: ICountCardProps) => (
   <Card sx={{ height: '100%' }}>
     <OptionalLinkWrapper href={linkTo}>
       <CardActionArea sx={{ height: '100%' }}>
@@ -30,6 +36,7 @@ export const CountCard = ({ linkTo, title, count }: ICountCardProps) => (
             textAlign="center"
           >
             {count ? <CountUp end={count} useEasing /> : 0}
+            {percentage ? '%' : ''}
           </Typography>
         </CardContent>
       </CardActionArea>

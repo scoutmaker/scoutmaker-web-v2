@@ -3,10 +3,8 @@ import {
   Box,
   Collapse,
   IconButton,
-  Link,
   TableCell,
   TableRow,
-  Tooltip,
   Typography,
 } from '@mui/material'
 import { useRouter } from 'next/router'
@@ -32,6 +30,7 @@ import {
   getMatchDisplayName,
   getSingleMatchRoute,
 } from '@/modules/matches/utils'
+import { getPositionDisplayName } from '@/modules/player-positions/utils'
 import {
   getPlayerFullName,
   getSinglePlayerRoute,
@@ -39,7 +38,7 @@ import {
 import { formatDate } from '@/utils/format-date'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
-import { StatusChip } from '../status-chip'
+import { getAuthorDisplayName } from '../../users/utils'
 import { ReportPaginatedDataDto } from '../types'
 import { getSingleReportRoute } from '../utils'
 
@@ -47,7 +46,7 @@ interface IReportsTableRowProps {
   data: ReportPaginatedDataDto
   onEditClick: () => void
   onDeleteClick?: () => void
-  onLikeClick: (id: string) => void
+  onLikeClick: (report: ReportPaginatedDataDto) => void
   onUnlikeClick: (id: string) => void
   withoutActions?: boolean
 }
@@ -80,9 +79,6 @@ export const ReportsTableRow = ({
     match,
     percentageRating,
     player,
-    videoDescription,
-    status,
-    videoUrl,
     summary,
     meta,
     observationType,
@@ -90,7 +86,7 @@ export const ReportsTableRow = ({
 
   const cellChangeLikedClick = () => {
     if (likes.length) onUnlikeClick(id)
-    else onLikeClick(id)
+    else onLikeClick(data)
   }
 
   return (
@@ -136,7 +132,7 @@ export const ReportsTableRow = ({
                   icon={<LikeIcon fontSize="small" />}
                   text={t('ADD_TO_FAVOURITES')}
                   onClick={() => {
-                    handleMenuAction(() => onLikeClick(id))
+                    handleMenuAction(cellChangeLikedClick)
                   }}
                 />
               ) : (
@@ -144,7 +140,7 @@ export const ReportsTableRow = ({
                   icon={<UnlikeIcon fontSize="small" />}
                   text={t('REMOVE_FROM_FAVOURITES')}
                   onClick={() => {
-                    handleMenuAction(() => onUnlikeClick(id))
+                    handleMenuAction(cellChangeLikedClick)
                   }}
                 />
               )}
@@ -162,26 +158,8 @@ export const ReportsTableRow = ({
           isLiked={!!likes.length}
           onClicked={cellChangeLikedClick}
         />
-        {player ? (
-          <CellWithLink
-            href={getSinglePlayerRoute(player.slug)}
-            label={getPlayerFullName({
-              firstName: player.firstName,
-              lastName: player.lastName,
-            })}
-          />
-        ) : (
-          <StyledTableCell>-</StyledTableCell>
-        )}
-        <StyledTableCell>{meta?.position?.name || '-'}</StyledTableCell>
         <StyledTableCell>
-          {percentageRating ? (
-            <RatingChip
-              rating={parseInt(((percentageRating * 4) / 100).toFixed())}
-            />
-          ) : (
-            '-'
-          )}
+          {match ? formatDate(match.date) : '-'}
         </StyledTableCell>
         {match ? (
           <CellWithLink
@@ -195,32 +173,33 @@ export const ReportsTableRow = ({
           <StyledTableCell>-</StyledTableCell>
         )}
         <StyledTableCell>
-          {videoUrl ? (
-            <Tooltip title={videoDescription || 'video'}>
-              <Link
-                href={videoUrl}
-                onClick={(e: React.MouseEvent) => e.stopPropagation()}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <VideoIcon />
-              </Link>
-            </Tooltip>
+          {percentageRating ? (
+            <RatingChip
+              rating={parseInt(((percentageRating * 4) / 100).toFixed())}
+            />
           ) : (
             '-'
           )}
         </StyledTableCell>
+        {player ? (
+          <CellWithLink
+            href={getSinglePlayerRoute(player.slug)}
+            label={getPlayerFullName({
+              firstName: player.firstName,
+              lastName: player.lastName,
+            })}
+          />
+        ) : (
+          <StyledTableCell>-</StyledTableCell>
+        )}
         <StyledTableCell>
-          {match ? formatDate(match.date) : '-'}
+          {meta?.position ? getPositionDisplayName(meta.position) : '-'}
         </StyledTableCell>
-        <StyledTableCell>{`${author.firstName} ${author.lastName}`}</StyledTableCell>
-        <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
-        <StyledTableCell>
-          <StatusChip status={status} />
-        </StyledTableCell>
+        <StyledTableCell>{getAuthorDisplayName(author)}</StyledTableCell>
         <StyledTableCell padding="checkbox" align="center">
           {observationType === 'LIVE' ? <LiveObservationIcon /> : <VideoIcon />}
         </StyledTableCell>
+        <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
       </StyledTableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={10}>

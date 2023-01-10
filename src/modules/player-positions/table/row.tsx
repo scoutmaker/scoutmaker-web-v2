@@ -28,7 +28,7 @@ export const PlayerPositionsTableRow = ({
     handleMenuAction,
   } = useTableMenu()
 
-  const { id, name, code } = data
+  const { id, name, code, positionType } = data
 
   return (
     <StyledTableRow
@@ -50,6 +50,9 @@ export const PlayerPositionsTableRow = ({
       </StyledTableCell>
       <StyledTableCell>{name}</StyledTableCell>
       <StyledTableCell>{code}</StyledTableCell>
+      <StyledTableCell>
+        {positionType ? positionType.name : '-'}
+      </StyledTableCell>
     </StyledTableRow>
   )
 }

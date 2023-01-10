@@ -23,8 +23,8 @@ function generateHeadCells(t: TFunction): IHeadCell[] {
     { id: 'favourite', label: '' },
     { id: 'player', label: t('PLAYER') },
     { id: 'position', label: t('PRIMARY_POSITION'), isSortingDisabled: true },
-    { id: 'team', label: t('TEAM'), isSortingDisabled: true },
     { id: 'informant', label: t('INFORMANT'), isSortingDisabled: true },
+    { id: 'author', label: t('SCOUT'), isSortingDisabled: true },
     { id: 'createdAt', label: t('CREATED_AT') },
   ]
 }

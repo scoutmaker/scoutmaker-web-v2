@@ -1,4 +1,5 @@
 import { IComboOptions, IStandardComboOptions } from '@/components/combo/types'
+import { IPlayerPositionTypeComboOptions } from '@/modules/player-position-types/types'
 
 import { ICompetitionGroupComboOptions } from '../competition-groups/types'
 import { ICompetitionComboOptions } from '../competitions/types'
@@ -25,6 +26,7 @@ export type FindAllInsiderNotesParams = Pick<
   | 'sortBy'
   | 'sortingOrder'
   | 'teamIds'
+  | 'positionTypeIds'
 >
 
 export type InsiderNotesFiltersDto = Pick<
@@ -35,6 +37,7 @@ export type InsiderNotesFiltersDto = Pick<
   | 'playerIds'
   | 'positionIds'
   | 'teamIds'
+  | 'positionTypeIds'
 >
 
 export type InsiderNotesFiltersState = Omit<
@@ -44,11 +47,13 @@ export type InsiderNotesFiltersState = Omit<
   | 'playerIds'
   | 'positionIds'
   | 'teamIds'
+  | 'positionTypeIds'
 > & {
   competitionGroupIds: ICompetitionGroupComboOptions[]
   competitionIds: ICompetitionComboOptions[]
   playerIds: IPlayerComboOptions[]
   positionIds: IPlayerPositionComboOptions[]
+  positionTypeIds: IPlayerPositionTypeComboOptions[]
   teamIds: IStandardComboOptions[]
 }
 

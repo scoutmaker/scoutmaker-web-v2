@@ -25,6 +25,7 @@ import {
   OrganizationsIcon,
   OrganizationSubscriptionsIcon,
   PlayerPositionIcon,
+  PlayerRoleIcon,
   PlayersIcon,
   ProfileIcon,
   QuickNoteIcon,
@@ -116,6 +117,11 @@ export const NavList = ({ matchAttendance }: INavListProps) => {
           icon={<InsiderNotesIcon color="error" />}
           to="/insider-notes"
           text={t('INSIDER_NOTES')}
+        />
+        <NavElement
+          icon={<PlayerRoleIcon color="error" />}
+          to="/player-roles"
+          text={t('PLAYER_ROLES')}
         />
       </ExpandeableNavElement>
       {isPrivilegedUser(user) ? (
@@ -230,6 +236,11 @@ export const NavList = ({ matchAttendance }: INavListProps) => {
             icon={<UsersIcon color="error" />}
             to="/users"
             text={t('USERS')}
+          />
+          <NavElement
+            icon={<UsersIcon color="error" />}
+            to="/scout-profiles"
+            text={t('SCOUTS')}
           />
           <NavElement
             icon={<UserSubscriptionsIcon color="error" />}

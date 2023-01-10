@@ -36,6 +36,9 @@ declare namespace Components {
             name: string;
             slug: string;
         }
+        export interface ClubCount {
+            teams: number;
+        }
         export interface ClubDto {
             id: string;
             name: string;
@@ -50,6 +53,7 @@ declare namespace Components {
             instagram?: string;
             country: CountryDto;
             region: RegionWithoutCountryDto;
+            _count: ClubCount;
         }
         export interface CompetitionAgeCategoryDto {
             id: string;
@@ -214,6 +218,7 @@ declare namespace Components {
             competitionId: string;
             groupId?: string;
             seasonId: string;
+            transfermarktUrl?: string;
         }
         export interface CreateNoteDto {
             id?: string;
@@ -282,11 +287,33 @@ declare namespace Components {
             transfermarktUrl?: string;
             scoutmakerv1Id?: string;
             isPublic?: boolean;
+            roleId?: string;
         }
         export interface CreatePlayerPositionDto {
             id?: string;
             name: string;
             code: string;
+            playerPositionTypeId: string;
+        }
+        export interface CreatePlayerPositionTypeDto {
+            id?: string;
+            name: string;
+            code: string;
+        }
+        export interface CreatePlayerRoleDto {
+            id?: string;
+            name: string;
+            positionTypeId: string;
+            altName?: string;
+            description?: string;
+            isPublished?: boolean;
+        }
+        export interface CreatePlayerRoleExampleDto {
+            id?: string;
+            player: string;
+            type: string;
+            roleId: string;
+            isPublished?: boolean;
         }
         export interface CreatePlayerStatsDto {
             id?: string;
@@ -359,6 +386,12 @@ declare namespace Components {
             maxRatingScore: number;
             isPublic?: boolean;
             skillAssessmentTemplateIds: string[];
+        }
+        export interface CreateScoutProfileDto {
+            userId: string;
+            cooperationStartDate?: string;
+            description?: string;
+            rating?: number;
         }
         export interface CreateSeasonDto {
             id?: string;
@@ -441,6 +474,12 @@ declare namespace Components {
             topReports?: DashboardReportDto[];
             topPlayers?: DashboardPlayerDto[];
         }
+        export interface DashboardMatchDto {
+            id: string;
+            date: string; // date-time
+            homeTeam: TeamBasicDataDto;
+            awayTeam: TeamBasicDataDto;
+        }
         export interface DashboardNoteDto {
             player?: PlayerSuperBasicDataDto;
             id: string;
@@ -472,14 +511,16 @@ declare namespace Components {
             primaryPosition: PlayerPositionDto;
             secondaryPositions: PlayerPositionDto[];
             likes: LikePlayerBasicDataDto[];
+            averagePercentageRating: number;
+            role: PlayerRoleBasicDataDto;
             _count: Count;
         }
         export interface DashboardReportDto {
+            match: DashboardMatchDto;
             id: string;
             player: PlayerSuperBasicDataDto;
             createdAt: string; // date-time
             finalRating?: number;
-            match?: MatchBasicDataDto;
             docNumber: number;
         }
         export interface DashboardTeamAffiliationDto {
@@ -599,6 +640,7 @@ declare namespace Components {
             homeGoals?: number;
             awayGoals?: number;
             videoUrl?: string;
+            transfermarktUrl?: string;
             homeTeam: TeamBasicDataDto;
             awayTeam: TeamBasicDataDto;
             competition: CompetitionBasicDataDto;
@@ -773,12 +815,44 @@ declare namespace Components {
             secondaryPositions: PlayerPositionDto[];
             teams: TeamAffiliationWithoutPlayerDto[];
             likes: LikePlayerBasicDataDto[];
+            averagePercentageRating: number;
+            role: PlayerRoleBasicDataDto;
             _count: Count;
         }
         export interface PlayerPositionDto {
             id: string;
             name: string;
             code: string;
+            positionType: PlayerPositionTypeDto;
+        }
+        export interface PlayerPositionTypeDto {
+            id: string;
+            name: string;
+            code: string;
+        }
+        export interface PlayerRoleBasicDataDto {
+            id: string;
+            name: string;
+            description: string;
+        }
+        export interface PlayerRoleDto {
+            id: string;
+            name: string;
+            altName: string;
+            description: string;
+            positionType: PlayerPositionTypeDto;
+            examples: PlayerRoleExampleWithoutRoleDto[];
+        }
+        export interface PlayerRoleExampleDto {
+            id: string;
+            player: string;
+            type: string;
+            role: PlayerRoleBasicDataDto;
+        }
+        export interface PlayerRoleExampleWithoutRoleDto {
+            id: string;
+            player: string;
+            type: string;
         }
         export interface PlayerStatsDto {
             id: string;
@@ -931,6 +1005,19 @@ declare namespace Components {
             maxRatingScore: number;
             skillAssessmentTemplates: ReportSkillAssessmentTemplateDto[];
         }
+        export interface ScoutProfileDto {
+            id: string;
+            cooperationStartDate?: string; // date-time
+            description?: string;
+            rating?: number;
+            user: UserBasicDataDto;
+        }
+        export interface ScoutProfileWithoutUserDto {
+            id: string;
+            cooperationStartDate?: string; // date-time
+            description?: string;
+            rating?: number;
+        }
         export interface SeasonBasicDataDto {
             id: string;
             name: string;
@@ -1068,6 +1155,7 @@ declare namespace Components {
             competitionId?: string;
             groupId?: string;
             seasonId?: string;
+            transfermarktUrl?: string;
         }
         export interface UpdateNoteDto {
             shirtNo?: number;
@@ -1106,6 +1194,7 @@ declare namespace Components {
             newPasswordConfirm: string;
         }
         export interface UpdatePlayerDto {
+            averagePercentageRating?: number;
             firstName?: string;
             lastName?: string;
             countryId?: string;
@@ -1123,10 +1212,29 @@ declare namespace Components {
             transfermarktUrl?: string;
             scoutmakerv1Id?: string;
             isPublic?: boolean;
+            roleId?: string;
         }
         export interface UpdatePlayerPositionDto {
             name?: string;
             code?: string;
+            playerPositionTypeId?: string;
+        }
+        export interface UpdatePlayerPositionTypeDto {
+            name?: string;
+            code?: string;
+        }
+        export interface UpdatePlayerRoleDto {
+            name?: string;
+            positionTypeId?: string;
+            altName?: string;
+            description?: string;
+            isPublished?: boolean;
+        }
+        export interface UpdatePlayerRoleExampleDto {
+            player?: string;
+            type?: string;
+            roleId?: string;
+            isPublished?: boolean;
         }
         export interface UpdatePlayerStatsDto {
             playerId?: string;
@@ -1187,6 +1295,12 @@ declare namespace Components {
             isPublic?: boolean;
             skillAssessmentTemplateIds?: string[];
         }
+        export interface UpdateScoutProfileDto {
+            userId?: string;
+            cooperationStartDate?: string;
+            description?: string;
+            rating?: number;
+        }
         export interface UpdateSeasonDto {
             name?: string;
             startDate?: string;
@@ -1237,6 +1351,7 @@ declare namespace Components {
             firstName: string;
             lastName: string;
             email: string;
+            profile?: ScoutProfileWithoutUserDto;
         }
         export interface UserDto {
             role: "SCOUT" | "PLAYMAKER_SCOUT" | "PLAYMAKER_SCOUT_MANAGER" | "ADMIN";
@@ -1251,6 +1366,7 @@ declare namespace Components {
             region: RegionDto;
             club?: ClubBasicDataDto;
             footballRole?: UserFootballRoleDto;
+            profile?: ScoutProfileWithoutUserDto;
             _count: Count;
             organizationId?: string;
         }
@@ -2530,6 +2646,7 @@ declare namespace Paths {
             export type Page = number;
             export type PlayerIds = string[];
             export type PositionIds = string[];
+            export type PositionTypeIds = string[];
             export type SortBy = "id" | "player" | "createdAt";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
@@ -2537,6 +2654,7 @@ declare namespace Paths {
         export interface QueryParameters {
             playerIds?: Parameters.PlayerIds;
             positionIds?: Parameters.PositionIds;
+            positionTypeIds?: Parameters.PositionTypeIds;
             teamIds?: Parameters.TeamIds;
             competitionIds?: Parameters.CompetitionIds;
             competitionGroupIds?: Parameters.CompetitionGroupIds;
@@ -2829,7 +2947,7 @@ declare namespace Paths {
             export type OrderId = string;
             export type Page = number;
             export type SeasonId = string;
-            export type SortBy = "id" | "date" | "homeTeam" | "awayTeam" | "competition" | "group" | "season" | "reportsCount" | "notesCount" | "videoUrl";
+            export type SortBy = "id" | "date" | "homeTeam" | "awayTeam" | "competition" | "group" | "season" | "reportsCount" | "notesCount" | "videoUrl" | "updatedAt";
             export type SortingOrder = "asc" | "desc";
             export type TeamId = string;
         }
@@ -2963,15 +3081,18 @@ declare namespace Paths {
             export type ObservationType = "LIVE" | "VIDEO";
             export type OnlyLikedPlayers = boolean;
             export type OnlyLikedTeams = boolean;
+            export type OnlyMine = boolean;
             export type OnlyWithoutPlayers = boolean;
             export type Page = number;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
+            export type PercentageRatingRanges = ("ALL" | "NEGATIVE_SELECTION" | "NO_DECISION" | "TO_OBSERVE" | "POSITIVE_SELECTION")[];
             export type PlayerBornAfter = number;
             export type PlayerBornBefore = number;
             export type PlayerIds = string[];
             export type PositionIds = string[];
-            export type SortBy = "id" | "player" | "positionPlayed" | "percentageRating" | "match" | "author" | "createdAt";
+            export type PositionTypeIds = string[];
+            export type SortBy = "id" | "player" | "positionPlayed" | "percentageRating" | "match" | "author" | "createdAt" | "percentageRating_createdAt";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
             export type UserId = string;
@@ -2979,12 +3100,14 @@ declare namespace Paths {
         export interface QueryParameters {
             playerIds?: Parameters.PlayerIds;
             positionIds?: Parameters.PositionIds;
+            positionTypeIds?: Parameters.PositionTypeIds;
             teamIds?: Parameters.TeamIds;
             matchIds?: Parameters.MatchIds;
             competitionIds?: Parameters.CompetitionIds;
             competitionGroupIds?: Parameters.CompetitionGroupIds;
             percentageRatingRangeStart?: Parameters.PercentageRatingRangeStart;
             percentageRatingRangeEnd?: Parameters.PercentageRatingRangeEnd;
+            percentageRatingRanges?: Parameters.PercentageRatingRanges;
             playerBornAfter?: Parameters.PlayerBornAfter;
             playerBornBefore?: Parameters.PlayerBornBefore;
             isLiked?: Parameters.IsLiked;
@@ -2993,6 +3116,7 @@ declare namespace Paths {
             onlyLikedTeams?: Parameters.OnlyLikedTeams;
             onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
             onlyWithoutPlayers?: Parameters.OnlyWithoutPlayers;
+            onlyMine?: Parameters.OnlyMine;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -3750,6 +3874,115 @@ declare namespace Paths {
             }
         }
     }
+    namespace PlayerPositionTypesControllerCreate {
+        export type RequestBody = Components.Schemas.CreatePlayerPositionTypeDto;
+        namespace Responses {
+            export interface $201 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerPositionTypeDto;
+            }
+        }
+    }
+    namespace PlayerPositionTypesControllerFindAll {
+        namespace Parameters {
+            export type Code = string;
+            export type Limit = number;
+            export type Name = string;
+            export type Page = number;
+            export type SortBy = "id" | "name" | "code";
+            export type SortingOrder = "asc" | "desc";
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            code?: Parameters.Code;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.PlayerPositionTypeDto[];
+                };
+            }
+        }
+    }
+    namespace PlayerPositionTypesControllerFindOne {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerPositionTypeDto;
+            }
+        }
+    }
+    namespace PlayerPositionTypesControllerGetList {
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerPositionTypeDto[];
+            }
+        }
+    }
+    namespace PlayerPositionTypesControllerRemove {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerPositionTypeDto;
+            }
+        }
+    }
+    namespace PlayerPositionTypesControllerUpdate {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        export type RequestBody = Components.Schemas.UpdatePlayerPositionTypeDto;
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerPositionTypeDto;
+            }
+        }
+    }
+    namespace PlayerPositionTypesControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
+            }
+        }
+    }
     namespace PlayerPositionsControllerCreate {
         export type RequestBody = Components.Schemas.CreatePlayerPositionDto;
         namespace Responses {
@@ -3851,6 +4084,228 @@ declare namespace Paths {
         }
     }
     namespace PlayerPositionsControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
+            }
+        }
+    }
+    namespace PlayerRoleExamplesControllerCreate {
+        export type RequestBody = Components.Schemas.CreatePlayerRoleExampleDto;
+        namespace Responses {
+            export interface $201 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerRoleExampleDto;
+            }
+        }
+    }
+    namespace PlayerRoleExamplesControllerFindAll {
+        namespace Parameters {
+            export type Limit = number;
+            export type Page = number;
+            export type Player = string;
+            export type RoleIds = string[];
+            export type SortBy = "id" | "player" | "type";
+            export type SortingOrder = "asc" | "desc";
+            export type Type = string;
+        }
+        export interface QueryParameters {
+            player?: Parameters.Player;
+            type?: Parameters.Type;
+            roleIds?: Parameters.RoleIds;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.PlayerRoleExampleDto[];
+                };
+            }
+        }
+    }
+    namespace PlayerRoleExamplesControllerFindOne {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerRoleExampleDto;
+            }
+        }
+    }
+    namespace PlayerRoleExamplesControllerGetList {
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerRoleExampleDto[];
+            }
+        }
+    }
+    namespace PlayerRoleExamplesControllerRemove {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerRoleExampleDto;
+            }
+        }
+    }
+    namespace PlayerRoleExamplesControllerUpdate {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        export type RequestBody = Components.Schemas.UpdatePlayerRoleExampleDto;
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerRoleExampleDto;
+            }
+        }
+    }
+    namespace PlayerRoleExamplesControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
+            }
+        }
+    }
+    namespace PlayerRolesControllerCreate {
+        export type RequestBody = Components.Schemas.CreatePlayerRoleDto;
+        namespace Responses {
+            export interface $201 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerRoleDto;
+            }
+        }
+    }
+    namespace PlayerRolesControllerFindAll {
+        namespace Parameters {
+            export type AltName = string;
+            export type Limit = number;
+            export type Name = string;
+            export type Page = number;
+            export type PositionTypeIds = string[];
+            export type SortBy = "id" | "name" | "altName" | "positionTypeId";
+            export type SortingOrder = "asc" | "desc";
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            altName?: Parameters.AltName;
+            positionTypeIds?: Parameters.PositionTypeIds;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.PlayerRoleDto[];
+                };
+            }
+        }
+    }
+    namespace PlayerRolesControllerFindOne {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerRoleDto;
+            }
+        }
+    }
+    namespace PlayerRolesControllerGetList {
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerRoleDto[];
+            }
+        }
+    }
+    namespace PlayerRolesControllerRemove {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerRoleDto;
+            }
+        }
+    }
+    namespace PlayerRolesControllerUpdate {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        export type RequestBody = Components.Schemas.UpdatePlayerRoleDto;
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerRoleDto;
+            }
+        }
+    }
+    namespace PlayerRolesControllerUploadFile {
         export interface RequestBody {
             file?: string; // binary
         }
@@ -3975,11 +4430,15 @@ declare namespace Paths {
             export type HasReport = boolean;
             export type IsLiked = boolean;
             export type Limit = number;
+            export type MaxAverageRating = number;
+            export type MinAverageRating = number;
             export type Name = string;
             export type OrderId = string;
             export type Page = number;
             export type PositionIds = string[];
-            export type SortBy = "id" | "firstName" | "lastName" | "yearOfBirth" | "height" | "weight" | "footed" | "country" | "primaryPosition" | "reportsCount" | "notesCount";
+            export type PositionTypeIds = string[];
+            export type RoleIds = string[];
+            export type SortBy = "id" | "firstName" | "lastName" | "yearOfBirth" | "height" | "weight" | "footed" | "country" | "primaryPosition" | "reportsCount" | "notesCount" | "updatedAt" | "averagePercentageRating";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
         }
@@ -3990,14 +4449,18 @@ declare namespace Paths {
             footed?: Parameters.Footed;
             countryIds?: Parameters.CountryIds;
             positionIds?: Parameters.PositionIds;
+            positionTypeIds?: Parameters.PositionTypeIds;
             teamIds?: Parameters.TeamIds;
             competitionIds?: Parameters.CompetitionIds;
             competitionGroupIds?: Parameters.CompetitionGroupIds;
+            roleIds?: Parameters.RoleIds;
             orderId?: Parameters.OrderId;
             isLiked?: Parameters.IsLiked;
             hasNote?: Parameters.HasNote;
             hasReport?: Parameters.HasReport;
             hasAnyObservation?: Parameters.HasAnyObservation;
+            minAverageRating?: Parameters.MinAverageRating;
+            maxAverageRating?: Parameters.MaxAverageRating;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -4063,9 +4526,13 @@ declare namespace Paths {
             export type HasNote = boolean;
             export type HasReport = boolean;
             export type IsLiked = boolean;
+            export type MaxAverageRating = number;
+            export type MinAverageRating = number;
             export type Name = string;
             export type OrderId = string;
             export type PositionIds = string[];
+            export type PositionTypeIds = string[];
+            export type RoleIds = string[];
             export type TeamIds = string[];
         }
         export interface QueryParameters {
@@ -4075,14 +4542,18 @@ declare namespace Paths {
             footed?: Parameters.Footed;
             countryIds?: Parameters.CountryIds;
             positionIds?: Parameters.PositionIds;
+            positionTypeIds?: Parameters.PositionTypeIds;
             teamIds?: Parameters.TeamIds;
             competitionIds?: Parameters.CompetitionIds;
             competitionGroupIds?: Parameters.CompetitionGroupIds;
+            roleIds?: Parameters.RoleIds;
             orderId?: Parameters.OrderId;
             isLiked?: Parameters.IsLiked;
             hasNote?: Parameters.HasNote;
             hasReport?: Parameters.HasReport;
             hasAnyObservation?: Parameters.HasAnyObservation;
+            minAverageRating?: Parameters.MinAverageRating;
+            maxAverageRating?: Parameters.MaxAverageRating;
         }
         namespace Responses {
             export interface $200 {
@@ -4718,14 +5189,17 @@ declare namespace Paths {
             export type ObservationType = "LIVE" | "VIDEO";
             export type OnlyLikedPlayers = boolean;
             export type OnlyLikedTeams = boolean;
+            export type OnlyMine = boolean;
             export type Page = number;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
+            export type PercentageRatingRanges = ("ALL" | "NEGATIVE_SELECTION" | "NO_DECISION" | "TO_OBSERVE" | "POSITIVE_SELECTION")[];
             export type PlayerBornAfter = number;
             export type PlayerBornBefore = number;
             export type PlayerIds = string[];
             export type PositionIds = string[];
-            export type SortBy = "id" | "player" | "positionPlayed" | "finalRating" | "percentageRating" | "videoUrl" | "author" | "createdAt" | "status";
+            export type PositionTypeIds = string[];
+            export type SortBy = "id" | "player" | "positionPlayed" | "finalRating" | "percentageRating" | "videoUrl" | "author" | "createdAt" | "status" | "match";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
             export type UserId = string;
@@ -4733,12 +5207,14 @@ declare namespace Paths {
         export interface QueryParameters {
             playerIds?: Parameters.PlayerIds;
             positionIds?: Parameters.PositionIds;
+            positionTypeIds?: Parameters.PositionTypeIds;
             matchIds?: Parameters.MatchIds;
             teamIds?: Parameters.TeamIds;
             competitionIds?: Parameters.CompetitionIds;
             competitionGroupIds?: Parameters.CompetitionGroupIds;
             percentageRatingRangeStart?: Parameters.PercentageRatingRangeStart;
             percentageRatingRangeEnd?: Parameters.PercentageRatingRangeEnd;
+            percentageRatingRanges?: Parameters.PercentageRatingRanges;
             playerBornAfter?: Parameters.PlayerBornAfter;
             playerBornBefore?: Parameters.PlayerBornBefore;
             hasVideo?: Parameters.HasVideo;
@@ -4747,6 +5223,7 @@ declare namespace Paths {
             observationType?: Parameters.ObservationType;
             onlyLikedTeams?: Parameters.OnlyLikedTeams;
             onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
+            onlyMine?: Parameters.OnlyMine;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -4795,24 +5272,29 @@ declare namespace Paths {
             export type ObservationType = "LIVE" | "VIDEO";
             export type OnlyLikedPlayers = boolean;
             export type OnlyLikedTeams = boolean;
+            export type OnlyMine = boolean;
             export type PercentageRatingRangeEnd = number;
             export type PercentageRatingRangeStart = number;
+            export type PercentageRatingRanges = ("ALL" | "NEGATIVE_SELECTION" | "NO_DECISION" | "TO_OBSERVE" | "POSITIVE_SELECTION")[];
             export type PlayerBornAfter = number;
             export type PlayerBornBefore = number;
             export type PlayerIds = string[];
             export type PositionIds = string[];
+            export type PositionTypeIds = string[];
             export type TeamIds = string[];
             export type UserId = string;
         }
         export interface QueryParameters {
             playerIds?: Parameters.PlayerIds;
             positionIds?: Parameters.PositionIds;
+            positionTypeIds?: Parameters.PositionTypeIds;
             matchIds?: Parameters.MatchIds;
             teamIds?: Parameters.TeamIds;
             competitionIds?: Parameters.CompetitionIds;
             competitionGroupIds?: Parameters.CompetitionGroupIds;
             percentageRatingRangeStart?: Parameters.PercentageRatingRangeStart;
             percentageRatingRangeEnd?: Parameters.PercentageRatingRangeEnd;
+            percentageRatingRanges?: Parameters.PercentageRatingRanges;
             playerBornAfter?: Parameters.PlayerBornAfter;
             playerBornBefore?: Parameters.PlayerBornBefore;
             hasVideo?: Parameters.HasVideo;
@@ -4821,6 +5303,7 @@ declare namespace Paths {
             observationType?: Parameters.ObservationType;
             onlyLikedTeams?: Parameters.OnlyLikedTeams;
             onlyLikedPlayers?: Parameters.OnlyLikedPlayers;
+            onlyMine?: Parameters.OnlyMine;
         }
         namespace Responses {
             export interface $200 {
@@ -4862,6 +5345,56 @@ declare namespace Paths {
         }
     }
     namespace ReportsControllerUploadFile {
+        export interface RequestBody {
+            file?: string; // binary
+        }
+        namespace Responses {
+            export interface $201 {
+            }
+        }
+    }
+    namespace ScoutProfilesControllerCreate {
+        export type RequestBody = Components.Schemas.CreateScoutProfileDto;
+        namespace Responses {
+            export interface $201 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.ScoutProfileDto;
+            }
+        }
+    }
+    namespace ScoutProfilesControllerRemove {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.ScoutProfileDto;
+            }
+        }
+    }
+    namespace ScoutProfilesControllerUpdate {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        export type RequestBody = Components.Schemas.UpdateScoutProfileDto;
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.ScoutProfileDto;
+            }
+        }
+    }
+    namespace ScoutProfilesControllerUploadFile {
         export interface RequestBody {
             file?: string; // binary
         }
@@ -5761,6 +6294,7 @@ declare namespace Paths {
         namespace Parameters {
             export type ClubIds = string[];
             export type FootballRoleIds = string[];
+            export type HasScoutProfile = boolean;
             export type Limit = number;
             export type Name = string;
             export type Page = number;
@@ -5775,6 +6309,7 @@ declare namespace Paths {
             regionIds?: Parameters.RegionIds;
             clubIds?: Parameters.ClubIds;
             footballRoleIds?: Parameters.FootballRoleIds;
+            hasScoutProfile?: Parameters.HasScoutProfile;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;

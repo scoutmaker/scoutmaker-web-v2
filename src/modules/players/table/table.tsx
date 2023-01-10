@@ -12,22 +12,25 @@ interface IPlayersTableProps extends ICommonTableProps {
   handleDeleteItemClick: (data: INameToDeleteData) => void
   onLikeClick: (id: string) => void
   onUnLikeClick: (id: string) => void
+  showRole?: boolean
 }
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
     { id: 'favourite', label: '', isSortingDisabled: true },
+    { id: 'country', label: t('COUNTRY') },
     { id: 'lastName', label: t('LAST_NAME') },
     { id: 'firstName', label: t('FIRST_NAME') },
-    { id: 'country', label: t('COUNTRY') },
     { id: 'team', label: t('TEAM') },
-    { id: 'primaryPosition', label: t('PRIMARY_POSITION') },
     { id: 'yearOfBirth', label: t('YEAR_OF_BIRTH') },
-    { id: 'height', label: t('HEIGHT') },
-    { id: 'weight', label: t('WEIGHT') },
-    { id: 'footed', label: t('FOOTED') },
-    { id: 'reportsCount', label: t('REPORTS_COUNT') },
-    { id: 'notesCount', label: t('NOTES_COUNT') },
+    { id: 'primaryPosition', label: t('PRIMARY_POSITION') },
+    { id: 'footed', label: t('FOOTED'), isSortingDisabled: true },
+    {
+      id: 'averagePercentageRating',
+      label: t('AVG_RATING'),
+    },
+    { id: 'reportsCount', label: t('REPORTS') },
+    { id: 'notesCount', label: t('NOTES') },
   ]
 }
 
@@ -45,6 +48,7 @@ export const PlayersTable = ({
   handleDeleteItemClick,
   onLikeClick,
   onUnLikeClick,
+  showRole,
 }: IPlayersTableProps) => {
   const { t } = useTranslation()
   const router = useRouter()
@@ -75,6 +79,7 @@ export const PlayersTable = ({
           }
           onLikeClick={onLikeClick}
           onUnlikeClick={onUnLikeClick}
+          showRole={showRole}
         />
       ))}
     </Table>

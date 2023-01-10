@@ -4,16 +4,18 @@ import {
   FavoriteBorder as LikeIcon,
   Note as NotesIcon,
 } from '@mui/icons-material'
-import { Badge, Link as MUILink } from '@mui/material'
-import Link from 'next/link'
+import { Badge } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { LikedTableCell } from '@/components/likedTableCell/likedTableCell'
 import { StyledTableCell } from '@/components/tables/cell'
+import { CellWithLink } from '@/components/tables/cell-with-link'
 import { TableMenu } from '@/components/tables/menu'
 import { TableMenuItem } from '@/components/tables/menu-item'
 import { StyledTableRow } from '@/components/tables/row'
+import { getPositionDisplayName } from '@/modules/player-positions/utils'
+import { calculateRating } from '@/utils/calculate-rating'
 import { getFlagEmoji } from '@/utils/get-flag-emoji'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
@@ -25,6 +27,7 @@ interface IPlayersTableRowProps {
   onDeleteClick: () => void
   onLikeClick: (id: string) => void
   onUnlikeClick: (id: string) => void
+  showRole?: boolean
 }
 
 export const PlayersTableRow = ({
@@ -33,6 +36,7 @@ export const PlayersTableRow = ({
   onDeleteClick,
   onLikeClick,
   onUnlikeClick,
+  showRole,
 }: IPlayersTableRowProps) => {
   const { t } = useTranslation()
   const router = useRouter()
@@ -54,11 +58,11 @@ export const PlayersTableRow = ({
     primaryPosition,
     teams,
     footed,
-    height,
-    weight,
     country,
     yearOfBirth,
     _count: count,
+    averagePercentageRating,
+    role,
   } = data
 
   const cellChangeLikedClick = () => {
@@ -104,23 +108,30 @@ export const PlayersTableRow = ({
         isLiked={!!likes.length}
         onClicked={cellChangeLikedClick}
       />
-      <StyledTableCell>{lastName}</StyledTableCell>
-      <StyledTableCell>{firstName}</StyledTableCell>
       <StyledTableCell sx={{ minWidth: 100 }}>{`${getFlagEmoji(country.code)} ${
         country.name
       }`}</StyledTableCell>
-      <StyledTableCell sx={{ minWidth: 150 }}>
-        <Link href={`/teams/${teams[0]?.team?.slug}`} passHref>
-          <MUILink onClick={e => e.stopPropagation()}>
-            {teams[0]?.team?.name}
-          </MUILink>
-        </Link>
-      </StyledTableCell>
-      <StyledTableCell>{primaryPosition.name}</StyledTableCell>
+      <CellWithLink href={`/players/${slug}`} label={lastName} />
+      <CellWithLink href={`/players/${slug}`} label={firstName} />
+      <CellWithLink
+        href={`/teams/${teams[0]?.team?.slug}`}
+        label={teams[0]?.team?.name}
+      />
       <StyledTableCell>{yearOfBirth}</StyledTableCell>
-      <StyledTableCell>{height}</StyledTableCell>
-      <StyledTableCell>{weight}</StyledTableCell>
+      <StyledTableCell>
+        {getPositionDisplayName(primaryPosition)}
+        {showRole && role && (
+          <>
+            <br />({role.name})
+          </>
+        )}
+      </StyledTableCell>
       <StyledTableCell>{t(footed)}</StyledTableCell>
+      <StyledTableCell>
+        {typeof averagePercentageRating === 'number'
+          ? calculateRating(averagePercentageRating)
+          : '-'}
+      </StyledTableCell>
       <StyledTableCell align="center">
         <Badge badgeContent={count.reports || '0'} color="secondary">
           <NotesIcon />

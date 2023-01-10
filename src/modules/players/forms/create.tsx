@@ -7,6 +7,7 @@ import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { CountryDto } from '@/modules/countries/types'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
+import { PlayerRoleDto } from '@/modules/player-roles/types'
 import { CreatePlayerDto } from '@/modules/players/types'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
@@ -17,9 +18,11 @@ interface ICreatePlayerFormProps {
   positionsData: PlayerPositionDto[]
   countriesData: CountryDto[]
   teamsData: TeamBasicDataDto[]
+  playerRolesData: PlayerRoleDto[]
   onSubmit: (data: CreatePlayerDto) => void
   onCancelClick?: () => void
   fullwidth?: boolean
+  showRoleField: boolean
 }
 
 export const CreatePlayerForm = ({
@@ -29,6 +32,8 @@ export const CreatePlayerForm = ({
   positionsData,
   teamsData,
   countriesData,
+  showRoleField,
+  playerRolesData,
 }: ICreatePlayerFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -51,6 +56,8 @@ export const CreatePlayerForm = ({
               countriesData={countriesData}
               positionsData={positionsData}
               teamsData={teamsData}
+              showRoleField={showRoleField}
+              playerRolesData={playerRolesData}
             />
             <MainFormActions
               label={t('PLAYER')}

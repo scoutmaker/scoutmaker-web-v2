@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next'
 
 import { FilterCombo } from '@/components/combo/combo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
+import FilteredCompetitonGroups from '@/components/filteredCompetitionGroups/filteredCompetitonGroups'
 import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
@@ -11,8 +12,8 @@ import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types
 import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
-import { PlayerPositionDto } from '@/modules/player-positions/types'
-import { mapPlayerPositionsToComboOptions } from '@/modules/player-positions/utils'
+import { PlayerPositionTypeDto } from '@/modules/player-position-types/types'
+import { mapPlayerPositionTypesToComboOptions } from '@/modules/player-position-types/utils'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 import { TeamBasicDataDto } from '@/modules/teams/types'
@@ -27,7 +28,7 @@ interface IFilterFormProps {
   teamsData: TeamBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
-  playerPositionsData: PlayerPositionDto[]
+  playerPositionTypesData: PlayerPositionTypeDto[]
 }
 
 export const InsiderNotesFilterForm = ({
@@ -38,7 +39,7 @@ export const InsiderNotesFilterForm = ({
   teamsData,
   competitionsData,
   competitionGroupsData,
-  playerPositionsData,
+  playerPositionTypesData,
 }: IFilterFormProps) => {
   const { t } = useTranslation()
 
@@ -51,7 +52,7 @@ export const InsiderNotesFilterForm = ({
       }}
       enableReinitialize
     >
-      {() => (
+      {({ values }) => (
         <Form autoComplete="off">
           <FilterFormContainer>
             <FilterCombo
@@ -63,9 +64,11 @@ export const InsiderNotesFilterForm = ({
               filterBeforeComma
             />
             <FilterCombo
-              data={mapPlayerPositionsToComboOptions(playerPositionsData)}
-              label={t('POSITIONS')}
-              name="positionIds"
+              data={mapPlayerPositionTypesToComboOptions(
+                playerPositionTypesData,
+              )}
+              label={t('POSITION_TYPES')}
+              name="positionTypeIds"
               size="small"
               multiple
             />
@@ -83,13 +86,14 @@ export const InsiderNotesFilterForm = ({
               size="small"
               multiple
             />
-            <FilterCombo
-              data={mapCompetitionGroupsListToComboOptions(
+            <FilteredCompetitonGroups
+              competitionGroupsData={mapCompetitionGroupsListToComboOptions(
                 competitionGroupsData,
               )}
+              competitionsFormValue={values.competitionIds}
               label={t('COMPETITION_GROUPS')}
-              size="small"
               name="competitionGroupIds"
+              size="small"
               multiple
             />
           </FilterFormContainer>

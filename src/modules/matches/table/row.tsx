@@ -1,9 +1,8 @@
 import {
   Assessment as ReportsIcon,
   Note as NotesIcon,
-  Tv as TvIcon,
 } from '@mui/icons-material'
-import { Badge, Link } from '@mui/material'
+import { Badge } from '@mui/material'
 import { useRouter } from 'next/router'
 
 import { LiveObservationIcon, VideoIcon } from '@/components/icons'
@@ -50,7 +49,6 @@ export const MatchesTableRow = ({
     date,
     awayGoals,
     homeGoals,
-    videoUrl,
     _count: count,
     observationType,
   } = data
@@ -75,27 +73,14 @@ export const MatchesTableRow = ({
           />
         </StyledTableCell>
       )}
-      <CellWithLink href={`/teams/${homeTeam.slug}`} label={homeTeam.name} />
-      <CellWithLink href={`/teams/${awayTeam.slug}`} label={awayTeam.name} />
       <StyledTableCell sx={{ minWidth: 150 }}>
         {formatDate(date)}
       </StyledTableCell>
+      <CellWithLink href={`/teams/${homeTeam.slug}`} label={homeTeam.name} />
+      <CellWithLink href={`/teams/${awayTeam.slug}`} label={awayTeam.name} />
       <StyledTableCell>{competition.name}</StyledTableCell>
       <StyledTableCell>{group?.name}</StyledTableCell>
-      <StyledTableCell>{season.name}</StyledTableCell>
       <StyledTableCell>{getMatchResult(homeGoals, awayGoals)}</StyledTableCell>
-      <StyledTableCell align="center">
-        {videoUrl ? (
-          <Link
-            href={videoUrl}
-            onClick={e => e.stopPropagation()}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <TvIcon />
-          </Link>
-        ) : null}
-      </StyledTableCell>
       <StyledTableCell align="center">
         <Badge badgeContent={count.reports || '0'} color="secondary">
           <NotesIcon />
@@ -114,6 +99,7 @@ export const MatchesTableRow = ({
           <VideoIcon />
         )}
       </StyledTableCell>
+      <StyledTableCell>{season.name}</StyledTableCell>
     </StyledTableRow>
   )
 }

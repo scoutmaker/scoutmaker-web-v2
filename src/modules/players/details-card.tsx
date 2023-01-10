@@ -1,25 +1,27 @@
-import { DirectionsRun as PlayersIcon } from '@mui/icons-material'
 import {
-  Avatar,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  Link as MUILink,
-  Typography,
-} from '@mui/material'
-import Link from 'next/link'
+  DirectionsRun as PlayersIcon,
+  Info as InfoIcon,
+} from '@mui/icons-material'
+import { Avatar, Card, CardContent, CardHeader, Grid } from '@mui/material'
 import { useTranslation } from 'next-i18next'
+import { useState } from 'react'
 
+import { CardItemBasic } from '@/components/details-card/details-card-item'
+import { getPositionDisplayName } from '@/modules/player-positions/utils'
 import { PlayerDto } from '@/modules/players/types'
+import { calculateRating } from '@/utils/calculate-rating'
 import { getFlagEmoji } from '@/utils/get-flag-emoji'
+
+import RoleModal from './role-modal'
 
 interface IPlayerDetailsCard {
   player: PlayerDto
+  showRole?: boolean
 }
 
-export const PlayerDetialsCard = ({ player }: IPlayerDetailsCard) => {
+export const PlayerDetialsCard = ({ player, showRole }: IPlayerDetailsCard) => {
   const { t } = useTranslation(['common', 'players'])
+  const [roleModalOpen, setRoleModalOpen] = useState(false)
 
   const {
     firstName,
@@ -28,134 +30,106 @@ export const PlayerDetialsCard = ({ player }: IPlayerDetailsCard) => {
     height,
     weight,
     footed,
-    lnpId,
-    lnpUrl,
-    minut90id,
     minut90url,
-    transfermarktId,
     transfermarktUrl,
     country,
     primaryPosition,
     secondaryPositions,
     teams,
+    averagePercentageRating,
+    role,
   } = player
 
   return (
-    <Card sx={{ maxWidth: 700, margin: '0 auto' }}>
-      <CardHeader
-        avatar={
-          <Avatar
-            aria-label="player avatar"
-            sx={{ backgroundColor: 'secondary.main', width: 50, height: 50 }}
-          >
-            <PlayersIcon />
-          </Avatar>
-        }
-        title={`${firstName} ${lastName}`}
-        titleTypographyProps={{ variant: 'h3' }}
+    <>
+      <Card sx={{ maxWidth: 700, margin: '0 auto' }}>
+        <CardHeader
+          avatar={
+            <Avatar
+              aria-label="player avatar"
+              sx={{ backgroundColor: 'secondary.main', width: 50, height: 50 }}
+            >
+              <PlayersIcon />
+            </Avatar>
+          }
+          title={`${firstName} ${lastName}`}
+          titleTypographyProps={{ variant: 'h3' }}
+        />
+        <CardContent>
+          <Grid container spacing={1}>
+            <CardItemBasic title={t('YEAR_OF_BIRTH')} value={yearOfBirth} />
+            <CardItemBasic
+              title={t('COUNTRY')}
+              value={`${getFlagEmoji(country.code)} ${country.name}`}
+            />
+            <CardItemBasic
+              title={t('TEAM')}
+              value={teams[0]?.team.name}
+              href={teams[0] ? `/teams/${teams[0].team.slug}` : undefined}
+            />
+            <CardItemBasic
+              title={t('POSITION')}
+              value={getPositionDisplayName(primaryPosition)}
+            />
+            <CardItemBasic
+              title={t('SECONDARY_POSITIONS')}
+              value={secondaryPositions.map(getPositionDisplayName).join(', ')}
+            />
+            {showRole && (
+              <CardItemBasic
+                title={t('PLAYER_ROLE')}
+                value={
+                  role ? (
+                    <>
+                      {role.name}{' '}
+                      <InfoIcon
+                        onClick={() => setRoleModalOpen(true)}
+                        sx={{ cursor: 'pointer' }}
+                      />
+                    </>
+                  ) : (
+                    '-'
+                  )
+                }
+              />
+            )}
+            <CardItemBasic
+              title={t('AVG_RATING')}
+              value={
+                typeof averagePercentageRating === 'number'
+                  ? calculateRating(averagePercentageRating)
+                  : '-'
+              }
+            />
+            <CardItemBasic title={t('FOOTED')} value={t(footed)} />
+            <CardItemBasic
+              title={t('WEIGHT')}
+              value={weight ? `${weight} kg` : '-'}
+            />
+            <CardItemBasic
+              title={t('HEIGHT')}
+              value={height ? `${height} cm` : '-'}
+            />
+            <CardItemBasic
+              title={t('TRANSFERMARKT_URL')}
+              value={transfermarktUrl}
+              href={transfermarktUrl}
+              linkInNewCard
+            />
+            <CardItemBasic
+              title={t('90_MINUT_URL')}
+              value={minut90url}
+              href={minut90url}
+              linkInNewCard
+            />
+          </Grid>
+        </CardContent>
+      </Card>
+      <RoleModal
+        open={roleModalOpen}
+        onClose={() => setRoleModalOpen(false)}
+        role={role}
       />
-      <CardContent>
-        <Grid container spacing={1}>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('COUNTRY')}: </strong>
-              {`${getFlagEmoji(country.code)} ${country.name}`}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('YEAR_OF_BIRTH')}: </strong>
-              {yearOfBirth}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('HEIGHT')}: </strong>
-              {height ? `${height} cm` : '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('WEIGHT')}: </strong>
-              {weight ? `${weight} kg` : '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('FOOTED')}: </strong>
-              {t(footed)}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('players:CURRENT_TEAM')}: </strong>
-              {teams[0]?.team ? (
-                <Link href={`/teams/${teams[0].team.slug}`} passHref>
-                  <MUILink>{teams[0].team.name}</MUILink>
-                </Link>
-              ) : (
-                '-'
-              )}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('PRIMARY_POSITION')}: </strong>
-              {primaryPosition.name}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('SECONDARY_POSITIONS')}: </strong>
-              {secondaryPositions.map(position => position.name).join(', ')}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('LNP_ID')}: </strong>
-              {lnpId || '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('LNP_URL')}: </strong>
-              {lnpUrl ? <MUILink href={lnpUrl}>{lnpUrl}</MUILink> : '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('90_MINUT_ID')}: </strong>
-              {minut90id || '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('90_MINUT_URL')}: </strong>
-              {minut90url ? (
-                <MUILink href={minut90url}>{minut90url}</MUILink>
-              ) : (
-                '-'
-              )}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('TRANSFERMARKT_ID')}: </strong>
-              {transfermarktId || '-'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('TRANSFERMARKT_URL')}: </strong>
-              {transfermarktUrl ? (
-                <MUILink href={transfermarktUrl}>{transfermarktUrl}</MUILink>
-              ) : (
-                '-'
-              )}
-            </Typography>
-          </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
+    </>
   )
 }

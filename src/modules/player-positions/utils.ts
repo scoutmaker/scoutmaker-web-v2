@@ -10,3 +10,9 @@ export function mapPlayerPositionsToComboOptions(
     code,
   }))
 }
+
+export function getPositionDisplayName(position: PlayerPositionDto) {
+  const { name, positionType } = position
+
+  return `${name}${positionType ? ` (${positionType.name})` : ''}`
+}

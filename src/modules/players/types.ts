@@ -1,4 +1,5 @@
 import { IComboOptions, IStandardComboOptions } from '@/components/combo/types'
+import { IPlayerPositionTypeComboOptions } from '@/modules/player-position-types/types'
 
 import { ICompetitionGroupComboOptions } from '../competition-groups/types'
 import { ICompetitionComboOptions } from '../competitions/types'
@@ -26,28 +27,41 @@ export type PlayersFiltersDto = Pick<
   | 'footed'
   | 'name'
   | 'positionIds'
+  | 'positionTypeIds'
   | 'teamIds'
   | 'orderId'
   | 'hasNote'
   | 'hasReport'
   | 'hasAnyObservation'
+  | 'maxAverageRating'
+  | 'minAverageRating'
 >
 
 export type PlayersFiltersState = Omit<
   PlayersFiltersDto,
   | 'countryIds'
   | 'positionIds'
+  | 'positionTypeIds'
   | 'teamIds'
   | 'competitionIds'
   | 'competitionGroupIds'
   | 'footed'
+  | 'bornAfter'
+  | 'bornBefore'
+  | 'maxAverageRating'
+  | 'minAverageRating'
 > & {
   countryIds: ICountryComboOptions[]
   positionIds: IPlayerPositionComboOptions[]
+  positionTypeIds: IPlayerPositionTypeComboOptions[]
   teamIds: IStandardComboOptions[]
   competitionIds: ICompetitionComboOptions[]
   competitionGroupIds: ICompetitionGroupComboOptions[]
   footed: IComboOptions | null
+  bornAfter: '' | number
+  bornBefore: '' | number
+  maxAverageRating: '' | number
+  minAverageRating: '' | number
 }
 
 export type PlayersSortBy = Paths.PlayersControllerFindAll.Parameters.SortBy

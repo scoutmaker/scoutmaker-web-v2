@@ -8,10 +8,11 @@ import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
+import { useUser } from '@/modules/auth/hooks'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { useCountriesList } from '@/modules/countries/hooks'
-import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
+import { usePlayerPositionTypesList } from '@/modules/player-position-types/hooks'
 import { PlayersFilterForm } from '@/modules/players/forms/filter'
 import {
   useDeletePlayer,
@@ -21,6 +22,7 @@ import {
 } from '@/modules/players/hooks'
 import { PlayersTable } from '@/modules/players/table/table'
 import { PlayersFiltersState, PlayersSortBy } from '@/modules/players/types'
+import { shouldShowPlayerRole } from '@/modules/players/utils'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
@@ -34,19 +36,24 @@ export const getServerSideProps = withSessionSsrRole(
 
 const initialFilters: PlayersFiltersState = {
   name: '',
-  bornAfter: 1980,
-  bornBefore: 2005,
+  bornAfter: '',
+  bornBefore: '',
   footed: null,
   competitionGroupIds: [],
   competitionIds: [],
   countryIds: [],
   positionIds: [],
+  positionTypeIds: [],
   teamIds: [],
   isLiked: false,
   hasNote: false,
   hasReport: false,
   hasAnyObservation: false,
+  maxAverageRating: '',
+  minAverageRating: '',
 }
+
+const initialSortBy: PlayersSortBy = 'updatedAt'
 
 const PlayersPage = () => {
   const router = useRouter()
@@ -62,7 +69,7 @@ const PlayersPage = () => {
     handleChangePage,
     handleChangeRowsPerPage,
     handleSort,
-  } = useTable('players-table')
+  } = useTable('players-table', initialSortBy)
 
   const [filters, setFilters] = useLocalStorage<PlayersFiltersState>({
     key: 'players-filters',
@@ -76,9 +83,15 @@ const PlayersPage = () => {
 
   useEffect(() => {
     const onlyLikedQuery = router.query?.onlyLiked
+    const hasAnyObservationQuery = router.query?.hasAnyObservation
+
     if (onlyLikedQuery === 'true')
       setFilters(prev => ({ ...prev, isLiked: true }))
+    if (hasAnyObservationQuery === 'true')
+      setFilters(prev => ({ ...prev, hasAnyObservation: true }))
   }, [])
+
+  const { data: user, isLoading: userLoading } = useUser()
 
   const { data: countries, isLoading: countriesLoading } = useCountriesList()
   const { data: teams, isLoading: teamsLoading } = useTeamsList()
@@ -86,8 +99,8 @@ const PlayersPage = () => {
     useCompetitionsList()
   const { data: competitionGroups, isLoading: competitionGroupsLoading } =
     useCompetitionGroupsList()
-  const { data: positions, isLoading: positionsLoading } =
-    usePlayerPositionsList()
+  const { data: positionTypes, isLoading: positionTypesLoading } =
+    usePlayerPositionTypesList()
 
   const { data: players, isLoading: playersLoading } = usePlayers({
     page: page + 1,
@@ -108,6 +121,11 @@ const PlayersPage = () => {
     setIsDeleteConfirmationModalOpen(true)
   }
 
+  const onClearFilters = () => {
+    handleSetFilters(initialFilters)
+    handleSort(initialSortBy, 'desc')
+  }
+
   const isLoading =
     countriesLoading ||
     teamsLoading ||
@@ -117,7 +135,8 @@ const PlayersPage = () => {
     playersLoading ||
     likePlayerLoading ||
     unlikePlayerLoading ||
-    positionsLoading
+    positionTypesLoading ||
+    userLoading
 
   return (
     <>
@@ -127,12 +146,12 @@ const PlayersPage = () => {
         <PlayersFilterForm
           filters={filters}
           countriesData={countries || []}
-          positionsData={positions || []}
+          positionTypesData={positionTypes || []}
           competitionsData={competitions || []}
           competitionGroupsData={competitionGroups || []}
           teamsData={teams || []}
           onFilter={handleSetFilters}
-          onClearFilters={() => handleSetFilters(initialFilters)}
+          onClearFilters={onClearFilters}
         />
       </FilterAccordion>
       <PlayersTable
@@ -149,6 +168,7 @@ const PlayersPage = () => {
         handleDeleteItemClick={handleDeleteItemClick}
         onLikeClick={likePlayer}
         onUnLikeClick={unlikePlayer}
+        showRole={shouldShowPlayerRole(user)}
       />
       <Fab href="/players/create" />
       <ConfirmationModal

@@ -1,5 +1,5 @@
 import { IComboOptions, IStandardComboOptions } from '@/components/combo/types'
-import { RatingRange } from '@/types/rating-range'
+import { IPlayerPositionTypeComboOptions } from '@/modules/player-position-types/types'
 
 import { ICompetitionGroupComboOptions } from '../competition-groups/types'
 import { ICompetitionComboOptions } from '../competitions/types'
@@ -23,6 +23,7 @@ export type FindAllNotesParams = Pick<
   | 'playerBornBefore'
   | 'playerIds'
   | 'positionIds'
+  | 'positionTypeIds'
   | 'sortBy'
   | 'sortingOrder'
   | 'teamIds'
@@ -31,6 +32,8 @@ export type FindAllNotesParams = Pick<
   | 'onlyLikedPlayers'
   | 'onlyLikedTeams'
   | 'onlyWithoutPlayers'
+  | 'percentageRatingRanges'
+  | 'onlyMine'
 >
 
 export type NotesFiltersDto = Omit<
@@ -38,28 +41,31 @@ export type NotesFiltersDto = Omit<
   'limit' | 'page' | 'sortBy' | 'sortingOrder'
 >
 
-export type NotesFilterFormData = Omit<
-  NotesFiltersDto,
-  'percentageRatingRangeStart' | 'percentageRatingRangeEnd'
-> & { ratingRange: RatingRange }
-
 export type NotesFiltersState = Omit<
-  NotesFilterFormData,
+  NotesFiltersDto,
   | 'competitionGroupIds'
   | 'competitionIds'
   | 'matchIds'
   | 'playerIds'
   | 'positionIds'
+  | 'positionTypeIds'
   | 'teamIds'
   | 'observationType'
+  | 'percentageRatingRanges'
+  | 'playerBornAfter'
+  | 'playerBornBefore'
 > & {
   competitionGroupIds: ICompetitionGroupComboOptions[]
   competitionIds: ICompetitionComboOptions[]
   matchIds: IMatchComboOptions[]
   playerIds: IPlayerComboOptions[]
   positionIds: IPlayerPositionComboOptions[]
+  positionTypeIds: IPlayerPositionTypeComboOptions[]
   teamIds: IStandardComboOptions[]
   observationType: IComboOptions | null
+  percentageRatingRanges: IComboOptions[]
+  playerBornAfter: '' | number
+  playerBornBefore: '' | number
 }
 
 export type NotesSortBy = Paths.NotesControllerFindAll.Parameters.SortBy

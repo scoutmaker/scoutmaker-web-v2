@@ -6,19 +6,19 @@ import { useTranslation } from 'next-i18next'
 import { FilterCombo } from '@/components/combo/combo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { getObservationTypeComboData } from '@/components/combos-data/observation-type'
+import { getRatingRangeComboData } from '@/components/combos-data/rating-range'
 import FilteredCompetitonGroups from '@/components/filteredCompetitionGroups/filteredCompetitonGroups'
 import { FilterCheckboxContainer } from '@/components/forms/filter-checkbox-container'
 import { FilterFormActions } from '@/components/forms/filter-form-actions'
 import { FilterFormContainer } from '@/components/forms/filter-form-container'
-import { RatingRangeSelect } from '@/components/rating-range-select/rating-range-select'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { mapCompetitionGroupsListToComboOptions } from '@/modules/competition-groups/utils'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { MatchBasicDataDto } from '@/modules/matches/types'
 import { mapMatchesListToComboOptions } from '@/modules/matches/utils'
-import { PlayerPositionDto } from '@/modules/player-positions/types'
-import { mapPlayerPositionsToComboOptions } from '@/modules/player-positions/utils'
+import { PlayerPositionTypeDto } from '@/modules/player-position-types/types'
+import { mapPlayerPositionTypesToComboOptions } from '@/modules/player-position-types/utils'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 import { TeamBasicDataDto } from '@/modules/teams/types'
@@ -27,7 +27,7 @@ import { ReportsFiltersState } from '../types'
 
 interface IReportsFilterFormProps {
   playersData: PlayerBasicDataDto[]
-  positionsData: PlayerPositionDto[]
+  positionTypesData: PlayerPositionTypeDto[]
   teamsData: TeamBasicDataDto[]
   matchesData: MatchBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
@@ -40,7 +40,7 @@ interface IReportsFilterFormProps {
 export const ReportsFilterForm = ({
   playersData,
   teamsData,
-  positionsData,
+  positionTypesData,
   competitionsData,
   competitionGroupsData,
   matchesData,
@@ -100,9 +100,9 @@ export const ReportsFilterForm = ({
               </Grid>
             </Grid>
             <FilterCombo
-              name="positionIds"
-              data={mapPlayerPositionsToComboOptions(positionsData)}
-              label={t('POSITIONS')}
+              name="positionTypeIds"
+              data={mapPlayerPositionTypesToComboOptions(positionTypesData)}
+              label={t('POSITION_TYPES')}
               multiple
               size="small"
             />
@@ -129,16 +129,18 @@ export const ReportsFilterForm = ({
             />
             <FilteredCompetitonGroups
               competitionGroupsData={groupsComboData}
-              competitionsFormValues={values.competitionIds}
+              competitionsFormValue={values.competitionIds}
               name="competitionGroupIds"
               label={t('COMPETITION_GROUPS')}
               size="small"
               multiple
             />
-            <RatingRangeSelect
-              name="ratingRange"
+            <FilterCombo
+              name="percentageRatingRanges"
+              data={getRatingRangeComboData(t)}
               label={t('RATING_RANGE')}
               size="small"
+              multiple
             />
             <FilterCombo
               name="observationType"
@@ -181,6 +183,15 @@ export const ReportsFilterForm = ({
                 type="checkbox"
                 name="hasVideo"
                 Label={{ label: t('reports:WITH_VIDEO_ONLY') }}
+                size="small"
+              />
+            </FilterCheckboxContainer>
+            <FilterCheckboxContainer>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="onlyMine"
+                Label={{ label: t('ONLY_MINE') }}
                 size="small"
               />
             </FilterCheckboxContainer>
