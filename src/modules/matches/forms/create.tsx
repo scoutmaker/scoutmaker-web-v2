@@ -42,7 +42,11 @@ export const CreateMatchForm = ({
       validationSchema={generateMatchFormValidationSchema(t)}
       enableReinitialize
       onSubmit={async (data, { resetForm }) => {
-        const dataToSubmit = filter(data, (_, value) => value)
+        const dataToSubmit = filter(
+          data,
+          (_, value) => typeof value === 'number' || value,
+        )
+        console.log(dataToSubmit)
         onSubmit(dataToSubmit as CreateMatchDto)
         resetForm()
       }}

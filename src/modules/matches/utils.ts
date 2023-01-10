@@ -23,7 +23,7 @@ export const getBasicMatchName = (
 ) => `${match.homeTeam.name} vs ${match.awayTeam.name}`
 
 export function getMatchResult(homeGoals?: number, awayGoals?: number) {
-  if (!homeGoals || !awayGoals) {
+  if (typeof homeGoals !== 'number' || typeof awayGoals !== 'number') {
     return ''
   }
 
