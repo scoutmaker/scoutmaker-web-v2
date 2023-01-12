@@ -1,4 +1,6 @@
-import { Card, CardContent, CardHeader, Grid } from '@mui/material'
+import { Download as DownloadIcon } from '@mui/icons-material'
+import { Button, Card, CardContent, CardHeader, Grid } from '@mui/material'
+import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 
 import { CardItemBasic } from '@/components/details-card/details-card-item'
@@ -41,7 +43,35 @@ export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
 
   return (
     <Card>
-      <CardHeader title={t('reports:BASIC_INFO')} />
+      <CardHeader
+        title={t('reports:BASIC_INFO')}
+        subheader={`${t('AUTHOR')}: ${getAuthorDisplayName(author)}`}
+        titleTypographyProps={{ width: 'max-content' }}
+        subheaderTypographyProps={{ width: 'max-content' }}
+        action={
+          <Link href={`/reports/${report.id}/print`} passHref>
+            <Button
+              variant="contained"
+              startIcon={<DownloadIcon />}
+              component="a"
+            >
+              PDF
+            </Button>
+          </Link>
+        }
+        sx={{
+          '& .MuiCardHeader-content': {
+            flex: 0,
+          },
+          '& ': {
+            gap: 2.5,
+            alignItems: 'center',
+          },
+          '& .MuiCardHeader-action': {
+            alignSelf: 'center',
+          },
+        }}
+      />
       <CardContent>
         <Grid container spacing={1}>
           <CardItemBasic
@@ -87,10 +117,6 @@ export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
           <CardItemBasic
             title={t('PERCENTAGE_RATING')}
             value={percentageRating ? `${percentageRating.toFixed(1)}%` : '-'}
-          />
-          <CardItemBasic
-            title={t('AUTHOR')}
-            value={getAuthorDisplayName(author)}
           />
           <CardItemBasic
             title={t('reports:STATUS')}
