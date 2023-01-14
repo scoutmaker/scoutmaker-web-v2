@@ -175,10 +175,16 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
             })}
             centered
           >
-            <Tab label={t('NOTES')} />
-            <Tab label={t('INSIDER_NOTES')} />
-            <Tab label={t('REPORTS')} />
-            <Tab label={t('TEAM_AFFILIATIONS')} />
+            <Tab label={`${t('NOTES')} (${notes?.totalDocs || 0})`} />
+            <Tab
+              label={`${t('INSIDER_NOTES')} (${insiderNotes?.totalDocs || 0})`}
+            />
+            <Tab label={`${t('REPORTS')} (${reports?.totalDocs})`} />
+            <Tab
+              label={`${t('TEAM_AFFILIATIONS')} (${
+                affiliations?.totalDocs || 0
+              })`}
+            />
           </Tabs>
         </AppBar>
         <TabPanel value={tabValue} index={0} title="notes" noPadding>
