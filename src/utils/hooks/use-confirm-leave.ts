@@ -42,6 +42,7 @@ export const ConfirmOnLeaveForm = () => {
 
   useEffect(() => {
     if (Object.keys(touched).length) setIsFormChanged(true)
+    else setIsFormChanged(false)
   }, [touched])
 
   useConfirmOnLeavePage(isFormChanged)
