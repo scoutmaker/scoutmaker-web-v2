@@ -1327,6 +1327,8 @@ declare namespace Components {
             city?: string;
             activeRadius?: number;
             regionId?: string;
+            reportTemplateId?: string;
+            reportBackgroundImageId?: string;
         }
         export interface UpdateUserFootballRoleDto {
             name?: string;
@@ -1369,6 +1371,8 @@ declare namespace Components {
             profile?: ScoutProfileWithoutUserDto;
             _count: Count;
             organizationId?: string;
+            reportTemplateId?: string;
+            reportBackgroundImage?: ReportBackgroundImageDto;
         }
         export interface UserFootballRoleDto {
             id: string;
@@ -5357,6 +5361,21 @@ declare namespace Paths {
         export type RequestBody = Components.Schemas.CreateScoutProfileDto;
         namespace Responses {
             export interface $201 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.ScoutProfileDto;
+            }
+        }
+    }
+    namespace ScoutProfilesControllerFindOne {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export interface $200 {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.ScoutProfileDto;
