@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
+import { useUser } from '@/modules/auth/hooks'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { useMatchesList } from '@/modules/matches/hooks'
@@ -36,6 +37,8 @@ const CreateReportPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { data: groups, isLoading: competitionGroupsLoading } =
     useCompetitionGroupsList()
 
+  const { data: user, isLoading: userLoading } = useUser()
+
   if (errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
 
@@ -47,7 +50,8 @@ const CreateReportPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     positionsLoading ||
     teamsLoading ||
     competitionGroupsLoading ||
-    competitionsLoading
+    competitionsLoading ||
+    userLoading
 
   return (
     <>
@@ -62,6 +66,7 @@ const CreateReportPage = ({ errorMessage, errorStatus }: TSsrRole) => {
         teamsData={teams || []}
         competitionsData={competitions || []}
         competitionGroupsData={groups || []}
+        templateId={user?.reportTemplateId || ''}
       />
     </>
   )

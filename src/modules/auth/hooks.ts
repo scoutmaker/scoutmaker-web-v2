@@ -26,7 +26,7 @@ import { ApiError } from '@/services/api/types'
 export function useUser() {
   const { setAlert } = useAlertsState()
 
-  return useQuery(['user'], getUserData, {
+  return useQuery(['user'], () => getUserData(), {
     onError: (err: ApiError) =>
       setAlert({
         msg: err.response.data.message,
