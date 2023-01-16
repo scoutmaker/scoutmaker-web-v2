@@ -46,6 +46,7 @@ interface ICreateFormProps {
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
   isOrderOptionDisabled?: boolean
+  templateId: string
 }
 
 export const CreateReportForm = ({
@@ -59,6 +60,7 @@ export const CreateReportForm = ({
   competitionsData,
   competitionGroupsData,
   isOrderOptionDisabled,
+  templateId,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation(['common', 'reports'])
@@ -86,6 +88,8 @@ export const CreateReportForm = ({
     if (query === 'shirtNo' && data) formInitialValues[query] = +data
     else if (data) formInitialValues[query] = data as never
   })
+
+  if (templateId) formInitialValues.templateId = templateId
 
   const steps: TStep[] = [
     {

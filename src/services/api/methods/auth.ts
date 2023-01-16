@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 
 import {
   ForgotPasswordDto,
@@ -13,8 +13,11 @@ import { ApiResponse } from '@/services/api/types'
 
 import { client } from '../api'
 
-export async function getUserData() {
-  const { data } = await client.get<ApiResponse<User>>('/auth/account')
+export async function getUserData(token?: string) {
+  const config: AxiosRequestConfig = token
+    ? { headers: { 'x-auth-token': token } }
+    : {}
+  const { data } = await client.get<ApiResponse<User>>('/auth/account', config)
   return data.data
 }
 
