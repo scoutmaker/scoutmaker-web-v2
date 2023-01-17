@@ -15,8 +15,8 @@ import { useMatches } from '@/modules/matches/hooks'
 import { MatchesTable } from '@/modules/matches/table/table'
 import { MatchesSortBy } from '@/modules/matches/types'
 import { PlayersBasicTable } from '@/modules/players/basicTable/table'
-import { useTeamAffiliations } from '@/modules/team-affiliations/hooks'
-import { TeamAffiliationsSortBy } from '@/modules/team-affiliations/types'
+import { usePlayers } from '@/modules/players/hooks'
+import { PlayersSortBy } from '@/modules/players/types'
 import { TeamDetailsCard } from '@/modules/teams/details-card'
 import { TeamDto } from '@/modules/teams/types'
 import { getTeamBySlug } from '@/services/api/methods/teams'
@@ -79,14 +79,13 @@ const TeamPage = ({
       teamId: data?.team.id || '',
     })
 
-  const { data: affiliations, isLoading: affiliationsLoading } =
-    useTeamAffiliations({
-      page: PlayersBasicTableSettings.page + 1,
-      limit: PlayersBasicTableSettings.rowsPerPage,
-      sortBy: PlayersBasicTableSettings.sortBy as TeamAffiliationsSortBy,
-      sortingOrder: PlayersBasicTableSettings.order,
-      teamId: data?.team.id || '',
-    })
+  const { data: players, isLoading: playersLoading } = usePlayers({
+    page: PlayersBasicTableSettings.page + 1,
+    limit: PlayersBasicTableSettings.rowsPerPage,
+    sortBy: PlayersBasicTableSettings.sortBy as PlayersSortBy,
+    sortingOrder: PlayersBasicTableSettings.order,
+    teamIds: [data?.team.id || ''],
+  })
 
   const { data: matches, isLoading: matchesLoading } = useMatches({
     page: MatchesTableSettings.page + 1,
@@ -96,13 +95,7 @@ const TeamPage = ({
     teamId: data?.team.id || '',
   })
 
-  const players =
-    affiliations?.docs
-      .filter(aff => aff.endDate === null)
-      .map(aff => aff.player) || []
-
-  const isLoading =
-    matchesLoading || participationsLoading || affiliationsLoading
+  const isLoading = matchesLoading || participationsLoading || playersLoading
 
   if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />
   const { team, isAdmin } = data
@@ -173,8 +166,8 @@ const TeamPage = ({
           <PlayersBasicTable
             {...PlayersBasicTableProps}
             {...PlayersBasicTableSettings}
-            data={players}
-            total={players.length}
+            total={players?.totalDocs || 0}
+            data={players?.docs || []}
           />
         </TabPanel>
         <TabPanel value={tabValue} index={2} title="matches" noPadding>
