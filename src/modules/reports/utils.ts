@@ -1,4 +1,4 @@
-import { Routes } from '@/utils/routes'
+import { formatDate } from '@/utils/format-date'
 
 import { useLikePlayer } from '../players/hooks'
 import { useLikeReport } from './hooks'
@@ -8,10 +8,6 @@ import {
   ReportDto,
   ReportPaginatedDataDto,
 } from './types'
-
-export function getSingleReportRoute(id: string) {
-  return `${Routes.REPORTS}/${id}`
-}
 
 export function mapReportsListToComboOptions(
   data: ReportBasicDataDto[],
@@ -55,4 +51,14 @@ export const useOnLikeReportClick = () => {
     likeReport: onLikeClick,
     likeReportLoading: likePlayerLoading || likeReportLoading,
   }
+}
+
+export const getReportHref = (report: ReportPaginatedDataDto) => {
+  const data = [report.id, report.player.slug]
+
+  if (report.meta?.team) data.push(report.meta.team.slug)
+
+  if (report.match) data.push(formatDate(report.match.date))
+
+  return `/reports/${data.join('-')}`
 }

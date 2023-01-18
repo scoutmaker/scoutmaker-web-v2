@@ -13,7 +13,9 @@ export const getServerSideProps = withSessionSsrRole<NoteDto>(
   false,
   async (token, params) => {
     try {
-      const data = await getNoteById(params?.id as string, token)
+      const idp = (params?.id as string) || ''
+      const id = idp.includes('-') ? idp.split('-')[0] : idp
+      const data = await getNoteById(id, token)
       return { data }
     } catch (error) {
       return { data: null, error: error as ApiError }
