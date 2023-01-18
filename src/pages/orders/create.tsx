@@ -12,7 +12,7 @@ import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(
   ['common', 'orders'],
-  ['ADMIN', 'PLAYMAKER_SCOUT'],
+  ['ADMIN', 'PLAYMAKER_SCOUT', 'SCOUT_ORGANIZATION', 'PLAYMAKER_SCOUT_MANAGER'],
 )
 
 const CreateOrderPage = ({ errorMessage, errorStatus }: TSsrRole) => {

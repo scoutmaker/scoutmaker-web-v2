@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useUser } from '@/modules/auth/hooks'
 import { MatchAttendanceDto } from '@/modules/match-attendances/types'
 import { Routes } from '@/utils/routes'
-import { isAdmin, isPrivilegedUser } from '@/utils/user-roles'
+import { isAdmin, isUserBasicScout } from '@/utils/user-roles'
 
 import {
   AdminIcon,
@@ -124,13 +124,13 @@ export const NavList = ({ matchAttendance }: INavListProps) => {
           text={t('PLAYER_ROLES')}
         />
       </ExpandeableNavElement>
-      {isPrivilegedUser(user) ? (
+      {!isUserBasicScout(user) && (
         <NavElement
           icon={<OrdersIcon color="error" />}
           to="/orders"
           text={t('ORDERS')}
         />
-      ) : null}
+      )}
       <GoToMachNavElement currentMatchId={matchAttendance?.match?.id || null} />
       <NavElement
         icon={<QuickNoteIcon color="error" />}
