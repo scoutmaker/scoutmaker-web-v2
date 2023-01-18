@@ -11,3 +11,6 @@ export function isPlaymakerScout(user?: User) {
 export function isPrivilegedUser(user?: User) {
   return isAdmin(user) || isPlaymakerScout(user)
 }
+
+export const isUserBasicScout = (user?: User) =>
+  user?.role === 'SCOUT' && !user?.organizationId
