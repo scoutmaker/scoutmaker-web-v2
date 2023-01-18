@@ -38,10 +38,12 @@ export const EditTeamAffiliationForm = ({
       validationSchema={() => generateUpdateValidationSchema()}
       enableReinitialize
       onSubmit={data => {
-        const dataToSubmit = updatedDiff(
+        const dataToSubmit: UpdateTeamAffiliationDto = updatedDiff(
           initialValues,
           filter(data, (_, value) => value),
         )
+        // @ts-ignore
+        if (!data.endDate) dataToSubmit.endDate = null
         onSubmit(dataToSubmit)
       }}
     >
