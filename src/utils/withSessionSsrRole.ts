@@ -4,6 +4,7 @@ import { i18n } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { withSessionSsr } from '@/modules/auth/session'
+import { UserDto } from '@/modules/users/types'
 import { ApiError } from '@/services/api/types'
 
 import { redirectToLogin } from './redirect-to-login'
@@ -13,7 +14,7 @@ export type TSsrRole<T = null> = {
   errorMessage: string | null
   data: T | null
 }
-type TRole = Components.Schemas.UserDto['role']
+type TRole = Components.Schemas.UserDto['role'] | 'SCOUT_ORGANIZATION'
 
 export function withSessionSsrRole<T>(
   _translations: string[],
@@ -46,7 +47,7 @@ export function withSessionSsrRole<T>(
       _translations,
     )
 
-    if (allowedRoles && !allowedRoles.includes(user.role)) {
+    if (allowedRoles && !userHasAccess(allowedRoles, user)) {
       return {
         props: {
           ...translations,
@@ -87,4 +88,20 @@ export function withSessionSsrRole<T>(
       },
     }
   })
+}
+
+const userHasAccess = (allowedRoles: TRole[], user: UserDto) => {
+  if (
+    allowedRoles.includes('SCOUT_ORGANIZATION') &&
+    user.role === 'SCOUT' &&
+    user.organizationId
+  ) {
+    return true
+  }
+
+  if (!allowedRoles.includes(user.role)) {
+    return false
+  }
+
+  return true
 }
