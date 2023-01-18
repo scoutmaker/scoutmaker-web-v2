@@ -28,8 +28,10 @@ export const getServerSideProps = withSessionSsrRole<IData>(
   false,
   async (token, params) => {
     try {
+      const idp = (params?.id as string) || ''
+      const id = idp.includes('-') ? idp.split('-')[0] : idp
       const [report, user] = await Promise.all([
-        getReportById(params?.id as string, token),
+        getReportById(id, token),
         getUserData(token),
       ])
       const player = await getPlayerById(report.player.id, token)

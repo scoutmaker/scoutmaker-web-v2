@@ -14,7 +14,9 @@ export const getServerSideProps = withSessionSsrRole<ReportDto>(
   false,
   async (token, params) => {
     try {
-      const data = await getReportById(params?.id as string, token)
+      const idp = (params?.id as string) || ''
+      const id = idp.includes('-') ? idp.split('-')[0] : idp
+      const data = await getReportById(id, token)
       return { data }
     } catch (error) {
       return { data: null, error: error as ApiError }
