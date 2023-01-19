@@ -23,7 +23,6 @@ import { OrdersTable } from '@/modules/orders/table/table'
 import { OrdersFiltersState, OrdersSortBy } from '@/modules/orders/types'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
-import { formatDate } from '@/utils/format-date'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -37,12 +36,9 @@ export const getServerSideProps = withSessionSsrRole<IData>(
   ['ADMIN', 'PLAYMAKER_SCOUT', 'SCOUT_ORGANIZATION', 'PLAYMAKER_SCOUT_MANAGER'],
 )
 
-const date = new Date()
-date.setFullYear(date.getFullYear() + 1)
-
 const getInitialFilters = (t: TFunction): OrdersFiltersState => ({
-  createdAfter: formatDate('01-01-1999'),
-  createdBefore: formatDate(date.toString()),
+  createdAfter: '',
+  createdBefore: '',
   matchIds: [],
   playerIds: [],
   status: getStatusComboData(t).find(e => e.id === 'OPEN') || null,
