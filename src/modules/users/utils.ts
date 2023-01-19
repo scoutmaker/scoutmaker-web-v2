@@ -2,10 +2,11 @@ import { IUsersComboOptions, UserBasicDataDto } from './types'
 
 export function mapUsersListToComboOptions(
   data: UserBasicDataDto[],
+  includeEmail: boolean = true,
 ): IUsersComboOptions[] {
   return data.map(({ id, firstName, email, lastName }) => ({
     id,
-    label: `${firstName} ${lastName} (${email})`,
+    label: `${firstName} ${lastName} ${includeEmail ? `(${email})` : ''}`,
     firstName,
     lastName,
   }))

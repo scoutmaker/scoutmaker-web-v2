@@ -67,6 +67,7 @@ export const OrdersFilterForm = ({
                   label={t('orders:CREATED_AFTER')}
                   fullWidth
                   size="small"
+                  InputLabelProps={{ shrink: true }}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -78,6 +79,7 @@ export const OrdersFilterForm = ({
                   label={t('orders:CREATED_BEFORE')}
                   fullWidth
                   size="small"
+                  InputLabelProps={{ shrink: true }}
                 />
               </Grid>
             </Grid>

@@ -1,14 +1,7 @@
-import { Badge, Tooltip } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import {
-  AcceptIcon,
-  CloseIcon,
-  NoteIcon,
-  RejectIcon,
-  ReportsIcon,
-} from '@/components/icons'
+import { AcceptIcon, CloseIcon, RejectIcon } from '@/components/icons'
 import { StyledTableCell } from '@/components/tables/cell'
 import { CellWithLink } from '@/components/tables/cell-with-link'
 import { TableMenu } from '@/components/tables/menu'
@@ -19,7 +12,6 @@ import {
   getSingleMatchRoute,
 } from '@/modules/matches/utils'
 import { getSinglePlayerRoute } from '@/modules/players/utils'
-import { getSingleTeamRoute } from '@/modules/teams/utils'
 import { formatDate } from '@/utils/format-date'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
@@ -52,16 +44,7 @@ export const OrdersTableRow = ({
     handleMenuAction,
   } = useTableMenu()
 
-  const {
-    id,
-    player,
-    status,
-    scout,
-    createdAt,
-    description,
-    _count: count,
-    match,
-  } = data
+  const { id, player, status, scout, createdAt, executionDate, match } = data
 
   return (
     <StyledTableRow
@@ -105,19 +88,7 @@ export const OrdersTableRow = ({
           )}
         </TableMenu>
       </StyledTableCell>
-      <CellWithLink
-        href={getSinglePlayerRoute(player?.slug || '')}
-        label={player ? `${player?.firstName} ${player?.lastName}` : ''}
-      />
-      <StyledTableCell>{player?.primaryPosition.name}</StyledTableCell>
-      {player?.teams[0] ? (
-        <CellWithLink
-          href={getSingleTeamRoute(player.teams[0].team.slug)}
-          label={player.teams[0].team.name}
-        />
-      ) : (
-        <StyledTableCell>-</StyledTableCell>
-      )}
+      <StyledTableCell>{match ? formatDate(match.date) : '-'}</StyledTableCell>
       {match ? (
         <CellWithLink
           href={getSingleMatchRoute(match.id)}
@@ -129,24 +100,24 @@ export const OrdersTableRow = ({
       ) : (
         <StyledTableCell>-</StyledTableCell>
       )}
+      {player ? (
+        <CellWithLink
+          href={getSinglePlayerRoute(player?.slug || '')}
+          label={player ? `${player?.firstName} ${player?.lastName}` : ''}
+        />
+      ) : (
+        <StyledTableCell>-</StyledTableCell>
+      )}
+      <StyledTableCell>{player?.primaryPosition.name || '-'}</StyledTableCell>
+      <StyledTableCell>
+        {scout ? `${scout.firstName} ${scout.lastName}` : '-'}
+      </StyledTableCell>
       <StyledTableCell>
         <OrderStatusChip status={status} />
       </StyledTableCell>
-      <StyledTableCell>
-        {scout ? `${scout.firstName} ${scout.lastName}` : ''}
-      </StyledTableCell>
       <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
-      <StyledTableCell padding="checkbox" align="center">
-        {!!description && (
-          <Tooltip title={description}>
-            <NoteIcon />
-          </Tooltip>
-        )}
-      </StyledTableCell>
-      <StyledTableCell align="center">
-        <Badge badgeContent={count.reports || '0'} color="secondary">
-          <ReportsIcon />
-        </Badge>
+      <StyledTableCell>
+        {executionDate ? formatDate(executionDate) : '-'}
       </StyledTableCell>
     </StyledTableRow>
   )

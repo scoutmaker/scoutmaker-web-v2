@@ -8,6 +8,7 @@ import { useMatchesList } from '@/modules/matches/hooks'
 import { CreateOrderForm } from '@/modules/orders/forms/create'
 import { useCreateOrder } from '@/modules/orders/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
+import { useUsersList } from '@/modules/users/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(
@@ -23,7 +24,12 @@ const CreateOrderPage = ({ errorMessage, errorStatus }: TSsrRole) => {
 
   const { mutate: createOrder, isLoading: isCreateLoading } = useCreateOrder()
 
-  const isLoading = isCreateLoading || matchesLoading || playersLoading
+  const { data: users, isLoading: usersLoading } = useUsersList({
+    roles: ['PLAYMAKER_SCOUT', 'PLAYMAKER_SCOUT_MANAGER'],
+  })
+
+  const isLoading =
+    isCreateLoading || matchesLoading || playersLoading || usersLoading
   if (errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
@@ -33,6 +39,7 @@ const CreateOrderPage = ({ errorMessage, errorStatus }: TSsrRole) => {
       <CreateOrderForm
         matchesData={matchesData || []}
         playersData={playersData || []}
+        usersData={users || []}
         onSubmit={createOrder}
       />
     </>

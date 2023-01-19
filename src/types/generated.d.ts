@@ -239,6 +239,8 @@ declare namespace Components {
             playerId?: string;
             matchId?: string;
             description?: string;
+            scoutId?: string;
+            executionDate: string;
         }
         export interface CreateOrganizationDto {
             id?: string;
@@ -730,6 +732,7 @@ declare namespace Components {
             player?: PlayerBasicDataDto;
             match?: MatchBasicDataDto;
             _count: OrderCount;
+            executionDate?: string; // date-time
         }
         export interface OrganizationBasicDataDto {
             id: string;
@@ -3262,7 +3265,7 @@ declare namespace Paths {
             export type MatchIds = string[];
             export type Page = number;
             export type PlayerIds = string[];
-            export type SortBy = "id" | "player" | "position" | "status" | "scout" | "description" | "createdAt";
+            export type SortBy = "id" | "player" | "position" | "status" | "scout" | "description" | "createdAt" | "executionDate";
             export type SortingOrder = "asc" | "desc";
             export type Status = "OPEN" | "ACCEPTED" | "CLOSED";
             export type TeamIds = string[];
@@ -6318,13 +6321,13 @@ declare namespace Paths {
             export type Name = string;
             export type Page = number;
             export type RegionIds = string[];
-            export type Role = "ADMIN" | "PLAYMAKER_SCOUT" | "PLAYMAKER_SCOUT_MANAGER" | "SCOUT";
+            export type Roles = ("ADMIN" | "PLAYMAKER_SCOUT" | "PLAYMAKER_SCOUT_MANAGER" | "SCOUT")[];
             export type SortBy = "id" | "firstName" | "lastName" | "club" | "footballRole" | "region" | "reportsCount" | "notesCount" | "insiderNotesCount";
             export type SortingOrder = "asc" | "desc";
         }
         export interface QueryParameters {
             name?: Parameters.Name;
-            role?: Parameters.Role;
+            roles?: Parameters.Roles;
             regionIds?: Parameters.RegionIds;
             clubIds?: Parameters.ClubIds;
             footballRoleIds?: Parameters.FootballRoleIds;
@@ -6368,6 +6371,22 @@ declare namespace Paths {
         }
     }
     namespace UsersControllerGetList {
+        namespace Parameters {
+            export type ClubIds = string[];
+            export type FootballRoleIds = string[];
+            export type HasScoutProfile = boolean;
+            export type Name = string;
+            export type RegionIds = string[];
+            export type Roles = ("ADMIN" | "PLAYMAKER_SCOUT" | "PLAYMAKER_SCOUT_MANAGER" | "SCOUT")[];
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            roles?: Parameters.Roles;
+            regionIds?: Parameters.RegionIds;
+            clubIds?: Parameters.ClubIds;
+            footballRoleIds?: Parameters.FootballRoleIds;
+            hasScoutProfile?: Parameters.HasScoutProfile;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;

@@ -25,7 +25,7 @@ const initialFilters: UsersFiltersState = {
   footballRoleIds: [],
   name: '',
   regionIds: [],
-  role: null,
+  roles: [],
   hasScoutProfile: true,
 }
 
