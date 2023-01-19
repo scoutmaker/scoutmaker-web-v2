@@ -1,5 +1,7 @@
 import { IComboOptions, IStandardComboOptions } from '@/components/combo/types'
 
+import { rolesComboData } from './role-select'
+
 export type UserDto = Components.Schemas.UserDto
 export type UserBasicDataDto = Components.Schemas.UserBasicDataDto
 
@@ -13,7 +15,7 @@ export type FindAllUsersParams = Pick<
   | 'clubIds'
   | 'footballRoleIds'
   | 'regionIds'
-  | 'role'
+  | 'roles'
   | 'hasScoutProfile'
 >
 
@@ -23,18 +25,18 @@ export type UsersFiltersDto = Pick<
   | 'clubIds'
   | 'footballRoleIds'
   | 'regionIds'
-  | 'role'
+  | 'roles'
   | 'hasScoutProfile'
 >
 
 export type UsersFiltersState = Omit<
   UsersFiltersDto,
-  'clubIds' | 'footballRoleIds' | 'regionIds' | 'role'
+  'clubIds' | 'footballRoleIds' | 'regionIds' | 'roles'
 > & {
   clubIds: IStandardComboOptions[]
   footballRoleIds: IStandardComboOptions[]
   regionIds: IStandardComboOptions[]
-  role: IComboOptions | null
+  roles: typeof rolesComboData
 }
 
 export type UsersSortBy = Paths.UsersControllerFindAll.Parameters.SortBy

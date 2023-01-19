@@ -1,8 +1,6 @@
-import { UserDto } from './types'
-
 export const rolesComboData: {
-  id: UserDto['role']
-  label: UserDto['role']
+  id: Components.Schemas.UserDto['role']
+  label: Components.Schemas.UserDto['role']
 }[] = [
   { id: 'ADMIN', label: 'ADMIN' },
   { id: 'PLAYMAKER_SCOUT', label: 'PLAYMAKER_SCOUT' },

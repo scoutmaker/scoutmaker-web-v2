@@ -11,12 +11,17 @@ import { ApiError, ApiResponse } from '@/services/api/types'
 import { useList } from '@/utils/hooks/api/use-list'
 import { usePaginatedData } from '@/utils/hooks/api/use-paginated-data'
 
-import { FindAllUsersParams, UserBasicDataDto, UserDto } from './types'
+import {
+  FindAllUsersParams,
+  UserBasicDataDto,
+  UserDto,
+  UsersFiltersDto,
+} from './types'
 
 const moduleName: TModuleName = 'users'
 
-export const useUsersList = () =>
-  useList<UserBasicDataDto>(moduleName, getUsersList)
+export const useUsersList = (params?: UsersFiltersDto) =>
+  useList<UserBasicDataDto, UsersFiltersDto>(moduleName, getUsersList, params)
 
 export const useUsers = (params: FindAllUsersParams) =>
   usePaginatedData<FindAllUsersParams, UserDto>(moduleName, params, getUsers)
