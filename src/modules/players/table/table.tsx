@@ -21,7 +21,7 @@ function generateHeadCells(t: TFunction): IHeadCell[] {
     { id: 'country', label: t('COUNTRY') },
     { id: 'lastName', label: t('LAST_NAME') },
     { id: 'firstName', label: t('FIRST_NAME') },
-    { id: 'team', label: t('TEAM') },
+    { id: 'team', label: t('TEAM'), isSortingDisabled: true },
     { id: 'yearOfBirth', label: t('YEAR_OF_BIRTH') },
     { id: 'primaryPosition', label: t('PRIMARY_POSITION') },
     { id: 'footed', label: t('FOOTED'), isSortingDisabled: true },
