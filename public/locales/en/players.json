@@ -12,5 +12,8 @@
   "NO_FOOTED_VALUE": "Please choose players dominant leg",
   "NO_TEAM_ERROR": "Please choose current players team",
   "NO_PRIMARY_POSITION_ERROR": "Please choose players primary position",
-  "TEAM_AFFILIATIONS_HEADING": "Team affiliations history"
+  "TEAM_AFFILIATIONS_HEADING": "Team affiliations history",
+  "PM_SCOUT_FULL_OBSERVATIONS_INFO": "Wszystkie dane może widzieć skaut, który pełni funkcję managera skautów",
+  "SCOUT_FULL_OBSERVATIONS_INFO": "Wykup dostęp do bazy LINKtutajLINK, aby móc korzystać z danych w aplikacji",
+  "SCOUT_ORGANIZATION_FULL_OBSERVATIONS_INFO": "Zakres tych danych nie jest w Twoim pakiecie, LINKskontaktuj sięLINK, aby rozszerzyć swój pakiet"
 }
