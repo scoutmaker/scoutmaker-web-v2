@@ -4,15 +4,11 @@ import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { useUser } from '@/modules/auth/hooks'
-import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
-import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { useMatchesList } from '@/modules/matches/hooks'
-import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useReportTemplatesList } from '@/modules/report-templates/hooks'
 import { CreateReportForm } from '@/modules/reports/forms/create'
 import { useCreateReport } from '@/modules/reports/hooks'
-import { useTeamsList } from '@/modules/teams/hooks'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(
@@ -29,13 +25,6 @@ const CreateReportPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   const { data: matches, isLoading: matchesLoading } = useMatchesList()
   const { mutate: createReport, isLoading: createReportLoading } =
     useCreateReport()
-  const { data: positions, isLoading: positionsLoading } =
-    usePlayerPositionsList()
-  const { data: teams, isLoading: teamsLoading } = useTeamsList()
-  const { data: competitions, isLoading: competitionsLoading } =
-    useCompetitionsList()
-  const { data: groups, isLoading: competitionGroupsLoading } =
-    useCompetitionGroupsList()
 
   const { data: user, isLoading: userLoading } = useUser()
 
@@ -47,10 +36,6 @@ const CreateReportPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     createReportLoading ||
     playersLoading ||
     matchesLoading ||
-    positionsLoading ||
-    teamsLoading ||
-    competitionGroupsLoading ||
-    competitionsLoading ||
     userLoading
 
   return (
@@ -62,10 +47,6 @@ const CreateReportPage = ({ errorMessage, errorStatus }: TSsrRole) => {
         templatesData={reportTemplates || []}
         playersData={players || []}
         matchesData={matches || []}
-        positionsData={positions || []}
-        teamsData={teams || []}
-        competitionsData={competitions || []}
-        competitionGroupsData={groups || []}
         templateId={user?.reportTemplateId || ''}
       />
     </>
