@@ -2,6 +2,7 @@ import { Box, TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-mui'
 import { useTranslation } from 'next-i18next'
+import React from 'react'
 
 import { FilterCombo } from '@/components/combo/combo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
@@ -21,7 +22,6 @@ import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { getFootedComboData } from '../footed-select'
 import { PlayersFiltersState } from '../types'
-import React from 'react'
 
 interface IPlayersFilterFormProps {
   countriesData: CountryDto[]
