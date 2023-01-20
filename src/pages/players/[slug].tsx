@@ -1,5 +1,14 @@
 import { Add as AddIcon } from '@mui/icons-material'
-import { AppBar, Box, Button, Tab, Tabs } from '@mui/material'
+import {
+  AppBar,
+  Box,
+  Button,
+  Link as MuiLink,
+  Tab,
+  Tabs,
+  Typography,
+} from '@mui/material'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
@@ -34,6 +43,7 @@ import { getPlayerBySlug } from '@/services/api/methods/players'
 import { ApiError } from '@/services/api/types'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
+import generateObservationsInfo from '@/modules/players/generate-observations-info'
 
 type TData = {
   isAdmin: boolean
@@ -62,6 +72,7 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
     setTabValue(newValue)
 
   const { isAdmin, player } = data || {}
+  const { _count: playerObservations } = player || {}
 
   const {
     tableSettings: TeamAffiliationsTableSettings,
@@ -127,6 +138,8 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
 
   const { data: user, isLoading: userLoading } = useUser()
 
+  const observationsAccessInfo = generateObservationsInfo(user, t)
+
   const isLoading =
     likeNoteLoading ||
     unLikeNoteLoading ||
@@ -187,6 +200,18 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
             />
           </Tabs>
         </AppBar>
+        {((playerObservations?.notes !== notes?.totalDocs && tabValue === 0) ||
+          (playerObservations?.reports !== reports?.totalDocs &&
+            tabValue === 2)) && (
+          <Typography
+            variant="h6"
+            component="h4"
+            textAlign="center"
+            paddingBottom={0.5}
+          >
+            {observationsAccessInfo}
+          </Typography>
+        )}
         <TabPanel value={tabValue} index={0} title="notes" noPadding>
           <NotesTable
             {...NotesTableSettings}
