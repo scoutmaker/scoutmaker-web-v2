@@ -21,6 +21,7 @@ import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { getFootedComboData } from '../footed-select'
 import { PlayersFiltersState } from '../types'
+import React from 'react'
 
 interface IPlayersFilterFormProps {
   countriesData: CountryDto[]
@@ -113,7 +114,8 @@ export const PlayersFilterForm = ({
                 fullWidth
                 label={`Min ${t('AVG_RATING')}`}
                 size="small"
-                inputProps={{ min: 0, max: 4, step: 0.01 }}
+                inputProps={{ min: 1, max: 4, step: 0.01 }}
+                onInput={averageRatingInRange}
               />
               <Field
                 name="maxAverageRating"
@@ -123,7 +125,8 @@ export const PlayersFilterForm = ({
                 fullWidth
                 label={`Max ${t('AVG_RATING')}`}
                 size="small"
-                inputProps={{ min: 0, max: 4, step: 0.01 }}
+                inputProps={{ min: 1, max: 4, step: 0.01 }}
+                onInput={averageRatingInRange}
               />
             </Box>
             <FilterCombo
@@ -199,4 +202,10 @@ export const PlayersFilterForm = ({
       )}
     </Formik>
   )
+}
+
+const averageRatingInRange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  if (e.target.value === '') return
+  if (+e.target.value > 4) e.target.value = '4'
+  else if (+e.target.value < 1) e.target.value = '1'
 }
