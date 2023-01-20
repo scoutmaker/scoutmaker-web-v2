@@ -1,14 +1,5 @@
 import { Add as AddIcon } from '@mui/icons-material'
-import {
-  AppBar,
-  Box,
-  Button,
-  Link as MuiLink,
-  Tab,
-  Tabs,
-  Typography,
-} from '@mui/material'
-import Link from 'next/link'
+import { AppBar, Box, Button, Tab, Tabs, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
@@ -30,6 +21,7 @@ import { NotesTable } from '@/modules/notes/table/table'
 import { NotesSortBy } from '@/modules/notes/types'
 import { useOnLikeNoteClick } from '@/modules/notes/utils'
 import { PlayerDetialsCard } from '@/modules/players/details-card'
+import generateObservationsInfo from '@/modules/players/generate-observations-info'
 import { PlayerDto } from '@/modules/players/types'
 import { shouldShowPlayerRole } from '@/modules/players/utils'
 import { useReports, useUnlikeReport } from '@/modules/reports/hooks'
@@ -43,7 +35,6 @@ import { getPlayerBySlug } from '@/services/api/methods/players'
 import { ApiError } from '@/services/api/types'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
-import generateObservationsInfo from '@/modules/players/generate-observations-info'
 
 type TData = {
   isAdmin: boolean
