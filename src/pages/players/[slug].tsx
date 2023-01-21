@@ -68,16 +68,18 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
     ...TeamAffiliationsTableProps
   } = useTable(`team-affiliations-table-player:${player?.id}`, 'endDate')
 
-  const { tableSettings: NotesTableSettings, ...NotesTableProps } =
-    useTable(`notes-table-player`)
+  const { tableSettings: NotesTableSettings, ...NotesTableProps } = useTable(
+    `notes-table-players`,
+    'createdAt',
+  )
 
   const { tableSettings: ReportsTableSettings, ...ReportsTableProps } =
-    useTable(`reports-table-player`)
+    useTable(`reports-table-players`, 'createdAt')
 
   const {
     tableSettings: InsiderNotesTableSettings,
     ...InsiderNotesTableProps
-  } = useTable(`insider-notes-table-player`)
+  } = useTable(`insider-notes-table-players`, 'createdAt')
 
   const { data: affiliations, isLoading: teamAffiliationsLoading } =
     useTeamAffiliations({
