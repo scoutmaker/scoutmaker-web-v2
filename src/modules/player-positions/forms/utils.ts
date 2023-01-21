@@ -19,6 +19,7 @@ export function generateCreateValidationSchema(t: TFunction) {
     .object({
       name: yup.string().required(t('player-positions:NO_NAME_ERROR')),
       code: yup.string().required(t('player-positions:NO_CODE_ERROR')),
+      listOrder: yup.number().notRequired(),
     })
     .defined()
 }
@@ -27,18 +28,20 @@ export function generateUpdateValidationSchema() {
   return yup.object({
     name: yup.string().notRequired(),
     code: yup.string().notRequired(),
+    listOrder: yup.number().notRequired(),
   })
 }
 
 export function getInitialStateFromCurrent(
   position: PlayerPositionDto,
 ): UpdatePlayerPostitionDto {
-  const { name, code, positionType } = position
+  const { name, code, positionType, listOrder } = position
 
   const values = {
     name,
     code,
-    playerPositionTypeId: positionType.id,
+    listOrder,
+    playerPositionTypeId: positionType?.id,
   }
 
   return map(values, value => value || '')
