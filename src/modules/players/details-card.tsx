@@ -38,6 +38,7 @@ export const PlayerDetialsCard = ({ player, showRole }: IPlayerDetailsCard) => {
     teams,
     averagePercentageRating,
     role,
+    inStatUrl,
   } = player
 
   return (
@@ -111,15 +112,21 @@ export const PlayerDetialsCard = ({ player, showRole }: IPlayerDetailsCard) => {
               value={height ? `${height} cm` : '-'}
             />
             <CardItemBasic
-              title={t('TRANSFERMARKT_URL')}
+              title="TransferMarkt"
               value={transfermarktUrl}
               href={transfermarktUrl}
               linkInNewCard
             />
             <CardItemBasic
-              title={t('90_MINUT_URL')}
+              title="90minut"
               value={minut90url}
               href={minut90url}
+              linkInNewCard
+            />
+            <CardItemBasic
+              title="inStat"
+              value={inStatUrl}
+              href={inStatUrl}
               linkInNewCard
             />
           </Grid>

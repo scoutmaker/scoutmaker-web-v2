@@ -287,6 +287,7 @@ declare namespace Components {
             minut90url?: string;
             transfermarktId?: string;
             transfermarktUrl?: string;
+            inStatUrl?: string;
             scoutmakerv1Id?: string;
             isPublic?: boolean;
             roleId?: string;
@@ -510,6 +511,7 @@ declare namespace Components {
             minut90url?: string;
             transfermarktId?: string;
             transfermarktUrl?: string;
+            inStatUrl?: string;
             country: CountryDto;
             primaryPosition: PlayerPositionDto;
             secondaryPositions: PlayerPositionDto[];
@@ -814,6 +816,7 @@ declare namespace Components {
             minut90url?: string;
             transfermarktId?: string;
             transfermarktUrl?: string;
+            inStatUrl?: string;
             country: CountryDto;
             primaryPosition: PlayerPositionDto;
             secondaryPositions: PlayerPositionDto[];
@@ -1215,6 +1218,7 @@ declare namespace Components {
             minut90url?: string;
             transfermarktId?: string;
             transfermarktUrl?: string;
+            inStatUrl?: string;
             scoutmakerv1Id?: string;
             isPublic?: boolean;
             roleId?: string;
