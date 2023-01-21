@@ -1,5 +1,5 @@
 import { Add as AddIcon } from '@mui/icons-material'
-import { AppBar, Box, Button, Tab, Tabs } from '@mui/material'
+import { AppBar, Box, Button, Tab, Tabs, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
@@ -21,6 +21,7 @@ import { NotesTable } from '@/modules/notes/table/table'
 import { NotesSortBy } from '@/modules/notes/types'
 import { useOnLikeNoteClick } from '@/modules/notes/utils'
 import { PlayerDetialsCard } from '@/modules/players/details-card'
+import generateObservationsInfo from '@/modules/players/generate-observations-info'
 import { PlayerDto } from '@/modules/players/types'
 import { shouldShowPlayerRole } from '@/modules/players/utils'
 import { useReports, useUnlikeReport } from '@/modules/reports/hooks'
@@ -62,6 +63,7 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
     setTabValue(newValue)
 
   const { isAdmin, player } = data || {}
+  const { _count: playerObservations } = player || {}
 
   const {
     tableSettings: TeamAffiliationsTableSettings,
@@ -129,6 +131,8 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
 
   const { data: user, isLoading: userLoading } = useUser()
 
+  const observationsAccessInfo = generateObservationsInfo(user, t)
+
   const isLoading =
     likeNoteLoading ||
     unLikeNoteLoading ||
@@ -189,6 +193,18 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
             />
           </Tabs>
         </AppBar>
+        {((playerObservations?.notes !== notes?.totalDocs && tabValue === 0) ||
+          (playerObservations?.reports !== reports?.totalDocs &&
+            tabValue === 2)) && (
+          <Typography
+            variant="h6"
+            component="h4"
+            textAlign="center"
+            paddingBottom={0.5}
+          >
+            {observationsAccessInfo}
+          </Typography>
+        )}
         <TabPanel value={tabValue} index={0} title="notes" noPadding>
           <NotesTable
             {...NotesTableSettings}
