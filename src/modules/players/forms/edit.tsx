@@ -52,10 +52,12 @@ export const EditPlayerForm = ({
       validationSchema={generateUpdatePlayerValidationSchema(t)}
       enableReinitialize
       onSubmit={data => {
-        const dataToSubmit = updatedDiff(
+        const dataToSubmit: UpdatePlayerDto = updatedDiff(
           initialValues,
           filter(data, (_, value) => value),
         )
+        // @ts-ignore
+        if (!data.roleId) dataToSubmit.roleId = null
         onSubmit(dataToSubmit)
       }}
     >
