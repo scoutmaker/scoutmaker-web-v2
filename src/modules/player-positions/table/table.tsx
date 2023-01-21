@@ -21,6 +21,7 @@ function generateHeadCells(t: TFunction): IHeadCell[] {
       label: t('POSITION_TYPE'),
       isSortingDisabled: true,
     },
+    { id: 'listOrder', label: t('player-positions:ORDER') },
   ]
 }
 

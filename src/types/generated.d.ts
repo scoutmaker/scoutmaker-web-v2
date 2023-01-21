@@ -296,6 +296,7 @@ declare namespace Components {
             name: string;
             code: string;
             playerPositionTypeId: string;
+            listOrder?: number;
         }
         export interface CreatePlayerPositionTypeDto {
             id?: string;
@@ -827,6 +828,7 @@ declare namespace Components {
             name: string;
             code: string;
             positionType: PlayerPositionTypeDto;
+            listOrder?: number;
         }
         export interface PlayerPositionTypeDto {
             id: string;
@@ -1221,6 +1223,7 @@ declare namespace Components {
             name?: string;
             code?: string;
             playerPositionTypeId?: string;
+            listOrder?: number;
         }
         export interface UpdatePlayerPositionTypeDto {
             name?: string;
@@ -4006,7 +4009,7 @@ declare namespace Paths {
             export type Limit = number;
             export type Name = string;
             export type Page = number;
-            export type SortBy = "id" | "name" | "code";
+            export type SortBy = "id" | "name" | "code" | "listOrder";
             export type SortingOrder = "asc" | "desc";
         }
         export interface QueryParameters {
