@@ -245,5 +245,6 @@
   "CHARACTERISTICS": "Charakterystyka",
   "SCOUT_PROFILE": "Profil skauta",
   "ERROR_PAGE_401_HEADING": "Nie masz dostępu do danych na tej podstronie",
-  "ERROR_PAGE_401_INFO": "Aby uzyskać dostęp skorzystaj z formularza na LINKstronie ofertowej usług skautingowychLINK"
+  "ERROR_PAGE_401_INFO": "Aby uzyskać dostęp skorzystaj z formularza na LINKstronie ofertowej usług skautingowychLINK",
+  "INSTAT_URL": "inStat URL"
 }

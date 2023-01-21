@@ -27,6 +27,7 @@ export const initialValues: CreatePlayerDto = {
   minut90url: '',
   transfermarktId: '',
   transfermarktUrl: '',
+  inStatUrl: '',
   roleId: '',
 }
 
@@ -42,6 +43,7 @@ function generateCommonPlayerFieldsValidationSchema() {
     minut90url: yup.string().url().notRequired(),
     transfermarktId: yup.string().notRequired(),
     transfermarktUrl: yup.string().url().notRequired(),
+    inStatUrl: yup.string().url().notRequired(),
     roleId: validateId(),
   }
 }

@@ -214,6 +214,17 @@ export const Fields = ({
           t('OPTIONAL_FIELD')
         }
       />
+      <Field
+        name="inStatUrl"
+        as={TextField}
+        variant="outlined"
+        fullWidth
+        label={t('INSTAT_URL')}
+        error={touched.inStatUrl && !!errors.inStatUrl}
+        helperText={
+          (touched.inStatUrl && errors.inStatUrl) || t('OPTIONAL_FIELD')
+        }
+      />
     </>
   )
 }
