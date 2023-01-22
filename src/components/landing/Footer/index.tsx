@@ -50,12 +50,14 @@ export const Footer = () => {
             </SocialIconsContainer>
           </IconsWrapper>
           <LinksContainer>
-            <Link href="/club-scouting">{t('landing:CLUB_SCOUTING')}</Link>
+            <Link href="/club-scouting">
+              {t('landing:OBSERVATION_SCOUTING')}
+            </Link>
             <Link href="/scouting-app">{t('landing:SCOUTING_APP')}</Link>
             <Link href="/data-analysis">{t('landing:DATA_ANALYSIS')}</Link>
-            <Link href="/scouting-academy">
+            {/* <Link href="/scouting-academy">
               {t('landing:SCOUTING_ACADEMY')}
-            </Link>
+            </Link> */}
           </LinksContainer>
           <Divider orientation="vertical" />
           <ContactContainer>

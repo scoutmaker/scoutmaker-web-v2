@@ -48,34 +48,30 @@ const HomePage = () => {
             </Typography>
             <ButtonsContainer>
               <CtaButton
-                text={t('landing:CLUB_SCOUTING')}
+                text={t('landing:OBSERVATION_SCOUTING')}
                 href="/club-scouting"
-              />
-              <CtaButton
-                text={t('landing:SCOUTING_ACADEMY')}
-                href="/scouting-academy"
-              />
-              <CtaButton
-                text={t('landing:SCOUTING_APP')}
-                href="/scouting-app"
               />
               <CtaButton
                 text={t('landing:DATA_ANALYSIS')}
                 href="/data-analysis"
               />
+              <CtaButton
+                text={t('landing:SCOUTING_APP')}
+                href="/scouting-app"
+              />
+              <GoToAppContainer>
+                <GoToAppButton
+                  color="secondary"
+                  variant="contained"
+                  href="/login"
+                  LinkComponent={Link}
+                >
+                  {t('landing-home:GO_TO_APP')}
+                </GoToAppButton>
+              </GoToAppContainer>
             </ButtonsContainer>
           </div>
         </FlexWrapper>
-        <GoToAppContainer>
-          <GoToAppButton
-            color="secondary"
-            variant="contained"
-            href="/login"
-            LinkComponent={Link}
-          >
-            {t('landing-home:GO_TO_APP')}
-          </GoToAppButton>
-        </GoToAppContainer>
       </MainContainer>
     </WrapperImg>
   )

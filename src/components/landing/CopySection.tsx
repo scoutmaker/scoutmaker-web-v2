@@ -2,6 +2,7 @@ import { Box, styled, Typography } from '@mui/material'
 import Image, { StaticImageData } from 'next/image'
 import { ReactNode } from 'react'
 
+import { GoToSectionButton } from './GoToSectionButton'
 import { LayoutContentWrapper } from './LayoutContentWrapper'
 
 interface IProps {
@@ -11,9 +12,10 @@ interface IProps {
     img: StaticImageData
     alt: string
   }
+  goToSection?: string
 }
 
-export const CopySection = ({ title, text, image }: IProps) => (
+export const CopySection = ({ title, text, image, goToSection }: IProps) => (
   <Wrapper id="copy">
     <LayoutContentWrapper>
       <Container>
@@ -25,6 +27,18 @@ export const CopySection = ({ title, text, image }: IProps) => (
           <Image src={image.img} alt={image.alt} />
         </ImageContainer>
       </Container>
+      {!!goToSection && (
+        <Box
+          sx={theme => ({
+            [theme.breakpoints.down('md')]: {
+              display: 'flex',
+              justifyContent: 'center',
+            },
+          })}
+        >
+          <GoToSectionButton text="Dowiedz się więcej" href={goToSection} />
+        </Box>
+      )}
     </LayoutContentWrapper>
   </Wrapper>
 )

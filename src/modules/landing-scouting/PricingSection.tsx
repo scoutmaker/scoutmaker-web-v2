@@ -1,32 +1,41 @@
 import { styled, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
+import { GoToSectionButton } from '@/components/landing/GoToSectionButton'
 import { LayoutContentWrapper } from '@/components/landing/LayoutContentWrapper'
 import { PricingCard } from '@/components/landing/PricingCard'
 
-import { mainPricing } from './data'
+import {
+  databaseAccessPricing,
+  directorScoutingPricing,
+  orderScoutingPricing,
+} from './data'
 
-type Props = {
-  onButtonClick?: () => void
-}
-
-export const PricingSection = ({ onButtonClick }: Props) => {
+export const PricingSection = () => {
   const { t } = useTranslation()
-  const mainPricingTranslated = mainPricing(t)
+  const databaseAccess = databaseAccessPricing(t)
+  const orderScouting = orderScoutingPricing(t)
+  const directorScouting = directorScoutingPricing(t)
 
   return (
     <section>
-      <LayoutContentWrapper>
-        <Heading variant="h2">{t('landing:PRICE_TABLE')}</Heading>
+      <LayoutContentWrapper sx={{ paddingBottom: 4 }}>
+        <Heading variant="h2">Skauting dopasowany do twoich potrzeb</Heading>
         <Container>
           <PricingCard
-            features={mainPricingTranslated.features}
-            priceFrom
-            price={mainPricingTranslated.price}
-            buttonText={t('landing-scouting:COME_TO_US')}
-            onButtonClick={onButtonClick}
+            features={databaseAccess.features}
+            price={databaseAccess.title}
+          />
+          <PricingCard
+            features={orderScouting.features}
+            price={orderScouting.title}
+          />
+          <PricingCard
+            features={directorScouting.features}
+            price={directorScouting.title}
           />
         </Container>
+        <GoToSectionButton text="Skontaktuj się" href="#contactform" />
       </LayoutContentWrapper>
     </section>
   )
@@ -41,7 +50,13 @@ const Heading = styled(Typography)(({ theme }) => ({
   },
 }))
 
-const Container = styled('div')({
-  maxWidth: 600,
-  margin: '0 auto',
-})
+const Container = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'flex-start',
+  gap: 15,
+
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+}))
