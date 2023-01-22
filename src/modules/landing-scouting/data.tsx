@@ -268,8 +268,19 @@ export const recommendations: Recommendation[] = [
   },
 ]
 
-export const mainPricing = (t: TFunction) => ({
-  price: '1199 pln',
+export const databaseAccessPricing = (t: TFunction) => ({
+  title: 'Dostęp do bazy',
+  features: [
+    { title: t('landing-scouting:PRICING_ANALYSIS'), value: true },
+    { title: t('landing-scouting:PRICING_CUSTOM_TEMPLATE'), value: true },
+    { title: t('landing-scouting:PRICING_APP_ACCESS'), value: true },
+    { title: t('landing-scouting:PRICING_BUILD_DATABASE'), value: true },
+    { title: t('landing-scouting:PRICING_DATABASE_ACCESS'), value: true },
+  ],
+})
+
+export const orderScoutingPricing = (t: TFunction) => ({
+  title: 'Skauting na zlecenie',
   features: [
     { title: t('landing-scouting:PRICING_ANALYSIS'), value: true },
     { title: t('landing-scouting:PRICING_CUSTOM_TEMPLATE'), value: true },
@@ -278,9 +289,43 @@ export const mainPricing = (t: TFunction) => ({
     { title: t('landing-scouting:PRICING_DATABASE_ACCESS'), value: true },
     { title: t('landing-scouting:PRICING_OBSERVATIONS'), value: true },
     { title: t('landing-scouting:PRICING_SCOUTS'), value: true },
-    { title: t('landing-scouting:PRICING_SCOUTING_MANAGER'), value: true },
+    { title: t('landing-scouting:PRICING_RECOMENDATIONS'), value: true },
     {
       title: t('landing-scouting:PRICING_OBSERVATION_REGIONS'),
+      value: true,
+    },
+  ],
+})
+
+export const directorScoutingPricing = (t: TFunction) => ({
+  title: 'Dyrektor Skautingu',
+  features: [
+    { title: t('landing-scouting:PRICING_ANALYSIS'), value: true },
+    { title: t('landing-scouting:PRICING_CUSTOM_TEMPLATE'), value: true },
+    { title: t('landing-scouting:PRICING_APP_ACCESS'), value: true },
+    { title: t('landing-scouting:PRICING_BUILD_DATABASE'), value: true },
+    { title: t('landing-scouting:PRICING_DATABASE_ACCESS'), value: true },
+    { title: t('landing-scouting:PRICING_OBSERVATIONS'), value: true },
+    { title: t('landing-scouting:PRICING_SCOUTS'), value: true },
+    { title: t('landing-scouting:PRICING_RECOMENDATIONS'), value: true },
+    {
+      title: t('landing-scouting:PRICING_OBSERVATION_REGIONS'),
+      value: true,
+    },
+    {
+      title: t('landing-scouting:PRICING_OBSERVATION_REGIONS'),
+      value: true,
+    },
+    {
+      title: t('landing-scouting:PRICING_VERIFICATION'),
+      value: true,
+    },
+    {
+      title: t('landing-scouting:PRICING_PLAYER_CONTACT'),
+      value: true,
+    },
+    {
+      title: t('landing-scouting:PRICING_DIRECTOR_CONTACT'),
       value: true,
     },
   ],

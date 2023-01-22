@@ -18,5 +18,7 @@
   "PRICE_TABLE": "Cennik",
   "NUMBERS_REPORTS": "Raportów",
   "NUMBERS_NOTES": "Notatek",
-  "NUMBERS_SCOUTS": "Skautów"
+  "NUMBERS_SCOUTS": "Skautów",
+  "OBSERVATION_SCOUTING": "Skauting obserwacyjny",
+  "CLUB_NAME": "Nazwa klubu"
 }

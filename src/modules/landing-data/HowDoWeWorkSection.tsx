@@ -1,6 +1,7 @@
 import { styled, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
+import { GoToSectionButton } from '@/components/landing/GoToSectionButton'
 import { LayoutContentWrapper } from '@/components/landing/LayoutContentWrapper'
 
 import { methodology } from './data'
@@ -11,7 +12,7 @@ export const HowDoWeWorkSection = () => {
   const methodologyData = methodology(t)
 
   return (
-    <Container>
+    <Container id="howdowework">
       <LayoutContentWrapper>
         <Heading variant="h2">{t('landing:HOW_DO_WE_WORK')}</Heading>
         <ContentContainer>
@@ -19,6 +20,7 @@ export const HowDoWeWorkSection = () => {
             <ListItem key={item.number} number={item.number} text={item.text} />
           ))}
         </ContentContainer>
+        <GoToSectionButton text="Skontaktuj się" href="#contactform" />
       </LayoutContentWrapper>
     </Container>
   )
@@ -41,4 +43,5 @@ const Heading = styled(Typography)(({ theme }) => ({
 
 const ContentContainer = styled('li')({
   listStyle: 'none',
+  paddingBottom: 20,
 })

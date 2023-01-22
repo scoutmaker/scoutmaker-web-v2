@@ -64,6 +64,7 @@ export const ContentContainer = styled('div')({
 })
 
 export const ButtonContainer = styled('div')(({ theme }) => ({
+  marginTop: 4,
   alignSelf: 'flex-end',
 
   [theme.breakpoints.down('lg')]: {
