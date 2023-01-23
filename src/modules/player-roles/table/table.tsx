@@ -15,12 +15,13 @@ interface ITableProps extends ICommonTableProps {
 
 function generateHeadCells(t: TFunction): IHeadCell[] {
   return [
-    { id: 'name', label: t('NAME') },
-    { id: 'altName', label: t('ALT_NAME') },
     {
       id: 'positionTypeId',
       label: t('POSITION_TYPE'),
     },
+    { id: 'name', label: t('NAME') },
+    { id: 'description', label: t('DESCRIPTION'), isSortingDisabled: true },
+    { id: 'examples', label: t('EXAMPLES'), isSortingDisabled: true },
   ]
 }
 
