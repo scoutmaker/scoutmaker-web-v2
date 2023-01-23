@@ -18,7 +18,7 @@ export const ErrorContent = ({ status, message }: IErrorContentProps) => {
       <Box marginTop={12}>
         <PageHeading title={t('ERROR_PAGE_401_HEADING')} />
         <Typography align="center">
-          {separateLink(t('ERROR_PAGE_401_INFO'), '/club-scouting')}
+          {separateLink(t('ERROR_PAGE_401_INFO'), '/club-scouting#contactform')}
         </Typography>
       </Box>
     )
