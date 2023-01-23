@@ -8,10 +8,17 @@ interface IProps {
 }
 
 export const CtaButton = ({ text, href }: IProps) => (
-  <Link href={href}>
-    <CustomButton color="secondary" variant="contained" endIcon={<ArrowIcon />}>
-      {text}
-    </CustomButton>
+  <Link href={href} passHref>
+    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+    <a style={{ textDecoration: 'none' }}>
+      <CustomButton
+        color="secondary"
+        variant="contained"
+        endIcon={<ArrowIcon />}
+      >
+        {text}
+      </CustomButton>
+    </a>
   </Link>
 )
 
