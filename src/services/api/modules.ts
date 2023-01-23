@@ -41,3 +41,4 @@ export type TModuleName =
   | 'player-position-types'
   | 'player-roles'
   | 'scout-profiles'
+  | 'landing'

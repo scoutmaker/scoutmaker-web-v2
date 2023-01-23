@@ -581,6 +581,11 @@ declare namespace Components {
             docNumber: number;
             createdAt: string; // date-time
         }
+        export interface LandingPageNumbersDto {
+            notesCount: number;
+            reportsCount: number;
+            scoutsCount: number;
+        }
         export interface LikeInsiderNoteBasicDataDto {
             userId: string;
             insiderNoteId: string;
@@ -2791,6 +2796,15 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.LikeInsiderNoteDto;
+            }
+        }
+    }
+    namespace LandingControllerGetData {
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.LandingPageNumbersDto;
             }
         }
     }
