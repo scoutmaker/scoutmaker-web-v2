@@ -63,7 +63,7 @@ const HomePage = () => {
                 <GoToAppButton
                   color="secondary"
                   variant="contained"
-                  href="/login"
+                  href="/dashboard"
                   LinkComponent={Link}
                 >
                   {t('landing-home:GO_TO_APP')}

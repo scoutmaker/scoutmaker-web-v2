@@ -45,7 +45,11 @@ const ClubScoutingPage = () => {
     <>
       <main>
         <CssBaseline />
-        <HeroSection {...heroDataTranslated} displayAppNumbers />
+        <HeroSection
+          {...heroDataTranslated}
+          displayAppNumbers
+          letsMeetVariant
+        />
         <CopySection {...copyDataTranslated} goToSection="#advantages" />
         <ValuesSection values={valuesTranslated} />
 
