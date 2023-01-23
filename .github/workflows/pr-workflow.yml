@@ -15,3 +15,5 @@ jobs:
      - run: yarn
      - run: yarn lint
      - run: yarn build
+        env:
+          NEXT_PUBLIC_BACKEND_URL: https://scoutmaker-api-staging.up.railway.app/api/v2
