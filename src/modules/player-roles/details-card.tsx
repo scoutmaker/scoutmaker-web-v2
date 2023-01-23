@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { CardItemBasic } from '@/components/details-card/details-card-item'
 import { PlayerRoleIcon } from '@/components/icons'
 
+import { GroupedPlayerRoleExamples } from './GroupedPlayerRoleExamples'
 import { PlayerRoleDto } from './types'
 
 export const PlayerRoleDetailsCard = ({ role }: IDetailsCard) => {
@@ -33,7 +34,7 @@ export const PlayerRoleDetailsCard = ({ role }: IDetailsCard) => {
           <CardItemBasic title={t('DESCRIPTION')} value={description} />
           <CardItemBasic
             title={t('EXAMPLES')}
-            value={examples.map(ex => `${ex.player} - ${ex.type}`).join(', ')}
+            value={<GroupedPlayerRoleExamples examples={examples} />}
           />
         </Grid>
       </CardContent>
