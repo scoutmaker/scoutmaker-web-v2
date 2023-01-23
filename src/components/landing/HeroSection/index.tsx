@@ -3,6 +3,8 @@ import Image, { StaticImageData } from 'next/image'
 import { useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
 
+import { LandingPageNumbers } from '@/modules/landing-home/types'
+
 import { AppNumbers } from '../AppNumbers'
 import { GoToSectionButton } from '../GoToSectionButton'
 import { LayoutContentWrapper } from '../LayoutContentWrapper'
@@ -24,7 +26,7 @@ interface IProps {
   }
   title: ReactNode
   features: string[]
-  displayAppNumbers?: boolean
+  appNumbers?: LandingPageNumbers
   letsMeetVariant?: boolean
 }
 
@@ -33,7 +35,7 @@ const HeroSection = ({
   image,
   title,
   features,
-  displayAppNumbers,
+  appNumbers,
   letsMeetVariant,
 }: IProps) => {
   const { t } = useTranslation()
@@ -64,7 +66,7 @@ const HeroSection = ({
                 />
               )}
             </ButtonContainer>
-            {displayAppNumbers && <AppNumbers />}
+            {!!appNumbers && <AppNumbers numbers={appNumbers} />}
           </ContentContainer>
         </InnerContainer>
       </LayoutContentWrapper>

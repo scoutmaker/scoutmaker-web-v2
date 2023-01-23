@@ -6,14 +6,16 @@ import {
 import { styled } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { useLandingPageNumbers } from '@/modules/landing-home/hooks'
+import { LandingPageNumbers } from '@/modules/landing-home/types'
 
 import { AppNumber } from './AppNumber'
 
-export const AppNumbers = () => {
-  const { t } = useTranslation()
+interface IProps {
+  numbers: LandingPageNumbers
+}
 
-  const { data: numbers } = useLandingPageNumbers()
+export const AppNumbers = ({ numbers }: IProps) => {
+  const { t } = useTranslation()
 
   return (
     <Container>

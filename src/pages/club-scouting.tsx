@@ -9,6 +9,7 @@ import { CopySection } from '@/components/landing/CopySection'
 import { Footer } from '@/components/landing/Footer'
 import HeroSection from '@/components/landing/HeroSection'
 import { ValuesSection } from '@/components/landing/ValuesSection'
+import { LandingPageNumbers } from '@/modules/landing-home/types'
 import {
   advantages,
   copyData,
@@ -18,6 +19,7 @@ import {
 import { PricingSection } from '@/modules/landing-scouting/PricingSection'
 import { RecommendationsSection } from '@/modules/landing-scouting/RecomendationsSection'
 import { TransfersSection } from '@/modules/landing-scouting/TransfersSection'
+import { getLandingPageNumbers } from '@/services/api/methods/landing-home'
 
 export async function getStaticProps({ locale }: GetStaticPropsContext) {
   const translations = await serverSideTranslations(locale || 'pl', [
@@ -26,14 +28,22 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
     'landing-scouting',
   ])
 
+  const appNumbers = await getLandingPageNumbers()
+
   return {
     props: {
       ...translations,
+      appNumbers,
     },
+    revalidate: 60 * 60 * 2,
   }
 }
 
-const ClubScoutingPage = () => {
+const ClubScoutingPage = ({
+  appNumbers,
+}: {
+  appNumbers: LandingPageNumbers
+}) => {
   const { t } = useTranslation()
 
   const heroDataTranslated = heroData(t)
@@ -47,7 +57,7 @@ const ClubScoutingPage = () => {
         <CssBaseline />
         <HeroSection
           {...heroDataTranslated}
-          displayAppNumbers
+          appNumbers={appNumbers}
           letsMeetVariant
         />
         <CopySection {...copyDataTranslated} goToSection="#advantages" />
