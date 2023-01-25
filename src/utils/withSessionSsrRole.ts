@@ -29,7 +29,7 @@ export function withSessionSsrRole<T>(
     const { user } = req.session
 
     if (!user) {
-      redirectToLogin(res)
+      redirectToLogin(res, req.url)
       return {
         props: {
           errorStatus: null,

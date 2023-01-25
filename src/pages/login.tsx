@@ -1,5 +1,6 @@
 import { Typography } from '@mui/material'
 import { GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -23,7 +24,10 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 const LoginPage = () => {
   const { t } = useTranslation('login')
 
-  const { mutate: login, isLoading } = useLogin()
+  const router = useRouter()
+  const { mutate: login, isLoading } = useLogin(
+    router.query.redirectTo as string,
+  )
 
   return (
     <>
