@@ -21,3 +21,5 @@ export interface Effect {
   text: string
   link: string
 }
+
+export type LandingPageEmailDto = Components.Schemas.LandingEmailDto

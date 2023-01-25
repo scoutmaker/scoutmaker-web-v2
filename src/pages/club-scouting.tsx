@@ -57,7 +57,10 @@ const ClubScoutingPage = () => {
         <RecommendationsSection goToSection="#contactform" />
         <AdvantagesSection advantages={advantagesTranslated} />
         <PricingSection />
-        <ContactForm title="Porozmawiajmy o skautingu w Twoim klubie" />
+        <ContactForm
+          title="Porozmawiajmy o skautingu w Twoim klubie"
+          emailTopic="Skauting obserwacyjny"
+        />
       </main>
       <Footer />
     </>

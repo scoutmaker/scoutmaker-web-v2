@@ -6,15 +6,17 @@ import * as yup from 'yup'
 import { LayoutContentWrapper } from '@/components/landing/LayoutContentWrapper'
 import { Loader } from '@/components/loader/loader'
 
+import { useSendLandingEmail } from './hooks'
+
 interface IProps {
   title: string
+  emailTopic: string
 }
 
-export const ContactForm = ({ title }: IProps) => {
+export const ContactForm = ({ title, emailTopic }: IProps) => {
   const { t } = useTranslation()
 
-  // const { mutate: sendEmail, isLoading } = useSendEmail();
-  const isLoading = false
+  const { mutate: sendEmail, isLoading } = useSendLandingEmail()
 
   return (
     <>
@@ -34,16 +36,17 @@ export const ContactForm = ({ title }: IProps) => {
           <FormContainer>
             <Formik
               initialValues={{
-                firstname: '',
+                firstName: '',
+                lastName: '',
                 email: '',
-                lastname: '',
                 tel: '',
                 club: '',
+                title: emailTopic,
               }}
               validationSchema={validationSchema}
               enableReinitialize
               onSubmit={(data, { resetForm }) => {
-                // sendEmail(data);
+                sendEmail(data)
                 resetForm()
               }}
             >
@@ -51,23 +54,23 @@ export const ContactForm = ({ title }: IProps) => {
                 <Form id="contactform">
                   <Container>
                     <Field
-                      name="firstname"
+                      name="firstName"
                       as={TextField}
                       variant="outlined"
                       fullWidth
                       label={t('FIRST_NAME')}
-                      error={touched.firstname && !!errors.firstname}
+                      error={touched.firstName && !!errors.firstName}
                       size="small"
-                      helperText={touched.firstname && errors.firstname}
+                      helperText={touched.firstName && errors.firstName}
                     />
                     <Field
-                      name="lastname"
+                      name="lastName"
                       as={TextField}
                       variant="outlined"
                       fullWidth
                       label={t('LAST_NAME')}
-                      error={touched.lastname && !!errors.lastname}
-                      helperText={touched.lastname && errors.lastname}
+                      error={touched.lastName && !!errors.lastName}
+                      helperText={touched.lastName && errors.lastName}
                       size="small"
                     />
                     <Field
@@ -154,9 +157,10 @@ const validationSchema = yup
       .string()
       .email('Proszę podać poprawny adres email')
       .required('Proszę podać swój adres email'),
-    firstname: yup.string().required('Proszę podać imię'),
-    lastname: yup.string().required('Proszę podać nazwisko'),
+    firstName: yup.string().required('Proszę podać imię'),
+    lastName: yup.string().required('Proszę podać nazwisko'),
     tel: yup.number().required('Proszę podać numer telefonu'),
     club: yup.string().required('Proszę podać nazwę klubu'),
+    title: yup.string().required(),
   })
   .defined()

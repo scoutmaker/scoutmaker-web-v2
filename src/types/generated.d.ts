@@ -581,6 +581,14 @@ declare namespace Components {
             docNumber: number;
             createdAt: string; // date-time
         }
+        export interface LandingEmailDto {
+            firstName: string;
+            lastName: string;
+            email: string;
+            club: string;
+            tel: string;
+            title: string;
+        }
         export interface LandingPageNumbersDto {
             notesCount: number;
             reportsCount: number;
@@ -2805,6 +2813,16 @@ declare namespace Paths {
                 success: boolean;
                 message: string;
                 data?: Components.Schemas.LandingPageNumbersDto;
+            }
+        }
+    }
+    namespace LandingControllerSendMail {
+        export type RequestBody = Components.Schemas.LandingEmailDto;
+        namespace Responses {
+            export interface $201 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.LandingEmailDto;
             }
         }
     }
