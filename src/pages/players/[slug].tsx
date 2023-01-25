@@ -201,11 +201,13 @@ const PlayerPage = ({
             })}
             centered
           >
-            <Tab label={`${t('NOTES')} (${notes?.totalDocs || 0})`} />
+            <Tab label={`${t('NOTES')} (${playerObservations?.notes || 0})`} />
             <Tab
               label={`${t('INSIDER_NOTES')} (${insiderNotes?.totalDocs || 0})`}
             />
-            <Tab label={`${t('REPORTS')} (${reports?.totalDocs})`} />
+            <Tab
+              label={`${t('REPORTS')} (${playerObservations?.reports || 0})`}
+            />
             <Tab
               label={`${t('TEAM_AFFILIATIONS')} (${
                 affiliations?.totalDocs || 0
