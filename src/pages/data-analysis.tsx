@@ -37,7 +37,6 @@ const DataAnalysisPage = () => {
       <main>
         <CssBaseline />
         <DataAnalysisHeroSection {...heroDataTrans} />
-        {/* <CopySection {...copyDataTrans} /> */}
         <UseOurHelpSection />
         <EffectsSection
           effects={effectsDataTrans}
@@ -45,8 +44,10 @@ const DataAnalysisPage = () => {
         />
         <HowDoWeWorkSection />
         <AdvantagesSection advantages={advantagesDataTrans} />
-        {/* <PricingSection onButtonClick={() => setIsContactFormModalOpen(true)} /> */}
-        <ContactForm title="Porozmawiajmy o analizie danych w Twoim klubie" />
+        <ContactForm
+          title="Porozmawiajmy o analizie danych w Twoim klubie"
+          emailTopic="Analiza danych"
+        />
       </main>
       <Footer />
     </>
