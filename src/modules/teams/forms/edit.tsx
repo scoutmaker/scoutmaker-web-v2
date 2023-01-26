@@ -87,15 +87,6 @@ export const EditTeamForm = ({
               error={touched.transfermarktUrl && !!errors.transfermarktUrl}
               helperText={touched.transfermarktUrl && errors.transfermarktUrl}
             />
-            <Field
-              name="lnpId"
-              as={TextField}
-              variant="outlined"
-              fullWidth
-              label={t('LNP_ID')}
-              error={touched.lnpId && !!errors.lnpId}
-              helperText={touched.lnpId && errors.lnpId}
-            />
             <MainFormActions
               label={t('TEAM')}
               isEditState

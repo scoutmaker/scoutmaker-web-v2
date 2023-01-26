@@ -41,16 +41,9 @@ export const Fields = ({ regionsData, countriesData }: IFieldsProps) => {
         name="regionId"
         label={t('REGION')}
         error={touched.regionId && !!errors.regionId}
-        helperText={touched.regionId ? errors.regionId : undefined}
-      />
-      <Field
-        name="lnpID"
-        as={TextField}
-        variant="outlined"
-        fullWidth
-        label={t('LNP_ID')}
-        error={touched.lnpId && !!errors.lnpId}
-        helperText={(touched.lnpId && errors.lnpId) || t('OPTIONAL_FIELD')}
+        helperText={
+          (touched.regionId && errors.regionId) || t('OPTIONAL_FIELD')
+        }
       />
       <Field
         name="city"

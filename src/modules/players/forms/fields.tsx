@@ -151,15 +151,6 @@ export const Fields = ({
         />
       )}
       <Field
-        name="lnpId"
-        as={TextField}
-        variant="outlined"
-        fullWidth
-        label={t('LNP_ID')}
-        error={touched.lnpId && !!errors.lnpId}
-        helperText={(touched.lnpId && errors.lnpId) || t('OPTIONAL_FIELD')}
-      />
-      <Field
         name="lnpUrl"
         as={TextField}
         variant="outlined"

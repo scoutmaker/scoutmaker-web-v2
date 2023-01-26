@@ -96,6 +96,16 @@ export const NavList = ({ matchAttendance }: INavListProps) => {
           to="/matches"
           text={t('MATCHES')}
         />
+        <NavElement
+          icon={<CompetitionIcon color="error" />}
+          to="/competitions"
+          text={t('COMPETITIONS')}
+        />
+        <NavElement
+          icon={<RegionIcon color="error" />}
+          to="/regions"
+          text={t('REGIONS')}
+        />
       </ExpandeableNavElement>
       <ExpandeableNavElement
         icon={<ObservationIcon color="error" />}
@@ -186,16 +196,6 @@ export const NavList = ({ matchAttendance }: INavListProps) => {
             icon={<AgeCategoryIcon color="error" />}
             to="/competition-age-categories"
             text={t('COMPETITION_AGE_CATEGORIES')}
-          />
-          <NavElement
-            icon={<RegionIcon color="error" />}
-            to="/regions"
-            text={t('REGIONS')}
-          />
-          <NavElement
-            icon={<CompetitionIcon color="error" />}
-            to="/competitions"
-            text={t('COMPETITIONS')}
           />
           <NavElement
             icon={<CompetitionIcon color="error" />}
