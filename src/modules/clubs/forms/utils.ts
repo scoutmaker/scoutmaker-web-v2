@@ -3,12 +3,12 @@ import { TFunction } from 'next-i18next'
 import * as yup from 'yup'
 
 import { ClubDto, CreateClubDto, UpdateClubDto } from '@/modules/clubs/types'
+import { validateId } from '@/utils/validation-helpers'
 
 export const initialValues: CreateClubDto = {
   name: '',
   countryId: '',
   regionId: '',
-  lnpId: '',
   city: '',
   postalCode: '',
   street: '',
@@ -20,7 +20,6 @@ export const initialValues: CreateClubDto = {
 
 function generateCommonClubFieldsValidationSchema() {
   return {
-    lnpId: yup.string().notRequired(),
     city: yup.string().notRequired(),
     postalCode: yup.string().notRequired(),
     street: yup.string().notRequired(),
@@ -35,8 +34,11 @@ export function generateCreateClubValidationSchema(t: TFunction) {
   return yup
     .object({
       name: yup.string().required(t('clubs:NO_NAME_ERROR')),
-      regionId: yup.string().required(t('clubs:NO_REGION_ERROR')),
-      countryId: yup.string().required(t('clubs:NO_REGION_ERROR')),
+      regionId: validateId(),
+      countryId: validateId({
+        message: t('clubs:NO_COUNTRY_ERROR'),
+        required: true,
+      }),
       ...generateCommonClubFieldsValidationSchema(),
     })
     .defined()
@@ -45,8 +47,8 @@ export function generateCreateClubValidationSchema(t: TFunction) {
 export function generateUpdateClubValidationSchema() {
   return yup.object({
     name: yup.string().notRequired(),
-    regionId: yup.string().notRequired(),
-    countryId: yup.string().notRequired(),
+    regionId: validateId(),
+    countryId: validateId(),
     ...generateCommonClubFieldsValidationSchema(),
   })
 }

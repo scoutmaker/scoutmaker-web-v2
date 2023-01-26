@@ -18,7 +18,6 @@ export const ClubDetailsCard = ({ club }: IClubDetailsCard) => {
     name,
     region,
     country,
-    lnpId,
     city,
     postalCode,
     street,
@@ -49,7 +48,6 @@ export const ClubDetailsCard = ({ club }: IClubDetailsCard) => {
             value={`${getFlagEmoji(country.code)} ${country.name}`}
           />
           <CardItemBasic title={t('REGION')} value={region?.name} />
-          <CardItemBasic title={t('LNP_ID')} value={lnpId} />
           <CardItemBasic title={t('CITY')} value={city} />
           <CardItemBasic title={t('POSTAL_CODE')} value={postalCode} />
           <CardItemBasic title={t('STREET')} value={street} />
