@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useUser } from '@/modules/auth/hooks'
 import { MatchAttendanceDto } from '@/modules/match-attendances/types'
 import { Routes } from '@/utils/routes'
-import { isAdmin, isPrivilegedUser } from '@/utils/user-roles'
+import { isAdmin, isUserBasicScout } from '@/utils/user-roles'
 
 import {
   AdminIcon,
@@ -96,6 +96,16 @@ export const NavList = ({ matchAttendance }: INavListProps) => {
           to="/matches"
           text={t('MATCHES')}
         />
+        <NavElement
+          icon={<CompetitionIcon color="error" />}
+          to="/competitions"
+          text={t('COMPETITIONS')}
+        />
+        <NavElement
+          icon={<RegionIcon color="error" />}
+          to="/regions"
+          text={t('REGIONS')}
+        />
       </ExpandeableNavElement>
       <ExpandeableNavElement
         icon={<ObservationIcon color="error" />}
@@ -124,13 +134,13 @@ export const NavList = ({ matchAttendance }: INavListProps) => {
           text={t('PLAYER_ROLES')}
         />
       </ExpandeableNavElement>
-      {isPrivilegedUser(user) ? (
+      {!isUserBasicScout(user) && (
         <NavElement
           icon={<OrdersIcon color="error" />}
           to="/orders"
           text={t('ORDERS')}
         />
-      ) : null}
+      )}
       <GoToMachNavElement currentMatchId={matchAttendance?.match?.id || null} />
       <NavElement
         icon={<QuickNoteIcon color="error" />}
@@ -186,16 +196,6 @@ export const NavList = ({ matchAttendance }: INavListProps) => {
             icon={<AgeCategoryIcon color="error" />}
             to="/competition-age-categories"
             text={t('COMPETITION_AGE_CATEGORIES')}
-          />
-          <NavElement
-            icon={<RegionIcon color="error" />}
-            to="/regions"
-            text={t('REGIONS')}
-          />
-          <NavElement
-            icon={<CompetitionIcon color="error" />}
-            to="/competitions"
-            text={t('COMPETITIONS')}
           />
           <NavElement
             icon={<CompetitionIcon color="error" />}

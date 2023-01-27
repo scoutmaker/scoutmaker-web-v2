@@ -2,7 +2,6 @@ import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
 import { mapFiltersStateToDto } from '@/components/combo/utils'
-import { ErrorContent } from '@/components/error/error-content'
 import { Fab } from '@/components/fab/fab'
 import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
@@ -16,11 +15,11 @@ import { RegionsFiltersState, RegionsSortBy } from '@/modules/regions/types'
 import { INameToDeleteData } from '@/types/tables'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
-import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
+import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(
   ['common', 'regions'],
-  ['ADMIN'],
+  false,
 )
 
 const initialFilters: RegionsFiltersState = {
@@ -28,7 +27,7 @@ const initialFilters: RegionsFiltersState = {
   countryId: null,
 }
 
-const RegionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
+const RegionsPage = () => {
   const { t } = useTranslation()
 
   const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
@@ -73,8 +72,6 @@ const RegionsPage = ({ errorStatus, errorMessage }: TSsrRole) => {
 
   const isLoading = countriesLoading || regionsLoading || deleteRegionLoading
 
-  if (errorStatus)
-    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}

@@ -6,19 +6,14 @@ import { useState } from 'react'
 
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
-import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { MatchBasicDataDto } from '@/modules/matches/types'
-import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { ReportTemplateBasicDataDto } from '@/modules/report-templates/types'
-import { TeamBasicDataDto } from '@/modules/teams/types'
 import { ConfirmOnLeaveForm } from '@/utils/hooks/use-confirm-leave'
 import { useStepper } from '@/utils/hooks/use-stepper'
 
 import { CreateReportDto, IReportFromNoteQuery, ReportType } from '../types'
 import { MatchStep } from './components/match-step'
-import { MetaStep } from './components/meta-step'
 import { OrderStep } from './components/order-step'
 import { PlayerStep } from './components/player-step'
 import { ReportTypeStep } from './components/report-type-step'
@@ -41,11 +36,8 @@ interface ICreateFormProps {
   templatesData: ReportTemplateBasicDataDto[]
   playersData: PlayerBasicDataDto[]
   matchesData: MatchBasicDataDto[]
-  positionsData: PlayerPositionDto[]
-  teamsData: TeamBasicDataDto[]
-  competitionsData: CompetitionBasicDataDto[]
-  competitionGroupsData: CompetitionGroupBasicDataDto[]
   isOrderOptionDisabled?: boolean
+  templateId: string
 }
 
 export const CreateReportForm = ({
@@ -54,11 +46,8 @@ export const CreateReportForm = ({
   matchesData,
   playersData,
   templatesData,
-  teamsData,
-  positionsData,
-  competitionsData,
-  competitionGroupsData,
   isOrderOptionDisabled,
+  templateId,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation(['common', 'reports'])
@@ -86,6 +75,8 @@ export const CreateReportForm = ({
     if (query === 'shirtNo' && data) formInitialValues[query] = +data
     else if (data) formInitialValues[query] = data as never
   })
+
+  if (templateId) formInitialValues.templateId = templateId
 
   const steps: TStep[] = [
     {
@@ -145,23 +136,6 @@ export const CreateReportForm = ({
         'assists',
         'yellowCards',
         'redCards',
-      ],
-    },
-    {
-      title: t('reports:META_STEP_TITLE'),
-      content: (
-        <MetaStep
-          teamsData={teamsData}
-          positionsData={positionsData}
-          competitionsData={competitionsData}
-          competitionGroupsData={competitionGroupsData}
-        />
-      ),
-      errorKeys: [
-        'positionPlayedId',
-        'teamId',
-        'competitionId',
-        'competitionGroupId',
       ],
     },
   ]

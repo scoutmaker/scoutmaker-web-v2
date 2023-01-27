@@ -2,10 +2,9 @@ import { CssBaseline } from '@mui/material'
 import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useState } from 'react'
 
 import { AdvantagesSection } from '@/components/landing/AdvantagesSection'
-import { ContactFormModal } from '@/components/landing/ContactFormModal'
+import { ContactForm } from '@/components/landing/ContactForm'
 import { CopySection } from '@/components/landing/CopySection'
 import { Footer } from '@/components/landing/Footer'
 import HeroSection from '@/components/landing/HeroSection'
@@ -16,7 +15,6 @@ import {
   heroData,
   values,
 } from '@/modules/landing-scouting/data'
-import { HistoricalDataSection } from '@/modules/landing-scouting/HistoricalDataSection'
 import { PricingSection } from '@/modules/landing-scouting/PricingSection'
 import { RecommendationsSection } from '@/modules/landing-scouting/RecomendationsSection'
 import { TransfersSection } from '@/modules/landing-scouting/TransfersSection'
@@ -36,7 +34,6 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
 }
 
 const ClubScoutingPage = () => {
-  const [isContactFormModalOpen, setIsContactFormModalOpen] = useState(false)
   const { t } = useTranslation()
 
   const heroDataTranslated = heroData(t)
@@ -48,19 +45,21 @@ const ClubScoutingPage = () => {
     <>
       <main>
         <CssBaseline />
-        <HeroSection {...heroDataTranslated} displayAppNumbers />
-        <CopySection {...copyDataTranslated} />
-        <ValuesSection values={valuesTranslated} />
-        <AdvantagesSection advantages={advantagesTranslated} />
-        <TransfersSection />
-        <RecommendationsSection />
-        <PricingSection onButtonClick={() => setIsContactFormModalOpen(true)} />
-        <HistoricalDataSection
-          onButtonClick={() => setIsContactFormModalOpen(true)}
+        <HeroSection
+          {...heroDataTranslated}
+          displayAppNumbers
+          letsMeetVariant
         />
-        <ContactFormModal
-          open={isContactFormModalOpen}
-          onClose={() => setIsContactFormModalOpen(false)}
+        <CopySection {...copyDataTranslated} goToSection="#advantages" />
+        <ValuesSection values={valuesTranslated} />
+
+        <TransfersSection />
+        <RecommendationsSection goToSection="#contactform" />
+        <AdvantagesSection advantages={advantagesTranslated} />
+        <PricingSection />
+        <ContactForm
+          title="Porozmawiajmy o skautingu w Twoim klubie"
+          emailTopic="Skauting obserwacyjny"
         />
       </main>
       <Footer />

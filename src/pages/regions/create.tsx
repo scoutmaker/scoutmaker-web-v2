@@ -1,19 +1,18 @@
 import { useTranslation } from 'next-i18next'
 
-import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { useCountriesList } from '@/modules/countries/hooks'
 import { CreateRegionForm } from '@/modules/regions/forms/create'
 import { useCreateRegion } from '@/modules/regions/hooks'
-import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
+import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(
   ['common', 'regions'],
-  ['ADMIN'],
+  false,
 )
 
-const CreateTeamPage = ({ errorMessage, errorStatus }: TSsrRole) => {
+const CreateRegionPage = () => {
   const { t } = useTranslation()
 
   const { data: countries, isLoading: countriesLoading } = useCountriesList()
@@ -23,8 +22,6 @@ const CreateTeamPage = ({ errorMessage, errorStatus }: TSsrRole) => {
 
   const isLoading = createRegionLoading || countriesLoading
 
-  if (errorStatus)
-    return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
@@ -37,4 +34,4 @@ const CreateTeamPage = ({ errorMessage, errorStatus }: TSsrRole) => {
   )
 }
 
-export default CreateTeamPage
+export default CreateRegionPage

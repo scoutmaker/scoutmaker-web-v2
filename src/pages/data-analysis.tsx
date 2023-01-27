@@ -2,22 +2,15 @@ import { CssBaseline } from '@mui/material'
 import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useState } from 'react'
 
 import { AdvantagesSection } from '@/components/landing/AdvantagesSection'
-import { ContactFormModal } from '@/components/landing/ContactFormModal'
-import { CopySection } from '@/components/landing/CopySection'
+import { ContactForm } from '@/components/landing/ContactForm'
 import { EffectsSection } from '@/components/landing/EffectsSection'
 import { Footer } from '@/components/landing/Footer'
-import HeroSection from '@/components/landing/HeroSection'
-import {
-  advantages,
-  copyData,
-  effects,
-  heroData,
-} from '@/modules/landing-data/data'
+import DataAnalysisHeroSection from '@/components/landing/HeroSection/data-analysis'
+import { advantages, effects, heroData } from '@/modules/landing-data/data'
 import { HowDoWeWorkSection } from '@/modules/landing-data/HowDoWeWorkSection'
-import { PricingSection } from '@/modules/landing-data/PricingSection'
+import { UseOurHelpSection } from '@/modules/landing-data/UseOurHelpSection'
 
 export async function getStaticProps({ locale }: GetStaticPropsContext) {
   const translations = await serverSideTranslations(locale || 'pl', [
@@ -34,10 +27,8 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
 }
 
 const DataAnalysisPage = () => {
-  const [isContactFormModalOpen, setIsContactFormModalOpen] = useState(false)
   const { t } = useTranslation()
   const heroDataTrans = heroData(t)
-  const copyDataTrans = copyData(t)
   const advantagesDataTrans = advantages(t)
   const effectsDataTrans = effects(t)
 
@@ -45,18 +36,17 @@ const DataAnalysisPage = () => {
     <>
       <main>
         <CssBaseline />
-        <HeroSection {...heroDataTrans} />
-        <CopySection {...copyDataTrans} />
-        <AdvantagesSection advantages={advantagesDataTrans} />
+        <DataAnalysisHeroSection {...heroDataTrans} />
+        <UseOurHelpSection />
         <EffectsSection
           effects={effectsDataTrans}
           title={t('landing-data:DATA_ANALYSIS_EXAMPLES')}
         />
         <HowDoWeWorkSection />
-        <PricingSection onButtonClick={() => setIsContactFormModalOpen(true)} />
-        <ContactFormModal
-          open={isContactFormModalOpen}
-          onClose={() => setIsContactFormModalOpen(false)}
+        <AdvantagesSection advantages={advantagesDataTrans} />
+        <ContactForm
+          title="Porozmawiajmy o analizie danych w Twoim klubie"
+          emailTopic="Analiza danych"
         />
       </main>
       <Footer />

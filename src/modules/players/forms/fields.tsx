@@ -151,15 +151,6 @@ export const Fields = ({
         />
       )}
       <Field
-        name="lnpId"
-        as={TextField}
-        variant="outlined"
-        fullWidth
-        label={t('LNP_ID')}
-        error={touched.lnpId && !!errors.lnpId}
-        helperText={(touched.lnpId && errors.lnpId) || t('OPTIONAL_FIELD')}
-      />
-      <Field
         name="lnpUrl"
         as={TextField}
         variant="outlined"
@@ -212,6 +203,17 @@ export const Fields = ({
         helperText={
           (touched.transfermarktUrl && errors.transfermarktUrl) ||
           t('OPTIONAL_FIELD')
+        }
+      />
+      <Field
+        name="inStatUrl"
+        as={TextField}
+        variant="outlined"
+        fullWidth
+        label={t('INSTAT_URL')}
+        error={touched.inStatUrl && !!errors.inStatUrl}
+        helperText={
+          (touched.inStatUrl && errors.inStatUrl) || t('OPTIONAL_FIELD')
         }
       />
     </>

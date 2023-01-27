@@ -239,6 +239,8 @@ declare namespace Components {
             playerId?: string;
             matchId?: string;
             description?: string;
+            scoutId?: string;
+            executionDate: string;
         }
         export interface CreateOrganizationDto {
             id?: string;
@@ -285,6 +287,7 @@ declare namespace Components {
             minut90url?: string;
             transfermarktId?: string;
             transfermarktUrl?: string;
+            inStatUrl?: string;
             scoutmakerv1Id?: string;
             isPublic?: boolean;
             roleId?: string;
@@ -294,6 +297,7 @@ declare namespace Components {
             name: string;
             code: string;
             playerPositionTypeId: string;
+            listOrder?: number;
         }
         export interface CreatePlayerPositionTypeDto {
             id?: string;
@@ -507,6 +511,7 @@ declare namespace Components {
             minut90url?: string;
             transfermarktId?: string;
             transfermarktUrl?: string;
+            inStatUrl?: string;
             country: CountryDto;
             primaryPosition: PlayerPositionDto;
             secondaryPositions: PlayerPositionDto[];
@@ -575,6 +580,19 @@ declare namespace Components {
             id: string;
             docNumber: number;
             createdAt: string; // date-time
+        }
+        export interface LandingEmailDto {
+            firstName: string;
+            lastName: string;
+            email: string;
+            club: string;
+            tel: string;
+            title: string;
+        }
+        export interface LandingPageNumbersDto {
+            notesCount: number;
+            reportsCount: number;
+            scoutsCount: number;
         }
         export interface LikeInsiderNoteBasicDataDto {
             userId: string;
@@ -730,6 +748,7 @@ declare namespace Components {
             player?: PlayerBasicDataDto;
             match?: MatchBasicDataDto;
             _count: OrderCount;
+            executionDate?: string; // date-time
         }
         export interface OrganizationBasicDataDto {
             id: string;
@@ -810,6 +829,7 @@ declare namespace Components {
             minut90url?: string;
             transfermarktId?: string;
             transfermarktUrl?: string;
+            inStatUrl?: string;
             country: CountryDto;
             primaryPosition: PlayerPositionDto;
             secondaryPositions: PlayerPositionDto[];
@@ -824,6 +844,7 @@ declare namespace Components {
             name: string;
             code: string;
             positionType: PlayerPositionTypeDto;
+            listOrder?: number;
         }
         export interface PlayerPositionTypeDto {
             id: string;
@@ -1210,6 +1231,7 @@ declare namespace Components {
             minut90url?: string;
             transfermarktId?: string;
             transfermarktUrl?: string;
+            inStatUrl?: string;
             scoutmakerv1Id?: string;
             isPublic?: boolean;
             roleId?: string;
@@ -1218,6 +1240,7 @@ declare namespace Components {
             name?: string;
             code?: string;
             playerPositionTypeId?: string;
+            listOrder?: number;
         }
         export interface UpdatePlayerPositionTypeDto {
             name?: string;
@@ -1327,6 +1350,8 @@ declare namespace Components {
             city?: string;
             activeRadius?: number;
             regionId?: string;
+            reportTemplateId?: string;
+            reportBackgroundImageId?: string;
         }
         export interface UpdateUserFootballRoleDto {
             name?: string;
@@ -1369,6 +1394,8 @@ declare namespace Components {
             profile?: ScoutProfileWithoutUserDto;
             _count: Count;
             organizationId?: string;
+            reportTemplateId?: string;
+            reportBackgroundImage?: ReportBackgroundImageDto;
         }
         export interface UserFootballRoleDto {
             id: string;
@@ -2780,6 +2807,25 @@ declare namespace Paths {
             }
         }
     }
+    namespace LandingControllerGetData {
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.LandingPageNumbersDto;
+            }
+        }
+    }
+    namespace LandingControllerSendMail {
+        export type RequestBody = Components.Schemas.LandingEmailDto;
+        namespace Responses {
+            export interface $201 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.LandingEmailDto;
+            }
+        }
+    }
     namespace LikeNotesControllerCreate {
         namespace Parameters {
             export type NoteId = string;
@@ -3258,7 +3304,7 @@ declare namespace Paths {
             export type MatchIds = string[];
             export type Page = number;
             export type PlayerIds = string[];
-            export type SortBy = "id" | "player" | "position" | "status" | "scout" | "description" | "createdAt";
+            export type SortBy = "id" | "player" | "position" | "status" | "scout" | "description" | "createdAt" | "executionDate";
             export type SortingOrder = "asc" | "desc";
             export type Status = "OPEN" | "ACCEPTED" | "CLOSED";
             export type TeamIds = string[];
@@ -3999,7 +4045,7 @@ declare namespace Paths {
             export type Limit = number;
             export type Name = string;
             export type Page = number;
-            export type SortBy = "id" | "name" | "code";
+            export type SortBy = "id" | "name" | "code" | "listOrder";
             export type SortingOrder = "asc" | "desc";
         }
         export interface QueryParameters {
@@ -5363,6 +5409,21 @@ declare namespace Paths {
             }
         }
     }
+    namespace ScoutProfilesControllerFindOne {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.ScoutProfileDto;
+            }
+        }
+    }
     namespace ScoutProfilesControllerRemove {
         namespace Parameters {
             export type Id = string;
@@ -6299,13 +6360,13 @@ declare namespace Paths {
             export type Name = string;
             export type Page = number;
             export type RegionIds = string[];
-            export type Role = "ADMIN" | "PLAYMAKER_SCOUT" | "PLAYMAKER_SCOUT_MANAGER" | "SCOUT";
+            export type Roles = ("ADMIN" | "PLAYMAKER_SCOUT" | "PLAYMAKER_SCOUT_MANAGER" | "SCOUT")[];
             export type SortBy = "id" | "firstName" | "lastName" | "club" | "footballRole" | "region" | "reportsCount" | "notesCount" | "insiderNotesCount";
             export type SortingOrder = "asc" | "desc";
         }
         export interface QueryParameters {
             name?: Parameters.Name;
-            role?: Parameters.Role;
+            roles?: Parameters.Roles;
             regionIds?: Parameters.RegionIds;
             clubIds?: Parameters.ClubIds;
             footballRoleIds?: Parameters.FootballRoleIds;
@@ -6349,6 +6410,22 @@ declare namespace Paths {
         }
     }
     namespace UsersControllerGetList {
+        namespace Parameters {
+            export type ClubIds = string[];
+            export type FootballRoleIds = string[];
+            export type HasScoutProfile = boolean;
+            export type Name = string;
+            export type RegionIds = string[];
+            export type Roles = ("ADMIN" | "PLAYMAKER_SCOUT" | "PLAYMAKER_SCOUT_MANAGER" | "SCOUT")[];
+        }
+        export interface QueryParameters {
+            name?: Parameters.Name;
+            roles?: Parameters.Roles;
+            regionIds?: Parameters.RegionIds;
+            clubIds?: Parameters.ClubIds;
+            footballRoleIds?: Parameters.FootballRoleIds;
+            hasScoutProfile?: Parameters.HasScoutProfile;
+        }
         namespace Responses {
             export interface $200 {
                 success: boolean;

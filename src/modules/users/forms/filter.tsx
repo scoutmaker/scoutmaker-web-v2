@@ -54,7 +54,8 @@ export const UsersFilterForm = ({
             />
             <FilterCombo
               data={rolesComboData}
-              name="role"
+              name="roles"
+              multiple
               label={t('ROLE')}
               size="small"
             />

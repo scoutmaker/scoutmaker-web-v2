@@ -25,6 +25,7 @@ interface IProps {
   title: ReactNode
   features: string[]
   displayAppNumbers?: boolean
+  letsMeetVariant?: boolean
 }
 
 const HeroSection = ({
@@ -33,6 +34,7 @@ const HeroSection = ({
   title,
   features,
   displayAppNumbers,
+  letsMeetVariant,
 }: IProps) => {
   const { t } = useTranslation()
 
@@ -53,7 +55,14 @@ const HeroSection = ({
               ))}
             </Box>
             <ButtonContainer>
-              <GoToSectionButton text={t('landing:SEE_DETAILS')} href="#copy" />
+              {letsMeetVariant ? (
+                <GoToSectionButton text="Poznajmy się" href="#contactform" />
+              ) : (
+                <GoToSectionButton
+                  text={t('landing:SEE_DETAILS')}
+                  href="#copy"
+                />
+              )}
             </ButtonContainer>
             {displayAppNumbers && <AppNumbers />}
           </ContentContainer>

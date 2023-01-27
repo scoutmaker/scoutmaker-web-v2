@@ -11,6 +11,8 @@ import { MatchBasicDataDto } from '@/modules/matches/types'
 import { mapMatchesListToComboOptions } from '@/modules/matches/utils'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { mapPlayersListToComboOptions } from '@/modules/players/utils'
+import { UserBasicDataDto } from '@/modules/users/types'
+import { mapUsersListToComboOptions } from '@/modules/users/utils'
 
 import { CreateOrderDto } from '../types'
 import { generateCreateValidationSchema, initialValues } from './utils'
@@ -21,6 +23,7 @@ interface ICreateFormProps {
   fullwidth?: boolean
   playersData: PlayerBasicDataDto[]
   matchesData: MatchBasicDataDto[]
+  usersData: UserBasicDataDto[]
 }
 
 export const CreateOrderForm = ({
@@ -29,6 +32,7 @@ export const CreateOrderForm = ({
   fullwidth,
   playersData,
   matchesData,
+  usersData,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -36,7 +40,7 @@ export const CreateOrderForm = ({
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={generateCreateValidationSchema()}
+      validationSchema={generateCreateValidationSchema(t)}
       enableReinitialize
       onSubmit={(data, { resetForm }) => {
         const dataToSubmit = filter(data, (_, value) => value)
@@ -70,6 +74,24 @@ export const CreateOrderForm = ({
               label={t('MATCH')}
               error={touched.matchId && !!errors.matchId}
               helperText={touched.matchId ? errors.matchId : undefined}
+            />
+            <BasicCombo
+              data={mapUsersListToComboOptions(usersData, false)}
+              name="scoutId"
+              label={t('SCOUT')}
+              error={touched.scoutId && !!errors.scoutId}
+              helperText={touched.scoutId ? errors.scoutId : undefined}
+            />
+            <Field
+              name="executionDate"
+              as={TextField}
+              type="date"
+              variant="outlined"
+              fullWidth
+              label={t('orders:EXECUTION_DATE')}
+              error={touched.executionDate && !!errors.executionDate}
+              helperText={touched.executionDate && errors.executionDate}
+              InputLabelProps={{ shrink: true }}
             />
             <MainFormActions
               label={t('ORDER')}

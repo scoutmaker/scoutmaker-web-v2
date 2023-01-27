@@ -24,7 +24,7 @@ const StyledButtonsContainer = styled('div')(({ theme }) => ({
   gap: theme.spacing(2),
 }))
 
-function generateValidationSchema(t: TFunction): yup.SchemaOf<UpdateUserDto> {
+function generateValidationSchema(t: TFunction) {
   return yup
     .object({
       firstName: yup.string().required(t('NO_FIRST_NAME_ERROR')),

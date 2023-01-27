@@ -2,6 +2,7 @@ import {
   FindAllUsersParams,
   UserBasicDataDto,
   UserDto,
+  UsersFiltersDto,
 } from '@/modules/users/types'
 import {
   getAssetById,
@@ -15,7 +16,8 @@ import { ApiResponse } from '../types'
 
 const moduleName: TModuleName = 'users'
 
-export const getUsersList = () => getDataList<UserBasicDataDto>(moduleName)
+export const getUsersList = (params?: UsersFiltersDto) =>
+  getDataList<UserBasicDataDto>(moduleName, params)
 
 export const getUsers = (params: FindAllUsersParams) =>
   getPaginatedData<FindAllUsersParams, UserDto>(params, moduleName)

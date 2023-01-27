@@ -1,12 +1,17 @@
-import { Grid, styled, Typography } from '@mui/material'
+import { Box, Grid, styled, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
+import { GoToSectionButton } from '@/components/landing/GoToSectionButton'
 import { LayoutContentWrapper } from '@/components/landing/LayoutContentWrapper'
 
 import { recommendations } from '../data'
 import { RecommendationCard } from './RecommendationCard'
 
-export const RecommendationsSection = () => {
+interface IProps {
+  goToSection?: string
+}
+
+export const RecommendationsSection = ({ goToSection }: IProps) => {
   const { t } = useTranslation()
 
   return (
@@ -31,6 +36,19 @@ export const RecommendationsSection = () => {
               </Grid>
             ))}
           </CardsContainer>
+          {!!goToSection && (
+            <Box
+              sx={theme => ({
+                marginTop: theme.spacing(6),
+                [theme.breakpoints.down('md')]: {
+                  display: 'flex',
+                  justifyContent: 'center',
+                },
+              })}
+            >
+              <GoToSectionButton text="Zgłoś się" href={goToSection} />
+            </Box>
+          )}
         </LayoutContentWrapper>
       </Container>
     </section>

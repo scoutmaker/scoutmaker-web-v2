@@ -21,12 +21,12 @@ export const initialValues: CreatePlayerDto = {
   teamId: '',
   primaryPositionId: '',
   secondaryPositionIds: [],
-  lnpId: '',
   lnpUrl: '',
   minut90id: '',
   minut90url: '',
   transfermarktId: '',
   transfermarktUrl: '',
+  inStatUrl: '',
   roleId: '',
 }
 
@@ -36,12 +36,12 @@ function generateCommonPlayerFieldsValidationSchema() {
     weight: yup.number().notRequired(),
     street: yup.string().notRequired(),
     secondaryPositionIds: validateIdsArray(),
-    lnpId: yup.string().notRequired(),
     lnpUrl: yup.string().url().notRequired(),
     minut90id: yup.string().notRequired(),
     minut90url: yup.string().url().notRequired(),
     transfermarktId: yup.string().notRequired(),
     transfermarktUrl: yup.string().url().notRequired(),
+    inStatUrl: yup.string().url().notRequired(),
     roleId: validateId(),
   }
 }

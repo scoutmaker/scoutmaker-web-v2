@@ -2,10 +2,11 @@ import { IUsersComboOptions, UserBasicDataDto } from './types'
 
 export function mapUsersListToComboOptions(
   data: UserBasicDataDto[],
+  includeEmail: boolean = true,
 ): IUsersComboOptions[] {
   return data.map(({ id, firstName, email, lastName }) => ({
     id,
-    label: `${firstName} ${lastName} (${email})`,
+    label: `${firstName} ${lastName} ${includeEmail ? `(${email})` : ''}`,
     firstName,
     lastName,
   }))
@@ -14,12 +15,5 @@ export function mapUsersListToComboOptions(
 export function getAuthorDisplayName(data: UserBasicDataDto) {
   const { firstName, lastName, profile } = data
 
-  const stars = profile
-    ? Array.from(Array(profile.rating).keys())
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        .map(_ => '⭐')
-        .join('')
-    : ''
-
-  return `${firstName} ${lastName} ${stars}`
+  return `${firstName} ${lastName} ${'⭐'.repeat(profile?.rating || 0)}`
 }

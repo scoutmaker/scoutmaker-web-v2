@@ -26,7 +26,16 @@ import { OrderDto } from './types'
 export const OrderDetailsCard = ({ order }: IDetailsCard) => {
   const { t } = useTranslation()
 
-  const { status, player, createdAt, description, match, scout, id } = order
+  const {
+    status,
+    player,
+    createdAt,
+    executionDate,
+    description,
+    match,
+    scout,
+    id,
+  } = order
 
   const { mutate: acceptOrder, isLoading: acceptLoading } = useAcceptOrder()
   const { mutate: rejectOrder, isLoading: rejectLoading } = useRejectOrder()
@@ -72,6 +81,10 @@ export const OrderDetailsCard = ({ order }: IDetailsCard) => {
             <CardItemBasic
               title={t('CREATED_DATE')}
               value={formatDate(createdAt)}
+            />
+            <CardItemBasic
+              title={t('orders:EXECUTION_DATE')}
+              value={executionDate ? formatDate(executionDate) : '-'}
             />
             <CardItemBasic title={t('DESCRIPTION')} value={description || ''} />
             <CardItemBasic

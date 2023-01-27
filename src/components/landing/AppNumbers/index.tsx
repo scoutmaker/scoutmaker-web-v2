@@ -6,28 +6,31 @@ import {
 import { styled } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
+import { useLandingPageNumbers } from '@/modules/landing-home/hooks'
+
 import { AppNumber } from './AppNumber'
 
 export const AppNumbers = () => {
   const { t } = useTranslation()
-  // TO_ADD DATA HOOK
+
+  const { data: numbers } = useLandingPageNumbers()
 
   return (
     <Container>
       <AppNumber
-        count={500}
+        count={numbers?.reportsCount || 0}
         title={t('landing:NUMBERS_REPORTS')}
         icon={<ReportsIcon />}
       />
       <Divider />
       <AppNumber
-        count={100}
+        count={numbers?.notesCount || 0}
         title={t('landing:NUMBERS_NOTES')}
         icon={<NotesIcon />}
       />
       <Divider />
       <AppNumber
-        count={20}
+        count={numbers?.scoutsCount || 0}
         title={t('landing:NUMBERS_SCOUTS')}
         icon={<ScoutsIcon />}
       />

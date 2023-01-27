@@ -234,6 +234,8 @@ export const PrinteableReport = ({ report, player, match }: IProps) => {
 
 const Container = styled('div')(({ theme }) => ({
   padding: theme.spacing(2, 4),
+  zIndex: 1,
+  position: 'relative',
 }))
 
 const Title = styled(Typography)({

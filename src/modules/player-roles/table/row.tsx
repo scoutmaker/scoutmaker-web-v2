@@ -5,6 +5,7 @@ import { TableMenu } from '@/components/tables/menu'
 import { StyledTableRow } from '@/components/tables/row'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
+import { GroupedPlayerRoleExamples } from '../GroupedPlayerRoleExamples'
 import { PlayerRoleDto } from '../types'
 
 interface ITableRowProps {
@@ -30,7 +31,7 @@ export const PlayerRolesTableRow = ({
     handleMenuAction,
   } = useTableMenu()
 
-  const { id, name, altName, positionType } = data
+  const { id, name, positionType, description, examples } = data
 
   return (
     <StyledTableRow
@@ -52,10 +53,13 @@ export const PlayerRolesTableRow = ({
           />
         )}
       </StyledTableCell>
-      <StyledTableCell>{name}</StyledTableCell>
-      <StyledTableCell>{altName}</StyledTableCell>
       <StyledTableCell>
         {positionType ? positionType.name : '-'}
+      </StyledTableCell>
+      <StyledTableCell>{name}</StyledTableCell>
+      <StyledTableCell>{description}</StyledTableCell>
+      <StyledTableCell>
+        <GroupedPlayerRoleExamples examples={examples} />
       </StyledTableCell>
     </StyledTableRow>
   )

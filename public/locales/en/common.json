@@ -241,5 +241,8 @@
   "ALT_NAME": "Secondary name",
   "SCOUTS": "Scouts",
   "CHARACTERISTICS": "Characteristics",
-  "SCOUT_PROFILE": "Scout profile"
+  "SCOUT_PROFILE": "Scout profile",
+  "ERROR_PAGE_401_HEADING": "Nie masz dostępu do danych na tej podstronie",
+  "ERROR_PAGE_401_INFO": "Aby uzyskać dostęp skorzystaj z formularza na LINKstronie ofertowej usług skautingowychLINK",
+  "INSTAT_URL": "inStat URL"
 }

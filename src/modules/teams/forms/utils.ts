@@ -12,7 +12,6 @@ export const initialValues: CreateTeamDto = {
   groupId: '',
   minut90url: '',
   transfermarktUrl: '',
-  lnpId: '',
 }
 
 export function generateCreateTeamValidationSchema(t: TFunction) {
@@ -27,7 +26,6 @@ export function generateCreateTeamValidationSchema(t: TFunction) {
       groupId: validateId(),
       minut90url: yup.string().url().notRequired(),
       transfermarktUrl: yup.string().url().notRequired(),
-      lnpId: yup.string().notRequired(),
     })
     .defined()
 }
@@ -38,19 +36,17 @@ export function generateUpdateTeamValidationSchema() {
     clubId: validateId(),
     minut90url: yup.string().url().notRequired(),
     transfermarktUrl: yup.string().url().notRequired(),
-    lnpId: yup.string().notRequired(),
   })
 }
 
 export function getInitialStateFromCurrent(team: TeamDto): UpdateTeamDto {
-  const { name, club, minut90url, transfermarktUrl, lnpId } = team
+  const { name, club, minut90url, transfermarktUrl } = team
 
   const values = {
     name,
     clubId: club.id,
     minut90url,
     transfermarktUrl,
-    lnpId,
   }
 
   return map(values, value => value || '')

@@ -13,7 +13,7 @@ import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole<RegionDto>(
   ['common', 'regions'],
-  ['ADMIN'],
+  false,
   async (token, params) => {
     try {
       const regionData = await getRegionById(params?.id as string, token)
@@ -27,7 +27,7 @@ export const getServerSideProps = withSessionSsrRole<RegionDto>(
   },
 )
 
-const EditTeamPage = ({
+const EditRegionPage = ({
   data,
   errorMessage,
   errorStatus,
@@ -53,4 +53,4 @@ const EditTeamPage = ({
   )
 }
 
-export default EditTeamPage
+export default EditRegionPage

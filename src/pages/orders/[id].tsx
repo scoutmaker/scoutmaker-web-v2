@@ -11,7 +11,7 @@ import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole<OrderDto>(
   ['common', 'orders'],
-  ['ADMIN', 'PLAYMAKER_SCOUT'],
+  ['ADMIN', 'PLAYMAKER_SCOUT', 'SCOUT_ORGANIZATION', 'PLAYMAKER_SCOUT_MANAGER'],
   async (token, params) => {
     try {
       const order = await getOrderById(params?.id as string, token)

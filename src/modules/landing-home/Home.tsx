@@ -66,18 +66,14 @@ export const ButtonsContainer = styled('div')(({ theme }) => ({
   justifyContent: 'center',
   gap: theme.spacing(2),
   marginTop: theme.spacing(4),
+  position: 'relative',
 }))
 
-export const GoToAppContainer = styled('div')(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'flex-end',
-  padding: theme.spacing(6),
-
-  [theme.breakpoints.down(700)]: {
-    padding: theme.spacing(6, 0),
-    justifyContent: 'stretch',
-  },
-}))
+export const GoToAppContainer = styled('div')({
+  position: 'absolute',
+  height: '100%',
+  bottom: '-100%',
+})
 
 export const GoToAppButton = styled(Button)(({ theme }) => ({
   fontSize: 16,
@@ -85,6 +81,7 @@ export const GoToAppButton = styled(Button)(({ theme }) => ({
   background: theme.palette.primary.contrastText,
   color: theme.palette.primary.main,
   padding: theme.spacing(2, 6),
+  marginTop: theme.spacing(4),
 
   '&:hover': {
     color: theme.palette.primary.contrastText,

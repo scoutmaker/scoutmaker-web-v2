@@ -1,5 +1,7 @@
-import { Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
+
+import { separateLink } from '@/utils/separate-link'
 
 import { PageHeading } from '../page-heading/page-heading'
 
@@ -11,6 +13,16 @@ interface IErrorContentProps {
 export const ErrorContent = ({ status, message }: IErrorContentProps) => {
   const { t } = useTranslation()
 
+  if (status === 401) {
+    return (
+      <Box marginTop={12}>
+        <PageHeading title={t('ERROR_PAGE_401_HEADING')} />
+        <Typography align="center">
+          {separateLink(t('ERROR_PAGE_401_INFO'), '/club-scouting#contactform')}
+        </Typography>
+      </Box>
+    )
+  }
   return (
     <>
       <PageHeading title={t('SOMETHING_WENT_WRONG')} />

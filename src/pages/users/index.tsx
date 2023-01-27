@@ -21,7 +21,7 @@ const initialFilters: UsersFiltersState = {
   footballRoleIds: [],
   name: '',
   regionIds: [],
-  role: null,
+  roles: [],
 }
 
 export const getServerSideProps = withSessionSsrRole(

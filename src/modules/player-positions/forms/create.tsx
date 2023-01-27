@@ -74,6 +74,16 @@ export const CreatePlayerPositionForm = ({
                   : undefined
               }
             />
+            <Field
+              name="listOrder"
+              as={TextField}
+              variant="outlined"
+              type="number"
+              fullWidth
+              label={t('player-positions:ORDER')}
+              error={touched.listOrder && !!errors.listOrder}
+              helperText={touched.listOrder && errors.listOrder}
+            />
             <MainFormActions
               label={t('POSITION')}
               onCancelClick={() => {

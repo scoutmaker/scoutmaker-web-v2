@@ -8,6 +8,7 @@ import FilterAccordion from '@/components/filter-accordion/filter-accordion'
 import { Loader } from '@/components/loader/loader'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
+import { useUser } from '@/modules/auth/hooks'
 import { useMatchesList } from '@/modules/matches/hooks'
 import { OrdersFilterForm } from '@/modules/orders/forms/filter'
 import {
@@ -22,7 +23,6 @@ import { OrdersTable } from '@/modules/orders/table/table'
 import { OrdersFiltersState, OrdersSortBy } from '@/modules/orders/types'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
-import { formatDate } from '@/utils/format-date'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -33,16 +33,12 @@ interface IData {
 
 export const getServerSideProps = withSessionSsrRole<IData>(
   ['common', 'orders'],
-  ['ADMIN', 'PLAYMAKER_SCOUT'],
-  async (token, params, user) => ({ data: { userId: user?.id as string } }),
+  ['ADMIN', 'PLAYMAKER_SCOUT', 'SCOUT_ORGANIZATION', 'PLAYMAKER_SCOUT_MANAGER'],
 )
 
-const date = new Date()
-date.setFullYear(date.getFullYear() + 1)
-
 const getInitialFilters = (t: TFunction): OrdersFiltersState => ({
-  createdAfter: formatDate('01-01-1999'),
-  createdBefore: formatDate(date.toString()),
+  createdAfter: '',
+  createdBefore: '',
   matchIds: [],
   playerIds: [],
   status: getStatusComboData(t).find(e => e.id === 'OPEN') || null,
@@ -54,7 +50,7 @@ interface ItoDeleteData {
   id: string
 }
 
-const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
+const OrdersPage = ({ errorStatus, errorMessage }: TSsrRole) => {
   const { t } = useTranslation()
   const initialFilters = getInitialFilters(t)
 
@@ -74,10 +70,12 @@ const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
     initialValue: initialFilters,
   })
 
+  const user = useUser()
+
   function handleSetFilters(newFilters: OrdersFiltersState) {
     const filtersRS = newFilters // for eslint
 
-    if (filtersRS.onlyMine) filtersRS.userId = data?.userId
+    if (filtersRS.onlyMine) filtersRS.userId = user.data?.id
     else filtersRS.userId = undefined
 
     setFilters(filtersRS)
@@ -117,7 +115,8 @@ const OrdersPage = ({ errorStatus, errorMessage, data }: TSsrRole<IData>) => {
     teamsLoading ||
     acceptLoading ||
     rejectLoading ||
-    closeLoading
+    closeLoading ||
+    user.isLoading
 
   if (errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />

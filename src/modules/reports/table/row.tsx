@@ -40,7 +40,7 @@ import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
 import { getAuthorDisplayName } from '../../users/utils'
 import { ReportPaginatedDataDto } from '../types'
-import { getSingleReportRoute } from '../utils'
+import { getReportHref } from '../utils'
 
 interface IReportsTableRowProps {
   data: ReportPaginatedDataDto
@@ -95,7 +95,7 @@ export const ReportsTableRow = ({
         hover
         key={id}
         onClick={
-          isMenuOpen ? undefined : () => router.push(getSingleReportRoute(id))
+          isMenuOpen ? undefined : () => router.push(getReportHref(data))
         }
       >
         <StyledTableCell padding="checkbox">

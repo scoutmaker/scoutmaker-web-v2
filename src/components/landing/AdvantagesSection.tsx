@@ -19,6 +19,7 @@ export const AdvantagesSection = ({ advantages, dark }: Props) => {
       sx={
         dark ? { background: '#000', color: 'primary.contrastText' } : undefined
       }
+      id="advantages"
     >
       <LayoutContentWrapper>
         <Heading variant="h2">{t('landing:BENEFITS')}</Heading>

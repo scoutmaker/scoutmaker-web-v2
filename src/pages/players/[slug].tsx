@@ -1,11 +1,12 @@
 import { Add as AddIcon } from '@mui/icons-material'
-import { AppBar, Box, Button, Tab, Tabs } from '@mui/material'
+import { AppBar, Box, Button, Tab, Tabs, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
+import { ConfirmationModal } from '@/components/modals/confirmation-modal'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { TabPanel } from '@/components/tab-panel/tab-panel'
 import { useUser } from '@/modules/auth/hooks'
@@ -21,9 +22,14 @@ import { NotesTable } from '@/modules/notes/table/table'
 import { NotesSortBy } from '@/modules/notes/types'
 import { useOnLikeNoteClick } from '@/modules/notes/utils'
 import { PlayerDetialsCard } from '@/modules/players/details-card'
+import generateObservationsInfo from '@/modules/players/generate-observations-info'
 import { PlayerDto } from '@/modules/players/types'
 import { shouldShowPlayerRole } from '@/modules/players/utils'
-import { useReports, useUnlikeReport } from '@/modules/reports/hooks'
+import {
+  useDeleteReport,
+  useReports,
+  useUnlikeReport,
+} from '@/modules/reports/hooks'
 import { ReportsTable } from '@/modules/reports/table/table'
 import { ReportsSortBy } from '@/modules/reports/types'
 import { useOnLikeReportClick } from '@/modules/reports/utils'
@@ -32,52 +38,65 @@ import { TeamAffiliationsTable } from '@/modules/team-affiliations/table/team'
 import { TeamAffiliationsSortBy } from '@/modules/team-affiliations/types'
 import { getPlayerBySlug } from '@/services/api/methods/players'
 import { ApiError } from '@/services/api/types'
+import { getDocumentNumber } from '@/utils/get-document-number'
 import { useTable } from '@/utils/hooks/use-table'
 import { TSsrRole, withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
-type TData = {
-  isAdmin: boolean
-  player: PlayerDto
+interface IReportToDeleteData {
+  id: string
+  docNumber: number
+  createdAt: string
 }
 
-export const getServerSideProps = withSessionSsrRole<TData>(
-  ['common', 'players'],
+export const getServerSideProps = withSessionSsrRole<PlayerDto>(
+  ['common', 'players', 'reports'],
   false,
-  async (token, params, user) => {
+  async (token, params) => {
     try {
       const data = await getPlayerBySlug(params?.slug as string, token)
-      return { data: { isAdmin: !!user?.role.includes('ADMIN'), player: data } }
+      return { data }
     } catch (error) {
       return { data: null, error: error as ApiError }
     }
   },
 )
 
-const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
+const PlayerPage = ({
+  data,
+  errorMessage,
+  errorStatus,
+}: TSsrRole<PlayerDto>) => {
   const { t } = useTranslation()
   const router = useRouter()
   const [tabValue, setTabValue] = useState(0)
 
+  const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
+    useState(false)
+  const [reportToDeleteData, setReportToDeleteData] =
+    useState<IReportToDeleteData>()
+
   const handleTabChange = (event: any, newValue: number) =>
     setTabValue(newValue)
 
-  const { isAdmin, player } = data || {}
+  const { _count: playerObservations } = data || {}
 
   const {
     tableSettings: TeamAffiliationsTableSettings,
     ...TeamAffiliationsTableProps
-  } = useTable(`team-affiliations-table-player:${player?.id}`, 'endDate')
+  } = useTable(`team-affiliations-table-player:${data?.id}`, 'endDate')
 
-  const { tableSettings: NotesTableSettings, ...NotesTableProps } =
-    useTable(`notes-table-player`)
+  const { tableSettings: NotesTableSettings, ...NotesTableProps } = useTable(
+    `notes-table-players`,
+    'createdAt',
+  )
 
   const { tableSettings: ReportsTableSettings, ...ReportsTableProps } =
-    useTable(`reports-table-player`)
+    useTable(`reports-table-players`, 'createdAt')
 
   const {
     tableSettings: InsiderNotesTableSettings,
     ...InsiderNotesTableProps
-  } = useTable(`insider-notes-table-player`)
+  } = useTable(`insider-notes-table-players`, 'createdAt')
 
   const { data: affiliations, isLoading: teamAffiliationsLoading } =
     useTeamAffiliations({
@@ -85,7 +104,7 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
       limit: TeamAffiliationsTableSettings.rowsPerPage,
       sortBy: TeamAffiliationsTableSettings.sortBy as TeamAffiliationsSortBy,
       sortingOrder: TeamAffiliationsTableSettings.order,
-      playerId: player?.id,
+      playerId: data?.id,
     })
 
   const { data: notes, isLoading: notesLoading } = useNotes({
@@ -93,7 +112,7 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
     limit: NotesTableSettings.rowsPerPage,
     sortBy: NotesTableSettings.sortBy as NotesSortBy,
     sortingOrder: NotesTableSettings.order,
-    playerIds: [player?.id || ''],
+    playerIds: [data?.id || ''],
   })
 
   const { data: reports, isLoading: reportsLoading } = useReports({
@@ -101,7 +120,7 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
     limit: ReportsTableSettings.rowsPerPage,
     sortBy: ReportsTableSettings.sortBy as ReportsSortBy,
     sortingOrder: ReportsTableSettings.order,
-    playerIds: [player?.id || ''],
+    playerIds: [data?.id || ''],
   })
 
   const { data: insiderNotes, isLoading: insiderNotesLoading } =
@@ -110,7 +129,7 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
       limit: InsiderNotesTableSettings.rowsPerPage,
       sortBy: InsiderNotesTableSettings.sortBy as InsiderNotesSortBy,
       sortingOrder: InsiderNotesTableSettings.order,
-      playerIds: [player?.id || ''],
+      playerIds: [data?.id || ''],
     })
 
   const { likeNote, likeNoteLoading } = useOnLikeNoteClick()
@@ -127,6 +146,16 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
 
   const { data: user, isLoading: userLoading } = useUser()
 
+  const observationsAccessInfo = generateObservationsInfo(user, t)
+
+  const { mutate: deleteReport, isLoading: deleteReportLoading } =
+    useDeleteReport()
+
+  const handleDeleteReportClick = (deleteData: IReportToDeleteData) => {
+    setReportToDeleteData(deleteData)
+    setIsDeleteConfirmationModalOpen(true)
+  }
+
   const isLoading =
     likeNoteLoading ||
     unLikeNoteLoading ||
@@ -138,18 +167,15 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
     notesLoading ||
     reportsLoading ||
     insiderNotesLoading ||
-    userLoading
+    userLoading ||
+    deleteReportLoading
 
-  if (!player)
-    return <ErrorContent message={errorMessage} status={errorStatus} />
+  if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       {isLoading && <Loader />}
-      <PageHeading title={`${player.firstName} ${player.lastName}`} />
-      <PlayerDetialsCard
-        player={player}
-        showRole={shouldShowPlayerRole(user)}
-      />
+      <PageHeading title={`${data.firstName} ${data.lastName}`} />
+      <PlayerDetialsCard player={data} showRole={shouldShowPlayerRole(user)} />
       <Box width="100%" marginTop={theme => theme.spacing(4)}>
         <AppBar
           position="static"
@@ -175,12 +201,32 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
             })}
             centered
           >
-            <Tab label={t('NOTES')} />
-            <Tab label={t('INSIDER_NOTES')} />
-            <Tab label={t('REPORTS')} />
-            <Tab label={t('TEAM_AFFILIATIONS')} />
+            <Tab label={`${t('NOTES')} (${playerObservations?.notes || 0})`} />
+            <Tab
+              label={`${t('INSIDER_NOTES')} (${insiderNotes?.totalDocs || 0})`}
+            />
+            <Tab
+              label={`${t('REPORTS')} (${playerObservations?.reports || 0})`}
+            />
+            <Tab
+              label={`${t('TEAM_AFFILIATIONS')} (${
+                affiliations?.totalDocs || 0
+              })`}
+            />
           </Tabs>
         </AppBar>
+        {((playerObservations?.notes !== notes?.totalDocs && tabValue === 0) ||
+          (playerObservations?.reports !== reports?.totalDocs &&
+            tabValue === 2)) && (
+          <Typography
+            variant="h6"
+            component="h4"
+            textAlign="center"
+            paddingBottom={0.5}
+          >
+            {observationsAccessInfo}
+          </Typography>
+        )}
         <TabPanel value={tabValue} index={0} title="notes" noPadding>
           <NotesTable
             {...NotesTableSettings}
@@ -209,6 +255,8 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
             data={reports?.docs || []}
             onLikeClick={likeReport}
             onUnLikeClick={unLikeReport}
+            actions
+            handleDeleteItemClick={handleDeleteReportClick}
           />
         </TabPanel>
         <TabPanel
@@ -217,7 +265,7 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
           title="team-affiliations"
           noPadding
         >
-          {isAdmin && (
+          {user?.role === 'ADMIN' && (
             <Button
               variant="contained"
               disableElevation
@@ -231,7 +279,7 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
               })}
               fullWidth
               onClick={() =>
-                router.push(`/team-affiliations/create?playerId=${player.id}`)
+                router.push(`/team-affiliations/create?playerId=${data.id}`)
               }
             >
               {t('ADD')} <AddIcon />
@@ -245,6 +293,27 @@ const PlayerPage = ({ data, errorMessage, errorStatus }: TSsrRole<TData>) => {
           />
         </TabPanel>
       </Box>
+      <ConfirmationModal
+        open={isDeleteConfirmationModalOpen}
+        message={t('reports:DELETE_REPORT_CONFIRM_QUESTION', {
+          number: reportToDeleteData
+            ? getDocumentNumber({
+                docNumber: reportToDeleteData.docNumber,
+                createdAt: reportToDeleteData.createdAt,
+              })
+            : null,
+        })}
+        handleAccept={() => {
+          if (reportToDeleteData) {
+            deleteReport(reportToDeleteData.id)
+          }
+          setReportToDeleteData(undefined)
+        }}
+        handleClose={() => {
+          setIsDeleteConfirmationModalOpen(false)
+          setReportToDeleteData(undefined)
+        }}
+      />
     </>
   )
 }

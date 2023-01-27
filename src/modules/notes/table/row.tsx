@@ -38,6 +38,7 @@ import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
 import { getAuthorDisplayName } from '../../users/utils'
 import { NoteDto } from '../types'
+import { getNoteHref } from '../utils'
 
 interface INotesTableRowProps {
   data: NoteDto
@@ -101,7 +102,7 @@ export const NotesTableRow = ({
       <StyledTableRow
         hover
         key={id}
-        onClick={isMenuOpen ? undefined : () => router.push(`/notes/${id}`)}
+        onClick={isMenuOpen ? undefined : () => router.push(getNoteHref(data))}
       >
         <StyledTableCell padding="checkbox">
           <IconButton

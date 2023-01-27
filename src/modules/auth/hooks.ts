@@ -26,7 +26,7 @@ import { ApiError } from '@/services/api/types'
 export function useUser() {
   const { setAlert } = useAlertsState()
 
-  return useQuery(['user'], getUserData, {
+  return useQuery(['user'], () => getUserData(), {
     onError: (err: ApiError) =>
       setAlert({
         msg: err.response.data.message,
@@ -35,7 +35,7 @@ export function useUser() {
   })
 }
 
-export function useLogin() {
+export function useLogin(redirectOnLogin?: string) {
   const router = useRouter()
   const { setAlert } = useAlertsState()
 
@@ -44,7 +44,7 @@ export function useLogin() {
       localStorage.setItem('token', data.data.token)
       setAlert({ msg: data.message, type: 'success' })
       setTimeout(() => {
-        router.push('/dashboard')
+        router.push(redirectOnLogin || '/dashboard')
       }, 1000)
     },
     onError: (err: ApiError) => {

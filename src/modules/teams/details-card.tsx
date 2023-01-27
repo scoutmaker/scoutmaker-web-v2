@@ -35,7 +35,7 @@ type ITeamDetailsCard = {
 export const TeamDetailsCard = ({ team }: ITeamDetailsCard) => {
   const { t } = useTranslation()
 
-  const { club, competitions, name, lnpId, minut90url, transfermarktUrl } = team
+  const { club, competitions, name, minut90url, transfermarktUrl } = team
 
   return (
     <Card sx={{ maxWidth: 700, margin: '0 auto' }}>
@@ -65,12 +65,6 @@ export const TeamDetailsCard = ({ team }: ITeamDetailsCard) => {
             <Typography>
               <strong>{t('COMPETITION')}: </strong>
               {getCompetitionDisplayName(competitions[0])}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>
-              <strong>{t('LNP_ID')}: </strong>
-              {lnpId || '-'}
             </Typography>
           </Grid>
           <Grid item xs={12}>

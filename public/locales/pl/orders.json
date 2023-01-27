@@ -9,5 +9,7 @@
   "DELETE_CONFIRM_QUESTION": "Czy napewno chcesz usunąć to zlecenie?",
   "OPEN": "otwarte",
   "CLOSED": "zamknięte",
-  "ACCEPTED": "przyjęte"
+  "ACCEPTED": "przyjęte",
+  "EXECUTION_DATE": "Data wykonania",
+  "NO_EXECUTION_DATE_ERROR": "Podaj datę wykonania zlecenia"
 }

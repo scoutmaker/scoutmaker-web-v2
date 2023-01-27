@@ -9,5 +9,7 @@
   "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete this order?",
   "OPEN": "open",
   "CLOSED": "closed",
-  "ACCEPTED": "accepted"
+  "ACCEPTED": "accepted",
+  "EXECUTION_DATE": "Execution date",
+  "NO_EXECUTION_DATE_ERROR": "Please provide execution date"
 }
