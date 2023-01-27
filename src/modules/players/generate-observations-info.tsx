@@ -11,12 +11,15 @@ const generateObservationsInfo = (user: UserDto | undefined, t: TFunction) => {
   if (user?.role === 'SCOUT' && user.organizationId) {
     return separateLink(
       t('players:SCOUT_ORGANIZATION_FULL_OBSERVATIONS_INFO'),
-      '/',
+      '/club-scouting#contactform',
     )
   }
 
   if (user?.role === 'SCOUT' && !user.organizationId) {
-    return separateLink(t('players:SCOUT_FULL_OBSERVATIONS_INFO'), '/')
+    return separateLink(
+      t('players:SCOUT_FULL_OBSERVATIONS_INFO'),
+      '/club-scouting#contactform',
+    )
   }
 
   return null
