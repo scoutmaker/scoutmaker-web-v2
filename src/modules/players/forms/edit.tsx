@@ -58,6 +58,12 @@ export const EditPlayerForm = ({
         )
         // @ts-ignore
         if (!data.roleId) dataToSubmit.roleId = null
+        // @ts-ignore
+        if (!data.weight) dataToSubmit.weight = null
+        // @ts-ignore
+        if (!data.height) dataToSubmit.height = null
+        // @ts-ignore
+        if (!data.footed) dataToSubmit.footed = null
         onSubmit(dataToSubmit)
       }}
     >
