@@ -102,7 +102,10 @@ export const PlayerDetialsCard = ({ player, showRole }: IPlayerDetailsCard) => {
                   : '-'
               }
             />
-            <CardItemBasic title={t('FOOTED')} value={t(footed)} />
+            <CardItemBasic
+              title={t('FOOTED')}
+              value={footed ? t(footed) : '-'}
+            />
             <CardItemBasic
               title={t('WEIGHT')}
               value={weight ? `${weight} kg` : '-'}
