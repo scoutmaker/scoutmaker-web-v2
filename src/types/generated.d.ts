@@ -280,7 +280,7 @@ declare namespace Components {
             yearOfBirth: number;
             height?: number;
             weight?: number;
-            footed: "LEFT" | "RIGHT" | "BOTH";
+            footed?: "LEFT" | "RIGHT" | "BOTH";
             lnpId?: string;
             lnpUrl?: string;
             minut90id?: string;
@@ -495,7 +495,7 @@ declare namespace Components {
             match?: MatchBasicDataDto;
         }
         export interface DashboardPlayerDto {
-            footed: "LEFT" | "RIGHT" | "BOTH";
+            footed?: "LEFT" | "RIGHT" | "BOTH";
             averagePrecentageRating: number;
             teams: DashboardTeamAffiliationDto[];
             id: string;
@@ -794,7 +794,7 @@ declare namespace Components {
             passwordConfirm: string;
         }
         export interface PlayerBasicDataDto {
-            footed: "LEFT" | "RIGHT" | "BOTH";
+            footed?: "LEFT" | "RIGHT" | "BOTH";
             id: string;
             firstName: string;
             lastName: string;
@@ -805,7 +805,7 @@ declare namespace Components {
             teams: TeamAffiliationWithoutPlayerDto[];
         }
         export interface PlayerBasicDataWithoutTeamsDto {
-            footed: "LEFT" | "RIGHT" | "BOTH";
+            footed?: "LEFT" | "RIGHT" | "BOTH";
             id: string;
             firstName: string;
             lastName: string;
@@ -815,7 +815,7 @@ declare namespace Components {
             primaryPosition: PlayerPositionDto;
         }
         export interface PlayerDto {
-            footed: "LEFT" | "RIGHT" | "BOTH";
+            footed?: "LEFT" | "RIGHT" | "BOTH";
             id: string;
             firstName: string;
             lastName: string;

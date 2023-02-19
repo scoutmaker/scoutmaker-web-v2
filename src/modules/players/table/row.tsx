@@ -126,7 +126,7 @@ export const PlayersTableRow = ({
           </>
         )}
       </StyledTableCell>
-      <StyledTableCell>{t(footed)}</StyledTableCell>
+      <StyledTableCell>{footed ? t(footed) : '-'}</StyledTableCell>
       <StyledTableCell>
         {typeof averagePercentageRating === 'number'
           ? calculateRating(averagePercentageRating)

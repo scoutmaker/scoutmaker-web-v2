@@ -123,7 +123,7 @@ export const PrinteableReport = ({ report, player, match }: IProps) => {
           <Flex>
             <Text gutterBottom>
               <strong>{t('FOOTED')}: </strong>
-              {t(player.footed)}
+              {player.footed ? t(player.footed) : '-'}
             </Text>
             <Text sx={marginLeft} gutterBottom>
               <strong>
