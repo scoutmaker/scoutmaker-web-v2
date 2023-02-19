@@ -61,7 +61,7 @@ export function generateCreatePlayerValidationSchema(t: TFunction) {
           ['BOTH', 'LEFT', 'RIGHT'],
           t('players:WRONG_FOOTED_VALUE'),
         )
-        .required(t('players:NO_FOOTED_ERROR')),
+        .notRequired(),
       teamId: validateId({
         required: true,
         message: t('players:NO_TEAM_ERROR'),
