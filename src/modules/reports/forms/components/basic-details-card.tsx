@@ -41,6 +41,8 @@ export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
     observationType,
   } = report
 
+  const team = meta?.team || player.teams[0]?.team
+
   return (
     <Card>
       <CardHeader
@@ -81,8 +83,8 @@ export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
           />
           <CardItemBasic
             title={t('TEAM')}
-            value={meta?.team?.name || '-'}
-            href={meta?.team ? getSingleTeamRoute(meta.team.slug) : undefined}
+            value={team?.name || '-'}
+            href={team ? getSingleTeamRoute(team.slug) : undefined}
           />
           <CardItemBasic
             title={t('MATCH')}
