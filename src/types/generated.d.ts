@@ -523,7 +523,7 @@ declare namespace Components {
         export interface DashboardReportDto {
             match: DashboardMatchDto;
             id: string;
-            player: PlayerSuperBasicDataDto;
+            player: PlayerBasicDataDto;
             createdAt: string; // date-time
             finalRating?: number;
             docNumber: number;
@@ -928,7 +928,7 @@ declare namespace Components {
             observationType: "LIVE" | "VIDEO";
             id: string;
             docNumber: number;
-            player: PlayerSuperBasicDataDto;
+            player: PlayerBasicDataDto;
             author: UserBasicDataDto;
         }
         export interface ReportDto {
@@ -950,7 +950,7 @@ declare namespace Components {
             avgRating?: number;
             percentageRating?: number;
             createdAt: string; // date-time
-            player: PlayerSuperBasicDataDto;
+            player: PlayerBasicDataDto;
             match?: MatchBasicDataDto;
             author: UserBasicDataDto;
             skills: ReportSkillAssessmentBasicDataDto[];
@@ -975,7 +975,7 @@ declare namespace Components {
             meta?: ReportMetaBasicDataDto;
             id: string;
             docNumber: number;
-            player: PlayerSuperBasicDataDto;
+            player: PlayerBasicDataDto;
             finalRating?: number;
             percentageRating?: number;
             videoUrl?: string;
