@@ -13,7 +13,6 @@ import {
   getPlayerFullName,
   getSinglePlayerRoute,
 } from '@/modules/players/utils'
-import { StatusChip } from '@/modules/reports/status-chip'
 import { getSingleTeamRoute } from '@/modules/teams/utils'
 import { formatDate } from '@/utils/format-date'
 
@@ -35,7 +34,6 @@ export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
     shirtNo,
     avgRating,
     maxRatingScore,
-    status,
     meta,
     author,
     observationType,
@@ -119,10 +117,6 @@ export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
           <CardItemBasic
             title={t('PERCENTAGE_RATING')}
             value={percentageRating ? `${percentageRating.toFixed(1)}%` : '-'}
-          />
-          <CardItemBasic
-            title={t('reports:STATUS')}
-            value={<StatusChip status={status} />}
           />
           <CardItemBasic
             title={t('CREATED_AT')}
