@@ -6,6 +6,7 @@ import { ICompetitionComboOptions } from '../competitions/types'
 import { IMatchComboOptions } from '../matches/types'
 import { IPlayerPositionComboOptions } from '../player-positions/types'
 import { IPlayerComboOptions, PlayerSuperBasicDataDto } from '../players/types'
+import { ISeasonComboOptions } from '../seasons/types'
 import { UserBasicDataDto } from '../users/types'
 
 export type ReportBasicDataDto = Components.Schemas.ReportBasicDataDto
@@ -35,6 +36,7 @@ export type FindAllReportsParams = Pick<
   | 'onlyLikedTeams'
   | 'percentageRatingRanges'
   | 'onlyMine'
+  | 'seasonIds'
 >
 
 export type ReportsFiltersDto = Omit<
@@ -55,6 +57,7 @@ export type ReportsFiltersState = Omit<
   | 'playerBornAfter'
   | 'playerBornBefore'
   | 'positionTypeIds'
+  | 'seasonIds'
 > & {
   competitionGroupIds: ICompetitionGroupComboOptions[]
   competitionIds: ICompetitionComboOptions[]
@@ -67,6 +70,7 @@ export type ReportsFiltersState = Omit<
   percentageRatingRanges: IComboOptions[]
   playerBornAfter: '' | number
   playerBornBefore: '' | number
+  seasonIds: ISeasonComboOptions[]
 }
 
 export type ReportsSortBy = Paths.ReportsControllerFindAll.Parameters.SortBy

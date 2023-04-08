@@ -6,6 +6,7 @@ import { ICompetitionComboOptions } from '../competitions/types'
 import { IMatchComboOptions } from '../matches/types'
 import { IPlayerPositionComboOptions } from '../player-positions/types'
 import { IPlayerComboOptions } from '../players/types'
+import { ISeasonComboOptions } from '../seasons/types'
 
 export type NoteBasicDataDto = Components.Schemas.NoteBasicDataDto
 
@@ -34,6 +35,7 @@ export type FindAllNotesParams = Pick<
   | 'onlyWithoutPlayers'
   | 'percentageRatingRanges'
   | 'onlyMine'
+  | 'seasonIds'
 >
 
 export type NotesFiltersDto = Omit<
@@ -54,6 +56,7 @@ export type NotesFiltersState = Omit<
   | 'percentageRatingRanges'
   | 'playerBornAfter'
   | 'playerBornBefore'
+  | 'seasonIds'
 > & {
   competitionGroupIds: ICompetitionGroupComboOptions[]
   competitionIds: ICompetitionComboOptions[]
@@ -66,6 +69,7 @@ export type NotesFiltersState = Omit<
   percentageRatingRanges: IComboOptions[]
   playerBornAfter: '' | number
   playerBornBefore: '' | number
+  seasonIds: ISeasonComboOptions[]
 }
 
 export type NotesSortBy = Paths.NotesControllerFindAll.Parameters.SortBy
