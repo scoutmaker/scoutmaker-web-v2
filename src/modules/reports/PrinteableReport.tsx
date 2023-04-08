@@ -79,7 +79,8 @@ export const PrinteableReport = ({ report, player, match }: IProps) => {
     const { awayTeam, homeTeam, homeGoals, awayGoals } = match
     let txt = `${homeTeam.name} vs ${awayTeam.name}`
     if (competition) txt += `, ${competition.name}`
-    if (homeGoals && awayGoals) txt += ` (${homeGoals} - ${awayGoals})`
+    if (typeof homeGoals === 'number' && typeof awayGoals === 'number')
+      txt += ` (${homeGoals} - ${awayGoals})`
 
     return txt
   }
