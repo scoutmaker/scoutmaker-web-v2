@@ -17,6 +17,7 @@ import { NotesFiltersState, NotesSortBy } from '@/modules/notes/types'
 import { useOnLikeNoteClick } from '@/modules/notes/utils'
 import { usePlayerPositionTypesList } from '@/modules/player-position-types/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
+import { useSeasonsList } from '@/modules/seasons/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { getDocumentNumber } from '@/utils/get-document-number'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
@@ -40,6 +41,7 @@ const initialFilters: NotesFiltersState = {
   onlyLikedPlayers: false,
   onlyLikedTeams: false,
   percentageRatingRanges: [],
+  seasonIds: [],
   onlyMine: false,
 }
 
@@ -88,6 +90,7 @@ const NotesPage = () => {
   })
   const { data: positionTypes, isLoading: positionTypesLoading } =
     usePlayerPositionTypesList()
+  const { data: seasons, isLoading: seasonsLoading } = useSeasonsList()
 
   const { data: notes, isLoading: notesLoading } = useNotes({
     page: page + 1,
@@ -122,7 +125,8 @@ const NotesPage = () => {
     likeNoteLoading ||
     unlikeNoteLoading ||
     likeNoteLoading ||
-    positionTypesLoading
+    positionTypesLoading ||
+    seasonsLoading
 
   return (
     <>
@@ -137,6 +141,7 @@ const NotesPage = () => {
           teamsData={teams || []}
           competitionsData={competitions || []}
           competitionGroupsData={competitionGroups || []}
+          seasonsData={seasons || []}
           onFilter={handleSetFilters}
           onClearFilters={onClearFilters}
         />

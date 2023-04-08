@@ -3138,6 +3138,7 @@ declare namespace Paths {
             export type PlayerIds = string[];
             export type PositionIds = string[];
             export type PositionTypeIds = string[];
+            export type SeasonIds = string[];
             export type SortBy = "id" | "player" | "positionPlayed" | "percentageRating" | "match" | "author" | "createdAt" | "percentageRating_createdAt";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
@@ -3151,6 +3152,7 @@ declare namespace Paths {
             matchIds?: Parameters.MatchIds;
             competitionIds?: Parameters.CompetitionIds;
             competitionGroupIds?: Parameters.CompetitionGroupIds;
+            seasonIds?: Parameters.SeasonIds;
             percentageRatingRangeStart?: Parameters.PercentageRatingRangeStart;
             percentageRatingRangeEnd?: Parameters.PercentageRatingRangeEnd;
             percentageRatingRanges?: Parameters.PercentageRatingRanges;
@@ -5245,6 +5247,7 @@ declare namespace Paths {
             export type PlayerIds = string[];
             export type PositionIds = string[];
             export type PositionTypeIds = string[];
+            export type SeasonIds = string[];
             export type SortBy = "id" | "player" | "positionPlayed" | "finalRating" | "percentageRating" | "videoUrl" | "author" | "createdAt" | "status" | "match";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
@@ -5258,6 +5261,7 @@ declare namespace Paths {
             teamIds?: Parameters.TeamIds;
             competitionIds?: Parameters.CompetitionIds;
             competitionGroupIds?: Parameters.CompetitionGroupIds;
+            seasonIds?: Parameters.SeasonIds;
             percentageRatingRangeStart?: Parameters.PercentageRatingRangeStart;
             percentageRatingRangeEnd?: Parameters.PercentageRatingRangeEnd;
             percentageRatingRanges?: Parameters.PercentageRatingRanges;
@@ -5327,6 +5331,7 @@ declare namespace Paths {
             export type PlayerIds = string[];
             export type PositionIds = string[];
             export type PositionTypeIds = string[];
+            export type SeasonIds = string[];
             export type TeamIds = string[];
             export type UserId = string;
         }
@@ -5338,6 +5343,7 @@ declare namespace Paths {
             teamIds?: Parameters.TeamIds;
             competitionIds?: Parameters.CompetitionIds;
             competitionGroupIds?: Parameters.CompetitionGroupIds;
+            seasonIds?: Parameters.SeasonIds;
             percentageRatingRangeStart?: Parameters.PercentageRatingRangeStart;
             percentageRatingRangeEnd?: Parameters.PercentageRatingRangeEnd;
             percentageRatingRanges?: Parameters.PercentageRatingRanges;
