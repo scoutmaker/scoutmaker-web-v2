@@ -121,10 +121,6 @@ export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
             value={percentageRating ? `${percentageRating.toFixed(1)}%` : '-'}
           />
           <CardItemBasic
-            title={t('reports:STATUS')}
-            value={<StatusChip status={status} />}
-          />
-          <CardItemBasic
             title={t('CREATED_AT')}
             value={formatDate(createdAt)}
           />
