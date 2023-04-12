@@ -949,6 +949,7 @@ declare namespace Components {
             summary?: string;
             avgRating?: number;
             percentageRating?: number;
+            skillsOrder?: string[];
             createdAt: string; // date-time
             player: PlayerBasicDataDto;
             match?: MatchBasicDataDto;

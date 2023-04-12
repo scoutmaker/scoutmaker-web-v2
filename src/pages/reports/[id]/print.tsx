@@ -54,17 +54,6 @@ const PrintReportPage = ({
   const { t } = useTranslation()
   const ref = useRef<HTMLDivElement | null>(null)
 
-  // const style = {
-  //   x: {},
-  // }
-
-  // const x = makeStyles({
-  //   backgroundImage: `url(${data?.user.reportBackgroundImage?.url})`,
-  //   backgroundSize: 'contain',
-  //   backgroundRepeat: 'no-repeat',
-  // })
-
-  // TODO: SUPPORT BG
   const handlePrint = useReactToPrint({
     content: () => ref.current,
     documentTitle: `Report_${data?.report.docNumber}`,
