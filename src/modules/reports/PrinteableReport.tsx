@@ -20,7 +20,7 @@ import { PlayerDto } from '../players/types'
 import { SkillsChart } from './components/skillsChart'
 import { SkillsPrintSection } from './components/skillsPrintSection'
 import { ReportDto } from './types'
-import { groupSkillsByCategory } from './utils'
+import { sortAndGroupSkills } from './utils'
 
 interface IProps {
   report: ReportDto
@@ -49,6 +49,7 @@ export const PrinteableReport = ({ report, player, match }: IProps) => {
     percentageRating,
     redCards,
     yellowCards,
+    skillsOrder,
   } = report
   const {
     team: metaTeam,
@@ -84,6 +85,8 @@ export const PrinteableReport = ({ report, player, match }: IProps) => {
 
     return txt
   }
+
+  const groupedSkills = sortAndGroupSkills(skills, skillsOrder)
 
   return (
     <Container>
@@ -198,12 +201,12 @@ export const PrinteableReport = ({ report, player, match }: IProps) => {
         </div>
       </Flex>
       <Divider />
-      {Object.entries(groupSkillsByCategory(skills)).map(([key, value]) => (
-        <Fragment key={key}>
+      {groupedSkills.map(group => (
+        <Fragment key={group.id}>
           <SkillsPrintSection
-            category={key}
+            category={group.name}
             maxRatingScore={maxRatingScore}
-            skills={value || []}
+            skills={group.skills || []}
           />
           <Divider />
         </Fragment>

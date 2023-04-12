@@ -17,6 +17,7 @@ export const ReportDetails = ({ report }: IReportDetailsProps) => (
     <SkillAssessmentsCard
       maxRatingScore={report.maxRatingScore}
       skills={report.skills}
+      skillsOrder={report?.skillsOrder}
       readOnly
     />
     <StatsCard report={report} />

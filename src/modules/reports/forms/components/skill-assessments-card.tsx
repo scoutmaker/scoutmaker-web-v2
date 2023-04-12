@@ -7,23 +7,17 @@ import {
   Typography,
 } from '@mui/material'
 import { Field } from 'formik'
-import groupBy from 'just-group-by'
 import { useTranslation } from 'next-i18next'
 
 import { RatingInput } from '@/components/rating-input/rating-input'
 import { ReadOnlyRating } from '@/components/read-only-rating/read-only-rating'
 
-function groupSkillsByCategory(
-  skills: Components.Schemas.ReportSkillAssessmentBasicDataDto[],
-) {
-  return groupBy(
-    skills.map((skill, idx) => ({ ...skill, originalIdx: idx })),
-    item => `${item.template.category.name}::${item.template.category.id}`,
-  )
-}
+import { ReportDto } from '../../types'
+import { sortAndGroupSkills } from '../../utils'
 
 interface ISkillAssessmentsCardProps {
-  skills: any
+  skills: ReportDto['skills']
+  skillsOrder?: string[]
   maxRatingScore: number
   readOnly?: boolean
 }
@@ -32,17 +26,18 @@ export const SkillAssessmentsCard = ({
   skills,
   maxRatingScore,
   readOnly,
+  skillsOrder,
 }: ISkillAssessmentsCardProps) => {
   const { t } = useTranslation(['common', 'reports'])
 
-  const groupedSkills = groupSkillsByCategory(skills)
+  const groupedSkills = sortAndGroupSkills(skills, skillsOrder)
 
   return (
     <Card>
       <CardHeader title={t('reports:EDIT_SKILL_ASSESSMENTS_CARD')} />
       <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        {Object.entries(groupedSkills).map(([key, value]) => (
-          <Box key={key}>
+        {groupedSkills.map(group => (
+          <Box key={group.id}>
             <Typography
               variant="h6"
               sx={{
@@ -51,9 +46,9 @@ export const SkillAssessmentsCard = ({
                 marginBottom: 2,
               }}
             >
-              {key.split('::')[0]}
+              {group.name}
             </Typography>
-            {value.map(item => (
+            {group.skills.map(item => (
               <Box
                 sx={{
                   display: 'flex',
@@ -74,14 +69,14 @@ export const SkillAssessmentsCard = ({
                     <RatingInput
                       max={maxRatingScore}
                       label={item.template.name}
-                      name={`skillAssessments[${item.originalIdx}].rating`}
+                      name={`skillAssessments[${item.id}].rating`}
                     />
                   ))}
                 {readOnly ? (
                   <Typography>{item.description}</Typography>
                 ) : (
                   <Field
-                    name={`skillAssessments[${item.originalIdx}].description`}
+                    name={`skillAssessments[${item.id}].description`}
                     as={TextField}
                     variant="outlined"
                     fullWidth
