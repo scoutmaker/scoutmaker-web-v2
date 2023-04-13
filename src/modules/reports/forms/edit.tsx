@@ -1,5 +1,12 @@
-import { Box, Card, CardContent, CardHeader, styled } from '@mui/material'
-import { Form, Formik } from 'formik'
+import {
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  styled,
+  TextField,
+} from '@mui/material'
+import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'next-i18next'
 
 import { BasicCombo } from '@/components/combo/basicCombo'
@@ -8,7 +15,11 @@ import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { CompetitionGroupBasicDataDto } from '@/modules/competition-groups/types'
 import { CompetitionBasicDataDto } from '@/modules/competitions/types'
+import { MatchBasicDataDto } from '@/modules/matches/types'
+import { mapMatchesListToComboOptions } from '@/modules/matches/utils'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
+import { PlayerBasicDataDto } from '@/modules/players/types'
+import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 import {
   formatUpdateReportDto,
   generateEditReportFormValidationSchema,
@@ -32,6 +43,8 @@ interface IEditReportFormProps {
   teamsData: TeamBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
+  playersData: PlayerBasicDataDto[]
+  matchesData: MatchBasicDataDto[]
 }
 
 export const EditReportForm = ({
@@ -42,6 +55,8 @@ export const EditReportForm = ({
   teamsData,
   competitionsData,
   competitionGroupsData,
+  matchesData,
+  playersData,
 }: IEditReportFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation(['common', 'reports'])
@@ -63,8 +78,17 @@ export const EditReportForm = ({
           <Form>
             <MarginBox>
               <Card>
-                <CardHeader title={t('OBSERVATION_TYPE')} />
-                <CardContent>
+                <CardHeader title={t('reports:BASIC_INFO')} />
+                <CardContent
+                  sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+                >
+                  <BasicCombo
+                    data={mapMatchesListToComboOptions(matchesData)}
+                    name="matchId"
+                    label={t('MATCH')}
+                    error={touched.matchId && !!errors.matchId}
+                    helperText={touched.matchId ? errors.matchId : undefined}
+                  />
                   <BasicCombo
                     data={getObservationTypeComboData(t)}
                     name="observationType"
@@ -75,6 +99,25 @@ export const EditReportForm = ({
                         ? errors.observationType
                         : undefined
                     }
+                  />
+                  <BasicCombo
+                    data={mapPlayersListToComboOptions(playersData)}
+                    name="playerId"
+                    label={t('PLAYER')}
+                    error={touched.playerId && !!errors.playerId}
+                    helperText={touched.playerId ? errors.playerId : undefined}
+                    filterBeforeComma
+                  />
+                  <Field
+                    name="shirtNo"
+                    as={TextField}
+                    type="number"
+                    inputProps={{ min: 1, max: 99 }}
+                    variant="outlined"
+                    fullWidth
+                    label={t('SHIRT_NO')}
+                    error={touched.shirtNo && !!errors.shirtNo}
+                    helperText={touched.shirtNo && errors.shirtNo}
                   />
                 </CardContent>
               </Card>
