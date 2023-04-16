@@ -2,7 +2,15 @@ import {
   DirectionsRun as PlayersIcon,
   Info as InfoIcon,
 } from '@mui/icons-material'
-import { Avatar, Card, CardContent, CardHeader, Grid } from '@mui/material'
+import {
+  Avatar,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+} from '@mui/material'
+import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -39,6 +47,7 @@ export const PlayerDetialsCard = ({ player, showRole }: IPlayerDetailsCard) => {
     averagePercentageRating,
     role,
     inStatUrl,
+    slug,
   } = player
 
   return (
@@ -55,6 +64,11 @@ export const PlayerDetialsCard = ({ player, showRole }: IPlayerDetailsCard) => {
           }
           title={`${firstName} ${lastName}`}
           titleTypographyProps={{ variant: 'h3' }}
+          action={
+            <Link href={`/players/edit/${slug}`}>
+              <Button variant="contained">{t('EDIT')}</Button>
+            </Link>
+          }
         />
         <CardContent>
           <Grid container spacing={1}>
