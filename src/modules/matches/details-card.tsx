@@ -1,4 +1,12 @@
-import { Avatar, Card, CardContent, CardHeader, Grid } from '@mui/material'
+import {
+  Avatar,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+} from '@mui/material'
+import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 
 import { CardItemBasic } from '@/components/details-card/details-card-item'
@@ -27,6 +35,7 @@ export const MatchDetailsCard = ({ match }: IMatchDetailsCard) => {
     videoUrl,
     observationType,
     transfermarktUrl,
+    id,
   } = match
 
   return (
@@ -43,6 +52,11 @@ export const MatchDetailsCard = ({ match }: IMatchDetailsCard) => {
         title={`${competition.name}${group ? ` (${group.name})` : ''}`}
         subheader={formatDate(date)}
         titleTypographyProps={{ variant: 'h3' }}
+        action={
+          <Link href={`/matches/edit/${id}`}>
+            <Button variant="contained">{t('EDIT')}</Button>
+          </Link>
+        }
       />
       <CardContent>
         <Grid container spacing={1}>
