@@ -10,6 +10,7 @@ import {
   CardHeader,
   Grid,
 } from '@mui/material'
+import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -20,7 +21,6 @@ import { calculateRating } from '@/utils/calculate-rating'
 import { getFlagEmoji } from '@/utils/get-flag-emoji'
 
 import RoleModal from './role-modal'
-import Link from 'next/link'
 
 interface IPlayerDetailsCard {
   player: PlayerDto
