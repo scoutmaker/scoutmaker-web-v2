@@ -103,7 +103,6 @@ export function sortAndGroupSkills(
   }
 
   const grouped: TGroupedSkills = []
-  const tempCompact: TGroupedSkills = []
 
   let compactCategoriesFinal = compactCategories
   if (!compactCategoriesFinal?.length && !skillsOrder?.length) {
@@ -115,23 +114,14 @@ export function sortAndGroupSkills(
   }
 
   sorted.forEach(skill => {
-    let isCompact = false
-    if (compactCategoriesFinal && compactCategoriesFinal.length) {
-      isCompact = compactCategoriesFinal.includes(skill.template.category.id)
-    }
-    let foundIdx = -1
-    if (isCompact) {
-      foundIdx = tempCompact.findIndex(g => g.id === skill.template.category.id)
-    } else {
-      foundIdx = grouped.findIndex(g => g.id === skill.template.category.id)
-    }
+    const isCompact = !!compactCategoriesFinal?.includes(
+      skill.template.category.id,
+    )
+
+    const foundIdx = grouped.findIndex(g => g.id === skill.template.category.id)
 
     if (foundIdx !== -1) {
-      if (isCompact) {
-        tempCompact[foundIdx].skills.push(skill)
-      } else {
-        grouped[foundIdx].skills.push(skill)
-      }
+      grouped[foundIdx].skills.push(skill)
     } else {
       const data = {
         id: skill.template.category.id,
@@ -140,13 +130,9 @@ export function sortAndGroupSkills(
         compact: isCompact,
       }
 
-      if (isCompact) {
-        tempCompact.push(data)
-      } else {
-        grouped.push(data)
-      }
+      grouped.push(data)
     }
   })
 
-  return [...grouped, ...tempCompact]
+  return grouped
 }
