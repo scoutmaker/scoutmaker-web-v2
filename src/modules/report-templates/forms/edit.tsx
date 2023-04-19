@@ -89,7 +89,7 @@ export const EditReportTemplateForm = ({
               data={mapListDataToComboOptions(categoriesData)}
               name="compactCategoriesIds"
               multiple
-              label={t('COMPACT_CATEGORIES')}
+              label={t('report-templates:COMPACT_CATEGORIES_INFO')}
               error={
                 touched.compactCategoriesIds && !!errors.compactCategoriesIds
               }

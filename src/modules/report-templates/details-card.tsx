@@ -43,7 +43,7 @@ export const ReportTemplatesDetailsCard = ({
             value={skillAssessmentTemplates.map(e => e.name).join(', ')}
           />
           <CardItemBasic
-            title={t('COMPACT_CATEGORIES')}
+            title={t('report-templates:COMPACT_CATEGORIES_INFO')}
             value={categoriesData
               .filter(cat => compactCategoriesIds?.includes(cat.id))
               .map(cat => cat.name)
