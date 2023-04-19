@@ -54,6 +54,7 @@ type TGroupedSkills = {
   id: string
   name: string
   skills: ReportAssessmentBasicDto[]
+  compact: boolean
 }[]
 
 // Scoutmaker 2.1 template skills Ids
@@ -74,7 +75,8 @@ const defaultSkillsOrder = [
 export function sortAndGroupSkills(
   skills: ReportDto['skills'],
   skillsOrder?: string[],
-) {
+  compactCategories?: string[],
+): TGroupedSkills {
   const sorted = [...skills]
 
   let sortBy: string[] = []
@@ -102,17 +104,33 @@ export function sortAndGroupSkills(
 
   const grouped: TGroupedSkills = []
 
+  let compactCategoriesFinal = compactCategories
+  if (!compactCategoriesFinal?.length && !skillsOrder?.length) {
+    // Scoutmaker 2.1 template - hardcode backwards fix
+    const matchesTemplate = skills.every(skill =>
+      defaultSkillsOrder.includes(skill.template.id),
+    )
+    if (matchesTemplate) compactCategoriesFinal = ['1', '2', '6']
+  }
+
   sorted.forEach(skill => {
+    const isCompact = !!compactCategoriesFinal?.includes(
+      skill.template.category.id,
+    )
+
     const foundIdx = grouped.findIndex(g => g.id === skill.template.category.id)
 
     if (foundIdx !== -1) {
       grouped[foundIdx].skills.push(skill)
     } else {
-      grouped.push({
+      const data = {
         id: skill.template.category.id,
         name: skill.template.category.name,
         skills: [skill],
-      })
+        compact: isCompact,
+      }
+
+      grouped.push(data)
     }
   })
 

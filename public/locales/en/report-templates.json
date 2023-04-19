@@ -5,5 +5,6 @@
   "INDEX_PAGE_TITLE": "Report templates database",
   "CREATE_PAGE_TITLE": "Create new report template",
   "EDIT_PAGE_TITLE": "Edit report template",
-  "IS_PUBLIC": "Public"
+  "IS_PUBLIC": "Public",
+  "COMPACT_CATEGORIES_INFO": "Categories displayed in minimal format (Print)"
 }

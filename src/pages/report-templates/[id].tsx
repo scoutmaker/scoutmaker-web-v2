@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next'
 
 import { ErrorContent } from '@/components/error/error-content'
 import { PageHeading } from '@/components/page-heading/page-heading'
+import { useReportSkillAssessmentCategoriesList } from '@/modules/report-skill-assessment-categories/hooks'
 import { ReportTemplatesDetailsCard } from '@/modules/report-templates/details-card'
 import { ReportTemplateDto } from '@/modules/report-templates/types'
 import { getReportTemplateById } from '@/services/api/methods/report-templates'
@@ -31,11 +32,16 @@ const ReportTemplatePage = ({
 }: TSsrRole<ReportTemplateDto>) => {
   const { t } = useTranslation()
 
+  const { data: categories } = useReportSkillAssessmentCategoriesList()
+
   if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
       <PageHeading title={t('REPORT_TEMPLATE')} />
-      <ReportTemplatesDetailsCard reportTemplate={data} />
+      <ReportTemplatesDetailsCard
+        reportTemplate={data}
+        categoriesData={categories || []}
+      />
     </>
   )
 }

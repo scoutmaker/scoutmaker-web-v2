@@ -390,6 +390,7 @@ declare namespace Components {
             maxRatingScore: number;
             isPublic?: boolean;
             skillAssessmentTemplateIds: string[];
+            compactCategoriesIds?: string[];
         }
         export interface CreateScoutProfileDto {
             userId: string;
@@ -950,6 +951,7 @@ declare namespace Components {
             avgRating?: number;
             percentageRating?: number;
             skillsOrder?: string[];
+            compactCategoriesIds?: string[];
             createdAt: string; // date-time
             player: PlayerBasicDataDto;
             match?: MatchBasicDataDto;
@@ -1026,6 +1028,7 @@ declare namespace Components {
             name: string;
             maxRatingScore: number;
             skillAssessmentTemplates: ReportSkillAssessmentTemplateDto[];
+            compactCategoriesIds?: string[];
         }
         export interface ScoutProfileDto {
             id: string;
@@ -1318,6 +1321,7 @@ declare namespace Components {
             maxRatingScore?: number;
             isPublic?: boolean;
             skillAssessmentTemplateIds?: string[];
+            compactCategoriesIds?: string[];
         }
         export interface UpdateScoutProfileDto {
             userId?: string;
