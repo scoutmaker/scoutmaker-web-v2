@@ -21,6 +21,7 @@ export const SkillsChart = ({
 }: IProps) => {
   const options = {
     maintainAspectRatio: false,
+    responsive: true,
     legend: { display: false },
     scale: {
       ticks: { beginAtZero: true, min: 0, max: maxRatingScore, stepSize: 1 },

@@ -65,7 +65,7 @@ const PrintReportPage = ({
   return (
     <Box
       sx={{
-        maxWidth: 1000,
+        width: 1000,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -87,6 +87,7 @@ const PrintReportPage = ({
               : 'white',
             backgroundSize: 'cover',
           },
+          width: '100%',
         }}
       >
         <div ref={ref}>

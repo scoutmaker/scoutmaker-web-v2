@@ -5,9 +5,11 @@ import filter from 'just-filter-object'
 import { useTranslation } from 'next-i18next'
 
 import { BasicCombo } from '@/components/combo/basicCombo'
+import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
+import { ReportSkillAssessmentCategoryDto } from '@/modules/report-skill-assessment-categories/types'
 import { ReportSkillAssessmentTemplateDto } from '@/modules/report-skill-assessment-templates/types'
 import { mapReportSkillAssessmentTemplatesListToComboOptions } from '@/modules/report-skill-assessment-templates/utils'
 
@@ -19,6 +21,7 @@ interface ICreateFormProps {
   onCancelClick?: () => void
   fullwidth?: boolean
   skillTemplatesData: ReportSkillAssessmentTemplateDto[]
+  categoriesData: ReportSkillAssessmentCategoryDto[]
 }
 
 export const CreateReportTemplateForm = ({
@@ -26,6 +29,7 @@ export const CreateReportTemplateForm = ({
   onCancelClick,
   fullwidth,
   skillTemplatesData,
+  categoriesData,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -78,6 +82,20 @@ export const CreateReportTemplateForm = ({
               helperText={
                 touched.skillAssessmentTemplateIds
                   ? (errors.skillAssessmentTemplateIds as string)
+                  : undefined
+              }
+            />
+            <BasicCombo
+              data={mapListDataToComboOptions(categoriesData)}
+              name="compactCategoriesIds"
+              multiple
+              label={t('COMPACT_CATEGORIES')}
+              error={
+                touched.compactCategoriesIds && !!errors.compactCategoriesIds
+              }
+              helperText={
+                touched.compactCategoriesIds
+                  ? (errors.compactCategoriesIds as string)
                   : undefined
               }
             />
