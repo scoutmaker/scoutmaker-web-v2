@@ -74,6 +74,8 @@ export type NotesFiltersState = Omit<
 
 export type NotesSortBy = Paths.NotesControllerFindAll.Parameters.SortBy
 
+export type NotesListParams = Paths.NotesControllerGetList.QueryParameters
+
 export type NoteDto = Components.Schemas.NoteDto
 
 export type CreateNoteDto = Components.Schemas.CreateNoteDto

@@ -21,13 +21,14 @@ import {
   FindAllNotesParams,
   NoteBasicDataDto,
   NoteDto,
+  NotesListParams,
   UpdateNoteDto,
 } from './types'
 
 const moduleName: TModuleName = 'notes'
 
-export const useNotesList = () =>
-  useList<NoteBasicDataDto>(moduleName, getNotesList)
+export const useNotesList = (params?: NotesListParams, enabled?: boolean) =>
+  useList<NoteBasicDataDto>(moduleName, getNotesList, params, enabled)
 
 export const useNotes = (params: FindAllNotesParams) =>
   usePaginatedData<FindAllNotesParams, NoteDto>(moduleName, params, getNotes)
