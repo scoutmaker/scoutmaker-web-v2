@@ -27,7 +27,7 @@ import {
 
 const moduleName: TModuleName = 'notes'
 
-export const useNotesList = (params: NotesListParams, enabled?: boolean) =>
+export const useNotesList = (params?: NotesListParams, enabled?: boolean) =>
   useList<NoteBasicDataDto>(moduleName, getNotesList, params, enabled)
 
 export const useNotes = (params: FindAllNotesParams) =>
