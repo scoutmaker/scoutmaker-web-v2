@@ -3,6 +3,7 @@ import {
   FindAllNotesParams,
   NoteBasicDataDto,
   NoteDto,
+  NotesListParams,
   UpdateNoteDto,
 } from '@/modules/notes/types'
 import { TModuleName } from '@/services/api/modules'
@@ -23,7 +24,8 @@ const moduleName: TModuleName = 'notes'
 export const getNoteById = (id: string, token?: string) =>
   getAssetById<NoteDto>({ moduleName, id, token })
 
-export const getNotesList = () => getDataList<NoteBasicDataDto>(moduleName)
+export const getNotesList = (params?: NotesListParams) =>
+  getDataList<NoteBasicDataDto>(moduleName, params)
 
 export const getNotes = (params: FindAllNotesParams) =>
   getPaginatedData<FindAllNotesParams, NoteDto>(params, moduleName)

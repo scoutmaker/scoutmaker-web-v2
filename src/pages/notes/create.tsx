@@ -5,7 +5,7 @@ import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { useMatchById, useMatchesList } from '@/modules/matches/hooks'
 import { CreateNoteForm } from '@/modules/notes/forms/create'
-import { useCreateNote } from '@/modules/notes/hooks'
+import { useCreateNote, useNotesList } from '@/modules/notes/hooks'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
 import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
@@ -33,6 +33,11 @@ const CreateNotePage = () => {
     !!matchId,
   )
 
+  const { data: notesList, isLoading: notesLoading } = useNotesList(
+    { matchIds: [matchId] },
+    !!matchId,
+  )
+
   const { data: players, isLoading: playersLoading } = usePlayersList({
     teamIds:
       matchId && match ? [match.homeTeam.id, match.awayTeam.id] : undefined,
@@ -43,6 +48,7 @@ const CreateNotePage = () => {
     matchesLoading ||
     playersLoading ||
     createNoteLoading ||
+    (matchId && notesLoading) ||
     (matchId && matchLoading)
 
   return (
@@ -50,6 +56,7 @@ const CreateNotePage = () => {
       {isLoading && <Loader />}
       <PageHeading title={t('notes:CREATE_NOTE_PAGE_TITLE')} />
       <CreateNoteForm
+        notesData={notesList || []}
         positionsData={positions || []}
         matchesData={matches || []}
         playersData={players || []}

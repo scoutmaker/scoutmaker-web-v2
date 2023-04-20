@@ -10,5 +10,6 @@
   "DELETE_NOTE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć notatkę nr {{number}}?",
   "NO_OBSERVATION_TYPE_ERROR": "Wybierz typ obserwacji notatki",
   "CREATE_REPORT": "Utwórz raport",
-  "PLAYER_POSITION_INFO": "Jeśli zostawisz puste, podstawi się pozycja z profilu piłkarza"
+  "PLAYER_POSITION_INFO": "Jeśli zostawisz puste, podstawi się pozycja z profilu piłkarza",
+  "EDIT_NOTES_LIST": "Notatki do szybkiej edycji"
 }
