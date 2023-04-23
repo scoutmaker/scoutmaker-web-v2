@@ -5,6 +5,7 @@ import {
   addMemberOrganization,
   createOrganization,
   deleteOrganization,
+  getOrganizationById,
   getOrganizations,
   getOrganizationsList,
   removeMemberOrganization,
@@ -16,6 +17,7 @@ import { useCreateDocument } from '@/utils/hooks/api/use-create-document'
 import { useDeleteDocument } from '@/utils/hooks/api/use-delete-document'
 import { useList } from '@/utils/hooks/api/use-list'
 import { usePaginatedData } from '@/utils/hooks/api/use-paginated-data'
+import { useSingleDocument } from '@/utils/hooks/api/use-single-document'
 import { useUpdateDocument } from '@/utils/hooks/api/use-update-document'
 
 import {
@@ -59,6 +61,9 @@ export const useAddMemberOrganization = () =>
 
 export const useRemoveMemberOrganization = () =>
   useMemberDocument(removeMemberOrganization)
+
+export const useOrganization = (id: string) =>
+  useSingleDocument<OrganizationDto>(moduleName, id, getOrganizationById)
 
 interface Ivalues {
   organizationId: string

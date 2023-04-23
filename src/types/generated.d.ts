@@ -246,6 +246,7 @@ declare namespace Components {
             id?: string;
             name: string;
             memberIds: string[];
+            logoUrl?: string;
         }
         export interface CreateOrganizationInsiderNoteAceDto {
             organizationId: string;
@@ -758,6 +759,7 @@ declare namespace Components {
         export interface OrganizationDto {
             id: string;
             name: string;
+            logoUrl?: string;
             members: UserBasicDataDto[];
             createdAt: string; // date-time
         }
@@ -1197,6 +1199,7 @@ declare namespace Components {
         }
         export interface UpdateOrganizationDto {
             name?: string;
+            logoUrl?: string;
         }
         export interface UpdateOrganizationInsiderNoteAceDto {
             permissionLevel?: "READ" | "READ_AND_WRITE" | "FULL";
@@ -1399,6 +1402,7 @@ declare namespace Components {
             profile?: ScoutProfileWithoutUserDto;
             _count: Count;
             organizationId?: string;
+            organizationLogoUrl?: string;
             reportTemplateId?: string;
             reportBackgroundImage?: ReportBackgroundImageDto;
         }
