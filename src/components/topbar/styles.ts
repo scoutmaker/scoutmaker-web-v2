@@ -10,6 +10,9 @@ export const StyledToolbar = styled(Toolbar)(() => ({
 export const StyledTitle = styled(Link)(({ theme }) => ({
   textDecoration: 'none',
   color: theme.palette.background.paper,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 }))
 
 export const StyledButtonsContainer = styled('div')(() => ({
