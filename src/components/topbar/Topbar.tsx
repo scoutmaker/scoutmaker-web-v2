@@ -1,10 +1,11 @@
 import { Menu as MenuIcon } from '@mui/icons-material'
-import { AppBar, IconButton, Tooltip } from '@mui/material'
+import { AppBar, Avatar, IconButton, Tooltip } from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useRef, useState } from 'react'
 
+import { useUser } from '@/modules/auth/hooks'
 import { MatchAttendanceDto } from '@/modules/match-attendances/types'
 
 import { MatchesIcon } from '../icons'
@@ -27,6 +28,8 @@ export const Topbar = ({ matchAttendance }: ITopbarProps) => {
   const router = useRouter()
   const { t } = useTranslation()
 
+  const { data: user } = useUser()
+
   useEffect(() => {
     setIsMenuOpen(false)
   }, [router.asPath])
@@ -37,8 +40,16 @@ export const Topbar = ({ matchAttendance }: ITopbarProps) => {
         <Link href="/dashboard" passHref>
           <StyledTitle>
             <Logo />
+            {user?.organizationLogoUrl && (
+              <Avatar
+                src={user.organizationLogoUrl}
+                alt="organization logo"
+                sx={{ width: 35, height: 35 }}
+              />
+            )}
           </StyledTitle>
         </Link>
+
         <StyledButtonsContainer>
           {!!matchAttendance && (
             <Tooltip

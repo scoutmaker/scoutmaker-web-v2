@@ -13,6 +13,7 @@ import {
 export const initialValues: CreateOrganizationDto = {
   memberIds: [],
   name: '',
+  logoUrl: '',
 }
 
 export function generateCreateValidationSchema(t: TFunction) {
@@ -20,6 +21,7 @@ export function generateCreateValidationSchema(t: TFunction) {
     .object({
       name: yup.string().required(t('organizations:NO_NAME_ERROR')),
       memberIds: validateIdsArray().min(1),
+      logoUrl: yup.string().notRequired(),
     })
     .defined()
 }
@@ -27,6 +29,7 @@ export function generateCreateValidationSchema(t: TFunction) {
 export function generateUpdateValidationSchema() {
   return yup.object({
     name: yup.string().notRequired(),
+    logoUrl: yup.string().notRequired(),
   })
 }
 
@@ -39,10 +42,11 @@ export function generateAddMembersValidationSchema() {
 export function getInitialStateFromCurrent(
   organization: OrganizationDto,
 ): UpdateOrganizationDto {
-  const { name } = organization
+  const { name, logoUrl } = organization
 
   const values = {
     name,
+    logoUrl,
   }
 
   return map(values, value => value || '')
