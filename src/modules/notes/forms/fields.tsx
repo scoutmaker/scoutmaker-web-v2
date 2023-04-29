@@ -1,5 +1,6 @@
-import { TextField } from '@mui/material'
+import { Divider, TextField } from '@mui/material'
 import { Field, useFormikContext } from 'formik'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
@@ -13,13 +14,16 @@ import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 
-import { CreateNoteDto, UpdateNoteDto } from '../types'
+import { CreateNoteDto, NoteBasicDataDto, UpdateNoteDto } from '../types'
+import { mapNotesListToComboOptions } from '../utils'
 
 interface IFieldsProps {
   playersData: PlayerBasicDataDto[]
   matchesData: MatchBasicDataDto[]
   positionsData: PlayerPositionDto[]
+  notesData: NoteBasicDataDto[]
   matchDisabled?: boolean
+  matchId?: string
 }
 
 export const Fields = ({
@@ -27,8 +31,11 @@ export const Fields = ({
   matchesData,
   positionsData,
   matchDisabled,
+  notesData,
+  matchId,
 }: IFieldsProps) => {
   const { t } = useTranslation()
+  const router = useRouter()
 
   const { touched, errors, values } = useFormikContext<
     CreateNoteDto | UpdateNoteDto
@@ -36,6 +43,21 @@ export const Fields = ({
 
   return (
     <>
+      {matchId && (
+        <>
+          <BasicCombo
+            disabled={false}
+            data={mapNotesListToComboOptions(notesData)}
+            name="notes-edit-list"
+            label={t('notes:EDIT_NOTES_LIST')}
+            onChange={(_, value) => {
+              if (value)
+                router.push(`/notes/edit/${value}?quickMatchId=${matchId}`)
+            }}
+          />
+          <Divider />
+        </>
+      )}
       <BasicCombo
         data={mapPlayersListToComboOptions(playersData)}
         name="playerId"
