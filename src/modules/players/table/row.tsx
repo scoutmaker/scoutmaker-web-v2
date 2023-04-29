@@ -16,7 +16,7 @@ import { TableMenuItem } from '@/components/tables/menu-item'
 import { StyledTableRow } from '@/components/tables/row'
 import { getPositionDisplayName } from '@/modules/player-positions/utils'
 import { calculateRating } from '@/utils/calculate-rating'
-import { getFlagEmoji } from '@/utils/get-flag-emoji'
+import { FlagEmoji } from '@/utils/get-flag-emoji'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
 import { PlayerDto } from '../types'
@@ -108,9 +108,10 @@ export const PlayersTableRow = ({
         isLiked={!!likes.length}
         onClicked={cellChangeLikedClick}
       />
-      <StyledTableCell sx={{ minWidth: 100 }}>{`${getFlagEmoji(country.code)} ${
-        country.name
-      }`}</StyledTableCell>
+      <StyledTableCell sx={{ minWidth: 100 }}>
+        <FlagEmoji code={country.code} />
+        {country.name}
+      </StyledTableCell>
       <CellWithLink href={`/players/${slug}`} label={lastName} />
       <CellWithLink href={`/players/${slug}`} label={firstName} />
       <CellWithLink
