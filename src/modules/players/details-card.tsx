@@ -18,7 +18,7 @@ import { CardItemBasic } from '@/components/details-card/details-card-item'
 import { getPositionDisplayName } from '@/modules/player-positions/utils'
 import { PlayerDto } from '@/modules/players/types'
 import { calculateRating } from '@/utils/calculate-rating'
-import { getFlagEmoji } from '@/utils/get-flag-emoji'
+import { FlagEmoji } from '@/utils/get-flag-emoji'
 
 import RoleModal from './role-modal'
 
@@ -75,7 +75,11 @@ export const PlayerDetialsCard = ({ player, showRole }: IPlayerDetailsCard) => {
             <CardItemBasic title={t('YEAR_OF_BIRTH')} value={yearOfBirth} />
             <CardItemBasic
               title={t('COUNTRY')}
-              value={`${getFlagEmoji(country.code)} ${country.name}`}
+              value={
+                <>
+                  <FlagEmoji code={country.code} /> {country.name}
+                </>
+              }
             />
             <CardItemBasic
               title={t('TEAM')}
