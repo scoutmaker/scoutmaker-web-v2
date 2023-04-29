@@ -1,10 +1,7 @@
-import { Divider } from '@mui/material'
 import { Form, Formik } from 'formik'
 import filter from 'just-filter-object'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { BasicCombo } from '@/components/combo/basicCombo'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
@@ -14,7 +11,6 @@ import { PlayerBasicDataDto } from '@/modules/players/types'
 import { ConfirmOnLeaveForm } from '@/utils/hooks/use-confirm-leave'
 
 import { CreateNoteDto, NoteBasicDataDto } from '../types'
-import { mapNotesListToComboOptions } from '../utils'
 import { Fields } from './fields'
 import { generateNoteFormValidationSchema, initialValues } from './utils'
 
@@ -44,7 +40,6 @@ export const CreateNoteForm = ({
   const { setAlert } = useAlertsState()
   const { t } = useTranslation(['common', 'notes'])
   const initValues = { ...initialValues }
-  const router = useRouter()
 
   if (match) initValues.matchId = match.id
   if (observationType) initValues.observationType = observationType
@@ -55,7 +50,8 @@ export const CreateNoteForm = ({
       validationSchema={generateNoteFormValidationSchema()}
       enableReinitialize
       onSubmit={async (data, { resetForm }) => {
-        const { rating, ...rest } = data
+        // @ts-ignore to exclude notes edit from submitted data
+        const { rating, 'notes-edit-list': notesEdit, ...rest } = data
         const parsedRating =
           typeof rating === 'string' ? parseInt(rating) : rating
         const dataToSubmit = filter(
@@ -70,24 +66,13 @@ export const CreateNoteForm = ({
         <Form>
           <ConfirmOnLeaveForm />
           <Container fullwidth={fullwidth}>
-            {match && (
-              <>
-                <BasicCombo
-                  data={mapNotesListToComboOptions(notesData)}
-                  name="notes-edit-list"
-                  label={t('notes:EDIT_NOTES_LIST')}
-                  onChange={(_, value) => {
-                    if (value) router.push(`/notes/edit/${value}`)
-                  }}
-                />
-                <Divider />
-              </>
-            )}
             <Fields
               positionsData={positionsData}
               matchesData={matchesData}
               playersData={playersData}
               matchDisabled={!!match}
+              notesData={notesData}
+              matchId={match?.id}
             />
             <MainFormActions
               label={t('NOTE')}

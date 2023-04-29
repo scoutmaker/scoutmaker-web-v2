@@ -10,7 +10,7 @@ import { MatchBasicDataDto } from '@/modules/matches/types'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 
-import { NoteDto, UpdateNoteDto } from '../types'
+import { NoteBasicDataDto, NoteDto, UpdateNoteDto } from '../types'
 import { Fields } from './fields'
 import {
   generateNoteFormValidationSchema,
@@ -22,8 +22,10 @@ interface EditNoteFormProps {
   playersData: PlayerBasicDataDto[]
   matchesData: MatchBasicDataDto[]
   positionsData: PlayerPositionDto[]
+  notesData: NoteBasicDataDto[]
   onSubmit: (data: UpdateNoteDto) => void
   onCancelClick?: () => void
+  quickMatchId?: string
   fullwidth?: boolean
 }
 
@@ -35,6 +37,8 @@ export const EditNoteForm = ({
   playersData,
   matchesData,
   positionsData,
+  notesData,
+  quickMatchId,
 }: EditNoteFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -47,7 +51,8 @@ export const EditNoteForm = ({
       validationSchema={generateNoteFormValidationSchema()}
       enableReinitialize
       onSubmit={data => {
-        const { rating, ...rest } = data
+        // @ts-ignore to exclude notes edit from submitted data
+        const { rating, 'notes-edit-list': notesEdit, ...rest } = data
         const parsedRating =
           typeof rating === 'string' ? parseInt(rating) : rating
 
@@ -55,6 +60,7 @@ export const EditNoteForm = ({
           initialValues,
           filter({ ...rest, rating: parsedRating }, (_, value) => value),
         )
+
         onSubmit(dataToSubmit)
       }}
     >
@@ -65,6 +71,8 @@ export const EditNoteForm = ({
               positionsData={positionsData}
               matchesData={matchesData}
               playersData={playersData}
+              notesData={notesData}
+              matchId={quickMatchId}
             />
             <MainFormActions
               label={t('NOTE')}
