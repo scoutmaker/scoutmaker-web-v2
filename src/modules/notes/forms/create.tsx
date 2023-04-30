@@ -10,7 +10,7 @@ import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { ConfirmOnLeaveForm } from '@/utils/hooks/use-confirm-leave'
 
-import { CreateNoteDto } from '../types'
+import { CreateNoteDto, NoteBasicDataDto } from '../types'
 import { Fields } from './fields'
 import { generateNoteFormValidationSchema, initialValues } from './utils'
 
@@ -18,6 +18,7 @@ interface ICreateNoteFormProps {
   playersData: PlayerBasicDataDto[]
   matchesData: MatchBasicDataDto[]
   positionsData: PlayerPositionDto[]
+  notesData: NoteBasicDataDto[]
   onSubmit: (data: CreateNoteDto) => void
   onCancelClick?: () => void
   fullwidth?: boolean
@@ -34,6 +35,7 @@ export const CreateNoteForm = ({
   positionsData,
   match,
   observationType,
+  notesData,
 }: ICreateNoteFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation(['common', 'notes'])
@@ -48,7 +50,8 @@ export const CreateNoteForm = ({
       validationSchema={generateNoteFormValidationSchema()}
       enableReinitialize
       onSubmit={async (data, { resetForm }) => {
-        const { rating, ...rest } = data
+        // @ts-ignore to exclude notes edit from submitted data
+        const { rating, 'notes-edit-list': notesEdit, ...rest } = data
         const parsedRating =
           typeof rating === 'string' ? parseInt(rating) : rating
         const dataToSubmit = filter(
@@ -68,6 +71,8 @@ export const CreateNoteForm = ({
               matchesData={matchesData}
               playersData={playersData}
               matchDisabled={!!match}
+              notesData={notesData}
+              matchId={match?.id}
             />
             <MainFormActions
               label={t('NOTE')}

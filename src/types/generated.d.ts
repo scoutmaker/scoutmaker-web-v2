@@ -246,6 +246,7 @@ declare namespace Components {
             id?: string;
             name: string;
             memberIds: string[];
+            logoUrl?: string;
         }
         export interface CreateOrganizationInsiderNoteAceDto {
             organizationId: string;
@@ -390,6 +391,7 @@ declare namespace Components {
             maxRatingScore: number;
             isPublic?: boolean;
             skillAssessmentTemplateIds: string[];
+            compactCategoriesIds?: string[];
         }
         export interface CreateScoutProfileDto {
             userId: string;
@@ -757,6 +759,7 @@ declare namespace Components {
         export interface OrganizationDto {
             id: string;
             name: string;
+            logoUrl?: string;
             members: UserBasicDataDto[];
             createdAt: string; // date-time
         }
@@ -949,6 +952,8 @@ declare namespace Components {
             summary?: string;
             avgRating?: number;
             percentageRating?: number;
+            skillsOrder?: string[];
+            compactCategoriesIds?: string[];
             createdAt: string; // date-time
             player: PlayerBasicDataDto;
             match?: MatchBasicDataDto;
@@ -1025,6 +1030,7 @@ declare namespace Components {
             name: string;
             maxRatingScore: number;
             skillAssessmentTemplates: ReportSkillAssessmentTemplateDto[];
+            compactCategoriesIds?: string[];
         }
         export interface ScoutProfileDto {
             id: string;
@@ -1193,6 +1199,7 @@ declare namespace Components {
         }
         export interface UpdateOrganizationDto {
             name?: string;
+            logoUrl?: string;
         }
         export interface UpdateOrganizationInsiderNoteAceDto {
             permissionLevel?: "READ" | "READ_AND_WRITE" | "FULL";
@@ -1317,6 +1324,7 @@ declare namespace Components {
             maxRatingScore?: number;
             isPublic?: boolean;
             skillAssessmentTemplateIds?: string[];
+            compactCategoriesIds?: string[];
         }
         export interface UpdateScoutProfileDto {
             userId?: string;
@@ -1394,6 +1402,7 @@ declare namespace Components {
             profile?: ScoutProfileWithoutUserDto;
             _count: Count;
             organizationId?: string;
+            organizationLogoUrl?: string;
             reportTemplateId?: string;
             reportBackgroundImage?: ReportBackgroundImageDto;
         }
@@ -3138,6 +3147,7 @@ declare namespace Paths {
             export type PlayerIds = string[];
             export type PositionIds = string[];
             export type PositionTypeIds = string[];
+            export type SeasonIds = string[];
             export type SortBy = "id" | "player" | "positionPlayed" | "percentageRating" | "match" | "author" | "createdAt" | "percentageRating_createdAt";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
@@ -3151,6 +3161,7 @@ declare namespace Paths {
             matchIds?: Parameters.MatchIds;
             competitionIds?: Parameters.CompetitionIds;
             competitionGroupIds?: Parameters.CompetitionGroupIds;
+            seasonIds?: Parameters.SeasonIds;
             percentageRatingRangeStart?: Parameters.PercentageRatingRangeStart;
             percentageRatingRangeEnd?: Parameters.PercentageRatingRangeEnd;
             percentageRatingRanges?: Parameters.PercentageRatingRanges;
@@ -5245,6 +5256,7 @@ declare namespace Paths {
             export type PlayerIds = string[];
             export type PositionIds = string[];
             export type PositionTypeIds = string[];
+            export type SeasonIds = string[];
             export type SortBy = "id" | "player" | "positionPlayed" | "finalRating" | "percentageRating" | "videoUrl" | "author" | "createdAt" | "status" | "match";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
@@ -5258,6 +5270,7 @@ declare namespace Paths {
             teamIds?: Parameters.TeamIds;
             competitionIds?: Parameters.CompetitionIds;
             competitionGroupIds?: Parameters.CompetitionGroupIds;
+            seasonIds?: Parameters.SeasonIds;
             percentageRatingRangeStart?: Parameters.PercentageRatingRangeStart;
             percentageRatingRangeEnd?: Parameters.PercentageRatingRangeEnd;
             percentageRatingRanges?: Parameters.PercentageRatingRanges;
@@ -5327,6 +5340,7 @@ declare namespace Paths {
             export type PlayerIds = string[];
             export type PositionIds = string[];
             export type PositionTypeIds = string[];
+            export type SeasonIds = string[];
             export type TeamIds = string[];
             export type UserId = string;
         }
@@ -5338,6 +5352,7 @@ declare namespace Paths {
             teamIds?: Parameters.TeamIds;
             competitionIds?: Parameters.CompetitionIds;
             competitionGroupIds?: Parameters.CompetitionGroupIds;
+            seasonIds?: Parameters.SeasonIds;
             percentageRatingRangeStart?: Parameters.PercentageRatingRangeStart;
             percentageRatingRangeEnd?: Parameters.PercentageRatingRangeEnd;
             percentageRatingRanges?: Parameters.PercentageRatingRanges;

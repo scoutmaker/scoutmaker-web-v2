@@ -28,6 +28,7 @@ interface IBasicComboProps {
   helperText?: string
   disabled?: boolean
   filterBeforeComma?: boolean
+  onChange?: (event: any, value: any) => void
 }
 
 const LISTBOX_PADDING = 8 // px
@@ -164,6 +165,7 @@ export const BasicCombo = ({
   helperText,
   disabled,
   filterBeforeComma,
+  onChange,
 }: IBasicComboProps) => {
   const { t } = useTranslation()
   const filterOptions = createFilterOptions({
@@ -178,6 +180,7 @@ export const BasicCombo = ({
       PopperComponent={StyledPopper}
       ListboxComponent={ListboxComponent}
       multiple={multiple}
+      onChange={onChange}
       id={name}
       size={size}
       options={['', ...data.map(el => el.id)]}

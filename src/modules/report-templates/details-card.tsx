@@ -4,14 +4,21 @@ import { useTranslation } from 'next-i18next'
 import { CardItemBasic } from '@/components/details-card/details-card-item'
 import { ReportTemplatesIcon } from '@/components/icons'
 
+import { ReportSkillAssessmentCategoryDto } from '../report-skill-assessment-categories/types'
 import { ReportTemplateDto } from './types'
 
 export const ReportTemplatesDetailsCard = ({
   reportTemplate,
+  categoriesData,
 }: IRegionDetailsCard) => {
   const { t } = useTranslation()
 
-  const { name, maxRatingScore, skillAssessmentTemplates } = reportTemplate
+  const {
+    name,
+    maxRatingScore,
+    skillAssessmentTemplates,
+    compactCategoriesIds,
+  } = reportTemplate
 
   return (
     <Card sx={{ maxWidth: 700, margin: '0 auto' }}>
@@ -35,6 +42,13 @@ export const ReportTemplatesDetailsCard = ({
             title={t('REPORT_SKILL_ASSESSMENT_TEMPLATES')}
             value={skillAssessmentTemplates.map(e => e.name).join(', ')}
           />
+          <CardItemBasic
+            title={t('report-templates:COMPACT_CATEGORIES_INFO')}
+            value={categoriesData
+              .filter(cat => compactCategoriesIds?.includes(cat.id))
+              .map(cat => cat.name)
+              .join(', ')}
+          />
         </Grid>
       </CardContent>
     </Card>
@@ -43,4 +57,5 @@ export const ReportTemplatesDetailsCard = ({
 
 interface IRegionDetailsCard {
   reportTemplate: ReportTemplateDto
+  categoriesData: ReportSkillAssessmentCategoryDto[]
 }

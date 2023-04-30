@@ -28,6 +28,7 @@ export function generateCreateValidationSchema(t: TFunction) {
         .required(t('report-templates:NO_RATING_ERROR')),
       skillAssessmentTemplateIds: validateIdsArray().min(1).required(),
       isPublic: yup.boolean().notRequired(),
+      compactCategoriesIds: validateIdsArray().notRequired(),
     })
     .defined()
 }
@@ -38,17 +39,24 @@ export function generateUpdateValidationSchema() {
     maxRatingScore: yup.number().min(2).max(20).notRequired(),
     skillAssessmentTemplateIds: validateIdsArray().notRequired(),
     isPublic: yup.boolean().notRequired(),
+    compactCategoriesIds: validateIdsArray().notRequired(),
   })
 }
 
 export function getInitialStateFromCurrent(
   repTemplate: ReportTemplateDto,
 ): UpdateReportTemplateDto {
-  const { name, maxRatingScore, skillAssessmentTemplates } = repTemplate
+  const {
+    name,
+    maxRatingScore,
+    skillAssessmentTemplates,
+    compactCategoriesIds,
+  } = repTemplate
 
   const values = {
     name,
     maxRatingScore,
+    compactCategoriesIds,
     skillAssessmentTemplateIds: skillAssessmentTemplates.map(t => t.id),
   }
 

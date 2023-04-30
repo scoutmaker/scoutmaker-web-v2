@@ -54,17 +54,6 @@ const PrintReportPage = ({
   const { t } = useTranslation()
   const ref = useRef<HTMLDivElement | null>(null)
 
-  // const style = {
-  //   x: {},
-  // }
-
-  // const x = makeStyles({
-  //   backgroundImage: `url(${data?.user.reportBackgroundImage?.url})`,
-  //   backgroundSize: 'contain',
-  //   backgroundRepeat: 'no-repeat',
-  // })
-
-  // TODO: SUPPORT BG
   const handlePrint = useReactToPrint({
     content: () => ref.current,
     documentTitle: `Report_${data?.report.docNumber}`,
@@ -76,7 +65,7 @@ const PrintReportPage = ({
   return (
     <Box
       sx={{
-        maxWidth: 1000,
+        width: 1000,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -98,6 +87,7 @@ const PrintReportPage = ({
               : 'white',
             backgroundSize: 'cover',
           },
+          width: '100%',
         }}
       >
         <div ref={ref}>

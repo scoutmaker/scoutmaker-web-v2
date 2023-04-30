@@ -2,7 +2,15 @@ import {
   DirectionsRun as PlayersIcon,
   Info as InfoIcon,
 } from '@mui/icons-material'
-import { Avatar, Card, CardContent, CardHeader, Grid } from '@mui/material'
+import {
+  Avatar,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+} from '@mui/material'
+import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -10,7 +18,7 @@ import { CardItemBasic } from '@/components/details-card/details-card-item'
 import { getPositionDisplayName } from '@/modules/player-positions/utils'
 import { PlayerDto } from '@/modules/players/types'
 import { calculateRating } from '@/utils/calculate-rating'
-import { getFlagEmoji } from '@/utils/get-flag-emoji'
+import { FlagEmoji } from '@/utils/get-flag-emoji'
 
 import RoleModal from './role-modal'
 
@@ -39,6 +47,7 @@ export const PlayerDetialsCard = ({ player, showRole }: IPlayerDetailsCard) => {
     averagePercentageRating,
     role,
     inStatUrl,
+    slug,
   } = player
 
   return (
@@ -55,13 +64,22 @@ export const PlayerDetialsCard = ({ player, showRole }: IPlayerDetailsCard) => {
           }
           title={`${firstName} ${lastName}`}
           titleTypographyProps={{ variant: 'h3' }}
+          action={
+            <Link href={`/players/edit/${slug}`}>
+              <Button variant="contained">{t('EDIT')}</Button>
+            </Link>
+          }
         />
         <CardContent>
           <Grid container spacing={1}>
             <CardItemBasic title={t('YEAR_OF_BIRTH')} value={yearOfBirth} />
             <CardItemBasic
               title={t('COUNTRY')}
-              value={`${getFlagEmoji(country.code)} ${country.name}`}
+              value={
+                <>
+                  <FlagEmoji code={country.code} /> {country.name}
+                </>
+              }
             />
             <CardItemBasic
               title={t('TEAM')}

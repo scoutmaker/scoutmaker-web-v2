@@ -8,6 +8,7 @@ interface IProps {
   skills: ReportDto['skills']
   maxRatingScore: number
   printeable?: boolean
+  compact?: boolean
 }
 
 const fontSize = 10
@@ -15,15 +16,18 @@ export const ReportSkills = ({
   skills,
   printeable,
   maxRatingScore,
+  compact,
 }: IProps) => (
   <Grid container spacing={2}>
     {skills.map(skill => (
       <Grid item xs={printeable ? 6 : 12} key={skill.template.name}>
         <Container>
-          <Typography fontSize={printeable ? fontSize : undefined}>
-            <strong>{skill.template.name}</strong>
-          </Typography>
-          {!!skill?.rating && (
+          {!(compact && skills.length === 1) && (
+            <Typography fontSize={printeable ? fontSize : undefined}>
+              <strong>{skill.template.name}</strong>
+            </Typography>
+          )}
+          {!!skill?.rating && !compact && (
             <StyledRating
               name={`${skill.template.name}.rating`}
               value={skill.rating}
@@ -34,7 +38,7 @@ export const ReportSkills = ({
               size={printeable ? 'small' : 'medium'}
             />
           )}
-          {!!skill?.rating && printeable && (
+          {!!skill?.rating && printeable && !compact && (
             <Typography
               fontSize={fontSize}
               marginLeft={theme => theme.spacing(0.4)}

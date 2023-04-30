@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
+import { useReportSkillAssessmentCategoriesList } from '@/modules/report-skill-assessment-categories/hooks'
 import { useReportSkillAssessmentTemplatesList } from '@/modules/report-skill-assessment-templates/hooks'
 import { EditReportTemplateForm } from '@/modules/report-templates/forms/edit'
 import { useUpdateReportTemplate } from '@/modules/report-templates/hooks'
@@ -38,17 +39,22 @@ const EditReportTemplatePage = ({
     useUpdateReportTemplate(data?.id || '')
   const { data: skillTemplates, isLoading: skillTemplatesLoading } =
     useReportSkillAssessmentTemplatesList()
+  const { data: categories, isLoading: categoriesLoading } =
+    useReportSkillAssessmentCategoriesList()
 
   if (!data || errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
     <>
-      {(updateLoading || skillTemplatesLoading) && <Loader />}
+      {(updateLoading || skillTemplatesLoading || categoriesLoading) && (
+        <Loader />
+      )}
       <PageHeading title={t('report-templates:EDIT_PAGE_TITLE')} />
       <EditReportTemplateForm
         current={data}
         onSubmit={updateReportTemplate}
         skillTemplatesData={skillTemplates || []}
+        categoriesData={categories || []}
       />
     </>
   )

@@ -1,12 +1,10 @@
 import {
   Box,
   Divider as MuiDivider,
-  Link as MuiLink,
   styled,
   Theme,
   Typography,
 } from '@mui/material'
-import NextLink from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { Fragment, useEffect, useState } from 'react'
 import QRCode from 'react-qr-code'
@@ -17,10 +15,11 @@ import { getDocumentNumber } from '@/utils/get-document-number'
 
 import { MatchDto } from '../matches/types'
 import { PlayerDto } from '../players/types'
+import { getAuthorDisplayName } from '../users/utils'
 import { SkillsChart } from './components/skillsChart'
 import { SkillsPrintSection } from './components/skillsPrintSection'
 import { ReportDto } from './types'
-import { groupSkillsByCategory } from './utils'
+import { sortAndGroupSkills } from './utils'
 
 interface IProps {
   report: ReportDto
@@ -49,6 +48,8 @@ export const PrinteableReport = ({ report, player, match }: IProps) => {
     percentageRating,
     redCards,
     yellowCards,
+    skillsOrder,
+    compactCategoriesIds,
   } = report
   const {
     team: metaTeam,
@@ -79,10 +80,21 @@ export const PrinteableReport = ({ report, player, match }: IProps) => {
     const { awayTeam, homeTeam, homeGoals, awayGoals } = match
     let txt = `${homeTeam.name} vs ${awayTeam.name}`
     if (competition) txt += `, ${competition.name}`
-    if (homeGoals && awayGoals) txt += ` (${homeGoals} - ${awayGoals})`
+    if (typeof homeGoals === 'number' && typeof awayGoals === 'number')
+      txt += ` (${homeGoals} - ${awayGoals})`
 
     return txt
   }
+
+  const groupedSkills = sortAndGroupSkills(
+    skills,
+    skillsOrder,
+    compactCategoriesIds,
+  )
+  const compactSkills = groupArr(
+    groupedSkills.filter(g => g.compact),
+    3,
+  )
 
   return (
     <Container>
@@ -94,12 +106,22 @@ export const PrinteableReport = ({ report, player, match }: IProps) => {
           })}
         </Title>
       </header>
-      <Flex as="section">
+      <Flex
+        as="section"
+        sx={{ justifyContent: 'space-between', alignItems: 'flex-start' }}
+      >
         <div>
-          <Text gutterBottom>
-            <strong>{t('PLAYER')}: </strong>
-            {player.firstName} {player.lastName}, ur. {player.yearOfBirth}
-          </Text>
+          <Flex>
+            <Text gutterBottom>
+              <strong>{t('PLAYER')}: </strong>
+              {player.firstName} {player.lastName}, ur. {player.yearOfBirth}
+            </Text>
+            <Text gutterBottom sx={marginLeft}>
+              <strong>{t('SHIRT_NO')}: </strong>
+              {shirtNo || 'N/A'}
+            </Text>
+          </Flex>
+
           <Text gutterBottom>
             <strong>{t('TEAM')}: </strong>
             {team
@@ -116,22 +138,7 @@ export const PrinteableReport = ({ report, player, match }: IProps) => {
               metaPosition ? ` / ${metaPosition?.name}` : ''
             }`}
           </Text>
-          <Text gutterBottom>
-            <strong>{t('SHIRT_NO')}: </strong>
-            {shirtNo || 'N/A'}
-          </Text>
-          <Flex>
-            <Text gutterBottom>
-              <strong>{t('FOOTED')}: </strong>
-              {player.footed ? t(player.footed) : '-'}
-            </Text>
-            <Text sx={marginLeft} gutterBottom>
-              <strong>
-                {t('HEIGHT')} / {t('WEIGHT')}:{' '}
-              </strong>
-              {player.height} cm / {player.weight} kg
-            </Text>
-          </Flex>
+
           <Text gutterBottom>
             <strong>{t('MATCH')}: </strong>
             {getMatchText()}
@@ -143,7 +150,7 @@ export const PrinteableReport = ({ report, player, match }: IProps) => {
           <Flex>
             <Text gutterBottom>
               <strong>{t('SCOUT')}: </strong>
-              {author.firstName} {author.lastName}
+              {getAuthorDisplayName(author)}
             </Text>
             <Text sx={marginLeft} gutterBottom>
               <strong>{t('CREATED_AT')}: </strong>
@@ -172,41 +179,21 @@ export const PrinteableReport = ({ report, player, match }: IProps) => {
               {redCards}
             </Text>
           </Flex>
-          <Text gutterBottom>
-            <strong>{t('90_MINUT_URL')}: </strong>
-            <Link
-              href={player?.minut90url || ''}
-              text={player?.minut90url || '-'}
-            />
-          </Text>
-          <Text gutterBottom>
-            <strong>{t('TRANSFERMARKT_URL')}: </strong>
-            <Link
-              href={player?.transfermarktUrl || ''}
-              text={player?.transfermarktUrl || '-'}
-            />
-          </Text>
         </div>
-        <div>
+        <Box
+          marginTop={theme => theme.spacing(-5)}
+          position="relative"
+          width="450px"
+        >
           {isAnySkillRated && (
             <SkillsChart
               skills={skills.filter(skill => typeof skill.rating === 'number')}
               maxRatingScore={report.maxRatingScore}
             />
           )}
-        </div>
+        </Box>
       </Flex>
       <Divider />
-      {Object.entries(groupSkillsByCategory(skills)).map(([key, value]) => (
-        <Fragment key={key}>
-          <SkillsPrintSection
-            category={key}
-            maxRatingScore={maxRatingScore}
-            skills={value || []}
-          />
-          <Divider />
-        </Fragment>
-      ))}
       <section>
         <Heading variant="h6" align="center">
           {t('reports:SUMMARY')}
@@ -228,6 +215,37 @@ export const PrinteableReport = ({ report, player, match }: IProps) => {
           )}
         </Flex>
       </section>
+      <Divider />
+      {groupedSkills
+        .filter(g => !g.compact)
+        .map(group => (
+          <Fragment key={group.id}>
+            <SkillsPrintSection
+              category={group.name}
+              maxRatingScore={maxRatingScore}
+              skills={group.skills || []}
+              compact={group.compact}
+            />
+            <Divider />
+          </Fragment>
+        ))}
+
+      {compactSkills.map(section => (
+        <Fragment key={section.map(sec => sec.id).join('')}>
+          <Box display="flex">
+            {section.map(group => (
+              <SkillsPrintSection
+                key={group.id}
+                category={group.name}
+                maxRatingScore={maxRatingScore}
+                skills={group.skills || []}
+                compact={group.compact}
+              />
+            ))}
+          </Box>
+          <Divider />
+        </Fragment>
+      ))}
     </Container>
   )
 }
@@ -236,6 +254,7 @@ const Container = styled('div')(({ theme }) => ({
   padding: theme.spacing(2, 4),
   zIndex: 1,
   position: 'relative',
+  // width: '100%',
 }))
 
 const Title = styled(Typography)({
@@ -252,7 +271,7 @@ const Text = styled(Typography)({
   fontSize: 10,
 })
 
-const Flex = styled('div')({
+const Flex = styled(Box)({
   display: 'flex',
   alignItems: 'center',
 })
@@ -262,12 +281,12 @@ const Divider = styled(MuiDivider)(({ theme }) => ({
   margin: theme.spacing(1, 0),
 }))
 
-const Link = ({ text, href }: { text: string; href: string }) => (
-  <NextLink href={href} passHref>
-    <MuiLink
-      sx={{ textDecoration: 'none', pointerEvents: href ? 'auto' : 'none' }}
-    >
-      {text}
-    </MuiLink>
-  </NextLink>
-)
+function groupArr<T>(data: T[], n: number): Array<T[]> {
+  const group: Array<T[]> = []
+  for (let i = 0, j = 0; i < data.length; i += 1) {
+    if (i >= n && i % n === 0) j += 1
+    group[j] = group[j] || []
+    group[j].push(data[i])
+  }
+  return group
+}

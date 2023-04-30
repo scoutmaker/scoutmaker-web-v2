@@ -5,7 +5,9 @@ import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { useCompetitionGroupsList } from '@/modules/competition-groups/hooks'
 import { useCompetitionsList } from '@/modules/competitions/hooks'
+import { useMatchesList } from '@/modules/matches/hooks'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
+import { usePlayersList } from '@/modules/players/hooks'
 import { EditReportForm } from '@/modules/reports/forms/edit'
 import { useUpdateReport } from '@/modules/reports/hooks'
 import { ReportDto } from '@/modules/reports/types'
@@ -42,6 +44,8 @@ const EditReportPage = ({
     useCompetitionsList()
   const { data: competitionGroups, isLoading: competitionGroupsLoading } =
     useCompetitionGroupsList()
+  const { data: players, isLoading: playersLoading } = usePlayersList()
+  const { data: matches, isLoading: matchesLoading } = useMatchesList()
 
   const { mutate: updateReport, isLoading: updateReportLoading } =
     useUpdateReport(data?.id || '')
@@ -51,7 +55,9 @@ const EditReportPage = ({
     teamsLoading ||
     competitionsLoading ||
     competitionGroupsLoading ||
-    updateReportLoading
+    updateReportLoading ||
+    playersLoading ||
+    matchesLoading
 
   if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
@@ -72,6 +78,8 @@ const EditReportPage = ({
         competitionGroupsData={competitionGroups || []}
         competitionsData={competitions || []}
         onSubmit={updateReport}
+        matchesData={matches || []}
+        playersData={players || []}
       />
     </>
   )

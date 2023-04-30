@@ -11,6 +11,7 @@ export function useList<
   key: string,
   queryFn: (params?: ParamsType) => Promise<DataType[]>,
   params?: ParamsType,
+  enabled?: boolean,
 ) {
   const { setAlert } = useAlertsState()
 
@@ -23,6 +24,7 @@ export function useList<
           msg: err.response.data.message,
           type: 'error',
         }),
+      enabled,
     },
   )
 }

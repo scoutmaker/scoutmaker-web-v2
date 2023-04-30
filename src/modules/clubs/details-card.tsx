@@ -3,8 +3,8 @@ import { Avatar, Card, CardContent, CardHeader, Grid } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { CardItemBasic } from '@/components/details-card/details-card-item'
+import { FlagEmoji } from '@/utils/get-flag-emoji'
 
-import { getFlagEmoji } from '../../utils/get-flag-emoji'
 import { ClubDto } from './types'
 
 type IClubDetailsCard = {
@@ -45,7 +45,11 @@ export const ClubDetailsCard = ({ club }: IClubDetailsCard) => {
         <Grid container spacing={1}>
           <CardItemBasic
             title={t('COUNTRY')}
-            value={`${getFlagEmoji(country.code)} ${country.name}`}
+            value={
+              <>
+                <FlagEmoji code={country.code} /> {country.name}
+              </>
+            }
           />
           <CardItemBasic title={t('REGION')} value={region?.name} />
           <CardItemBasic title={t('CITY')} value={city} />

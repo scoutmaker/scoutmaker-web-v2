@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { ErrorContent } from '@/components/error/error-content'
@@ -5,7 +6,7 @@ import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { useMatchesList } from '@/modules/matches/hooks'
 import { EditNoteForm } from '@/modules/notes/forms/edit'
-import { useUpdateNote } from '@/modules/notes/hooks'
+import { useNotesList, useUpdateNote } from '@/modules/notes/hooks'
 import { NoteDto } from '@/modules/notes/types'
 import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
@@ -33,6 +34,8 @@ const EditNotePage = ({
   errorStatus,
 }: TSsrRole<NoteDto>) => {
   const { t } = useTranslation()
+  const router = useRouter()
+  const matchId = (router.query?.quickMatchId || '') as string
 
   const { data: positions, isLoading: positionsLoading } =
     usePlayerPositionsList()
@@ -43,8 +46,17 @@ const EditNotePage = ({
     data?.id || '',
   )
 
+  const { data: notesList, isLoading: notesLoading } = useNotesList(
+    { matchIds: [matchId] },
+    !!matchId,
+  )
+
   const isLoading =
-    positionsLoading || matchesLoading || playersLoading || updateNoteLoading
+    positionsLoading ||
+    matchesLoading ||
+    playersLoading ||
+    updateNoteLoading ||
+    notesLoading
 
   if (data) {
     return (
@@ -64,6 +76,8 @@ const EditNotePage = ({
           matchesData={matches || []}
           playersData={players || []}
           onSubmit={updateNote}
+          notesData={notesList || []}
+          quickMatchId={matchId}
         />
       </>
     )

@@ -1,5 +1,5 @@
 import { Download as DownloadIcon } from '@mui/icons-material'
-import { Button, Card, CardContent, CardHeader, Grid } from '@mui/material'
+import { Box, Button, Card, CardContent, CardHeader, Grid } from '@mui/material'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 
@@ -13,7 +13,6 @@ import {
   getPlayerFullName,
   getSinglePlayerRoute,
 } from '@/modules/players/utils'
-import { StatusChip } from '@/modules/reports/status-chip'
 import { getSingleTeamRoute } from '@/modules/teams/utils'
 import { formatDate } from '@/utils/format-date'
 
@@ -35,10 +34,10 @@ export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
     shirtNo,
     avgRating,
     maxRatingScore,
-    status,
     meta,
     author,
     observationType,
+    id,
   } = report
 
   const team = meta?.team || player.teams[0]?.team
@@ -51,15 +50,20 @@ export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
         titleTypographyProps={{ width: 'max-content' }}
         subheaderTypographyProps={{ width: 'max-content' }}
         action={
-          <Link href={`/reports/${report.id}/print`} passHref>
-            <Button
-              variant="contained"
-              startIcon={<DownloadIcon />}
-              component="a"
-            >
-              PDF
-            </Button>
-          </Link>
+          <Box display="flex" flexDirection="column" gap={0.5}>
+            <Link href={`/reports/edit/${id}`}>
+              <Button variant="contained">{t('EDIT')}</Button>
+            </Link>
+            <Link href={`/reports/${report.id}/print`} passHref>
+              <Button
+                variant="contained"
+                startIcon={<DownloadIcon />}
+                component="a"
+              >
+                PDF
+              </Button>
+            </Link>
+          </Box>
         }
         sx={{
           '& .MuiCardHeader-content': {
@@ -119,10 +123,6 @@ export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
           <CardItemBasic
             title={t('PERCENTAGE_RATING')}
             value={percentageRating ? `${percentageRating.toFixed(1)}%` : '-'}
-          />
-          <CardItemBasic
-            title={t('reports:STATUS')}
-            value={<StatusChip status={status} />}
           />
           <CardItemBasic
             title={t('CREATED_AT')}

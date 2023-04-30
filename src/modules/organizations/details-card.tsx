@@ -10,7 +10,7 @@ import { OrganizationDto } from './types'
 export const OrganizationDetailsCard = ({ organization }: IDetailsCard) => {
   const { t } = useTranslation()
 
-  const { name, createdAt } = organization
+  const { name, createdAt, logoUrl } = organization
 
   return (
     <Card sx={{ maxWidth: 700, margin: '0 auto' }}>
@@ -29,6 +29,7 @@ export const OrganizationDetailsCard = ({ organization }: IDetailsCard) => {
       <CardContent>
         <Grid container spacing={1}>
           <CardItemBasic title={t('NAME')} value={name} />
+          <CardItemBasic title={t('LOGO_URL')} value={logoUrl} href={logoUrl} />
           <CardItemBasic
             title={t('CREATED_AT')}
             value={formatDate(createdAt)}

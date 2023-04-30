@@ -21,6 +21,7 @@ import {
 import { ReportsTable } from '@/modules/reports/table/table'
 import { ReportsFiltersState, ReportsSortBy } from '@/modules/reports/types'
 import { useOnLikeReportClick } from '@/modules/reports/utils'
+import { useSeasonsList } from '@/modules/seasons/hooks'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { getDocumentNumber } from '@/utils/get-document-number'
 import { useLocalStorage } from '@/utils/hooks/use-local-storage'
@@ -49,6 +50,7 @@ const initialFilters: ReportsFiltersState = {
   onlyLikedPlayers: false,
   onlyLikedTeams: false,
   percentageRatingRanges: [],
+  seasonIds: [],
   onlyMine: false,
 }
 
@@ -98,6 +100,7 @@ const ReportsPage = () => {
   })
   const { data: positionTypes, isLoading: positionTypesLoading } =
     usePlayerPositionTypesList()
+  const { data: seasons, isLoading: seasonsLoading } = useSeasonsList()
 
   const { data: reports, isLoading: reportsLoading } = useReports({
     page: page + 1,
@@ -133,7 +136,8 @@ const ReportsPage = () => {
     playersLoading ||
     likeReportLoading ||
     unlikeReportLoading ||
-    positionTypesLoading
+    positionTypesLoading ||
+    seasonsLoading
 
   return (
     <>
@@ -150,6 +154,7 @@ const ReportsPage = () => {
           competitionGroupsData={competitionGroups || []}
           onFilter={handleSetFilters}
           onClearFilters={onClearFilters}
+          seasonsData={seasons || []}
         />
       </FilterAccordion>
       <ReportsTable

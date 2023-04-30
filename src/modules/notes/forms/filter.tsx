@@ -21,6 +21,8 @@ import { PlayerPositionTypeDto } from '@/modules/player-position-types/types'
 import { mapPlayerPositionTypesToComboOptions } from '@/modules/player-position-types/utils'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { mapPlayersListToComboOptions } from '@/modules/players/utils'
+import { SeasonDto } from '@/modules/seasons/types'
+import { mapSeasonsListToComboOptions } from '@/modules/seasons/utils'
 import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { NotesFiltersState } from '../types'
@@ -32,6 +34,7 @@ interface INotesFilterFormProps {
   matchesData: MatchBasicDataDto[]
   competitionsData: CompetitionBasicDataDto[]
   competitionGroupsData: CompetitionGroupBasicDataDto[]
+  seasonsData: SeasonDto[]
   filters: NotesFiltersState
   onFilter: (data: NotesFiltersState) => void
   onClearFilters: () => void
@@ -47,6 +50,7 @@ export const NotesFilterForm = ({
   filters,
   onFilter,
   onClearFilters,
+  seasonsData,
 }: INotesFilterFormProps) => {
   const { t } = useTranslation(['common', 'notes'])
   const groupsComboData = mapCompetitionGroupsListToComboOptions(
@@ -147,6 +151,13 @@ export const NotesFilterForm = ({
               data={getObservationTypeComboData(t)}
               label={t('OBSERVATION_TYPE')}
               size="small"
+            />
+            <FilterCombo
+              name="seasonIds"
+              data={mapSeasonsListToComboOptions(seasonsData)}
+              label={t('SEASONS')}
+              size="small"
+              multiple
             />
           </FilterFormContainer>
           <Box display="flex" flexWrap="wrap" justifyContent="center">

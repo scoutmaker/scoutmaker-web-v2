@@ -1,11 +1,13 @@
 import {
   Avatar,
+  Button,
   Card,
   CardContent,
   CardHeader,
   Grid,
   Rating,
 } from '@mui/material'
+import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 
 import { CardItemBasic } from '@/components/details-card/details-card-item'
@@ -40,6 +42,7 @@ export const NoteDetailsCard = ({ note }: INoteDetailsCard) => {
     shirtNo,
     meta,
     observationType,
+    id,
   } = note
 
   return (
@@ -58,6 +61,11 @@ export const NoteDetailsCard = ({ note }: INoteDetailsCard) => {
         })}
         subheader={`${t('AUTHOR')}: ${getAuthorDisplayName(author)}`}
         titleTypographyProps={{ variant: 'h3' }}
+        action={
+          <Link href={`/notes/edit/${id}`}>
+            <Button variant="contained">{t('EDIT')}</Button>
+          </Link>
+        }
       />
       <CardContent>
         <Grid container spacing={1}>

@@ -62,6 +62,17 @@ export const CreateOrganizationForm = ({
               }
               label={t('USERS')}
             />
+            <Field
+              name="logoUrl"
+              as={TextField}
+              variant="outlined"
+              fullWidth
+              label={t('LOGO_URL')}
+              error={touched.logoUrl && !!errors.logoUrl}
+              helperText={
+                (touched.logoUrl && errors.logoUrl) || t('OPTIONAL_FIELD')
+              }
+            />
             <MainFormActions
               label={t('ORGANIZATION')}
               onCancelClick={() => {
