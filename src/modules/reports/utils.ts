@@ -110,7 +110,7 @@ export function sortAndGroupSkills(
     const matchesTemplate = skills.every(skill =>
       defaultSkillsOrder.includes(skill.template.id),
     )
-    if (matchesTemplate) compactCategoriesFinal = ['1', '2', '6']
+    if (matchesTemplate) compactCategoriesFinal = ['1', '5', '6']
   }
 
   sorted.forEach(skill => {
