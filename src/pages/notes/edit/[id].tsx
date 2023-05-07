@@ -56,7 +56,7 @@ const EditNotePage = ({
     matchesLoading ||
     playersLoading ||
     updateNoteLoading ||
-    notesLoading
+    (notesLoading && matchId)
 
   if (data) {
     return (
