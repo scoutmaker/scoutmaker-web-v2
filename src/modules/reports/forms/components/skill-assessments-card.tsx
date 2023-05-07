@@ -69,14 +69,14 @@ export const SkillAssessmentsCard = ({
                     <RatingInput
                       max={maxRatingScore}
                       label={item.template.name}
-                      name={`skillAssessments[${item.id}].rating`}
+                      name={`skillAssessments-${item.id}-rating`}
                     />
                   ))}
                 {readOnly ? (
                   <Typography>{item.description}</Typography>
                 ) : (
                   <Field
-                    name={`skillAssessments[${item.id}].description`}
+                    name={`skillAssessments-${item.id}-description`}
                     as={TextField}
                     variant="outlined"
                     fullWidth
