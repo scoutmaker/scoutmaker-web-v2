@@ -127,26 +127,36 @@ export function formatUpdateReportDto({
   // Get updated values
   const updated: UpdateReportDto = diff(initialValues, data)
 
-  const { finalRating, skillAssessments, ...rest } = updated
+  const { finalRating, ...rest } = updated
+  const { skillAssessments } = data
 
   // Parse final rating - if it's defined and of type string
   const parsedRating =
     typeof finalRating === 'string' ? parseInt(finalRating) : finalRating
 
-  // If updated.skillAssessments object exists, we want to send entire
+  //  we want to send entirŃ™e
   // skill assessments array from data object to the backend with parsed
   // ratings
-  const assessmentsWithParsedRatings = skillAssessments
-    ? data.skillAssessments?.map(assessment => ({
-        ...assessment,
-        rating:
-          typeof assessment.rating === 'string'
-            ? parseInt(assessment.rating)
-            : assessment.rating,
-      }))
-    : undefined
 
-  // Filter out undefined values
+  const parsedSkillAss = [...(skillAssessments || [])]
+  if (skillAssessments) {
+    Object.entries(data).forEach(([key, value]) => {
+      const splitted = key.split('-')
+      if (splitted.length !== 3) return
+      const id = splitted[1]
+
+      if (splitted[2] === 'rating') {
+        // @ts-ignore it exits - spaghetti
+        parsedSkillAss.find(s => s?.id === id).rating =
+          typeof value === 'string' ? parseInt(value) : value
+      }
+
+      if (splitted[2] === 'description') {
+        // @ts-ignore it exits - spaghetti
+        parsedSkillAss.find(s => s?.id === id).description = value
+      }
+    })
+  }
 
   // Keys for which 0 is a valid value & we don't want to filter them out
   const possibleZeroValueKeys = [
@@ -161,7 +171,7 @@ export function formatUpdateReportDto({
     {
       ...rest,
       finalRating: parsedRating,
-      skillAssessments: assessmentsWithParsedRatings,
+      skillAssessments: parsedSkillAss?.length ? parsedSkillAss : undefined,
     },
     (key, value) => (possibleZeroValueKeys.includes(key) ? true : value),
   )
@@ -215,17 +225,20 @@ export function getInitialStateFromCurrent(report: ReportDto): UpdateReportDto {
   const mappedRest = map(
     {
       ...rest,
-      skillAssessments: skills.map(skill => ({
-        description: skill.description,
-        rating: skill.rating,
-        templateId: skill.template.id,
-      })),
     },
     value => value || '',
   )
 
+  skills.forEach(skill => {
+    mappedRest[`skillAssessments-${skill.id}-rating`] = skill?.rating as number
+
+    mappedRest[`skillAssessments-${skill.id}-description`] =
+      skill?.description as string
+  })
+
   return {
     ...mappedRest,
+    skillAssessments: skills.map(s => ({ ...s, templateId: s.template.id })),
     redCards,
     yellowCards,
     assists,

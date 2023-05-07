@@ -62,7 +62,6 @@ export const EditReportForm = ({
   const { t } = useTranslation(['common', 'reports'])
 
   const initialValues = getInitialStateFromCurrent(current)
-
   return (
     <>
       <BasicDetailsCard report={current} />
