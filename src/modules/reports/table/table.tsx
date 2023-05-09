@@ -5,7 +5,7 @@ import { Table } from '@/components/tables/table'
 import { ICommonTableProps, IHeadCell } from '@/types/tables'
 import { getEditRoute, Routes } from '@/utils/routes'
 
-import { ReportPaginatedDataDto } from '../types'
+import { ReportPaginatedDataDto, ReportsSortBy } from '../types'
 import { ReportsTableRow } from './row'
 
 interface IReportsTableProps extends ICommonTableProps {
@@ -19,16 +19,16 @@ interface IReportsTableProps extends ICommonTableProps {
   onUnLikeClick: (id: string) => void
 }
 
-function generateHeadCells(t: TFunction): IHeadCell[] {
+function generateHeadCells(t: TFunction): IHeadCell<ReportsSortBy>[] {
   return [
-    { id: 'favourite', label: '' },
+    { id: undefined, label: '', isSortingDisabled: true },
     { id: 'match', label: t('MATCH_DATE') },
-    { id: 'matchName', label: t('MATCH'), isSortingDisabled: true },
+    { id: undefined, label: t('MATCH'), isSortingDisabled: true },
     { id: 'percentageRating', label: t('RATING') },
     { id: 'player', label: t('PLAYER') },
     { id: 'positionPlayed', label: t('POSITION') },
     { id: 'author', label: t('SCOUT') },
-    { id: 'observationType', label: t('OBSERVATION'), isSortingDisabled: true },
+    { id: undefined, label: t('OBSERVATION'), isSortingDisabled: true },
     { id: 'createdAt', label: t('CREATED_AT') },
   ]
 }

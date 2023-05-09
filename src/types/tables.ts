@@ -20,8 +20,8 @@ export interface ICommonTableProps {
   collapsible?: boolean
 }
 
-export interface IHeadCell {
-  id: string
+export interface IHeadCell<T = string> {
+  id: T | undefined
   label: string
   isSortingDisabled?: boolean
 }

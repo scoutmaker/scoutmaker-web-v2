@@ -4,7 +4,7 @@ import { TFunction, useTranslation } from 'next-i18next'
 import { Table } from '@/components/tables/table'
 import { ICommonTableProps, IHeadCell, INameToDeleteData } from '@/types/tables'
 
-import { TeamDto } from '../types'
+import { TeamDto, TeamsSortBy } from '../types'
 import { TeamsTableRow } from './teams-row'
 
 interface ITeamsTableProps extends ICommonTableProps {
@@ -14,13 +14,13 @@ interface ITeamsTableProps extends ICommonTableProps {
   onUnLikeClick: (id: string) => void
 }
 
-function generateHeadCells(t: TFunction): IHeadCell[] {
+function generateHeadCells(t: TFunction): IHeadCell<TeamsSortBy>[] {
   return [
-    { id: 'favourite', label: '' },
+    { id: undefined, label: '', isSortingDisabled: true },
     { id: 'name', label: t('NAME') },
     { id: 'clubId', label: t('CLUB') },
     {
-      id: 'competition_with_group',
+      id: undefined,
       label: `${t('COMPETITION')} → ${t('GROUP')}`,
       isSortingDisabled: true,
     },
