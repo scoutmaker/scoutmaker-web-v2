@@ -4,7 +4,7 @@ import { TFunction, useTranslation } from 'next-i18next'
 import { Table } from '@/components/tables/table'
 import { ICommonTableProps, IHeadCell, INameToDeleteData } from '@/types/tables'
 
-import { MatchDto } from '../types'
+import { MatchDto, MatchesSortBy } from '../types'
 import { MatchesTableRow } from './row'
 
 interface IMatchesTableProps extends ICommonTableProps {
@@ -12,18 +12,18 @@ interface IMatchesTableProps extends ICommonTableProps {
   handleDeleteItemClick?: (data: INameToDeleteData) => void
 }
 
-function generateHeadCells(t: TFunction): IHeadCell[] {
+function generateHeadCells(t: TFunction): IHeadCell<MatchesSortBy>[] {
   return [
     { id: 'date', label: t('DATE') },
     { id: 'homeTeam', label: t('HOME_TEAM') },
     { id: 'awayTeam', label: t('AWAY_TEAM') },
     { id: 'competition', label: t('COMPETITION') },
     { id: 'group', label: t('GROUP') },
-    { id: 'result', label: t('RESULT'), isSortingDisabled: true },
+    { id: undefined, label: t('RESULT'), isSortingDisabled: true },
     { id: 'reportsCount', label: t('REPORTS') },
     { id: 'notesCount', label: t('NOTES') },
     {
-      id: 'observations',
+      id: undefined,
       label: t('OBSERVATION'),
       isSortingDisabled: true,
     },

@@ -3,7 +3,7 @@ import { TFunction, useTranslation } from 'next-i18next'
 import { Table } from '@/components/tables/table'
 import { ICommonTableProps, IHeadCell } from '@/types/tables'
 
-import { OrderDto } from '../types'
+import { OrderDto, OrdersSortBy } from '../types'
 import { OrdersTableRow } from './row'
 
 interface ITableProps extends ICommonTableProps {
@@ -14,10 +14,10 @@ interface ITableProps extends ICommonTableProps {
   onCloseOrderClick: (id: string) => void
 }
 
-function generateHeadCells(t: TFunction): IHeadCell[] {
+function generateHeadCells(t: TFunction): IHeadCell<OrdersSortBy>[] {
   return [
-    { id: 'matchDate', label: t('MATCH_DATE'), isSortingDisabled: true },
-    { id: 'match', label: t('MATCH'), isSortingDisabled: true },
+    { id: undefined, label: t('MATCH_DATE'), isSortingDisabled: true },
+    { id: undefined, label: t('MATCH'), isSortingDisabled: true },
     { id: 'player', label: t('PLAYER') },
     { id: 'position', label: t('PRIMARY_POSITION') },
     { id: 'scout', label: t('SCOUT') },

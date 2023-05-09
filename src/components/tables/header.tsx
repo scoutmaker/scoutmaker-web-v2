@@ -28,12 +28,14 @@ export const TableHeader = ({
       {collapsible ? <StyledTableCell /> : null}
       {actions ? <StyledTableCell /> : null}
       {headCells.map(({ id, label, isSortingDisabled }) => (
-        <StyledTableCell key={id}>
+        <StyledTableCell key={label}>
           <TableSortLabel
             disabled={isSortingDisabled}
-            active={sortBy === id}
+            active={!!(id && sortBy === id)}
             direction={sortBy === id ? order : 'asc'}
-            onClick={() => handleSort(id)}
+            onClick={
+              id && !isSortingDisabled ? () => handleSort(id) : undefined
+            }
             sx={{
               '&.Mui-active': {
                 color: 'info.main',

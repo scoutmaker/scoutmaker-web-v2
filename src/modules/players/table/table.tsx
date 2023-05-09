@@ -4,7 +4,7 @@ import { TFunction, useTranslation } from 'next-i18next'
 import { Table } from '@/components/tables/table'
 import { ICommonTableProps, IHeadCell, INameToDeleteData } from '@/types/tables'
 
-import { PlayerDto } from '../types'
+import { PlayerDto, PlayersSortBy } from '../types'
 import { PlayersTableRow } from './row'
 
 interface IPlayersTableProps extends ICommonTableProps {
@@ -15,13 +15,13 @@ interface IPlayersTableProps extends ICommonTableProps {
   showRole?: boolean
 }
 
-function generateHeadCells(t: TFunction): IHeadCell[] {
+function generateHeadCells(t: TFunction): IHeadCell<PlayersSortBy>[] {
   return [
-    { id: 'favourite', label: '', isSortingDisabled: true },
+    { id: undefined, label: '', isSortingDisabled: true },
     { id: 'country', label: t('COUNTRY') },
     { id: 'lastName', label: t('LAST_NAME') },
     { id: 'firstName', label: t('FIRST_NAME') },
-    { id: 'team', label: t('TEAM'), isSortingDisabled: true },
+    { id: undefined, label: t('TEAM'), isSortingDisabled: true },
     { id: 'yearOfBirth', label: t('YEAR_OF_BIRTH') },
     { id: 'primaryPosition', label: t('PRIMARY_POSITION') },
     { id: 'footed', label: t('FOOTED'), isSortingDisabled: true },

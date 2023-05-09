@@ -4,7 +4,7 @@ import { TFunction, useTranslation } from 'next-i18next'
 import { Table } from '@/components/tables/table'
 import { ICommonTableProps, IHeadCell } from '@/types/tables'
 
-import { NoteDto } from '../types'
+import { NoteDto, NotesSortBy } from '../types'
 import { NotesTableRow } from './row'
 
 interface IMatchesTableProps extends ICommonTableProps {
@@ -18,17 +18,17 @@ interface IMatchesTableProps extends ICommonTableProps {
   onUnLikeClick: (id: string) => void
 }
 
-function generateHeadCells(t: TFunction): IHeadCell[] {
+function generateHeadCells(t: TFunction): IHeadCell<NotesSortBy>[] {
   return [
-    { id: 'favourite', label: '' },
+    { id: undefined, label: '', isSortingDisabled: true },
     { id: 'match', label: t('MATCH_DATE') },
-    { id: 'matchName', label: t('MATCH'), isSortingDisabled: true },
+    { id: undefined, label: t('MATCH'), isSortingDisabled: true },
     { id: 'percentageRating', label: t('RATING') },
     { id: 'player', label: t('PLAYER') },
     { id: 'positionPlayed', label: t('POSITION') },
     { id: 'author', label: t('SCOUT') },
     {
-      id: 'observationType',
+      id: undefined,
       label: t('OBSERVATION'),
       isSortingDisabled: true,
     },
