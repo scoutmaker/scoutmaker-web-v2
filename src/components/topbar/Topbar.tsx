@@ -1,5 +1,6 @@
 import { Menu as MenuIcon } from '@mui/icons-material'
-import { AppBar, Avatar, IconButton, Tooltip } from '@mui/material'
+import { AppBar, Box, IconButton, Tooltip } from '@mui/material'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -41,11 +42,15 @@ export const Topbar = ({ matchAttendance }: ITopbarProps) => {
           <StyledTitle>
             <Logo />
             {user?.organizationLogoUrl && (
-              <Avatar
-                src={user.organizationLogoUrl}
-                alt="organization logo"
-                sx={{ width: 35, height: 35 }}
-              />
+              <Box sx={{ width: 35, height: 35 }}>
+                <Image
+                  src={user.organizationLogoUrl}
+                  alt="organization logo"
+                  width={100}
+                  height={100}
+                  layout="responsive"
+                />
+              </Box>
             )}
           </StyledTitle>
         </Link>
