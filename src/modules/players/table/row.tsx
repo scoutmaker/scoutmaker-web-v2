@@ -4,7 +4,7 @@ import {
   FavoriteBorder as LikeIcon,
   Note as NotesIcon,
 } from '@mui/icons-material'
-import { Badge } from '@mui/material'
+import { Badge, Box, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
@@ -20,6 +20,7 @@ import { FlagEmoji } from '@/utils/get-flag-emoji'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
 import { PlayerDto } from '../types'
+import { isPlayerGradeUpToDate } from '../utils'
 
 interface IPlayersTableRowProps {
   data: PlayerDto
@@ -63,6 +64,7 @@ export const PlayersTableRow = ({
     _count: count,
     averagePercentageRating,
     role,
+    latestGrade,
   } = data
 
   const cellChangeLikedClick = () => {
@@ -129,9 +131,25 @@ export const PlayersTableRow = ({
       </StyledTableCell>
       <StyledTableCell>{footed ? t(footed) : '-'}</StyledTableCell>
       <StyledTableCell>
-        {typeof averagePercentageRating === 'number'
-          ? calculateRating(averagePercentageRating)
-          : '-'}
+        {latestGrade && isPlayerGradeUpToDate(latestGrade.createdAt) ? (
+          <Box fontSize="inherit">
+            <Typography fontSize="inherit">
+              {t(`player-grades:${latestGrade.grade}`)}
+            </Typography>
+            <Typography variant="caption" marginLeft={0.5}>
+              (akt.{' '}
+              {Math.round(
+                Math.abs(
+                  new Date().getTime() -
+                    new Date(latestGrade.createdAt).getTime(),
+                ) / 8.64e7,
+              )}{' '}
+              dni temu)
+            </Typography>
+          </Box>
+        ) : (
+          '-'
+        )}
       </StyledTableCell>
       <StyledTableCell align="center">
         <Badge badgeContent={count.reports || '0'} color="secondary">
@@ -142,6 +160,11 @@ export const PlayersTableRow = ({
         <Badge badgeContent={count.notes || '0'} color="secondary">
           <ReportsIcon />
         </Badge>
+      </StyledTableCell>
+      <StyledTableCell>
+        {typeof averagePercentageRating === 'number'
+          ? calculateRating(averagePercentageRating)
+          : '-'}
       </StyledTableCell>
     </StyledTableRow>
   )

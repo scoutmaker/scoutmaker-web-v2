@@ -293,6 +293,11 @@ declare namespace Components {
             isPublic?: boolean;
             roleId?: string;
         }
+        export interface CreatePlayerGradeDto {
+            competitionId: string;
+            playerId: string;
+            grade: "LIGA1" | "LIGA2" | "LIGA3" | "EKSTRAKLASA" | "EEU_ROZGRYWKI";
+        }
         export interface CreatePlayerPositionDto {
             id?: string;
             name: string;
@@ -520,6 +525,7 @@ declare namespace Components {
             likes: LikePlayerBasicDataDto[];
             averagePercentageRating: number;
             role: PlayerRoleBasicDataDto;
+            latestGrade?: PlayerGradeSuperBasicDto;
             _count: Count;
         }
         export interface DashboardReportDto {
@@ -840,7 +846,20 @@ declare namespace Components {
             likes: LikePlayerBasicDataDto[];
             averagePercentageRating: number;
             role: PlayerRoleBasicDataDto;
+            latestGrade?: PlayerGradeSuperBasicDto;
             _count: Count;
+        }
+        export interface PlayerGradeDto {
+            id: string;
+            player: PlayerBasicDataDto;
+            competition: CompetitionBasicDataDto;
+            createdAt: string;
+            grade: "LIGA1" | "LIGA2" | "LIGA3" | "EKSTRAKLASA" | "EEU_ROZGRYWKI";
+        }
+        export interface PlayerGradeSuperBasicDto {
+            id: string;
+            createdAt: string;
+            grade: "LIGA1" | "LIGA2" | "LIGA3" | "EKSTRAKLASA" | "EEU_ROZGRYWKI";
         }
         export interface PlayerPositionDto {
             id: string;
@@ -1223,6 +1242,7 @@ declare namespace Components {
         }
         export interface UpdatePlayerDto {
             averagePercentageRating?: number;
+            latestGradeId?: string;
             firstName?: string;
             lastName?: string;
             countryId?: string;
@@ -1242,6 +1262,11 @@ declare namespace Components {
             scoutmakerv1Id?: string;
             isPublic?: boolean;
             roleId?: string;
+        }
+        export interface UpdatePlayerGradeDto {
+            competitionId?: string;
+            playerId?: string;
+            grade?: "LIGA1" | "LIGA2" | "LIGA3" | "EKSTRAKLASA" | "EEU_ROZGRYWKI";
         }
         export interface UpdatePlayerPositionDto {
             name?: string;
@@ -3931,6 +3956,99 @@ declare namespace Paths {
             }
         }
     }
+    namespace PlayerGradesControllerCreate {
+        export type RequestBody = Components.Schemas.CreatePlayerGradeDto;
+        namespace Responses {
+            export interface $201 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerGradeDto;
+            }
+        }
+    }
+    namespace PlayerGradesControllerFindAll {
+        namespace Parameters {
+            export type CompetitionIds = string[];
+            export type Grades = ("LIGA1" | "LIGA2" | "LIGA3" | "EKSTRAKLASA" | "EEU_ROZGRYWKI")[];
+            export type Limit = number;
+            export type Page = number;
+            export type PlayerIds = string[];
+            export type SortBy = "id" | "player" | "competition" | "grade" | "createdAt";
+            export type SortingOrder = "asc" | "desc";
+        }
+        export interface QueryParameters {
+            grades?: Parameters.Grades;
+            competitionIds?: Parameters.CompetitionIds;
+            playerIds?: Parameters.PlayerIds;
+            sortBy?: Parameters.SortBy;
+            sortingOrder?: Parameters.SortingOrder;
+            limit?: Parameters.Limit;
+            page?: Parameters.Page;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: {
+                    totalDocs?: number;
+                    limit?: number;
+                    page?: number;
+                    totalPages?: number;
+                    hasPrevPage?: boolean;
+                    hasNextPage?: boolean;
+                    prevPage?: number | null;
+                    nextPage?: number | null;
+                    docs?: Components.Schemas.PlayerGradeDto[];
+                };
+            }
+        }
+    }
+    namespace PlayerGradesControllerFindOne {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerGradeDto;
+            }
+        }
+    }
+    namespace PlayerGradesControllerRemove {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerGradeDto;
+            }
+        }
+    }
+    namespace PlayerGradesControllerUpdate {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        export type RequestBody = Components.Schemas.UpdatePlayerGradeDto;
+        namespace Responses {
+            export interface $200 {
+                success: boolean;
+                message: string;
+                data?: Components.Schemas.PlayerGradeDto;
+            }
+        }
+    }
     namespace PlayerPositionTypesControllerCreate {
         export type RequestBody = Components.Schemas.CreatePlayerPositionTypeDto;
         namespace Responses {
@@ -4482,6 +4600,7 @@ declare namespace Paths {
             export type CompetitionIds = string[];
             export type CountryIds = string[];
             export type Footed = "LEFT" | "RIGHT" | "BOTH";
+            export type Grades = ("LIGA1" | "LIGA2" | "LIGA3" | "EKSTRAKLASA" | "EEU_ROZGRYWKI")[];
             export type HasAnyObservation = boolean;
             export type HasNote = boolean;
             export type HasReport = boolean;
@@ -4495,7 +4614,7 @@ declare namespace Paths {
             export type PositionIds = string[];
             export type PositionTypeIds = string[];
             export type RoleIds = string[];
-            export type SortBy = "id" | "firstName" | "lastName" | "yearOfBirth" | "height" | "weight" | "footed" | "country" | "primaryPosition" | "reportsCount" | "notesCount" | "updatedAt" | "averagePercentageRating";
+            export type SortBy = "id" | "firstName" | "lastName" | "yearOfBirth" | "height" | "weight" | "footed" | "country" | "primaryPosition" | "reportsCount" | "notesCount" | "updatedAt" | "averagePercentageRating" | "grade";
             export type SortingOrder = "asc" | "desc";
             export type TeamIds = string[];
         }
@@ -4518,6 +4637,7 @@ declare namespace Paths {
             hasAnyObservation?: Parameters.HasAnyObservation;
             minAverageRating?: Parameters.MinAverageRating;
             maxAverageRating?: Parameters.MaxAverageRating;
+            grades?: Parameters.Grades;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -4579,6 +4699,7 @@ declare namespace Paths {
             export type CompetitionIds = string[];
             export type CountryIds = string[];
             export type Footed = "LEFT" | "RIGHT" | "BOTH";
+            export type Grades = ("LIGA1" | "LIGA2" | "LIGA3" | "EKSTRAKLASA" | "EEU_ROZGRYWKI")[];
             export type HasAnyObservation = boolean;
             export type HasNote = boolean;
             export type HasReport = boolean;
@@ -4611,6 +4732,7 @@ declare namespace Paths {
             hasAnyObservation?: Parameters.HasAnyObservation;
             minAverageRating?: Parameters.MinAverageRating;
             maxAverageRating?: Parameters.MaxAverageRating;
+            grades?: Parameters.Grades;
         }
         namespace Responses {
             export interface $200 {

@@ -16,6 +16,7 @@ import { CompetitionBasicDataDto } from '@/modules/competitions/types'
 import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { CountryDto } from '@/modules/countries/types'
 import { mapCountriesListToComboOptions } from '@/modules/countries/utils'
+import { gradesComboOptions } from '@/modules/player-grades/utils'
 import { PlayerPositionTypeDto } from '@/modules/player-position-types/types'
 import { mapPlayerPositionTypesToComboOptions } from '@/modules/player-position-types/utils'
 import { TeamBasicDataDto } from '@/modules/teams/types'
@@ -157,6 +158,13 @@ export const PlayersFilterForm = ({
               label={t('COMPETITION_GROUPS')}
               size="small"
               multiple
+            />
+            <FilterCombo
+              name="grades"
+              data={gradesComboOptions(t)}
+              label={t('players:POTENTIAL')}
+              multiple
+              size="small"
             />
           </FilterFormContainer>
           <Box display="flex" flexWrap="wrap" justifyContent="center">
