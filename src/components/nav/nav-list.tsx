@@ -24,6 +24,7 @@ import {
   OrdersIcon,
   OrganizationsIcon,
   OrganizationSubscriptionsIcon,
+  PlayerGradeIcon,
   PlayerPositionIcon,
   PlayerRoleIcon,
   PlayersIcon,
@@ -105,6 +106,11 @@ export const NavList = ({ matchAttendance }: INavListProps) => {
           icon={<RegionIcon color="error" />}
           to="/regions"
           text={t('REGIONS')}
+        />
+        <NavElement
+          icon={<PlayerGradeIcon color="error" />}
+          to="/player-grades"
+          text={t('PLAYER_GRADES')}
         />
       </ExpandeableNavElement>
       <ExpandeableNavElement

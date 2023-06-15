@@ -31,3 +31,14 @@ export const shouldShowPlayerRole = (user: UserDto | undefined): boolean =>
 
 export const shouldShowPlayerRoleField = (user: UserDto | undefined): boolean =>
   user?.role === 'ADMIN' || user?.role === 'PLAYMAKER_SCOUT_MANAGER'
+
+export const isPlayerGradeUpToDate = (date: string) => {
+  const today = new Date()
+  const givenDate = new Date(date)
+
+  const timeDiff = today.getTime() - givenDate.getTime()
+
+  const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24))
+
+  return daysDiff <= 183
+}

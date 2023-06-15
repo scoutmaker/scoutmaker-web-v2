@@ -30,7 +30,7 @@ import { useTable } from '@/utils/hooks/use-table'
 import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(
-  ['common', 'players'],
+  ['common', 'players', 'player-grades'],
   false,
 )
 
@@ -51,6 +51,7 @@ const initialFilters: PlayersFiltersState = {
   hasAnyObservation: false,
   maxAverageRating: '',
   minAverageRating: '',
+  grades: [],
 }
 
 const initialSortBy: PlayersSortBy = 'updatedAt'

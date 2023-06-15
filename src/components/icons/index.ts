@@ -27,6 +27,7 @@ export {
   Assignment as OrdersIcon,
   CorporateFare as OrganizationsIcon,
   Subscriptions as OrganizationSubscriptionsIcon,
+  Grade as PlayerGradeIcon,
   Place as PlayerPositionIcon,
   PersonPinCircle as PlayerRoleIcon,
   DirectionsRun as PlayersIcon,

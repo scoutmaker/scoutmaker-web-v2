@@ -1,0 +1,14 @@
+{
+  "NO_COMPETITION_ERROR": "Wybierz poziom rozgrywek zawodnika",
+  "NO_PLAYER_ERROR": "Wybierz zawodnika oceny ogólnej",
+  "NO_GRADE_ERROR": "Wybierz ocenę ogólną",
+  "INDEX_PAGE_TITLE": "Baza ocen ogólnych zawodników",
+  "EDIT_PAGE_TITLE": "Edycja danych oceny ogólnej zawodnika",
+  "DELETE_CONFIRM_QUESTION": "Czy na pewno chcesz usunąć ocenę ogólną zawodnika {{name}}?",
+  "CREATE_PAGE_TITLE": "Utwórz nową ocenę ogólną zawodnika",
+  "LIGA1": "1 liga",
+  "LIGA2": "2 liga",
+  "LIGA3": "3 liga",
+  "EKSTRAKLASA": "Ekstraklasa",
+  "EEU_ROZGRYWKI": "Rozgrywki europejskie"
+}

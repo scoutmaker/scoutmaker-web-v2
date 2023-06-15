@@ -21,6 +21,9 @@ import { useNotes, useUnlikeNote } from '@/modules/notes/hooks'
 import { NotesTable } from '@/modules/notes/table/table'
 import { NotesSortBy } from '@/modules/notes/types'
 import { useOnLikeNoteClick } from '@/modules/notes/utils'
+import { usePlayerGrades } from '@/modules/player-grades/hooks'
+import { PlayerGradesTable } from '@/modules/player-grades/table/table'
+import { PlayerGradesSortBy } from '@/modules/player-grades/types'
 import { PlayerDetialsCard } from '@/modules/players/details-card'
 import generateObservationsInfo from '@/modules/players/generate-observations-info'
 import { PlayerDto } from '@/modules/players/types'
@@ -49,7 +52,7 @@ interface IReportToDeleteData {
 }
 
 export const getServerSideProps = withSessionSsrRole<PlayerDto>(
-  ['common', 'players', 'reports'],
+  ['common', 'players', 'reports', 'player-grades'],
   false,
   async (token, params) => {
     try {
@@ -98,6 +101,11 @@ const PlayerPage = ({
     ...InsiderNotesTableProps
   } = useTable(`insider-notes-table-players`, 'createdAt')
 
+  const { tableSettings: GradesTableSettings, ...GradesTableProps } = useTable(
+    `player-grades-table-players`,
+    'createdAt',
+  )
+
   const { data: affiliations, isLoading: teamAffiliationsLoading } =
     useTeamAffiliations({
       page: TeamAffiliationsTableSettings.page + 1,
@@ -131,6 +139,14 @@ const PlayerPage = ({
       sortingOrder: InsiderNotesTableSettings.order,
       playerIds: [data?.id || ''],
     })
+
+  const { data: grades, isLoading: gradesLoading } = usePlayerGrades({
+    page: GradesTableSettings.page + 1,
+    limit: GradesTableSettings.rowsPerPage,
+    sortBy: GradesTableSettings.sortBy as PlayerGradesSortBy,
+    sortingOrder: GradesTableSettings.order,
+    playerIds: [data?.id || ''],
+  })
 
   const { likeNote, likeNoteLoading } = useOnLikeNoteClick()
   const { mutate: unLikeNote, isLoading: unLikeNoteLoading } = useUnlikeNote()
@@ -168,7 +184,8 @@ const PlayerPage = ({
     reportsLoading ||
     insiderNotesLoading ||
     userLoading ||
-    deleteReportLoading
+    deleteReportLoading ||
+    gradesLoading
 
   if (!data) return <ErrorContent message={errorMessage} status={errorStatus} />
   return (
@@ -191,12 +208,25 @@ const PlayerPage = ({
             aria-label="teams-notes-reports-tab"
             indicatorColor="secondary"
             textColor="inherit"
-            variant="fullWidth"
+            variant="scrollable"
+            scrollButtons="auto"
+            allowScrollButtonsMobile
             sx={theme => ({
               '& .MuiTab-root': {
                 [theme.breakpoints.down('sm')]: {
                   fontSize: 10,
                 },
+                [theme.breakpoints.up('sm')]: {
+                  flex: 1,
+                },
+              },
+              '& .MuiTabs-scroller': {
+                display: 'flex',
+                flex: 1,
+                width: '100%',
+              },
+              '& .MuiTabs-flexContainer': {
+                width: '100%',
               },
             })}
             centered
@@ -213,6 +243,7 @@ const PlayerPage = ({
                 affiliations?.totalDocs || 0
               })`}
             />
+            <Tab label={t('GRADES')} />
           </Tabs>
         </AppBar>
         {((playerObservations?.notes !== notes?.totalDocs && tabValue === 0) ||
@@ -290,6 +321,14 @@ const PlayerPage = ({
             {...TeamAffiliationsTableSettings}
             total={affiliations?.totalDocs || 0}
             data={affiliations?.docs || []}
+          />
+        </TabPanel>
+        <TabPanel value={tabValue} index={4} title="grades" noPadding>
+          <PlayerGradesTable
+            {...GradesTableSettings}
+            {...GradesTableProps}
+            total={grades?.totalDocs || 0}
+            data={grades?.docs || []}
           />
         </TabPanel>
       </Box>
