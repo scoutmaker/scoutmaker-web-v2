@@ -83,7 +83,7 @@ export const PlayersTable = ({
           onLikeClick={onLikeClick}
           onUnlikeClick={onUnLikeClick}
           showRole={showRole}
-          recentAverageRating={recentAverageRating}
+          recentAverageRatingFilter={recentAverageRating}
         />
       ))}
     </Table>
