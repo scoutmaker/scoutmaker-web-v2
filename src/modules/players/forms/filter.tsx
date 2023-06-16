@@ -23,6 +23,7 @@ import { TeamBasicDataDto } from '@/modules/teams/types'
 
 import { getFootedComboData } from '../footed-select'
 import { PlayersFiltersState } from '../types'
+import { recentAvgRatingComboOptions } from '../utils'
 
 interface IPlayersFilterFormProps {
   countriesData: CountryDto[]
@@ -164,6 +165,12 @@ export const PlayersFilterForm = ({
               data={gradesComboOptions(t)}
               label={t('players:POTENTIAL')}
               multiple
+              size="small"
+            />
+            <FilterCombo
+              name="recentAverageRating"
+              data={recentAvgRatingComboOptions(t)}
+              label={t('players:SHOW_LAST_AVG_RATING')}
               size="small"
             />
           </FilterFormContainer>

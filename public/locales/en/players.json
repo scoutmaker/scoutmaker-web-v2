@@ -16,5 +16,10 @@
   "PM_SCOUT_FULL_OBSERVATIONS_INFO": "Wszystkie dane może widzieć skaut, który pełni funkcję managera skautów",
   "SCOUT_FULL_OBSERVATIONS_INFO": "Wykup dostęp do bazy LINKtutajLINK, aby móc korzystać z danych w aplikacji",
   "SCOUT_ORGANIZATION_FULL_OBSERVATIONS_INFO": "Zakres tych danych nie jest w Twoim pakiecie, LINKskontaktuj sięLINK, aby rozszerzyć swój pakiet",
-  "POTENTIAL": "Potential"
+  "POTENTIAL": "Potential",
+  "SHOW_LAST_AVG_RATING": "Show last average rating from",
+  "LASTMONTH": "1 month",
+  "LAST3MONTHS": "3 months",
+  "LAST6MONTHS": "6 months",
+  "LAST12MONTHS": "12 months"
 }

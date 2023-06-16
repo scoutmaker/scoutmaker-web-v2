@@ -1,7 +1,14 @@
+import { TFunction } from 'next-i18next'
+
+import { IComboOptions } from '@/components/combo/types'
 import { Routes } from '@/utils/routes'
 
 import { UserDto } from '../users/types'
-import { IPlayerComboOptions, PlayerBasicDataDto } from './types'
+import {
+  IPlayerComboOptions,
+  PlayerBasicDataDto,
+  PlayersFiltersDto,
+} from './types'
 
 export function getPlayerFullName<
   T extends { firstName: string; lastName: string },
@@ -24,6 +31,17 @@ export function mapPlayersListToComboOptions(
     firstName,
     lastName,
   }))
+}
+
+export function recentAvgRatingComboOptions(t: TFunction): IComboOptions[] {
+  const values: NonNullable<PlayersFiltersDto['recentAverageRating']>[] = [
+    'LAST12MONTHS',
+    'LAST3MONTHS',
+    'LAST6MONTHS',
+    'LASTMONTH',
+  ]
+
+  return values.map(val => ({ id: val, label: t(`players:${val}`) }))
 }
 
 export const shouldShowPlayerRole = (user: UserDto | undefined): boolean =>
