@@ -4,7 +4,7 @@ import { TFunction, useTranslation } from 'next-i18next'
 import { Table } from '@/components/tables/table'
 import { ICommonTableProps, IHeadCell, INameToDeleteData } from '@/types/tables'
 
-import { PlayerDto, PlayersSortBy } from '../types'
+import { PlayerDto, PlayersFiltersDto, PlayersSortBy } from '../types'
 import { PlayersTableRow } from './row'
 
 interface IPlayersTableProps extends ICommonTableProps {
@@ -13,6 +13,7 @@ interface IPlayersTableProps extends ICommonTableProps {
   onLikeClick: (id: string) => void
   onUnLikeClick: (id: string) => void
   showRole?: boolean
+  recentAverageRating: PlayersFiltersDto['recentAverageRating']
 }
 
 function generateHeadCells(t: TFunction): IHeadCell<PlayersSortBy>[] {
@@ -50,6 +51,7 @@ export const PlayersTable = ({
   onLikeClick,
   onUnLikeClick,
   showRole,
+  recentAverageRating,
 }: IPlayersTableProps) => {
   const { t } = useTranslation()
   const router = useRouter()
@@ -81,6 +83,7 @@ export const PlayersTable = ({
           onLikeClick={onLikeClick}
           onUnlikeClick={onUnLikeClick}
           showRole={showRole}
+          recentAverageRating={recentAverageRating}
         />
       ))}
     </Table>

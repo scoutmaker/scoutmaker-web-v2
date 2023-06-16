@@ -19,7 +19,7 @@ import { calculateRating } from '@/utils/calculate-rating'
 import { FlagEmoji } from '@/utils/get-flag-emoji'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
-import { PlayerDto } from '../types'
+import { PlayerDto, PlayersFiltersDto } from '../types'
 import { isPlayerGradeUpToDate } from '../utils'
 
 interface IPlayersTableRowProps {
@@ -29,6 +29,7 @@ interface IPlayersTableRowProps {
   onLikeClick: (id: string) => void
   onUnlikeClick: (id: string) => void
   showRole?: boolean
+  recentAverageRatingFilter: PlayersFiltersDto['recentAverageRating']
 }
 
 export const PlayersTableRow = ({
@@ -38,6 +39,7 @@ export const PlayersTableRow = ({
   onLikeClick,
   onUnlikeClick,
   showRole,
+  recentAverageRatingFilter,
 }: IPlayersTableRowProps) => {
   const { t } = useTranslation()
   const router = useRouter()
@@ -65,12 +67,28 @@ export const PlayersTableRow = ({
     averagePercentageRating,
     role,
     latestGrade,
+    recentAveragePercentageRatings,
   } = data
 
   const cellChangeLikedClick = () => {
     if (likes.length) onUnlikeClick(id)
     else onLikeClick(id)
   }
+
+  const avgRating = (() => {
+    switch (recentAverageRatingFilter || '') {
+      case 'LASTMONTH':
+        return recentAveragePercentageRatings?.lastMonth
+      case 'LAST3MONTHS':
+        return recentAveragePercentageRatings?.last3Months
+      case 'LAST6MONTHS':
+        return recentAveragePercentageRatings?.last6Months
+      case 'LAST12MONTHS':
+        return recentAveragePercentageRatings?.last12Months
+      default:
+        return averagePercentageRating
+    }
+  })()
 
   return (
     <StyledTableRow
@@ -162,9 +180,7 @@ export const PlayersTableRow = ({
         </Badge>
       </StyledTableCell>
       <StyledTableCell>
-        {typeof averagePercentageRating === 'number'
-          ? calculateRating(averagePercentageRating)
-          : '-'}
+        {typeof avgRating === 'number' ? calculateRating(avgRating) : '-'}
       </StyledTableCell>
     </StyledTableRow>
   )

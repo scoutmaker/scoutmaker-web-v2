@@ -526,6 +526,7 @@ declare namespace Components {
             averagePercentageRating: number;
             role: PlayerRoleBasicDataDto;
             latestGrade?: PlayerGradeSuperBasicDto;
+            recentAveragePercentageRatings?: PlayerRecentAveragePercentageRatings;
             _count: Count;
         }
         export interface DashboardReportDto {
@@ -847,6 +848,7 @@ declare namespace Components {
             averagePercentageRating: number;
             role: PlayerRoleBasicDataDto;
             latestGrade?: PlayerGradeSuperBasicDto;
+            recentAveragePercentageRatings?: PlayerRecentAveragePercentageRatings;
             _count: Count;
         }
         export interface PlayerGradeDto {
@@ -872,6 +874,13 @@ declare namespace Components {
             id: string;
             name: string;
             code: string;
+        }
+        export interface PlayerRecentAveragePercentageRatings {
+            id: string;
+            lastMonth?: number;
+            last3Months?: number;
+            last6Months?: number;
+            last12Months?: number;
         }
         export interface PlayerRoleBasicDataDto {
             id: string;
@@ -4613,6 +4622,7 @@ declare namespace Paths {
             export type Page = number;
             export type PositionIds = string[];
             export type PositionTypeIds = string[];
+            export type RecentAverageRating = "LASTMONTH" | "LAST3MONTHS" | "LAST6MONTHS" | "LAST12MONTHS";
             export type RoleIds = string[];
             export type SortBy = "id" | "firstName" | "lastName" | "yearOfBirth" | "height" | "weight" | "footed" | "country" | "primaryPosition" | "reportsCount" | "notesCount" | "updatedAt" | "averagePercentageRating" | "grade";
             export type SortingOrder = "asc" | "desc";
@@ -4638,6 +4648,7 @@ declare namespace Paths {
             minAverageRating?: Parameters.MinAverageRating;
             maxAverageRating?: Parameters.MaxAverageRating;
             grades?: Parameters.Grades;
+            recentAverageRating?: Parameters.RecentAverageRating;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;
@@ -4710,6 +4721,7 @@ declare namespace Paths {
             export type OrderId = string;
             export type PositionIds = string[];
             export type PositionTypeIds = string[];
+            export type RecentAverageRating = "LASTMONTH" | "LAST3MONTHS" | "LAST6MONTHS" | "LAST12MONTHS";
             export type RoleIds = string[];
             export type TeamIds = string[];
         }
@@ -4733,6 +4745,7 @@ declare namespace Paths {
             minAverageRating?: Parameters.MinAverageRating;
             maxAverageRating?: Parameters.MaxAverageRating;
             grades?: Parameters.Grades;
+            recentAverageRating?: Parameters.RecentAverageRating;
         }
         namespace Responses {
             export interface $200 {
