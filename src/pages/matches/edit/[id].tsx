@@ -62,6 +62,7 @@ const EditMatchPage = ({
             name: getMatchDisplayName({
               homeTeamName: data.homeTeam.name,
               awayTeamName: data.awayTeam.name,
+              date: data.date,
             }),
           })}
         />
