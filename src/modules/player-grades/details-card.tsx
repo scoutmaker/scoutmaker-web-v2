@@ -39,8 +39,8 @@ export const PlayerGradeDetailsCard = ({ data }: IDetailsCard) => {
           />
           <CardItemBasic
             title={t('COMPETITION')}
-            value={competition.name}
-            href={`/competitions/${competition.id}`}
+            value={competition?.name}
+            href={competition ? `/competitions/${competition.id}` : undefined}
           />
           <CardItemBasic
             title={t('CREATED_AT')}

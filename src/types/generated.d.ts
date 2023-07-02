@@ -294,7 +294,6 @@ declare namespace Components {
             roleId?: string;
         }
         export interface CreatePlayerGradeDto {
-            competitionId: string;
             playerId: string;
             grade: "LIGA1" | "LIGA2" | "LIGA3" | "EKSTRAKLASA" | "EEU_ROZGRYWKI";
         }
@@ -1273,7 +1272,6 @@ declare namespace Components {
             roleId?: string;
         }
         export interface UpdatePlayerGradeDto {
-            competitionId?: string;
             playerId?: string;
             grade?: "LIGA1" | "LIGA2" | "LIGA3" | "EKSTRAKLASA" | "EEU_ROZGRYWKI";
         }
@@ -5749,6 +5747,7 @@ declare namespace Paths {
     }
     namespace TeamAffiliationsControllerFindAll {
         namespace Parameters {
+            export type Date = string;
             export type Limit = number;
             export type Page = number;
             export type PlayerId = string;
@@ -5759,6 +5758,7 @@ declare namespace Paths {
         export interface QueryParameters {
             playerId?: Parameters.PlayerId;
             teamId?: Parameters.TeamId;
+            date?: Parameters.Date;
             sortBy?: Parameters.SortBy;
             sortingOrder?: Parameters.SortingOrder;
             limit?: Parameters.Limit;

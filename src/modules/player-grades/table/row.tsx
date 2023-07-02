@@ -64,7 +64,7 @@ export const PlayerGradesTableRow = ({
         href={`/players/${player.slug}`}
       />
       <StyledTableCell>{t(`player-grades:${grade}`)}</StyledTableCell>
-      <StyledTableCell>{competition.name}</StyledTableCell>
+      <StyledTableCell>{competition?.name || '-'}</StyledTableCell>
       <StyledTableCell>{formatDate(createdAt)}</StyledTableCell>
     </StyledTableRow>
   )

@@ -11,7 +11,6 @@ import {
 } from '../types'
 
 export const initialValues: CreatePlayerGradeDto = {
-  competitionId: '',
   grade: '' as CreatePlayerGradeDto['grade'],
   playerId: '',
 }
@@ -19,10 +18,6 @@ export const initialValues: CreatePlayerGradeDto = {
 export function generateCreateValidationSchema(t: TFunction) {
   return yup
     .object({
-      competitionId: validateId({
-        required: true,
-        message: t('player-grades:NO_COMPETITION_ERROR'),
-      }),
       playerId: validateId({
         required: true,
         message: t('player-grades:NO_PLAYER_ERROR'),
@@ -37,7 +32,6 @@ export function generateCreateValidationSchema(t: TFunction) {
 
 export function generateUpdateValidationSchema() {
   return yup.object({
-    competitionId: yup.string().notRequired(),
     playerId: yup.string().notRequired(),
     grade: yup.string().notRequired(),
   })
