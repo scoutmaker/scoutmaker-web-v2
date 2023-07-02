@@ -3,7 +3,6 @@ import { useTranslation } from 'next-i18next'
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { CreatePlayerGradeForm } from '@/modules/player-grades/forms/create'
 import { useCreatePlayerGrade } from '@/modules/player-grades/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
@@ -21,10 +20,8 @@ const CreatePlayerGradePage = ({ errorMessage, errorStatus }: TSsrRole) => {
     useCreatePlayerGrade()
 
   const { data: playersData, isLoading: playersLoading } = usePlayersList()
-  const { data: competitionsData, isLoading: competitionsLoading } =
-    useCompetitionsList()
 
-  const isLoading = createLoading || playersLoading || competitionsLoading
+  const isLoading = createLoading || playersLoading
 
   if (errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
@@ -34,7 +31,6 @@ const CreatePlayerGradePage = ({ errorMessage, errorStatus }: TSsrRole) => {
       <PageHeading title={t('player-grades:CREATE_PAGE_TITLE')} />
       <CreatePlayerGradeForm
         onSubmit={createPlayerGrade}
-        competitionsData={competitionsData || []}
         playersData={playersData || []}
       />
     </>

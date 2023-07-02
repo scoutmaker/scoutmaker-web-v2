@@ -6,8 +6,6 @@ import { BasicCombo } from '@/components/combo/basicCombo'
 import { Container } from '@/components/forms/container'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
-import { CompetitionBasicDataDto } from '@/modules/competitions/types'
-import { mapCompetitionsListToComboOptions } from '@/modules/competitions/utils'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { mapPlayersListToComboOptions } from '@/modules/players/utils'
 
@@ -20,7 +18,6 @@ interface ICreateFormProps {
   onCancelClick?: () => void
   fullwidth?: boolean
   playersData: PlayerBasicDataDto[]
-  competitionsData: CompetitionBasicDataDto[]
 }
 
 export const CreatePlayerGradeForm = ({
@@ -28,7 +25,6 @@ export const CreatePlayerGradeForm = ({
   onCancelClick,
   fullwidth,
   playersData,
-  competitionsData,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation()
@@ -60,15 +56,6 @@ export const CreatePlayerGradeForm = ({
               label={t('GRADE')}
               error={touched.grade && !!errors.grade}
               helperText={touched.grade ? errors.grade : undefined}
-            />
-            <BasicCombo
-              data={mapCompetitionsListToComboOptions(competitionsData)}
-              name="competitionId"
-              label={t('COMPETITION')}
-              error={touched.competitionId && !!errors.competitionId}
-              helperText={
-                touched.competitionId ? errors.competitionId : undefined
-              }
             />
             <MainFormActions
               label={t('PLAYER_GRADE')}

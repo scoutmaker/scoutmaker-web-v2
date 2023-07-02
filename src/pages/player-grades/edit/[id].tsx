@@ -3,7 +3,6 @@ import { useTranslation } from 'next-i18next'
 import { ErrorContent } from '@/components/error/error-content'
 import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
-import { useCompetitionsList } from '@/modules/competitions/hooks'
 import { EditPlayerGradeForm } from '@/modules/player-grades/forms/edit'
 import { useUpdatePlayerGrade } from '@/modules/player-grades/hooks'
 import { PlayerGradeDto } from '@/modules/player-grades/types'
@@ -39,10 +38,8 @@ const EditPlayerGradePage = ({
     useUpdatePlayerGrade(data?.id || '')
 
   const { data: playersData, isLoading: playersLoading } = usePlayersList()
-  const { data: competitionsData, isLoading: competitionsLoading } =
-    useCompetitionsList()
 
-  const isLoading = updateLoading || playersLoading || competitionsLoading
+  const isLoading = updateLoading || playersLoading
 
   if (!data || errorStatus)
     return <ErrorContent message={errorMessage} status={errorStatus} />
@@ -53,7 +50,6 @@ const EditPlayerGradePage = ({
       <EditPlayerGradeForm
         current={data}
         onSubmit={updatePlayerGrade}
-        competitionsData={competitionsData || []}
         playersData={playersData || []}
       />
     </>
