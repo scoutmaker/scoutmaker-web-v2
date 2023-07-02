@@ -47,6 +47,7 @@ export const PlayerStatsDetailsCard = ({ stats }: IDetailsCard) => {
               awayTeamName: match.awayTeam.name,
               homeTeamName: match.homeTeam.name,
               competitionName: match.competition.name,
+              date: match.date,
             })}
           />
           <CardItemBasic title={t('ASSISTS')} value={assists} />
