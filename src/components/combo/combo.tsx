@@ -1,7 +1,6 @@
 import {
   autocompleteClasses,
   AutocompleteRenderInputParams,
-  createFilterOptions,
   ListSubheader,
   Popper,
   styled,
@@ -12,8 +11,11 @@ import {
 } from '@mui/material'
 import { Field } from 'formik'
 import { Autocomplete } from 'formik-mui'
+import { matchSorter } from 'match-sorter'
 import React from 'react'
 import { ListChildComponentProps, VariableSizeList } from 'react-window'
+
+import { normalizeLowerPlString } from '@/utils/normalize-string'
 
 import { IComboOptions } from './types'
 
@@ -28,9 +30,21 @@ export interface IComboProps {
   filterBeforeComma?: boolean
 }
 
-const filterOptions = createFilterOptions({
-  stringify: (option: IComboOptions) => option.label.split(', ')[0],
-})
+const filterOptionsBeforeComma = (
+  options: IComboOptions[],
+  { inputValue }: { inputValue: string },
+) =>
+  matchSorter(options, normalizeLowerPlString(inputValue), {
+    keys: [item => normalizeLowerPlString(item.label.split(', ')[0])],
+  })
+
+const filterOptions = (
+  options: IComboOptions[],
+  { inputValue }: { inputValue: string },
+) =>
+  matchSorter(options, normalizeLowerPlString(inputValue), {
+    keys: [item => normalizeLowerPlString(item.label)],
+  })
 const LISTBOX_PADDING = 8 // px
 
 function renderRow(props: ListChildComponentProps) {
@@ -170,7 +184,7 @@ export const FilterCombo = ({
     size={size}
     options={data}
     filterSelectedOptions
-    filterOptions={filterBeforeComma ? filterOptions : undefined}
+    filterOptions={filterBeforeComma ? filterOptionsBeforeComma : filterOptions}
     isOptionEqualToValue={(option: IComboOptions, value: IComboOptions) =>
       option.id === value.id
     }
