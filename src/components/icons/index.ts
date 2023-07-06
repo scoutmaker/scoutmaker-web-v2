@@ -45,6 +45,7 @@ export {
   GroupWork as TeamAffiliationIcon,
   GroupWork as TeamsIcon,
   Dashboard as TemplatesIcon,
+  TipsAndUpdates as TipsIcon,
   Favorite as UnlikeIcon,
   Person as UserDataIcon,
   Group as UsersIcon,

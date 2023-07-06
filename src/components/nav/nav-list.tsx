@@ -1,5 +1,3 @@
-// import { MatchButton } from './MatchButton'
-// import { QuickNoteButton } from './QuickNoteButton'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -40,6 +38,7 @@ import {
   TeamAffiliationIcon,
   TeamsIcon,
   TemplatesIcon,
+  TipsIcon,
   UserDataIcon,
   UsersIcon,
   UserSubscriptionsIcon,
@@ -63,6 +62,8 @@ export const NavList = ({ matchAttendance }: INavListProps) => {
   const [isTemplatesListOpen, setTemplatesListOpen] = useState(false)
   const [isProfileListOpen, setProfileListOpen] = useState(false)
   const [isAdminListOpen, setAdminListOpen] = useState(false)
+  const [isObservationTipsListOpen, setObservationTipsListOpen] =
+    useState(false)
 
   return (
     <StyledList>
@@ -139,6 +140,69 @@ export const NavList = ({ matchAttendance }: INavListProps) => {
           to="/player-roles"
           text={t('PLAYER_ROLES')}
         />
+        <ExpandeableNavElement
+          icon={<TipsIcon color="error" />}
+          handleClick={() => setObservationTipsListOpen(state => !state)}
+          open={isObservationTipsListOpen}
+          title="Wskazówki obserwacyjne"
+        >
+          <NavElement
+            icon={<TipsIcon color="error" />}
+            to="/scouting/Bramkarz.pdf"
+            text="Bramkarz"
+            download
+            newTab
+          />
+          <NavElement
+            icon={<TipsIcon color="error" />}
+            to="/scouting/Srodkowy-obronca.pdf"
+            text="Środkowy obrońca"
+            download
+            newTab
+          />
+          <NavElement
+            icon={<TipsIcon color="error" />}
+            to="/scouting/Boczny-obronca.pdf"
+            text="Boczny obrońca"
+            download
+            newTab
+          />
+          <NavElement
+            icon={<TipsIcon color="error" />}
+            to="/scouting/Srodkowy-pomocnik.pdf"
+            text="Środkowy pomocnik"
+            download
+            newTab
+          />
+          <NavElement
+            icon={<TipsIcon color="error" />}
+            to="/scouting/Skrzydlowy.pdf"
+            text="Skrzydłowy"
+            download
+            newTab
+          />
+          <NavElement
+            icon={<TipsIcon color="error" />}
+            to="/scouting/Ofensywny-pomocnik.pdf"
+            text="Ofensywny pomocnik"
+            download
+            newTab
+          />
+          <NavElement
+            icon={<TipsIcon color="error" />}
+            to="/scouting/Napastnik.pdf"
+            text="Napastnik"
+            download
+            newTab
+          />
+          <NavElement
+            icon={<TipsIcon color="error" />}
+            to="/scouting/Struktura-raportu.pdf"
+            text="Struktura raportu"
+            download
+            newTab
+          />
+        </ExpandeableNavElement>
       </ExpandeableNavElement>
       {!isUserBasicScout(user) && (
         <NavElement
