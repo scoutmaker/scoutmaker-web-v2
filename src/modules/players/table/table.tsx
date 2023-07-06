@@ -26,7 +26,7 @@ function generateHeadCells(t: TFunction): IHeadCell<PlayersSortBy>[] {
     { id: 'yearOfBirth', label: t('YEAR_OF_BIRTH') },
     { id: 'primaryPosition', label: t('PRIMARY_POSITION') },
     { id: 'footed', label: t('FOOTED'), isSortingDisabled: true },
-    { id: 'grade', label: t('players:POTENTIAL') },
+    { id: 'grade', label: t('players:POTENTIAL'), isSortingDisabled: true },
     { id: 'reportsCount', label: t('REPORTS') },
     { id: 'notesCount', label: t('NOTES') },
     {
