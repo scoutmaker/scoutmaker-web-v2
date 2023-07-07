@@ -1,7 +1,6 @@
 import {
   autocompleteClasses,
   AutocompleteRenderInputParams,
-  createFilterOptions,
   ListSubheader,
   Popper,
   styled,
@@ -12,9 +11,12 @@ import {
 } from '@mui/material'
 import { Field } from 'formik'
 import { Autocomplete } from 'formik-mui'
+import { matchSorter } from 'match-sorter'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { ListChildComponentProps, VariableSizeList } from 'react-window'
+
+import { normalizeLowerPlString } from '@/utils/normalize-string'
 
 import { IComboOptions } from './types'
 
@@ -168,10 +170,29 @@ export const BasicCombo = ({
   onChange,
 }: IBasicComboProps) => {
   const { t } = useTranslation()
-  const filterOptions = createFilterOptions({
-    stringify: (option: string) =>
-      data.find(e => e.id === option)?.label.split(', ')[0] || '',
-  })
+  const filterOptionsBeforeComma = (
+    options: string[],
+    { inputValue }: { inputValue: string },
+  ) =>
+    matchSorter(options, normalizeLowerPlString(inputValue), {
+      keys: [
+        item =>
+          normalizeLowerPlString(
+            data.find(e => e.id === item)?.label.split(', ')[0] || '',
+          ),
+      ],
+    })
+
+  const filterOptions = (
+    options: string[],
+    { inputValue }: { inputValue: string },
+  ) =>
+    matchSorter(options, normalizeLowerPlString(inputValue), {
+      keys: [
+        item =>
+          normalizeLowerPlString(data.find(e => e.id === item)?.label || ''),
+      ],
+    })
   return (
     <Field
       name={name}
@@ -189,7 +210,9 @@ export const BasicCombo = ({
         return data.find(el => el.id === option)?.label || t('NONE')
       }}
       filterSelectedOptions
-      filterOptions={filterBeforeComma ? filterOptions : undefined}
+      filterOptions={
+        filterBeforeComma ? filterOptionsBeforeComma : filterOptions
+      }
       disabled={disabled}
       renderOption={(props: any, option: IComboOptions) =>
         [props, option, data] as React.ReactNode

@@ -52,6 +52,7 @@ const MatchPage = ({ data, errorMessage, errorStatus }: TSsrRole<MatchDto>) => {
         title={getMatchDisplayName({
           homeTeamName: data.homeTeam.name,
           awayTeamName: data.awayTeam.name,
+          date: data.date,
         })}
       />
       <MatchDetailsCard match={data} />

@@ -21,6 +21,7 @@ import { calculateRating } from '@/utils/calculate-rating'
 import { FlagEmoji } from '@/utils/get-flag-emoji'
 
 import RoleModal from './role-modal'
+import { isPlayerGradeUpToDate } from './utils'
 
 interface IPlayerDetailsCard {
   player: PlayerDto
@@ -48,6 +49,7 @@ export const PlayerDetialsCard = ({ player, showRole }: IPlayerDetailsCard) => {
     role,
     inStatUrl,
     slug,
+    latestGrade,
   } = player
 
   return (
@@ -112,6 +114,17 @@ export const PlayerDetialsCard = ({ player, showRole }: IPlayerDetailsCard) => {
                 }
               />
             )}
+            <CardItemBasic
+              title={t('players:POTENTIAL')}
+              href={
+                latestGrade ? `/player-grades/${latestGrade?.id}` : undefined
+              }
+              value={
+                latestGrade && isPlayerGradeUpToDate(latestGrade.createdAt)
+                  ? t(`player-grades:${latestGrade.grade}`)
+                  : '-'
+              }
+            />
             <CardItemBasic
               title={t('AVG_RATING')}
               value={

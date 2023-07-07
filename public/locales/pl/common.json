@@ -247,5 +247,9 @@
   "ERROR_PAGE_401_HEADING": "Nie masz dostępu do danych na tej podstronie",
   "ERROR_PAGE_401_INFO": "Aby uzyskać dostęp skorzystaj z formularza na LINKstronie ofertowej usług skautingowychLINK",
   "INSTAT_URL": "inStat URL",
-  "LOGO_URL": "Logo URL"
+  "LOGO_URL": "Logo URL",
+  "PLAYER_GRADE": "Ocena ogólna zawodnika",
+  "PLAYER_GRADES": "Oceny ogólne zawodników",
+  "GRADE": "Ocena",
+  "GRADES": "Oceny"
 }

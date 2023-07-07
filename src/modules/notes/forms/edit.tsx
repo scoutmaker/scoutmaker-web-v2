@@ -50,7 +50,7 @@ export const EditNoteForm = ({
       initialValues={initialValues}
       validationSchema={generateNoteFormValidationSchema()}
       enableReinitialize
-      onSubmit={data => {
+      onSubmit={(data, form) => {
         // @ts-ignore to exclude notes edit from submitted data
         const { rating, 'notes-edit-list': notesEdit, ...rest } = data
         const parsedRating =
@@ -62,6 +62,7 @@ export const EditNoteForm = ({
         )
 
         onSubmit(dataToSubmit)
+        form.setSubmitting(false)
       }}
     >
       {({ handleReset }) => (

@@ -4,7 +4,7 @@ import {
   FavoriteBorder as LikeIcon,
   Note as NotesIcon,
 } from '@mui/icons-material'
-import { Badge } from '@mui/material'
+import { Badge, Box, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
@@ -19,7 +19,8 @@ import { calculateRating } from '@/utils/calculate-rating'
 import { FlagEmoji } from '@/utils/get-flag-emoji'
 import { useTableMenu } from '@/utils/hooks/use-table-menu'
 
-import { PlayerDto } from '../types'
+import { PlayerDto, PlayersFiltersDto } from '../types'
+import { isPlayerGradeUpToDate } from '../utils'
 
 interface IPlayersTableRowProps {
   data: PlayerDto
@@ -28,6 +29,7 @@ interface IPlayersTableRowProps {
   onLikeClick: (id: string) => void
   onUnlikeClick: (id: string) => void
   showRole?: boolean
+  recentAverageRatingFilter: PlayersFiltersDto['recentAverageRating']
 }
 
 export const PlayersTableRow = ({
@@ -37,6 +39,7 @@ export const PlayersTableRow = ({
   onLikeClick,
   onUnlikeClick,
   showRole,
+  recentAverageRatingFilter,
 }: IPlayersTableRowProps) => {
   const { t } = useTranslation()
   const router = useRouter()
@@ -63,12 +66,29 @@ export const PlayersTableRow = ({
     _count: count,
     averagePercentageRating,
     role,
+    latestGrade,
+    recentAveragePercentageRatings,
   } = data
 
   const cellChangeLikedClick = () => {
     if (likes.length) onUnlikeClick(id)
     else onLikeClick(id)
   }
+
+  const avgRating = (() => {
+    switch (recentAverageRatingFilter || '') {
+      case 'LASTMONTH':
+        return recentAveragePercentageRatings?.lastMonth
+      case 'LAST3MONTHS':
+        return recentAveragePercentageRatings?.last3Months
+      case 'LAST6MONTHS':
+        return recentAveragePercentageRatings?.last6Months
+      case 'LAST12MONTHS':
+        return recentAveragePercentageRatings?.last12Months
+      default:
+        return averagePercentageRating
+    }
+  })()
 
   return (
     <StyledTableRow
@@ -129,9 +149,25 @@ export const PlayersTableRow = ({
       </StyledTableCell>
       <StyledTableCell>{footed ? t(footed) : '-'}</StyledTableCell>
       <StyledTableCell>
-        {typeof averagePercentageRating === 'number'
-          ? calculateRating(averagePercentageRating)
-          : '-'}
+        {latestGrade && isPlayerGradeUpToDate(latestGrade.createdAt) ? (
+          <Box fontSize="inherit">
+            <Typography fontSize="inherit">
+              {t(`player-grades:${latestGrade.grade}`)}
+            </Typography>
+            <Typography variant="caption" marginLeft={0.5}>
+              (akt.{' '}
+              {Math.round(
+                Math.abs(
+                  new Date().getTime() -
+                    new Date(latestGrade.createdAt).getTime(),
+                ) / 8.64e7,
+              )}{' '}
+              dni temu)
+            </Typography>
+          </Box>
+        ) : (
+          '-'
+        )}
       </StyledTableCell>
       <StyledTableCell align="center">
         <Badge badgeContent={count.reports || '0'} color="secondary">
@@ -142,6 +178,9 @@ export const PlayersTableRow = ({
         <Badge badgeContent={count.notes || '0'} color="secondary">
           <ReportsIcon />
         </Badge>
+      </StyledTableCell>
+      <StyledTableCell>
+        {typeof avgRating === 'number' ? calculateRating(avgRating) : '-'}
       </StyledTableCell>
     </StyledTableRow>
   )

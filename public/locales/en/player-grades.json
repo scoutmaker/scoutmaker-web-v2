@@ -1,0 +1,14 @@
+{
+  "NO_COMPETITION_ERROR": "Please choose player's competition level",
+  "NO_PLAYER_ERROR": "Please choose overall grade player",
+  "NO_GRADE_ERROR": "Please choose overall grade",
+  "INDEX_PAGE_TITLE": "Players overall grades database",
+  "EDIT_PAGE_TITLE": "Edit player grade data",
+  "DELETE_CONFIRM_QUESTION": "Are you sure you want to delete player overall grade {{name}}?",
+  "CREATE_PAGE_TITLE": "Create new player grade",
+  "LIGA1": "1 liga",
+  "LIGA2": "2 liga",
+  "LIGA3": "3 liga",
+  "EKSTRAKLASA": "Ekstraklasa",
+  "EEU_ROZGRYWKI": "Rozgrywki europejskie"
+}

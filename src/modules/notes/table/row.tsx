@@ -176,6 +176,7 @@ export const NotesTableRow = ({
             label={getMatchDisplayName({
               homeTeamName: match.homeTeam.name,
               awayTeamName: match.awayTeam.name,
+              date: match.date,
             })}
           />
         ) : (

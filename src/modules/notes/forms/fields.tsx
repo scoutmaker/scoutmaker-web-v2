@@ -8,6 +8,7 @@ import { BasicCombo } from '@/components/combo/basicCombo'
 import { mapListDataToComboOptions } from '@/components/combo/utils'
 import { getObservationTypeComboData } from '@/components/combos-data/observation-type'
 import { RatingInput } from '@/components/rating-input/rating-input'
+import { useActiveMatchAttendance } from '@/modules/match-attendances/hooks'
 import { MatchBasicDataDto } from '@/modules/matches/types'
 import { mapMatchesListToComboOptions } from '@/modules/matches/utils'
 import { PlayerPositionDto } from '@/modules/player-positions/types'
@@ -36,6 +37,7 @@ export const Fields = ({
 }: IFieldsProps) => {
   const { t } = useTranslation()
   const router = useRouter()
+  const { data: matchAttendance } = useActiveMatchAttendance()
 
   const { touched, errors, values } = useFormikContext<
     CreateNoteDto | UpdateNoteDto
@@ -53,6 +55,14 @@ export const Fields = ({
             onChange={(_, value) => {
               if (value)
                 router.push(`/notes/edit/${value}?quickMatchId=${matchId}`)
+              else
+                router.push(
+                  `/notes/create${
+                    matchAttendance
+                      ? `?matchId=${matchAttendance.match.id}&observationType=${matchAttendance.observationType}`
+                      : ''
+                  }`,
+                )
             }}
           />
           <Divider />

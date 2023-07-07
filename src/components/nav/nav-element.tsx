@@ -7,15 +7,19 @@ type Props = {
   icon: ReactNode
   text: string
   to: string
+  download?: boolean
+  newTab?: boolean
 }
 
-export const NavElement = ({ icon, text, to }: Props) => {
+export const NavElement = ({ icon, text, to, download, newTab }: Props) => {
   const router = useRouter()
 
   return (
-    <Link href={to} passHref>
+    <Link href={to} passHref download={download}>
       <ListItemButton
         component="a"
+        download={download}
+        target={newTab ? '_blank' : undefined}
         sx={[
           {
             '&:hover': {

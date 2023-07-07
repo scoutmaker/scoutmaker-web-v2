@@ -98,6 +98,7 @@ export const BasicDetailsCard = ({ report }: IReportBasicDetailsCard) => {
                     homeTeamName: match.homeTeam.name,
                     awayTeamName: match.awayTeam.name,
                     competitionName: match.competition?.name,
+                    date: match.date,
                   })
                 : '-'
             }

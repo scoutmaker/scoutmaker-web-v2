@@ -65,6 +65,7 @@ export const PlayerStatsTableRow = ({
           awayTeamName: match.awayTeam.name,
           homeTeamName: match.homeTeam.name,
           competitionName: match.competition.name,
+          date: match.date,
         })}
       </StyledTableCell>
       <StyledTableCell>{goals}</StyledTableCell>

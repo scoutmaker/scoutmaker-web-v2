@@ -21,7 +21,11 @@ import {
   useUnlikePlayer,
 } from '@/modules/players/hooks'
 import { PlayersTable } from '@/modules/players/table/table'
-import { PlayersFiltersState, PlayersSortBy } from '@/modules/players/types'
+import {
+  PlayersFiltersDto,
+  PlayersFiltersState,
+  PlayersSortBy,
+} from '@/modules/players/types'
 import { shouldShowPlayerRole } from '@/modules/players/utils'
 import { useTeamsList } from '@/modules/teams/hooks'
 import { INameToDeleteData } from '@/types/tables'
@@ -30,7 +34,7 @@ import { useTable } from '@/utils/hooks/use-table'
 import { withSessionSsrRole } from '@/utils/withSessionSsrRole'
 
 export const getServerSideProps = withSessionSsrRole(
-  ['common', 'players'],
+  ['common', 'players', 'player-grades'],
   false,
 )
 
@@ -51,6 +55,8 @@ const initialFilters: PlayersFiltersState = {
   hasAnyObservation: false,
   maxAverageRating: '',
   minAverageRating: '',
+  grades: [],
+  recentAverageRating: null,
 }
 
 const initialSortBy: PlayersSortBy = 'updatedAt'
@@ -169,6 +175,10 @@ const PlayersPage = () => {
         onLikeClick={likePlayer}
         onUnLikeClick={unlikePlayer}
         showRole={shouldShowPlayerRole(user)}
+        recentAverageRating={
+          filters.recentAverageRating
+            ?.id as PlayersFiltersDto['recentAverageRating']
+        }
       />
       <Fab href="/players/create" />
       <ConfirmationModal
