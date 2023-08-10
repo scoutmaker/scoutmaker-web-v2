@@ -35,10 +35,10 @@ export function mapPlayersListToComboOptions(
 
 export function recentAvgRatingComboOptions(t: TFunction): IComboOptions[] {
   const values: NonNullable<PlayersFiltersDto['recentAverageRating']>[] = [
-    'LAST12MONTHS',
+    'LASTMONTH',
     'LAST3MONTHS',
     'LAST6MONTHS',
-    'LASTMONTH',
+    'LAST12MONTHS',
   ]
 
   return values.map(val => ({ id: val, label: t(`players:${val}`) }))
