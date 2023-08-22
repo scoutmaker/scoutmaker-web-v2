@@ -46,6 +46,16 @@ export function generateMatchFormValidationSchema(t: TFunction) {
       awayGoals: yup.number().min(0).max(20),
       videoUrl: yup.string().url().notRequired(),
       transfermarktUrl: yup.string().url().notRequired(),
+      date: yup
+        .date()
+        .test('maxDate', t('matches:DATE_FUTURE_ERROR'), value => {
+          if (!value) return true
+          const maxDate = new Date()
+          maxDate.setDate(maxDate.getDate() + 7)
+
+          return value <= maxDate
+        })
+        .required(t('matches:NO_DATE_ERROR')),
     })
     .defined()
 }
