@@ -14,5 +14,7 @@
   "AWAY_TEAM_NOTES": "Goście - notatki ({{count}})",
   "HOME_TEAM_REPORTS": "Gospodarze - raporty ({{count}})",
   "AWAY_TEAM_REPORTS": "Goście - raporty ({{count}})",
-  "UNASSIGNED_NOTES": "Nieprzypisane notatki ({{count}})"
+  "UNASSIGNED_NOTES": "Nieprzypisane notatki ({{count}})",
+  "NO_DATE_ERROR": "Wprowadź datę",
+  "DATE_FUTURE_ERROR": "Wprowadź wcześniejszą datę"
 }

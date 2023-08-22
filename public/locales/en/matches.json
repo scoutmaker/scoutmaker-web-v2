@@ -14,5 +14,7 @@
   "AWAY_TEAM_NOTES": "Away team - notes ({{count}})",
   "HOME_TEAM_REPORTS": "Home team - reports ({{count}})",
   "AWAY_TEAM_REPORTS": "Away team - reports ({{count}})",
-  "UNASSIGNED_NOTES": "Unassigned notes ({{count}})"
+  "UNASSIGNED_NOTES": "Unassigned notes ({{count}})",
+  "NO_DATE_ERROR": "Please enter date",
+  "DATE_FUTURE_ERROR": "Enter earlier date"
 }
