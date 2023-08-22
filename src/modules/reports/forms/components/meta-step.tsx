@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
@@ -33,7 +33,7 @@ export const MetaStep = ({
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <Typography>{t('reports:META_DATA_DISCLAIMER')}</Typography>
+      {/* <Typography>{t('reports:META_DATA_DISCLAIMER')}</Typography> */}
       <BasicCombo
         data={mapListDataToComboOptions(positionsData)}
         name="positionPlayedId"

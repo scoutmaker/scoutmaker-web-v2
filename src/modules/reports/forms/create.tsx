@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { MainFormActions } from '@/components/forms/main-form-actions'
 import { useAlertsState } from '@/context/alerts/useAlertsState'
 import { MatchBasicDataDto } from '@/modules/matches/types'
+import { PlayerPositionDto } from '@/modules/player-positions/types'
 import { PlayerBasicDataDto } from '@/modules/players/types'
 import { ReportTemplateBasicDataDto } from '@/modules/report-templates/types'
 import { ConfirmOnLeaveForm } from '@/utils/hooks/use-confirm-leave'
@@ -36,6 +37,7 @@ interface ICreateFormProps {
   templatesData: ReportTemplateBasicDataDto[]
   playersData: PlayerBasicDataDto[]
   matchesData: MatchBasicDataDto[]
+  positionsData: PlayerPositionDto[]
   isOrderOptionDisabled?: boolean
   templateId: string
 }
@@ -48,6 +50,7 @@ export const CreateReportForm = ({
   templatesData,
   isOrderOptionDisabled,
   templateId,
+  positionsData,
 }: ICreateFormProps) => {
   const { setAlert } = useAlertsState()
   const { t } = useTranslation(['common', 'reports'])
@@ -110,7 +113,7 @@ export const CreateReportForm = ({
         reportType === 'order' ? (
           <OrderStep />
         ) : (
-          <PlayerStep playersData={playersData} />
+          <PlayerStep playersData={playersData} positionsData={positionsData} />
         ),
     },
     {

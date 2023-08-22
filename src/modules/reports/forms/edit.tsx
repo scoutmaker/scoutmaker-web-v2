@@ -69,9 +69,10 @@ export const EditReportForm = ({
         initialValues={initialValues}
         validationSchema={generateEditReportFormValidationSchema()}
         enableReinitialize
-        onSubmit={data =>
+        onSubmit={(data, form) => {
           onSubmit(formatUpdateReportDto({ data, initialValues }))
-        }
+          form.setSubmitting(false)
+        }}
       >
         {({ handleReset, touched, errors }) => (
           <Form>
