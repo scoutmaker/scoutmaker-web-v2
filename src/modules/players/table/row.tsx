@@ -75,18 +75,39 @@ export const PlayersTableRow = ({
     else onLikeClick(id)
   }
 
-  const avgRating = (() => {
+  const { avgRating, notesCount, reportsCount } = (() => {
     switch (recentAverageRatingFilter || '') {
       case 'LASTMONTH':
-        return recentAveragePercentageRatings?.lastMonth
+        return {
+          avgRating: recentAveragePercentageRatings?.lastMonth,
+          notesCount: recentAveragePercentageRatings?.lastMonthNotesCount,
+          reportsCount: recentAveragePercentageRatings?.lastMonthReportsCount,
+        }
       case 'LAST3MONTHS':
-        return recentAveragePercentageRatings?.last3Months
+        return {
+          avgRating: recentAveragePercentageRatings?.last3Months,
+          notesCount: recentAveragePercentageRatings?.last3MonthsNotesCount,
+          reportsCount: recentAveragePercentageRatings?.last3MonthsReportsCount,
+        }
       case 'LAST6MONTHS':
-        return recentAveragePercentageRatings?.last6Months
+        return {
+          avgRating: recentAveragePercentageRatings?.last6Months,
+          notesCount: recentAveragePercentageRatings?.last6MonthsNotesCount,
+          reportsCount: recentAveragePercentageRatings?.last6MonthsReportsCount,
+        }
       case 'LAST12MONTHS':
-        return recentAveragePercentageRatings?.last12Months
+        return {
+          avgRating: recentAveragePercentageRatings?.last12Months,
+          notesCount: recentAveragePercentageRatings?.last12MonthsNotesCount,
+          reportsCount:
+            recentAveragePercentageRatings?.last12MonthsReportsCount,
+        }
       default:
-        return averagePercentageRating
+        return {
+          avgRating: averagePercentageRating,
+          notesCount: count.notes,
+          reportsCount: count.reports,
+        }
     }
   })()
 
@@ -170,12 +191,12 @@ export const PlayersTableRow = ({
         )}
       </StyledTableCell>
       <StyledTableCell align="center">
-        <Badge badgeContent={count.reports || '0'} color="secondary">
+        <Badge badgeContent={reportsCount || '0'} color="secondary">
           <NotesIcon />
         </Badge>
       </StyledTableCell>
       <StyledTableCell align="center">
-        <Badge badgeContent={count.notes || '0'} color="secondary">
+        <Badge badgeContent={notesCount || '0'} color="secondary">
           <ReportsIcon />
         </Badge>
       </StyledTableCell>
