@@ -36,5 +36,6 @@
   "FINAL_RATING": "Ocena końcowa",
   "STATS_CARD_TITLE": "Statystyki",
   "NO_OBSERVATION_TYPE_ERROR": "Wybierz typ obserwacji raportu",
-  "PRINT": "Drukuj"
+  "PRINT": "Drukuj",
+  "PLAYER_POSITION_INFO": "Jeśli zostawisz puste, podstawi się pozycja z profilu piłkarza"
 }

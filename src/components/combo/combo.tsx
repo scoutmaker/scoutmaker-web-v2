@@ -28,6 +28,7 @@ export interface IComboProps {
   error?: boolean
   helperText?: string
   filterBeforeComma?: boolean
+  defaultFilterOptions?: boolean
 }
 
 const filterOptionsBeforeComma = (
@@ -171,6 +172,7 @@ export const FilterCombo = ({
   error,
   helperText,
   filterBeforeComma,
+  defaultFilterOptions,
 }: IComboProps) => (
   <Field
     name={name}
@@ -184,7 +186,15 @@ export const FilterCombo = ({
     size={size}
     options={data}
     filterSelectedOptions
-    filterOptions={filterBeforeComma ? filterOptionsBeforeComma : filterOptions}
+    filterOptions={
+      // sorry
+      // eslint-disable-next-line no-nested-ternary
+      defaultFilterOptions
+        ? undefined
+        : filterBeforeComma
+        ? filterOptionsBeforeComma
+        : filterOptions
+    }
     isOptionEqualToValue={(option: IComboOptions, value: IComboOptions) =>
       option.id === value.id
     }

@@ -877,9 +877,21 @@ declare namespace Components {
         export interface PlayerRecentAveragePercentageRatings {
             id: string;
             lastMonth?: number;
+            lastMonthTotalCount?: number;
+            lastMonthReportsCount?: number;
+            lastMonthNotesCount?: number;
             last3Months?: number;
+            last3MonthsTotalCount?: number;
+            last3MonthsReportsCount?: number;
+            last3MonthsNotesCount?: number;
             last6Months?: number;
+            last6MonthsTotalCount?: number;
+            last6MonthsReportsCount?: number;
+            last6MonthsNotesCount?: number;
             last12Months?: number;
+            last12MonthsTotalCount?: number;
+            last12MonthsReportsCount?: number;
+            last12MonthsNotesCount?: number;
         }
         export interface PlayerRoleBasicDataDto {
             id: string;

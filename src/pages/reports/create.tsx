@@ -5,6 +5,7 @@ import { Loader } from '@/components/loader/loader'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { useUser } from '@/modules/auth/hooks'
 import { useMatchesList } from '@/modules/matches/hooks'
+import { usePlayerPositionsList } from '@/modules/player-positions/hooks'
 import { usePlayersList } from '@/modules/players/hooks'
 import { useReportTemplatesList } from '@/modules/report-templates/hooks'
 import { CreateReportForm } from '@/modules/reports/forms/create'
@@ -23,6 +24,8 @@ const CreateReportPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     useReportTemplatesList()
   const { data: players, isLoading: playersLoading } = usePlayersList()
   const { data: matches, isLoading: matchesLoading } = useMatchesList()
+  const { data: positions, isLoading: positionsLoading } =
+    usePlayerPositionsList()
   const { mutate: createReport, isLoading: createReportLoading } =
     useCreateReport()
 
@@ -36,13 +39,15 @@ const CreateReportPage = ({ errorMessage, errorStatus }: TSsrRole) => {
     createReportLoading ||
     playersLoading ||
     matchesLoading ||
-    userLoading
+    userLoading ||
+    positionsLoading
 
   return (
     <>
       {isLoading && <Loader />}
       <PageHeading title={t('reports:CREATE_PAGE_TITLE')} />
       <CreateReportForm
+        positionsData={positions || []}
         onSubmit={createReport}
         templatesData={reportTemplates || []}
         playersData={players || []}
